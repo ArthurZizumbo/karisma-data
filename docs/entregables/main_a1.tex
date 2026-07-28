@@ -1,0 +1,35 @@
+%% ============================================================================
+%%  Entregable Actividad 1 — Equipo 8
+%%  Definición del producto digital y diseño de instrumentos de investigación
+%%  TC4032 Experiencia del usuario y diseño de interfaces · MNA · ITESM
+%%
+%%  Reproduce la entrega del 26 de julio de 2026 con el sistema de diseño
+%%  actualizado. La versión tal como se entregó se conserva intacta en
+%%  docs/documento_proyecto/.
+%%
+%%  Compilar con XeLaTeX (dos pasadas para el índice):
+%%      latexmk -xelatex main_a1.tex
+%% ============================================================================
+\documentclass[11pt,letterpaper]{article}
+\usepackage{estilo/uxdoc}
+
+\uxencabezado{Actividad 1 · Karisma Data}
+\hypersetup{pdftitle={Actividad 1. Definicion del producto digital y diseno de instrumentos de investigacion de usuario}}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Índice}
+
+\begin{document}
+
+\uxportada{Actividad 1}{Definición del producto digital y diseño\\de instrumentos de investigación de usuario}{26 de julio de 2026}
+
+\tableofcontents
+\clearpage
+
+\input{contenido/a1_cuerpo}
+
+\clearpage
+\appendix
+\input{contenido/a1_anexo}
+
+\end{document}

@@ -1,0 +1,766 @@
+% ============================================================================
+\clearpage
+\aportacion[Escenarios]{Jacqueline Sarmiento Cervantes}{Matrícula A01795863 · Escenarios 1 y 2 · Personas: Laura Méndez y Diego Hernández}
+
+% ---------------------------------------------------------------- Escenario 1
+\section{Escenario 1 · Validar una cifra de cartera antes de una reunión}\label{sec:escenarios}
+
+\escenariohead{imagenes/persona_01_laura.png}
+  {Validar una cifra de cartera antes de una reunión}
+  {Laura Méndez · Perfil operativo, consulta rápida · Persona primaria del producto}
+  {Rol en el sistema: operativo · Equipo de escritorio · Urgencia alta, menos de treinta minutos}
+
+\elemento{Definición del usuario}{audiencia objetivo, necesidades y objetivos, pain points}
+
+Laura Méndez, 34 años, especialista de Operaciones Financieras con ocho años en el sector y
+tres en su función actual. Nivel técnico intermedio: domina Excel y consulta sistemas
+internos, pero no escribe consultas en lenguaje SQL ni programa. Pertenece al perfil
+operativo de consulta rápida, el más numeroso de la audiencia del portal y el que la
+actividad anterior designó como persona primaria del producto, por ser el denominador común
+de todos los demás perfiles.
+
+\textbf{\textcolor{uxnavy}{Necesidades y objetivos.}} Encontrar una cifra puntual y confirmar
+su vigencia en pocos minutos. Responder las solicitudes que recibe con una fuente
+identificable y una definición clara detrás. Resolver por sí misma las tareas frecuentes, sin
+depender de que otra área conteste. Conservar las consultas habituales para no reconstruirlas
+cada vez que se las piden.
+
+\textbf{\textcolor{uxnavy}{Pain points relevantes para esta tarea.}} Recuerda nombres de
+carpetas y sistemas, pero los accesos y las ubicaciones cambian sin que ella se entere.
+Encuentra variables de nombre parecido y no sabe cuál corresponde a la solicitud que le
+hicieron. Termina escribiendo a un colega para confirmar el responsable, la fecha o la fuente,
+y el ritmo de su trabajo pasa a depender de la disponibilidad de esa persona. Los filtros
+técnicos y los campos avanzados de las herramientas actuales estorban en una consulta que
+debería ser simple.
+
+\elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
+
+Son las 11:10. La subdirección de Laura tiene reunión a las 12:00 y le pide confirmar el saldo
+de cartera vigente de un producto de crédito al cierre del mes anterior, acompañado de la
+definición oficial de la variable y de la referencia de la fuente. La solicitud llega con esa
+exigencia adicional porque en la reunión anterior dos áreas presentaron cifras distintas para
+el mismo concepto y nadie pudo explicar de dónde salía cada una.
+
+Laura no sabe de memoria qué área es propietaria de esa variable ni si la clasificación
+cambió durante el último trimestre. Su meta no es únicamente obtener un número: es poder
+responder de dónde salió si alguien pregunta en la reunión. Hoy una tarea como esta le toma
+entre treinta y cuarenta y cinco minutos, y la mayor parte de ese tiempo transcurre esperando
+la respuesta de un colega \emph{(estimación del equipo a partir de su experiencia
+profesional; magnitud pendiente de medición con el instrumento diseñado en la actividad
+anterior)}.
+
+\figuraescena{imagenes/escena_laura.png}
+  {Contexto del escenario 1: la validación ocurre en el escritorio, con la reunión
+   aproximándose. Ilustración generada con inteligencia artificial.}{fig:escena-laura}
+
+\textbf{\textcolor{uxnavy}{Pasos para lograrlo.}} El siguiente método describe la tarea sin
+suponer ningún diseño concreto:
+
+\begin{uxpreg}
+\item Identificar el concepto exacto que le solicitaron, con sus posibles sinónimos.
+\item Localizar qué fuente institucional contiene ese concepto.
+\item Confirmar que la fuente es la vigente y no una versión retirada.
+\item Leer la definición oficial de la variable y sus reglas de uso.
+\item Identificar al área propietaria por si necesita respaldo posterior.
+\item Acotar el dato al periodo solicitado.
+\item Verificar que la cifra es consistente con lo que se reportó anteriormente.
+\item Obtener el valor junto con su referencia de origen y su fecha de actualización.
+\item Entregar la respuesta en el formato que su subdirección espera.
+\item Dejar la consulta guardada para la próxima vez que se la pidan.
+\end{uxpreg}
+
+\elemento{Identificación de las interacciones clave}{puntos de contacto entre Laura y el portal}
+
+Laura entra al portal con su cuenta institucional y el sistema le presenta su
+\textbf{espacio de trabajo operativo}, con el buscador al centro y sus consultas guardadas a
+un costado. Escribe el concepto en lenguaje de negocio, sin conocer el nombre técnico del
+campo.
+
+El \textbf{buscador unificado} devuelve tres resultados ordenados. Cada tarjeta muestra, antes
+de que ella tenga que preguntarlo, la fuente, el área propietaria, la periodicidad y la fecha
+de última actualización. Una de las tarjetas lleva una marca de versión retirada, con enlace
+a la vigente: ese aviso resuelve por sí solo el riesgo que originó la solicitud.
+
+Laura abre la ficha del \textbf{catálogo de datos} y lee la definición oficial, la nota de
+conocimiento tribal que dejó el área propietaria —\emph{a partir de marzo la clasificación
+separa el saldo vencido}— y el nombre de Roberto Valdez como responsable. No necesita
+escribirle.
+
+Aplica el \textbf{filtro de periodo} sobre el resultado; la vista conserva el contexto de la
+búsqueda y no la obliga a reconstruirla. Con una duda sobre el alcance de la variable, escribe
+la pregunta al \textbf{asistente conversacional} desde el mismo panel. El asistente muestra en
+pantalla la tarjeta de la herramienta que está consultando —\emph{consultando el catálogo de
+créditos}— antes de responder, y cada cifra de la respuesta cita la fuente de la que
+proviene.
+
+Finalmente \textbf{copia el dato con su referencia de origen y su fecha}, en un formato que
+puede pegar directamente en el correo, y \textbf{guarda la consulta} en su espacio con un
+nombre propio. Son las 11:23.
+
+\elemento{Descripción del resultado deseado}{resultado de la tarea y sensación al completarla}
+
+Laura responde la solicitud treinta y siete minutos antes de la reunión, con la cifra, la
+definición oficial, el propietario y la fecha de corte. Si en la reunión alguien presenta otro
+número, ella puede explicar de dónde salió el suyo y cuándo se actualizó.
+
+La sensación que busca no es alivio por haber terminado a tiempo, sino \textbf{respaldo}: la
+confianza de haber respondido con algo que resiste una pregunta incómoda delante de su
+subdirección. Es una diferencia importante para el diseño, porque un producto que solo
+optimiza la velocidad no produce esa sensación; la produce el hecho de que el resultado venga
+acompañado de su procedencia. La siguiente vez que le pidan lo mismo, la consulta ya está
+guardada y el trabajo se reduce a abrirla y actualizar el periodo.
+
+\elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
+
+\begin{uxlist}
+\lead{La fuente no responde}{el silo de créditos está en mantenimiento. El portal muestra el
+  último valor disponible con su fecha y una marca visible de dato no vigente, en lugar de una
+  pantalla en blanco o un error técnico. Laura decide con información suficiente si espera o
+  responde con la salvedad.}
+\lead{No hay una única respuesta}{la búsqueda devuelve dos variables legítimas con
+  definiciones distintas. En vez de elegir por ella, el portal las muestra lado a lado con sus
+  diferencias y sus propietarios. Laura escala con evidencia en lugar de adivinar.}
+\lead{La definición cambió esta semana}{la ficha del catálogo muestra el cambio, su fecha y la
+  versión anterior, y Laura menciona el cambio en su respuesta. Este caso es el punto de
+  encuentro con el escenario 4, donde el mismo evento se observa desde el lado de quien lo
+  publica.}
+\end{uxlist}
+
+% ---------------------------------------------------------------- Escenario 2
+\clearpage
+\section{Escenario 2 · Cruzar tres fuentes y dejar el análisis reproducible}
+
+\escenariohead{imagenes/persona_02_diego.png}
+  {Cruzar tres fuentes y dejar el análisis reproducible}
+  {Diego Hernández · Perfil analista de datos, profundidad}
+  {Rol en el sistema: analista · Escritorio y modalidad híbrida · Urgencia media, plazo de tres días}
+
+\elemento{Definición del usuario}{audiencia objetivo, necesidades y objetivos, pain points}
+
+Diego Hernández, 29 años, analista de datos financieros con cinco años de experiencia en
+análisis, automatización y visualización. Nivel técnico avanzado: trabaja con SQL, Python,
+Excel y herramientas de inteligencia de negocio. Pertenece al perfil de analista de datos, que
+necesita combinar fuentes, aplicar filtros complejos, revisar metadatos y extraer datos crudos
+para procesarlos en sus propias herramientas.
+
+\textbf{\textcolor{uxnavy}{Necesidades y objetivos.}} Descubrir fuentes relacionadas y
+cruzarlas con criterios consistentes. Guardar consultas, filtros y versiones para poder
+repetir el análisis meses después. Obtener datos crudos en el formato que corresponda al
+volumen: archivo cuando son miles de filas, conexión programática cuando son millones.
+Identificar cobertura, periodicidad, propietario y limitaciones de cada fuente antes de
+modelar sobre ella.
+
+\textbf{\textcolor{uxnavy}{Pain points relevantes para esta tarea.}} Las fuentes usan
+identificadores, catálogos y granularidades distintas, de modo que cruzarlas exige un trabajo
+de conciliación que no aporta valor analítico. Las definiciones viven dispersas en correos,
+archivos y en la memoria de especialistas. Algunos flujos de descarga no soportan archivos
+pesados o exigen pasos manuales. Y reconstruir qué versión, qué filtro y qué transformación
+produjeron un resultado es difícil, lo que le impide defender su propio análisis semanas
+después.
+
+\elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
+
+El área de riesgos le pide estimar la exposición conjunta por contraparte cruzando la cartera
+de crédito, las posiciones de liquidez y las operaciones de derivados, con corte al último día
+del trimestre. El entregable no es solo el número: el área quiere poder repetir el ejercicio
+el trimestre siguiente sin volver a pedirle a Diego que reconstruya el procedimiento.
+
+El reto real no es el cálculo, sino la conciliación. Diego sabe por experiencia que las tres
+fuentes identifican a la contraparte de forma distinta, que la periodicidad de liquidez es
+diaria mientras que la de crédito es mensual, y que un cruce ingenuo produciría un número
+plausible y equivocado. Su meta es entregar una cifra que pueda explicar y un procedimiento
+que otra persona pueda ejecutar.
+
+\figuraescena{imagenes/escena_diego.png}
+  {Contexto del escenario 2: el trabajo analítico transcurre entre varias fuentes abiertas a
+   la vez y exige conciliarlas antes de cruzarlas. Ilustración generada con inteligencia
+   artificial.}{fig:escena-diego}
+
+\textbf{\textcolor{uxnavy}{Pasos para lograrlo.}}
+
+\begin{uxpreg}
+\item Localizar las tres fuentes que contienen la información requerida.
+\item Revisar la definición, la periodicidad y el propietario de cada una.
+\item Verificar qué identificador permite relacionarlas y con qué nivel de confianza.
+\item Comprobar si la granularidad y las fechas de corte son compatibles.
+\item Probar el cruce sobre una muestra reducida antes de procesar el volumen completo.
+\item Revisar los valores atípicos que aparezcan y decidir si son error o realidad.
+\item Ejecutar la extracción completa sin bloquear su sesión de trabajo.
+\item Documentar filtros, fechas y transformaciones aplicadas.
+\item Guardar la consulta de forma que pueda volver a ejecutarse con otro corte.
+\item Compartir con el área solicitante la referencia del procedimiento, no solo el resultado.
+\end{uxpreg}
+
+\elemento{Identificación de las interacciones clave}{puntos de contacto entre Diego y el portal}
+
+Diego parte del \textbf{catálogo de datos} y busca por tema en lugar de por nombre de tabla.
+La ficha de la cartera de crédito le muestra las \textbf{fuentes relacionadas}, y ahí descubre
+el conjunto de derivados, que no conocía porque pertenece a otra dirección. Ese
+descubrimiento —que hoy dependería de que alguien se lo mencionara— es en sí mismo un
+resultado del portal.
+
+Compara las tres fichas y confirma en los metadatos la periodicidad, la fecha de corte y el
+campo que actúa como identificador común de contraparte. El \textbf{explorador analítico} le
+permite construir el cruce con filtros sobre las tres fuentes y le advierte, antes de
+ejecutar, que la granularidad de liquidez es diaria y requiere una regla de agregación
+explícita. Diego elige el cierre de mes y la decisión queda registrada como parte de la
+consulta.
+
+Ejecuta primero sobre una \textbf{muestra} de una contraparte conocida y verifica el resultado
+contra un cálculo propio. Cuando el volumen completo supera el umbral de proceso inmediato, el
+portal ofrece \textbf{exportar en segundo plano}: Diego lanza el trabajo, sigue navegando y
+recibe el aviso con el enlace de descarga cuando termina, sin mantener una pestaña abierta ni
+vigilar una barra de progreso.
+
+Antes de cerrar, \textbf{guarda la consulta con nombre y versión} y comparte su referencia con
+el área de riesgos. Cualquiera con permiso sobre las mismas fuentes puede abrir esa referencia
+y ver exactamente qué filtros, qué cortes y qué regla de agregación produjeron el número.
+
+\elemento{Descripción del resultado deseado}{resultado de la tarea y sensación al completarla}
+
+Diego entrega la exposición conjunta por contraparte y, junto con ella, un procedimiento
+reejecutable. El área de riesgos puede repetir el ejercicio el trimestre siguiente cambiando
+únicamente la fecha de corte.
+
+La sensación que busca es \textbf{control}: no la satisfacción de haber terminado, sino la
+tranquilidad de poder explicarle a otra persona de dónde salió cada cifra y de saber que su
+análisis no depende de que él recuerde lo que hizo. Para un perfil como el suyo, un producto
+que entrega el dato pero no la trazabilidad del dato resuelve la mitad del problema y crea la
+otra mitad.
+
+\elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
+
+\begin{uxlist}
+\lead{El volumen excede lo razonable para un archivo}{el portal propone la vía programática en
+  lugar de generar una descarga de varios gigabytes, y ofrece la consulta ya formulada para
+  ser consumida desde sus propias herramientas.}
+\lead{Una de las tres fuentes está en mantenimiento}{el explorador no falla en silencio:
+  informa qué fuente no está disponible, muestra el resultado parcial marcado como incompleto
+  y permite reanudar el cruce cuando el servicio vuelva.}
+\lead{Los valores atípicos son reales}{el portal permite anotar el hallazgo sobre la fuente
+  para que el propietario del dato lo revise, de modo que la observación de Diego no se pierda
+  en un correo y beneficie a quien consulte la misma fuente después.}
+\end{uxlist}
+
+% ------------------------------------------------------ Journey individual 1
+\clearpage
+\section{Journey map individual · Diego Hernández}
+
+\textit{Elaborado por Jacqueline Sarmiento Cervantes sobre el escenario 2.}
+
+El primero de los cuatro mapas de este documento despliega en el tiempo el objetivo del
+escenario 2: \textbf{cruzar créditos, liquidez y derivados por contraparte y dejar el análisis
+reejecutable}. Cubre desde que llega el encargo hasta que el procedimiento queda guardado y
+compartido, es decir, también el antes y el después del contacto con el producto.
+
+\textbf{Qué revela el mapa que el escenario no mostraba.} El escenario describe una tarea
+razonablemente fluida. El mapa muestra que la curva emocional tiene dos caídas y que ninguna
+de las dos está donde uno esperaría: no en la extracción de datos, que es la parte
+técnicamente pesada, sino en la etapa 1, cuando Diego no puede estimar si el cruce es viable
+sin abrir cada fuente, y en la etapa 3, cuando descubre que la granularidad de liquidez y la
+de crédito no coinciden. Ambas son etapas de \emph{decisión}, no de ejecución, y hoy se
+resuelven con conocimiento acumulado que el portal puede sustituir con metadatos.
+
+\textbf{Momento de la verdad.} La etapa 2, el descubrimiento de una fuente relacionada que
+Diego no conocía. Es el momento en que el portal deja de ser un lugar donde bajar archivos y
+pasa a ser un lugar donde se encuentra algo que no se estaba buscando. Si esa etapa no
+funciona, el resto del recorrido sigue siendo útil pero deja de ser diferencial.
+
+\textbf{Consecuencia para el diseño.} Dos de las seis oportunidades del mapa —cobertura y
+periodicidad visibles antes de empezar, y aviso de granularidad incompatible antes de
+ejecutar— son advertencias tempranas, no funciones nuevas. Cuestan poco y actúan sobre las dos
+caídas de la curva.
+
+\figurapanoramica{figuras/journey_diego.pdf}
+  {Journey map individual de Diego Hernández. Objetivo: cruzar créditos, liquidez y derivados
+   por contraparte y dejar el análisis reejecutable. Elaboración propia.}{fig:journey-diego}
+
+% ============================================================================
+\clearpage
+\aportacion[Escenarios]{Alexandro Mayoral Terán}{Matrícula A01795899 · Escenarios 3 y 4 · Personas: Arturo Castañeda y Roberto Valdez}
+
+% ---------------------------------------------------------------- Escenario 3
+\section{Escenario 3 · Entender una señal de riesgo antes de exponer ante la Junta}
+
+\escenariohead{imagenes/persona_06_arturo.png}
+  {Entender una señal de riesgo antes de exponer ante la Junta}
+  {Arturo Castañeda · Perfil directivo, abstracción}
+  {Rol en el sistema: directivo · Tableta institucional · Urgencia crítica, quince minutos}
+
+\elemento{Definición del usuario}{audiencia objetivo, necesidades y objetivos, pain points}
+
+Arturo Castañeda, 55 años, Director General de Estabilidad Financiera, economista con
+veinticinco años de trayectoria en el sector público y financiero. Nivel técnico básico en
+herramientas: interpreta gráficas y tableros con soltura, pero no escribe consultas ni
+manipula bases de datos. Pertenece al perfil directivo, que necesita indicadores consolidados,
+tendencias y señales de riesgo para supervisar resultados sin recorrer cada base por separado.
+
+\textbf{\textcolor{uxnavy}{Necesidades y objetivos.}} Ver el estado general de la estabilidad
+financiera de un vistazo. Identificar de inmediato anomalías, picos o tendencias
+preocupantes. Tener la certeza de que el número que aparece en la pantalla es la versión
+final, oficial y validada por sus gerentes.
+
+\textbf{\textcolor{uxnavy}{Pain points relevantes para esta tarea.}} Le incomoda que en una
+reunión un director presente un número y otro presente uno distinto porque usaron cortes de
+fecha diferentes. Cuando un indicador se ve alarmante, tiene que hacer varias llamadas a sus
+gerentes para entender la causa del movimiento, y el tiempo es su recurso más escaso. Recibe
+reportes con demasiadas tablas y datos crudos que no le ayudan a entender el panorama.
+
+\elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
+
+Faltan quince minutos para que Arturo entre a presentar ante la Junta de Gobierno. Va a exponer
+la situación de riesgo del sistema bancario del mes y dispone de cinco minutos de intervención.
+Quiere confirmar que los cuatro indicadores clave que va a presentar siguen siendo los mismos
+que revisó ayer y, si alguno se movió, entender por qué antes de que se lo pregunten.
+
+Su meta no es analizar: es \emph{poder responder}. La diferencia es sustantiva para el diseño.
+Arturo no necesita acceso a los datos crudos; necesita que cada cifra que muestre venga
+acompañada de la explicación que él daría si un subgobernador levantara la mano.
+
+\figuraescena{imagenes/escena_arturo.png}
+  {Contexto del escenario 3: la consulta ocurre de pie, en tableta y minutos antes de una
+   reunión de alto nivel. Ilustración generada con inteligencia artificial.}{fig:escena-arturo}
+
+\textbf{\textcolor{uxnavy}{Pasos para lograrlo.}}
+
+\begin{uxpreg}
+\item Revisar el estado general de los indicadores clave del periodo.
+\item Detectar cuáles se movieron respecto de la última revisión.
+\item Determinar si el movimiento es relevante o es ruido esperable.
+\item Obtener la explicación del movimiento sin recurrir a una llamada.
+\item Confirmar que la cifra es la versión oficial y está conciliada.
+\item Verificar la fecha de corte que se está mostrando.
+\item Quedarse con una frase clara para explicar el movimiento si se lo preguntan.
+\end{uxpreg}
+
+\elemento{Identificación de las interacciones clave}{puntos de contacto entre Arturo y el portal}
+
+Arturo abre el portal desde su \textbf{tableta institucional} y accede a su \textbf{espacio
+directivo}, que muestra los cuatro indicadores clave de riesgo bancario del mes con su
+tendencia. La vista está preparada para lectura, no para exploración: pocas cifras, grandes,
+con su variación respecto del periodo anterior.
+
+Nota un alza en uno de los indicadores. Toca la gráfica y el portal despliega una
+\textbf{tarjeta de contexto} escrita por el propietario del dato: \emph{el alza corresponde al
+ajuste estacional aprobado la semana pasada}. Esa tarjeta es el sustituto exacto de las tres
+llamadas que hoy tendría que hacer.
+
+La misma vista muestra el \textbf{sello de conciliación} del indicador —quién lo validó y
+cuándo— y la \textbf{fecha de corte} de forma visible, de manera que Arturo sabe con certeza
+qué versión está presentando. Un nivel más de \textbf{profundización} le permite ver la
+composición del indicador por tipo de institución, sin salir del tablero ni entrar a una
+herramienta distinta.
+
+Antes de guardar la tableta pide al \textbf{asistente} un resumen de la vista actual. El
+asistente redacta tres líneas con el movimiento, su causa declarada y la fecha de corte,
+citando la fuente de cada cifra. Arturo bloquea la tableta y entra a la reunión.
+
+\elemento{Descripción del resultado deseado}{resultado de la tarea y sensación al completarla}
+
+Arturo entra a la Junta sabiendo qué va a decir sobre el único indicador que se movió, con la
+causa del movimiento y la fecha de corte presentes. Si alguien pregunta de dónde salió la
+cifra, tiene la respuesta.
+
+La sensación buscada es \textbf{certeza}, y es de un tipo particular: no la seguridad de estar
+en lo correcto, sino la de no quedar expuesto. Para un perfil directivo el costo de un número
+equivocado no es analítico sino institucional, y el producto debe reconocerlo. Un tablero
+rápido pero sin sello de conciliación ni fecha de corte visible resolvería el problema
+equivocado.
+
+\elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
+
+\begin{uxlist}
+\lead{El indicador todavía no está conciliado}{el portal lo declara con una marca explícita en
+  lugar de mostrar un valor provisional como si fuera definitivo. Arturo prefiere una cifra
+  marcada como preliminar a una cifra que después tenga que corregir en público.}
+\lead{No hay tarjeta de contexto para el movimiento}{el portal ofrece solicitar la explicación
+  al propietario del dato con un toque, y la solicitud queda registrada con hora, de modo que
+  la ausencia de contexto se vuelve visible y accionable en lugar de silenciosa.}
+\lead{La conexión es intermitente durante un traslado}{la vista directiva conserva la última
+  lectura con su fecha y hora de descarga, claramente identificada como tal, para que Arturo
+  nunca presente un dato creyendo que es de hoy cuando es de ayer.}
+\end{uxlist}
+
+% ---------------------------------------------------------------- Escenario 4
+\clearpage
+\section{Escenario 4 · Publicar una nueva versión del catálogo sin romper el trabajo de nadie}
+
+\escenariohead{imagenes/persona_03_roberto.png}
+  {Publicar una nueva versión del catálogo sin romper el trabajo de nadie}
+  {Roberto Valdez · Perfil propietario de datos, gobierno y calidad}
+  {Rol en el sistema: analista con atribuciones de gobierno · Escritorio · Urgencia baja, ventana de dos semanas}
+
+\elemento{Definición del usuario}{audiencia objetivo, necesidades y objetivos, pain points}
+
+Roberto Valdez, 52 años, subgerente de Información de Estados Financieros y Crédito, contador
+con dieciocho años en la institución y experto en catálogos y metodologías crediticias. Nivel
+técnico intermedio: bases de datos relacionales, validación de reglas de negocio y Excel
+avanzado. Pertenece al perfil de propietario de datos, responsable de las definiciones, la
+calidad, la vigencia y las reglas de uso de los conjuntos que administra.
+
+\textbf{\textcolor{uxnavy}{Necesidades y objetivos.}} Asegurar que toda la institución use la
+definición oficial y la versión más reciente de los datos de crédito. Documentar los metadatos
+en un solo lugar para dejar de responder las mismas dudas por correo. Poder aprobar o rechazar
+quién consulta el nivel más granular y confidencial de su información.
+
+\textbf{\textcolor{uxnavy}{Pain points relevantes para esta tarea.}} Pierde horas cada semana
+explicando a analistas de otras áreas qué significa una columna. Otras áreas siguen trabajando
+con extracciones descargadas meses atrás y no se enteran cuando la clasificación oficial
+cambia. No existe un repositorio único donde él pueda declarar cuál es la fuente certificada
+por su subgerencia, y esa ausencia lo convierte en un cuello de botella permanente.
+
+\elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
+
+El comité regulatorio aprobó una modificación en la clasificación de la cartera de crédito: a
+partir del corte de agosto, el saldo vencido se reporta separado del saldo total. Roberto tiene
+que publicar la nueva versión del catálogo y retirar la anterior.
+
+Su preocupación no es publicar, es el efecto de publicar. Sabe que al menos una decena de
+analistas tiene guardadas consultas y tableros construidos sobre la definición anterior, y que
+si la cambia sin avisar, esos análisis van a producir cifras que ya no significan lo mismo. En
+la práctica esa situación se detecta meses después, en una reunión donde dos áreas presentan
+números distintos. Su meta es que el cambio llegue antes que sus consecuencias.
+
+\figuraescena{imagenes/escena_roberto.png}
+  {Contexto del escenario 4: el gobierno del dato es un trabajo de revisión minuciosa cuyo
+   efecto se mide en el trabajo de otros. Ilustración generada con inteligencia
+   artificial.}{fig:escena-roberto}
+
+\textbf{\textcolor{uxnavy}{Pasos para lograrlo.}}
+
+\begin{uxpreg}
+\item Redactar la nueva definición y las reglas de uso que la acompañan.
+\item Determinar desde qué fecha de corte aplica y qué ocurre con los periodos anteriores.
+\item Identificar qué otras fuentes o indicadores dependen de esta definición.
+\item Publicar la nueva versión dejando registro de qué cambió y por qué.
+\item Marcar la versión anterior como retirada sin eliminarla.
+\item Avisar a quienes usan la fuente, no a toda la institución.
+\item Dejar disponible la comparación entre ambas versiones.
+\item Poder demostrar después quién fue avisado y cuándo.
+\end{uxpreg}
+
+\elemento{Identificación de las interacciones clave}{puntos de contacto entre Roberto y el portal}
+
+Roberto entra al \textbf{módulo de gobierno de metadatos} sobre la ficha de la cartera de
+crédito, que él administra. Edita la definición del campo, redacta la regla de uso y añade una
+\textbf{nota de conocimiento tribal} explicando el motivo del cambio en lenguaje de negocio,
+que es exactamente la explicación que hoy repite por teléfono varias veces al mes.
+
+Declara la \textbf{fecha de vigencia} del cambio. El portal le muestra, antes de publicar, el
+\textbf{análisis de impacto}: qué otras fichas del catálogo referencian esta definición, cuántas
+consultas guardadas la utilizan y qué tableros la consumen. Es información que hoy no existe en
+ningún lado y que él reconstruye preguntando.
+
+Publica la nueva versión y el portal \textbf{marca la anterior como retirada} sin borrarla: queda
+consultable, con su periodo de vigencia y un enlace a la vigente. Cualquiera que abra la versión
+retirada ve de inmediato que lo es.
+
+La \textbf{notificación dirigida} sale hacia las personas que tienen esa fuente guardada en su
+espacio, no hacia una lista de distribución general. El aviso dice qué cambió, desde cuándo
+aplica y qué hacer con los análisis producidos antes del cambio. El portal deja
+\textbf{registro de la publicación y del aviso}, con fecha y destinatarios.
+
+\elemento{Descripción del resultado deseado}{resultado de la tarea y sensación al completarla}
+
+La nueva clasificación queda publicada, la anterior queda accesible y marcada, y las personas
+que dependían de esa definición se enteraron antes de volver a usarla. Roberto ya no tiene que
+explicar el cambio de forma individual: la explicación vive junto al dato.
+
+La sensación buscada es \textbf{tranquilidad institucional}: dejar de ser el cuello de botella
+y, al mismo tiempo, dejar de ser el responsable implícito de los errores que otros cometen con
+sus datos. Es la contraparte exacta del escenario 1: lo que Roberto publica aquí es lo que
+Laura lee cuando valida una cifra, y lo que evita que ella tenga que escribirle.
+
+\elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
+
+\begin{uxlist}
+\lead{El cambio afecta a un tablero directivo}{el análisis de impacto lo detecta y exige una
+  confirmación adicional antes de publicar, porque una cifra que cambia de significado en un
+  tablero de decisión tiene consecuencias distintas a una que cambia en una consulta operativa.}
+\lead{Alguien pide acceso al detalle confidencial durante la ventana de cambio}{la solicitud
+  queda vinculada a la versión vigente en ese momento, de modo que la autorización que Roberto
+  otorgue diga con precisión sobre qué definición se concedió.}
+\lead{Hay que revertir la publicación}{la versión anterior sigue existiendo y puede volver a
+  marcarse como vigente, con un nuevo registro que documente la reversión. Nada se pierde y
+  todo queda explicado.}
+\end{uxlist}
+
+% ------------------------------------------------------ Journey individual 2
+\clearpage
+\section{Journey map individual · Arturo Castañeda}
+
+\textit{Elaborado por Alexandro Mayoral Terán sobre el escenario 3.}
+
+Este mapa despliega el objetivo del escenario 3: \textbf{entender una señal de riesgo y poder
+responder por ella ante la Junta de Gobierno}. Es el recorrido más corto de los cuatro —cinco
+etapas en quince minutos— y por eso mismo el más exigente: no hay margen para un paso de más.
+
+\textbf{Qué revela el mapa que el escenario no mostraba.} Que el recorrido de un perfil
+directivo no es una versión simplificada del recorrido operativo, sino uno distinto. Laura
+busca, compara y valida; Arturo no busca nada: la información ya está en su vista y su trabajo
+consiste en interpretarla y en decidir si puede responder por ella. Un diseño que tratara al
+directivo como a un operativo con menos opciones fallaría en la etapa 3, cuando detecta el
+movimiento, porque ahí no necesita más datos sino una explicación.
+
+\textbf{Momento de la verdad.} La etapa 4, cuando toca la gráfica y aparece la tarjeta de
+contexto escrita por el propietario del dato. Esa tarjeta sustituye las tres llamadas que hoy
+tendría que hacer y es lo único que separa la seguridad de la duda quince minutos antes de una
+Junta. Es también el punto donde este recorrido se apoya en el trabajo descrito en el
+escenario 4: sin alguien que escriba el contexto, la tarjeta está vacía.
+
+\textbf{Consecuencia para el diseño.} La vista directiva tiene que estar preparada para
+lectura y no para exploración. Tres de sus cinco oportunidades —carga instantánea, pocas cifras
+con su variación, contexto escrito junto al dato— apuntan a reducir decisiones, no a añadir
+capacidades.
+
+\figurapanoramica{figuras/journey_arturo.pdf}
+  {Journey map individual de Arturo Castañeda. Objetivo: entender una señal de riesgo y poder
+   responder por ella ante la Junta de Gobierno. Elaboración propia.}{fig:journey-arturo}
+
+% ============================================================================
+\clearpage
+\aportacion[Escenarios]{Arthur Jafed Zizumbo Velasco}{Matrícula A01796363 · Escenarios 5 y 6 · Personas: Mariana Ovalle Ríos y Ximena Solís Barrera}
+
+% ---------------------------------------------------------------- Escenario 5
+\section{Escenario 5 · Otorgar el acceso mínimo suficiente y poder retirarlo con la misma rapidez}
+
+\escenariohead{imagenes/persona_07_mariana.png}
+  {Otorgar el acceso mínimo suficiente y poder retirarlo con la misma rapidez}
+  {Mariana Ovalle Ríos · Perfil administración de la plataforma}
+  {Rol en el sistema: administrador · Escritorio · Urgencia alta el día del alta, recurrente el resto del trimestre}
+
+\elemento{Definición del usuario}{audiencia objetivo, necesidades y objetivos, pain points}
+
+Mariana Ovalle Ríos, 41 años, administradora de plataformas de información, ingeniera en
+sistemas con especialidad en seguridad de la información y dieciséis años administrando
+sistemas institucionales y controles de acceso. Nivel técnico avanzado. Pertenece al perfil de
+administración de la plataforma, que gestiona el ciclo de vida de las cuentas: altas, cambios
+de rol y bajas.
+
+\textbf{\textcolor{uxnavy}{Necesidades y objetivos.}} Dar acceso el primer día a quien se
+incorpora y retirarlo el mismo día de la baja, sin depender de que alguien se acuerde. Asignar
+el rol más acotado que permita a cada persona hacer su trabajo, y poder demostrar por qué se
+otorgó. Anticipar los problemas de continuidad antes de que los usuarios los reporten.
+
+\textbf{\textcolor{uxnavy}{Pain points relevantes para esta tarea.}} Las cuentas huérfanas
+—activas después de que la persona cambió de área o dejó la institución— suelen detectarse
+hasta que alguien las audita. Recibe solicitudes de acceso por correo, sin justificación, sin
+vigencia y sin visto bueno del propietario del dato. Y su trabajo es invisible: cuando la
+plataforma funciona nadie lo nota, y cuando falla no tiene con qué mostrar qué ocurrió.
+
+\elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
+
+Se incorpora una analista a la Dirección de Riesgos y necesita acceso desde su primer día. Un
+mes después, la misma persona se mueve a un área directiva. Al cierre del trimestre, Mariana
+tiene que revisar todas las cuentas activas y desactivar las que ya no corresponden, con
+evidencia lista por si auditoría la solicita.
+
+La tarea es recurrente y aparentemente trivial, pero concentra el riesgo de acceso de toda la
+plataforma. Su meta no es dar de alta a una persona: es que en cualquier momento del trimestre
+pueda demostrar que cada cuenta activa tiene una razón vigente para estarlo, y que cada baja
+ocurrió cuando debía ocurrir.
+
+\figuraescena{imagenes/escena_mariana.png}
+  {Contexto del escenario 5: la administración de accesos es un trabajo recurrente y poco
+   visible cuyo valor solo se nota cuando falla. Ilustración generada con inteligencia
+   artificial.}{fig:escena-mariana}
+
+\textbf{\textcolor{uxnavy}{Pasos para lograrlo.}}
+
+\begin{uxpreg}
+\item Recibir la solicitud con la justificación y el visto bueno del responsable.
+\item Determinar el rol más acotado que permite hacer el trabajo solicitado.
+\item Verificar qué fuentes quedan habilitadas con ese rol antes de confirmarlo.
+\item Registrar quién autorizó el acceso y con qué vigencia.
+\item Ajustar el rol cuando la persona cambia de función, sin recrear la cuenta.
+\item Revisar periódicamente las cuentas activas contra la plantilla vigente.
+\item Desactivar las cuentas que sobran, conservando su historial.
+\item Obtener la evidencia de todo lo anterior en un formato presentable ante auditoría.
+\end{uxpreg}
+
+\elemento{Identificación de las interacciones clave}{puntos de contacto entre Mariana y el portal}
+
+Mariana entra al \textbf{panel de administración} y da de alta a la analista con una contraseña
+temporal. Al seleccionar el rol, el portal le muestra en la misma pantalla \textbf{qué fuentes y
+qué módulos quedan habilitados} con ese rol: la decisión deja de tomarse a ciegas y ella puede
+elegir el permiso mínimo suficiente con la consecuencia a la vista.
+
+El alta queda \textbf{vinculada a la autorización} que la originó: quién la solicitó, quién dio
+el visto bueno y con qué vigencia. Ese vínculo es la diferencia entre un registro técnico y
+evidencia utilizable.
+
+Un mes después, la persona cambia a un área directiva. Mariana \textbf{modifica el rol} sin
+recrear la cuenta; el portal reajusta de inmediato los módulos visibles y \textbf{deja
+constancia} de quién hizo el cambio y cuándo. El historial de la cuenta muestra la secuencia
+completa.
+
+Al cierre del trimestre, Mariana consulta el \textbf{reporte de cuentas sin actividad}, revisa
+las que aparecen y \textbf{desactiva seis en una sola sesión}. La desactivación es lógica: la
+cuenta deja de operar pero su historial permanece, de modo que una auditoría posterior puede
+reconstruir qué hizo esa persona mientras tuvo acceso. Descarga el \textbf{reporte de accesos
+del trimestre} sin pedírselo a nadie.
+
+\elemento{Descripción del resultado deseado}{resultado de la tarea y sensación al completarla}
+
+La analista trabajó desde su primer día con el permiso correcto, el cambio de área no dejó
+privilegios residuales y el trimestre cerró con seis cuentas menos y con la evidencia
+disponible antes de que alguien la pidiera.
+
+La sensación buscada es \textbf{respaldo}: que el sistema deje el rastro por ella. Es una
+necesidad distinta a la eficiencia, y el diseño tiene que distinguirlas. Para Mariana, un panel
+que permita dar de alta en diez segundos pero no registre quién autorizó qué le ahorra un
+minuto hoy y le cuesta un hallazgo de auditoría en seis meses.
+
+\elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
+
+\begin{uxlist}
+\lead{Solicitud urgente sin justificación}{el portal permite otorgar un acceso temporal con
+  vigencia obligatoria y caducidad automática, en lugar de forzar la elección entre bloquear el
+  trabajo de alguien o crear un permiso permanente indocumentado.}
+\lead{El último administrador intenta desactivarse a sí mismo}{el sistema lo impide y explica
+  por qué. Una plataforma sin administrador activo no es un caso raro tolerable: es una
+  interrupción de servicio.}
+\lead{La persona cambia de área pero conserva funciones del área anterior}{el portal admite la
+  situación de forma explícita, con una vigencia declarada para el permiso heredado, de modo que
+  la excepción sea visible y caduque sola en lugar de convertirse en una cuenta huérfana.}
+\end{uxlist}
+
+% ---------------------------------------------------------------- Escenario 6
+\clearpage
+\section{Escenario 6 · Integrar un servicio de datos y sobrevivir a un cambio de esquema}
+
+\escenariohead{imagenes/persona_08_ximena.png}
+  {Integrar un servicio de datos y sobrevivir a un cambio de esquema}
+  {Ximena Solís Barrera · Perfil integración de aplicaciones, consumo programático}
+  {Rol en el sistema: analista con credenciales de integración · Escritorio y modalidad híbrida · Urgencia media, ciclo de varias semanas}
+
+\elemento{Definición del usuario}{audiencia objetivo, necesidades y objetivos, pain points}
+
+Ximena Solís Barrera, 28 años, ingeniera de aplicaciones internas con cinco años desarrollando
+herramientas y servicios de datos. Nivel técnico avanzado: Python, servicios REST, control de
+versiones y automatización. Pertenece al perfil de integración de aplicaciones, que construye
+herramientas internas alimentadas por los datos del portal.
+
+\textbf{\textcolor{uxnavy}{Necesidades y objetivos.}} Consumir datos mediante servicios con
+una definición documentada que no cambie sin aviso ni versión previa. Eliminar los pasos
+manuales de descarga y transformación que hoy repite cada semana. Obtener credenciales,
+revisar el catálogo y probar una consulta sin abrir un ticket ni esperar días por una
+aprobación.
+
+\textbf{\textcolor{uxnavy}{Pain points relevantes para esta tarea.}} Un campo cambia de nombre
+o de tipo y su proceso falla en producción sin que nadie lo hubiera anunciado; la llamada la
+recibe ella. Encuentra el servicio pero no la definición del campo, su periodicidad ni sus
+valores válidos. Y cada fuente nueva implica un trámite distinto, con formato, responsable y
+tiempo de respuesta diferentes, lo que empuja a las áreas a resolver por fuera del canal
+oficial.
+
+\elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
+
+El área de riesgos le pide una herramienta que combine la exposición de créditos y derivados
+por contraparte, actualizada cada mañana antes de las ocho. Hoy ese cruce lo hace una persona a
+mano, cada lunes, descargando dos archivos y pegándolos en una hoja de cálculo.
+
+El reto de Ximena no es escribir el proceso: es construirlo sobre algo que no se rompa. Su
+experiencia le dice que el riesgo no está en la primera versión sino en el mes cuatro, cuando
+alguien modifique un campo sin avisar y el proceso falle de madrugada. Su meta es entregar una
+automatización que sobreviva a los cambios del origen, o que al menos falle de forma anunciada
+y no sorpresiva.
+
+\figuraescena{imagenes/escena_ximena.png}
+  {Contexto del escenario 6: la integración se construye una vez y se sostiene durante meses;
+   el riesgo aparece cuando el origen cambia. Ilustración generada con inteligencia
+   artificial.}{fig:escena-ximena}
+
+\textbf{\textcolor{uxnavy}{Pasos para lograrlo.}}
+
+\begin{uxpreg}
+\item Localizar en el catálogo los dos conjuntos de datos requeridos.
+\item Revisar la definición, la periodicidad y los valores válidos de cada campo.
+\item Confirmar qué campo permite relacionar ambos conjuntos.
+\item Obtener credenciales de consumo programático para su aplicación.
+\item Probar la consulta con un rango corto y verificar el formato de salida.
+\item Comprobar qué ocurre cuando el origen no está disponible.
+\item Programar la ejecución diaria dentro de la ventana requerida.
+\item Suscribirse a los avisos de cambio de esquema de las fuentes que consume.
+\item Documentar el contrato de datos sobre el que construyó la herramienta.
+\end{uxpreg}
+
+\elemento{Identificación de las interacciones clave}{puntos de contacto entre Ximena y el portal}
+
+Ximena entra al \textbf{catálogo}, localiza los dos conjuntos y revisa las fichas: definición
+por campo, periodicidad, valores válidos y propietario. Esa lectura, que hoy exigiría dos
+correos y una semana, ocurre en diez minutos y es la que determina si el proyecto es viable.
+
+Genera sus \textbf{credenciales de integración desde su propio perfil}, sin abrir un ticket. El
+portal las emite con el mismo alcance que su rol: la aplicación que ella construya no podrá
+acceder a nada que ella no pueda ver, y ese límite queda declarado en la propia credencial.
+
+Prueba la consulta con un \textbf{rango corto} y confirma el formato de salida y el campo de
+relación entre ambos conjuntos. El portal expone el \textbf{contrato de datos} de la consulta:
+qué campos devuelve, de qué tipo y con qué versión de esquema. Ximena guarda ese contrato en su
+repositorio y escribe una prueba que detecta cualquier desviación.
+
+Programa la \textbf{ejecución diaria} y se \textbf{suscribe a los avisos de cambio} de las dos
+fuentes. Semanas después llega el aviso: uno de los campos cambia de nombre en la próxima
+versión. El aviso incluye la fecha de vigencia y confirma que la \textbf{versión anterior
+seguirá disponible} durante el periodo de transición. El proceso de Ximena sigue corriendo
+mientras ella migra sin prisa.
+
+\elemento{Descripción del resultado deseado}{resultado de la tarea y sensación al completarla}
+
+La herramienta entrega el cruce actualizado cada mañana antes de las ocho, el trabajo manual
+del lunes desapareció y el cambio de esquema no interrumpió el servicio en ningún momento.
+
+La sensación buscada es \textbf{confianza en el proveedor de datos}. Para este perfil el
+producto no compite contra la ausencia de datos, sino contra la costumbre de descargar
+archivos y guardarlos localmente, que es exactamente la práctica que fragmenta la información
+institucional. Un portal que no ofrezca un contrato estable no elimina esa costumbre: la
+justifica.
+
+\elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
+
+\begin{uxlist}
+\lead{El origen no responde durante la ventana de ejecución}{el servicio responde con un estado
+  explícito y una indicación de reintento, en lugar de devolver un resultado vacío que la
+  herramienta interpretaría como ausencia de operaciones.}
+\lead{El cambio de esquema es inevitable y no admite transición}{el aviso lo declara con esa
+  condición y con la mayor anticipación posible, y el portal ofrece la lista de consumidores
+  afectados al propietario del dato, de modo que la decisión se tome conociendo su costo.}
+\lead{La credencial caduca}{el aviso llega antes del vencimiento y no después del fallo. Una
+  credencial que expira en silencio produce exactamente el incidente de madrugada que este
+  escenario busca evitar.}
+\end{uxlist}
+
+% ------------------------------------------------------ Journey individual 3
+\clearpage
+\section{Journey map individual · Ximena Solís Barrera}
+
+\textit{Elaborado por Arthur Jafed Zizumbo Velasco sobre el escenario 6.}
+
+Este mapa despliega el objetivo del escenario 6: \textbf{automatizar un cruce diario por
+interfaz de programación y sobrevivir a un cambio de esquema}. Es el recorrido más largo en el
+tiempo: la etapa final ocurre semanas después de que el trabajo se dio por terminado.
+
+\textbf{Qué revela el mapa que el escenario no mostraba.} Que en este perfil el después del uso
+no es un epílogo, sino la etapa que decide todo. Las cinco primeras etapas se resuelven en dos
+días y ninguna es especialmente difícil; el valor del producto se juega en la sexta, cuando el
+origen cambia. Un mapa que hubiera terminado en la puesta en marcha —como termina la mayoría de
+los journey maps— habría dejado fuera precisamente lo que determina si el portal se adopta o se
+abandona.
+
+\textbf{Momento de la verdad.} La etapa 4, cuando el portal expone el contrato de datos con su
+versión de esquema. Ese contrato es lo que permite a Ximena escribir una prueba que detecta el
+cambio antes de que rompa producción. Sin él, las etapas 5 y 6 dependen de la suerte.
+
+\textbf{Consecuencia para el diseño.} El competidor de este perfil no es otra herramienta: es
+la costumbre de descargar archivos y guardarlos localmente, que es exactamente la práctica que
+fragmenta la información institucional y que el portal existe para revertir. Un portal sin
+contrato estable ni aviso anticipado no elimina esa costumbre; la justifica. Es el argumento
+más fuerte a favor de tratar la comunicación de cambios como una función del producto y no como
+una cortesía.
+
+\figurapanoramica{figuras/journey_ximena.pdf}
+  {Journey map individual de Ximena Solís Barrera. Objetivo: automatizar un cruce diario por
+   interfaz de programación y sobrevivir a un cambio de esquema. Elaboración
+   propia.}{fig:journey-ximena}
+

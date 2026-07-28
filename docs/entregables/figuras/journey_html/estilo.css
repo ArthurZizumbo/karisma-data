@@ -1,0 +1,381 @@
+/* ==========================================================================
+   Journey map — hoja de estilo de impresión
+   Karisma Data · Equipo 8 · TC4032
+
+   Estilo "Data-Dense Dashboard" recomendado por ui-ux-pro-max para producto
+   de gobierno de datos empresarial: retícula, padding mínimo, tipografía
+   densa pero legible, máxima visibilidad de información.
+
+   Tipografía local (las mismas del documento LaTeX) para que el PDF no
+   dependa de la red y la familia coincida con el resto del entregable.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Lexend Deca';
+  src: url('FUENTE_LEXEND') format('truetype');
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('FUENTE_FIRA_REGULAR') format('opentype');
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('FUENTE_FIRA_MEDIUM') format('opentype');
+  font-weight: 500;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('FUENTE_FIRA_SEMIBOLD') format('opentype');
+  font-weight: 600;
+  font-display: block;
+}
+
+:root {
+  /* Paleta del sistema de diseño del proyecto */
+  --navy: #1F4D78;
+  --blue: #2563EB;
+  --sky: #3B82F6;
+  --pale: #DCE7F3;
+  --amber: #F97316;
+  --amber-soft: #FFF7ED;
+  --amber-edge: #FBD5A8;
+  --surface: #F8FAFC;
+  --ink: #1E293B;
+  --muted: #64748B;
+  --line: #DBE3EC;
+  --green: #166534;
+  --red: #B91C1C;
+
+  /* Variables del estilo Data-Dense Dashboard */
+  --grid-gap: 7px;
+  --card-padding: 11px;
+  --radius: 7px;
+  --label-col: 128px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+@page {
+  size: 384mm 238mm;
+  margin: 0;
+}
+
+html, body {
+  width: 384mm;
+  height: 238mm;
+}
+
+body {
+  font-family: 'Fira Sans', system-ui, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  padding: 9mm 10mm 7mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ------------------------------------------------------------ Cabecera --- */
+.cabecera {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 9px;
+  margin-bottom: 11px;
+  border-bottom: 2px solid var(--line);
+}
+
+.cabecera h1 {
+  font-family: 'Lexend Deca', sans-serif;
+  font-weight: 400;
+  font-size: 27px;
+  line-height: 1.12;
+  color: var(--navy);
+  letter-spacing: -0.2px;
+}
+
+.cabecera .objetivo {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 5px;
+  max-width: 118ch;
+}
+
+.cabecera .objetivo strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.sello {
+  flex: 0 0 auto;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.sello .nombre {
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 15px;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.sello .chip {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--pale);
+  border-radius: 100px;
+  padding: 4px 11px;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------- Retícula -- */
+.mapa {
+  display: grid;
+  grid-template-columns: var(--label-col) repeat(var(--n), minmax(0, 1fr));
+  gap: var(--grid-gap);
+  align-content: start;
+  position: relative;
+}
+
+.etiqueta {
+  grid-column: 1;
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  padding-right: 10px;
+  line-height: 1.25;
+}
+
+.etiqueta.tenue { color: var(--muted); }
+
+/* Banda de momento (antes / durante / después) */
+.fase {
+  border-radius: 100px;
+  padding: 6px 0;
+  text-align: center;
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+.fase.previo,
+.fase.posterior { background: var(--pale); color: var(--navy); }
+.fase.durante { background: var(--sky); color: #fff; }
+
+/* Banda de etapa */
+.etapa {
+  background: var(--navy);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 9px 10px;
+  text-align: center;
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 16px;
+  line-height: 1.15;
+}
+.etapa .num {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 1.2px;
+  color: #A9C4DE;
+  margin-bottom: 3px;
+}
+
+/* Celdas de contenido */
+.celda {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--card-padding);
+  font-size: 12.5px;
+  line-height: 1.42;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.celda.contacto {
+  font-size: 12px;
+  color: #33475e;
+}
+
+.celda.pensamiento {
+  font-style: italic;
+  color: #2a3f57;
+}
+
+.celda.oportunidad {
+  background: var(--amber-soft);
+  border-color: var(--amber-edge);
+}
+
+/* Fila explícita por carril: con display:contents en los envoltorios, el
+   auto-placement colocaría el realce del momento de la verdad como una celda
+   más y descuadraría toda la retícula. Fijando la fila, la posición de cada
+   celda es determinista. */
+.fila-momento > * { grid-row: 1; }
+.fila-etapa > * { grid-row: 2; }
+.fila-accion > * { grid-row: 3; }
+.fila-contacto > * { grid-row: 4; }
+.fila-pensamiento > * { grid-row: 5; }
+.fila-emocion > * { grid-row: 6; }
+.fila-friccion > * { grid-row: 7; }
+.fila-oportunidad > * { grid-row: 8; }
+
+.fila-accion .celda { min-height: 78px; }
+.fila-contacto .celda { min-height: 62px; }
+.fila-pensamiento .celda { min-height: 70px; }
+.fila-friccion .celda { min-height: 82px; }
+.fila-oportunidad .celda { min-height: 82px; }
+
+/* --------------------------------------------------------- Emociones ----- */
+.emociones {
+  grid-column: 2 / -1;
+  position: relative;
+  height: 142px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.guias { position: absolute; inset: 0; }
+.guia {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed #E6ECF3;
+  font-size: 9.5px;
+  color: var(--muted);
+}
+.guia.cero { border-top: 1px solid var(--line); }
+.guia span {
+  position: absolute;
+  left: 7px;
+  top: -8px;
+  background: #fff;
+  padding: 0 3px;
+}
+
+.trazo { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.puntos {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+}
+
+.punto {
+  position: relative;
+}
+
+/* El marcador combina color, forma y valor numérico: la información no
+   depende del color (regla color-not-only / pattern-texture). */
+.marca {
+  position: absolute;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #fff;
+}
+.marca.alza {
+  background: var(--green);
+  clip-path: polygon(50% 4%, 100% 96%, 0 96%);
+  border: none;
+  filter: drop-shadow(0 0 1.6px #fff) drop-shadow(0 0 1.6px #fff);
+}
+.marca.baja {
+  background: var(--red);
+  clip-path: polygon(50% 96%, 100% 4%, 0 4%);
+  border: none;
+  filter: drop-shadow(0 0 1.6px #fff) drop-shadow(0 0 1.6px #fff);
+}
+.marca.neutro {
+  background: var(--muted);
+  border-radius: 3px;
+  width: 12px;
+  height: 12px;
+}
+
+.valor {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* -------------------------------------------- Momento de la verdad ------- */
+/* El realce es una celda real de la retícula (grid-row 2 / -1): así el
+   navegador lo posiciona solo y sobrevive a la paginación de impresión, cosa
+   que no ocurria con position:absolute + calc. */
+.destacado {
+  grid-row: 2 / 9;
+  border: 2px dashed var(--amber);
+  border-radius: 10px;
+  margin: -5px;
+  position: relative;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.rotulo-verdad {
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  transform: translateX(-50%);
+  background: var(--amber);
+  color: #fff;
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 10.5px;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------- Pie ----- */
+.pie {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.pie .leyenda { display: flex; gap: 18px; align-items: center; }
+.pie .item { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
+.pie .muestra { width: 12px; height: 12px; flex: 0 0 auto; }
+.pie .muestra.alza { background: var(--green); clip-path: polygon(50% 4%, 100% 96%, 0 96%); }
+.pie .muestra.baja { background: var(--red); clip-path: polygon(50% 96%, 100% 4%, 0 4%); }
+.pie .muestra.neutro { background: var(--muted); border-radius: 3px; width: 10px; height: 10px; }

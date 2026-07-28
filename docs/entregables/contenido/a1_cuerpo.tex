@@ -1,0 +1,1434 @@
+% ============================================================================
+\uxsection{Ubicación de los criterios de evaluación}
+
+La siguiente matriz indica dónde se atiende cada criterio de la rúbrica de la actividad.
+Los porcentajes corresponden a los pesos publicados y la modalidad distingue las secciones
+elaboradas en equipo de las elaboradas de forma individual por cada integrante.
+
+\begin{uxtabla}{Z{0.9}C{1.3cm}C{2.0cm}Z{1.1}}{Correspondencia entre los criterios de la rúbrica y las secciones del documento}
+\uxheadrow \thd{Criterio de la rúbrica} & \thd{Valor} & \thd{Modalidad} & \thd{Dónde se atiende} \\ \midrule
+Portada con los nombres de los integrantes & 2\,\% & Equipo & Portada \\
+Introducción & 3\,\% & Equipo & Introducción \\
+Identificación de la audiencia & 5\,\% & Equipo & Sección 1, apartados 1.1 a 1.7, y Figura 1 \\
+Descripción general del problema & 20\,\% & Equipo & Sección 2, apartados 2.1 a 2.5, y Figuras 2 y 3 \\
+Definición del producto digital & 20\,\% & Equipo & Sección 3, apartados 3.1 a 3.6, Figura 4 y matriz de trazabilidad de la sección 14 \\
+Dos mapas de empatía por cada integrante & 25\,\% & Individual & Secciones 5 a 12: un mapa por persona, agrupados por integrante \\
+Dos user personas por cada integrante & 25\,\% & Individual & Secciones 5 a 12: ocho personas, atribuidas por integrante \\
+\end{uxtabla}
+
+% ============================================================================
+\uxsection{Introducción}
+
+En el sector financiero, o bien, áreas financieras de las corporaciones, la información
+necesaria para consultar, validar y analizar datos en muchas ocasiones se encuentra
+distribuida en bases y herramientas aisladas. Esta dispersión obliga a los usuarios a
+cambiar de sistema, solicitar accesos o apoyarse en conocimiento informal para identificar
+la fuente correcta. Como resultado, tareas que deberían ser rápidas pueden convertirse en
+procesos largos, repetitivos y difíciles de verificar.
+
+El proyecto propone \textbf{Karisma Data}, un portal centralizado de datos: una plataforma web
+modular que concentre el acceso a fuentes financieras institucionales y adapte la experiencia
+según la tarea y la responsabilidad de cada persona. La solución considera ocho perfiles de uso que
+pueden coexistir o alternarse: consulta operativa, análisis de datos, gobierno y calidad,
+control y auditoría, habilitación técnica, supervisión directiva, administración de la
+plataforma e integración de aplicaciones.
+
+Este documento presenta una definición inicial de la audiencia, el problema y el producto
+digital. También incluye los instrumentos de investigación diseñados para validar las
+hipótesis del equipo. La sección individual desarrolla ocho personas y ocho mapas de
+empatía correspondientes a esos perfiles.
+
+El documento se organiza en cuatro secciones de equipo y una sección individual. Las
+secciones de equipo caracterizan la audiencia (1), el problema (2), el producto digital (3)
+y los instrumentos de investigación diseñados para validarlo (4). La sección individual
+reúne las ocho personas y sus mapas de empatía, identificadas por integrante. La
+caracterización de esta etapa se apoya en investigación documental, en la experiencia
+profesional del equipo en áreas que operan con información financiera institucional y en la
+observación de canales; su validación con usuarios es el objeto de los instrumentos de la
+sección 4. La estructura sigue el caso de estudio guiado del curso (Ramírez Mejía, 2023).
+
+% ============================================================================
+\clearpage
+\section{Identificación de la audiencia}
+
+La audiencia está formada por personal que consulta, valida, cruza, transforma, publica,
+gobierna, audita, integra o supervisa información financiera dentro de una institución. Los
+perfiles no son excluyentes: una misma persona puede asumir más de una responsabilidad
+según la tarea, aunque cada perfil prioriza objetivos, riesgos y niveles de profundidad
+diferentes. La caracterización sigue los componentes del contexto de uso definidos por la
+norma ISO 9241-11 (2018): los usuarios, sus tareas y metas, los recursos de que disponen y
+los entornos técnico, físico y organizacional en que trabajan.
+
+\subsection{Perfiles principales}
+
+\begin{uxlist}
+\lead{Operativo, consulta rápida}{necesita localizar y validar datos puntuales con rapidez.
+  Valora una interfaz limpia, un buscador confiable, resultados fáciles de interpretar y
+  acceso inmediato a la fuente y fecha de actualización.}
+\lead{Analista de datos, profundidad}{necesita combinar fuentes, aplicar filtros complejos,
+  revisar metadatos y exportar datos crudos para trabajar en Excel, Python, R, SQL u otras
+  herramientas analíticas.}
+\lead{Propietario de datos, gobierno y calidad}{es responsable de las definiciones, la
+  calidad, la vigencia y las reglas de uso de uno o varios conjuntos de datos. Necesita
+  administrar metadatos, atender incidencias, aprobar cambios y comunicar limitaciones de
+  forma visible. En ocasiones también requiere acceder a los datos crudos y trabajarlos con
+  herramientas analíticas desde un punto de vista gerencial.}
+\lead{Riesgos, cumplimiento y auditoría, control y evidencia}{necesita revisar permisos,
+  consistencia, trazabilidad y cumplimiento. Busca comprobar quién accedió o modificó
+  información, reconstruir el origen de una cifra y documentar excepciones con evidencia
+  verificable.}
+\lead{Ingeniería y administración de datos, habilitación técnica}{integra fuentes y mantiene
+  cargas, esquemas, APIs, permisos técnicos y rendimiento. Necesita monitorear procesos,
+  documentar cambios, resolver fallas y ofrecer datos estables a usuarios con distintos
+  niveles de experiencia.}
+\lead{Directivo, abstracción}{necesita indicadores consolidados, tendencias y señales de
+  riesgo para supervisar resultados y tomar decisiones sin recorrer cada base de datos por
+  separado.}
+\lead{Administración de la plataforma, accesos y continuidad}{gestiona el ciclo de vida de
+  las cuentas y los permisos: altas, cambios de rol y bajas. Necesita otorgar el acceso
+  mínimo suficiente, revocarlo con la misma rapidez y poder demostrar quién autorizó cada
+  permiso y cuándo.}
+\lead{Integración de aplicaciones, consumo programático}{construye herramientas internas que
+  consumen los datos del portal mediante APIs. Necesita contratos de datos estables y
+  documentados, credenciales de autoservicio y aviso anticipado ante cambios de esquema.}
+\end{uxlist}
+
+\figuraux{figuras/fig1_mapa_audiencia.png}
+  {Mapa de la audiencia: los ocho perfiles según profundidad técnica y responsabilidad sobre
+   el dato. Elaboración propia.}{fig:audiencia}
+
+\subsection{Necesidades de la audiencia}
+
+\begin{uxlist}
+\lead{Localización}{encontrar la fuente correcta sin depender de contactos informales o
+  conocimiento previo del área propietaria.}
+\lead{Confianza}{conocer origen, responsable, definición, periodicidad y última
+  actualización de cada dato.}
+\lead{Velocidad}{resolver consultas simples sin recorrer flujos diseñados para extracciones
+  pesadas.}
+\lead{Profundidad}{pasar de un resultado general al detalle, filtros y datos crudos cuando
+  la tarea lo requiera.}
+\lead{Interoperabilidad}{descargar o consumir información en formatos compatibles con sus
+  herramientas de trabajo.}
+\lead{Continuidad}{guardar búsquedas, filtros, fuentes frecuentes y configuraciones
+  personales.}
+\lead{Gobierno}{definir propietarios, reglas de uso, niveles de calidad y vigencia de los
+  datos.}
+\lead{Trazabilidad y control}{reconstruir el origen de una cifra, los accesos, las
+  aprobaciones y los cambios realizados.}
+\lead{Operabilidad técnica}{monitorear integraciones, cambios de esquema, incidentes y
+  rendimiento de los servicios de datos.}
+\end{uxlist}
+
+\subsection{Pain points}
+
+\begin{uxlist}
+\lead{Información dispersa}{las bases de temas distintos entre ellos, por ejemplo créditos y
+  derivados, se encuentran en fuentes separadas.}
+\lead{Fricción analítica}{cruzar variables o validar cifras requiere cambiar de sistema,
+  formato o responsable.}
+\lead{Accesibilidad ineficiente}{los flujos actuales no distinguen entre una consulta rápida
+  y una extracción compleja.}
+\lead{Silos de conocimiento}{cada área conoce sus propias fuentes, pero tiene poca
+  visibilidad de otros datos institucionales útiles.}
+\lead{Riesgo de interpretación}{la ausencia de metadatos claros puede provocar que dos
+  usuarios comprendan de manera distinta una misma variable.}
+\lead{Responsabilidad difusa}{no siempre es claro quién define, corrige o aprueba un dato
+  cuando se detecta una inconsistencia.}
+\lead{Evidencia limitada}{los accesos, modificaciones y decisiones pueden quedar repartidos
+  entre correos, archivos y registros técnicos.}
+\lead{Cambios e incidentes poco visibles}{una carga fallida o un cambio de estructura puede
+  afectar análisis sin que todos los usuarios se enteren a tiempo.}
+\end{uxlist}
+
+\subsection{Características demográficas y profesionales}
+
+Por tratarse de una herramienta institucional, las variables más relevantes no son
+únicamente edad o sexo, sino también función, experiencia, nivel técnico, permisos,
+frecuencia de uso y responsabilidad sobre los datos. Para el reclutamiento inicial se
+propone considerar personal adulto en edad laboral, ubicado principalmente en las sedes
+donde operan las áreas financieras o conectado de forma remota. La muestra debe incluir
+género, antigüedad, nivel jerárquico y participación como consumidor, propietario,
+aprobador, auditor o responsable técnico.
+
+\begin{uxlist}
+\lead{Rango de edad orientativo}{21 a 60 años.}
+\lead{Ubicación}{Ciudad de México y otras sedes o modalidades remotas donde se consulten
+  datos financieros.}
+\lead{Experiencia}{desde usuarios con incorporación reciente hasta especialistas con
+  conocimiento histórico de las fuentes.}
+\lead{Nivel técnico}{básico, intermedio y avanzado; desde consulta en buscador hasta uso de
+  SQL, APIs o lenguajes de análisis.}
+\end{uxlist}
+
+\subsection{Intereses y fuentes de información}
+
+Los usuarios buscan precisión, trazabilidad, cumplimiento, eficiencia, continuidad y
+autonomía. Se relacionan con la información mediante portales internos, bases de datos,
+archivos compartidos, correo, mensajería corporativa, documentación técnica, diccionarios,
+bitácoras, sistemas de tickets, tableros de monitoreo, reuniones con áreas propietarias y
+herramientas de análisis. La investigación deberá identificar cuáles de estos canales
+concentran hoy el mayor esfuerzo y cuáles generan más errores, dependencias o riesgos.
+
+\subsection{Método empleado para caracterizar a la audiencia}
+
+La caracterización de esta primera etapa se construyó con tres métodos, sin contacto con
+participantes.
+
+\begin{uxlist}
+\lead{Investigación documental}{revisión de fuentes públicas sobre el costo de la mala
+  experiencia de usuario en herramientas internas y sobre prácticas de gobierno de datos.}
+\lead{Experiencia profesional del equipo}{los integrantes trabajan en áreas que consultan,
+  validan y administran información financiera institucional, y esa experiencia es la fuente
+  de los flujos, el vocabulario y los puntos de fricción descritos.}
+\lead{Observación de canales}{revisión de los medios por los que esta audiencia se informa y
+  se coordina, que sustenta el apartado 1.5.}
+\end{uxlist}
+
+\textbf{\textcolor{uxnavy}{Resultados.}} El método produjo los ocho perfiles de uso descritos
+en 1.1, el conjunto de necesidades de 1.2, los ocho pain points de 1.3 y el mapa de canales
+de 1.5. El hallazgo central es que los perfiles no son excluyentes: una misma persona
+alterna entre consulta rápida y análisis profundo según la tarea, lo que descarta un flujo
+único de interfaz y sustenta el principio de revelación progresiva del apartado 3.4.
+
+\begin{uxnota}[Alcance y limitación declarada]
+Esta caracterización es una hipótesis de trabajo fundamentada, no un hallazgo empírico. Para
+validarla se diseñaron los instrumentos de la sección 4, cuya aplicación inicia en la
+siguiente etapa del proyecto y permitirá confirmar, ajustar o descartar cada perfil, así
+como completar los indicadores que en 2.2 quedan marcados como pendientes de medición.
+\end{uxnota}
+
+\subsection{Contexto de uso}
+
+El diseño centrado en el usuario parte de describir el contexto de uso, es decir, los
+usuarios, sus tareas y metas, los recursos de que disponen y los entornos técnico, físico,
+social y organizacional en que trabajan (ISO 9241-11, 2018). El mismo conjunto se recuerda
+con el acrónimo PACT: personas, actividades, contextos y tecnologías (de Voil, 2020). La
+siguiente tabla resume el contexto de uso del portal antes de proponer cualquier solución.
+
+\begin{uxtabla}{L{2.5cm}L{2.1cm}Z{1.15}Z{0.85}}{Contexto de uso del portal según ISO 9241-11 y su consecuencia de diseño}
+\uxheadrow \thd{Componente} & \thd{PACT} & \thd{Cómo se manifiesta en el portal} & \thd{Consecuencia de diseño} \\ \midrule
+Usuarios & Personas & Ocho perfiles con nivel técnico de básico a avanzado y
+  responsabilidades que van de consumir a gobernar el dato; una misma persona cambia de
+  perfil según la tarea & Revelación progresiva en lugar de aplicaciones separadas por rol \\
+Tareas y metas & Actividades & Localizar y validar una cifra; cruzar fuentes y extraer datos
+  crudos; definir y aprobar metadatos; reconstruir accesos y cambios; monitorear cargas;
+  supervisar indicadores & Un buscador que resuelve la tarea frecuente y modos avanzados a
+  un clic de distancia \\
+Recursos & Tecnologías & Navegador y escritorio corporativo, Excel, SQL, Python, herramientas
+  de inteligencia de negocio, tickets, correo y mensajería; y recursos expandibles: tiempo,
+  esfuerzo y la disponibilidad del colega que conoce la fuente & Exportación e integración
+  por API para no romper el flujo de trabajo existente \\
+Entornos & Contextos & Técnico: bases heterogéneas con esquemas y accesos separados. Físico:
+  oficinas centrales y esquema híbrido, con consulta en escritorio y en tableta. Social y
+  organizacional: áreas propietarias, aprobaciones jerárquicas, confidencialidad y auditoría
+  & Acceso por permisos y roles, con trazabilidad y bitácora como requisitos, no como extras \\
+\end{uxtabla}
+
+Caracterizar el contexto de uso antes de proponer una solución evita diseñar para un usuario
+abstracto: cada característica del apartado 3.2 responde a un componente de esta tabla.
+
+% ============================================================================
+\clearpage
+\section{Descripción general del problema}
+
+\subsection{Definición}
+
+La información financiera institucional está distribuida en fuentes aisladas, con distintos
+accesos, estructuras, responsables y niveles de documentación. Esta fragmentación dificulta
+localizar, validar, combinar, gobernar, auditar e integrar datos. El problema no es
+únicamente tecnológico: también afecta la experiencia de las personas, porque las obliga a
+recordar rutas, depender de especialistas, reconstruir evidencia y adaptar su flujo de
+trabajo a cada sistema.
+
+El personal que consume, analiza, supervisa, gobierna, controla o habilita información
+financiera necesita una forma unificada y confiable de descubrir, comprender, administrar y
+utilizar datos, porque la dispersión actual aumenta el tiempo de trabajo, la dependencia
+entre áreas y el riesgo de usar información incorrecta, desactualizada o sin trazabilidad
+suficiente.
+
+\subsection{Cómo cuantificarlo}
+
+La magnitud del problema se sustenta en tres tipos de evidencia, cada una identificada con
+su origen: fuentes públicas verificables sobre el costo de la mala experiencia de usuario en
+herramientas internas de empleados, la experiencia profesional del equipo, y los indicadores
+que el instrumento de la sección 4 levantará durante el trabajo de campo. Los renglones
+marcados como pendientes de medición se enlazan a la pregunta que los resolverá; ninguna
+cifra de este documento proviene de una estimación sin fuente.
+
+\begin{uxtabla}{Z{0.9}Z{1.25}C{2.4cm}Z{0.85}}{Cuantificación del problema, con el origen de cada dato}
+\uxheadrow \thd{Indicador} & \thd{Qué mide} & \thd{Resultado} & \thd{Origen} \\ \midrule
+Costo de la mala experiencia en una herramienta interna & Proyecto de software para personal
+  propio descontinuado por dificultad de uso & 125 millones de USD & Maioli (2018), cap. 1 \\
+Abandono por diseño o desempeño & Usuarios que dejan de utilizar una aplicación por fallas de
+  desempeño & 90\,\% & AppDynamics (2014), como se citó en Maioli (2018) \\
+Retorno de invertir en experiencia de usuario & Reducción de errores del usuario y de la
+  complejidad percibida & 50\,\% y 65\,\% & On3 (s.\,f.), como se citó en Maioli (2018) \\
+Número de fuentes por tarea & Sistemas, carpetas o bases consultadas para completar una
+  tarea típica & \textit{Pendiente de medición} & Encuesta 4.1, pregunta \textit{Cantidad de fuentes} \\
+Tiempo de localización y validación & Tiempo dedicado a localizar y validar la fuente antes
+  de analizar & \textit{Pendiente de medición} & Encuesta 4.1, pregunta \textit{Tiempo} \\
+\end{uxtabla}
+
+\subsection{Impacto}
+
+\begin{uxlist}
+\lead{Operativo}{aumenta el tiempo de respuesta y dificulta validar datos puntuales durante
+  tareas sensibles al tiempo.}
+\lead{Analítico}{retrasa cruces, obliga a transformar formatos y reduce el tiempo disponible
+  para interpretar resultados.}
+\lead{Directivo}{limita la visibilidad consolidada y puede retrasar decisiones o generar
+  versiones distintas de una cifra.}
+\lead{Gobierno de datos}{dificulta mantener definiciones, responsables, reglas y niveles de
+  calidad compartidos.}
+\lead{Riesgos y auditoría}{complica reconstruir accesos, cambios y decisiones con evidencia
+  suficiente.}
+\lead{Tecnológico}{reduce la visibilidad sobre integraciones, incidentes, dependencias y
+  cambios de estructura.}
+\lead{Institucional}{mantiene silos de conocimiento, duplica esfuerzos y dificulta establecer
+  una única fuente de verdad.}
+\end{uxlist}
+
+\figuraux{figuras/fig2_impacto_por_perfil.png}
+  {Intensidad del impacto del problema por perfil y por consecuencia. Elaboración propia a
+   partir del apartado 2.3.}{fig:impacto}
+
+\subsection{Flujo actual y flujo propuesto}
+
+\figuraux{figuras/fig3_flujo_actual_propuesto.png}
+  {Flujo de trabajo actual frente al flujo propuesto. Elaboración propia.}{fig:flujo}
+
+\begin{uxtabla}{C{1.1cm}YY}{Comparación paso a paso entre el flujo actual y el propuesto}
+\uxheadrow \thd{Paso} & \thd{Flujo actual} & \thd{Flujo propuesto} \\ \midrule
+1 & Identificar una posible fuente & Buscar por concepto o necesidad \\
+2 & Solicitar acceso o apoyo & Comparar fuentes y metadatos \\
+3 & Consultar distintos sistemas & Consultar una vista simple \\
+4 & Validar definición y vigencia & Profundizar con filtros cuando sea necesario \\
+5 & Transformar o combinar archivos & Exportar o consumir por API \\
+6 & Repetir si la fuente no era correcta & Guardar la configuración para reutilizarla \\
+\end{uxtabla}
+
+\subsection{El problema en términos de negocio}
+
+Los apartados anteriores describen el problema desde la experiencia de quien trabaja con los
+datos. Conviene explicitar por qué además es un problema de negocio. La literatura documenta
+que una mala experiencia de usuario en herramientas internas tiene costo directo y medible:
+una empresa descontinuó un proyecto de software de 125 millones de dólares tras un piloto,
+porque la herramienta resultó demasiado difícil de usar y provocó renuncias en su fuerza de
+ventas (Maioli, 2018). Ese costo no aparece en una factura: se distribuye en horas de
+trabajo, en decisiones tomadas con información desactualizada y en rotación de personal.
+
+La contraparte también está documentada. Las organizaciones con una experiencia de usuario
+efectiva reportan reducciones de hasta 50\,\% en errores del usuario y de 65\,\% en la
+complejidad percibida de sus herramientas (Maioli, 2018). Trasladado a este proyecto: cada
+minuto que una persona no gasta localizando y validando una fuente es un minuto disponible
+para interpretarla, y cada cifra que llega con su origen visible es una discusión que no
+ocurre en una reunión directiva.
+
+\begin{uxdestacado}
+Por eso el portal se sitúa deliberadamente en la intersección entre las metas institucionales
+y las necesidades de las personas, y no en una sola de las dos (Maioli, 2018). Una plataforma
+que satisfaga el control institucional pero ignore la fricción cotidiana terminará esquivada
+con hojas de cálculo personales, que es exactamente el comportamiento que hoy se busca
+corregir.
+\end{uxdestacado}
+
+% ============================================================================
+\clearpage
+\section{Definición del producto digital}
+
+\subsection{Tipo de producto}
+
+\textbf{Karisma Data} es una \textbf{plataforma web interna} de inteligencia y descubrimiento
+de datos financieros. Su arquitectura será modular y se adaptará a permisos, responsabilidades
+y profundidad de tarea. El portal no sustituye necesariamente todas las bases existentes;
+funciona como una capa unificada para descubrirlas, comprenderlas, consultarlas y extraer
+información de forma controlada.
+
+El nombre expresa la promesa del producto: un dato que se presenta con su origen, su
+responsable y su vigencia a la vista es un dato con autoridad propia, que no necesita ser
+defendido en una reunión. La marca acompañará al proyecto en las actividades siguientes.
+
+\subsection{Características principales}
+
+\begin{uxlist}
+\lead{Acceso por permisos y roles}{muestra fuentes, funciones y acciones de acuerdo con las
+  autorizaciones del usuario.}
+\lead{Revelación progresiva}{inicia con resultados simples y permite abrir detalle, filtros o
+  herramientas avanzadas según la necesidad.}
+\lead{Buscador unificado}{permite buscar por identificador, variable, tema, área, fuente o
+  palabra clave.}
+\lead{Catálogo de datos}{presenta definiciones, propietarios, periodicidad, calidad,
+  actualización y relaciones entre fuentes.}
+\lead{Espacios personalizables}{permite guardar módulos, métricas, filtros, fuentes y
+  consultas frecuentes.}
+\lead{Exportación directa}{ofrece descarga en CSV o Excel y, cuando corresponda, consumo
+  mediante APIs.}
+\lead{Tableros consolidados}{presenta indicadores y tendencias para seguimiento y toma de
+  decisiones.}
+\lead{Trazabilidad}{informa origen, fecha de actualización y contexto de uso para reducir
+  ambigüedad.}
+\lead{Gobierno de metadatos}{permite proponer, revisar y aprobar definiciones, propietarios,
+  reglas de uso y niveles de calidad.}
+\lead{Flujos de acceso y aprobación}{centraliza solicitudes, autorizaciones y condiciones de
+  uso según la sensibilidad de cada fuente.}
+\lead{Bitácora y evidencia}{registra accesos, cambios, versiones y decisiones relevantes para
+  control y auditoría.}
+\lead{Monitoreo técnico}{hace visibles el estado de cargas, APIs, cambios de esquema e
+  incidentes que pueden afectar a los consumidores.}
+\end{uxlist}
+
+\figuraux{figuras/fig4_concepto_buscador.png}
+  {Concepto de la vista de búsqueda: el resultado comunica fuente, propietario, vigencia y
+   periodicidad antes de que el usuario tenga que preguntarlas. Elaboración propia.}{fig:concepto}
+
+Las características anteriores se agrupan en siete módulos. La siguiente tabla indica, para
+cada uno, el perfil al que sirve de forma primaria y el beneficio concreto que produce, de
+modo que ninguna funcionalidad quede sin un usuario y un propósito identificados.
+
+\begin{uxtabla}{L{2.6cm}Z{1.1}L{2.4cm}Z{0.9}}{Módulos del portal, perfil primario y beneficio}
+\uxheadrow \thd{Módulo} & \thd{Descripción} & \thd{Perfil primario} & \thd{Beneficio} \\ \midrule
+Espacio de trabajo por rol & Pantalla inicial configurable, con los módulos frecuentes y
+  valores por defecto según el perfil & Todos & Curva de aprendizaje mínima: la complejidad
+  aparece solo cuando la tarea la requiere \\
+Buscador y catálogo de datos & Diccionario institucional con búsqueda en lenguaje de negocio,
+  fuentes relacionadas y reglas de uso por campo & Operativo y analista & Una sola fuente de
+  verdad y fin de la dependencia del colega que conoce la fuente \\
+Explorador analítico & Filtros complejos, cruces entre fuentes y vistas tabulares y gráficas
+  de alto volumen & Analista de datos & Cruces masivos sin bloquear la pantalla ni transformar
+  formatos a mano \\
+Tableros y señales de riesgo & Vista consolidada de indicadores con profundización progresiva
+  hacia el detalle & Directivo & Comprensión del estado general en un minuto, con el detalle
+  disponible pero opcional \\
+Asistente conversacional & Consulta en lenguaje natural en la que la herramienta consultada
+  queda visible y cada cifra cita su fuente & Todos & Preguntas complejas sin conocer la
+  estructura de las bases, con respuesta auditable \\
+Exportación e integración & Descargas en CSV y Excel procesadas en segundo plano, con enlace
+  de descarga y acceso por API & Analista e integración de aplicaciones & Extracción pesada
+  sin fricción y sin bloquear la interfaz \\
+Acceso y administración & Autenticación, sesión por rol y panel de altas, cambios de rol y
+  desactivación de usuarios & Administración de la plataforma & Gobierno de acceso demostrable
+  ante auditoría, con registro de quién autorizó qué \\
+\end{uxtabla}
+
+\subsection{Beneficios UX}
+
+\begin{uxlist}
+\lead{Eficiencia híbrida}{reduce el tiempo de búsqueda, validación y extracción, y permite
+  cambiar de una consulta rápida a un análisis profundo sin perder contexto.}
+\lead{Personalización}{disminuye la curva de aprendizaje al mostrar complejidad técnica
+  únicamente cuando la tarea la requiere.}
+\lead{Estandarización}{facilita el uso de definiciones compartidas y una fuente institucional
+  de referencia.}
+\lead{Descubrimiento}{hace visibles fuentes relacionadas que el usuario podría no conocer por
+  trabajar en otra área.}
+\lead{Confianza}{apoya la validación mediante metadatos, responsables y fechas de
+  actualización visibles.}
+\end{uxlist}
+
+\subsection{Principios iniciales de diseño}
+
+\begin{uxlist}
+\lead{La tarea antes que el rol}{la interfaz debe responder a lo que la persona intenta hacer
+  en ese momento, porque los modos de uso pueden cambiar.}
+\lead{Simplicidad inicial}{la primera vista debe resolver la consulta más frecuente sin
+  exponer filtros o términos técnicos innecesarios.}
+\lead{Profundidad disponible}{las opciones avanzadas deben estar cerca y ser fáciles de
+  descubrir para quien las necesita.}
+\lead{Transparencia}{cada resultado debe comunicar origen, vigencia, definición y
+  restricciones de uso.}
+\lead{Continuidad}{el usuario debe poder guardar, reutilizar y compartir configuraciones de
+  manera controlada.}
+\end{uxlist}
+
+\subsection{Posicionamiento frente a las alternativas actuales}
+
+La audiencia no parte de cero: hoy resuelve sus tareas con una combinación de bases aisladas,
+hojas de cálculo y correo, y en algunos casos con herramientas genéricas de inteligencia de
+negocio. La siguiente tabla posiciona la propuesta frente a esas dos alternativas en las
+dimensiones que la investigación identificó como críticas.
+
+\begin{uxtabla}{L{2.4cm}Z{1.0}Z{0.95}Z{1.05}}{Posicionamiento frente a las alternativas que la audiencia usa hoy}
+\uxheadrow \thd{Dimensión} & \thd{Bases aisladas, hojas de cálculo y correo} &
+  \thd{Herramientas genéricas de BI} & \thd{Karisma Data} \\ \midrule
+Descubrimiento de datos & Conocimiento no documentado; se pregunta al colega que conoce la
+  fuente & Catálogo limitado al espacio de trabajo de la herramienta & Catálogo institucional
+  con definición, propietario y reglas de uso, buscable en lenguaje de negocio \\
+Modos de uso & Un solo flujo pesado para cualquier necesidad, simple o compleja & Tableros
+  fijos, definidos por reporte & Revelación progresiva: consulta rápida, análisis profundo y
+  vista directiva en un mismo producto \\
+Control de acceso & Carpetas compartidas sin gobierno claro & Licencias y grupos administrados
+  por el área técnica & Permisos por perfil, con la matriz de acceso visible y auditable \\
+Confianza en el resultado & Se valida comparando contra reportes anteriores o preguntando &
+  Respuestas sin origen visible para quien las consume & Cada cifra muestra fuente,
+  propietario y fecha de actualización \\
+Extracción pesada & Bloquea el equipo o requiere una solicitud al área técnica & Límites de
+  filas y exportaciones lentas & Procesamiento en segundo plano con enlace de descarga y
+  acceso por API \\
+Tiempo hasta el dato & Días cuando la respuesta depende de un tercero & Minutos, siempre que
+  el tablero ya exista & Segundos para la consulta frecuente, con la profundidad disponible a
+  un clic \\
+\end{uxtabla}
+
+El análisis competitivo detallado, con productos concretos del mercado y su evaluación por
+perfil, corresponde a una etapa posterior del proyecto. Esta tabla se limita a posicionar la
+propuesta frente a las alternativas que la audiencia utiliza hoy, que son las que definen su
+punto de comparación real.
+
+\subsection{Cómo se medirá el éxito}
+
+Definir las métricas desde la etapa de concepción evita que la evaluación del producto se
+reduzca a una opinión al final del proyecto. El enfoque adoptado sigue el ciclo de definir
+métricas, definir usuarios y tareas, medir antes, aplicar los cambios y volver a medir
+(Maioli, 2018).
+
+\begin{uxtabla}{L{3.1cm}Z{0.9}Z{1.1}L{2.7cm}}{Métricas de éxito del producto y su forma de medición}
+\uxheadrow \thd{Métrica} & \thd{Qué responde} & \thd{Cómo se mide} & \thd{Perfil de referencia} \\ \midrule
+Tasa de éxito de la tarea & ¿La persona encuentra la fuente correcta sin ayuda? & Porcentaje
+  de tareas completadas sin apoyo externo & Operativo \\
+Tiempo hasta el dato validado & ¿Cuánto tarda en confirmar una cifra y su vigencia? &
+  Cronometraje de la tarea contra la línea base del flujo actual & Operativo \\
+Número de sistemas por tarea & ¿Se redujo la dispersión de fuentes? & Conteo de fuentes
+  consultadas antes y después & Analista de datos \\
+Solicitudes de apoyo & ¿Disminuyó la dependencia de un colega? & Frecuencia con que la
+  persona necesita preguntar para completar la tarea & Operativo y analista \\
+Confianza en el resultado & ¿Usaría la cifra sin verificarla en otro lado? & Escala declarada
+  al terminar cada tarea & Directivo y propietario de datos \\
+Satisfacción de uso & ¿Cómo percibe la usabilidad del portal en conjunto? & Cuestionario
+  estandarizado de usabilidad al cierre de la sesión & Todos los perfiles \\
+\end{uxtabla}
+
+La línea base de las tres primeras métricas proviene de los indicadores marcados como
+pendientes de medición en el apartado 2.2: el mismo instrumento que cuantifica el problema
+establece el punto de partida contra el cual se evaluará la solución.
+
+% ============================================================================
+\clearpage
+\section{Instrumentos de investigación de usuario}
+
+Los instrumentos están orientados a validar el problema, distinguir tipos de tarea y
+priorizar funciones. Deben aplicarse a usuarios reales de las áreas involucradas y ajustarse
+a las políticas de confidencialidad de la institución. No se solicitarán cifras, clientes ni
+datos sensibles durante las sesiones.
+
+El diseño combina deliberadamente dos tipos de indagación. La encuesta y la entrevista son
+métodos de opinión: recogen lo que las personas dicen que hacen, información que atraviesa
+filtros cognitivos y sociales y que por sí sola es una base frágil para decidir
+(de Voil, 2020). La observación contextual es un método empírico: registra lo que las
+personas efectivamente hacen en su entorno de trabajo. Los tres instrumentos se complementan,
+y por esa razón la entrevista pregunta por hechos recientes y no por intenciones futuras.
+
+\subsection{Encuesta diagnóstica}
+
+\textbf{\textcolor{uxnavy}{Objetivo:}} identificar frecuencia de uso, fuentes consultadas,
+esfuerzo, pain points y necesidades de exportación. \textit{Duración estimada: 5 a 7 minutos.}
+
+\begin{uxpreg}
+\item \textbf{Perfil laboral.} ¿Cuál es tu área, puesto y antigüedad aproximada en la
+  institución? \textit{\textcolor{uxmuted}{Respuesta: abierta breve.}}
+\item \textbf{Frecuencia.} ¿Con qué frecuencia consultas información financiera?
+  \textit{\textcolor{uxmuted}{Respuesta: varias veces al día, diariamente, semanalmente,
+  mensualmente o con menor frecuencia.}}
+\item \textbf{Tipos de tarea.} ¿Qué tareas realizas con mayor frecuencia?
+  \textit{\textcolor{uxmuted}{Respuesta: consulta puntual, validación, cruce de variables,
+  análisis, exportación, supervisión, publicación o mantenimiento, gobierno de metadatos,
+  aprobación de accesos, auditoría, integración o monitoreo técnico, u otra.}}
+\item \textbf{Cantidad de fuentes.} ¿Cuántas fuentes, sistemas o carpetas consultas
+  normalmente para completar una tarea? \textit{\textcolor{uxmuted}{Respuesta: rango numérico.}}
+\item \textbf{Tiempo.} En una tarea típica, ¿cuánto tiempo dedicas a localizar y validar la
+  fuente antes de analizar la información? \textit{\textcolor{uxmuted}{Respuesta: rango de minutos.}}
+\item \textbf{Facilidad.} ¿Qué tan fácil es encontrar la fuente correcta?
+  \textit{\textcolor{uxmuted}{Respuesta: escala de 1 a 5.}}
+\item \textbf{Dependencia.} ¿Con qué frecuencia necesitas pedir ayuda a otra persona o área
+  para localizar, interpretar o acceder a un dato?
+  \textit{\textcolor{uxmuted}{Respuesta: escala de frecuencia.}}
+\item \textbf{Dificultades.} ¿Cuáles son las principales dificultades que enfrentas?
+  Selecciona hasta tres. \textit{\textcolor{uxmuted}{Respuesta: acceso, búsqueda,
+  definiciones, actualización, formato, rendimiento, permisos, desconocimiento de fuentes u otra.}}
+\item \textbf{Confianza.} ¿Qué información necesitas ver para confiar en un dato?
+  \textit{\textcolor{uxmuted}{Respuesta: propietario, definición, actualización, periodicidad,
+  calidad, fuente original u otra.}}
+\item \textbf{Formatos.} ¿Qué formatos utilizas para trabajar fuera del sistema?
+  \textit{\textcolor{uxmuted}{Respuesta: CSV, Excel, API, conexión a base, PDF u otro.}}
+\item \textbf{Herramientas.} ¿Qué herramientas utilizas después de extraer los datos?
+  \textit{\textcolor{uxmuted}{Respuesta: Excel, Power BI, Python, R, SQL, SAS u otra.}}
+\item \textbf{Personalización.} ¿Qué tan útil sería guardar búsquedas, filtros o fuentes
+  frecuentes? \textit{\textcolor{uxmuted}{Respuesta: escala de 1 a 5.}}
+\item \textbf{Prioridad.} Si existiera un portal único, ¿qué tarea te gustaría resolver
+  primero en él? \textit{\textcolor{uxmuted}{Respuesta: abierta.}}
+\item \textbf{Experiencia reciente.} Describe una ocasión en la que encontrar o validar un
+  dato tomó más tiempo de lo esperado. \textit{\textcolor{uxmuted}{Respuesta: abierta.}}
+\end{uxpreg}
+
+\subsection{Guía de entrevista semiestructurada}
+
+\textbf{\textcolor{uxnavy}{Objetivo:}} comprender el flujo real de una tarea, las decisiones
+del usuario, sus atajos y los criterios con los que evalúa la confiabilidad.
+\textit{Duración estimada: 30 a 40 minutos.} El guion privilegia preguntas de recuerdo sobre
+hechos recientes en lugar de preguntas hipotéticas, y evita preguntas dirigidas, siguiendo la
+taxonomía de Portigal (2013).
+
+\begin{uxpreg}
+\item \textbf{Contexto.} Cuéntame sobre tu función y el tipo de información financiera que
+  utilizas.
+\item \textbf{Responsabilidad sobre los datos.} En tu trabajo habitual, ¿actúas principalmente
+  como consumidor, analista, supervisor, propietario, aprobador, auditor o responsable
+  técnico? ¿Cuándo cambia esa responsabilidad?
+\item \textbf{Tarea reciente.} Piensa en una tarea reciente. ¿Qué necesitabas lograr y por
+  qué era importante?
+\item \textbf{Punto de partida.} ¿Cómo decidiste dónde buscar primero?
+\item \textbf{Flujo.} ¿Qué pasos seguiste desde que inició la necesidad hasta que obtuviste un
+  resultado utilizable?
+\item \textbf{Fricción.} ¿En qué momento surgieron dudas, retrasos o solicitudes de apoyo?
+\item \textbf{Validación.} ¿Cómo verificaste que la fuente, la definición y la fecha eran
+  correctas?
+\item \textbf{Continuidad.} ¿Qué herramientas o archivos utilizaste después de encontrar la
+  información?
+\item \textbf{Esfuerzo.} ¿Qué parte del proceso consideras más repetitiva o frustrante?
+\item \textbf{Confianza.} ¿Qué información debería mostrar un resultado para que pudieras
+  usarlo con confianza?
+\item \textbf{Profundidad.} ¿Qué debería ocurrir en una consulta rápida y qué debería
+  reservarse para un modo avanzado?
+\item \textbf{Riesgos.} ¿Qué riesgos percibes en un portal centralizado? Considera permisos,
+  interpretación, rendimiento o dependencia.
+\item \textbf{Cambios e incidentes.} ¿Cómo te enteras de una actualización, una falla de carga
+  o un cambio en la estructura de una fuente? ¿Qué haces después?
+\item \textbf{Cambio prioritario.} Si pudieras cambiar una sola parte del proceso actual,
+  ¿cuál sería y por qué?
+\end{uxpreg}
+
+\subsection{Guía de observación contextual}
+
+\textbf{\textcolor{uxnavy}{Objetivo:}} contrastar lo que las personas reportan con lo que
+efectivamente hacen al resolver una tarea real con datos. \textit{Duración estimada: de 45 a
+60 minutos por sesión}, en el puesto de trabajo del participante y sobre una tarea que ya
+tenía prevista realizar. Las notas siguen el esquema AEIOU, que ordena la observación en
+cinco dimensiones (de Voil, 2020).
+
+\begin{uxlist}
+\lead{Actividades}{qué hace la persona, en qué orden, qué pasos repite y cuáles resuelve con
+  un atajo propio en lugar del flujo previsto.}
+\lead{Entornos}{cómo es el espacio físico y social en que trabaja: interrupciones, pantallas
+  disponibles, cercanía de colegas a quienes puede consultar sin costo.}
+\lead{Interacciones}{a quién consulta, por qué canal y en qué momento del flujo aparece la
+  dependencia de otra persona o de otra área.}
+\lead{Objetos}{qué artefactos intervienen: archivos, plantillas, capturas, correos y hojas de
+  control. Interesan sobre todo los que trasladan información de un área a otra.}
+\lead{Usuarios}{qué caracteriza a la persona observada: experiencia, nivel técnico y los
+  criterios con los que decide que un dato es confiable.}
+\end{uxlist}
+
+\begin{uxnota}[Regla de registro]
+Se anota por separado lo observado y lo interpretado. Una observación es un hecho verificable
+—abrió cuatro pestañas, escribió a un colega, comparó contra un archivo anterior—, mientras
+que una interpretación es una inferencia del equipo (de Voil, 2020). Al cierre de cada sesión
+las interpretaciones se contrastan con el participante, mientras aún se está en su entorno de
+trabajo.
+\end{uxnota}
+
+\subsection{Plan inicial de aplicación}
+
+\begin{uxtabla}{L{2.4cm}L{2.8cm}YY}{Plan de aplicación de los tres instrumentos}
+\uxheadrow \thd{Método} & \thd{Muestra sugerida} & \thd{Cobertura} & \thd{Evidencia esperada} \\ \midrule
+Encuesta & 15 a 30 participantes & Los ocho perfiles de uso & Patrones de frecuencia, esfuerzo
+  y prioridad \\
+Entrevista & 5 a 8 participantes & Al menos cuatro perfiles, con responsabilidades distintas &
+  Flujos, lenguaje, decisiones y puntos de dolor \\
+Observación & 3 a 5 tareas & Consulta, análisis, gobierno, control e integración & Pasos
+  reales, cambios de sistema y dependencias \\
+\end{uxtabla}
+
+\subsection{Criterios de análisis}
+
+Las respuestas se agruparán por tipo de tarea y responsabilidad sobre los datos, no solo por
+puesto. El análisis buscará patrones de frecuencia, tiempo, dependencia, confianza,
+profundidad, formato de salida, riesgo y necesidad de evidencia. También se registrarán
+diferencias entre lo que una persona dice que hace y lo observado durante una tarea real.
+
+\textbf{\textcolor{uxnavy}{Técnica de síntesis.}} Los hallazgos de las tres fuentes se
+procesan mediante diagramación de afinidad (de Voil, 2020): cada hallazgo se registra como una
+nota independiente y las notas se agrupan por afinidad hasta que los temas emergen del
+material, en lugar de partir de categorías definidas de antemano. Los grupos resultantes
+alimentan de forma directa los mapas de empatía de este documento y, en la siguiente
+actividad, los journey maps por perfil.
+
+% ============================================================================
+\clearpage
+\aportacion{Jacqueline Sarmiento Cervantes}{Matrícula A01795863 · Personas 1 y 2}
+
+\begin{uxnota}[Nota metodológica]
+Las ocho personas son arquetipos hipotéticos en el sentido de Cooper, citado en Hartson y
+Pyla (2012): representaciones construidas a partir de la caracterización de la audiencia de la
+sección 1, de la experiencia profesional del equipo en el sector financiero y de la literatura
+de diseño centrado en el usuario. No corresponden a individuos reales y sus fotografías fueron
+generadas con inteligencia artificial. Los mapas de empatía siguen el formato de cuatro
+cuadrantes de Osterwalder y Pigneur (2010) con las etiquetas solicitadas. Los instrumentos de
+la sección 4 permitirán recalibrar unas y otros con evidencia de campo en la siguiente etapa.
+\end{uxnota}
+
+% ---------------------------------------------------------------- Persona 1
+\section{Persona 1 · Laura Méndez}
+
+\personahead{imagenes/persona_01_laura.png}{Laura Méndez}
+  {“Necesito confirmar el dato y seguir con mi trabajo, no aprender cómo está organizada cada
+   base.”}
+
+\begin{personadatos}
+Edad & 34 años \\
+Sexo & Mujer \\
+Ubicación & Ciudad de México \\
+Ocupación & Especialista de Operaciones Financieras \\
+Experiencia & 8 años en procesos financieros; 3 años en su función actual \\
+Nivel técnico & Intermedio: Excel avanzado y consulta de sistemas internos \\
+Modo principal & Operativo: consulta rápida y validación puntual \\
+\end{personadatos}
+
+\personabloque{Antecedentes}
+Laura estudió Administración Financiera y trabaja en un área que atiende solicitudes internas
+con tiempos definidos. Conoce bien los procesos de su equipo, pero no siempre sabe qué área es
+propietaria de una variable nueva. Tiene una agenda fragmentada entre consultas, seguimiento y
+validaciones. Fuera del trabajo le interesan la organización personal, ver series y realizar
+actividades con su familia. Vive con su pareja y su hija de seis años en el oriente de la
+ciudad, y organiza su jornada para alcanzar la salida de la escuela.
+
+\personabloque{Objetivos}
+\begin{uxlist}
+\lead{Rapidez}{encontrar una cifra puntual y confirmar su vigencia en pocos minutos.}
+\lead{Seguridad}{responder solicitudes con una fuente identificable y una definición clara.}
+\lead{Autonomía}{resolver tareas frecuentes sin depender de otra área.}
+\lead{Continuidad}{guardar consultas habituales para no reconstruirlas cada vez.}
+\end{uxlist}
+
+\personabloque{Pain points y desafíos}
+\begin{uxlist}
+\lead{Rutas cambiantes}{recuerda nombres de carpetas o sistemas, pero los accesos y
+  ubicaciones pueden cambiar.}
+\lead{Definiciones ambiguas}{encuentra variables parecidas sin saber cuál corresponde a su
+  solicitud.}
+\lead{Dependencia}{debe escribir a colegas para confirmar responsable, fecha o fuente y
+  también para solicitar actualización de datos.}
+\lead{Sobrecarga}{los filtros técnicos y campos avanzados dificultan una consulta que debería
+  ser simple.}
+\end{uxlist}
+
+\personabloque{Comportamientos y hábitos}
+\begin{uxlist}
+\lead{Inicio}{busca primero en fuentes conocidas o reutiliza un archivo anterior.}
+\lead{Validación}{compara la cifra con reportes previos y pregunta a un contacto de confianza.}
+\lead{Herramientas}{trabaja principalmente con navegador, Excel, correo y mensajería
+  corporativa.}
+\lead{Preferencia}{elige resultados claros, con fecha y fuente visibles, antes que una vista
+  con muchas opciones.}
+\end{uxlist}
+
+\personabloque{Escenario de uso}
+Recibe una solicitud para confirmar una cifra de crédito antes de una reunión. Abre el portal,
+escribe el concepto, revisa la fecha de actualización y la definición, filtra por periodo y
+copia el dato con su referencia. Si necesita más contexto, abre el detalle sin abandonar la
+consulta.
+
+\subsection{Mapa de empatía de Laura}
+\mapaempatia
+  {\item Solo necesito saber cuál es el dato correcto.
+   \item Siempre termino preguntando quién actualiza esta fuente.
+   \item Quiero ver la fecha antes de usar el resultado.}
+  {\item ¿Esta variable significa lo mismo que en el reporte anterior?
+   \item No debería tomar tanto tiempo una validación sencilla.
+   \item Si uso la fuente equivocada, tendré que explicar el error.}
+  {\item Reutiliza archivos y consultas anteriores.
+   \item Compara resultados antes de responder.
+   \item Contacta a colegas cuando no identifica al propietario.
+   \item Guarda enlaces y notas personales.}
+  {\item Presión cuando la solicitud es urgente.
+   \item Duda ante nombres o definiciones similares.
+   \item Alivio cuando la fuente muestra contexto y vigencia.
+   \item Frustración al repetir pasos.}
+
+% ---------------------------------------------------------------- Persona 2
+\clearpage
+\section{Persona 2 · Diego Hernández}
+
+\personahead{imagenes/persona_02_diego.png}{Diego Hernández}
+  {“No me basta con descargar un archivo; necesito entender de dónde viene y poder repetir el
+   proceso.”}
+
+\begin{personadatos}
+Edad & 29 años \\
+Sexo & Hombre \\
+Ubicación & Ciudad de México, modalidad híbrida \\
+Ocupación & Analista de Datos Financieros \\
+Experiencia & 5 años en análisis, automatización y visualización de datos \\
+Nivel técnico & Avanzado: SQL, Python, Excel y herramientas de inteligencia de negocio \\
+Modo principal & Analista: exploración, cruce, extracción y reutilización \\
+\end{personadatos}
+
+\personabloque{Antecedentes}
+Diego estudió Actuaría y participa en proyectos que integran información de distintas áreas
+financieras. Prefiere procesos reproducibles y documentados. Puede explorar datos con
+autonomía, pero pierde tiempo cuando las fuentes utilizan estructuras, nombres o periodos
+diferentes. Le interesan la automatización, la visualización, la tecnología y el aprendizaje
+continuo. Vive con su pareja en un departamento cercano a la oficina, sin hijos, y dedica
+buena parte de su tiempo libre a proyectos personales de programación.
+
+\personabloque{Objetivos}
+\begin{uxlist}
+\lead{Integración}{descubrir fuentes relacionadas y cruzarlas con criterios consistentes.}
+\lead{Reproducibilidad}{guardar consultas, filtros y versiones para repetir el análisis.}
+\lead{Acceso}{obtener datos crudos mediante CSV, Excel, conexión o API, según el volumen.}
+\lead{Calidad}{identificar cobertura, periodicidad, propietario y limitaciones antes de
+  modelar.}
+\end{uxlist}
+
+\personabloque{Pain points y desafíos}
+\begin{uxlist}
+\lead{Estructuras incompatibles}{las fuentes usan identificadores, catálogos o granularidades
+  diferentes.}
+\lead{Documentación dispersa}{las definiciones se encuentran en correos, archivos o
+  conocimiento de especialistas.}
+\lead{Exportaciones limitadas}{algunos flujos no funcionan bien con archivos pesados o
+  requieren pasos manuales.}
+\lead{Trazabilidad}{es difícil reconstruir qué versión, filtro o transformación produjo un
+  resultado.}
+\end{uxlist}
+
+\personabloque{Comportamientos y hábitos}
+\begin{uxlist}
+\lead{Exploración}{revisa metadatos y muestras antes de descargar un conjunto completo.}
+\lead{Preparación}{documenta transformaciones y conserva scripts o consultas reutilizables.}
+\lead{Herramientas}{navegador, SQL, Python, Excel y Power BI.}
+\lead{Colaboración}{consulta a propietarios de datos cuando detecta valores atípicos o cambios
+  de estructura.}
+\end{uxlist}
+
+\personabloque{Escenario de uso}
+Debe analizar la relación entre créditos, liquidez y variables de derivados. Busca una fuente
+inicial en el catálogo, revisa el diccionario y descubre conjuntos relacionados. Compara
+granularidad y fechas, configura filtros, prueba una muestra y después genera una extracción
+por API. Guarda la consulta y comparte la referencia para que el análisis pueda repetirse.
+
+\subsection{Mapa de empatía de Diego}
+\mapaempatia
+  {\item Necesito saber qué representa cada campo.
+   \item La descarga debe poder repetirse con los mismos filtros.
+   \item Prefiero probar una muestra antes de extraer todo.}
+  {\item ¿Las fuentes tienen la misma granularidad y periodo?
+   \item ¿Hubo un cambio de estructura que no está documentado?
+   \item ¿Cómo explicaría el origen de este resultado a otra persona?}
+  {\item Explora metadatos y relaciones entre fuentes.
+   \item Construye consultas y scripts reutilizables.
+   \item Valida valores atípicos con el área propietaria.
+   \item Documenta filtros, fechas y transformaciones.}
+  {\item Curiosidad al descubrir fuentes relacionadas.
+   \item Frustración con formatos y definiciones inconsistentes.
+   \item Desconfianza cuando falta trazabilidad.
+   \item Control cuando el proceso es reproducible.}
+
+% ============================================================================
+\clearpage
+\aportacion{Alexandro Mayoral Terán}{Matrícula A01795899 · Personas 3, 4, 5 y 6}
+
+% ---------------------------------------------------------------- Persona 3
+\section{Persona 3 · Roberto Valdez}
+
+\personahead{imagenes/persona_03_roberto.png}{Roberto Valdez}
+  {“Si publican un análisis con datos desactualizados o mal interpretados, el problema y las
+   explicaciones recaen en mi área.”}
+
+\begin{personadatos}
+Edad & 52 años \\
+Sexo & Hombre \\
+Ubicación & Ciudad de México \\
+Ocupación & Subgerente de Información de Estados Financieros y Crédito \\
+Experiencia & 18 años en el Banco; experto en catálogos y metodologías crediticias \\
+Nivel técnico & Intermedio: bases de datos relacionales, validación de reglas de negocio y
+  Excel avanzado \\
+Modo principal & Propietario de datos: gobierno, calidad, definiciones y autorización de
+  accesos \\
+\end{personadatos}
+
+\personabloque{Antecedentes}
+Roberto es contador y dirige el equipo que recibe, limpia y clasifica la información
+crediticia que envían los bancos. Conoce de memoria los catálogos regulatorios y es muy
+meticuloso. Constantemente lidia con solicitudes de otras Direcciones Generales que necesitan
+sus bases de datos para investigaciones macroeconómicas, pero que a menudo no comprenden la
+complejidad o las reglas detrás de la clasificación de los créditos. Está casado, tiene dos
+hijos en edad universitaria y es el principal sostén económico de su casa. Fuera del trabajo
+disfruta la lectura de historia y el ajedrez.
+
+\personabloque{Objetivos}
+\begin{uxlist}
+\lead{Control de calidad}{asegurar que toda el área institucional utilice la definición
+  oficial y la versión más reciente de los datos de crédito.}
+\lead{Gobierno eficiente}{documentar los metadatos en un solo lugar para evitar responder las
+  mismas dudas por correo.}
+\lead{Gestión de accesos}{tener la capacidad de aprobar o rechazar quién puede consultar el
+  nivel más granular y confidencial de su información.}
+\end{uxlist}
+
+\personabloque{Pain points y desafíos}
+\begin{uxlist}
+\lead{Consultas repetitivas}{pierde horas a la semana explicando a analistas de otras áreas
+  qué significa una columna específica en su base de datos.}
+\lead{Uso de datos obsoletos}{otras áreas siguen trabajando con extracciones descargadas meses
+  atrás y no se enteran cuando la definición o la clasificación oficial ya cambió.}
+\lead{Descontrol de versiones}{otras áreas descargan su información, la guardan localmente y
+  meses después publican reportes internos con datos viejos y sin trazabilidad.}
+\lead{Trazabilidad}{le frustra que no haya un repositorio único donde él pueda decir “esta es
+  la fuente de verdad certificada por mi subgerencia”.}
+\end{uxlist}
+
+\personabloque{Comportamientos y hábitos}
+\begin{uxlist}
+\lead{Documentación manual}{mantiene diccionarios de datos detallados, pero actualmente los
+  comparte en PDF o Excel por correo institucional.}
+\lead{Autorización}{revisa detalladamente el motivo de consulta de cualquier usuario antes de
+  solicitar a TI que le den acceso a sus bases.}
+\lead{Herramientas}{correo electrónico institucional, sistemas core del banco, Excel y
+  software de gestión de requerimientos.}
+\end{uxlist}
+
+\personabloque{Escenario de uso}
+Roberto necesita actualizar el catálogo de clasificación de cartera de crédito. Sube la nueva
+estructura al portal, actualiza las definiciones en el diccionario de datos integrado y marca
+la versión anterior como deprecada. El portal notifica automáticamente a todos los analistas
+que tienen guardada esa fuente en sus perfiles, asegurando que nadie use metodologías viejas
+en su próximo análisis económico.
+
+\subsection{Mapa de empatía de Roberto}
+\mapaempatia
+  {\item Por favor revisen el diccionario de datos que les mandé por correo antes de cruzar
+     variables.
+   \item Esa cifra no cuadra porque están usando información desactualizada.
+   \item ¿Para qué investigación específica necesitan este nivel de detalle?}
+  {\item Ojalá hubiera un lugar donde la gente pudiera leer las reglas del dato sin tener que
+     llamarme.
+   \item Me preocupa que se filtre información de crédito que aún no es pública.
+   \item Tengo que proteger la reputación técnica de mi subgerencia.}
+  {\item Dedica tiempo a explicar metodologías por teléfono institucional.
+   \item Mantiene un control estricto, casi manual, de quién tiene sus bases de datos.
+   \item Revisa los reportes de otras áreas para asegurar que no malinterpretaron sus cifras.}
+  {\item Responsabilidad absoluta sobre la veracidad de la información de crédito.
+   \item Frustración por ser un cuello de botella para los analistas.
+   \item Celoso de la información: valora mucho la confidencialidad y el control.}
+
+% ---------------------------------------------------------------- Persona 4
+\clearpage
+\section{Persona 4 · Elena Ruiz}
+
+\personahead{imagenes/persona_04_elena.png}{Elena Ruiz}
+  {“No puedo basar mi auditoría en cadenas de correos; necesito ver la bitácora de quién tocó
+   ese dato y cuándo.”}
+
+\begin{personadatos}
+Edad & 36 años \\
+Sexo & Mujer \\
+Ubicación & Ciudad de México \\
+Ocupación & Especialista en Auditoría de Tecnología de Información \\
+Experiencia & 7 años auditando sistemas, controles de acceso y procesos financieros críticos \\
+Nivel técnico & Avanzado: lectura de bitácoras, SQL y marcos de seguridad \\
+Modo principal & Riesgos y auditoría: control, trazabilidad, permisos y recopilación de
+  evidencia \\
+\end{personadatos}
+
+\personabloque{Antecedentes}
+Elena trabaja en la Unidad de Auditoría que reporta a la Junta de Gobierno. Su trabajo no es
+analizar la economía, sino vigilar que los sistemas y procesos que manejan los datos del Banco
+Central cumplan con las estrictas normativas de seguridad, confidencialidad y transparencia.
+Es muy estructurada, analítica y su trabajo requiere que sea escéptica por naturaleza. Es
+contadora pública con certificación en auditoría de sistemas. Es madre de un niño de nueve
+años y cuida mucho su tiempo, por lo que evita las jornadas extendidas; fuera del trabajo
+practica natación y toma cursos de actualización normativa.
+
+\personabloque{Objetivos}
+\begin{uxlist}
+\lead{Trazabilidad}{poder reconstruir exactamente el ciclo de vida de un dato crítico: quién
+  lo subió, quién lo modificó y quién lo descargó.}
+\lead{Transparencia de accesos}{verificar de forma rápida qué usuarios tienen privilegios de
+  lectura sobre información sensible antes de su publicación.}
+\lead{Evidencia inmutable}{obtener reportes del sistema que sirvan como prueba fehaciente para
+  sus informes de auditoría, sin depender de testimonios verbales.}
+\end{uxlist}
+
+\personabloque{Pain points y desafíos}
+\begin{uxlist}
+\lead{Fragmentación de bitácoras}{cuando audita un proceso, la evidencia está repartida entre
+  sistemas antiguos, correos electrónicos y tickets de mesa de ayuda, haciendo casi imposible
+  armar el rompecabezas.}
+\lead{Cajas negras}{le incomodan los procesos donde la información se transforma en el Excel
+  personal de un analista, perdiendo todo el rastro de la fuente original.}
+\lead{Lentitud en la recolección}{depende de que el área de TI le extraiga las bitácoras, lo
+  cual retrasa sus tiempos de entrega de la auditoría.}
+\end{uxlist}
+
+\personabloque{Comportamientos y hábitos}
+\begin{uxlist}
+\lead{Recolección de pruebas}{documenta cada paso con capturas de pantalla, oficios y reportes
+  extraídos directamente de los sistemas.}
+\lead{Análisis de permisos}{cruza constantemente el organigrama con las matrices de acceso a
+  los sistemas.}
+\lead{Herramientas}{software de auditoría interna, bases de datos, Excel y sistemas de tickets
+  institucionales.}
+\end{uxlist}
+
+\personabloque{Escenario de uso}
+Elena está auditando el proceso de publicación del reporte de Agregados Monetarios. En lugar
+de pedir oficios y correos, entra al portal centralizado. Entra al módulo de auditoría, busca
+la variable específica y descarga un reporte de trazabilidad que muestra la fecha exacta en
+que se cargó el dato, que Roberto Valdez aprobó su calidad, y la lista de los cinco analistas
+que tuvieron acceso previo a la publicación. Genera su evidencia en minutos.
+
+\subsection{Mapa de empatía de Elena}
+\mapaempatia
+  {\item Necesito la evidencia documentada de que el dueño del dato autorizó este acceso.
+   \item Esta información estuvo en un archivo compartido, ¿quién más lo vio?
+   \item Muéstrenme la bitácora del sistema, no el correo.}
+  {\item Si hay una fuga de información y no podemos rastrearla, la Junta de Gobierno nos
+     exigirá respuestas.
+   \item Es increíble que sigan manejando datos confidenciales fuera del sistema central.
+   \item Quiero reducir el tiempo que tardo en juntar pruebas para mi reporte.}
+  {\item Levanta tickets a TI pidiendo extracciones de bases de datos.
+   \item Entrevista a los usuarios para entender por qué tomaron un atajo en el sistema.
+   \item Cruza listas de acceso con la nómina para detectar usuarios inactivos con permisos.}
+  {\item Escepticismo natural ante procesos manuales.
+   \item Presión por entregar reportes de auditoría sin errores ni suposiciones.
+   \item Tranquilidad cuando un sistema habla por sí solo con sus bitácoras.}
+
+% ---------------------------------------------------------------- Persona 5
+\clearpage
+\section{Persona 5 · Jorge Mendieta}
+
+\personahead{imagenes/persona_05_jorge.png}{Jorge Mendieta}
+  {“Mi trabajo es que los fierros no fallen. Si un área cambia la estructura de su base de
+   datos y no me avisa, rompen las integraciones de todo el banco.”}
+
+\begin{personadatos}
+Edad & 42 años \\
+Sexo & Hombre \\
+Ubicación & Ciudad de México \\
+Ocupación & Administrador de Data Warehouse en la Gerencia de Sistemas de Información \\
+Experiencia & 15 años en arquitectura de datos, procesos de extracción y carga, y modelado
+  dimensional \\
+Nivel técnico & Avanzado: SQL, herramientas de integración y modelado de datos \\
+Modo principal & Ingeniería y administración: integración técnica, gobierno técnico y
+  rendimiento del almacén de datos \\
+\end{personadatos}
+
+\personabloque{Antecedentes}
+Jorge trabaja mano a mano con la Gerencia de Información. Mientras que la gerencia define el
+significado económico de los datos, Jorge diseña las tuberías técnicas y la estructura del
+almacén de datos institucional. Su principal responsabilidad es asegurar que la información
+que llega de los bancos se integre limpiamente en las bases históricas, estructurándola de
+forma que los analistas puedan consultarla rápidamente. Es ingeniero en sistemas
+computacionales con maestría en tecnologías de información. Está casado y tiene dos hijas
+pequeñas; procura no llevarse el trabajo a casa, aunque las cargas nocturnas se lo dificultan.
+Fuera de la oficina arma equipos de cómputo y sigue el futbol.
+
+\personabloque{Objetivos}
+\begin{uxlist}
+\lead{Integridad estructural}{asegurar que el almacén de datos sea una única fuente de verdad
+  técnica, sin datos duplicados ni inconsistencias.}
+\lead{Rendimiento en consultas}{diseñar las tablas para que las consultas masivas de los
+  analistas tarden segundos y no horas.}
+\lead{Automatización de cargas}{mantener los flujos de carga nocturna funcionando sin
+  interrupciones ni errores humanos.}
+\end{uxlist}
+
+\personabloque{Pain points y desafíos}
+\begin{uxlist}
+\lead{Datos sin formato}{su mayor dolor de cabeza es cuando las áreas de negocio aprueban
+  catálogos o envían información con formatos incorrectos, por ejemplo fechas en texto, que
+  rompen los flujos de carga automatizados.}
+\lead{Silos técnicos ocultos}{le molesta descubrir que un analista creó un almacén paralelo en
+  su computadora, esquivando la arquitectura oficial del banco.}
+\lead{Mantenimiento reactivo}{pierde mucho tiempo rastreando por qué un cálculo falló, solo
+  para descubrir que alguien cambió una regla de negocio sin avisar a su equipo.}
+\end{uxlist}
+
+\personabloque{Comportamientos y hábitos}
+\begin{uxlist}
+\lead{Arquitectura primero}{antes de cargar un solo dato al sistema, dibuja diagramas de
+  relación entre tablas.}
+\lead{Validación estricta}{programa rutinas para que el sistema rechace automáticamente
+  cualquier archivo que no cumpla con la arquitectura del almacén.}
+\lead{Herramientas}{gestores de bases de datos masivas, herramientas de integración y software
+  de modelado de datos institucionales.}
+\end{uxlist}
+
+\personabloque{Escenario de uso}
+La Gerencia de Información aprueba una nueva métrica regulatoria. En lugar de levantar un
+ticket complejo, Jorge entra al portal centralizado, revisa la definición exacta de la nueva
+métrica en el catálogo de metadatos del negocio y mapea esa definición hacia una nueva tabla
+en el almacén de datos. El portal actualiza el modelo sin interrumpir el servicio, permitiendo
+que al día siguiente los analistas ya puedan consultar la métrica en sus tableros.
+
+\subsection{Mapa de empatía de Jorge}
+\mapaempatia
+  {\item Ese archivo no pasó la validación de anoche por un error de formato.
+   \item Por favor, no hagan consultas masivas directas a la tabla transaccional: usen las
+     vistas del almacén.
+   \item El diccionario de datos debe estar alineado a la estructura de la base.}
+  {\item Los usuarios de negocio creen que subir un dato al sistema es magia; no ven la
+     arquitectura que hay detrás.
+   \item Necesitamos que todos usen el portal institucional para evitar los archivos fantasma.
+   \item Cada cambio no anunciado es una falla que voy a rastrear de madrugada.}
+  {\item Audita los tiempos de respuesta de la base de datos.
+   \item Diseña arquitecturas para que la información histórica no ralentice el sistema actual.
+   \item Rechaza integraciones que no cumplen con los estándares.}
+  {\item Estrés al iniciar su jornada y ver que un proceso de carga nocturna falló.
+   \item Frustración ante la falta de higiene de datos por parte de los originadores.
+   \item Satisfacción técnica cuando una base de millones de registros responde en
+     milisegundos.}
+
+% ---------------------------------------------------------------- Persona 6
+\clearpage
+\section{Persona 6 · Arturo Castañeda}
+
+\personahead{imagenes/persona_06_arturo.png}{Arturo Castañeda}
+  {“En la Junta de Gobierno tengo cinco minutos para exponer; no me des bases de datos, dame
+   certezas y tendencias claras.”}
+
+\begin{personadatos}
+Edad & 55 años \\
+Sexo & Hombre \\
+Ubicación & Ciudad de México \\
+Ocupación & Director General de Estabilidad Financiera \\
+Experiencia & 25 años en el sector público y financiero, toma de decisiones macroeconómicas \\
+Nivel técnico & Básico: interpretación avanzada de gráficas y tableros, sin uso de SQL ni
+  código \\
+Modo principal & Directivo: abstracción, consolidación, visión estratégica e indicadores clave \\
+\end{personadatos}
+
+\personabloque{Antecedentes}
+Arturo es un economista con amplia trayectoria. Como Director General, su responsabilidad es
+monitorear los riesgos sistémicos del país y asesorar a los Subgobernadores y a la Gobernadora.
+Su agenda está llena de reuniones de alto nivel. No tiene tiempo para limpiar datos ni cruzar
+hojas de cálculo; consume la información ya procesada y consolidada. Está casado, tiene tres
+hijos ya independientes y dos nietos. Fuera del trabajo lee ensayo económico, corre por las
+mañanas y participa como profesor invitado en programas de posgrado.
+
+\personabloque{Objetivos}
+\begin{uxlist}
+\lead{Visión macroscópica}{ver el estado general de la estabilidad financiera en un solo
+  vistazo.}
+\lead{Toma de decisiones rápidas}{identificar de inmediato anomalías, picos o tendencias
+  preocupantes en el mercado.}
+\lead{Certeza}{tener la absoluta seguridad de que el número que está viendo en la pantalla es
+  la versión final, oficial y auditada por sus gerentes.}
+\end{uxlist}
+
+\personabloque{Pain points y desafíos}
+\begin{uxlist}
+\lead{Diferentes versiones de la verdad}{le incomoda mucho cuando en una reunión un director
+  trae un reporte con un número y otro director trae un número distinto porque usaron bases de
+  fechas diferentes.}
+\lead{Falta de contexto inmediato}{a veces un indicador se ve alarmante y tiene que hacer
+  varias llamadas a sus gerentes para entender por qué hubo ese pico.}
+\lead{Ruido visual}{le mandan reportes con demasiadas tablas y datos crudos que no le ayudan a
+  entender el panorama general.}
+\end{uxlist}
+
+\personabloque{Comportamientos y hábitos}
+\begin{uxlist}
+\lead{Consumo de información destilada}{su equipo le prepara resúmenes ejecutivos y tableros
+  interactivos.}
+\lead{Delegación profunda}{si encuentra una duda en un indicador, pide a sus gerentes que
+  investiguen la raíz del problema en las bases subyacentes.}
+\lead{Herramientas}{tableta institucional, correo electrónico, reportes ejecutivos en PDF y
+  tableros interactivos.}
+\end{uxlist}
+
+\personabloque{Escenario de uso}
+Quince minutos antes de entrar a presentar ante la Junta de Gobierno, Arturo abre el portal
+desde su tableta y entra a su espacio directivo. Ve un tablero con los cuatro indicadores
+clave de riesgo bancario del mes. Nota una ligera alza en uno de ellos. Toca la gráfica y el
+portal le muestra una tarjeta de contexto escrita por el propietario del dato: “el alza se
+debe al ajuste estacional aprobado la semana pasada”. Bloquea su tableta y entra a la reunión
+con seguridad.
+
+\subsection{Mapa de empatía de Arturo}
+\mapaempatia
+  {\item ¿Este dato ya está conciliado con la Dirección de Investigación Económica?
+   \item Solo quiero ver la tendencia del trimestre, quiten el ruido de la gráfica.
+   \item Si me preguntan en la Junta de dónde salió esta cifra, ¿qué respondo?}
+  {\item Necesitamos una sola versión de la verdad en todo el Banco.
+   \item No me importan los problemas técnicos; me importa tener la información para la
+     reunión de las 12:00.
+   \item El tiempo es mi recurso más escaso.}
+  {\item Pide resúmenes ejecutivos en lugar de documentos de 50 páginas.
+   \item Toma decisiones que pueden impactar a los mercados financieros basándose en la
+     fiabilidad de estos reportes.
+   \item Delega la validación técnica a sus gerentes y subgerentes.}
+  {\item Mucha presión política e institucional por no dar un número equivocado.
+   \item Frustración ante la burocracia que retrasa la disponibilidad de información.
+   \item Seguridad plena cuando el sistema le demuestra que el dato es oficial.}
+
+% ============================================================================
+\clearpage
+\aportacion{Arthur Jafed Zizumbo Velasco}{Matrícula A01796363 · Personas 7 y 8}
+
+% ---------------------------------------------------------------- Persona 7
+\section{Persona 7 · Mariana Ovalle Ríos}
+
+\personahead{imagenes/persona_07_mariana.png}{Mariana Ovalle Ríos}
+  {“Cada acceso que autorizo es una responsabilidad que firmo. Necesito darlo en minutos y
+   poder retirarlo igual de rápido.”}
+
+\begin{personadatos}
+Edad & 41 años \\
+Sexo & Mujer \\
+Ubicación & Ciudad de México \\
+Ocupación & Administradora de Plataformas de Información \\
+Experiencia & 16 años en administración de sistemas institucionales y control de accesos \\
+Nivel técnico & Avanzado: directorio corporativo, matrices de acceso, SQL y monitoreo de
+  plataformas \\
+Modo principal & Administración: altas y bajas de usuarios, asignación de roles y continuidad
+  del servicio \\
+\end{personadatos}
+
+\personabloque{Antecedentes}
+Mariana es ingeniera en sistemas computacionales con especialidad en seguridad de la
+información. Coordina la administración de las plataformas de datos que utilizan varias
+direcciones de la institución: da de alta a quien se incorpora, ajusta permisos cuando alguien
+cambia de área y desactiva cuentas cuando alguien sale. Vive con su esposo y su hija
+adolescente en el sur de la ciudad; fuera del trabajo corre medio maratones y toma cursos de
+certificación en seguridad. Es metódica y desconfía de los procesos que dependen de que
+alguien se acuerde.
+
+\personabloque{Objetivos}
+\begin{uxlist}
+\lead{Altas y bajas oportunas}{dar acceso el primer día a quien se incorpora y retirarlo el
+  mismo día de la baja, sin depender de recordatorios.}
+\lead{Permiso mínimo suficiente}{asignar el rol más acotado que permita a cada persona hacer
+  su trabajo, y poder demostrar por qué se otorgó.}
+\lead{Continuidad del servicio}{anticipar saturación, fallas de sesión o interrupciones antes
+  de que los usuarios las reporten.}
+\end{uxlist}
+
+\personabloque{Pain points y desafíos}
+\begin{uxlist}
+\lead{Accesos huérfanos}{cuentas que siguen activas después de que la persona cambió de área o
+  dejó la institución, y que suelen detectarse hasta que alguien más las audita.}
+\lead{Solicitudes sin contexto}{recibe peticiones de acceso por correo sin justificación, sin
+  vigencia y sin visto bueno del propietario del dato.}
+\lead{Trabajo invisible}{cuando la plataforma funciona nadie lo nota; cuando falla, todos
+  escriben al mismo tiempo y no tiene con qué mostrar qué ocurrió.}
+\end{uxlist}
+
+\personabloque{Comportamientos y hábitos}
+\begin{uxlist}
+\lead{Verificación previa}{antes de otorgar un permiso confirma con el propietario del dato y
+  deja registrada la autorización.}
+\lead{Revisión periódica}{cruza la lista de usuarios activos contra la plantilla vigente para
+  detectar cuentas que sobran.}
+\lead{Herramientas}{consola de administración, directorio corporativo, hojas de control,
+  sistema de tickets y tableros de monitoreo.}
+\end{uxlist}
+
+\personabloque{Escenario de uso}
+Se incorpora una analista a la Dirección de Riesgos. Mariana entra al panel de administración
+del portal, la da de alta con el rol Analista y el sistema le muestra exactamente qué fuentes
+queda habilitada a consultar con ese rol. Al mes siguiente la persona se mueve a un área
+directiva: Mariana cambia el rol en un clic, el portal reajusta de inmediato los módulos
+visibles y deja registrado quién hizo el cambio y cuándo. Al cierre del trimestre descarga el
+reporte de cuentas sin actividad y desactiva seis en una sola sesión, con la evidencia lista
+por si auditoría la pide.
+
+\subsection{Mapa de empatía de Mariana}
+\mapaempatia
+  {\item Necesito que el dueño del dato autorice por escrito, no por mensaje.
+   \item ¿Esta cuenta sigue activa? La persona ya no está en esa área.
+   \item Dame el rol correcto desde el inicio y nos ahorramos tres tickets.}
+  {\item Si alguien entra donde no debe, la pregunta va a llegar a mi escritorio.
+   \item Debería poder revisar todos los accesos en una pantalla, no en cinco sistemas.
+   \item Cada excepción que hago hoy es un hallazgo de auditoría en seis meses.}
+  {\item Da de alta, modifica y desactiva usuarios conforme cambia la plantilla.
+   \item Cruza listas de acceso contra la plantilla para detectar cuentas huérfanas.
+   \item Documenta cada autorización para poder sustentarla después.}
+  {\item Responsabilidad constante por ser la última llave del acceso.
+   \item Frustración cuando le piden accesos urgentes sin justificación.
+   \item Tranquilidad cuando el sistema deja el rastro por ella.}
+
+% ---------------------------------------------------------------- Persona 8
+\clearpage
+\section{Persona 8 · Ximena Solís Barrera}
+
+\personahead{imagenes/persona_08_ximena.png}{Ximena Solís Barrera}
+  {“No quiero descargar un archivo cada lunes. Dame un servicio estable, con su definición
+   clara, y yo automatizo el resto.”}
+
+\begin{personadatos}
+Edad & 28 años \\
+Sexo & Mujer \\
+Ubicación & Ciudad de México, modalidad híbrida \\
+Ocupación & Ingeniera de Aplicaciones Internas \\
+Experiencia & 5 años desarrollando herramientas internas y servicios de datos \\
+Nivel técnico & Avanzado: Python, APIs REST, control de versiones y automatización \\
+Modo principal & Integración: consumo programático de datos y automatización de procesos \\
+\end{personadatos}
+
+\personabloque{Antecedentes}
+Ximena es ingeniera en tecnologías de información y desarrolla las herramientas internas que
+usan las áreas de negocio: calculadoras de riesgo, tableros a la medida y automatizaciones que
+eliminan trabajo repetitivo. Comparte departamento con dos compañeras de la maestría, y dedica
+los fines de semana a proyectos personales de programación y a andar en bicicleta. Le incomoda
+construir sobre fuentes que pueden cambiar sin aviso, porque es ella quien recibe la llamada
+cuando algo deja de funcionar.
+
+\personabloque{Objetivos}
+\begin{uxlist}
+\lead{Contrato estable}{consumir datos mediante APIs con una definición documentada que no
+  cambie sin aviso ni versión previa.}
+\lead{Automatización confiable}{eliminar los pasos manuales de descarga y transformación que
+  hoy repite cada semana.}
+\lead{Autoservicio}{obtener credenciales, revisar el catálogo y probar una consulta sin abrir
+  un ticket ni esperar días por una aprobación.}
+\end{uxlist}
+
+\personabloque{Pain points y desafíos}
+\begin{uxlist}
+\lead{Cambios silenciosos}{un campo cambia de nombre o de tipo y su proceso falla en producción
+  sin que nadie lo hubiera anunciado.}
+\lead{Documentación incompleta}{encuentra el servicio pero no la definición del campo, su
+  periodicidad ni sus valores válidos.}
+\lead{Fricción de acceso}{cada fuente nueva implica un trámite distinto, con formato,
+  responsable y tiempo de respuesta diferentes.}
+\end{uxlist}
+
+\personabloque{Comportamientos y hábitos}
+\begin{uxlist}
+\lead{Prueba antes de integrar}{consulta el catálogo y ejecuta una muestra pequeña antes de
+  escribir la automatización.}
+\lead{Versiona todo}{guarda en el repositorio las consultas, los esquemas esperados y las
+  pruebas que detectan cambios de estructura.}
+\lead{Herramientas}{Python, clientes REST, control de versiones, contenedores y tableros de
+  monitoreo.}
+\end{uxlist}
+
+\personabloque{Escenario de uso}
+El área de riesgos le pide una herramienta que combine la exposición de créditos y derivados
+por contraparte, actualizada cada mañana. Ximena entra al catálogo del portal, localiza los
+dos conjuntos, revisa la definición y la periodicidad de cada campo y genera sus credenciales
+desde su propio perfil. Prueba la consulta con un rango corto, confirma el formato de salida y
+programa la ejecución diaria. Semanas después el portal anuncia un cambio de esquema y
+mantiene disponible la versión anterior: su proceso sigue corriendo mientras ella migra sin
+prisa.
+
+\subsection{Mapa de empatía de Ximena}
+\mapaempatia
+  {\item ¿Dónde está la documentación de este servicio de datos?
+   \item Si van a cambiar el esquema, avísenme antes, no cuando ya falló.
+   \item Prefiero probar con una muestra antes de programar la carga completa.}
+  {\item ¿Puedo confiar en que este campo signifique lo mismo el mes que viene?
+   \item Automatizar esto ahorra cuatro horas a la semana; hacerlo mal cuesta el doble.
+   \item Si tengo que pedir permiso cada vez, la gente lo va a resolver por fuera.}
+  {\item Explora el catálogo y prueba consultas pequeñas antes de integrar.
+   \item Versiona esquemas y escribe pruebas que detectan cambios de estructura.
+   \item Automatiza descargas recurrentes y vigila que no fallen.}
+  {\item Confianza cuando la definición del dato está documentada y versionada.
+   \item Enojo cuando un cambio no anunciado rompe un proceso en producción.
+   \item Satisfacción al eliminar un trabajo manual que alguien hacía cada semana.}
+
+% ============================================================================
+\clearpage
+\section{Síntesis: persona primaria y alcance del método}
+
+\subsection{Persona primaria}
+
+Las ocho personas no se eligieron de una lista. Resultan de consolidar por objetivos de
+trabajo los perfiles de la audiencia del apartado 1.1, agrupando en un mismo retrato a quienes
+persiguen la misma meta aunque difieran en antecedentes; de ese conjunto se designa después
+una persona primaria (Hartson y Pyla, 2012).
+
+\begin{uxdestacado}
+De las ocho personas, \textbf{\textcolor{uxnavy}{Laura Méndez}} (perfil operativo) se designa
+como persona primaria del producto. Es el denominador común del portal: los siete perfiles
+restantes también localizan y validan datos puntuales, aunque no sea su modo dominante.
+Siguiendo el procedimiento de Hartson y Pyla (2012), la persona primaria es el blanco de
+diseño específico y el criterio con el que se resuelven los conflictos de diseño: una interfaz
+construida para Laura sigue sirviendo a las demás, mientras que una construida para Arturo
+Castañeda, con su nivel de abstracción, no resolvería la tarea de Laura. Las siete personas
+restantes se atienden sin sacrificar el caso primario.
+\end{uxdestacado}
+
+\subsection{Alcance y límite del método}
+
+La literatura advierte que la técnica de personas rinde menos en dominios de trabajo
+complejos, donde la práctica está muy normada y los individuos de un mismo rol resultan
+intercambiables (Hartson y Pyla, 2012). El portal opera en uno de esos dominios. El equipo lo
+asume y lo mitiga combinando las personas con una descripción explícita de perfiles y
+responsabilidades sobre el dato (apartado 1.1), de modo que las decisiones de diseño no
+dependan únicamente del retrato individual. Conviene además distinguir dos planos: los ocho
+perfiles de la sección 1 son categorías de audiencia para la investigación, mientras que el
+control de acceso del producto se resuelve con cuatro roles operativos: operativo, analista,
+directivo y administrador.
+
+\subsection{Criterios de calidad aplicados}
+
+Las ocho personas se contrastaron con los criterios de calidad que propone la literatura:
+deben ser ricas en detalle, relevantes para las decisiones de diseño, creíbles, específicas y
+precisas, y deben evitar al usuario promedio, cuya mezcla de rasgos produce un retrato que no
+representa a nadie (Hartson y Pyla, 2012). Por eso cada persona tiene nombre completo,
+historia laboral, situación personal, herramientas concretas y un escenario de uso, en lugar
+de una descripción genérica del puesto.
+
+Existe además un riesgo particular en este proyecto: los integrantes del equipo trabajan en el
+mismo dominio que se está diseñando, lo que facilita el sesgo de diseñar para uno mismo. La
+literatura señala que las personas sirven precisamente para contrarrestar esa tendencia,
+porque obligan a preguntarse cómo resolvería la tarea alguien con otras características y no
+cómo la resolvería quien diseña (Hartson y Pyla, 2012). Las ocho personas cumplen aquí esa
+función de control: obligan a evaluar cada decisión desde perfiles cuyas prioridades no
+coinciden con las del equipo.
+
+% ============================================================================
+\clearpage
+\section{Trazabilidad del problema al producto}
+
+La siguiente matriz conecta las tres secciones de equipo con la sección individual: cada pain
+point identificado en 1.3 corresponde a una necesidad de 1.2, a una característica del
+producto de 3.2 y a la persona que la encarna. La cobertura es deliberada y completa: los ocho
+perfiles de la audiencia tienen persona y característica asociada, y ninguna característica
+del producto queda sin un pain point que la justifique.
+
+\begin{uxtabla}{Z{0.85}L{2.5cm}Z{1.15}L{2.7cm}}{Trazabilidad de pain point a necesidad, característica del producto y persona}
+\uxheadrow \thd{Pain point (1.3)} & \thd{Necesidad (1.2)} & \thd{Característica (3.2)} & \thd{Persona} \\ \midrule
+Información dispersa & Localización & Buscador unificado y catálogo de datos & Laura Méndez \\
+Fricción analítica & Profundidad & Explorador con filtros y exportación de datos crudos & Diego Hernández \\
+Riesgo de interpretación & Confianza & Catálogo con definición, propietario y vigencia & Roberto Valdez \\
+Evidencia limitada & Trazabilidad y control & Bitácora y evidencia & Elena Ruiz \\
+Cambios e incidentes poco visibles & Operabilidad técnica & Monitoreo técnico & Jorge Mendieta \\
+Silos de conocimiento & Confianza & Tableros consolidados con trazabilidad de cada cifra & Arturo Castañeda \\
+Responsabilidad difusa & Gobierno & Acceso por permisos y roles con flujos de aprobación & Mariana Ovalle \\
+Accesibilidad ineficiente & Interoperabilidad & Consumo por API con contrato documentado & Ximena Solís \\
+\end{uxtabla}
+
+% ============================================================================
+\clearpage
+\section{Referencias}
+
+\begingroup
+\setlength{\parskip}{9pt}
+\setlength{\parindent}{-0.5cm}
+\leftskip=0.5cm
+
+de Voil, N. (2020). \textit{User experience foundations}. BCS, The Chartered Institute for IT.
+
+Hartson, R., y Pyla, P. S. (2012). \textit{The UX book: Process and guidelines for ensuring a
+quality user experience}. Morgan Kaufmann.
+
+International Organization for Standardization. (2018). \textit{Ergonomics of human-system
+interaction — Part 11: Usability: Definitions and concepts} (ISO 9241-11:2018).
+
+Maioli, L. (2018). \textit{Fixing bad UX designs: Master proven approaches, tools, and
+techniques to make your user experience great again}. Packt Publishing.
+
+Osterwalder, A., y Pigneur, Y. (2010). \textit{Business model generation: A handbook for
+visionaries, game changers, and challengers}. John Wiley \& Sons.
+
+Portigal, S. (2013). \textit{Interviewing users}. Rosenfeld Media.
+
+Ramírez Mejía, A. I. (2023). \textit{Grocery shopping app: A guided UX case study. Part 1.
+Product and user definition} [Diapositivas]. TC4032 Experiencia del usuario y diseño de
+interfaces, Maestría en Inteligencia Artificial Aplicada, Instituto Tecnológico y de Estudios
+Superiores de Monterrey.
+
+\endgroup

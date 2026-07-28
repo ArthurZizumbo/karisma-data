@@ -1,0 +1,134 @@
+% ============================================================================
+\clearpage
+\section{Método y alcance}\label{sec:metodo}
+
+\subsection{De las personas a los escenarios}\label{sec:plantilla}
+
+Un escenario es, siguiendo el material de apoyo del curso, una historia sobre una de las
+personas ya creadas, que describe cómo esa persona completa una tarea o se comporta en una
+situación determinada; proporciona un contexto, tiene actores, objetivos y una secuencia de
+eventos, y cierra con un resultado (Baxter, Courage y Caine, 2015). Los mismos autores
+distinguen con claridad los tres documentos que el equipo ha producido hasta ahora, y esa
+distinción explica por qué esta actividad no repite a la anterior.
+
+\begin{uxtabla}{L{2.6cm}Z{1.0}Z{1.0}}{Diferencia entre perfil de usuario, persona y escenario según el material de apoyo}
+\uxheadrow \thd{Documento} & \thd{Qué es} & \thd{Para qué sirve} \\ \midrule
+Perfil de usuario & Descripción detallada de los atributos de los usuarios & Saber para quién se construye el producto y a quién reclutar para investigar \\
+Persona & Individuo ficticio creado para describir al usuario típico a partir del perfil & Mantener el foco en usuarios específicos durante las discusiones de diseño \\
+Escenario & Historia que describe cómo una persona concreta completa una tarea en una situación dada & Poner a prueba el sistema, verificar que satisface las necesidades reales y construir funcionalidad que los usuarios efectivamente quieran usar \\
+\end{uxtabla}
+
+Los seis escenarios de este documento siguen una plantilla única, propuesta por McInerney
+(2003) y recogida en el capítulo de referencia del curso. La plantilla ordena la historia en
+cuatro secciones: un título que describe la situación y no al personaje, la situación y la
+tarea, el método con el que el usuario aborda la situación —redactado de forma genérica y
+neutral respecto de la tecnología— y la ruta de ejecución, donde ya se nombran las
+funcionalidades concretas del producto. La tabla siguiente muestra cómo esa plantilla
+contiene los cuatro elementos que solicita la actividad.
+
+\begin{uxtabla}{L{3.4cm}Z{1.0}Z{1.0}}{Correspondencia entre la plantilla de escenario y los elementos solicitados}
+\uxheadrow \thd{Sección de la plantilla} & \thd{Contenido} & \thd{Elemento solicitado que satisface} \\ \midrule
+Contexto y usuario & Quién es, a qué audiencia pertenece, qué necesita, qué persigue y qué le duele en esta tarea & Definición del usuario \\
+Situación y tarea & Situación inicial, reto y meta, sin anticipar todavía cómo se resuelve & Descripción de la tarea: qué quiere conseguir \\
+Método para abordar la situación & Secuencia de pasos genérica, sin suponer un diseño concreto & Descripción de la tarea: pasos para lograrlo \\
+Ruta de ejecución & Narrativa de cómo se completa la tarea en el portal, nombrando cada punto de contacto & Identificación de las interacciones clave \\
+Resultado y sensación & Qué obtiene el usuario y cómo se siente al conseguirlo & Descripción del resultado deseado \\
+Excepciones & Situaciones poco frecuentes pero relevantes, y cómo responde el producto & Elemento adicional recomendado por el material de apoyo \\
+\end{uxtabla}
+
+Separar el método de la ruta de ejecución tiene una consecuencia práctica que conviene
+señalar: el método describe la tarea con independencia de cualquier diseño y por lo tanto
+sobrevive a los cambios de interfaz de las actividades siguientes, mientras que la ruta de
+ejecución se actualizará conforme el prototipo evolucione. El material de apoyo también
+advierte que un escenario no debe describir componentes de interfaz —evitar redacciones del
+tipo ``seleccionó la opción del menú desplegable'' o ``pulsó el botón de enviar''— sino
+acciones básicas del usuario. Los seis escenarios siguen esa regla.
+
+Finalmente, los mismos autores recomiendan incorporar excepciones, porque las situaciones
+extremas o poco frecuentes revelan dónde el producto se vuelve inútil o incluso problemático,
+y recuerdan que la frecuencia de un caso no equivale a su importancia. Cada escenario cierra
+con dos o tres excepciones derivadas de decisiones de diseño que el equipo ya ha tomado para
+el portal.
+
+\subsection{Cobertura: seis escenarios, ocho personas, seis flujos}
+
+Los escenarios no se eligieron por comodidad. Cada integrante desarrolló los de las personas
+que él mismo creó en la actividad anterior, y el conjunto se revisó para que cubriera los
+flujos principales del producto sin dejar módulos huérfanos ni repetir la misma historia seis
+veces. Las seis situaciones difieren en contexto, urgencia, dispositivo y modo de fallo.
+
+\begin{uxtabla}{C{0.9cm}L{2.9cm}Z{1.0}Z{1.0}}{Cobertura de los seis escenarios sobre las personas y los flujos del producto}
+\uxheadrow \thd{\#} & \thd{Persona} & \thd{Situación} & \thd{Flujo del producto que ejercita} \\ \midrule
+1 & Laura Méndez & Validación urgente antes de una reunión & Acceso, buscador unificado, catálogo y asistente \\
+2 & Diego Hernández & Cruce de tres fuentes y extracción reproducible & Explorador analítico y exportación en segundo plano \\
+3 & Arturo Castañeda & Entender una señal de riesgo antes de exponer & Tableros consolidados, profundización progresiva y resumen asistido \\
+4 & Roberto Valdez & Publicar una nueva versión del catálogo sin romper a nadie & Gobierno de metadatos, versiones y notificación dirigida \\
+5 & Mariana Ovalle & Otorgar el acceso mínimo suficiente y poder retirarlo & Administración de usuarios, roles y evidencia \\
+6 & Ximena Solís & Integrar un servicio y sobrevivir a un cambio de esquema & Consumo por API, credenciales de autoservicio y contrato de datos \\
+\end{uxtabla}
+
+Las dos personas de la actividad anterior que no aparecen en esta entrega —Elena Ruiz, del
+perfil de riesgos y auditoría, y Jorge Mendieta, del perfil de ingeniería de datos— se
+retoman en la siguiente actividad, donde la arquitectura de información debe responder
+específicamente a las necesidades de control y de operación técnica.
+
+\subsection{Del escenario al journey map}
+
+Las instrucciones de la actividad piden tomar uno de los objetivos de los escenarios,
+descomponerlo en un listado de actividades y construir con ese listado el journey map. El
+equipo produjo \textbf{cuatro mapas}: uno por integrante, elaborado de forma individual sobre
+uno de sus propios escenarios, y el mapa de equipo, construido en un taller conjunto. La
+distinción de autoría es explícita en cada mapa y en el encabezado de cada sección.
+
+\begin{uxtabla}{L{3.0cm}L{3.1cm}Z{1.0}Z{1.0}}{Los cuatro journey maps del entregable, su autoría y su objetivo}
+\uxheadrow \thd{Mapa} & \thd{Elaboración} & \thd{Persona y objetivo} & \thd{Por qué ese recorrido} \\ \midrule
+Individual & Jacqueline Sarmiento & Diego Hernández: cruzar tres fuentes y dejar el análisis reejecutable & Recorrido largo, con conciliación de datos y espera de proceso \\
+Individual & Alexandro Mayoral & Arturo Castañeda: entender una señal de riesgo antes de exponer & Recorrido brevísimo y de máxima presión, en tableta y en quince minutos \\
+Individual & Arthur Zizumbo & Ximena Solís: automatizar por API y sobrevivir a un cambio de esquema & Recorrido de semanas, donde lo decisivo ocurre después del uso \\
+\textbf{De equipo} & \textbf{Los tres, en taller} & \textbf{Laura Méndez: validar una cifra y responder con la fuente citada} & \textbf{Persona primaria y denominador común de los demás perfiles} \\
+\end{uxtabla}
+
+El recorte responde a una advertencia explícita del material de apoyo, que desaconseja el mapa
+único que intenta abarcarlo todo y recomienda en su lugar construir una red de mapas acotados
+alrededor de objetivos y personas concretas (Walter, 2022). Los cuatro mapas de este documento
+son esa red: cada uno cubre un objetivo delimitado, los cuatro comparten la misma estructura
+de carriles y el apartado~\ref{sec:entrelazados} muestra en qué puntos se cruzan entre sí.
+
+Los tres recorridos individuales se eligieron además por contraste deliberado. Duran quince
+minutos, tres días y varias semanas respectivamente; ocurren en tableta, en escritorio con dos
+monitores y en un entorno de desarrollo; y fallan de maneras distintas. Un conjunto de mapas
+que se pareciera entre sí no habría aportado información nueva sobre el producto.
+
+\subsection{Alcance declarado y plan de validación}\label{sec:alcance}
+
+\begin{uxnota}[Alcance del método]
+Esta primera versión del journey map es lo que la literatura de journey mapping denomina un
+mapa de supuestos: se construye con la caracterización de la audiencia, con la experiencia
+profesional del equipo en el dominio y con los artefactos de la actividad anterior, sin datos
+de campo todavía. El propio material de apoyo advierte que un mapa elaborado únicamente con
+la visión del equipo corre el riesgo de retratar los sesgos y supuestos del equipo en lugar
+de la experiencia real de los usuarios, y señala que su uso legítimo es servir de punto de
+partida para la investigación. El equipo lo asume, lo declara y lo trata como tal.
+\end{uxnota}
+
+Los supuestos más fuertes del mapa se concentran en tres etapas y son los primeros que se
+contrastarán con los instrumentos diseñados en la actividad anterior, cuya aplicación está en
+curso:
+
+\begin{uxlist}
+\lead{Etapa 3, búsqueda}{se supone que el usuario formula su necesidad en lenguaje de negocio
+  y no con el nombre técnico del campo. Lo verifica la pregunta abierta del instrumento sobre
+  a quién o a qué recurre primero cuando no sabe dónde vive un dato.}
+\lead{Etapa 4, validación}{se supone que la dependencia de un tercero para confirmar la
+  definición de una variable es el principal consumidor de tiempo de la tarea. Lo verifica la
+  pregunta sobre horas semanales dedicadas a buscar o validar un dato.}
+\lead{Etapa 7, reutilización}{se supone que los usuarios no se enteran de que una definición
+  cambió hasta que dos áreas presentan cifras distintas. Es el supuesto con menos evidencia
+  documental y el que la entrevista semiestructurada debe explorar con mayor cuidado.}
+\end{uxlist}
+
+Las cifras de tiempo que aparecen en los escenarios están rotuladas como estimaciones del
+equipo a partir de su experiencia profesional, o bien marcadas como pendientes de medición y
+enlazadas a la pregunta del instrumento que las levantará. Ninguna cifra de este documento
+procede de una fuente que el equipo no haya consultado directamente.
+

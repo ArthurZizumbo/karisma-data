@@ -1,0 +1,115 @@
+% ============================================================================
+\clearpage
+\section{De las oportunidades al producto}\label{sec:oportunidades}
+
+La siguiente matriz cierra el recorrido completo: cada punto de fricción del journey map se
+traza hasta la oportunidad de diseño que lo mitiga, la característica del producto que la
+implementa, el escenario que la muestra en funcionamiento y la forma en que se verificará
+cuando exista el prototipo. Es la continuación directa de la matriz de trazabilidad de la
+actividad anterior, que conectaba pain points con características y personas.
+
+\begin{uxtabla}{C{1.5cm}Z{1.05}Z{1.05}Z{0.9}C{2.2cm}}{Trazabilidad de cada punto de fricción hasta su verificación}
+\uxheadrow \thd{Etapa} & \thd{Punto de fricción} & \thd{Oportunidad} & \thd{Característica del producto} & \thd{Cómo se verificará} \\ \midrule
+2. Acceso & Permisos que no corresponden al rol & Espacio por rol y permiso mínimo suficiente & Acceso por permisos y roles & Tiempo de alta y de revocación \\
+3. Búsqueda & Variables de nombre parecido & Fuente, propietario y vigencia en la tarjeta & Buscador unificado y catálogo & Aciertos en la tarea de localización \\
+4. Validación & La definición vive en el correo de alguien & Ficha con definición, notas tribales y versiones & Catálogo de datos y trazabilidad & Tiempo hasta la validación \\
+5. Profundización & Cifras sin fuente en la respuesta & Herramienta consultada visible y cita por cifra & Asistente con trazabilidad de la consulta & Confianza declarada en la prueba de usabilidad \\
+6. Entrega & Copiar el dato pierde el contexto & Copiado con procedencia por omisión & Trazabilidad & Errores de atribución de la fuente \\
+7. Reutilización & Nadie se entera del cambio de definición & Aviso dirigido a quien tiene la fuente guardada & Gobierno de metadatos y versiones & Uso de versiones retiradas \\
+\end{uxtabla}
+
+\subsection{Patrones de interacción que sostienen las oportunidades}\label{sec:patrones}
+
+Las oportunidades de los cuatro mapas no son ideas sueltas: cada una se apoya en un patrón de
+interacción que el equipo comprometió al definir el producto, y cada patrón tiene un
+fundamento documentado. La tabla siguiente los reúne e indica en qué punto de qué recorrido se
+manifiestan, de modo que ningún patrón quede como declaración de intenciones sin un momento
+concreto donde el usuario lo perciba.
+
+\begin{uxtabla}{L{3.4cm}Z{1.0}Z{1.0}}{Patrones de interacción comprometidos y dónde se manifiestan en los recorridos}
+\uxheadrow \thd{Patrón} & \thd{Dónde se manifiesta} & \thd{Fundamento} \\ \midrule
+Revelación progresiva & Etapas 3 y 5 del mapa de equipo; etapa 2 del mapa de Arturo Castañeda & Principio de diseño declarado en la actividad anterior: la complejidad aparece solo cuando la tarea la exige \\
+Conocimiento tribal publicado junto al dato & Etapa 4 del mapa de equipo; escenario 4 completo & Agarwal et al. (2026): el conocimiento no documentado sobre las fuentes es lo que separa una consulta correcta de una equivocada \\
+Visibilidad de la consulta de la inteligencia artificial & Etapa 5 del mapa de equipo; etapa 5 del mapa de Arturo Castañeda & Naik et al. (2026): en sistemas con agentes, mostrar qué herramienta se consultó es condición de confianza, no un adorno \\
+Tarjetas con señal predictiva & Etapa 2 del mapa de Arturo Castañeda & La vista directiva debe entregar interpretación, no datos crudos \\
+Espacios de trabajo por rol & Etapa 2 del mapa de equipo; etapa 1 del de Arturo Castañeda; etapa 3 del de Ximena Solís & El mismo producto debe presentar a cada perfil lo que su tarea requiere, incluidas las credenciales de integración \\
+Estado compartido entre tablero y asistente & Etapa 5 del mapa de Arturo Castañeda & El resumen de la vista actual usa el estado del tablero como contexto de la consulta \\
+Contrato de datos versionado con aviso de cambio & Etapas 4 y 6 del mapa de Ximena Solís; etapa 7 del mapa de equipo & Singh et al. (2026): el consumo gobernado exige contratos estables y comunicación anticipada de los cambios \\
+\end{uxtabla}
+
+Un patrón comprometido no aparece en ninguno de los cuatro recorridos: el \emph{streaming} con
+detención real de la respuesta del asistente. Es deliberado y conviene declararlo: ninguno de
+los seis escenarios se apoya en una conversación larga con la herramienta, de modo que la
+cancelación no tiene todavía un momento en el que el usuario la perciba. Se retomará cuando la
+actividad correspondiente aborde el diseño del asistente en alta fidelidad.
+
+% ============================================================================
+\section{Principios rectores y antiprincipios}\label{sec:principios}
+
+El material de apoyo recomienda documentar los principios rectores del producto —una
+descripción cualitativa de aquello que el producto defiende— y, en paralelo, los
+antiprincipios, que declaran de forma explícita lo que el producto no pretende ser. Ambos
+deben poder medirse, y su utilidad práctica es doble: alinean al equipo y ofrecen un criterio
+neutral para rechazar funcionalidades que suenan atractivas pero desvían el producto.
+
+Los siguientes se derivan directamente de los seis escenarios y del journey map, no de una
+lluvia de ideas independiente.
+
+\begin{uxtabla}{L{2.6cm}Z{1.15}Z{0.85}}{Principios rectores del portal y su forma de medición}
+\uxheadrow \thd{Principio} & \thd{Definición} & \thd{Cómo se mide} \\ \midrule
+Respaldado & Toda cifra que sale del portal puede citar su fuente, su fecha y su definición & Proporción de respuestas con procedencia completa \\
+Simple primero & La consulta más frecuente se resuelve sin exponer filtros ni vocabulario técnico & Pasos hasta el resultado en la tarea de localización \\
+Profundidad a un paso & Las opciones avanzadas están cerca y son descubribles por quien las necesita & Tasa de descubrimiento en la prueba de usabilidad \\
+Sin sorpresas & Ningún cambio de definición o de esquema llega sin aviso previo ni versión anterior disponible & Avisos emitidos frente a cambios publicados \\
+Explicable & El usuario puede ver qué consultó el sistema antes de decidir si cree en la respuesta & Visibilidad de la consulta en cada respuesta del asistente \\
+\end{uxtabla}
+
+\begin{uxtabla}{L{2.6cm}Z{1.15}Z{0.85}}{Antiprincipios: lo que el portal no pretende ser}
+\uxheadrow \thd{Antiprincipio} & \thd{Definición} & \thd{Cómo se detecta} \\ \midrule
+Caja negra & Respuestas sin fuente ni rastro de cómo se obtuvieron & Revisión de respuestas sin cita \\
+Solo para expertos & Interfaz que supone conocimiento de la estructura de las bases & Tasa de éxito de los perfiles no técnicos \\
+Autoritario & El sistema decide por el usuario cuando existe una ambigüedad legítima & Casos de desambiguación resueltos sin consultarlo \\
+Silencioso & Cambios que rompen procesos aguas abajo sin notificación previa & Incidentes originados por cambios no anunciados \\
+\end{uxtabla}
+
+% ============================================================================
+\clearpage
+\section{Referencias}
+
+\begin{uxreferencias}
+Agarwal, S., Biswal, A., Zeighami, S., Cheung, A., Gonzalez, J., y Parameswaran, A. G. (2026).
+Arming data agents with tribal knowledge. \textit{arXiv}. https://arxiv.org/abs/2602.13521
+
+Baxter, K., Courage, C., y Caine, K. (2015). \textit{Understanding your users: A practical
+guide to user research methods} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
+
+Hartson, R., y Pyla, P. S. (2012). \textit{The UX book: Process and guidelines for ensuring a
+quality user experience}. Morgan Kaufmann.
+
+International Organization for Standardization. (2018). \textit{Ergonomics of human-system
+interaction — Part 11: Usability: Definitions and concepts} (ISO 9241-11:2018).
+
+McInerney, P. (2003). Plantilla de escenarios [citado en Baxter, K., Courage, C., y Caine, K.
+(2015), \textit{Understanding your users: A practical guide to user research methods},
+2.\textsuperscript{a} ed., Morgan Kaufmann].
+
+Naik, S., Passi, S., Vorvoreanu, M., Saponas, S., y Hall, A. (2026). ``So there's a Catch-22
+here'': How early adopters who build multi-agent LLM systems conceptualize transparency.
+\textit{arXiv}. https://arxiv.org/abs/2606.08323
+
+Osterwalder, A., y Pigneur, Y. (2010). \textit{Business model generation: A handbook for
+visionaries, game changers, and challengers}. John Wiley \& Sons.
+
+Ramírez Mejía, A. I. (2023). \textit{Grocery shopping app: A guided UX case study. Part 2.
+Scenarios and journey map} [Diapositivas]. TC4032 Experiencia del usuario y diseño de
+interfaces, Maestría en Inteligencia Artificial Aplicada, Instituto Tecnológico y de Estudios
+Superiores de Monterrey.
+
+Singh, G., Kavehzadeh, P., Xia, J., Fu, X.-Y., Bouvier Tremblay, J., Laskar, M. T. R., Lum, V.,
+y Bhushan TN, S. (2026). Beyond text-to-SQL: An agentic LLM system for governed enterprise
+analytics APIs. \textit{arXiv}. https://arxiv.org/abs/2605.21027
+
+Walter, S. (2022). \textit{User journey mapping: Visualize user research, brainstorm
+opportunities, and solve problems}. SitePoint.
+\end{uxreferencias}
+

@@ -1,0 +1,168 @@
+# ============================================================================
+#  Karisma Data — Portal Centralizado de Datos Financieros
+#  TC4032 Experiencia del usuario y diseño de interfaces · MNA ITESM · Equipo 8
+#
+#  Criterio general: se versiona lo que el equipo escribe y lo que no se puede
+#  volver a generar. Se excluye el material de terceros, todo lo compilable a
+#  partir de las fuentes y cualquier cosa que contenga credenciales.
+# ============================================================================
+
+# ---------------------------------------------------------------------------
+#  Material del curso y de terceros
+#  Rúbricas, capítulos de libros y lecturas distribuidas en la plataforma del
+#  curso: son material con derechos de autor y no se redistribuyen.
+# ---------------------------------------------------------------------------
+docs/general/
+
+#  Artículos de arXiv. Son de acceso abierto pero pesan y se recuperan por su
+#  identificador: el índice con las URL sí se versiona.
+docs/papers/*.pdf
+!docs/papers/README.md
+
+# ---------------------------------------------------------------------------
+#  Entregables compilados
+#  El documento se reconstruye con XeLaTeX desde docs/entregables/. Solo se
+#  conserva el PDF de cada actividad tal como se subió a la plataforma, que es
+#  el registro de lo evaluado.
+# ---------------------------------------------------------------------------
+docs/entregables/*.pdf
+docs/documento_proyecto/*.pdf
+docs/semana_*/*.pdf
+!docs/semana_*/Entregable*.pdf
+
+#  Versiones de trabajo en Word de la Actividad 1 y sus imágenes extraídas:
+#  la fuente vigente es LaTeX.
+*.docx
+*.backup.docx
+docs/semana_*/assets/
+
+#  Copia congelada de la Actividad 1 tal como se entregó. Su contenido está
+#  duplicado en docs/entregables/ (main_a1.tex y contenido/a1_*.tex), que es
+#  la fuente que se mantiene. Se conserva en disco, no en el repositorio.
+docs/documento_proyecto/
+
+# ---------------------------------------------------------------------------
+#  Intermedios de LaTeX
+# ---------------------------------------------------------------------------
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+
+# ---------------------------------------------------------------------------
+#  Intermedios de las figuras
+#  Los HTML de los journey maps se regeneran con journey_html/render.py y
+#  llevan las tipografías embebidas: pesan dos megabytes cada uno.
+# ---------------------------------------------------------------------------
+docs/entregables/figuras/journey_html/build/
+*_thumb.jpeg
+*_thumb.jpg
+
+# ---------------------------------------------------------------------------
+#  Python (backend y ml)
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+dist/
+build/
+
+# ---------------------------------------------------------------------------
+#  Frontend (Nuxt 4 y pnpm)
+# ---------------------------------------------------------------------------
+node_modules/
+.nuxt/
+.output/
+.nitro/
+.cache/
+.vite/
+*.tsbuildinfo
+.eslintcache
+
+# ---------------------------------------------------------------------------
+#  Datos
+#  Los silos sintéticos se regeneran con semilla fija mediante `make data`;
+#  no se versionan. El README que documenta el esquema y las anomalías sí.
+# ---------------------------------------------------------------------------
+data/silos/
+data/exports/
+*.parquet
+*.duckdb
+*.sqlite
+*.sqlite3
+!data/README.md
+
+# ---------------------------------------------------------------------------
+#  Secretos y credenciales
+#  Nunca se versionan. En desarrollo viven en .env.local y en producción en
+#  Secret Manager.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+gcp-*.json
+client_secret*.json
+
+# ---------------------------------------------------------------------------
+#  Infraestructura (Terraform en GCP)
+# ---------------------------------------------------------------------------
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+crash.*.log
+
+# ---------------------------------------------------------------------------
+#  Herramientas de asistencia
+# ---------------------------------------------------------------------------
+.claude/settings.local.json
+.playwright-mcp/
+.mcp.json
+
+# ---------------------------------------------------------------------------
+#  Sistema operativo y editores
+# ---------------------------------------------------------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~

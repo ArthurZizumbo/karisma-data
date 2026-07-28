@@ -1,0 +1,73 @@
+%% ============================================================================
+%%  Documento acumulado del proyecto — Equipo 8
+%%  Karisma Data · Portal Centralizado de Datos Financieros
+%%  TC4032 Experiencia del usuario y diseño de interfaces · MNA · ITESM
+%%
+%%  Reúne en un solo volumen las actividades entregadas hasta la fecha,
+%%  reutilizando exactamente los mismos archivos de contenido que los
+%%  envoltorios individuales. Al cerrar cada actividad basta con añadir su
+%%  portadilla de parte y sus \input correspondientes.
+%%
+%%  Compilar con XeLaTeX (dos pasadas para el índice):
+%%      latexmk -xelatex main_completo.tex
+%% ============================================================================
+\documentclass[11pt,letterpaper]{article}
+\usepackage{estilo/uxdoc}
+
+\uxencabezado{Karisma Data · Documento del proyecto}
+\hypersetup{pdftitle={Karisma Data. Documento acumulado del proyecto - Actividades 1 y 2}}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Índice}
+
+\begin{document}
+
+\uxportada{Documento del proyecto}{Definición del producto, escenarios\\y journey maps}{Actualizado al 2 de agosto de 2026}
+
+\tableofcontents
+\clearpage
+
+% ============================================================================
+\uxsection{Sobre este documento}
+
+Este volumen reúne las entregas del proyecto \textbf{Karisma Data} en el orden en que se
+produjeron. Cada parte corresponde a una actividad del curso y conserva su contenido tal como
+fue entregado, de modo que la evolución del trabajo pueda seguirse de principio a fin.
+
+La primera parte define la audiencia, el problema y el producto digital, y presenta los
+instrumentos de investigación diseñados para validarlos, junto con las ocho personas y sus
+mapas de empatía. La segunda parte convierte esas personas en escenarios de uso y despliega
+uno de ellos en un journey map, con el que se identifican los puntos de fricción y las
+oportunidades de diseño que orientarán las actividades siguientes.
+
+Las entregas individuales de cada actividad, con el nombre de archivo que solicita el curso,
+se generan a partir de los mismos archivos de contenido que este volumen: no existe una
+versión distinta del texto para cada salida.
+
+% ============================================================================
+\uxparte{I}{Actividad 1. Definición del producto digital y diseño de instrumentos de investigación de usuario}
+  {Entregada el 26 de julio de 2026. Caracteriza la audiencia del portal en ocho perfiles,
+   describe y cuantifica el problema, define el producto digital y sus doce características,
+   presenta los instrumentos diseñados para el levantamiento con usuarios y desarrolla las
+   ocho personas con sus mapas de empatía, atribuidas por integrante.}
+
+\input{contenido/a1_cuerpo}
+
+\clearpage
+\input{contenido/a1_anexo}
+
+% ============================================================================
+\uxparte{II}{Actividad 2. Diseño de escenarios y Journey Maps}
+  {Entregada el 2 de agosto de 2026. Convierte las personas de la primera parte en seis
+   escenarios de uso, dos por integrante, y desarrolla en equipo el journey map de la persona
+   primaria: siete etapas que cubren el antes, el durante y el después del uso, con sus
+   acciones, puntos de contacto, pensamientos, emociones, puntos de fricción y oportunidades.}
+
+\input{contenido/a2_00_preliminares}
+\input{contenido/a2_01_metodo}
+\input{contenido/a2_02_escenarios}
+\input{contenido/a2_03_journey}
+\input{contenido/a2_04_cierre}
+\input{contenido/a2_05_anexo}
+
+\end{document}

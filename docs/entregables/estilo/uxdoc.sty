@@ -1,0 +1,417 @@
+%% ============================================================================
+%%  uxdoc.sty — Sistema de diseño documental
+%%  Equipo 8 · TC4032 Experiencia del usuario y diseño de interfaces · MNA ITESM
+%%
+%%  Tipografía y paleta derivadas del design system generado con ui-ux-pro-max
+%%  ("enterprise data governance platform, professional, trustworthy"):
+%%    · Titulares  Lexend Deca   (corporativo, confiable, alta legibilidad)
+%%    · Cuerpo     Fira Sans     (humanista; sustituto disponible de Source Sans 3)
+%%    · Color      azul corporativo + acento ámbar ajustado para contraste WCAG
+%%
+%%  Nota tipográfica: la familia Lexend se distribuye únicamente en peso Regular.
+%%  Por eso los titulares NO usan \bfseries — que produciría negrita simulada — y
+%%  la jerarquía se construye con tamaño, color y espacio en blanco.
+%%
+%%  Requiere XeLaTeX o LuaLaTeX.
+%% ============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{uxdoc}[2026/08/02 v2.0 Sistema de diseno documental UX]
+%%
+%%  v2.0 (Actividad 2) anade sobre la version de la Actividad 1:
+%%    · entorno de escenario con los cuatro elementos de la rubrica rotulados
+%%    · tarjetas de etapa de journey map y carriles con etiqueta
+%%    · paginas horizontales (pdflscape) para el mapa a sangre completa
+%%    · banda de aportacion individual parametrizable
+%%    · escala emocional y marcas de momento de la verdad
+
+% ---------------------------------------------------------------- Idioma ----
+\RequirePackage[spanish,es-noquoting,es-tabla]{babel}
+\RequirePackage{csquotes}
+
+% -------------------------------------------------------------- Geometría ---
+\RequirePackage[letterpaper,
+  top=2.7cm, bottom=2.5cm, left=2.5cm, right=2.5cm,
+  headsep=15pt, footskip=28pt]{geometry}
+
+% ------------------------------------------- Paleta del sistema de diseño ---
+\RequirePackage[table,dvipsnames]{xcolor}
+\definecolor{uxnavy}{HTML}{1F4D78}   % estructura y titulares
+\definecolor{uxblue}{HTML}{2563EB}   % primario
+\definecolor{uxsky}{HTML}{3B82F6}    % secundario
+\definecolor{uxpale}{HTML}{B8CCE4}   % relleno suave
+\definecolor{uxamber}{HTML}{F97316}  % acento (uso escaso)
+\definecolor{uxsurface}{HTML}{F8FAFC}% superficie
+\definecolor{uxink}{HTML}{1E293B}    % texto
+\definecolor{uxmuted}{HTML}{64748B}  % texto secundario
+\definecolor{uxline}{HTML}{CBD5E1}   % filetes
+\definecolor{uxrow}{HTML}{EEF3FA}    % cebra de tabla
+\definecolor{uxgreen}{HTML}{166534}  % confirmación
+
+% ------------------------------------------------------------ Tipografía ----
+\RequirePackage{fontspec}
+\RequirePackage[nomain,nosans]{lexend}  % solo declara las familias Lexend
+\RequirePackage[sfdefault]{FiraSans}    % cuerpo del documento
+\RequirePackage{amssymb}
+\newcommand{\uxhead}{\@LexendDeca}
+\linespread{1.12}
+\color{uxink}
+
+% ------------------------------------------------------------- Utilidades ---
+\RequirePackage{graphicx}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{ragged2e}
+\RequirePackage{enumitem}
+\RequirePackage{environ}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{caption}
+\RequirePackage{microtype}
+\RequirePackage{needspace}
+\RequirePackage{hyperref}
+\hypersetup{
+  colorlinks=true, linkcolor=uxblue, urlcolor=uxblue, citecolor=uxblue,
+  pdftitle={Actividad 2. Diseno de escenarios y Journey Maps},
+  pdfauthor={Equipo 8 - Mayoral Teran, Sarmiento Cervantes, Zizumbo Velasco},
+  pdfsubject={TC4032 Experiencia del usuario y diseno de interfaces - MNA ITESM}}
+
+\arrayrulecolor{uxline}
+\setlength{\arrayrulewidth}{0.6pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\tabcolsep}{7pt}
+\renewcommand{\arraystretch}{1.22}
+
+% ---------------------------------------------------------- Jerarquía ------
+% La jerarquía descansa en tamaño + color + filete, no en peso tipográfico.
+\titleformat{\section}
+  {\uxhead\fontsize{18}{22}\selectfont\color{uxnavy}}
+  {\thesection.}{0.45em}{}
+  [{\vspace{2pt}\color{uxamber}\titlerule[1.4pt]}]
+\titlespacing*{\section}{0pt}{24pt}{12pt}
+
+\titleformat{\subsection}
+  {\uxhead\fontsize{13.5}{16}\selectfont\color{uxnavy}}
+  {\thesubsection}{0.55em}{}
+\titlespacing*{\subsection}{0pt}{16pt}{6pt}
+
+\titleformat{\subsubsection}
+  {\uxhead\fontsize{11.5}{14}\selectfont\color{uxblue}}
+  {}{0em}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{4pt}
+
+% Titular sin numeración, con la misma presencia visual
+\newcommand{\uxsection}[1]{%
+  \section*{#1}\addcontentsline{toc}{section}{#1}%
+  \vspace{-14pt}{\color{uxamber}\rule{\linewidth}{1.4pt}}\vspace{2pt}\par}
+
+% ------------------------------------------------- Encabezado y pie -------
+\pagestyle{fancy}
+\setlength{\headheight}{22pt}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{uxline}\leaders\hrule height \headrulewidth\hfill}}
+\fancyhead[L]{\footnotesize\color{uxmuted}Karisma Data}
+\fancyhead[R]{\footnotesize\color{uxmuted}Equipo 8}
+% Permite que cada envoltorio declare a qué actividad corresponde el documento.
+\newcommand{\uxencabezado}[1]{\fancyhead[L]{\footnotesize\color{uxmuted}#1}}
+\fancyfoot[C]{\footnotesize\color{uxmuted}\thepage}
+\fancypagestyle{plain}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}%
+  \fancyfoot[C]{\footnotesize\color{uxmuted}\thepage}}
+
+% ------------------------------------------------------------- Listas -----
+\setlist{nosep}
+\newlist{uxlist}{itemize}{2}
+\setlist[uxlist,1]{label=\textcolor{uxsky}{\scriptsize$\blacksquare$},
+  leftmargin=1.35em, itemsep=5pt, topsep=6pt, parsep=0pt, align=left}
+\setlist[uxlist,2]{label=\textcolor{uxpale}{\scriptsize$\bullet$},
+  leftmargin=1.2em, itemsep=3pt, topsep=4pt}
+\newcommand{\lead}[2]{\item \textbf{\textcolor{uxnavy}{#1:}} #2}
+
+% Lista de preguntas de instrumento (numerada, discreta)
+\newlist{uxpreg}{enumerate}{1}
+\setlist[uxpreg]{label=\textcolor{uxblue}{\footnotesize\arabic*.},
+  leftmargin=1.9em, itemsep=4pt, topsep=6pt, parsep=0pt}
+
+% ------------------------------------------------------------- Tablas -----
+% L: ancho fijo alineado a la izquierda · C: ancho fijo centrado
+% Y: columna elástica · Z{f}: columna elástica ponderada.
+% Los factores de las columnas Z de una misma tabla deben sumar el número de
+% columnas elásticas que contiene.
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{Z}[1]{>{\RaggedRight\arraybackslash\hsize=#1\hsize}X}
+\newcommand{\thd}[1]{\textcolor{white}{\bfseries #1}}
+\newcommand{\uxheadrow}{\rowcolor{uxnavy}}
+
+% tabularx no admite partirse entre las mitades de \newenvironment: el cuerpo se
+% captura completo con environ antes de pasarlo.
+\NewEnviron{uxtabla}[2]% #1 = especificación de columnas, #2 = título
+  {\begin{table}[htbp]\centering\footnotesize
+   \setlength{\parskip}{0pt}%
+   \caption{#2}%
+   \rowcolors{2}{uxrow}{white}%
+   \begin{tabularx}{\linewidth}{#1}\toprule
+   \BODY
+   \bottomrule\end{tabularx}\end{table}}
+
+\captionsetup[table]{font={small,sf}, labelfont={bf,color=uxnavy},
+  textfont={color=uxink}, skip=6pt, justification=raggedright, singlelinecheck=false}
+\captionsetup[figure]{font={small,sf,it}, labelfont={bf,color=uxnavy},
+  textfont={color=uxmuted}, skip=8pt, justification=raggedright, singlelinecheck=false}
+
+% ------------------------------------------------------------- Cajas -----
+\newtcolorbox{uxnota}[1][Nota]{
+  enhanced, breakable, colback=uxsurface, colframe=uxblue,
+  boxrule=0pt, leftrule=3pt, arc=2pt, left=11pt, right=11pt, top=9pt, bottom=9pt,
+  fonttitle=\uxhead\small, coltitle=uxnavy,
+  attach boxed title to top left={yshift=-2.4mm, xshift=9mm},
+  boxed title style={colback=uxsurface, boxrule=0pt, arc=1pt},
+  title={#1}}
+
+\newtcolorbox{uxdestacado}{
+  enhanced, breakable, colback=white, colframe=uxline,
+  boxrule=0.7pt, arc=3pt, left=12pt, right=12pt, top=10pt, bottom=10pt}
+
+% --------------------------------------------------- Fichas de persona ----
+% \personahead{archivo de foto}{nombre}{cita}
+\newcommand{\personahead}[3]{%
+  \begin{tcolorbox}[enhanced, colback=uxsurface, colframe=uxline, boxrule=0.7pt,
+      arc=4pt, left=12pt, right=12pt, top=12pt, bottom=12pt,
+      before skip=4pt, after skip=10pt]
+    \begin{minipage}[c]{3.05cm}%
+      \begin{tcolorbox}[enhanced, colback=white, colframe=uxnavy, boxrule=1pt,
+          arc=3pt, left=0pt, right=0pt, top=0pt, bottom=0pt, width=3.05cm]
+        \includegraphics[width=\linewidth]{#1}%
+      \end{tcolorbox}%
+    \end{minipage}\hfill
+    \begin{minipage}[c]{\dimexpr\linewidth-3.6cm\relax}%
+      \setlength{\parskip}{0pt}%
+      {\uxhead\fontsize{17}{20}\selectfont\color{uxnavy}#2}\par
+      \vspace{8pt}
+      {\color{uxamber}\rule{30pt}{2.2pt}}\par
+      \vspace{7pt}
+      {\itshape\color{uxink}#3}%
+    \end{minipage}
+  \end{tcolorbox}}
+
+% Tabla de datos básicos de la persona
+% Columnas de tipo m para que etiqueta y valor queden centrados verticalmente en
+% la misma banda, incluso cuando el valor ocupa dos renglones.
+\NewEnviron{personadatos}
+  {\par\nobreak{\footnotesize
+   \setlength{\parskip}{0pt}%
+   \rowcolors{1}{uxrow}{white}%
+   \begin{tabular}{%
+     >{\bfseries\color{uxnavy}\RaggedRight\arraybackslash}m{3.4cm}%
+     >{\RaggedRight\arraybackslash}m{\dimexpr\linewidth-3.4cm-4\tabcolsep\relax}}
+   \BODY
+   \end{tabular}}\par\vspace{2pt}}
+
+\newcommand{\personabloque}[1]{%
+  \par\vspace{9pt}{\uxhead\fontsize{12}{14}\selectfont\color{uxblue}#1}%
+  \par\vspace{1pt}}
+
+% ------------------------------------------------- Mapa de empatía 2x2 ----
+\newcommand{\ux@quad}[3]{%
+  \begin{tcolorbox}[enhanced, colback=#1, colframe=#1, boxrule=0pt, arc=3pt,
+      left=11pt, right=11pt, top=9pt, bottom=10pt, valign=top]
+    {\uxhead\itshape\color{white}\fontsize{12.5}{15}\selectfont #2}\par\vspace{5pt}
+    {\color{white}\footnotesize\setlength{\parskip}{0pt}%
+     \begin{itemize}[label=\textcolor{white}{\tiny$\bullet$}, leftmargin=1em,
+                     itemsep=4pt, topsep=1pt, parsep=0pt]#3\end{itemize}}%
+  \end{tcolorbox}}
+
+% \mapaempatia{says}{thinks}{does}{feels} — cada argumento lleva sus \item
+\newcommand{\mapaempatia}[4]{%
+  \par\vspace{3pt}
+  \begin{tcbraster}[raster columns=2, raster equal height=rows,
+      raster column skip=7pt, raster row skip=7pt, raster left skip=0pt,
+      raster right skip=0pt, raster before skip=2pt, raster after skip=6pt]
+    \ux@quad{uxnavy}{Says}{#1}
+    \ux@quad{uxsky}{Thinks}{#2}
+    \ux@quad{uxsky}{Does}{#3}
+    \ux@quad{uxnavy}{Feels}{#4}
+  \end{tcbraster}}
+
+% ------------------------------------------------------------- Portada ----
+% \uxportada{rótulo de actividad}{título}{fecha}
+\newcommand{\uxportada}[3]{%
+  \begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+  \setlength{\parskip}{0pt}
+  \vspace*{0.1cm}
+  \includegraphics[width=5.1cm]{imagenes/logo_tec.png}\par
+  \vspace{0.7cm}
+  {\uxhead\fontsize{11.5}{15}\selectfont\color{uxmuted}%
+   INSTITUTO TECNOLÓGICO Y DE ESTUDIOS SUPERIORES DE MONTERREY}\par
+  \vspace{6pt}
+  {\fontsize{11}{14}\selectfont\color{uxmuted}%
+   Maestría en Inteligencia Artificial Aplicada}\par
+  \vspace{0.55cm}
+  {\color{uxline}\rule{0.42\linewidth}{0.8pt}}\par
+  \vspace{0.55cm}
+  {\uxhead\fontsize{13}{16}\selectfont\color{uxblue}%
+   TC4032 · Experiencia del usuario y diseño de interfaces}\par
+  \vspace{1.0cm}
+  {\uxhead\fontsize{29}{35}\selectfont\color{uxnavy}#1}\par
+  \vspace{14pt}
+  {\uxhead\fontsize{16}{23}\selectfont\color{uxnavy}#2}\par
+  \vspace{18pt}
+  {\color{uxamber}\rule{72pt}{2.4pt}}\par
+  \vspace{15pt}
+  \includegraphics[width=2.0cm]{imagenes/logo_karisma_marca.png}\par
+  \vspace{6pt}
+  {\uxhead\fontsize{23}{27}\selectfont\color{uxnavy}Karisma Data}\par
+  \vspace{7pt}
+  {\fontsize{11.5}{15}\selectfont\itshape\color{uxmuted}%
+   Portal Centralizado de Datos Financieros}\par
+  \vfill
+  \begin{tcolorbox}[enhanced, width=0.8\linewidth, colback=uxsurface,
+      colframe=uxline, boxrule=0.7pt, arc=4pt, left=16pt, right=16pt,
+      top=14pt, bottom=14pt]
+    \centering
+    {\uxhead\fontsize{13}{16}\selectfont\color{uxnavy}Equipo 8}\par\vspace{9pt}
+    {\small\setlength{\parskip}{3pt}
+     Mayoral Terán Alexandro \quad\textcolor{uxline}{|}\quad A01795899\par
+     Sarmiento Cervantes Jacqueline \quad\textcolor{uxline}{|}\quad A01795863\par
+     Zizumbo Velasco Arthur Jafed \quad\textcolor{uxline}{|}\quad A01796363\par}
+  \end{tcolorbox}
+  \vspace{0.65cm}
+  {\small\color{uxmuted}#3}
+  \end{titlepage}}
+
+%% ===========================================================================
+%%  Componentes propios de la Actividad 2
+%% ===========================================================================
+
+% --------------------------------------------- Aportación individual ------
+% \aportacion[qué contiene]{nombre}{matrícula y alcance}
+% El argumento opcional permite que la misma banda sirva para las personas y
+% los mapas de empatía de la Actividad 1 y para los escenarios de la 2.
+\newcommand{\aportacion}[3][Personas y mapas de empatía]{%
+  \begin{tcolorbox}[enhanced, colback=uxnavy, colframe=uxnavy, arc=4pt, boxrule=0pt,
+      left=15pt, right=15pt, top=12pt, bottom=12pt, before skip=18pt, after skip=12pt]
+    \raggedright\hyphenpenalty=10000\exhyphenpenalty=10000
+    {\uxhead\fontsize{9.5}{12}\selectfont\color{uxpale}APORTACIÓN INDIVIDUAL}\par\vspace{5pt}
+    {\uxhead\fontsize{14}{18}\selectfont\color{white}#1 de #2}\par\vspace{4pt}
+    {\footnotesize\color{uxpale}#3}
+  \end{tcolorbox}}
+
+% ------------------------------------------ Separador de parte (acumulado) --
+% \uxparte{numeral}{título}{descripción} — portadilla de sección mayor para el
+% documento acumulado que reúne varias actividades del curso.
+\newcommand{\uxparte}[3]{%
+  \clearpage
+  \thispagestyle{empty}
+  \null\vspace*{3.2cm}
+  {\raggedright
+   {\uxhead\fontsize{12}{15}\selectfont\color{uxmuted}PARTE #1}\par\vspace{10pt}
+   {\uxhead\fontsize{26}{31}\selectfont\color{uxnavy}#2}\par\vspace{16pt}
+   {\color{uxamber}\rule{90pt}{2.6pt}}\par\vspace{18pt}
+   {\fontsize{11.5}{16}\selectfont\color{uxink}#3}\par}
+  \clearpage}
+
+% ------------------------------------------------ Lista de referencias ----
+% Sangría francesa, consistente con la Actividad 1.
+\newenvironment{uxreferencias}
+  {\begingroup\setlength{\parskip}{9pt}\setlength{\parindent}{-0.5cm}\leftskip=0.5cm}
+  {\endgroup}
+
+% ------------------------------------------------------------- Figuras ----
+% Ilustración de escena que acompaña a cada escenario
+\newcommand{\figuraescena}[3]{%
+  \begin{figure}[htbp]\centering
+    \includegraphics[width=0.74\linewidth]{#1}
+    \caption{#2}\label{#3}
+  \end{figure}}
+
+\newcommand{\figuraux}[3]{%
+  \begin{figure}[htbp]\centering
+    \includegraphics[width=\linewidth]{#1}
+    \caption{#2}\label{#3}
+  \end{figure}}
+
+% Figura a sangre en página horizontal (para el journey map completo).
+% Se compone sin entorno flotante para que ocupe exactamente la página que le
+% corresponde y no se desplace al final del documento.
+\RequirePackage{pdflscape}
+% Dentro de landscape la caja de texto ya viene intercambiada, de modo que
+% \linewidth es el lado largo. El contenido se desborda un poco a propósito,
+% centrado con \makebox, para aprovechar el margen de la página girada.
+\newlength{\uxpanancho}
+\newcommand{\figurapanoramica}[3]{%
+  \begin{landscape}
+  \thispagestyle{empty}
+  % El ancho útil de la página girada es su altura física menos los márgenes.
+  % Se calcula sobre \paperheight y no sobre \linewidth porque este último aún
+  % no refleja la caja intercambiada al abrir el entorno.
+  \setlength{\uxpanancho}{\dimexpr\paperheight-3.4cm\relax}%
+  \null\vfill
+  \noindent\makebox[\linewidth][c]{%
+    \includegraphics[width=\uxpanancho]{#1}}%
+  \vspace{10pt}
+  \noindent\makebox[\linewidth][c]{%
+    \begin{minipage}{\uxpanancho}%
+      \captionof{figure}{#2}\label{#3}%
+    \end{minipage}}%
+  \vfill
+  \end{landscape}}
+
+% ------------------------------------------------ Cabecera de escenario ---
+% \escenariohead{foto}{título}{persona y perfil}{datos operativos}
+\newcommand{\escenariohead}[4]{%
+  \begin{tcolorbox}[enhanced, colback=uxsurface, colframe=uxline, boxrule=0.7pt,
+      arc=4pt, left=12pt, right=12pt, top=12pt, bottom=12pt,
+      before skip=4pt, after skip=10pt]
+    \begin{minipage}[c]{2.5cm}%
+      \begin{tcolorbox}[enhanced, colback=white, colframe=uxnavy, boxrule=1pt,
+          arc=3pt, left=0pt, right=0pt, top=0pt, bottom=0pt, width=2.5cm]
+        \includegraphics[width=\linewidth]{#1}%
+      \end{tcolorbox}%
+    \end{minipage}\hfill
+    \begin{minipage}[c]{\dimexpr\linewidth-3.05cm\relax}%
+      \setlength{\parskip}{0pt}%
+      {\uxhead\fontsize{15}{18}\selectfont\color{uxnavy}#2}\par
+      \vspace{7pt}
+      {\color{uxamber}\rule{30pt}{2.2pt}}\par
+      \vspace{7pt}
+      {\footnotesize\color{uxink}\textbf{#3}}\par\vspace{3pt}
+      {\footnotesize\color{uxmuted}#4}%
+    \end{minipage}
+  \end{tcolorbox}}
+
+% Rótulo de los cuatro elementos exigidos por la rúbrica dentro del escenario
+\newcommand{\elemento}[2]{%
+  \par\vspace{10pt}\needspace{3\baselineskip}%
+  {\uxhead\fontsize{12}{14}\selectfont\color{uxblue}#1}%
+  {\footnotesize\color{uxmuted}\hspace{6pt}#2}%
+  \par\vspace{2pt}}
+
+% ------------------------------------------------- Etapas del journey ------
+% \etapajourney{número}{nombre}{bloque temporal}
+\newcommand{\etapajourney}[3]{%
+  \par\vspace{12pt}\needspace{5\baselineskip}%
+  \begin{tcolorbox}[enhanced, colback=uxnavy, colframe=uxnavy, boxrule=0pt,
+      arc=3pt, left=11pt, right=11pt, top=6pt, bottom=6pt,
+      before skip=6pt, after skip=6pt]
+    \setlength{\parskip}{0pt}%
+    {\uxhead\fontsize{12.5}{15}\selectfont\color{white}Etapa #1 · #2}%
+    \hfill{\footnotesize\color{uxpale}#3}%
+  \end{tcolorbox}}
+
+% Carril del journey: \carril{etiqueta}{contenido}
+\newcommand{\carril}[2]{%
+  \par\vspace{3pt}%
+  {\footnotesize\textbf{\textcolor{uxnavy}{#1}}\hspace{4pt}#2}\par}
+
+% Marca de momento de la verdad
+\newtcolorbox{uxmomento}{
+  enhanced, breakable, colback=white, colframe=uxamber,
+  boxrule=0pt, leftrule=3pt, arc=2pt, left=11pt, right=11pt, top=8pt, bottom=8pt}
+
+\endinput

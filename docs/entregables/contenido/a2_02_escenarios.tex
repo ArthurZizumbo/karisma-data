@@ -33,6 +33,12 @@ y el ritmo de su trabajo pasa a depender de la disponibilidad de esa persona. Lo
 técnicos y los campos avanzados de las herramientas actuales estorban en una consulta que
 debería ser simple.
 
+\elemento{Expectativas del usuario}{qué espera del producto en esta situación}
+
+Laura espera que el portal le indique cuál es la fuente vigente, qué significa la variable
+y quién la respalda sin obligarla a conocer la estructura de las bases ni a pedir ayuda. Al
+obtener el dato, espera conservar la fuente y la fecha para poder defender su respuesta.
+
 \elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
 
 Son las 11:10. La subdirección de Laura tiene reunión a las 12:00 y le pide confirmar el saldo
@@ -82,15 +88,15 @@ de última actualización. Una de las tarjetas lleva una marca de versión retir
 a la vigente: ese aviso resuelve por sí solo el riesgo que originó la solicitud.
 
 Laura abre la ficha del \textbf{catálogo de datos} y lee la definición oficial, la nota de
-conocimiento tribal que dejó el área propietaria —\emph{a partir de marzo la clasificación
-separa el saldo vencido}— y el nombre de Roberto Valdez como responsable. No necesita
+conocimiento tribal que dejó el área propietaria (\emph{a partir de marzo la clasificación
+separa el saldo vencido}) y el nombre de Roberto Valdez como responsable. No necesita
 escribirle.
 
 Aplica el \textbf{filtro de periodo} sobre el resultado; la vista conserva el contexto de la
 búsqueda y no la obliga a reconstruirla. Con una duda sobre el alcance de la variable, escribe
 la pregunta al \textbf{asistente conversacional} desde el mismo panel. El asistente muestra en
-pantalla la tarjeta de la herramienta que está consultando —\emph{consultando el catálogo de
-créditos}— antes de responder, y cada cifra de la respuesta cita la fuente de la que
+pantalla la tarjeta de la herramienta que está consultando (\emph{consultando el catálogo de
+créditos}) antes de responder, y cada cifra de la respuesta cita la fuente de la que
 proviene.
 
 Finalmente \textbf{copia el dato con su referencia de origen y su fecha}, en un formato que
@@ -103,17 +109,14 @@ Laura responde la solicitud treinta y siete minutos antes de la reunión, con la
 definición oficial, el propietario y la fecha de corte. Si en la reunión alguien presenta otro
 número, ella puede explicar de dónde salió el suyo y cuándo se actualizó.
 
-La sensación que busca no es alivio por haber terminado a tiempo, sino \textbf{respaldo}: la
-confianza de haber respondido con algo que resiste una pregunta incómoda delante de su
-subdirección. Es una diferencia importante para el diseño, porque un producto que solo
-optimiza la velocidad no produce esa sensación; la produce el hecho de que el resultado venga
-acompañado de su procedencia. La siguiente vez que le pidan lo mismo, la consulta ya está
-guardada y el trabajo se reduce a abrirla y actualizar el periodo.
+El resultado le da \textbf{respaldo}: puede sostener la cifra ante una pregunta y reutilizar
+la consulta la próxima vez, cambiando solo el periodo. La velocidad importa, pero la confianza
+proviene de conservar la procedencia.
 
 \elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
 
 \begin{uxlist}
-\lead{La fuente no responde}{el silo de créditos está en mantenimiento. El portal muestra el
+\lead{La fuente no responde}{la fuente institucional de créditos está en mantenimiento. El portal muestra el
   último valor disponible con su fecha y una marca visible de dato no vigente, en lugar de una
   pantalla en blanco o un error técnico. Laura decide con información suficiente si espera o
   responde con la salvedad.}
@@ -158,6 +161,12 @@ pesados o exigen pasos manuales. Y reconstruir qué versión, qué filtro y qué
 produjeron un resultado es difícil, lo que le impide defender su propio análisis semanas
 después.
 
+\elemento{Expectativas del usuario}{qué espera del producto en esta situación}
+
+Diego espera identificar las incompatibilidades de periodicidad y granularidad antes de
+procesar el volumen completo. También espera probar una muestra, ejecutar la extracción sin
+bloquear su trabajo y conservar una consulta que otra persona pueda repetir.
+
 \elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
 
 El área de riesgos le pide estimar la exposición conjunta por contraparte cruzando la cartera
@@ -196,7 +205,7 @@ que otra persona pueda ejecutar.
 Diego parte del \textbf{catálogo de datos} y busca por tema en lugar de por nombre de tabla.
 La ficha de la cartera de crédito le muestra las \textbf{fuentes relacionadas}, y ahí descubre
 el conjunto de derivados, que no conocía porque pertenece a otra dirección. Ese
-descubrimiento —que hoy dependería de que alguien se lo mencionara— es en sí mismo un
+descubrimiento, que hoy dependería de que alguien se lo mencionara, es en sí mismo un
 resultado del portal.
 
 Compara las tres fichas y confirma en los metadatos la periodicidad, la fecha de corte y el
@@ -222,11 +231,9 @@ Diego entrega la exposición conjunta por contraparte y, junto con ella, un proc
 reejecutable. El área de riesgos puede repetir el ejercicio el trimestre siguiente cambiando
 únicamente la fecha de corte.
 
-La sensación que busca es \textbf{control}: no la satisfacción de haber terminado, sino la
-tranquilidad de poder explicarle a otra persona de dónde salió cada cifra y de saber que su
-análisis no depende de que él recuerde lo que hizo. Para un perfil como el suyo, un producto
-que entrega el dato pero no la trazabilidad del dato resuelve la mitad del problema y crea la
-otra mitad.
+El procedimiento reejecutable le da \textbf{control}: puede explicar cada cifra sin depender
+de su memoria y otra persona puede repetir el análisis. Entregar el dato sin esa trazabilidad
+resolvería solo la mitad de la tarea.
 
 \elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
 
@@ -248,28 +255,13 @@ otra mitad.
 
 \textit{Elaborado por Jacqueline Sarmiento Cervantes sobre el escenario 2.}
 
-El primero de los cuatro mapas de este documento despliega en el tiempo el objetivo del
-escenario 2: \textbf{cruzar créditos, liquidez y derivados por contraparte y dejar el análisis
-reejecutable}. Cubre desde que llega el encargo hasta que el procedimiento queda guardado y
-compartido, es decir, también el antes y el después del contacto con el producto.
+El mapa cubre desde el encargo hasta que el procedimiento queda guardado y compartido. La
+curva muestra que las principales caídas no ocurren durante la extracción, sino al estimar la
+viabilidad del cruce y al detectar granularidades incompatibles.
 
-\textbf{Qué revela el mapa que el escenario no mostraba.} El escenario describe una tarea
-razonablemente fluida. El mapa muestra que la curva emocional tiene dos caídas y que ninguna
-de las dos está donde uno esperaría: no en la extracción de datos, que es la parte
-técnicamente pesada, sino en la etapa 1, cuando Diego no puede estimar si el cruce es viable
-sin abrir cada fuente, y en la etapa 3, cuando descubre que la granularidad de liquidez y la
-de crédito no coinciden. Ambas son etapas de \emph{decisión}, no de ejecución, y hoy se
-resuelven con conocimiento acumulado que el portal puede sustituir con metadatos.
-
-\textbf{Momento de la verdad.} La etapa 2, el descubrimiento de una fuente relacionada que
-Diego no conocía. Es el momento en que el portal deja de ser un lugar donde bajar archivos y
-pasa a ser un lugar donde se encuentra algo que no se estaba buscando. Si esa etapa no
-funciona, el resto del recorrido sigue siendo útil pero deja de ser diferencial.
-
-\textbf{Consecuencia para el diseño.} Dos de las seis oportunidades del mapa —cobertura y
-periodicidad visibles antes de empezar, y aviso de granularidad incompatible antes de
-ejecutar— son advertencias tempranas, no funciones nuevas. Cuestan poco y actúan sobre las dos
-caídas de la curva.
+El \textbf{momento de la verdad} es el descubrimiento de una fuente relacionada que Diego no
+conocía. Para sostener ese valor, el diseño debe anticipar cobertura, periodicidad e
+incompatibilidades antes de ejecutar el volumen completo.
 
 \figurapanoramica{figuras/journey_diego.pdf}
   {Journey map individual de Diego Hernández. Objetivo: cruzar créditos, liquidez y derivados
@@ -305,6 +297,12 @@ reunión un director presente un número y otro presente uno distinto porque usa
 fecha diferentes. Cuando un indicador se ve alarmante, tiene que hacer varias llamadas a sus
 gerentes para entender la causa del movimiento, y el tiempo es su recurso más escaso. Recibe
 reportes con demasiadas tablas y datos crudos que no le ayudan a entender el panorama.
+
+\elemento{Expectativas del usuario}{qué espera del producto en esta situación}
+
+Arturo espera encontrar una vista lista para interpretar, con pocas cifras, variaciones
+visibles y el contexto necesario para explicar cualquier movimiento. Espera además que cada
+indicador muestre su conciliación y fecha de corte sin exigirle una investigación adicional.
 
 \elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
 
@@ -345,8 +343,8 @@ Nota un alza en uno de los indicadores. Toca la gráfica y el portal despliega u
 ajuste estacional aprobado la semana pasada}. Esa tarjeta es el sustituto exacto de las tres
 llamadas que hoy tendría que hacer.
 
-La misma vista muestra el \textbf{sello de conciliación} del indicador —quién lo validó y
-cuándo— y la \textbf{fecha de corte} de forma visible, de manera que Arturo sabe con certeza
+La misma vista muestra el \textbf{sello de conciliación} del indicador, con quién lo validó y
+cuándo, y la \textbf{fecha de corte} de forma visible, de manera que Arturo sabe con certeza
 qué versión está presentando. Un nivel más de \textbf{profundización} le permite ver la
 composición del indicador por tipo de institución, sin salir del tablero ni entrar a una
 herramienta distinta.
@@ -361,11 +359,9 @@ Arturo entra a la Junta sabiendo qué va a decir sobre el único indicador que s
 causa del movimiento y la fecha de corte presentes. Si alguien pregunta de dónde salió la
 cifra, tiene la respuesta.
 
-La sensación buscada es \textbf{certeza}, y es de un tipo particular: no la seguridad de estar
-en lo correcto, sino la de no quedar expuesto. Para un perfil directivo el costo de un número
-equivocado no es analítico sino institucional, y el producto debe reconocerlo. Un tablero
-rápido pero sin sello de conciliación ni fecha de corte visible resolvería el problema
-equivocado.
+El resultado aporta \textbf{certeza institucional}: Arturo puede explicar la cifra y evitar
+quedar expuesto ante una discrepancia. Por eso, la conciliación y la fecha de corte son tan
+importantes como la rapidez del tablero.
 
 \elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
 
@@ -408,6 +404,12 @@ explicando a analistas de otras áreas qué significa una columna. Otras áreas 
 con extracciones descargadas meses atrás y no se enteran cuando la clasificación oficial
 cambia. No existe un repositorio único donde él pueda declarar cuál es la fuente certificada
 por su subgerencia, y esa ausencia lo convierte en un cuello de botella permanente.
+
+\elemento{Expectativas del usuario}{qué espera del producto en esta situación}
+
+Roberto espera publicar una definición con vigencia, historial e impacto visibles antes de
+confirmar el cambio. También espera que el portal avise solamente a las personas afectadas y
+conserve evidencia de la publicación, las versiones y los destinatarios.
 
 \elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
 
@@ -466,10 +468,9 @@ La nueva clasificación queda publicada, la anterior queda accesible y marcada, 
 que dependían de esa definición se enteraron antes de volver a usarla. Roberto ya no tiene que
 explicar el cambio de forma individual: la explicación vive junto al dato.
 
-La sensación buscada es \textbf{tranquilidad institucional}: dejar de ser el cuello de botella
-y, al mismo tiempo, dejar de ser el responsable implícito de los errores que otros cometen con
-sus datos. Es la contraparte exacta del escenario 1: lo que Roberto publica aquí es lo que
-Laura lee cuando valida una cifra, y lo que evita que ella tenga que escribirle.
+El resultado le da \textbf{tranquilidad institucional}: deja de concentrar consultas y reduce
+los errores derivados de versiones antiguas. La definición que publica queda disponible para
+Laura y para cualquier otra persona afectada.
 
 \elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
 
@@ -491,27 +492,12 @@ Laura lee cuando valida una cifra, y lo que evita que ella tenga que escribirle.
 
 \textit{Elaborado por Alexandro Mayoral Terán sobre el escenario 3.}
 
-Este mapa despliega el objetivo del escenario 3: \textbf{entender una señal de riesgo y poder
-responder por ella ante la Junta de Gobierno}. Es el recorrido más corto de los cuatro —cinco
-etapas en quince minutos— y por eso mismo el más exigente: no hay margen para un paso de más.
+Este recorrido concentra cinco etapas en quince minutos. A diferencia del perfil operativo,
+Arturo no busca datos: interpreta una vista ya preparada y decide si puede responder por ella.
 
-\textbf{Qué revela el mapa que el escenario no mostraba.} Que el recorrido de un perfil
-directivo no es una versión simplificada del recorrido operativo, sino uno distinto. Laura
-busca, compara y valida; Arturo no busca nada: la información ya está en su vista y su trabajo
-consiste en interpretarla y en decidir si puede responder por ella. Un diseño que tratara al
-directivo como a un operativo con menos opciones fallaría en la etapa 3, cuando detecta el
-movimiento, porque ahí no necesita más datos sino una explicación.
-
-\textbf{Momento de la verdad.} La etapa 4, cuando toca la gráfica y aparece la tarjeta de
-contexto escrita por el propietario del dato. Esa tarjeta sustituye las tres llamadas que hoy
-tendría que hacer y es lo único que separa la seguridad de la duda quince minutos antes de una
-Junta. Es también el punto donde este recorrido se apoya en el trabajo descrito en el
-escenario 4: sin alguien que escriba el contexto, la tarjeta está vacía.
-
-\textbf{Consecuencia para el diseño.} La vista directiva tiene que estar preparada para
-lectura y no para exploración. Tres de sus cinco oportunidades —carga instantánea, pocas cifras
-con su variación, contexto escrito junto al dato— apuntan a reducir decisiones, no a añadir
-capacidades.
+El \textbf{momento de la verdad} ocurre cuando la gráfica muestra el contexto escrito por el
+propietario. La vista directiva debe favorecer lectura inmediata, variaciones visibles y una
+explicación verificable, en lugar de ofrecer más opciones de exploración.
 
 \figurapanoramica{figuras/journey_arturo.pdf}
   {Journey map individual de Arturo Castañeda. Objetivo: entender una señal de riesgo y poder
@@ -542,11 +528,17 @@ incorpora y retirarlo el mismo día de la baja, sin depender de que alguien se a
 el rol más acotado que permita a cada persona hacer su trabajo, y poder demostrar por qué se
 otorgó. Anticipar los problemas de continuidad antes de que los usuarios los reporten.
 
-\textbf{\textcolor{uxnavy}{Pain points relevantes para esta tarea.}} Las cuentas huérfanas
-—activas después de que la persona cambió de área o dejó la institución— suelen detectarse
+\textbf{\textcolor{uxnavy}{Pain points relevantes para esta tarea.}} Las cuentas huérfanas,
+activas después de que la persona cambió de área o dejó la institución, suelen detectarse
 hasta que alguien las audita. Recibe solicitudes de acceso por correo, sin justificación, sin
 vigencia y sin visto bueno del propietario del dato. Y su trabajo es invisible: cuando la
 plataforma funciona nadie lo nota, y cuando falla no tiene con qué mostrar qué ocurrió.
+
+\elemento{Expectativas del usuario}{qué espera del producto en esta situación}
+
+Mariana espera ver las consecuencias de cada rol antes de asignarlo y vincular todo permiso
+con su justificación, autorización y vigencia. Espera que el historial permanezca disponible
+para demostrar altas, cambios y bajas sin reconstruir la evidencia en varios sistemas.
 
 \elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
 
@@ -606,10 +598,9 @@ La analista trabajó desde su primer día con el permiso correcto, el cambio de 
 privilegios residuales y el trimestre cerró con seis cuentas menos y con la evidencia
 disponible antes de que alguien la pidiera.
 
-La sensación buscada es \textbf{respaldo}: que el sistema deje el rastro por ella. Es una
-necesidad distinta a la eficiencia, y el diseño tiene que distinguirlas. Para Mariana, un panel
-que permita dar de alta en diez segundos pero no registre quién autorizó qué le ahorra un
-minuto hoy y le cuesta un hallazgo de auditoría en seis meses.
+El historial le da \textbf{respaldo}: el sistema conserva el rastro de cada autorización y
+cambio. Un alta rápida sin esa evidencia ahorraría tiempo inmediato, pero aumentaría el riesgo
+de auditoría.
 
 \elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
 
@@ -653,6 +644,12 @@ recibe ella. Encuentra el servicio pero no la definición del campo, su periodic
 valores válidos. Y cada fuente nueva implica un trámite distinto, con formato, responsable y
 tiempo de respuesta diferentes, lo que empuja a las áreas a resolver por fuera del canal
 oficial.
+
+\elemento{Expectativas del usuario}{qué espera del producto en esta situación}
+
+Ximena espera encontrar un contrato de datos documentado y versionado, obtener credenciales
+sin abrir un ticket y probar el servicio con una muestra pequeña. Después de la integración,
+espera recibir avisos anticipados y disponer de una transición cuando cambie el esquema.
 
 \elemento{Descripción de la tarea}{qué quiere conseguir y pasos para lograrlo}
 
@@ -711,11 +708,9 @@ mientras ella migra sin prisa.
 La herramienta entrega el cruce actualizado cada mañana antes de las ocho, el trabajo manual
 del lunes desapareció y el cambio de esquema no interrumpió el servicio en ningún momento.
 
-La sensación buscada es \textbf{confianza en el proveedor de datos}. Para este perfil el
-producto no compite contra la ausencia de datos, sino contra la costumbre de descargar
-archivos y guardarlos localmente, que es exactamente la práctica que fragmenta la información
-institucional. Un portal que no ofrezca un contrato estable no elimina esa costumbre: la
-justifica.
+El resultado genera \textbf{confianza en el proveedor de datos}. Un contrato estable y los
+avisos anticipados hacen preferible el servicio institucional frente a las descargas locales
+que fragmentan la información.
 
 \elemento{Excepciones}{situaciones poco frecuentes con consecuencias de diseño}
 
@@ -737,27 +732,12 @@ justifica.
 
 \textit{Elaborado por Arthur Jafed Zizumbo Velasco sobre el escenario 6.}
 
-Este mapa despliega el objetivo del escenario 6: \textbf{automatizar un cruce diario por
-interfaz de programación y sobrevivir a un cambio de esquema}. Es el recorrido más largo en el
-tiempo: la etapa final ocurre semanas después de que el trabajo se dio por terminado.
+El mapa extiende el recorrido varias semanas, hasta el primer cambio de esquema. Esa etapa
+posterior al uso determina si Ximena mantiene la integración o vuelve a descargar archivos.
 
-\textbf{Qué revela el mapa que el escenario no mostraba.} Que en este perfil el después del uso
-no es un epílogo, sino la etapa que decide todo. Las cinco primeras etapas se resuelven en dos
-días y ninguna es especialmente difícil; el valor del producto se juega en la sexta, cuando el
-origen cambia. Un mapa que hubiera terminado en la puesta en marcha —como termina la mayoría de
-los journey maps— habría dejado fuera precisamente lo que determina si el portal se adopta o se
-abandona.
-
-\textbf{Momento de la verdad.} La etapa 4, cuando el portal expone el contrato de datos con su
-versión de esquema. Ese contrato es lo que permite a Ximena escribir una prueba que detecta el
-cambio antes de que rompa producción. Sin él, las etapas 5 y 6 dependen de la suerte.
-
-\textbf{Consecuencia para el diseño.} El competidor de este perfil no es otra herramienta: es
-la costumbre de descargar archivos y guardarlos localmente, que es exactamente la práctica que
-fragmenta la información institucional y que el portal existe para revertir. Un portal sin
-contrato estable ni aviso anticipado no elimina esa costumbre; la justifica. Es el argumento
-más fuerte a favor de tratar la comunicación de cambios como una función del producto y no como
-una cortesía.
+El \textbf{momento de la verdad} es la publicación del contrato versionado, porque permite
+detectar cambios antes de producción. El diseño debe tratar la estabilidad y la comunicación
+anticipada como funciones del producto, no como acuerdos informales.
 
 \figurapanoramica{figuras/journey_ximena.pdf}
   {Journey map individual de Ximena Solís Barrera. Objetivo: automatizar un cruce diario por

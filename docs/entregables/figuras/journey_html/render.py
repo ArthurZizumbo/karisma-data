@@ -90,6 +90,15 @@ def cells(stages, key, extra=""):
     return "".join(cell(s[key], i + 2, extra) for i, s in enumerate(stages))
 
 
+def lane_label(group, title, extra=""):
+    """Build a Custellence-style lane label with perspective and lane name."""
+    return (
+        f'<div class="etiqueta {extra}">'
+        f'<span class="grupo">{html.escape(group)}</span>'
+        f'<span>{html.escape(title)}</span></div>'
+    )
+
+
 def phase_band(stages):
     """Merge consecutive stages that share a phase into a single pill."""
     out, start = [], 0
@@ -145,8 +154,8 @@ def emotion_lane(stages):
 
     polyline = (
         f'<svg class="trazo" viewBox="0 0 100 100" preserveAspectRatio="none">'
-        f'<polyline points="{" ".join(points)}" fill="none" stroke="#2563EB" '
-        f'stroke-width="2.4" vector-effect="non-scaling-stroke" '
+        f'<polyline points="{" ".join(points)}" fill="none" stroke="#5568D9" '
+        f'stroke-width="3.2" vector-effect="non-scaling-stroke" '
         f'stroke-linejoin="round" stroke-linecap="round"/></svg>'
     )
 
@@ -167,20 +176,20 @@ def build_html(spec):
     tags = [t.strip() for t in rest.split("   ·   ") if t.strip()]
 
     rows = [
-        ('<div class="etiqueta tenue">Momento</div>', phase_band(stages),
+        (lane_label("Estructura", "Momento", "tenue estructura"), phase_band(stages),
          "fila-momento"),
-        ('<div class="etiqueta">Etapas</div>', stage_band(stages), "fila-etapa"),
-        ('<div class="etiqueta">Acciones</div>',
+        (lane_label("Estructura", "Etapas", "estructura"), stage_band(stages), "fila-etapa"),
+        (lane_label("Usuario", "Acciones", "usuario"),
          cells(stages, "actions"), "fila-accion"),
-        ('<div class="etiqueta">Puntos de contacto</div>',
+        (lane_label("Interacción", "Puntos de contacto", "interaccion"),
          cells(stages, "touchpoints", "contacto"), "fila-contacto"),
-        ('<div class="etiqueta">Pensamientos</div>',
+        (lane_label("Experiencia", "Pensamientos", "experiencia"),
          cells(stages, "thoughts", "pensamiento"), "fila-pensamiento"),
-        ('<div class="etiqueta">Emociones</div>', emotion_lane(stages),
+        (lane_label("Experiencia", "Emociones", "experiencia"), emotion_lane(stages),
          "fila-emocion"),
-        ('<div class="etiqueta">Puntos de fricción</div>',
+        (lane_label("Análisis", "Puntos de fricción", "analisis"),
          cells(stages, "pain"), "fila-friccion"),
-        ('<div class="etiqueta">Oportunidades</div>',
+        (lane_label("Desarrollo", "Oportunidades", "desarrollo"),
          cells(stages, "opportunity", "oportunidad"), "fila-oportunidad"),
     ]
 
@@ -213,7 +222,7 @@ def build_html(spec):
     </div>
   </header>
 
-  <main class="mapa">
+  <main class="mapa{' denso' if n >= 7 else ''}">
     {grid}
     {frame}
   </main>

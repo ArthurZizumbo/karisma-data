@@ -11,9 +11,9 @@ proyecto; no hay dos versiones del mismo párrafo.
 
 | Archivo | Qué produce | Para qué |
 |---------|-------------|----------|
-| `main_a1.tex` | 52 páginas | Actividad 1, entregada el 26-jul-2026 |
-| `main_a2.tex` | 53 páginas | Actividad 2, se entrega el 2-ago-2026 |
-| `main_completo.tex` | 106 páginas | Documento acumulado del proyecto: Parte I (A1) y Parte II (A2), con numeración continua |
+| `main_a1.tex` | 48 páginas | Actividad 1, entregada el 26-jul-2026 |
+| `main_a2.tex` | 41 páginas | Actividad 2, se entrega el 2-ago-2026 |
+| `main_completo.tex` | 91 páginas | Documento acumulado del proyecto: Parte I (A1) y Parte II (A2), con numeración continua |
 
 El PDF que se sube a Canvas se copia con el nombre exacto que exige la actividad:
 
@@ -128,12 +128,14 @@ entregables/
 ├── contenido/
 │   ├── a1_cuerpo.tex      secciones 1 a 15 de la Actividad 1
 │   ├── a1_anexo.tex       consentimiento informado
-│   ├── a2_00_preliminares.tex   matriz de criterios e introducción
+│   ├── a2_00_preliminares.tex   introducción
 │   ├── a2_01_metodo.tex         método, plantilla de escenario y alcance declarado
 │   ├── a2_02_escenarios.tex     seis escenarios, dos por integrante
 │   ├── a2_03_journey.tex        journey map de equipo
 │   ├── a2_04_cierre.tex         trazabilidad, principios rectores y referencias
-│   └── a2_05_anexo.tex          journey map en formato de tabla
+│   └── a2_05_anexo.tex          journey map en formato de tabla (fuera de las salidas
+│                                 desde la revisión de contenido del 29-jul; ningún
+│                                 `main_*.tex` lo incluye)
 ├── estilo/uxdoc.sty       sistema de diseño (tipografía, color, componentes)
 ├── figuras/               figuras y sus scripts generadores
 └── imagenes/              logotipos, marca y las ocho fotografías de personas
@@ -178,11 +180,11 @@ Derivado del design system generado con la skill `ui-ux-pro-max` para la consult
 | `uxpreg` | Lista numerada para instrumentos y pasos de escenario | v1.0 |
 | `uxnota[título]`, `uxdestacado` | Cajas de nota y de cita | v1.0 |
 | `uxreferencias` | Lista de referencias con sangría francesa | v2.0 |
-| `\personahead{}{}{}`, `personadatos`, `\personabloque{}`, `\mapaempatia{}{}{}{}` | Fichas de persona y mapas de empatía | v1.0 |
+| `\personahead{}{}{}`, `personadatos`, `\personabloque{}` | Fichas de persona | v1.0 |
+| `\mapaempatia{nombre}{says}{thinks}{does}{feels}` | Mapa de empatía: **imprime él mismo su titular**, no lleva `\subsection` delante | v2.1 |
 | `\aportacion[qué]{nombre}{matrícula}` | Banda de atribución individual | v2.0 con argumento opcional |
 | `\escenariohead{foto}{título}{persona}{datos}` | Cabecera de escenario | v2.0 |
 | `\elemento{rótulo}{glosa}` | Rótulo de los cuatro elementos exigidos por la rúbrica | v2.0 |
-| `\etapajourney{n}{nombre}{momento}`, `\carril{}{}` | Etapas y carriles del journey map | v2.0 |
 | `uxmomento` | Caja del momento de la verdad | v2.0 |
 | `\figuraux{}{}{}` | Figura a ancho de columna | v1.0 |
 | `\figurapanoramica{}{}{}` | Figura a sangre en página horizontal | v2.0 |
@@ -210,6 +212,33 @@ Los factores `Z` de una misma tabla **deben sumar el número de columnas elásti
 - **Los modelos de imagen no sirven para diagramas con texto en español.** Las figuras con
   etiquetas se generan con matplotlib; los modelos de imagen se reservan para fotografías y
   marcas sin texto.
+- **Un `tcbraster` se parte entre sus filas.** Fue la observación del profesor sobre la
+  Actividad 1: tres de los ocho mapas de empatía quedaron divididos en dos páginas. Un bloque
+  visual que debe leerse de una sola vez se compone primero en una caja (`\sbox`), se mide su
+  altura y se reserva con `\needspace` antes de imprimir el titular; colocado desde la caja ya
+  no ofrece punto de corte. `\mapaempatia` es el ejemplo a copiar.
+- **Los flotantes de fábrica dejan páginas a medias.** `\textfraction=0.2` exige una quinta
+  parte de texto en cualquier página con flotante, así que una tabla grande se expulsa a página
+  propia y la anterior queda corta. Los parámetros están aflojados en `uxdoc.sty`.
+- **Viudas y huérfanas.** LaTeX las castiga con solo 150 y las admite sin más. En este
+  documento `\widowpenalty` y `\clubpenalty` están en 10000: antes que un renglón suelto, la
+  página termina antes.
+- **El índice hereda el `\parskip` del documento** (6 pt por entrada) y a ese ritmo las
+  últimas entradas caen en una página propia casi vacía. Dentro del índice el `\parskip` baja
+  a 1 pt y el colchón previo de cada sección (`\l@section`) de 1 em a 0.7 em: el de A2 cabe
+  así en una sola página.
+- **Solo abren página nueva los bloques con identidad propia**: bandas de aportación
+  individual, personas, escenarios, journey maps y anexos. Las secciones de texto corrido
+  fluyen una tras otra; encadenar `\clearpage` en todas dejaba un final de sección medio
+  vacío por cada una.
+- **Un titular nunca queda solo al pie**: titlesec ejecuta `\sectionbreak` /
+  `\subsectionbreak` antes de cada titular y ahí se exige sitio con `\needspace` para el
+  titular más las primeras líneas de su contenido. Sin esto, al fluir las secciones el
+  titular de la sección 2 quedaba colgado al final de una página y la 2.4 separada de su
+  figura.
+- **Una sección que derrama uno o dos renglones a una página propia** no se arregla con
+  espaciado global: se le permite crecer con `\enlargethispage{2\baselineskip}` justo antes
+  del párrafo final.
 
 ## Marca
 

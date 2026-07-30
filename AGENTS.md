@@ -1,6 +1,6 @@
 # Portal Centralizado de Datos Financieros — Guía Operativa del Orquestador
 
-**Proyecto**: Plataforma web de inteligencia financiera centralizada — curso TC4032 UX (MNA, ITESM), Equipo 8. Nombre comercial ⚠️ PENDIENTE (candidatos: Faro, Atlas Financiero, Prisma).
+**Proyecto**: Plataforma web de inteligencia financiera centralizada — curso TC4032 UX (MNA, ITESM), Equipo 8. Nombre comercial: **Karisma Data** (decidido al entregar A1 el 26-jul-2026; usar siempre este nombre en UI, entregables y documentación).
 
 **Stack**: FastAPI + Polars + capa semántica | Nuxt 4 SSR + Apache ECharts + Pinia + Tailwind v4 | PostgreSQL 15 + pgvector + SQLModel + dbmate | PyJWT + pwdlib (Argon2) + SecurityScopes | Google ADK + Gemini 3.5 Flash-Lite | OpenTelemetry | Terraform GCP Cloud Run scale-to-zero.
 

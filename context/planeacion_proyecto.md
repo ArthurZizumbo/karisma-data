@@ -6,8 +6,8 @@
 
 **Documento:** Planeación SCRUM detallada + alineación con el curso — TC4032 Experiencia del Usuario y Diseño de Interfaces, Maestría en Inteligencia Artificial Aplicada (MNA), ITESM.
 **Periodo:** 20 de julio a 23 de agosto de 2026 (5 semanas, la semana 1 ya en curso).
-**Estado del documento:** plan definido del equipo (22-jul-2026). Las secciones marcadas ⚠️ PENDIENTE requieren decisión del equipo o rúbrica aún no publicada.
-**Catálogo de historias:** 44 en total — **US-001…US-036** (técnicas, numeración contigua sin huecos) + **US-UX-01…US-UX-08** (entregables del curso), cada una independiente y verificable (INVEST).
+**Estado del documento:** plan vivo. Definido el 22-jul-2026; **actualizado el 29-jul-2026** con el cierre de la Actividad 1, la absorción de la rúbrica de la Actividad 2 (§2.3, protocolo §25.2), el estado real de las historias UX (§2.5), el estado verificado de la pista de construcción (§2.6), el método de usuarios prototipo (US-UX-01, §22.1.b), el recálculo de capacidad (§10.2.b) y la cobertura de lo comprometido en A1/A2 por el catálogo técnico (§18.1). Las secciones marcadas ⚠️ PENDIENTE requieren decisión del equipo o rúbrica aún no publicada.
+**Catálogo de historias:** 44 comprometidas — **US-001…US-036** (técnicas, numeración contigua sin huecos) + **US-UX-01…US-UX-08** (entregables del curso), cada una independiente y verificable (INVEST). Más **US-037…US-041**, derivadas de los compromisos de A1/A2 y declaradas **roadmap no comprometido** (§18.1).
 
 ### Equipo 8
 
@@ -46,14 +46,14 @@
 15. [EPIC 3: Agente Conversacional](#epic-3)
 16. [EPIC 4: Frontend y Dashboards](#epic-4)
 17. [EPIC 5: Observabilidad, Pruebas y Producción](#epic-5)
-18. [Alcance Descartado (fuera del curso)](#consolidacion)
+18. [Alcance Descartado y Cobertura de A1/A2](#consolidacion) — incluye §18.1 y las US-037…041 de roadmap
 19. [Roadmap Semanal de Sprints](#19-roadmap)
 20. [Gates de las Semanas 1–2](#20-gates)
 21. [Gestión de Riesgos](#21-riesgos)
 22. [Criterios de Éxito del MVP](#22-criterios)
 23. [FinOps: Presupuesto de Operación](#23-finops)
 24. [Checklist de Excelencia — Actividad 1](#24-checklist-a1)
-25. [Pendientes y Protocolo para Rúbricas Futuras](#25-pendientes)
+25. [Pendientes, Protocolo y Registro de Rúbricas](#25-pendientes) — incluye el [registro de absorción](#25-4-registro)
 - [Anexo A: Instrumentos de Investigación (borrador)](#anexo-a)
 - [Anexo B: Matriz de Personas y Mapas de Empatía](#anexo-b)
 - [Anexo C: Familias de Preguntas del Agente](#anexo-c)
@@ -63,7 +63,7 @@
 
 ## 1. Resumen Ejecutivo {#1-resumen-ejecutivo}
 
-El **Portal Centralizado de Datos Financieros** (nombre comercial ⚠️ PENDIENTE; candidatos: *Faro*, *Atlas Financiero*, *Prisma*) es una plataforma web modular que elimina la dispersión de información entre silos financieros institucionales (créditos, liquidez, derivados) mediante cuatro capacidades integradas:
+El **Portal Centralizado de Datos Financieros**, con nombre comercial **Karisma Data**, es una plataforma web modular que elimina la dispersión de información entre silos financieros institucionales (créditos, liquidez, derivados) mediante cuatro capacidades integradas:
 
 1. **Espacios de trabajo por rol con revelación progresiva.** El usuario Operativo ve un buscador y validación puntual; el Analista profundiza a filtros complejos y exportación cruda; el Directivo consume tarjetas predictivas y tableros consolidados. La complejidad técnica solo aparece cuando se necesita. El acceso se controla con **autenticación JWT y autorización por roles (RBAC)**.
 2. **Catálogo semántico de datos (Data Catalog).** Diccionario institucional buscable en lenguaje de negocio que responde "¿dónde vive este dato?", enriquecido con conocimiento tribal (definiciones, reglas de área, advertencias de uso) y preparado para RAG.
@@ -79,7 +79,7 @@ Este proyecto vive en dos pistas simultáneas que el plan integra explícitament
 
 ### Método central: diseño centrado en el usuario con evidencia
 
-El hilo conductor metodológico es el proceso UX completo: investigación con instrumentos propios (encuesta + entrevistas a perfiles financieros reales) → personas y mapas de empatía → escenarios y journey maps → arquitectura de información validada → prototipos de alta fidelidad → evaluación de usabilidad. La novedad 2026 que aporta el equipo: **pre-validación con usuarios sintéticos condicionados por persona** (PerceptUI, §3.8) antes de las pruebas con usuarios reales, y patrones de UX para agentes (transparencia de tool calls, streaming cancelable) fundamentados en literatura CHI/arXiv 2026.
+El hilo conductor metodológico es el proceso UX completo: diseño de instrumentos propios (encuesta, entrevista semiestructurada, observación contextual) y caracterización de **usuarios prototipo** con el conocimiento de dominio del equipo → personas y mapas de empatía → escenarios y journey maps → arquitectura de información validada con card sorting → prototipos de alta fidelidad → evaluación de usabilidad con usuarios (SUS). La validación con participantes se concentra en A3 y A5, y cada artefacto anterior declara su base (§22.1.b). La novedad 2026 que aporta el equipo: **pre-validación con usuarios sintéticos condicionados por persona** (PerceptUI, §3.8) antes de las pruebas con usuarios reales, y patrones de UX para agentes (transparencia de tool calls, streaming cancelable) fundamentados en literatura CHI/arXiv 2026.
 
 ---
 
@@ -87,15 +87,15 @@ El hilo conductor metodológico es el proceso UX completo: investigación con in
 
 ### 2.1 Calendario de entregas (fechas confirmadas por el equipo, 22-jul-2026)
 
-Las fechas de desarrollo quedaron confirmadas con cadencia dominical. Las rúbricas de A2–A5 siguen ⚠️ pendientes de publicación en Canvas; al publicarse cada una se aplica el protocolo de absorción (§25.2).
+Las fechas de desarrollo quedaron confirmadas con cadencia dominical. Las rúbricas de A3–A5 siguen ⚠️ pendientes de publicación en Canvas; al publicarse cada una se aplica el protocolo de absorción (§25.2).
 
-| Actividad | Tema | Fecha de entrega | Rúbrica | Sprint |
-|-----------|------|------------------|---------|--------|
-| **A1** | Definición del producto digital y diseño de instrumentos de investigación de usuario | **dom 26-jul-2026** | **Publicada** (15 pts) | S1 |
-| A2 | Diseño de escenarios y Journey Maps | **dom 2-ago-2026** | ⚠️ Pendiente | S2 |
-| A3 | Análisis competitivo y Arquitectura de Información | **dom 9-ago-2026** | ⚠️ Pendiente | S3 |
-| A4 | Interfaces de alta fidelidad | **dom 16-ago-2026** | ⚠️ Pendiente | S4 |
-| A5 | Entrega final | **dom 23-ago-2026** | ⚠️ Pendiente | S5 |
+| Actividad | Tema | Fecha de entrega | Rúbrica | Sprint | Estado |
+|-----------|------|------------------|---------|--------|--------|
+| **A1** | Definición del producto digital y diseño de instrumentos de investigación de usuario | **dom 26-jul-2026** | **Publicada** (15 pts) | S1 | ✅ **Entregada** 26-jul (§2.5) |
+| **A2** | Diseño de escenarios y Journey Maps | **dom 2-ago-2026** | **Publicada** (15 pts, absorbida 29-jul → §2.3) | S2 | 🔵 Documento terminado, pendiente de subir a Canvas |
+| A3 | Análisis competitivo y Arquitectura de Información | **dom 9-ago-2026** | ⚠️ Pendiente | S3 | Por iniciar |
+| A4 | Interfaces de alta fidelidad | **dom 16-ago-2026** | ⚠️ Pendiente | S4 | Por iniciar |
+| A5 | Entrega final | **dom 23-ago-2026** | ⚠️ Pendiente | S5 | Por iniciar |
 
 ### 2.2 Rúbrica de la Actividad 1 (desglose exacto)
 
@@ -121,15 +121,72 @@ Elementos obligatorios por sección (extraídos de las instrucciones):
 
 La sección 24 contiene el checklist de excelencia con responsables y extras para sobrepasar la rúbrica.
 
-### 2.3 Mapeo actividad → capítulos del proceso UX → épicas
+### 2.3 Rúbrica de la Actividad 2 (desglose exacto — absorbida 29-jul-2026)
+
+Fuente: `docs/general/semana_2/Rubrica/Actividad 2. Diseño de escenarios y Journey Maps.pdf`. Objetivo evaluado: **(OEA) 1.4 Definir la interacción del usuario con un producto o servicio digital a través del tiempo**. Entregable: **PDF** nombrado **"Entregable Actividad 2_equipo_8"**, entrega por Canvas, cuenta para todo el Project Group.
+
+| # | Apartado | Peso | Modalidad | Puntos (de 15) |
+|---|----------|------|-----------|----------------|
+| 1 | Portada con nombres de los integrantes | 2 % | Equipo | 0.30 |
+| 2 | Introducción | 3 % | Equipo | 0.45 |
+| 3 | **Dos escenarios por cada integrante** (6 en total) | **45 %** | Individual | **6.75** |
+| 4 | **Elaboración del Journey Map (en equipo)** | **50 %** | Equipo | **7.50** |
+
+Elementos obligatorios por sección (extraídos de las instrucciones):
+
+- **Cada escenario (los cuatro elementos, Sección 1 de la actividad):** definición del usuario (audiencia objetivo, necesidades y objetivos, pain points); descripción de la tarea (qué quiere conseguir y pasos para lograrlo); identificación de las interacciones clave (puntos de contacto usuario↔producto para completar la tarea); descripción del resultado deseado (resultado de la tarea **y la sensación del usuario** al completarla con éxito).
+- **Journey Map de equipo (Sección 2):** cómo el usuario aborda cada etapa; sus pensamientos; los puntos que pueden complicar la adopción del producto; y las oportunidades que pueden mitigarlos. Se construye discutiendo **en equipo** los escenarios individuales y produciendo primero un **listado de actividades** que el usuario ejecuta para cumplir **uno** de los objetivos de los escenarios.
+- **Herramienta:** la rúbrica **propone** Custellence (no la exige) y ofrece un ejemplo de referencia con carriles de etapas, acciones, emociones, pensamientos, puntos de contacto, pain points y oportunidades.
+
+**Delta contra lo asumido en el plan del 22-jul (impacto de la absorción).** Los criterios provisionales de US-UX-05 asumían *3 escenarios (uno por perfil) + 3 journey maps*. La rúbrica real pide **6 escenarios (2 por integrante, 45 %)** y **un solo journey map de equipo (50 %)**. Es un cambio de forma, no de fondo: duplica el número de escenarios pero concentra medio punto de la calificación en un único mapa colaborativo. **No se congeló ningún STRETCH**: el delta se absorbió dentro de los 5 SP originales de US-UX-05 porque los escenarios comparten plantilla y los mapas comparten una única fuente de contenido. Ver el estado de cumplimiento en §2.5 y los criterios definitivos en US-UX-05.
+
+### 2.4 Mapeo actividad → capítulos del proceso UX → épicas
 
 | Actividad | Proceso UX | Épicas que la alimentan | Evidencia diferenciadora |
 |-----------|-----------|--------------------------|--------------------------|
-| A1 | Empatizar + Definir | EPIC UX (US-UX-01…04) | Encuesta real con n≥15 y entrevistas por perfil; gráficas de resultados |
-| A2 | Definir + Idear | EPIC UX (US-UX-05), E1 (catálogo como escenario) | Journey maps de los 3 perfiles sobre flujos reales del portal |
+| A1 | Empatizar + Definir | EPIC UX (US-UX-01…04) | 8 personas y 8 mapas de empatía sobre 8 perfiles de uso; tres instrumentos diseñados con trazabilidad pregunta→hipótesis |
+| A2 | Definir + Idear | EPIC UX (US-UX-05), E1 (catálogo como escenario) | 6 escenarios + 4 journey maps sobre flujos reales del portal, con taller documentado y alcance declarado |
 | A3 | Idear + Estructurar | EPIC UX (US-UX-06), E1/E2 (catálogo, endpoints, roles) | Benchmark de 4–6 productos reales + sitemap y card sorting |
 | A4 | Prototipar | EPIC UX (US-UX-07), E3/E4 (agente, dashboard) | Alta fidelidad en Figma **+ prototipo funcional en Nuxt 4** |
 | A5 | Probar + Entregar | EPIC UX (US-UX-08), E5 (observabilidad, deploy) | Pruebas de usabilidad (SUS) + pre-validación sintética PerceptUI |
+
+### 2.5 Estado de las entregas y de las historias UX (al 29-jul-2026)
+
+Registro de avance real. La convención de estado de este plan es: ✅ **cerrada** (entregada y verificada contra su rúbrica) · 🔵 **terminada, pendiente de entrega** · 🟡 **abierta con desviación declarada** · ☐ **no iniciada**. Las casillas `- [ ]` dentro de cada US son tareas; el estado consolidado vive aquí.
+
+| US | Actividad | SP | Estado | Qué se entregó realmente |
+|----|-----------|----|--------|--------------------------|
+| US-UX-01 | A1 | 3 | ✅ **Cubierta — método de usuarios prototipo** | Los **tres instrumentos quedaron diseñados** (encuesta de 13 preguntas, guía de entrevista semiestructurada y guía de observación contextual AEIOU), con consentimiento informado, plan de aplicación y criterios de análisis por diagramación de afinidad. Por restricción de tiempo la audiencia se caracterizó con **usuarios prototipo** en lugar de campo aplicado: investigación documental + experiencia profesional del equipo + observación de canales, declarado en el documento. Cubre lo que la rúbrica pedía ("la herramienta utilizada y sus resultados"); la meta de n≥15 era autoexigencia del equipo, no requisito de la rúbrica. |
+| US-UX-02 | A1 | 3 | ✅ **Cerrada** | Portada con los 3 integrantes, introducción con método y organización, audiencia con los 6 elementos exigidos, problema cuantificado con fuente por renglón y 3 figuras, y producto digital con tipo, características y beneficios. |
+| US-UX-03 | A1 | 3 | ✅ **Cerrada y excedida** | **8 personas** en lugar de 6 (Jacqueline 2, Alexandro 4, Arthur 2), todas con foto, básicos (nombre, edad, sexo, ubicación, ocupación), antecedentes, objetivos, pain points, hábitos y frase. Se añadió designación de **persona primaria** (Hartson y Pyla) y una sección de alcance y límite del método que la rúbrica no pedía. |
+| US-UX-04 | A1 | 2 | ✅ **Cerrada y excedida** | **8 mapas de empatía** en lugar de 6, cuadrantes "Says/Thinks/Does/Feels" con ≥3 observaciones, plantilla uniforme y cada mapa indivisible en una sola página (corrección de la observación del profesor sobre A1). |
+| US-UX-05 | A2 | 5 | 🔵 **Terminada, pendiente de subir** | **6 escenarios** (2 por integrante) con los 4 elementos de la rúbrica rotulados + **4 journey maps**: 3 individuales y el **de equipo** con taller documentado, listado de 15 actividades, 7 etapas × 7 carriles, curva emocional, trazabilidad a la característica del producto y anexo tabular. |
+
+**SP consumidos de la EPIC UX: 16 de 28** (11 de A1 + 5 de A2). Restan 12 SP MUST (US-UX-06 4 · US-UX-07 5 · US-UX-08 3) más los +4 STRETCH de US-UX-08.
+
+**Las dos desviaciones que arrastran consecuencias, y qué las cierra:**
+
+1. **El método fue usuarios prototipo, no trabajo de campo aplicado.** Decisión tomada por restricción de tiempo en la semana 1 y registrada aquí el 29-jul: los instrumentos se diseñaron completos y la audiencia se caracterizó con el conocimiento de dominio del equipo, la investigación documental y la observación de canales. Los criterios de campo de US-UX-03/US-UX-04 se reformularon en consecuencia, y el journey map de A2 se declara *mapa de supuestos* siguiendo la advertencia de la propia literatura de journey mapping. **Es un método legítimo y los dos documentos lo declaran, así que no hay deuda oculta**: lo que hay es una secuencia de validación pendiente, y está donde el plan ya la tenía prevista — el card sorting de A3 (≥6 participantes) y la prueba SUS de A5 (≥5 participantes, exigida por la rúbrica de A5). La única línea que no se cruza es presentar los supuestos como hallazgos, y ambos entregables la respetan. Nota de calibración: la meta de n≥15 respuestas era una **autoexigencia del equipo**, no un requisito de la rúbrica, y quedaba desproporcionada frente a lo que A1 pedía (6 personas y 6 mapas); se entregaron 8 de cada uno.
+2. **El alcance de perfiles creció de 3 a 8.** *(ver también §5.3, ya actualizada)* El plan modela consistentemente 3 perfiles (Operativo, Analista, Directivo) y los documentos entregados trabajan con **8 perfiles de uso** y 4 roles de control de acceso. Los 4 roles RBAC de US-016 no cambian, así que **la pista técnica no se ve afectada**; lo que cambia es el material de las actividades siguientes: el sitemap de A3 y las pantallas de A4 deben cubrir 8 perfiles agrupados en 4 espacios de trabajo, no 3. Esto ya está reflejado en los criterios de US-UX-06 y US-UX-07.
+
+### 2.6 Estado de la pista de construcción (verificado al 29-jul-2026)
+
+Verificación directa del repositorio, no estimación. **Las 36 historias técnicas están sin iniciar: 0 SP de 58 MUST.** Las seis carpetas de producto contienen únicamente su `AGENTS.md`.
+
+| Épica | US | SP MUST | Estado | Verificación |
+|-------|----|---------|--------|--------------|
+| **E0** Infraestructura | US-001…005 | 6 | ☐ **0 %** | No existen `Makefile`, `docker-compose.yml`, `.env.example`, `backend/pyproject.toml`, `frontend/package.json`, `backend/Dockerfile`, `frontend/Dockerfile` ni `.github/workflows/` |
+| **E1** Ingesta y catálogo | US-006…009 | 10 | ☐ **0 %** | `ml/` y `data/` vacíos; no hay `db/migrations/` ni `db/schema.sql` |
+| **E2** Motor y seguridad | US-011…019 | 13 | ☐ **0 %** | `backend/` vacío |
+| **E3** Agente | US-020…024 | 11 | ☐ **0 %** | Sin `ml/agent/`. El gate "hello tool" de ADK sigue sin ejecutarse |
+| **E4** Frontend | US-025…029 | 9 | ☐ **0 %** | `frontend/` vacío |
+| **E5** Observabilidad y producción | US-030…034 | 9 | ☐ **0 %** | `infra/` vacío |
+
+**Lo único construido hasta ahora es la cadena documental y de artefactos UX**, que sí es sustancial y reutilizable: el sistema de diseño LaTeX (`docs/entregables/estilo/uxdoc.sty`, 20 componentes), los generadores de figuras en Python con seaborn y matplotlib, el pipeline de journey maps en HTML+CSS con fuente única de contenido (`figuras/journey_data.py`), y las 14 imágenes de personas y escenas. Nada de eso es código de producto, pero la paleta y la tipografía del sistema de diseño **son la fuente de los tokens de Tailwind v4** que pedirá US-UX-07, así que el trabajo no se duplica.
+
+**Herramientas locales verificadas:** Docker 29.5.3, Python 3.12.6, Poetry 2.2.1, pnpm 11.8.0, Node 25.2.1, dbmate 2.32.0, Terraform 1.12.2, gcloud 573. **Faltan dos:** `gitleaks` (sin él el secrets-scan de `make check` no corre y es gate obligatorio de PR) y `corepack` en PATH con Node 25 — además Node 25 no es LTS, así que conviene fijar **Node 22 LTS** en `frontend/Dockerfile` para que las tres máquinas coincidan.
+
+**Consecuencia inmediata:** el primer entregable técnico no es una funcionalidad sino el propio `Makefile`. Los comandos `make dev`, `make data`, `make db-up` y `make check` que `CLAUDE.md` documenta son **contrato, todavía no código**. Arranque el jue 30-jul con US-001 (§19, cola de S2).
 
 ---
 
@@ -252,7 +309,7 @@ Diez artículos científicos de 2026 (arXiv) delimitan el espacio conceptual del
 
 ### 4.2 Diferenciadores concretos (defendibles en la entrega final)
 
-1. **Trípode de perfiles con un solo producto.** Operativo, Analista y Directivo no son tres apps: son tres niveles de revelación del mismo sistema, con evidencia de investigación propia (encuesta + entrevistas) de que los modos coexisten en una misma persona según la tarea.
+1. **Trípode de perfiles con un solo producto.** Operativo, Analista y Directivo no son tres apps: son tres niveles de revelación del mismo sistema, y los modos coexisten en una misma persona según la tarea — hipótesis central del proyecto, sustentada en la experiencia profesional del equipo y con su pregunta verificadora en el instrumento (E-08). A1 la desarrolló en 8 perfiles de uso agrupados en 4 roles de acceso.
 2. **El agente no calcula: orquesta.** Cifras siempre provenientes de Polars vía endpoints gobernados con permisos JWT (papers §3.3, §3.4) — defendible ante auditoría financiera.
 3. **Transparencia como requisito, no adorno.** Patrones tool-call visibility y overlays de linaje fundamentados en el marco empírico de §3.7.
 4. **UX medida, no supuesta.** TTFT y P90 con OpenTelemetry; pre-validación sintética por personas (§3.8) + SUS con usuarios reales en A5.
@@ -262,39 +319,47 @@ Diez artículos científicos de 2026 (arXiv) delimitan el espacio conceptual del
 
 ## 5. Usuarios y Estrategia de Investigación UX {#5-usuarios-investigacion}
 
-### 5.1 Los tres perfiles (audiencia)
+### 5.1 Perfiles de la audiencia
 
-Los roles **no son excluyentes**: una misma persona cambia de modo según la tarea (hallazgo a validar explícitamente con la encuesta, pregunta E-08 del Anexo A). A nivel de sistema, además de los tres perfiles existe el rol técnico **Admin** (gestión de usuarios, US-018/019), que no es un perfil UX de investigación sino de operación del portal.
+> **Actualizado el 29-jul.** El plan del 22-jul modelaba **tres** perfiles. A1 los desarrolló en **ocho perfiles de uso** —consulta operativa, análisis de datos, gobierno y calidad, control y auditoría, habilitación técnica, supervisión directiva, administración de la plataforma e integración de aplicaciones—, cada uno con su persona y su mapa de empatía. Los tres de la tabla siguen siendo los **modos de trabajo dominantes** que gobiernan la revelación progresiva del producto, y los ocho perfiles se agrupan en los **cuatro roles de control de acceso** que implementa US-016. Distinción que conviene no perder: los perfiles son categorías de investigación, los roles son permisos.
 
-| Perfil | Necesidad dominante | Módulos principales | Métrica de éxito UX |
+Los modos **no son excluyentes**: una misma persona cambia de modo según la tarea (hipótesis central del proyecto, con su pregunta verificadora E-08 en el Anexo A).
+
+| Modo de trabajo | Necesidad dominante | Módulos principales | Métrica de éxito UX |
 |--------|--------------------|--------------------|---------------------|
 | **Operativo** (consulta rápida) | Validar/consultar datos puntuales con mínima fricción | Buscador global, catálogo, respuestas del agente con fuente | Tiempo a dato validado < 30 s |
 | **Analista de datos** (profundidad) | Filtros complejos, cruces de variables, exportación cruda | Explorador de datos, exportación en segundo plano, APIs | Export masivo sin bloquear UI; cruce multi-fuente en < 5 min |
 | **Directivo** (abstracción) | Supervisión y decisión con carga cognitiva mínima | Tarjetas predictivas, tableros consolidados, resumen del agente | Comprensión de estado global en < 1 min sin ayuda |
 
+A nivel de sistema existe además el rol **Admin** (gestión de usuarios, US-018/019), que no es un modo de trabajo sobre el dato sino de operación del portal — en A1 corresponde a la persona de administración de la plataforma.
+
 Demografía objetivo (a confirmar con instrumento): profesionales de banca/finanzas en México, 25–55 años, oficinas centrales y esquema híbrido; se conectan en escritorio corporativo (principal) y móvil (consulta); buscan información en intranet, Teams/Slack, correo y con colegas (el "experto de al lado" — exactamente el silo de conocimiento que el portal ataca).
 
 ### 5.2 Instrumentos de investigación (Actividad 1 exige indicarlos con resultados)
 
-| Instrumento | Alcance | Meta | Responsable ⚠️ propuesto | Producto |
-|-------------|---------|------|--------------------------|----------|
-| **Encuesta estructurada** (Google Forms, ~13 preguntas, Anexo A.1) | Colegas del sector financiero/datos de la red de los 3 integrantes | **n ≥ 15** respuestas antes del vie 24-jul | Jacqueline (diseño), todos (distribución) | Gráficas de pains y frecuencias para la sección Problema |
-| **Entrevistas semiestructuradas** (30 min, guion Anexo A.2) | 1 por perfil: un operativo, un analista, un directivo | 3 entrevistas antes del sáb 25-jul | Uno por integrante | Citas textuales para mapas de empatía ("Says") y frases de personas |
-| **Observación de canales** (LinkedIn, comunidades de datos/finanzas, foros internos) | Dónde se conectan y buscan información | Lista de canales citable | Alexandro | Sustento del apartado "dónde se conectan" |
+| Instrumento | Alcance | Meta original (22-jul) | Ejecución real (29-jul) | Producto |
+|-------------|---------|------------------------|-------------------------|----------|
+| **Encuesta estructurada** (Google Forms, ~13 preguntas, Anexo A.1) | Colegas del sector financiero/datos de la red de los 3 integrantes | n ≥ 15 respuestas antes del vie 24-jul | **Diseñada y lista para aplicar**; no se aplicó por tiempo. La meta n≥15 era autoexigencia del equipo, no requisito de la rúbrica | Instrumento citable en el documento + preguntas verificadoras enlazadas a cada supuesto |
+| **Entrevistas semiestructuradas** (30 min, guion Anexo A.2) | 1 por perfil | 3 entrevistas antes del sáb 25-jul | **Guion diseñado**; aplicación diferida a las ventanas de A3/A5 | Guion citable y trazabilidad pregunta → supuesto |
+| **Observación contextual** (esquema AEIOU, Anexo A.2) | Tarea real en el puesto de trabajo | No estaba en el plan original | **Diseñada** — instrumento añadido durante A1, con su regla de registro (separar lo observado de lo interpretado) | Tercer instrumento del documento |
+| **Observación de canales** (LinkedIn, comunidades de datos/finanzas, foros internos) | Dónde se conectan y buscan información | Lista de canales citable | ✅ **Ejecutada** | Sustento del apartado "dónde se conectan" |
+| **Investigación documental** | Costo de la mala UX en herramientas internas; prácticas de gobierno de datos | No estaba en el plan original | ✅ **Ejecutada** — sustituye la cuantificación de encuesta con fuentes públicas citadas | Cuantificación del problema con fuente por renglón |
 
-**Regla de honestidad metodológica:** toda cifra del documento de A1 sale de (a) la encuesta propia, (b) una fuente pública citada y verificada, o (c) se declara como estimación del equipo. No se inventan estadísticas de mercado.
+**Método aplicado: usuarios prototipo.** La caracterización de la audiencia y las ocho personas se construyeron con investigación documental, experiencia profesional del equipo en áreas que operan con información financiera institucional, y observación de canales. Es el método de *proto-personas*: hipótesis fundamentadas y declaradas como tales, con los instrumentos listos para validarlas. Ver US-UX-01 y §22.1.b.
+
+**Regla de honestidad metodológica** (se cumplió y sigue vigente): toda cifra del documento sale de (a) un instrumento propio aplicado, (b) una fuente pública citada y verificada, o (c) se declara como estimación del equipo. Los indicadores sin dato dicen "pendiente de medición" y enlazan a la pregunta que los levantará. No se inventan estadísticas de mercado.
 
 ### 5.3 Distribución de personas y mapas de empatía (Sección 2 de A1, individual)
 
-6 personas y 6 mapas cubren los 3 perfiles × 2 variantes cada uno (ver plantillas en Anexo B):
+El plan preveía 6 personas y 6 mapas sobre 3 perfiles × 2 variantes (ver plantillas en Anexo B). **Lo entregado el 26-jul fue mayor: 8 personas y 8 mapas sobre 8 perfiles de uso**, repartidos Jacqueline 2 · Alexandro 4 · Arthur 2. La rúbrica exigía 6 (dos por integrante), así que la cobertura quedó por encima del requisito.
 
-| Integrante | Persona 1 | Persona 2 |
-|------------|-----------|-----------|
-| Alexandro | **Analista de datos** (riesgo de mercado, usuario power de Python/Excel) | **Operativo** (mesa de derivados, urgencia intradía) |
-| Jacqueline | **Directivo** (dirección de liquidez, supervisión regulatoria) | **Analista** (riesgo de crédito, reportes mensuales) |
-| Arthur | **Operativo** (tesorería, validación puntual) | **Directivo** (CFO/dirección de riesgos, decisión ejecutiva) |
+| Integrante | Personas entregadas |
+|------------|---------------------|
+| Jacqueline | **Laura Méndez** (consulta operativa) · **Diego Hernández** (análisis de datos) |
+| Alexandro | **Roberto Valdez** (gobierno y calidad) · **Elena Ruiz** (control y auditoría) · **Jorge Mendieta** (habilitación técnica) · **Arturo Castañeda** (supervisión directiva) |
+| Arthur | **Mariana Ovalle** (administración de la plataforma) · **Ximena Solís** (integración de aplicaciones) |
 
-Cada integrante hace el mapa de empatía de sus mismas 2 personas (consistencia narrativa persona↔mapa, alimentada por las entrevistas).
+Cada integrante hizo el mapa de empatía de sus mismas personas (consistencia narrativa persona↔mapa). Los ocho perfiles de uso se agrupan en los **4 roles de control de acceso** del producto (operativo, analista, directivo, administrador), que son los que implementa US-016: los perfiles son categorías de investigación, los roles son permisos.
 
 ---
 
@@ -454,14 +519,50 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 |-------|-------------|---------|------------|-------------|
 | **EPIC UX** | Entregables de las 5 actividades del curso · US-UX-01…08 | **28** | +4 | S1–S5 (transversal) |
 | E0 | Infraestructura, Docker, dependencias, CI/CD, OTel base · US-001…005 | **6** | +5 | S1 |
-| E1 | Ingesta sintética, catálogo, exportación, EDA · US-006…010 | **10** | +5 | S1–S2 |
+| E1 | Ingesta sintética, catálogo, exportación, EDA · US-006…010 | **10** | +4 | S1–S2 |
 | E2 | Motor analítico + búsqueda + **auth JWT/RBAC + usuarios** · US-011…019 | **13** | +5 | S2–S3 |
 | E3 | Agente ADK + Gemini + streaming/Stop · US-020…024 | **11** | +3 | S3–S4 |
 | E4 | Frontend Nuxt 4 + ECharts + patrones UX · US-025…029 | **9** | +7 | S4 |
 | E5 | Observabilidad LLM, pruebas, producción · US-030…036 | **9** | +7 | S5 |
-| **Total** | 44 historias (36 técnicas + 8 UX) | **86** | **+36** | Capacidad ≈ 75 |
+| **Total** | 44 historias (36 técnicas + 8 UX) | **86** | **+35** | Capacidad ≈ 75 |
+
+*(Corrección del 29-jul: el stretch de E1 son +4 SP, no +5 — US-007 +1, US-008 +1, US-010 +2 — y el total de stretch del catálogo es +35. Los MUST sí sumaban exacto: 86.)*
 
 **Déficit declarado: −11 SP** sobre capacidad. Válvulas, en orden: (a) los STRETCH no se tocan salvo holgura real; (b) plantillas y generación asistida por IA para artefactos UX (fotos de personas, primeras iteraciones de layouts); (c) el prototipo funcional reduce el costo de A4 (capturas reales en vez de dibujar todo en Figma); (d) degradaciones acordadas de antemano: US-018/019 pueden reducirse a listado + cambio de rol + desactivación (sin formulario de edición completo), US-025 puede demostrarse con 500 K puntos pre-agregados server-side en vez de 1 M crudos. Si una rúbrica llega más pesada de lo previsto, se congela primero E5-stretch y E4-stretch.
+
+### 10.2.b Recálculo al 29-jul-2026: el déficit real es −22 SP, no −11
+
+El déficit de −11 SP se calculó sobre las 5 semanas completas. Al cierre de la semana 2 la aritmética cambió, porque **la pista UX va en tiempo y la pista de construcción no ha empezado**: ninguna de las 36 historias técnicas está iniciada (las carpetas `backend/`, `frontend/`, `ml/`, `db/` contienen solo su `AGENTS.md`; no existen `Makefile`, `docker-compose.yml`, `pyproject.toml`, `package.json` ni `db/migrations/`). Los gates técnicos de §20 del 23-jul, 24-jul y 30-jul están **vencidos sin cumplir**.
+
+| Concepto | SP |
+|----------|-----|
+| Consumido a la fecha (UX A1 11 + A2 5) | 16 |
+| Capacidad restante (cola de S2 ≈ 4 + S3 15 + S4 15 + S5 15) | **≈ 49** |
+| Demanda restante UX (US-UX-06 4 · US-UX-07 5 · US-UX-08 3) | 12 |
+| Demanda restante técnica MUST (E0 6 · E1 10 · E2 13 · E3 11 · E4 9 · E5 9) | 58 |
+| **Déficit real** | **≈ −21 / −22** |
+
+**Por qué las válvulas de §10.2 no bastan.** Esas válvulas congelan STRETCH, pero los STRETCH nunca estuvieron dentro de los 86 SP MUST: congelarlos no libera ni un punto del compromiso. El déficit hay que cerrarlo **recortando MUST, por escrito y con acuerdo previo**, que es exactamente lo que §10.3 y §25.2 mandan hacer en vez de descubrirlo en la semana 5.
+
+**Escalera de recorte acordada (~17 SP), en orden de aplicación.** Cada renglón mantiene el valor de evidencia para las actividades UX y sacrifica completitud técnica; el resto del delta lo absorben el buffer +3 de S5 y la baja carga de código de la semana de A3.
+
+| # | Recorte | SP |
+|---|---------|-----|
+| 1 | **US-012** búsqueda híbrida y pgvector: diferida por completo. La búsqueda por keyword basta para las pantallas y el Hit Rate@3 no es criterio de ninguna rúbrica | −3 |
+| 2 | **US-011** a 3 métricas por silo + 1 join cruzado + 3 consultas de referencia (no 10) | −2.5 |
+| 3 | **US-009** sin lifecycle ni auditoría de duración; una sola signed URL | −1.5 |
+| 4 | **US-024** solo evento `error` tipado, sin botón Reintentar | −1.5 |
+| 5 | **US-018/019** degradación ya acordada: listar + cambiar rol + desactivar | −1 |
+| 6 | **US-025** a 500 K puntos pre-agregados (degradación ya acordada) | −1 |
+| 7 | **US-026** a 3 tarjetas con proyección estática y 2 niveles de revelación | −1 |
+| 8 | **US-005** plegada dentro de US-030; se conserva solo el hook del span `db.retrieval` desde el inicio | −1 |
+| 9 | **US-003** al puente `gcloud run deploy` que el propio criterio de la US admite | −1 |
+| 10 | **US-032** a notebook con tres cifras | −1 |
+| 11 | **US-033** a smoke tests; la cobertura se declara parcial (auth + compilador + conectores) | −1 |
+| 12 | **US-029** solo overlay de linaje; el estado compartido con payload estático | −0.5 |
+| 13 | **US-013, US-014, US-022, US-035, US-036** y todos los bloques `+N STRETCH`: **congelados** | — |
+
+**Lo que no se recorta, porque es la evidencia del curso:** US-001/002 (sin esqueleto no hay nada), US-006 (sin datos no hay pantalla con contenido), US-015/016/017 (sin auth no hay espacio por rol que fotografiar ni tool call gobernada), US-008 en su versión keyword (es el "momento de la verdad" del journey de A2), US-020/021/023 (el agente es el diferenciador del proyecto), US-028 (las tarjetas de tool call no se pueden simular en Figma) y US-034 (sin deploy no hay prueba SUS ni métricas para A5).
 
 ### 10.3 Regla de prioridad
 
@@ -473,28 +574,35 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 
 **Objetivo:** asegurar 100/100 (y sobrepasar) en las 5 actividades, reutilizando la investigación como insumo de diseño y el producto como evidencia. **Puntos totales de la épica: 28 SP MUST + 4 STRETCH.**
 
-### US-UX-01 — Instrumentos de investigación y trabajo de campo (A1)
+### US-UX-01 — Instrumentos de investigación y definición de usuarios prototipo (A1)
+
+> **Ajuste de método registrado el 29-jul-2026.** Esta historia se escribió el 22-jul asumiendo trabajo de campo aplicado (encuesta con n≥15 y 3 entrevistas). Por restricción de tiempo dentro de la semana 1, el equipo decidió ejecutarla con **usuarios prototipo** (*proto-personas*): los instrumentos se diseñan completos y los usuarios se caracterizan con el conocimiento de dominio que el equipo ya posee, dejando la validación con participantes para las actividades siguientes. El texto de abajo refleja el método realmente aplicado; el original queda descrito en este recuadro para no perder la traza de la decisión.
 
 **Como** equipo de diseño,
-- **quiero** una encuesta estructurada y un guion de entrevista aplicados a usuarios reales del dominio financiero,
-- **para que** audiencia, problema, personas y mapas de empatía se sustenten en datos recopilados y no en suposiciones.
+- **quiero** los tres instrumentos de investigación diseñados y una caracterización de usuarios prototipo del dominio financiero,
+- **para que** audiencia, problema, personas y mapas de empatía tengan una base explícita y trazable, y los instrumentos queden listos para validarla en cuanto haya acceso a participantes.
 
-**Criterios de Aceptación:**
+**Criterios de Aceptación (ajustados al método de usuarios prototipo):**
 
-- Encuesta publicada en Google Forms el lun 20-jul con las 13 preguntas del Anexo A.1 (secciones: screening/demografía, comportamiento y pains, canales).
-- Distribución en ≥3 canales (redes de los 3 integrantes: LinkedIn, grupos de trabajo, contactos del sector) con corte el vie 24-jul y meta **n ≥ 15**.
-- 3 entrevistas semiestructuradas de 30 min (una por perfil: Operativo, Analista, Directivo) con el guion del Anexo A.2, notas y ≥5 citas textuales cada una.
-- Consentimiento registrado según Anexo A.3 (participación voluntaria, datos solo para fines académicos).
-- Resultados procesados: gráficas exportables (barras de pains E-09, histograma de horas perdidas E-07, pastel de fuentes consultadas E-06) listas para insertar en el PDF.
+- **Los tres instrumentos diseñados y listos para aplicar**, que es lo que el título de la actividad exige ("diseño de instrumentos de investigación de usuario"): encuesta de 13 preguntas del Anexo A.1, guía de entrevista semiestructurada del Anexo A.2 y guía de observación contextual con el esquema AEIOU.
+- Consentimiento informado redactado según Anexo A.3 y **plan de aplicación** con muestra sugerida, cobertura y evidencia esperada por instrumento.
+- **Criterios de análisis declarados** antes de recolectar: diagramación de afinidad, con los temas emergiendo del material en lugar de categorías fijadas de antemano.
+- **Usuarios prototipo trazables:** cada persona y cada mapa de empatía se sustenta en investigación documental, experiencia profesional del equipo en áreas que operan con información financiera institucional, y observación de canales — todo declarado en el documento, sin presentar supuestos como hallazgos.
+- **Trazabilidad supuesto → pregunta verificadora:** cada indicador sin dato queda rotulado "pendiente de medición" y enlazado a la pregunta del instrumento que lo levantará. Esto es lo que convierte a los usuarios prototipo en hipótesis verificables y no en adivinanzas.
 
 **Tareas técnicas:**
 
-- [ ] Montar el formulario en Google Forms con validaciones (obligatorias, rangos)
-- [ ] Publicar y monitorear respuestas diario (recordatorio a 48 h)
-- [ ] Agendar y ejecutar 3 entrevistas (una por integrante)
-- [ ] Exportar respuestas a Sheets y generar las 3 gráficas
+- [x] Diseñar la encuesta de 13 preguntas con sus validaciones
+- [x] Redactar el guion de entrevista y la guía de observación AEIOU
+- [x] Redactar consentimiento, plan de aplicación y criterios de análisis
+- [x] Caracterizar los usuarios prototipo y declarar el método en el documento
+- [ ] Aplicar los instrumentos cuando haya acceso a participantes (ventanas: card sorting de A3, prueba SUS de A5)
 
 **Estimación:** 3 puntos (~1.5 días). **Responsable líder:** Jacqueline. **Sprint:** S1.
+
+**Estado al 29-jul-2026: ✅ CUBIERTA con el método de usuarios prototipo.** Lo que la rúbrica de A1 pedía en el rubro de audiencia era "la herramienta utilizada para identificar la audiencia y sus resultados", y eso quedó cubierto: tres instrumentos diseñados, método declarado, y una caracterización con fuente en cada renglón. La meta de **n≥15 respuestas era una autoexigencia del equipo, no un requisito de la rúbrica** — desproporcionada además frente a lo que la actividad pedía (6 personas y 6 mapas, dos por integrante), y de hecho se entregaron **8 de cada uno**. La retroalimentación del profesor sobre A1 confirmó el resultado, con una sola observación de maquetación ya corregida.
+
+**Lo que este método sí implica, y queda dicho.** Los usuarios prototipo son hipótesis fundamentadas: el propio documento las llama arquetipos hipotéticos en el sentido de Cooper, y el journey map de A2 se declara *mapa de supuestos* siguiendo la advertencia de la literatura de journey mapping. Es un método legítimo y honesto, y la coherencia se mantiene mientras el equipo no presente esas hipótesis como hallazgos de campo — algo que los dos documentos entregados ya respetan. La validación llega donde el propio plan la tenía prevista: el **card sorting de A3** y la **prueba SUS de A5 con ≥5 participantes**, que la rúbrica de A5 exige con usuarios y que ya está en US-UX-08. No hay deuda que arrastrar: hay una secuencia de validación en curso.
 
 ### US-UX-02 — Documento de Actividad 1: secciones de equipo (A1)
 
@@ -520,17 +628,19 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 
 **Estimación:** 3 puntos (~1.5 días). **Responsable líder:** Arthur (integración). **Sprint:** S1.
 
+**Estado al 29-jul-2026: ✅ CERRADA.** Entregada el 26-jul con los 5 rubros de equipo cubiertos. Extras sobre la banda "Completo": cuantificación con fuente en cada renglón (los indicadores sin dato dicen "pendiente de medición"), tres figuras propias (mapa de audiencia, matriz de impacto por perfil, flujo actual frente a propuesto), un mockup conceptual del buscador, matriz de trazabilidad pain point → necesidad → característica → persona, y referencias en APA. La audiencia se caracterizó con **8 perfiles de uso** en lugar de los 3 previstos.
+
 ### US-UX-03 — 6 user personas, 2 por integrante (A1)
 
 **Como** integrante del equipo,
 - **quiero** elaborar 2 user personas con la plantilla común del Anexo B según la matriz de asignación §5.3,
-- **para que** los 3 perfiles del portal queden representados en 6 personas consistentes y basadas en el trabajo de campo.
+- **para que** los perfiles del portal queden representados en personas consistentes y trazables al método de usuarios prototipo (US-UX-01).
 
 **Criterios de Aceptación:**
 
 - Cada persona incluye: foto de perfil (generada con IA, estilo fotográfico consistente entre las 6), nombre, edad, sexo, ocupación; antecedentes (educación, situación familiar, intereses); objetivos (2–3 ligados al portal); pain points y desafíos (3–4, ≥1 proveniente de encuesta/entrevista); comportamientos y hábitos; frase/cita.
 - La asignación respeta la matriz §5.3 (cobertura 2×Operativo, 2×Analista, 2×Directivo).
-- Cada persona referencia al menos un dato o cita del trabajo de campo (US-UX-01).
+- Cada persona declara su base: investigación documental, experiencia profesional del equipo u observación de canales (método de usuarios prototipo, US-UX-01), sin presentar supuestos como hallazgos.
 - Revisión cruzada: cada integrante revisa las personas de otro antes de integrar.
 
 **Tareas técnicas:**
@@ -541,26 +651,30 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 
 **Estimación:** 3 puntos (1 por integrante, ~0.5 día c/u). **Sprint:** S1.
 
+**Estado al 29-jul-2026: ✅ CERRADA Y EXCEDIDA.** Se entregaron **8 personas** en lugar de las 6 que pedía la rúbrica (Laura Méndez, Diego Hernández, Roberto Valdez, Elena Ruiz, Jorge Mendieta, Arturo Castañeda, Mariana Ovalle, Ximena Solís), repartidas Jacqueline 2 · Alexandro 4 · Arthur 2, todas con la plantilla completa. Extras: designación de **persona primaria** (Laura, procedimiento de Hartson y Pyla), apartado de alcance y límite del método, y criterios de calidad aplicados y contrastados con la literatura. Las ocho son **usuarios prototipo** según el método de US-UX-01, con su base declarada en el documento.
+
 ### US-UX-04 — 6 mapas de empatía, 2 por integrante (A1)
 
 **Como** integrante del equipo,
 - **quiero** elaborar los mapas de empatía de mis 2 personas,
-- **para que** cada persona tenga su correlato emocional documentado con evidencia de campo.
+- **para que** cada persona tenga su correlato emocional documentado y trazable a su base.
 
 **Criterios de Aceptación:**
 
 - Cuadrantes etiquetados exactamente **"Says", "Thinks", "Does", "Feels"** (en inglés, como pide la rúbrica).
 - ≥3 observaciones por cuadrante, coherentes con la persona correspondiente.
-- Al menos un "Says" por mapa es cita textual de las entrevistas (US-UX-01).
+- Las observaciones del cuadrante "Says" están redactadas en la voz de la persona y son coherentes con su perfil; cuando se apliquen las entrevistas, se sustituyen por citas textuales (US-UX-01).
 - Plantilla visual uniforme entre los 6 mapas (misma retícula y código de color por perfil).
 
 **Tareas técnicas:**
 
 - [ ] Plantilla de 4 cuadrantes reutilizable
-- [ ] Volcar citas de entrevistas al cuadrante Says
+- [x] Redactar el cuadrante Says en la voz de cada persona (citas textuales cuando se apliquen las entrevistas)
 - [ ] Elaborar 2 mapas por integrante y revisar coherencia persona↔mapa
 
 **Estimación:** 2 puntos (~1 día repartido). **Sprint:** S1.
+
+**Estado al 29-jul-2026: ✅ CERRADA Y EXCEDIDA.** **8 mapas** en lugar de los 6 exigidos, uno por persona, con los cuadrantes etiquetados en inglés y ≥3 observaciones cada uno, en la voz de cada persona conforme al método de usuarios prototipo. **Corrección aplicada el 29-jul tras la retroalimentación del profesor sobre A1** (tres mapas quedaron partidos en dos páginas): el componente `\mapaempatia` compone ahora la retícula en una caja, mide su altura y la reserva con `\needspace`, de modo que titular y mapa viajan juntos y ningún mapa admite corte interno. Verificado sobre el PDF: los 8 mapas completos, cada uno en una sola página.
 
 ### US-UX-05 — Escenarios y Journey Maps (A2)
 
@@ -568,20 +682,26 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 - **quiero** escenarios de uso narrativos y journey maps por perfil sobre los flujos reales del portal,
 - **para que** el recorrido emocional y las oportunidades de diseño queden mapeadas de punta a punta antes de estructurar la información.
 
-**Criterios de Aceptación (provisionales hasta publicarse la rúbrica ⚠️; ajustar con protocolo §25.2):**
+**Criterios de Aceptación (definitivos — rúbrica publicada y absorbida el 29-jul-2026, §2.3):**
 
-- 3 escenarios narrativos, uno por perfil: validación urgente (Operativo), cruce multi-fuente + exportación (Analista), supervisión y decisión (Directivo), basados en los flujos §8.1.
-- 3 journey maps con etapas, acciones, puntos de contacto, pensamientos, curva emocional, pain points y oportunidades; cada journey conecta explícitamente con una persona de A1.
-- Los pain points de los journeys provienen de la investigación de US-UX-01 (trazabilidad cita→pain→oportunidad).
-- Formato visual consistente (misma plantilla los 3) y entregable PDF según convención del curso.
+- **Dos escenarios por integrante, 6 en total** (45 % de la rúbrica), cada uno con los cuatro elementos exigidos y rotulados como tales: definición del usuario, descripción de la tarea con sus pasos, identificación de las interacciones clave y descripción del resultado deseado **con la sensación del usuario** al completarlo.
+- **Un journey map de equipo** (50 % de la rúbrica) construido a partir de la discusión conjunta de los escenarios individuales, precedido por el **listado de actividades** que el usuario ejecuta para cumplir uno de los objetivos, y que documente cómo aborda cada etapa, sus pensamientos, los puntos que complican la adopción y las oportunidades que los mitigan.
+- Portada con los nombres de los 3 integrantes (2 %) e introducción sobre la actividad realizada (3 %).
+- Cada escenario y cada mapa conecta explícitamente con una persona de A1; los pain points mantienen la trazabilidad cita/hipótesis → pain → oportunidad.
+- Formato visual consistente entre todos los mapas y PDF nombrado **"Entregable Actividad 2_equipo_8"**.
+- La herramienta Custellence es **propuesta, no exigida**: se admite plantilla propia si conserva la estructura de carriles del ejemplo de referencia, declarándolo en el documento.
 
 **Tareas técnicas:**
 
-- [ ] Redactar los 3 escenarios narrativos
-- [ ] Construir los 3 journey maps (FigJam/Figma)
-- [ ] Validar trazabilidad investigación→journey y armar el PDF
+- [x] Redactar los 6 escenarios (2 por integrante) con los 4 elementos rotulados
+- [x] Descomponer el objetivo en listado de actividades y construir el journey map de equipo en taller
+- [x] Construir los 3 journey maps individuales (extra sobre la rúbrica)
+- [x] Validar trazabilidad A1→A2 y armar el PDF
+- [ ] Subir "Entregable Actividad 2_equipo_8.pdf" a Canvas antes del dom 2-ago 23:59
 
 **Estimación:** 5 puntos (~2.5 días). **Sprint:** S2.
+
+**Estado al 29-jul-2026: 🔵 TERMINADA, PENDIENTE DE SUBIR.** Entregado por encima de la rúbrica: **6 escenarios** con los cuatro elementos rotulados explícitamente y **4 journey maps** (3 individuales + el de equipo) en lugar del único exigido. Extras que ninguna banda pedía: taller de construcción documentado con su fundamento bibliográfico (Walter, 2022), listado de 15 actividades, 7 etapas × 7 carriles con curva emocional declarada de −2 a +2, alcance declarado como *mapa de supuestos* con los tres supuestos fuertes y la pregunta que verifica cada uno, matriz de trazabilidad fricción → oportunidad → característica → métrica, principios rectores y antiprincipios, anexo con el mapa en formato de tabla accesible, y figura de recorridos entrelazados que conecta los seis escenarios. **Desviación de forma frente al plan del 22-jul:** se planearon 3 escenarios y 3 mapas; la rúbrica real pedía 6 escenarios y 1 mapa de equipo. Absorbido sin coste extra de SP (§2.3).
 
 ### US-UX-06 — Análisis competitivo y Arquitectura de Información (A3)
 
@@ -591,10 +711,10 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 
 **Criterios de Aceptación (provisionales ⚠️):**
 
-- Benchmark de 4–6 referentes reales (candidatos: Collibra/Alation/DataHub como catálogos; Power BI/Looker/Metabase como BI; ThoughtSpot como búsqueda conversacional) con matriz de características vs. los 3 perfiles y hallazgos accionables.
-- Sitemap completo del portal (login, homes por rol, catálogo, explorador, chat, exportaciones, panel admin) coherente con los permisos RBAC de US-016.
-- Card sorting ejecutado (remoto con ≥6 colegas, u optimizado con pre-validación sintética §3.8 declarando método) y su impacto documentado en la taxonomía.
-- Flujos de navegación por rol (diagramas) y taxonomía del catálogo alineada a la estrategia RAG bifurcada (§3.5).
+- Benchmark de 4–6 referentes reales (candidatos: Collibra/Alation/DataHub como catálogos; Power BI/Looker/Metabase como BI; ThoughtSpot como búsqueda conversacional) con matriz de características vs. los **8 perfiles de uso de A1 agrupados en los 4 espacios de trabajo** (operativo, analista, directivo, administrador) y hallazgos accionables.
+- Sitemap completo del portal (login, homes por rol, catálogo, explorador, chat, exportaciones, panel admin) coherente con los permisos RBAC de US-016. **Derivarlo de `docs/security.md`**, que es la matriz de permisos implementada: eso convierte el sitemap en reflejo de un sistema real en lugar de una hipótesis de estructura.
+- Card sorting ejecutado (remoto con ≥6 colegas, u optimizado con pre-validación sintética §3.8 declarando método) y su impacto documentado en la taxonomía. **Es la primera validación con participantes del proyecto** y la que empieza a contrastar los usuarios prototipo de A1 (US-UX-01, §22.1.b): conviene aprovechar la sesión para verificar de paso uno o dos de los supuestos fuertes declarados en A2.
+- Flujos de navegación por rol (diagramas) y taxonomía del catálogo alineada a la estrategia RAG bifurcada (§3.5), **exportada del seed real de `catalog_source`/`catalog_field`** para que el vocabulario del card sorting sea el del producto y no uno inventado para el ejercicio.
 
 **Tareas técnicas:**
 
@@ -602,8 +722,11 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 - [ ] Construir matriz comparativa y conclusiones
 - [ ] Ejecutar card sorting y sintetizar resultados
 - [ ] Dibujar sitemap + flujos por rol y armar el PDF
+- [ ] Insertar capturas reales de login y catálogo como evidencia de "arquitectura implementada"
 
 **Estimación:** 4 puntos (~2 días). **Sprint:** S3.
+
+**Nota de replanificación (29-jul).** A3 es la actividad **menos dependiente de código** de las cinco: benchmark, sitemap y card sorting son trabajo de escritorio. Por eso su semana es la que absorbe el arranque técnico atrasado (§19, S3). El riesgo de esta actividad no es el retraso sino **perder el regalo**: si US-016 no cierra antes del jue 6-ago, `docs/security.md` no existe y el sitemap vuelve a ser hipótesis. Costo si se pierde: un diferenciador, no puntos de banda.
 
 ### US-UX-07 — Interfaces de alta fidelidad (A4)
 
@@ -613,19 +736,21 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 
 **Criterios de Aceptación (provisionales ⚠️):**
 
-- Sistema de diseño documentado: tokens de color (modo claro; oscuro stretch), tipografía, espaciado, estados de componentes (default/hover/focus/error/loading).
-- Pantallas de alta fidelidad en Figma: login, home por rol ×3, catálogo con resultados, explorador con filtros, chat con tarjetas de tool call (estados: anunciando/ejecutando/resultado/error), tarjetas predictivas con drill-down, flujo de exportación (solicitud→job→enlace), panel admin de usuarios.
-- Paridad demostrada: tabla pantalla-Figma ↔ ruta del prototipo Nuxt donde exista implementación (E4).
-- Pre-validación con evaluadores sintéticos condicionados por las 6 personas (§3.8): protocolo, hallazgos y al menos 1 iteración de diseño documentada.
+- Sistema de diseño documentado: tokens de color (modo claro; oscuro stretch), tipografía, espaciado, estados de componentes (default/hover/focus/error/loading). **Fuente única: los tokens `@theme` de `frontend/app/assets/css/main.css`; Figma se deriva de ahí, no al revés.** Así la paridad del criterio siguiente es automática y no un trabajo de conciliación.
+- Pantallas de alta fidelidad en Figma: login, **home por espacio de trabajo ×4** (operativo, analista, directivo, administrador — los 8 perfiles de A1 se agrupan en estos 4), catálogo con resultados, explorador con filtros, chat con tarjetas de tool call (estados: anunciando/ejecutando/resultado/error), tarjetas predictivas con drill-down, flujo de exportación (solicitud→job→enlace), panel admin de usuarios.
+- Paridad demostrada: tabla pantalla-Figma ↔ ruta del prototipo Nuxt donde exista implementación (E4). **Lo que quede solo en diseño se marca explícitamente como *roadmap* en esa misma tabla** — incluidas las capacidades que A2 promete y el catálogo US-001…036 no cubre (§25.5, hallazgo 2). El silencio sobre ellas es lo único que no funciona: un evaluador puede contrastar las oportunidades del journey contra el prototipo.
+- Pre-validación con evaluadores sintéticos condicionados por las **8 personas** (§3.8): protocolo, hallazgos y al menos 1 iteración de diseño documentada. **Debe correr sobre capturas reales del prototipo, no sobre mockups**: es lo que la distingue de una revisión de diseño convencional.
 
 **Tareas técnicas:**
 
-- [ ] Definir tokens y librería de componentes en Figma
-- [ ] Diseñar las ~10 pantallas de alta fidelidad
-- [ ] Correr pre-validación sintética y aplicar iteración
-- [ ] Documentar paridad Figma↔Nuxt y armar el PDF
+- [ ] Definir tokens en `main.css` y derivar la librería de componentes en Figma
+- [ ] Diseñar las ~11 pantallas de alta fidelidad
+- [ ] Correr pre-validación sintética sobre capturas reales y aplicar iteración
+- [ ] Documentar paridad Figma↔Nuxt, marcando el roadmap, y armar el PDF
 
 **Estimación:** 5 puntos (~2.5 días). **Responsable líder:** Alexandro. **Sprint:** S4.
+
+**Nota de replanificación (29-jul): esta es la actividad de mayor exposición del proyecto.** Su mitigación de déficit declarada es "las capturas del prototipo reducen las pantallas dibujadas". Si el frontend no corre el **jue 13-ago** (gate nuevo de §20), la mitigación se invierte y hay que dibujar *más* en la semana que ya iba corta: se pierden el criterio de paridad, la pre-validación sobre pantallas reales y los patrones 3, 4 y 6 de §6.2, que solo se demuestran en movimiento. Es la única semana del calendario donde dos días de retraso son irrecuperables.
 
 ### US-UX-08 — Evaluación de usabilidad y entrega final (A5)
 
@@ -641,6 +766,13 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 - Video demo de 3 minutos + presentación final.
 
 **Alcance STRETCH (no comprometido):** +4 SP si la rúbrica exige análisis extendido (p. ej. test A/B de variantes, reporte de accesibilidad WCAG).
+
+**Nota de replanificación (29-jul): A5 es donde el ciclo se cierra con usuarios.** A1 y A2 se construyeron con usuarios prototipo (US-UX-01) y A3 aporta la primera validación con el card sorting; **estas sesiones son las que permiten escribir "usabilidad medida" en el documento final**, y la rúbrica de A5 las exige de todos modos. Su valor metodológico sube en consecuencia: contrastan las hipótesis de las cinco semanas anteriores.
+
+Dos precauciones que se deciden ahora y no la semana de la prueba:
+
+- **Un prototipo inestable puntúa peor en SUS que un prototipo de Figma limpio.** Un cold start de Cloud Run, un stream que se corta o un 500 en medio de una tarea bajan el SUS por debajo de 75, y ese hallazgo queda escrito en la entrega final. De ahí el congelamiento del lun 17-ago, `min_instances = 1` durante los días de prueba, datos precalentados y el ensayo del mar 18 con un integrante como participante de prueba.
+- **Punto de decisión con fecha: vie 14-ago 12:00.** Si el chat SSE no está estable, las tareas del SUS se limitan a catálogo + dashboard + export, y el agente se muestra en el video demo sin someterlo a prueba. Decidirlo el viernes es método; decidirlo el miércoles 19 con el participante en la llamada es improvisación.
 
 **Tareas técnicas:**
 
@@ -825,6 +957,9 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 - Tablas `catalog_source`, `catalog_field` y `catalog_tribal_note` creadas vía **migración dbmate** (`db/migrations/*_create_catalog.sql` con `-- migrate:up/down`), modeladas con SQLModel.
 - Cada campo documenta: nombre físico, nombre de negocio, definición, dueño/área, sensibilidad, silo de origen; las notas tribales capturan reglas de uso ("fecha valor T+1", "prefijo de ID") con **condición de aplicabilidad** (patrón Tk-Boost §3.2).
 - `GET /api/catalog/search?q=` responde búsqueda por keywords (ILIKE + ranking simple) con fuente, definición y notas tribales; protegido con JWT (cualquier rol autenticado).
+- **La tarjeta de resultado expone los cuatro campos que el journey de A2 exige en la etapa 3**: fuente, propietario, periodicidad y fecha de última actualización, sin necesidad de abrir la ficha. Es el criterio que sostiene la oportunidad "fuente, propietario y vigencia en la tarjeta".
+- **Estado de vigencia por campo con marca de versión retirada y enlace a la vigente** (+0.5 SP, añadido el 29-jul). Atributo del propio catálogo: `is_current` más referencia al sucesor. Cubre las etapas 3, 4 y 7 del journey de equipo y los escenarios 4 (Roberto publica una nueva versión) y 6 (Ximena sobrevive al cambio de esquema), y es la métrica del principio "Sin sorpresas".
+- **Copiado con procedencia por omisión** (+0.5 SP, añadido el 29-jul): el endpoint devuelve, junto al valor, un bloque de procedencia listo para pegar (valor + fuente + fecha + definición). Cubre la etapa 6 del journey ("copiar el dato pierde el contexto") y es la métrica del principio "Respaldado": proporción de respuestas con procedencia completa.
 - Seed inicial: 200–400 entradas generadas desde los esquemas sintéticos + curaduría manual de ~30 notas tribales.
 - Preparado para RAG: el contrato de respuesta ya incluye los campos que consumirá la búsqueda híbrida (US-012) y el agente (US-020/US-021).
 
@@ -832,12 +967,14 @@ Principios: esquemas **heterogéneos a propósito** (nombres crípticos distinto
 
 **Tareas técnicas:**
 
-- [ ] Migración dbmate del esquema del catálogo
+- [ ] Migración dbmate del esquema del catálogo, con `is_current` y referencia al sucesor
 - [ ] Modelos SQLModel + seed desde los generadores
-- [ ] Endpoint `GET /api/catalog/search` con pruebas
+- [ ] Endpoint `GET /api/catalog/search` con los 4 campos en la tarjeta y el bloque de procedencia
 - [ ] Curaduría de notas tribales iniciales
 
-**Estimación:** 3 puntos (~1.5 días). **Sprint:** S2.
+**Estimación:** 3 puntos → **4 puntos** (~2 días) tras absorber los dos criterios de A2. **Sprint:** S2 (arranque real mié 5-ago, §19).
+
+**Nota de trazabilidad A1/A2 → producto (29-jul).** Esta US es la que más carga narrativa tiene de los documentos entregados: es el **momento de la verdad** del journey map de equipo (etapa 4, emoción +2 si la ficha responde sus tres preguntas sin intermediarios; −2 si hay que escribirle a alguien). De aquí sale la captura de mayor valor para A3 y A4. Los dos criterios añadidos son las dos capacidades prometidas en A2 más baratas de implementar, porque son atributos de un catálogo que de todos modos hay que seedear.
 
 ### US-009 — Exportaciones Pesadas en Segundo Plano
 
@@ -1490,6 +1627,52 @@ El catálogo vigente (US-001…US-036 + US-UX-01…08) es el alcance completo de
 
 > Si algo de esta lista se vuelve necesario, entra por refinamiento formal: nueva US numerada al final del catálogo (US-037+), con criterios, SP y sprint — nunca como trabajo silencioso.
 
+### 18.1 Cobertura de lo comprometido en A1 y A2 por el catálogo técnico (29-jul-2026)
+
+A1 cerró con una matriz pain point → necesidad → característica → persona, y A2 con otra que traza cada punto de fricción hasta la característica que lo implementa y la forma en que se verificará. Esas dos matrices son **compromisos de producto ante el evaluador**: en A4 y A5 se puede contrastar lo prometido contra el prototipo. Este es el resultado de cruzarlas con el catálogo US-001…036.
+
+| Característica comprometida en A1/A2 | Dónde se prometió | Cobertura en el catálogo |
+|--------------------------------------|-------------------|--------------------------|
+| Acceso por permisos y roles, permiso mínimo suficiente | A2 etapa 2 · escenario 5 (Mariana) | ✅ US-015/016/017 + US-018/019 |
+| Buscador unificado con fuente, propietario, periodicidad y vigencia en la tarjeta | A2 etapa 3 · escenario 1 (Laura) | ✅ US-008 (criterio explicitado el 29-jul) |
+| Ficha con definición oficial, notas tribales y responsable | A2 etapa 4 · escenario 4 (Roberto) | ✅ US-008 |
+| Marca de versión retirada con enlace a la vigente | A2 etapas 3, 4 y 7 · escenarios 4 y 6 | ✅ **Absorbido en US-008 el 29-jul** (+0.5 SP) |
+| Copiado con procedencia por omisión | A2 etapa 6 · principio "Respaldado" | ✅ **Absorbido en US-008 el 29-jul** (+0.5 SP) |
+| Asistente que cita la herramienta consultada antes de responder | A2 etapa 5 · patrón de visibilidad | ✅ US-021 + US-028 |
+| Revelación progresiva y tarjetas con señal predictiva | A2 patrones · escenario 3 (Arturo) | ✅ US-026 |
+| Espacios de trabajo por rol | A2 patrones · escenarios 1, 3 y 6 | ✅ US-027 |
+| Estado compartido entre tablero y asistente | A2 escenario 3, etapa 5 | ✅ US-029 |
+| Exportación pesada sin bloquear la interfaz | A1 (Diego) · escenario 2 | ✅ US-009 |
+| Consumo por API con contrato documentado | A1 (Ximena) · escenario 6 | ✅ Parcial: el contrato lo da OpenAPI de FastAPI; **las credenciales autogestionadas no están** → US-040 |
+| **Consultas guardadas y reutilizables** | A2 etapas 1 y 7 · escenario 1 | ❌ **No estaba en el catálogo** → US-037 |
+| **Aviso dirigido a quien tiene la fuente guardada cuando cambia la definición** | A2 etapa 7 · escenarios 4 y 6 · principio "Sin sorpresas" | ❌ **No estaba** → US-038 |
+| **Comparación lado a lado de variables legítimamente similares** | A2 etapa 3, excepción del escenario 1 | ❌ **No estaba** → US-039 |
+| **Bitácora de accesos y evidencia descargable** | A1 (Elena, control y auditoría) · escenario 3 | ❌ **No estaba** → US-041 |
+
+**Decisión de alcance (29-jul).** Las dos capacidades más baratas y de mayor peso narrativo se **absorbieron en US-008** porque son atributos de un catálogo que hay que seedear de todos modos. Las cinco restantes se numeran aquí para que existan y sean trazables, pero quedan **declaradas como roadmap y NO comprometidas**: con el déficit real de −22 SP (§10.2.b) comprometerlas sería incumplir por escrito. La regla que las gobierna es la de §18: entran por refinamiento formal, nunca como trabajo silencioso.
+
+**Y la obligación que sí se asume:** en la tabla de paridad de A4 (US-UX-07) estas cinco aparecen marcadas como *roadmap declarado*, no se omiten. Un evaluador que compare las oportunidades del journey con el prototipo debe encontrar la respuesta en el documento, no un hueco.
+
+#### US-037 — Consultas guardadas (roadmap, no comprometida)
+
+**Como** usuario operativo, **quiero** guardar una consulta con sus filtros y nombre propio, **para que** la tarea recurrente empiece resuelta a medias en lugar de reconstruirse cada vez. Requiere tabla `saved_query` (usuario, nombre, silo, filtros, fecha) + endpoints CRUD con scope propio + listado visible al abrir el espacio de trabajo. **Estimación: 2 SP.** Prerrequisito de US-038. Es la etapa 1 y la 7 del journey de equipo.
+
+#### US-038 — Aviso dirigido por cambio de versión (roadmap, no comprometida)
+
+**Como** usuario que guardó una fuente, **quiero** enterarme de que su definición cambió antes de volver a usarla, **para que** dos áreas no presenten cifras distintas semanas después. Requiere el versionado de US-008 (ya absorbido) + las consultas guardadas de US-037 + una bandeja de avisos por usuario. **Estimación: 2 SP.** Es el problema más caro que A2 identificó y el que sostiene el principio "Sin sorpresas"; también el supuesto con menos evidencia documental de los tres declarados en A2, así que conviene verificarlo antes de construirlo.
+
+#### US-039 — Comparación lado a lado de variables similares (roadmap, no comprometida)
+
+**Como** usuario que encuentra dos variables de nombre parecido, **quiero** verlas juntas con sus diferencias y propietarios, **para que** la desambiguación no dependa de adivinar. Vista de dos fichas del catálogo en paralelo con las diferencias resaltadas. **Estimación: 1 SP.** Sostiene el antiprincipio "Autoritario" (el sistema no decide por el usuario ante una ambigüedad legítima).
+
+#### US-040 — Credenciales de integración autogestionadas (roadmap, no comprometida)
+
+**Como** perfil de integración, **quiero** generar y rotar mis credenciales de API desde mi perfil, **para que** conectar un proceso no dependa de un ticket. Requiere tabla de tokens de servicio, alta/revocación y documentación del contrato. **Estimación: 2 SP.** Nota de seguridad: toca el alcance de autenticación que R11 declaró cerrado en US-015…019, así que su reentrada exige revisión de seguridad explícita (§`docs/security.md`).
+
+#### US-041 — Bitácora de accesos y evidencia descargable (roadmap, no comprometida)
+
+**Como** perfil de control y auditoría, **quiero** un reporte de trazabilidad con quién accedió a qué y cuándo, **para que** la evidencia no se reconstruya con cadenas de correos. Requiere tabla de bitácora append-only + endpoint de consulta con scope de auditoría + exportación. **Estimación: 3 SP.** Es la característica de Elena en la matriz de A1 y la de mayor costo de las cinco; con el tiempo disponible, se declara roadmap y en A4 se muestra como pantalla de diseño.
+
 ---
 
 ## 19. Roadmap Semanal de Sprints {#19-roadmap}
@@ -1500,9 +1683,9 @@ El catálogo vigente (US-001…US-036 + US-UX-01…08) es el alcance completo de
 
 | Día | Actividad |
 |-----|-----------|
-| Lun 20 – Mié 22 | Kickoff: confirmar roles y nombre del producto; **publicar encuesta** (US-UX-01); agendar 3 entrevistas; US-001 `make dev` |
+| Lun 20 – Mié 22 | Kickoff: confirmar roles y nombre del producto; diseñar los instrumentos (US-UX-01); US-001 `make dev` |
 | Jue 23 | Redacción secciones de equipo (US-UX-02); US-004 CI mínimo; gate de acceso a Gemini + ADK hello tool; borrador de personas con datos parciales |
-| Vie 24 | **Corte de encuesta (n≥15)**; gráficas; 6 personas v1 (US-UX-03); US-006 generadores sintéticos v0; US-005 OTel base |
+| Vie 24 | Decisión de método: **usuarios prototipo** en lugar de campo aplicado; personas v1 (US-UX-03); US-006 generadores sintéticos v0; US-005 OTel base |
 | Sáb 25 | Última entrevista; 6 mapas de empatía (US-UX-04); integración del PDF; revisión cruzada contra rúbrica §2.2 (checklist §24) |
 | **Dom 26** | Ajustes finales + **entrega "Entregable Actividad 1_equipo_8.pdf" en Canvas antes de 23:59** |
 
@@ -1512,11 +1695,36 @@ El catálogo vigente (US-001…US-036 + US-UX-01…08) es el alcance completo de
 Al recibir la rúbrica de A2: protocolo §25.2 (1 h, ajustar US-UX-05). Los journey maps usan los flujos reales §8.1 (ya con login como primera etapa del journey).
 **Dom 2-ago: entrega A2.**
 
+> **Cierre real de S2 (actualizado 29-jul).** La parte UX se cumplió y se excedió: A2 quedó terminada con 6 escenarios y 4 journey maps, y la rúbrica se absorbió el 29-jul (§2.3). **Los 11 SP técnicos no se ejecutaron**: cero código. La secuencia de arranque se reprograma a la cola de la semana, con la regla de oro intacta — el domingo es solo para la entrega.
+>
+> | Día | Arthur (Platform/Agent) | Alexandro (Frontend/UX) | Jacqueline (Research/Data) |
+> |-----|-------------------------|-------------------------|----------------------------|
+> | **Jue 30** | **US-001**: `Makefile`, `docker-compose.yml` (backend/frontend/postgres con imagen pgvector), `backend/pyproject.toml`, `pnpm dlx nuxi init frontend`, `.env.example`, `backend/app/core/config.py` con Pydantic Settings estricto. Gate: `make dev` arriba. Instalar `gitleaks` (sin él `make check` no corre su secrets-scan) y resolver el pin de pnpm sin corepack | Estética y principios rectores del mapa | Introducción y método de A2 |
+> | **Vie 31** | **US-002** + las 3 migraciones en orden (`create_catalog` → `create_app_user` → `create_export_job`), `make db-up`, `db/schema.sql` commiteado. **Spike ADK "hello tool" (45 min)**: es el gate vencido del 23-jul y el go/no-go del fallback de R04 | Exportar el mapa, verificar legibilidad impresa | **US-006 v0**: `ml/data/generators.py` con semilla fija, `make data`, `data/README.md` con las anomalías |
+> | **Sáb 1** | Revisión cruzada de A2 (bloque intocable). Solo si A2 quedó cerrado: arranque de `backend/app/core/auth.py` | Revisión cruzada | Revisión cruzada |
+> | **Dom 2** | **Entrega A2 en Canvas, objetivo 20:00. Cero código.** | | |
+>
+> Gate re-fechado: `dbmate up` con `schema.sql` idéntico en las 3 máquinas pasa del **mié 30-jul** al **dom 2-ago**.
+
 ### Sprint 3 — lun 3 al dom 9-ago · Actividad 3 (Competitivo + IA) — **sprint crítico**
 
 **Objetivo:** A3 entregada + capa semántica, búsqueda híbrida, **CRUD de usuarios** y agente v1. **SP:** 4 UX (US-UX-06) + 16 técnicos (US-011 5, US-012 3, **US-018/019 usuarios 2**, US-020/021 agente 6) = 20 (−5, el más sobrecomprometido).
 Mitigaciones: benchmark competitivo repartido entre los 3 en paralelo; US-020/021 arrancan con las tools de catálogo (US-008 ya listo desde S2); válvula: degradación acordada de US-018/019 (§10.2). El sitemap de A3 incorpora el mapa de permisos (US-016) como evidencia de IA por roles.
 **Dom 9-ago: entrega A3.**
+
+> **Replanificación de S3 (29-jul): es la semana barata para el código y hay que aprovecharla.** A3 es la actividad menos dependiente de implementación —benchmark, sitemap y card sorting son trabajo de escritorio—, así que absorbe el arranque atrasado. **Lunes primero: revisar Canvas; si la rúbrica de A3 está publicada, aplicar §25.2 antes de cualquier trabajo de A3.**
+>
+> | Día | Arthur | Alexandro | Jacqueline |
+> |-----|--------|-----------|------------|
+> | **Lun 3** | **US-015**: `/api/auth/token`, seed de 7 usuarios Argon2, `get_current_active_user`, tests login ok/malo/expirado | Capturar los 4–6 referentes del benchmark | Instrumento de card sorting + taxonomía exportada del seed real |
+> | **Mar 4** | **US-016**: `Security(scopes)` en todos los routers + **`docs/security.md`** + suite 401/403 por rol. **Ese archivo ES la evidencia de arquitectura de información de A3** | **US-017**: `pages/login.vue`, middleware global, cookie httpOnly | **Seed del catálogo**: 200–400 entradas + ~30 notas tribales |
+> | **Mié 5** | **US-008** endpoint keyword (ILIKE/tsvector) + tests · **US-007** conectores async | `pages/catalogo.vue`: buscador + tarjetas con fuente, dueño y vigencia | Ejecutar card sorting (≥6 colegas, o PerceptUI declarando el método) |
+> | **Jue 6** | **US-011 v0**: `ml/semantic/compiler.py`, 3 métricas + 1 join, 3 consultas de referencia | Sitemap y flujos por rol derivados de `docs/security.md` | Matriz comparativa del benchmark |
+> | **Vie 7** | Integrar A3 reusando `docs/entregables/estilo/uxdoc.sty`; insertar capturas de login y catálogo como "arquitectura implementada" | | |
+> | **Sáb 8** | Revisión cruzada | | |
+> | **Dom 9** | **Entrega A3, 20:00** | | |
+>
+> Congelado en esta semana: US-012 y pgvector (recorte 1 de §10.2.b), US-013, US-014; US-018/019 se mueven a S4 con su degradación acordada.
 
 ### Sprint 4 — lun 10 al dom 16-ago · Actividad 4 (Alta Fidelidad)
 
@@ -1524,11 +1732,39 @@ Mitigaciones: benchmark competitivo repartido entre los 3 en paralelo; US-020/02
 Mitigaciones: Figma y Nuxt comparten sistema de diseño (sin doble trabajo); capturas del prototipo reducen pantallas dibujadas; pre-validación sintética jue–vie.
 **Dom 16-ago: entrega A4.**
 
+> **S4 es la semana que decide el proyecto (29-jul).** La mitigación declarada del déficit de S4 es literalmente "las capturas del prototipo reducen las pantallas dibujadas". Si el frontend no corre, **esa mitigación se invierte**: habría que dibujar más en Figma en la semana que ya iba corta, y se pierden el criterio de paridad de US-UX-07, la pre-validación PerceptUI sobre pantallas reales y los patrones 3, 4 y 6 de §6.2, que solo se demuestran en movimiento. Es la única semana donde dos días de retraso son irrecuperables.
+>
+> | Día | Arthur | Alexandro | Jacqueline |
+> |-----|--------|-----------|------------|
+> | **Lun 10** | **US-020 + US-021**: `LlmAgent` manager + tools `buscar_catalogo` y `consultar_metricas` con Bearer propagado | Tokens de Figma **derivados** de `frontend/app/assets/css/main.css`, no al revés | Protocolo PerceptUI + contenido de las tarjetas predictivas |
+> | **Mar 11** | **US-023**: `/api/chat` SSE con eventos tipados + cancelación por desconexión | **US-027** homes por rol + **US-025** `LazyVChart` sobre endpoint de agregación | Endpoint de proyección simulada de US-026, etiquetada "proyección simulada" |
+> | **Mié 12** | Test de cleanup de generadores · **US-029** overlay de linaje | **US-028** tarjetas de tool call en sus 4 estados | **US-019** panel admin degradado |
+> | **Jue 13** | **Congelamiento de pantallas para captura.** Los tres capturan el set completo: login, homes por rol, catálogo, dashboard con drill-down, chat en los 4 estados, flujo de export, `/admin/usuarios`. **Pre-validación PerceptUI sobre capturas reales, no mockups** | | |
+> | **Vie 14** | Aplicar una iteración documentada de PerceptUI; maquetar A4; **tabla de paridad pantalla-Figma ↔ ruta Nuxt** marcando como *roadmap* lo que quede solo en diseño. **12:00 — punto de decisión sobre el alcance del SUS de A5** | | |
+> | **Sáb 15** | Revisión cruzada | | |
+> | **Dom 16** | **Entrega A4, 20:00** | | |
+>
+> Válvulas de esta semana, en orden: 500 K en lugar de 1 M → US-024 sin Reintentar → US-019 solo en Figma → US-026 a 2 niveles de revelación.
+
 ### Sprint 5 — lun 17 al dom 23-ago · Actividad 5 (Entrega Final)
 
 **Objetivo:** A5 entregada con métricas reales de producción. **SP:** 3 UX (US-UX-08) + 9 técnicos (US-030/031/032 observabilidad 5, US-033/034 pruebas+prod 4) = 12 (+3 buffer que absorbe arrastre de S3/S4).
 Pruebas de usabilidad (≥5 usuarios, SUS) sobre el deploy de Cloud Run; documento final integrador; video demo 3 min; presentación.
 **Dom 23-ago: entrega final.**
+
+> **S5 y el riesgo contraintuitivo (29-jul).** Sin prototipo desplegado no hay prueba SUS ni cifras de §22.3. Pero el riesgo simétrico debe decirse: **un prototipo inestable puntúa peor en SUS que un prototipo de Figma limpio**. Un cold start, un stream que se corta o un 500 en medio de una tarea bajan el SUS por debajo de 75 y el hallazgo queda escrito en el entregable final.
+>
+> | Día | Trabajo |
+> |-----|---------|
+> | **Lun 17** | **Congelamiento de funcionalidad.** Arthur: puente `gcloud run deploy` (US-003 recortada) + **US-034** + **US-030/031**; `min_instances = 1` durante los días de prueba. Alexandro: solo defectos bloqueantes. Jacqueline: reclutar ≥5 participantes y cerrar el protocolo de 3 tareas por perfil |
+> | **Mar 18** | Smoke tests (login, catálogo, consulta semántica, chat con tool call, export). **Ensayo de la sesión** con un integrante de conejillo: mide la duración real y caza el fallo tonto antes del primer participante |
+> | **Mié 19 – Vie 21** | **5+ sesiones moderadas + SUS** (2/2/1), moderador y tomador de notas. En paralelo: medición de TTFT p50/p90 sobre ≥50 corridas y cifras de tokens y costo |
+> | **Sáb 22** | Hallazgos priorizados por severidad × frecuencia; documento final integrador A1→A5; video demo de 3 min |
+> | **Dom 23** | **Entrega final, 20:00** + presentación |
+>
+> Sacrificios explícitos de S5, por escrito: US-012, US-013, US-014, US-022, US-032 completa, US-035, US-036, Terraform más allá del puente, y todo `+N STRETCH`.
+>
+> **Los tres compromisos que sostienen el calendario entero:** `make dev` funcionando el **jue 30-jul** · login JWT end-to-end el **mar 4-ago** · pantallas congeladas para captura el **jue 13-ago**.
 
 ### Balance de capacidad
 
@@ -1545,17 +1781,29 @@ Pruebas de usabilidad (≥5 usuarios, SUS) sobre el deploy de Cloud Run; documen
 
 ## 20. Gates de las Semanas 1–2 {#20-gates}
 
+Estado verificado al 29-jul-2026. La columna Estado se mantiene actualizada: un gate vencido sin cumplir no se borra, se re-fecha con su nueva fecha comprometida.
+
+| Día | Gate | Criterio de éxito | Estado |
+|-----|------|-------------------|--------|
+| Mié 22-jul | Encuesta publicada y distribuida en ≥3 canales | Primeras 5 respuestas registradas | ➖ **Sustituido por decisión de método**: se optó por usuarios prototipo (US-UX-01); la encuesta queda diseñada y lista para aplicar |
+| Jue 23-jul | Acceso a Gemini 3.5 Flash-Lite verificado (API key en Secret Manager / .env.local) | Respuesta a prompt de prueba con conteo de tokens | ❌ **Vencido** → re-fechado **vie 31-jul** |
+| Jue 23-jul | Google ADK "hello tool" local (`LlmAgent` + function tool dummy) | Tool call ejecutado con traza visible | ❌ **Vencido** → re-fechado **vie 31-jul**. Es el go/no-go del fallback de R04: si ADK no arranca, se decide ahí el SDK GenAI directo, no en la semana de A4 |
+| Vie 24-jul | `make dev` reproducible en las 3 máquinas (pnpm + Poetry lockfiles) | FastAPI + Nuxt + Postgres arriba en los 3 entornos | ❌ **Vencido** → re-fechado **jue 30-jul** (compromiso duro) |
+| Vie 24-jul | Corte de encuesta n≥15 + 2 de 3 entrevistas hechas | Datos suficientes para personas/mapas | ➖ **Sustituido por decisión de método** — A1 se sustentó en usuarios prototipo (documental + experiencia del equipo + observación de canales), declarado en el documento. La meta n≥15 era autoexigencia, no requisito de rúbrica |
+| Sáb 25-jul | PDF A1 completo contra checklist §24 | 100 % de renglones en "Completo" | ✅ **Cumplido** |
+| **Dom 26-jul** | **Entrega A1 en Canvas** | Confirmación de subida antes de 23:59 | ✅ **Cumplido** |
+| Mié 30-jul | `dbmate up` con migraciones de usuarios/catálogo en las 3 máquinas | `schema.sql` idéntico en los 3 entornos | ⏳ Re-fechado **dom 2-ago** |
+| **Vie 1-ago** | **Login JWT funcional end-to-end** (US-015/016/017) | Token con scope de rol; 401 sin token y 403 con rol insuficiente verificados desde el frontend | ⏳ Re-fechado **mar 4-ago** |
+| **Dom 2-ago** | **Entrega A2 en Canvas** | Confirmación de subida antes de 23:59 | ⏳ Documento listo (48 y 51 páginas en `docs/semana_1/` y `docs/semana_2/`) |
+
+**Gates nuevos añadidos el 29-jul** (cierran las tres restricciones de fecha del calendario técnico):
+
 | Día | Gate | Criterio de éxito |
 |-----|------|-------------------|
-| Mié 22-jul | Encuesta publicada y distribuida en ≥3 canales | Primeras 5 respuestas registradas |
-| Jue 23-jul | Acceso a Gemini 3.5 Flash-Lite verificado (API key en Secret Manager / .env.local) | Respuesta a prompt de prueba con conteo de tokens |
-| Jue 23-jul | Google ADK "hello tool" local (`LlmAgent` + function tool dummy) | Tool call ejecutado con traza visible |
-| Vie 24-jul | `make dev` reproducible en las 3 máquinas (pnpm + Poetry lockfiles) | FastAPI + Nuxt + Postgres arriba en los 3 entornos |
-| Vie 24-jul | Corte de encuesta n≥15 + 2 de 3 entrevistas hechas | Datos suficientes para personas/mapas |
-| Sáb 25-jul | PDF A1 completo contra checklist §24 | 100 % de renglones en "Completo" |
-| **Dom 26-jul** | **Entrega A1 en Canvas** | Confirmación de subida antes de 23:59 |
-| Mié 30-jul | `dbmate up` con migraciones de usuarios/catálogo en las 3 máquinas | `schema.sql` idéntico en los 3 entornos |
-| **Vie 1-ago** | **Login JWT funcional end-to-end** (US-015/016/017) | Token con scope de rol; 401 sin token y 403 con rol insuficiente verificados desde el frontend |
+| **Jue 6-ago** | `docs/security.md` con la matriz de permisos real | El sitemap de A3 se deriva de permisos implementados, no de hipótesis |
+| **Jue 13-ago** | **Pantallas congeladas para captura** | Set completo capturado: login, homes por rol, catálogo, dashboard con drill-down, chat en 4 estados, export, admin |
+| **Vie 14-ago 12:00** | Decisión sobre el alcance del SUS de A5 | Si el chat SSE no está estable, las tareas se limitan a catálogo + dashboard + export y el agente se muestra solo en el video |
+| **Lun 17-ago** | Congelamiento de funcionalidad + deploy verificado | `min_instances = 1` y smoke tests verdes antes de la primera sesión con usuario |
 
 ---
 
@@ -1564,7 +1812,7 @@ Pruebas de usabilidad (≥5 usuarios, SUS) sobre el deploy de Cloud Run; documen
 | ID | Categoría | Riesgo | Prob. | Impacto | Mitigación |
 |----|-----------|--------|-------|---------|------------|
 | R01 | Curso | Rúbricas A2–A5 difieren de lo asumido | Alta | Alto | Protocolo de absorción §25.2; STRETCH técnicos como válvula; criterios provisionales ya escritos por actividad |
-| R02 | Curso | No juntar n≥15 respuestas de encuesta a tiempo | Media | Alto | 3 redes personales + recordatorio a 48 h; plan B: bajar meta a n≥10 y compensar con 1 entrevista extra, declarándolo en el método |
+| R02 | Curso | ~~No juntar n≥15 respuestas de encuesta a tiempo~~ **Materializado y resuelto (29-jul)** | — | — | Se ejecutó el plan B ampliado: método de **usuarios prototipo** con instrumentos diseñados y base declarada (US-UX-01). El riesgo se cierra; su sucesor es mantener la coherencia del método (§22.1.b) y aprovechar las ventanas de validación de A3 y A5 |
 | R03 | Personas | Semana con carga laboral/personal de un integrante | Media | Alto | Trabajo asincrónico, plantillas comunes, revisión cruzada; entregables individuales (personas/mapas) empezados desde el miércoles, no el sábado |
 | R04 | Técnica | Curva de aprendizaje de Google ADK | Media | Medio | Gate "hello tool" en S1 (2 semanas antes de US-020); fallback: SDK GenAI directo con tool-calling manual |
 | R05 | Técnica | Cuotas/latencia de la API de Gemini en demo | Media | Medio | Caché de respuestas frecuentes; datasets pequeños en demo; `thinking_level` medium; medición temprana de TTFT (S3, no S5) |
@@ -1582,9 +1830,18 @@ Pruebas de usabilidad (≥5 usuarios, SUS) sobre el deploy de Cloud Run; documen
 
 ### 22.1 Curso (los que califican)
 
-- A1: 15/15 con todos los criterios en banda "Completo" (checklist §24).
+- A1: 15/15 con todos los criterios en banda "Completo" (checklist §24). **Al 29-jul: entregada con los 8 rubros en "Completo" y excedida en cantidad (8 personas y 8 mapas); la retroalimentación del profesor fue positiva con una sola observación de maquetación, ya corregida.**
 - A2–A5: 100 en cada rúbrica al publicarse, con al menos un diferenciador por actividad (journey maps sobre flujos reales; benchmark con matriz por perfiles; alta fidelidad + prototipo vivo; usabilidad medida con SUS + pre-validación sintética).
 - Documento final que se lee como caso de estudio UX completo (estándar Grocery App, superado en evidencia).
+
+### 22.1.b Criterio de coherencia del método (añadido 29-jul)
+
+A1 y A2 se construyeron con **usuarios prototipo** (US-UX-01). El criterio no es "conseguir campo a toda costa" sino **mantener la coherencia entre lo que el método permite afirmar y lo que los documentos afirman**:
+
+- **Cada artefacto declara su base.** Ya se cumple: A1 llama a sus personas arquetipos hipotéticos y A2 declara su journey map como mapa de supuestos, con los tres supuestos fuertes enunciados junto a la pregunta del instrumento que los verifica.
+- **Ninguna cifra sin fuente consultada directamente.** Ya se cumple: los indicadores sin dato dicen "pendiente de medición" y enlazan a su pregunta.
+- **La validación llega en su momento previsto:** card sorting de A3 (≥6 participantes) y prueba SUS de A5 (≥5 participantes, exigida por rúbrica). Con esas dos, el caso de estudio cierra el ciclo completo: hipótesis en A1–A2, estructura validada en A3, usabilidad medida en A5.
+- En el documento final, el apartado de método explica esta secuencia como una decisión y no como una carencia — que es lo que fue.
 
 ### 22.2 Producto/UX
 
@@ -1623,14 +1880,18 @@ Para 15/15 y sobrepasar. Responsable de integración final: Arthur. Deadline int
 
 | ✔ | Rubro (peso) | Qué exige la banda "Completo" | Extra de excelencia | Responsable |
 |---|--------------|-------------------------------|---------------------|-------------|
-| ☐ | Portada (2 %) | Nombres de los 3 integrantes; datos del curso/equipo 8 | Identidad visual del producto (logo/nombre) que reaparecerá en A2–A5 | Alexandro |
-| ☐ | Introducción (3 %) | Qué se hizo y cómo está organizado el documento | Párrafo de método: instrumentos + n + fechas de campo | Jacqueline |
-| ☐ | Audiencia (5 %) | Clientes/necesidades, pains, demografía, intereses, dónde se conectan, **herramienta y resultados** | Gráficas de la encuesta; tabla de 3 perfiles (§5.1); nota "roles no excluyentes" con dato de E-08 | Jacqueline |
-| ☐ | Problema (20 %) | Identificación, cuantificación, impacto, solución; visuales | Diagrama silos antes/después; cuantificación propia (horas/semana buscando datos, de la encuesta); impacto por perfil | Arthur |
-| ☐ | Producto (20 %) | Tipo + características y beneficios | Tabla módulo→perfil→beneficio (§6.1); patrones UX 2026 con citas (§6.2); mockup conceptual 1 pantalla | Alexandro |
-| ☐ | 6 mapas de empatía (25 %) | 4 cuadrantes Says/Thinks/Does/Feels con observaciones clave | Citas textuales reales de entrevistas en "Says"; plantilla visual uniforme | Cada quien ×2 |
-| ☐ | 6 personas (25 %) | Foto, básicos, antecedentes, objetivos, pains, hábitos, frase | Conexión explícita persona↔perfil↔dato de campo; fotos IA consistentes en estilo | Cada quien ×2 |
-| ☐ | Formato | PDF, nombre **"Entregable Actividad 1_equipo_8"**, subido por Canvas | Referencias en APA (papers §3 donde aplique); paginación y estilos consistentes | Arthur |
+| ☑ | Portada (2 %) | Nombres de los 3 integrantes; datos del curso/equipo 8 | Identidad visual del producto (logo/nombre) que reaparecerá en A2–A5 | Alexandro |
+| ☑ | Introducción (3 %) | Qué se hizo y cómo está organizado el documento | Párrafo de método: instrumentos + n + fechas de campo | Jacqueline |
+| ☑ | Audiencia (5 %) | Clientes/necesidades, pains, demografía, intereses, dónde se conectan, **herramienta y resultados** | Gráficas de la encuesta; tabla de 3 perfiles (§5.1); nota "roles no excluyentes" con dato de E-08 | Jacqueline |
+| ☑ | Problema (20 %) | Identificación, cuantificación, impacto, solución; visuales | Diagrama silos antes/después; cuantificación propia (horas/semana buscando datos, de la encuesta); impacto por perfil | Arthur |
+| ☑ | Producto (20 %) | Tipo + características y beneficios | Tabla módulo→perfil→beneficio (§6.1); patrones UX 2026 con citas (§6.2); mockup conceptual 1 pantalla | Alexandro |
+| ☑ | 6 mapas de empatía (25 %) | 4 cuadrantes Says/Thinks/Does/Feels con observaciones clave | Citas textuales reales de entrevistas en "Says"; plantilla visual uniforme | Cada quien ×2 |
+| ☑ | 6 personas (25 %) | Foto, básicos, antecedentes, objetivos, pains, hábitos, frase | Conexión explícita persona↔perfil↔dato de campo; fotos IA consistentes en estilo | Cada quien ×2 |
+| ☑ | Formato | PDF, nombre **"Entregable Actividad 1_equipo_8"**, subido por Canvas | Referencias en APA (papers §3 donde aplique); paginación y estilos consistentes | Arthur |
+
+**Cierre del checklist (29-jul-2026).** Los ocho rubros se entregaron en banda "Completo" y se superaron en cantidad: **8 personas y 8 mapas** en lugar de los 6 exigidos. Los tres extras que dependían de campo aplicado —gráficas de la encuesta, cuantificación con horas/semana medidas y citas textuales en "Says"— se resolvieron conforme al método de usuarios prototipo (US-UX-01): cuantificación documental con fuente en cada renglón, indicadores rotulados "pendiente de medición" enlazados a su pregunta verificadora, y cuadrantes "Says" redactados en la voz de cada persona. La retroalimentación del profesor validó el resultado ("lo demás está muy bien presentado y de manera muy atractiva"), con una sola observación de maquetación ya corregida.
+
+**Retroalimentación recibida del profesor sobre A1 y su cierre:** la única observación fue de maquetación —algunos mapas de empatía quedaron divididos en dos páginas—. Corregido el 29-jul en `docs/entregables/estilo/uxdoc.sty`: `\mapaempatia` compone la retícula en una caja, mide su altura y la reserva con `\needspace`, de modo que el mapa no admite corte interno. En la misma pasada se compactó el paginado de los tres documentos (A1 de 52 a 48 páginas, A2 de 53 a 51, acumulado de 106 a 101) eliminando páginas con uno o dos renglones sueltos, y se protegieron los titulares con los hooks `\sectionbreak`/`\subsectionbreak`.
 
 ---
 
@@ -1638,10 +1899,10 @@ Para 15/15 y sobrepasar. Responsable de integración final: Arthur. Deadline int
 
 ### 25.1 Decisiones abiertas del equipo (kickoff)
 
-1. Confirmar roles propuestos (§Equipo) y nombre del producto (§1).
-2. ~~Confirmar fechas de desarrollo~~ ✅ Confirmadas 22-jul (§2.1). Falta verificar en Canvas la publicación de cada rúbrica A2–A5.
+1. ~~Confirmar nombre del producto~~ ✅ **Resuelto de hecho el 26-jul: Karisma Data**, entregado como marca en A1 y A2 (portada, encabezado y símbolo en `docs/entregables/imagenes/logo_karisma_marca.png`). Registrado el 29-jul en §1. Falta confirmar los roles propuestos (§Equipo).
+2. ~~Confirmar fechas de desarrollo~~ ✅ Confirmadas 22-jul (§2.1). ~~Verificar la publicación de las rúbricas~~ ✅ **A2 verificada y absorbida el 29-jul** (§2.3, registro §25.4). Falta verificar en Canvas A3, A4 y A5.
 3. Acordar horario fijo de sync (recomendado: 30 min lun/jue + revisión asíncrona sáb).
-4. Confirmar cuenta GCP a usar y presupuesto de billing.
+4. Confirmar cuenta GCP a usar y presupuesto de billing. **Urgente:** es prerrequisito del gate re-fechado del vie 31-jul (acceso a Gemini) y del deploy de S5.
 
 ### 25.2 Protocolo de absorción de rúbrica (cuando se publique A2–A5)
 
@@ -1652,9 +1913,29 @@ Para 15/15 y sobrepasar. Responsable de integración final: Arthur. Deadline int
 
 ### 25.3 Trabajo explícitamente NO incluido ahora
 
-- Programación de cualquier componente (este documento es solo planeación).
+- ~~Programación de cualquier componente (este documento es solo planeación).~~ **Superado el 29-jul:** el plan sigue siendo la fuente de planeación, pero la pista de construcción arranca el jue 30-jul con US-001 (§19, cola de S2). Lo que este documento no contiene es código, no que el código esté fuera de alcance.
 - Todo el alcance descartado de §18: switch A/B de modelos, drift detection, RLS por fila, i18n, paper/benchmark masivo.
 - Seguridad avanzada: refresh tokens, recuperación de contraseña, OAuth/SSO externo (documentados como trabajo futuro en `docs/security.md`).
+
+### 25.4 Registro de absorción de rúbricas {#25-4-registro}
+
+Bitácora que exige el paso 4 de §25.2. Una fila por rúbrica absorbida.
+
+| Fecha | Rúbrica | Delta contra lo asumido | SP recalculados | STRETCH congelados | Dónde quedó registrado |
+|-------|---------|-------------------------|-----------------|--------------------|------------------------|
+| 29-jul-2026 | **A2 — Diseño de escenarios y Journey Maps** (15 pts: 2 % portada · 3 % introducción · 45 % dos escenarios por integrante · 50 % journey map de equipo) | Se asumían 3 escenarios (uno por perfil) y 3 journey maps. La rúbrica pide **6 escenarios** (2 por integrante) y **un journey map de equipo** que concentra el 50 % | Sin cambio: 5 SP. El delta se absorbió porque los escenarios comparten plantilla y los 4 mapas comparten una única fuente de contenido (`figuras/journey_data.py`) | **Ninguno** | §2.3 (desglose), US-UX-05 (criterios definitivos), §2.5 (estado) |
+| ⏳ Pendiente | A3 — Análisis competitivo y Arquitectura de Información | Revisar Canvas el **lun 3-ago** antes de cualquier trabajo de A3 | — | — | — |
+| ⏳ Pendiente | A4 — Interfaces de alta fidelidad | Revisar Canvas el **lun 10-ago** | — | — | — |
+| ⏳ Pendiente | A5 — Entrega final | Revisar Canvas el **lun 17-ago** | — | — | — |
+
+### 25.5 Deuda documental detectada el 29-jul
+
+| # | Hallazgo | Acción |
+|---|----------|--------|
+| 1 | El plan modelaba **3 perfiles**; A1 y A2 trabajan con **8 perfiles de uso** y 4 roles RBAC | Los 4 roles de US-016 no cambian, así que la pista técnica no se toca. El sitemap de A3 y las pantallas de A4 deben cubrir 8 perfiles agrupados en **4 espacios de trabajo**. Registrado en §2.5 |
+| 2 | A2 promete capacidades que **no existen en el catálogo US-001…036**: consultas guardadas, marca de versión retirada con enlace a la vigente, notificación dirigida por cambio de definición, copiado con procedencia, comparación lado a lado de variables similares y credenciales de API autogestionadas | Un evaluador de A4/A5 puede contrastar las oportunidades del journey contra el prototipo. Dos salidas legítimas: implementar las dos más baratas y de mayor peso narrativo (**marca de versión retirada** y **copiado con procedencia**, ambas atributos del catálogo ya seedeado, ≈1 SP juntas) y declarar el resto como **roadmap** en la tabla de paridad de A4. El silencio no es opción (R10) |
+| 3 | `docs/semana_2/plan_semana_2_excelencia.md` apunta a `docs/documento_proyecto/main.tex`, ruta que ya no existe | La fuente única de entregables es `docs/entregables/` (ver su `README.md`) |
+| 4 | Faltan dos herramientas locales: `gitleaks` (sin él el secrets-scan de `make check` no corre, y es gate obligatorio de PR) y `corepack` en PATH con Node 25 | Instalar `gitleaks` el jue 30-jul con US-001; fijar **Node 22 LTS** en `frontend/Dockerfile` para que las 3 máquinas coincidan |
 
 ---
 
@@ -1682,7 +1963,7 @@ Participación voluntaria y anónima (encuesta) / con consentimiento verbal regi
 
 **Plantilla de persona (idéntica para las 6):** Foto (generada con IA, estilo fotográfico consistente) · Nombre, edad, sexo, ocupación · Antecedentes (educación, situación familiar, intereses) · Objetivos (2–3, ligados al portal) · Pain points y desafíos (3–4, al menos 1 de la investigación) · Comportamientos y hábitos (relación con datos/herramientas) · Frase (idealmente derivada de la pregunta 7 de la entrevista).
 
-**Plantilla de mapa de empatía:** cabecera con nombre de la persona + 4 cuadrantes **SAY / THINK / DO / FEEL** (≥3 viñetas cada uno; "Say" con ≥1 cita textual del campo).
+**Plantilla de mapa de empatía:** cabecera con nombre de la persona + 4 cuadrantes **SAY / THINK / DO / FEEL** (≥3 viñetas cada uno; "Say" redactado en la voz de la persona, sustituible por cita textual cuando se apliquen las entrevistas).
 
 **Guía de coherencia:** Persona Operativa → urgencia, validación, desconfianza de cifras sin fuente. Analista → profundidad, exportación, fricción de accesos. Directivo → síntesis, riesgo, tiempo escaso, delegación.
 
@@ -1732,6 +2013,6 @@ Seed del set de evaluación (STRETCH S5, US-035) y guion de la demo:
 
 **FIN DEL DOCUMENTO**
 
-**Última actualización:** miércoles 22 de julio de 2026
+**Última actualización:** miércoles 29 de julio de 2026 — cierre de A1 con el método de usuarios prototipo (US-UX-01, §5.2, §22.1.b), absorción de la rúbrica de A2 (§2.3), estado real de las historias UX (§2.5), estado verificado de la pista de construcción (§2.6), recálculo de capacidad con la escalera de recorte (§10.2.b), cobertura de lo comprometido en A1/A2 y US-037…041 de roadmap (§18.1), replanificación del roadmap S2–S5 (§19), gates re-fechados (§20) y registro de absorción (§25.4).
 **Mantenedor:** Arthur Zizumbo (Platform/Agent lead) — Equipo 8
-**Próxima revisión:** al entregar A1 (dom 26-jul) y al publicarse la rúbrica de A2
+**Próxima revisión:** al entregar A2 (dom 2-ago) y al publicarse la rúbrica de A3 (revisar Canvas el lun 3-ago antes de trabajar en A3)

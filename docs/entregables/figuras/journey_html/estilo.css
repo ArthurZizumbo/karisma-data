@@ -2,9 +2,9 @@
    Journey map — hoja de estilo de impresión
    Karisma Data · Equipo 8 · TC4032
 
-   Estilo "Data-Dense Dashboard" recomendado por ui-ux-pro-max para producto
-   de gobierno de datos empresarial: retícula, padding mínimo, tipografía
-   densa pero legible, máxima visibilidad de información.
+   Lenguaje visual inspirado en los mapas de Custellence: carriles claramente
+   diferenciados, tarjetas breves, jerarquía por niveles y curva emocional
+   protagonista. Se conserva la identidad cromática de Karisma Data.
 
    Tipografía local (las mismas del documento LaTeX) para que el PDF no
    dependa de la red y la familia coincida con el resto del entregable.
@@ -50,12 +50,21 @@
   --line: #DBE3EC;
   --green: #166534;
   --red: #B91C1C;
+  --teal: #287D78;
+  --teal-soft: #EFF8F6;
+  --gold: #C98A2E;
+  --gold-soft: #FFF9EC;
+  --violet: #7565A8;
+  --violet-soft: #F7F4FB;
+  --coral: #C95757;
+  --coral-soft: #FFF5F4;
+  --develop: #3D7D62;
+  --develop-soft: #F1F8F4;
 
-  /* Variables del estilo Data-Dense Dashboard */
-  --grid-gap: 7px;
-  --card-padding: 11px;
-  --radius: 7px;
-  --label-col: 128px;
+  --grid-gap: 6px;
+  --card-padding: 10px;
+  --radius: 4px;
+  --label-col: 144px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -73,11 +82,11 @@ html, body {
 body {
   font-family: 'Fira Sans', system-ui, sans-serif;
   color: var(--ink);
-  background: #fff;
+  background: #FCFDFE;
   padding: 9mm 10mm 7mm;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
@@ -90,7 +99,7 @@ body {
   gap: 24px;
   padding-bottom: 9px;
   margin-bottom: 11px;
-  border-bottom: 2px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .cabecera h1 {
@@ -103,7 +112,7 @@ body {
 }
 
 .cabecera .objetivo {
-  font-size: 13.5px;
+  font-size: 14px;
   color: var(--muted);
   margin-top: 5px;
   max-width: 118ch;
@@ -131,7 +140,7 @@ body {
 }
 
 .sello .chip {
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.4px;
   text-transform: uppercase;
@@ -154,61 +163,89 @@ body {
 .etiqueta {
   grid-column: 1;
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 11.5px;
+  font-size: 12px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--navy);
+  color: var(--ink);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  text-align: right;
-  padding-right: 10px;
+  justify-content: center;
+  text-align: left;
+  padding: 7px 10px 7px 14px;
   line-height: 1.25;
+  border-left: 5px solid var(--navy);
+  background: #F5F7FA;
+  border-radius: var(--radius);
 }
 
+.etiqueta > span:last-child { width: 100%; }
+.etiqueta .grupo {
+  width: 100%;
+  margin-bottom: 3px;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+}
 .etiqueta.tenue { color: var(--muted); }
+.etiqueta.usuario { border-left-color: var(--teal); background: var(--teal-soft); }
+.etiqueta.interaccion { border-left-color: var(--gold); background: var(--gold-soft); }
+.etiqueta.experiencia { border-left-color: var(--violet); background: var(--violet-soft); }
+.etiqueta.analisis { border-left-color: var(--coral); background: var(--coral-soft); }
+.etiqueta.desarrollo { border-left-color: var(--develop); background: var(--develop-soft); }
 
 /* Banda de momento (antes / durante / después) */
 .fase {
-  border-radius: 100px;
-  padding: 6px 0;
+  border-radius: var(--radius);
+  padding: 7px 0;
+  border: 1px solid transparent;
   text-align: center;
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 11.5px;
+  font-size: 12px;
   letter-spacing: 1.1px;
   text-transform: uppercase;
 }
-.fase.previo,
-.fase.posterior { background: var(--pale); color: var(--navy); }
-.fase.durante { background: var(--sky); color: #fff; }
+.fase.previo { background: #E8F3F1; color: #245E5B; border-color: #C9E3DF; }
+.fase.durante { background: #EAF0FF; color: #334CA0; border-color: #CCD7F5; }
+.fase.posterior { background: #F2EDF8; color: #6B568D; border-color: #DED2EC; }
 
 /* Banda de etapa */
 .etapa {
-  background: var(--navy);
-  color: #fff;
+  background: #fff;
+  color: var(--navy);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--navy);
+  box-shadow: 0 2px 5px rgba(31, 77, 120, 0.10);
   border-radius: var(--radius);
   padding: 9px 10px;
   text-align: center;
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.15;
 }
 .etapa .num {
-  display: block;
-  font-size: 10.5px;
+  display: inline-block;
+  font-size: 11px;
   letter-spacing: 1.2px;
-  color: #A9C4DE;
-  margin-bottom: 3px;
+  color: var(--muted);
+  background: #EEF3F8;
+  border-radius: 100px;
+  padding: 2px 7px;
+  margin-bottom: 5px;
 }
 
 /* Celdas de contenido */
 .celda {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: #fff;
+  border: 1px solid #E4E9F0;
+  border-left: 4px solid var(--teal);
   border-radius: var(--radius);
+  box-shadow: 0 2px 5px rgba(31, 41, 55, 0.07);
   padding: var(--card-padding);
-  font-size: 12.5px;
-  line-height: 1.42;
+  font-size: 13.25px;
+  line-height: 1.38;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,18 +253,28 @@ body {
 }
 
 .celda.contacto {
-  font-size: 12px;
+  font-size: 12.75px;
   color: #33475e;
+  background: var(--gold-soft);
+  border-left-color: var(--gold);
 }
 
 .celda.pensamiento {
   font-style: italic;
   color: #2a3f57;
+  background: var(--violet-soft);
+  border-left-color: var(--violet);
+}
+
+.fila-friccion .celda {
+  background: var(--coral-soft);
+  border-left-color: var(--coral);
 }
 
 .celda.oportunidad {
-  background: var(--amber-soft);
-  border-color: var(--amber-edge);
+  background: var(--develop-soft);
+  border-color: #D8E9DE;
+  border-left-color: var(--develop);
 }
 
 /* Fila explícita por carril: con display:contents en los envoltorios, el
@@ -249,12 +296,45 @@ body {
 .fila-friccion .celda { min-height: 82px; }
 .fila-oportunidad .celda { min-height: 82px; }
 
+/* El mapa de equipo tiene siete etapas. Custellence permite alternar niveles
+   de detalle; esta variante compacta conserva todos los carriles en una sola
+   vista panorámica sin reducir los mapas individuales. */
+.mapa.denso { gap: 5px; }
+.mapa.denso .etiqueta {
+  padding: 5px 8px 5px 12px;
+  font-size: 11px;
+}
+.mapa.denso .etiqueta .grupo { font-size: 9px; margin-bottom: 2px; }
+.mapa.denso .fase { padding: 5px 0; font-size: 11px; }
+.mapa.denso .etapa {
+  padding: 5px 6px;
+  font-size: 15px;
+  border-top-width: 4px;
+}
+.mapa.denso .etapa .num {
+  font-size: 9.5px;
+  padding: 1px 5px;
+  margin-bottom: 3px;
+}
+.mapa.denso .celda {
+  padding: 8px;
+  font-size: 12.25px;
+  line-height: 1.28;
+}
+.mapa.denso .celda.contacto { font-size: 12px; }
+.mapa.denso .fila-accion .celda { min-height: 66px; }
+.mapa.denso .fila-contacto .celda { min-height: 54px; }
+.mapa.denso .fila-pensamiento .celda { min-height: 60px; }
+.mapa.denso .fila-friccion .celda { min-height: 68px; }
+.mapa.denso .fila-oportunidad .celda { min-height: 68px; }
+.mapa.denso .emociones { height: 116px; }
+
 /* --------------------------------------------------------- Emociones ----- */
 .emociones {
   grid-column: 2 / -1;
   position: relative;
   height: 142px;
-  background: #fff;
+  background: linear-gradient(to bottom, #F1F8F4 0 50%, #FFF5F4 50% 100%);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
@@ -266,7 +346,7 @@ body {
   left: 0;
   right: 0;
   border-top: 1px dashed #E6ECF3;
-  font-size: 9.5px;
+  font-size: 10px;
   color: var(--muted);
 }
 .guia.cero { border-top: 1px solid var(--line); }
@@ -274,7 +354,7 @@ body {
   position: absolute;
   left: 7px;
   top: -8px;
-  background: #fff;
+  background: rgba(255,255,255,0.78);
   padding: 0 3px;
 }
 
@@ -324,7 +404,7 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
@@ -336,8 +416,8 @@ body {
    que no ocurria con position:absolute + calc. */
 .destacado {
   grid-row: 2 / 9;
-  border: 2px dashed var(--amber);
-  border-radius: 10px;
+  border: 3px solid var(--amber);
+  border-radius: 7px;
   margin: -5px;
   position: relative;
   pointer-events: none;
@@ -352,23 +432,23 @@ body {
   background: var(--amber);
   color: #fff;
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 10.5px;
+  font-size: 11px;
   letter-spacing: 0.9px;
   text-transform: uppercase;
   padding: 3px 12px;
-  border-radius: 100px;
+  border-radius: 3px;
   white-space: nowrap;
 }
 
 /* -------------------------------------------------------------- Pie ----- */
 .pie {
-  margin-top: 10px;
+  margin-top: auto;
   padding-top: 8px;
   border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   gap: 30px;
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--muted);
   line-height: 1.45;
 }

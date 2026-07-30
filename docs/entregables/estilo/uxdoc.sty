@@ -349,12 +349,13 @@
   \thispagestyle{empty}
   % El ancho útil de la página girada es su altura física menos los márgenes.
   % Se calcula sobre \paperheight y no sobre \linewidth porque este último aún
-  % no refleja la caja intercambiada al abrir el entorno.
-  \setlength{\uxpanancho}{\dimexpr\paperheight-3.4cm\relax}%
+  % no refleja la caja intercambiada al abrir el entorno. El margen adicional
+  % reserva espacio para que el pie permanezca en la misma página que el mapa.
+  \setlength{\uxpanancho}{\dimexpr\paperheight-5.0cm\relax}%
   \null\vfill
   \noindent\makebox[\linewidth][c]{%
-    \includegraphics[width=\uxpanancho]{#1}}%
-  \vspace{10pt}
+    \includegraphics[width=\uxpanancho,keepaspectratio]{#1}}%
+  \vspace{6pt}
   \noindent\makebox[\linewidth][c]{%
     \begin{minipage}{\uxpanancho}%
       \captionof{figure}{#2}\label{#3}%

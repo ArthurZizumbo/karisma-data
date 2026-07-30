@@ -2,11 +2,8 @@
 \clearpage
 \section{De las oportunidades al producto}\label{sec:oportunidades}
 
-La siguiente matriz cierra el recorrido completo: cada punto de fricción del journey map se
-traza hasta la oportunidad de diseño que lo mitiga, la característica del producto que la
-implementa, el escenario que la muestra en funcionamiento y la forma en que se verificará
-cuando exista el prototipo. Es la continuación directa de la matriz de trazabilidad de la
-actividad anterior, que conectaba pain points con características y personas.
+La matriz vincula cada punto de fricción del mapa con una oportunidad, una característica del
+producto y una forma de verificación para el prototipo.
 
 \begin{uxtabla}{C{1.5cm}Z{1.05}Z{1.05}Z{0.9}C{2.2cm}}{Trazabilidad de cada punto de fricción hasta su verificación}
 \uxheadrow \thd{Etapa} & \thd{Punto de fricción} & \thd{Oportunidad} & \thd{Característica del producto} & \thd{Cómo se verificará} \\ \midrule
@@ -20,11 +17,8 @@ actividad anterior, que conectaba pain points con características y personas.
 
 \subsection{Patrones de interacción que sostienen las oportunidades}\label{sec:patrones}
 
-Las oportunidades de los cuatro mapas no son ideas sueltas: cada una se apoya en un patrón de
-interacción que el equipo comprometió al definir el producto, y cada patrón tiene un
-fundamento documentado. La tabla siguiente los reúne e indica en qué punto de qué recorrido se
-manifiestan, de modo que ningún patrón quede como declaración de intenciones sin un momento
-concreto donde el usuario lo perciba.
+La tabla relaciona las oportunidades con patrones definidos para el producto y señala el
+momento del recorrido en que el usuario los percibe.
 
 \begin{uxtabla}{L{3.4cm}Z{1.0}Z{1.0}}{Patrones de interacción comprometidos y dónde se manifiestan en los recorridos}
 \uxheadrow \thd{Patrón} & \thd{Dónde se manifiesta} & \thd{Fundamento} \\ \midrule
@@ -37,23 +31,16 @@ Estado compartido entre tablero y asistente & Etapa 5 del mapa de Arturo Castañ
 Contrato de datos versionado con aviso de cambio & Etapas 4 y 6 del mapa de Ximena Solís; etapa 7 del mapa de equipo & Singh et al. (2026): el consumo gobernado exige contratos estables y comunicación anticipada de los cambios \\
 \end{uxtabla}
 
-Un patrón comprometido no aparece en ninguno de los cuatro recorridos: el \emph{streaming} con
-detención real de la respuesta del asistente. Es deliberado y conviene declararlo: ninguno de
-los seis escenarios se apoya en una conversación larga con la herramienta, de modo que la
-cancelación no tiene todavía un momento en el que el usuario la perciba. Se retomará cuando la
-actividad correspondiente aborde el diseño del asistente en alta fidelidad.
+El \emph{streaming} con detención de la respuesta no aparece porque ningún escenario incluye
+una conversación extensa con el asistente. Se evaluará en una actividad posterior de alta
+fidelidad.
 
 % ============================================================================
 \section{Principios rectores y antiprincipios}\label{sec:principios}
 
-El material de apoyo recomienda documentar los principios rectores del producto —una
-descripción cualitativa de aquello que el producto defiende— y, en paralelo, los
-antiprincipios, que declaran de forma explícita lo que el producto no pretende ser. Ambos
-deben poder medirse, y su utilidad práctica es doble: alinean al equipo y ofrecen un criterio
-neutral para rechazar funcionalidades que suenan atractivas pero desvían el producto.
-
-Los siguientes se derivan directamente de los seis escenarios y del journey map, no de una
-lluvia de ideas independiente.
+Los principios y antiprincipios sintetizan lo que el producto defiende y aquello que debe
+evitar. Se derivan de los escenarios y del journey map, e incluyen una forma de medición para
+orientar decisiones posteriores.
 
 \begin{uxtabla}{L{2.6cm}Z{1.15}Z{0.85}}{Principios rectores del portal y su forma de medición}
 \uxheadrow \thd{Principio} & \thd{Definición} & \thd{Cómo se mide} \\ \midrule
@@ -87,7 +74,7 @@ Hartson, R., y Pyla, P. S. (2012). \textit{The UX book: Process and guidelines f
 quality user experience}. Morgan Kaufmann.
 
 International Organization for Standardization. (2018). \textit{Ergonomics of human-system
-interaction — Part 11: Usability: Definitions and concepts} (ISO 9241-11:2018).
+interaction: Part 11: Usability: Definitions and concepts} (ISO 9241-11:2018).
 
 McInerney, P. (2003). Plantilla de escenarios [citado en Baxter, K., Courage, C., y Caine, K.
 (2015), \textit{Understanding your users: A practical guide to user research methods},

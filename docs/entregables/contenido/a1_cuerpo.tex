@@ -1,22 +1,4 @@
 % ============================================================================
-\uxsection{Ubicación de los criterios de evaluación}
-
-La siguiente matriz indica dónde se atiende cada criterio de la rúbrica de la actividad.
-Los porcentajes corresponden a los pesos publicados y la modalidad distingue las secciones
-elaboradas en equipo de las elaboradas de forma individual por cada integrante.
-
-\begin{uxtabla}{Z{0.9}C{1.3cm}C{2.0cm}Z{1.1}}{Correspondencia entre los criterios de la rúbrica y las secciones del documento}
-\uxheadrow \thd{Criterio de la rúbrica} & \thd{Valor} & \thd{Modalidad} & \thd{Dónde se atiende} \\ \midrule
-Portada con los nombres de los integrantes & 2\,\% & Equipo & Portada \\
-Introducción & 3\,\% & Equipo & Introducción \\
-Identificación de la audiencia & 5\,\% & Equipo & Sección 1, apartados 1.1 a 1.7, y Figura 1 \\
-Descripción general del problema & 20\,\% & Equipo & Sección 2, apartados 2.1 a 2.5, y Figuras 2 y 3 \\
-Definición del producto digital & 20\,\% & Equipo & Sección 3, apartados 3.1 a 3.6, Figura 4 y matriz de trazabilidad de la sección 14 \\
-Dos mapas de empatía por cada integrante & 25\,\% & Individual & Secciones 5 a 12: un mapa por persona, agrupados por integrante \\
-Dos user personas por cada integrante & 25\,\% & Individual & Secciones 5 a 12: ocho personas, atribuidas por integrante \\
-\end{uxtabla}
-
-% ============================================================================
 \uxsection{Introducción}
 
 En el sector financiero, o bien, áreas financieras de las corporaciones, la información
@@ -48,7 +30,6 @@ observación de canales; su validación con usuarios es el objeto de los instrum
 sección 4. La estructura sigue el caso de estudio guiado del curso (Ramírez Mejía, 2023).
 
 % ============================================================================
-\clearpage
 \section{Identificación de la audiencia}
 
 La audiencia está formada por personal que consulta, valida, cruza, transforma, publica,
@@ -229,7 +210,6 @@ Caracterizar el contexto de uso antes de proponer una solución evita diseñar p
 abstracto: cada característica del apartado 3.2 responde a un componente de esta tabla.
 
 % ============================================================================
-\clearpage
 \section{Descripción general del problema}
 
 \subsection{Definición}
@@ -334,7 +314,6 @@ corregir.
 \end{uxdestacado}
 
 % ============================================================================
-\clearpage
 \section{Definición del producto digital}
 
 \subsection{Tipo de producto}
@@ -503,7 +482,6 @@ pendientes de medición en el apartado 2.2: el mismo instrumento que cuantifica 
 establece el punto de partida contra el cual se evaluará la solución.
 
 % ============================================================================
-\clearpage
 \section{Instrumentos de investigación de usuario}
 
 Los instrumentos están orientados a validar el problema, distinguir tipos de tarea y
@@ -727,8 +705,7 @@ escribe el concepto, revisa la fecha de actualización y la definición, filtra 
 copia el dato con su referencia. Si necesita más contexto, abre el detalle sin abandonar la
 consulta.
 
-\subsection{Mapa de empatía de Laura}
-\mapaempatia
+\mapaempatia{Laura}
   {\item Solo necesito saber cuál es el dato correcto.
    \item Siempre termino preguntando quién actualiza esta fuente.
    \item Quiero ver la fecha antes de usar el resultado.}
@@ -806,8 +783,7 @@ inicial en el catálogo, revisa el diccionario y descubre conjuntos relacionados
 granularidad y fechas, configura filtros, prueba una muestra y después genera una extracción
 por API. Guarda la consulta y comparte la referencia para que el análisis pueda repetirse.
 
-\subsection{Mapa de empatía de Diego}
-\mapaempatia
+\mapaempatia{Diego}
   {\item Necesito saber qué representa cada campo.
    \item La descarga debe poder repetirse con los mismos filtros.
    \item Prefiero probar una muestra antes de extraer todo.}
@@ -894,8 +870,7 @@ la versión anterior como deprecada. El portal notifica automáticamente a todos
 que tienen guardada esa fuente en sus perfiles, asegurando que nadie use metodologías viejas
 en su próximo análisis económico.
 
-\subsection{Mapa de empatía de Roberto}
-\mapaempatia
+\mapaempatia{Roberto}
   {\item Por favor revisen el diccionario de datos que les mandé por correo antes de cruzar
      variables.
    \item Esa cifra no cuadra porque están usando información desactualizada.
@@ -977,8 +952,7 @@ la variable específica y descarga un reporte de trazabilidad que muestra la fec
 que se cargó el dato, que Roberto Valdez aprobó su calidad, y la lista de los cinco analistas
 que tuvieron acceso previo a la publicación. Genera su evidencia en minutos.
 
-\subsection{Mapa de empatía de Elena}
-\mapaempatia
+\mapaempatia{Elena}
   {\item Necesito la evidencia documentada de que el dueño del dato autorizó este acceso.
    \item Esta información estuvo en un archivo compartido, ¿quién más lo vio?
    \item Muéstrenme la bitácora del sistema, no el correo.}
@@ -1061,8 +1035,7 @@ métrica en el catálogo de metadatos del negocio y mapea esa definición hacia 
 en el almacén de datos. El portal actualiza el modelo sin interrumpir el servicio, permitiendo
 que al día siguiente los analistas ya puedan consultar la métrica en sus tableros.
 
-\subsection{Mapa de empatía de Jorge}
-\mapaempatia
+\mapaempatia{Jorge}
   {\item Ese archivo no pasó la validación de anoche por un error de formato.
    \item Por favor, no hagan consultas masivas directas a la tabla transaccional: usen las
      vistas del almacén.
@@ -1145,8 +1118,7 @@ portal le muestra una tarjeta de contexto escrita por el propietario del dato: �
 debe al ajuste estacional aprobado la semana pasada”. Bloquea su tableta y entra a la reunión
 con seguridad.
 
-\subsection{Mapa de empatía de Arturo}
-\mapaempatia
+\mapaempatia{Arturo}
   {\item ¿Este dato ya está conciliado con la Dirección de Investigación Económica?
    \item Solo quiero ver la tendencia del trimestre, quiten el ruido de la gráfica.
    \item Si me preguntan en la Junta de dónde salió esta cifra, ¿qué respondo?}
@@ -1233,8 +1205,7 @@ visibles y deja registrado quién hizo el cambio y cuándo. Al cierre del trimes
 reporte de cuentas sin actividad y desactiva seis en una sola sesión, con la evidencia lista
 por si auditoría la pide.
 
-\subsection{Mapa de empatía de Mariana}
-\mapaempatia
+\mapaempatia{Mariana}
   {\item Necesito que el dueño del dato autorice por escrito, no por mensaje.
    \item ¿Esta cuenta sigue activa? La persona ya no está en esa área.
    \item Dame el rol correcto desde el inicio y nos ahorramos tres tickets.}
@@ -1313,8 +1284,7 @@ programa la ejecución diaria. Semanas después el portal anuncia un cambio de e
 mantiene disponible la versión anterior: su proceso sigue corriendo mientras ella migra sin
 prisa.
 
-\subsection{Mapa de empatía de Ximena}
-\mapaempatia
+\mapaempatia{Ximena}
   {\item ¿Dónde está la documentación de este servicio de datos?
    \item Si van a cambiar el esquema, avísenme antes, no cuando ya falló.
    \item Prefiero probar con una muestra antes de programar la carga completa.}
@@ -1329,7 +1299,6 @@ prisa.
    \item Satisfacción al eliminar un trabajo manual que alguien hacía cada semana.}
 
 % ============================================================================
-\clearpage
 \section{Síntesis: persona primaria y alcance del método}
 
 \subsection{Persona primaria}
@@ -1357,30 +1326,26 @@ complejos, donde la práctica está muy normada y los individuos de un mismo rol
 intercambiables (Hartson y Pyla, 2012). El portal opera en uno de esos dominios. El equipo lo
 asume y lo mitiga combinando las personas con una descripción explícita de perfiles y
 responsabilidades sobre el dato (apartado 1.1), de modo que las decisiones de diseño no
-dependan únicamente del retrato individual. Conviene además distinguir dos planos: los ocho
-perfiles de la sección 1 son categorías de audiencia para la investigación, mientras que el
-control de acceso del producto se resuelve con cuatro roles operativos: operativo, analista,
-directivo y administrador.
+dependan únicamente del retrato individual. Además, los ocho perfiles de la sección 1 son
+categorías de audiencia para la investigación; el control de acceso del producto se resuelve
+con cuatro roles operativos: operativo, analista, directivo y administrador.
 
 \subsection{Criterios de calidad aplicados}
 
 Las ocho personas se contrastaron con los criterios de calidad que propone la literatura:
 deben ser ricas en detalle, relevantes para las decisiones de diseño, creíbles, específicas y
-precisas, y deben evitar al usuario promedio, cuya mezcla de rasgos produce un retrato que no
-representa a nadie (Hartson y Pyla, 2012). Por eso cada persona tiene nombre completo,
-historia laboral, situación personal, herramientas concretas y un escenario de uso, en lugar
-de una descripción genérica del puesto.
+precisas, y deben evitar al usuario promedio, cuyo retrato no representa a nadie (Hartson y
+Pyla, 2012). Por eso cada persona tiene nombre completo, historia laboral, situación
+personal, herramientas concretas y un escenario de uso, en lugar de una descripción genérica
+del puesto.
 
 Existe además un riesgo particular en este proyecto: los integrantes del equipo trabajan en el
-mismo dominio que se está diseñando, lo que facilita el sesgo de diseñar para uno mismo. La
-literatura señala que las personas sirven precisamente para contrarrestar esa tendencia,
-porque obligan a preguntarse cómo resolvería la tarea alguien con otras características y no
-cómo la resolvería quien diseña (Hartson y Pyla, 2012). Las ocho personas cumplen aquí esa
-función de control: obligan a evaluar cada decisión desde perfiles cuyas prioridades no
-coinciden con las del equipo.
+mismo dominio que se está diseñando, lo que facilita el sesgo de diseñar para uno mismo. Las
+personas sirven precisamente para contrarrestar esa tendencia (Hartson y Pyla, 2012): las
+ocho cumplen aquí esa función de control, porque obligan a evaluar cada decisión desde
+perfiles cuyas prioridades no coinciden con las del equipo.
 
 % ============================================================================
-\clearpage
 \section{Trazabilidad del problema al producto}
 
 La siguiente matriz conecta las tres secciones de equipo con la sección individual: cada pain
@@ -1402,7 +1367,6 @@ Accesibilidad ineficiente & Interoperabilidad & Consumo por API con contrato doc
 \end{uxtabla}
 
 % ============================================================================
-\clearpage
 \section{Referencias}
 
 \begingroup

@@ -80,9 +80,34 @@
 \arrayrulecolor{uxline}
 \setlength{\arrayrulewidth}{0.6pt}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt}
+% El espacio entre párrafos es elástico: da al compositor margen para cerrar la
+% página sin arrastrar un renglón suelto a la siguiente.
+\setlength{\parskip}{6pt plus 2.5pt minus 1.5pt}
 \setlength{\tabcolsep}{7pt}
 \renewcommand{\arraystretch}{1.22}
+
+% -------------------------------------------------- Reparto de la página ---
+% Por omisión LaTeX castiga las viudas y las huérfanas con solo 150, así que
+% las admite con facilidad y deja páginas ocupadas por uno o dos renglones.
+% Aquí quedan prohibidas: antes que una línea suelta, la página termina antes.
+\widowpenalty=10000        % nada de una línea sola al principio de página
+\clubpenalty=10000         % nada de una línea sola al final de página
+\displaywidowpenalty=10000
+\brokenpenalty=10000       % no parte una palabra entre dos páginas
+\raggedbottom              % el sobrante se acumula al pie, sin estirar el texto
+
+% Colocación de flotantes. Los valores de fábrica son restrictivos para un
+% documento con tantas tablas y figuras como este: \textfraction=0.2 obliga a
+% dejar una quinta parte de texto en cualquier página que lleve un flotante, de
+% modo que una tabla algo grande se expulsa a una página propia y la anterior
+% queda a medias. Con estos valores el flotante se queda donde lo pide el texto.
+\renewcommand{\topfraction}{0.9}        % un flotante puede ocupar casi toda la parte alta
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}      % basta una franja de texto para compartir página
+\renewcommand{\floatpagefraction}{0.75} % solo va a página propia si de veras la llena
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
 
 % ---------------------------------------------------------- Jerarquía ------
 % La jerarquía descansa en tamaño + color + filete, no en peso tipográfico.
@@ -101,6 +126,42 @@
   {\uxhead\fontsize{11.5}{14}\selectfont\color{uxblue}}
   {}{0em}{}
 \titlespacing*{\subsubsection}{0pt}{12pt}{4pt}
+
+% titlesec ejecuta \<nivel>break antes de cada titular. Con las secciones
+% fluyendo en la página (ya no todas abren con \clearpage), se exige sitio
+% para el titular y las primeras líneas de su contenido: si no cabe, el salto
+% de página ocurre antes del titular y nunca justo después.
+\newcommand{\sectionbreak}{\needspace{8\baselineskip}}
+\newcommand{\subsectionbreak}{\needspace{6\baselineskip}}
+\newcommand{\subsubsectionbreak}{\needspace{5\baselineskip}}
+
+% El índice hereda el \parskip del documento y a ese ritmo las últimas entradas
+% caen en una página propia casi vacía. Dentro del índice el espacio entre
+% entradas se reduce; las secciones conservan un \addvspace menor como
+% separador de grupo, así que la jerarquía sigue leyéndose.
+\let\ux@tableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{%
+  \begingroup
+  \setlength{\parskip}{1pt plus 1pt}%
+  \ux@tableofcontents
+  \endgroup}
+
+% Copia de \l@section de article.cls con el colchón previo reducido de 1em a
+% 0.7em: son los renglones que deciden si el índice cierra en la misma página.
+\renewcommand*\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{0.7em \@plus\p@}%
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \endgroup
+  \fi}
 
 % Titular sin numeración, con la misma presencia visual
 \newcommand{\uxsection}[1]{%
@@ -211,9 +272,12 @@
    \BODY
    \end{tabular}}\par\vspace{2pt}}
 
+% El rótulo nunca se queda solo al pie: exige sitio para él y para las primeras
+% líneas de lo que introduce, igual que \elemento en los escenarios.
 \newcommand{\personabloque}[1]{%
-  \par\vspace{9pt}{\uxhead\fontsize{12}{14}\selectfont\color{uxblue}#1}%
-  \par\vspace{1pt}}
+  \par\vspace{9pt}\needspace{4\baselineskip}%
+  {\uxhead\fontsize{12}{14}\selectfont\color{uxblue}#1}%
+  \par\nobreak\vspace{1pt}}
 
 % ------------------------------------------------- Mapa de empatía 2x2 ----
 \newcommand{\ux@quad}[3]{%
@@ -225,17 +289,39 @@
                      itemsep=4pt, topsep=1pt, parsep=0pt]#3\end{itemize}}%
   \end{tcolorbox}}
 
-% \mapaempatia{says}{thinks}{does}{feels} — cada argumento lleva sus \item
-\newcommand{\mapaempatia}[4]{%
-  \par\vspace{3pt}
-  \begin{tcbraster}[raster columns=2, raster equal height=rows,
-      raster column skip=7pt, raster row skip=7pt, raster left skip=0pt,
-      raster right skip=0pt, raster before skip=2pt, raster after skip=6pt]
-    \ux@quad{uxnavy}{Says}{#1}
-    \ux@quad{uxsky}{Thinks}{#2}
-    \ux@quad{uxsky}{Does}{#3}
-    \ux@quad{uxnavy}{Feels}{#4}
-  \end{tcbraster}}
+% \mapaempatia{nombre}{says}{thinks}{does}{feels} — cada cuadrante lleva sus \item
+%
+% El titular y la retícula viajan siempre juntos y en una sola página. La
+% retícula se compone primero dentro de una caja para conocer su altura exacta,
+% se reserva ese espacio —más el del titular— con \needspace y solo entonces se
+% imprime: si no cabe, el salto ocurre antes del encabezado y el mapa entero
+% pasa a la página siguiente. Al colocarse desde la caja, el tcbraster ya no
+% ofrece punto de corte entre sus dos filas, que es por donde se partía.
+\newsavebox{\ux@mapabox}
+\newlength{\ux@mapatitular}
+% Titular del mapa con su espacio: 16pt de \titlespacing antes, unos 17pt de
+% caja del titular, 6pt después, 3pt de separación y 6pt de \parskip. Se redondea
+% al alza para que la reserva nunca se quede corta.
+\setlength{\ux@mapatitular}{56pt}
+\newcommand{\mapaempatia}[5]{%
+  \sbox{\ux@mapabox}{%
+    \begin{minipage}[t]{\linewidth}%
+      \setlength{\parskip}{0pt}%
+      \begin{tcbraster}[raster columns=2, raster equal height=rows,
+          raster column skip=7pt, raster row skip=7pt, raster left skip=0pt,
+          raster right skip=0pt, raster before skip=0pt, raster after skip=0pt]
+        \ux@quad{uxnavy}{Says}{#2}
+        \ux@quad{uxsky}{Thinks}{#3}
+        \ux@quad{uxsky}{Does}{#4}
+        \ux@quad{uxnavy}{Feels}{#5}
+      \end{tcbraster}%
+    \end{minipage}}%
+  \par
+  \needspace{\dimexpr\ht\ux@mapabox+\dp\ux@mapabox+\ux@mapatitular\relax}%
+  \subsection{Mapa de empatía de #1}%
+  \par\nobreak\vspace{3pt}\nobreak
+  \noindent\usebox{\ux@mapabox}%
+  \par\addvspace{6pt}}
 
 % ------------------------------------------------------------- Portada ----
 % \uxportada{rótulo de actividad}{título}{fecha}
@@ -395,8 +481,10 @@
 
 % ------------------------------------------------- Etapas del journey ------
 % \etapajourney{número}{nombre}{bloque temporal}
+% La banda de la etapa mide unas dos líneas: se reserva sitio para ella y para
+% las primeras del carril que la sigue, nunca para ella sola.
 \newcommand{\etapajourney}[3]{%
-  \par\vspace{12pt}\needspace{5\baselineskip}%
+  \par\vspace{12pt}\needspace{7\baselineskip}%
   \begin{tcolorbox}[enhanced, colback=uxnavy, colframe=uxnavy, boxrule=0pt,
       arc=3pt, left=11pt, right=11pt, top=6pt, bottom=6pt,
       before skip=6pt, after skip=6pt]

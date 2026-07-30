@@ -479,25 +479,6 @@
   {\footnotesize\color{uxmuted}\hspace{6pt}#2}%
   \par\vspace{2pt}}
 
-% ------------------------------------------------- Etapas del journey ------
-% \etapajourney{número}{nombre}{bloque temporal}
-% La banda de la etapa mide unas dos líneas: se reserva sitio para ella y para
-% las primeras del carril que la sigue, nunca para ella sola.
-\newcommand{\etapajourney}[3]{%
-  \par\vspace{12pt}\needspace{7\baselineskip}%
-  \begin{tcolorbox}[enhanced, colback=uxnavy, colframe=uxnavy, boxrule=0pt,
-      arc=3pt, left=11pt, right=11pt, top=6pt, bottom=6pt,
-      before skip=6pt, after skip=6pt]
-    \setlength{\parskip}{0pt}%
-    {\uxhead\fontsize{12.5}{15}\selectfont\color{white}Etapa #1 · #2}%
-    \hfill{\footnotesize\color{uxpale}#3}%
-  \end{tcolorbox}}
-
-% Carril del journey: \carril{etiqueta}{contenido}
-\newcommand{\carril}[2]{%
-  \par\vspace{3pt}%
-  {\footnotesize\textbf{\textcolor{uxnavy}{#1}}\hspace{4pt}#2}\par}
-
 % Marca de momento de la verdad
 \newtcolorbox{uxmomento}{
   enhanced, breakable, colback=white, colframe=uxamber,

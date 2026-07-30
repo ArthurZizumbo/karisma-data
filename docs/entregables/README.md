@@ -134,7 +134,8 @@ entregables/
 │   ├── a2_03_journey.tex        journey map de equipo
 │   ├── a2_04_cierre.tex         trazabilidad, principios rectores y referencias
 │   └── a2_05_anexo.tex          journey map en formato de tabla (fuera de las salidas
-│                                 desde la revisión del 30-jul; ningún `main_*.tex` lo incluye)
+│                                 desde la revisión de contenido del 29-jul; ningún
+│                                 `main_*.tex` lo incluye)
 ├── estilo/uxdoc.sty       sistema de diseño (tipografía, color, componentes)
 ├── figuras/               figuras y sus scripts generadores
 └── imagenes/              logotipos, marca y las ocho fotografías de personas
@@ -184,7 +185,6 @@ Derivado del design system generado con la skill `ui-ux-pro-max` para la consult
 | `\aportacion[qué]{nombre}{matrícula}` | Banda de atribución individual | v2.0 con argumento opcional |
 | `\escenariohead{foto}{título}{persona}{datos}` | Cabecera de escenario | v2.0 |
 | `\elemento{rótulo}{glosa}` | Rótulo de los cuatro elementos exigidos por la rúbrica | v2.0 |
-| `\etapajourney{n}{nombre}{momento}`, `\carril{}{}` | Etapas y carriles del journey map | v2.0 |
 | `uxmomento` | Caja del momento de la verdad | v2.0 |
 | `\figuraux{}{}{}` | Figura a ancho de columna | v1.0 |
 | `\figurapanoramica{}{}{}` | Figura a sangre en página horizontal | v2.0 |

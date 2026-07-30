@@ -12,8 +12,8 @@ proyecto; no hay dos versiones del mismo párrafo.
 | Archivo | Qué produce | Para qué |
 |---------|-------------|----------|
 | `main_a1.tex` | 48 páginas | Actividad 1, entregada el 26-jul-2026 |
-| `main_a2.tex` | 51 páginas | Actividad 2, se entrega el 2-ago-2026 |
-| `main_completo.tex` | 101 páginas | Documento acumulado del proyecto: Parte I (A1) y Parte II (A2), con numeración continua |
+| `main_a2.tex` | 41 páginas | Actividad 2, se entrega el 2-ago-2026 |
+| `main_completo.tex` | 91 páginas | Documento acumulado del proyecto: Parte I (A1) y Parte II (A2), con numeración continua |
 
 El PDF que se sube a Canvas se copia con el nombre exacto que exige la actividad:
 
@@ -133,7 +133,8 @@ entregables/
 │   ├── a2_02_escenarios.tex     seis escenarios, dos por integrante
 │   ├── a2_03_journey.tex        journey map de equipo
 │   ├── a2_04_cierre.tex         trazabilidad, principios rectores y referencias
-│   └── a2_05_anexo.tex          journey map en formato de tabla
+│   └── a2_05_anexo.tex          journey map en formato de tabla (fuera de las salidas
+│                                 desde la revisión del 30-jul; ningún `main_*.tex` lo incluye)
 ├── estilo/uxdoc.sty       sistema de diseño (tipografía, color, componentes)
 ├── figuras/               figuras y sus scripts generadores
 └── imagenes/              logotipos, marca y las ocho fotografías de personas

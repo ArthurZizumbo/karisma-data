@@ -1,0 +1,25 @@
+\section{Mapa de Navegación}
+
+Como destaca Spool (2005), cuando un usuario entiende la información y cómo está organizada, se siente confiado y aumenta su nivel de \textit{entusiasmo} al usar el sistema. Para materializar esto, construimos el mapa de navegación definitivo siguiendo de manera exhaustiva los siguientes 6 pasos:
+
+\subsection{1. Revisión de los Resultados de la Arquitectura}
+Iniciamos la fase de diseño revisando detalladamente la Arquitectura de Información validada en la sección anterior. Para resolver la severa sobrecarga visual y cognitiva que generaba el antiguo menú lateral de ``Contenido temático'' del portal CIF (con sus más de 20 carpetas alfabéticas), determinamos que la navegación principal de Karisma Data se consolidaría de forma limpia en solo cuatro módulos base: \textbf{Inicio}, \textbf{Exploración}, \textbf{Gobierno} y \textbf{Administración}. 
+
+\subsection{2. Determinación de Subcategorías}
+Dentro de cada categoría principal, procedimos a identificar y organizar las subcategorías para profundizar en el contenido sin sobrecargar al usuario. Por ejemplo, dentro de ``Exploración'', definimos un modelo de navegación transversal que abarca todos los temas operativos de la institución (como \textit{Captación, Mercado de Dinero, Acciones, Crédito, Liquidez}, etc.) implementando un esquema de búsqueda por facetas. Esto permite el etiquetado múltiple para aquellas fuentes de datos que impactan a distintas áreas simultáneamente, evitando la duplicación de archivos y la clásica duda de ``en qué carpeta exacta guardaron este reporte''.
+
+\subsection{3. Visualización de la Jerarquía de Navegación}
+Con las jerarquías claras, generamos una estructura visual (Mapa de Sitio) que representa todas las rutas posibles dentro de la aplicación. 
+
+\figuraux{figuras/a3_mapa_sitio.png}{Estructura jerárquica (Mapa de Navegación) del portal institucional.}{fig:mapa}
+
+Como se observa en la Figura \ref{fig:mapa}, el mapa implementa el principio de \textbf{revelación progresiva}. Un usuario operativo (Laura) encuentra su barra de búsqueda en ``Inicio'' de inmediato, sin tropezar visualmente con las herramientas de ``Administración'' que necesita Mariana. Además, ninguna ruta es un callejón sin salida (dead-end).
+
+\subsection{4. Validación y Mejora}
+Compartimos este diagrama visual impreso (en papel) con los representantes de nuestros usuarios (\textit{stakeholders}). Recopilamos sus comentarios durante una sesión de 30 minutos. Una retroalimentación clave de los usuarios técnicos fue que ``Credenciales API'' debía estar visible rápidamente y no enterrada en un tercer nivel. Incorporamos estos comentarios ``aplanando'' la jerarquía administrativa en el mapa, alineándola con el modelo mental de Ximena.
+
+\subsection{5. Implementación y Pruebas}
+Trabajamos estrechamente con el equipo de desarrollo front-end, entregando este mapa como el ``contrato de navegación'' para construir los prototipos en Figma y posteriormente en código. Ejecutamos pruebas de usabilidad tempranas haciendo clic a través de los menús para asegurar el correcto funcionamiento y confirmar que la experiencia de usuario fluye sin bloqueos entre la extracción de datos y la supervisión.
+
+\subsection{6. Iteración y Mejora Continua}
+El mapa de navegación de Karisma Data no es un documento estático. Establecimos una política de gobernanza: se revisará y actualizará trimestralmente, utilizando analíticas de clics y búsquedas fallidas, para mantenerlo relevante, fácil de usar y adaptado a las nuevas necesidades financieras de la institución.

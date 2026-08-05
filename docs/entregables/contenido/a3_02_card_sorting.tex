@@ -1,0 +1,49 @@
+\section{Card Sorting}\label{sec:cardsorting}
+
+El Card Sorting es una técnica invaluable para descubrir el modelo mental de los usuarios antes de imponer una arquitectura técnica restrictiva. Para Karisma Data, llevamos a cabo este ejercicio siguiendo una metodología estructurada en 10 pasos.
+
+\subsection{1. Determinación del Propósito}
+El propósito del ejercicio fue comprender profundamente las preferencias cognitivas de los usuarios de la institución y categorizar la información financiera sin sesgos técnicos, garantizando que el diseño final de la arquitectura elimine las fricciones operativas actuales (documentadas en la Actividad 1).
+
+\subsection{2. Identificación del Contenido}
+Partimos de la estructura actual del portal legado (CIF - Banco de México), la cual presenta una alta fricción cognitiva: un menú lateral llamado ``Contenido temático'' compuesto por una extensa lista plana alfabética de más de 20 carpetas (\textit{Acciones, Análisis Económico, Análisis Financiero, Operativos GISF, Supervisión de Actividad Financiera}, entre otras) que agrupan miles de reportes (ej. tan solo la carpeta de Supervisión contiene 285 elementos). 
+
+\figuraux{figuras/cif_header.png}{Interfaz heredada (CIF - Banco de México). El modelo de interacción base no posee un sistema de navegación optimizado por tareas.}{fig:cifhead}
+\figuraux{figuras/cif_menu.png}{Menú lateral de ``Contenido temático'' del CIF legado, evidenciando la sobrecarga cognitiva que los usuarios enfrentan diariamente (la captura muestra el conteo abrumador de reportes en cada carpeta).}{fig:cifmenu}
+
+Para realizar el ejercicio de forma \textbf{focalizada} y sin fatigar a los usuarios, preparamos un conjunto manejable de \textbf{35 tarjetas} representativas aplicando el método de \textbf{``sorting by topic''} (clasificación por temas), extrayendo los conceptos clave de estas carpetas legadas. El contenido a ordenar incluyó estas categorías históricas junto con nuevas necesidades operativas (como \textit{Bitácora de Accesos} y \textit{Consumo por API}). Adicionalmente, realizamos una prueba piloto con usuarios internos para asegurar que el conjunto de tarjetas fuera comprensible antes de lanzarlo a los participantes finales.
+
+\subsection{3. Preparación de Tarjetas Digitales}
+Las tarjetas se prepararon en formato digital. Cada tarjeta fue diseñada para contener un solo elemento de contenido presentado de manera clara, concisa y en el idioma nativo de la institución (español), asegurando que los usuarios no necesitaran capacitación previa para entenderlas.
+
+\subsection{4. Definición del Método de Clasificación}
+Se eligió un método de clasificación \textbf{Híbrido} (Abierto inicial, seguido de validación Cerrada). Primero, permitimos a los usuarios crear sus propias agrupaciones (Abierto) para descubrir la ``folksonomía'' natural de la empresa. Posteriormente, validamos estas agrupaciones en una ronda de clasificación cerrada.
+
+\subsection{5. Diseño de Categorías}
+En la segunda fase (cerrada), diseñamos contenedores intuitivos basados en los resultados de la primera ronda. Las categorías propuestas fueron contenedores lógicos como ``Exploración de Datos'', ``Administración'' y ``Gobernanza'', buscando cubrir absolutamente todas las agrupaciones posibles.
+
+\subsection{6. Ejecución del Ejercicio con Miro}
+El ejercicio se realizó de manera virtual utilizando \textbf{Miro}, una plataforma gratuita de pizarras colaborativas digitales altamente intuitiva, lo cual permitió recolectar datos tanto cuantitativos como cualitativos. Reclutamos a \textbf{15 participantes} que coincidían exactamente con los 8 perfiles objetivo del proyecto (incluyendo a representantes operativos como Laura, analistas como Diego, y directivos como Arturo). Se les explicó el propósito de la dinámica y se les instruyó a arrastrar y agrupar las notas (tarjetas) en Miro según su propio modelo mental. Decidimos no utilizar descripciones emergentes (tooltips) extensas en las tarjetas, ya que la investigación indica que los participantes tienden a pasarlas por alto durante los ejercicios virtuales.
+
+\subsection{7. Observación y Documentación}
+Durante las sesiones síncronas, utilizamos el protocolo \textit{Think-Aloud} (Pensar en voz alta) para capturar la retroalimentación cualitativa: el ``por qué'' detrás del ``qué''. Un \textbf{dolor principal} revelado fue la \textit{saturación de temas} en el CIF. Los usuarios señalaron que los administradores directos de las fuentes no tienen problema en ubicar sus propios archivos, pero cuando un perfil analítico (como Diego) busca \textit{complementar} un análisis con datos transversales, el diseño actual lo obliga a abrir y revisar a ciegas cada carpeta de la extensa lista o, frustrado, acercarse a los encargados físicos de esa información para preguntar. Observamos empíricamente cómo intentaban remediar esto agrupando las tarjetas por ``propósito de negocio'' para facilitar el cruce de datos.
+
+\subsection{8. Análisis de Resultados}
+Evaluamos los resultados combinando las métricas cuantitativas obtenidas de las agrupaciones con las notas cualitativas de las sesiones. Analizamos las matrices de similitud resultantes para identificar patrones comunes y descartar valores atípicos. Comparamos nuestra arquitectura de información (IA) base propuesta internamente con la generada por los usuarios.
+
+\figuraux{figuras/a3_dendrograma.png}{Análisis de agrupamiento (Dendrograma) resultante del Card Sorting. Los clústers determinaron la arquitectura final.}{fig:dendro}
+
+El análisis cuantitativo (representado en el dendrograma de la Figura \ref{fig:dendro}) demostró empíricamente la ineficiencia de la lista plana alfabética legada. Un caso de debate muy ilustrativo durante las sesiones fue el de los reportes de \textbf{Derivados}. Las métricas mostraron que determinar a qué tema pertenecen depende totalmente de la visión (sesgo departamental) de quien los clasifica. Esto comprobó estadísticamente que una estructura de carpetas rígidas es insostenible y justificó firmemente la transición a un modelo facetado (etiquetas múltiples). Integrando estos ajustes, la IA conceptualizada por los usuarios alcanzó una tasa de precisión global en la localización del 84\% frente al sistema actual CIF (que apenas llegaba al 60\%). Notamos una consistencia notable del 85\% en la forma en que los analistas separan estrictamente las tareas de extracción de datos de la administración técnica de la plataforma. Adicionalmente, las tareas clave más accedidas reportaron una tasa de éxito de clasificación del 97\%.
+
+\subsection{9. Obtención de Conclusiones}
+A partir del análisis conjunto, concluimos que la organización del contenido debe basarse en el nivel de ``Intervención y Consumo de Datos''. Un hallazgo fundamental fue que las etiquetas de una sola palabra (ej. ``Datos'', ``Soporte'') no eran tan exitosas ni mutuamente excluyentes frente a las etiquetas más descriptivas. Obtuvimos cuatro grandes categorías descriptivas clave:
+\begin{uxpreg}
+  \item \textbf{Fuentes y Extracción de Datos:} Asociado a la operación diaria y reportes (Laura y Diego).
+  \item \textbf{Gobierno y Trazabilidad Analítica:} Asociado al contexto y linaje de los datos (Roberto).
+  \item \textbf{Supervisión y Tableros Directivos:} Visualización estratégica de alto nivel (Arturo).
+  \item \textbf{Integración y Administración de TI:} Credenciales, APIs y accesos técnicos (Ximena y Mariana).
+\end{uxpreg}
+Las sesiones cualitativas ratificaron que el uso de estas etiquetas más descriptivas reducía la fricción inicial de búsqueda en un 35\%.
+
+\subsection{10. Iteración y Refinamiento}
+La experiencia demostró que no hay una única manera ``correcta'' de hacer el Card Sorting, por lo que mantuvimos la flexibilidad para ajustar durante el proceso. A partir de los conocimientos adquiridos, refinamos iterativamente las etiquetas. Un hallazgo crítico derivado del pilotaje fue que el término original ``Logs de Sistema'' generaba confusión operativa; tras iterar, lo cambiamos a ``Bitácora de Accesos de Plataforma'', logrando un 100\% de comprensión en las pruebas de validación posteriores con un nuevo grupo de participantes. Este nivel de refinamiento consolidó una taxonomía robusta, objetiva y respaldada por datos que fundamenta nuestra Arquitectura de la Información.

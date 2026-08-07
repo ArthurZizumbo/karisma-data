@@ -1,38 +1,62 @@
 \section{Arquitectura de la Información}
 
-A partir de los resultados cualitativos y cuantitativos del Card Sorting, estructuramos la Arquitectura de Información (IA) de Karisma Data. El diseño se basó fundamentalmente en mantener una \textbf{mirada sistémica}, reconociendo que los usuarios abandonarán el portal si sienten que están en laberinto. Desarrollamos la arquitectura siguiendo estos 5 pasos formales:
+A partir de los hallazgos de las actividades anteriores y de las hipótesis planteadas mediante el Card Sorting, estructuramos la Arquitectura de Información (IA) de Karisma Data. El diseño se basó fundamentalmente en mantener una \textbf{mirada sistémica}, reconociendo que los usuarios abandonarán el portal si sienten que están en un laberinto. Desarrollamos la arquitectura siguiendo estos 5 pasos formales:
 
 \subsection{1. Identificación de los Usuarios}
-Investigamos y validamos a nuestros usuarios mediante las encuestas y la definición de \textbf{Personas} (establecidas en la Actividad 2). La arquitectura debe servir a 8 perfiles base, pero prioritariamente a cuatro arquetipos clave: operativos que necesitan inmediatez (Laura), analistas que requieren profundidad (Diego), directivos que buscan resúmenes (Arturo) y técnicos que requieren gobernanza (Ximena y Mariana).
+Retomamos las encuestas, las entrevistas y la definición de \textbf{Personas} de la Actividad 1. La arquitectura debe servir a 8 perfiles base, pero prioritariamente a cuatro arquetipos clave: operativos que necesitan inmediatez (Laura), analistas que requieren profundidad (Diego), directivos que buscan resúmenes (Arturo) y técnicos que requieren gobernanza (Ximena y Mariana).
 
 \subsection{2. Identificación del Contenido}
-A partir del mapeo de procesos y los \textbf{Escenarios (PACT)}, identificamos que el producto digital debía incluir: barras de búsqueda unificada, visores de linaje de datos, catálogos temáticos integrados (abarcando transversalmente áreas operativas como Mercado de Dinero, Captación, Acciones, Crédito, etc., y resolviendo el problema de las fuentes que pertenecen a múltiples temas simultáneamente mediante esquemas de etiquetado múltiple), motores de exportación en segundo plano y una consola de gestión de API. Todo este contenido fue precisamente lo que se evaluó en la dinámica de Card Sorting.
+A partir del mapeo de procesos y los \textbf{Escenarios (PACT)}, identificamos que el producto digital debía incluir: barras de búsqueda unificada, visores de linaje de datos, catálogos temáticos integrados (abarcando transversalmente áreas operativas como Mercado de Dinero, Captación, Acciones, Crédito, etc., y resolviendo el problema de las fuentes que pertenecen a múltiples temas simultáneamente mediante esquemas de etiquetado múltiple), motores de exportación en segundo plano y una consola de gestión de API. Todo este contenido forma parte del instrumento de Card Sorting.
 
 \subsection{3. Organización del Contenido}
-Agrupamos el contenido utilizando los hallazgos de las pruebas de Card Sorting, respetando la \textit{folksonomía} interna. La arquitectura resultante es la siguiente:
+Agrupamos el contenido utilizando los antecedentes del proyecto y la simulación del Card Sorting, respetando la \textit{folksonomía} interna como una hipótesis que deberá validarse. La arquitectura resultante es la siguiente:
 
 \begin{uxlist}
   \item \textbf{1. Inicio / Buscador Unificado:} El punto de entrada central, adaptativo según el rol (desde la barra de búsqueda para Laura, hasta el acceso directo al tablero para Arturo).
-  \item \textbf{2. Exploración y Extracción (Módulo Operativo / Analítico):} 
+  \item \textbf{2. Exploración y Extracción (Módulo Operativo / Analítico):}
     \begin{uxlist}
       \item 2.1 Catálogo Temático Integrado (Agrupa dinámicamente temas como \textit{Captación, Mercado de Dinero, Acciones, Crédito}, etc.)
       \item 2.2 Motor de Búsqueda Facetado (Permite el etiquetado múltiple para que una fuente transversal resida en varios temas simultáneamente)
       \item 2.3 Motor de Exportación (Descargas asíncronas de alto volumen)
     \end{uxlist}
-  \item \textbf{3. Gobierno y Supervisión (Módulo Directivo / Regulatorio):} 
+  \item \textbf{3. Gobierno y Supervisión (Módulo Directivo / Regulatorio):}
     \begin{uxlist}
       \item 3.1 Catálogo de Metadatos y Diccionario (Reglas de Negocio)
       \item 3.2 Tableros Directivos (KPIs de Calidad y Riesgo)
     \end{uxlist}
-  \item \textbf{4. Administración (Módulo Plataforma):} 
+  \item \textbf{4. Administración (Módulo Plataforma):}
     \begin{uxlist}
       \item 4.1 Gestión de Accesos, Permisos y Bitácora
       \item 4.2 Credenciales API y Consumo Automatizado
     \end{uxlist}
 \end{uxlist}
 
+Para distinguir este artefacto del mapa de navegación, la Figura \ref{fig:arquitectura} muestra qué necesidades, tareas y objetos de información conforman el sistema, mientras que el mapa posterior representa las rutas para acceder a ellos.
+
+\figuraux{figuras/a3_arquitectura_informacion.png}{Arquitectura de información: relación entre perfiles, tareas, objetos y facetas transversales.}{fig:arquitectura}
+
+\begin{uxtabla}{|L{3.1cm}|Y|Y|}{Trazabilidad entre antecedentes y decisiones de arquitectura}
+  \uxheadrow \thd{Antecedente} & \thd{Decisión propuesta} & \thd{Elemento resultante} \\
+  Consulta puntual de cifras & Mantener una entrada directa y búsqueda visible & Inicio y buscador unificado \\
+  Cruce de fuentes financieras & Organizar por tareas y permitir varias etiquetas & Exploración, filtros y catálogo facetado \\
+  Necesidad de contexto y confianza & Mostrar definición, propietario y linaje & Metadatos y diccionario de datos \\
+  Extracciones de alto volumen & Separar la solicitud de su procesamiento & Historial y motor de exportaciones \\
+  Control de accesos e integraciones & Reservar funciones según permisos & Administración, bitácora y credenciales API \\
+\end{uxtabla}
+
 \subsection{4. Pruebas de la Arquitectura de la Información}
-Sometimos este esquema a validación mediante pruebas de navegación de tipo ``Tree Testing'' (Prueba de Árbol). Solicitamos a 5 usuarios (representantes de los perfiles Laura y Diego) que intentaran ubicar dónde realizarían la tarea ``Revisar quién autorizó la extracción de liquidez de ayer''. El 100\% de los usuarios navegó instintivamente hacia \textit{Administración > Gestión de Accesos y Bitácora}, lo que comprobó que la arquitectura es intuitiva y fácil de usar.
+Para validar este esquema, diseñamos una prueba de navegación de tipo ``Tree Testing'' (Prueba de Árbol). El instrumento solicitará a usuarios representativos que indiquen dónde realizarían las siguientes tareas, sin mostrarles la interfaz visual:
+
+\begin{uxtabla}{|Y|Y|L{2.3cm}|}{Tareas propuestas para la prueba de árbol}
+  \uxheadrow \thd{Tarea} & \thd{Ruta esperada} & \thd{Criterio de éxito} \\
+  Localizar una fuente de liquidez & Exploración $>$ Catálogo & Ruta correcta sin ayuda \\
+  Exportar cartera de crédito & Exploración $>$ Exportaciones & Identifica acción y estado \\
+  Consultar un indicador de riesgo & Gobierno $>$ Tableros & Encuentra el tablero \\
+  Revisar quién autorizó un acceso & Administración $>$ Bitácora & Encuentra el registro \\
+  Crear una credencial de integración & Administración $>$ Credenciales API & Identifica la opción \\
+\end{uxtabla}
+
+Por cada tarea se registrarán la ruta elegida, los retrocesos, la necesidad de ayuda y los comentarios del participante. Esto permitirá verificar si la arquitectura es intuitiva sin atribuirle resultados antes de aplicar la prueba.
 
 \subsection{5. Diseño de la Navegación}
-Con el contenido validado y organizado, el paso final de esta fase fue traducir la estructura a un sistema de menús. Optamos por un diseño de navegación lateral fijo (\textit{sidebar}) para computadoras de escritorio (dispositivo principal en el entorno corporativo), asegurando que las cuatro categorías principales siempre estén visibles a un clic de distancia, evitando menús ocultos tipo ``hamburguesa'' que añadirían fricción.
+Con el contenido organizado, el paso final de esta fase fue traducir la estructura a un sistema de menús. Optamos por un diseño de navegación lateral fijo (\textit{sidebar}) para computadoras de escritorio (dispositivo principal en el entorno corporativo), asegurando que las cuatro categorías principales siempre estén visibles a un clic de distancia, evitando menús ocultos tipo ``hamburguesa'' que añadirían fricción. Esta decisión se contrastará mediante las tareas anteriores durante la fase de prototipado.

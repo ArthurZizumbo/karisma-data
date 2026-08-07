@@ -1,49 +1,80 @@
 \section{Card Sorting}\label{sec:cardsorting}
 
-El Card Sorting es una técnica invaluable para descubrir el modelo mental de los usuarios antes de imponer una arquitectura técnica restrictiva. Para Karisma Data, llevamos a cabo este ejercicio siguiendo una metodología estructurada en 10 pasos.
+El Card Sorting es una técnica invaluable para descubrir el modelo mental de los usuarios antes de imponer una arquitectura técnica restrictiva. Para Karisma Data, diseñamos este ejercicio siguiendo una metodología estructurada en 10 pasos.
 
 \subsection{1. Determinación del Propósito}
 El propósito del ejercicio fue comprender profundamente las preferencias cognitivas de los usuarios de la institución y categorizar la información financiera sin sesgos técnicos, garantizando que el diseño final de la arquitectura elimine las fricciones operativas actuales (documentadas en la Actividad 1).
 
 \subsection{2. Identificación del Contenido}
-Partimos de la estructura actual del portal legado (CIF - Banco de México), la cual presenta una alta fricción cognitiva: un menú lateral llamado ``Contenido temático'' compuesto por una extensa lista plana alfabética de más de 20 carpetas (\textit{Acciones, Análisis Económico, Análisis Financiero, Operativos GISF, Supervisión de Actividad Financiera}, entre otras) que agrupan miles de reportes (ej. tan solo la carpeta de Supervisión contiene 285 elementos). 
+En este proyecto, \textbf{CIF} se refiere a la \textbf{Central de Información Financiera}, una plataforma de consulta utilizada en el Banco de México para acceder a contenidos, fuentes y reportes financieros institucionales. Por su relevancia en el trabajo cotidiano, constituye el principal antecedente de Karisma Data: no se busca eliminar el conocimiento que concentra, sino reorganizar su acceso para que perfiles de distintas áreas encuentren y relacionen información con menor esfuerzo.
 
-\figuraux{figuras/cif_header.png}{Interfaz heredada (CIF - Banco de México). El modelo de interacción base no posee un sistema de navegación optimizado por tareas.}{fig:cifhead}
+Partimos de la estructura actual del portal legado (CIF - Banco de México), la cual presenta una alta fricción cognitiva: un menú lateral llamado ``Contenido temático'' compuesto por una extensa lista plana alfabética de más de 20 carpetas (\textit{Acciones, Análisis Económico, Análisis Financiero, Operativos GISF, Supervisión de Actividad Financiera}, entre otras) que agrupan miles de reportes (ej. tan solo la carpeta de Supervisión contiene 285 elementos).
+
+\figuraux{figuras/cif_header.png}{Interfaz heredada de la Central de Información Financiera (CIF) utilizada en el Banco de México. El modelo de interacción base no posee un sistema de navegación optimizado por tareas.}{fig:cifhead}
 \figuraux{figuras/cif_menu.png}{Menú lateral de ``Contenido temático'' del CIF legado, evidenciando la sobrecarga cognitiva que los usuarios enfrentan diariamente (la captura muestra el conteo abrumador de reportes en cada carpeta).}{fig:cifmenu}
 
-Para realizar el ejercicio de forma \textbf{focalizada} y sin fatigar a los usuarios, preparamos un conjunto manejable de \textbf{35 tarjetas} representativas aplicando el método de \textbf{``sorting by topic''} (clasificación por temas), extrayendo los conceptos clave de estas carpetas legadas. El contenido a ordenar incluyó estas categorías históricas junto con nuevas necesidades operativas (como \textit{Bitácora de Accesos} y \textit{Consumo por API}). Adicionalmente, realizamos una prueba piloto con usuarios internos para asegurar que el conjunto de tarjetas fuera comprensible antes de lanzarlo a los participantes finales.
+Para realizar el ejercicio de forma \textbf{focalizada} y sin fatigar a los usuarios, preparamos un conjunto manejable de \textbf{35 tarjetas} representativas aplicando el método de \textbf{``sorting by topic''} (clasificación por temas), extrayendo los conceptos clave de estas carpetas legadas. El contenido a ordenar incluyó estas categorías históricas junto con nuevas necesidades operativas (como \textit{Bitácora de Accesos} y \textit{Consumo por API}). Como control previo, realizamos una revisión de escritorio para asegurar que el conjunto fuera comprensible y cubriera los escenarios del proyecto.
+
+\begin{uxtabla}{|L{2.3cm}|Y|L{1.0cm}|}{Inventario de las 35 tarjetas del ejercicio}
+  \uxheadrow \thd{Agrupación de trabajo} & \thd{Tarjetas} & \thd{Total} \\
+  Inicio y consulta & Buscador unificado; búsquedas recientes; favoritos; mis alertas; mi perfil. & 5 \\
+  Exploración y extracción & Catálogo de fuentes; cartera de crédito; liquidez; derivados; captación; mercado de dinero; acciones; filtros avanzados; vista previa; exportación CSV/Excel. & 10 \\
+  Gobierno y supervisión & Diccionario de datos; metadatos; linaje; calidad de datos; reglas de negocio; tablero ejecutivo; indicadores de riesgo; señales de riesgo. & 8 \\
+  Solicitudes y colaboración & Solicitar acceso; estado de solicitudes; flujos de aprobación; compartir consulta; historial de exportaciones. & 5 \\
+  Administración e integración & Usuarios y roles; permisos; bitácora de accesos; credenciales API; consumo por API; conectores de fuentes; monitoreo de cargas. & 7 \\
+\end{uxtabla}
 
 \subsection{3. Preparación de Tarjetas Digitales}
 Las tarjetas se prepararon en formato digital. Cada tarjeta fue diseñada para contener un solo elemento de contenido presentado de manera clara, concisa y en el idioma nativo de la institución (español), asegurando que los usuarios no necesitaran capacitación previa para entenderlas.
 
 \subsection{4. Definición del Método de Clasificación}
-Se eligió un método de clasificación \textbf{Híbrido} (Abierto inicial, seguido de validación Cerrada). Primero, permitimos a los usuarios crear sus propias agrupaciones (Abierto) para descubrir la ``folksonomía'' natural de la empresa. Posteriormente, validamos estas agrupaciones en una ronda de clasificación cerrada.
+Se eligió un método de clasificación \textbf{Híbrido} (Abierto inicial, seguido de validación Cerrada). La primera ronda permitiría a los usuarios crear sus propias agrupaciones (Abierto) para descubrir la ``folksonomía'' natural de la empresa. Posteriormente, las agrupaciones recurrentes podrían validarse en una ronda de clasificación cerrada.
 
 \subsection{5. Diseño de Categorías}
-En la segunda fase (cerrada), diseñamos contenedores intuitivos basados en los resultados de la primera ronda. Las categorías propuestas fueron contenedores lógicos como ``Exploración de Datos'', ``Administración'' y ``Gobernanza'', buscando cubrir absolutamente todas las agrupaciones posibles.
+Para preparar la segunda fase (cerrada), diseñamos contenedores intuitivos que permiten revisar la cobertura del instrumento. Las categorías de trabajo fueron ``Inicio y Consulta'', ``Exploración y Extracción'', ``Gobierno y Supervisión'', ``Solicitudes y Colaboración'' y ``Administración e Integración''. Estas agrupaciones son una hipótesis inicial y no sustituyen las categorías que propongan los participantes.
 
-\subsection{6. Ejecución del Ejercicio con Miro}
-El ejercicio se realizó de manera virtual utilizando \textbf{Miro}, una plataforma gratuita de pizarras colaborativas digitales altamente intuitiva, lo cual permitió recolectar datos tanto cuantitativos como cualitativos. Reclutamos a \textbf{15 participantes} que coincidían exactamente con los 8 perfiles objetivo del proyecto (incluyendo a representantes operativos como Laura, analistas como Diego, y directivos como Arturo). Se les explicó el propósito de la dinámica y se les instruyó a arrastrar y agrupar las notas (tarjetas) en Miro según su propio modelo mental. Decidimos no utilizar descripciones emergentes (tooltips) extensas en las tarjetas, ya que la investigación indica que los participantes tienden a pasarlas por alto durante los ejercicios virtuales.
+\subsection{6. Simulación del Ejercicio en un Tablero Digital}
+El ejercicio se diseñó para realizarse de manera virtual en una pizarra colaborativa como \textbf{Miro}. Con el fin de visualizar el instrumento y comprobar que las 35 tarjetas fueran legibles, elaboramos la reconstrucción de la Figura \ref{fig:tablero}. Su formato reproduce la disposición de trabajo prevista, pero no corresponde a una captura de una sesión con usuarios.
+
+\figuraux{figuras/a3_tablero_simulado.png}{Reconstrucción visual del tablero con las 35 tarjetas. Simulación de escritorio utilizada para revisar el instrumento.}{fig:tablero}
 
 \subsection{7. Observación y Documentación}
-Durante las sesiones síncronas, utilizamos el protocolo \textit{Think-Aloud} (Pensar en voz alta) para capturar la retroalimentación cualitativa: el ``por qué'' detrás del ``qué''. Un \textbf{dolor principal} revelado fue la \textit{saturación de temas} en el CIF. Los usuarios señalaron que los administradores directos de las fuentes no tienen problema en ubicar sus propios archivos, pero cuando un perfil analítico (como Diego) busca \textit{complementar} un análisis con datos transversales, el diseño actual lo obliga a abrir y revisar a ciegas cada carpeta de la extensa lista o, frustrado, acercarse a los encargados físicos de esa información para preguntar. Observamos empíricamente cómo intentaban remediar esto agrupando las tarjetas por ``propósito de negocio'' para facilitar el cruce de datos.
+Para las sesiones se definió el protocolo \textit{Think-Aloud} (Pensar en voz alta), con el propósito de capturar la retroalimentación cualitativa: el ``por qué'' detrás del ``qué''. Un \textbf{dolor principal} documentado desde la Actividad 1 es la \textit{saturación de temas} en el CIF. Los administradores directos de las fuentes pueden ubicar sus propios archivos, pero cuando un perfil analítico (como Diego) busca \textit{complementar} un análisis con datos transversales, el diseño actual lo obliga a abrir y revisar a ciegas cada carpeta de la extensa lista o a consultar a los responsables de esa información. Durante una aplicación posterior se observará si los participantes intentan remediar esta dificultad agrupando las tarjetas por ``propósito de negocio'' para facilitar el cruce de datos.
+
+El registro de cada participante incluirá el nombre asignado a sus grupos, movimientos de tarjetas, elementos difíciles de ubicar, dudas sobre las etiquetas y comentarios finales. Esto permitirá conservar evidencia anónima y relacionar cada conclusión con una observación concreta.
 
 \subsection{8. Análisis de Resultados}
-Evaluamos los resultados combinando las métricas cuantitativas obtenidas de las agrupaciones con las notas cualitativas de las sesiones. Analizamos las matrices de similitud resultantes para identificar patrones comunes y descartar valores atípicos. Comparamos nuestra arquitectura de información (IA) base propuesta internamente con la generada por los usuarios.
+El análisis combinará las agrupaciones con las notas cualitativas de las sesiones. A partir de los registros se construirá una matriz de similitud para identificar patrones comunes y valores atípicos, y se comparará la arquitectura de información (IA) propuesta internamente con la generada por los usuarios.
 
-\figuraux{figuras/a3_dendrograma.png}{Análisis de agrupamiento (Dendrograma) resultante del Card Sorting. Los clústers determinaron la arquitectura final.}{fig:dendro}
+\begin{uxnota}[Simulación de resultados]
+Para ejemplificar la forma en que se analizarían los datos, generamos un conjunto hipotético de agrupaciones y lo representamos mediante un dendrograma. La figura y los porcentajes de este apartado corresponden exclusivamente a una \textbf{simulación analítica}; no provienen de sesiones con participantes ni deben interpretarse como mediciones del desempeño real del CIF o de Karisma Data.
+\end{uxnota}
 
-El análisis cuantitativo (representado en el dendrograma de la Figura \ref{fig:dendro}) demostró empíricamente la ineficiencia de la lista plana alfabética legada. Un caso de debate muy ilustrativo durante las sesiones fue el de los reportes de \textbf{Derivados}. Las métricas mostraron que determinar a qué tema pertenecen depende totalmente de la visión (sesgo departamental) de quien los clasifica. Esto comprobó estadísticamente que una estructura de carpetas rígidas es insostenible y justificó firmemente la transición a un modelo facetado (etiquetas múltiples). Integrando estos ajustes, la IA conceptualizada por los usuarios alcanzó una tasa de precisión global en la localización del 84\% frente al sistema actual CIF (que apenas llegaba al 60\%). Notamos una consistencia notable del 85\% en la forma en que los analistas separan estrictamente las tareas de extracción de datos de la administración técnica de la plataforma. Adicionalmente, las tareas clave más accedidas reportaron una tasa de éxito de clasificación del 97\%.
+\figuraux{figuras/a3_dendrograma.png}{Simulación del análisis de agrupamiento (dendrograma) del Card Sorting. Los clústeres ilustran cómo los resultados podrían orientar la arquitectura final.}{fig:dendro}
+
+En la simulación, el dendrograma sugiere que la lista plana alfabética del CIF podría resultar menos eficiente que una organización basada en tareas. Un caso ilustrativo es el de los reportes de \textbf{Derivados}: su ubicación puede variar según la perspectiva departamental de quien los clasifique. Esta ambigüedad respalda, como hipótesis de diseño, la transición a un modelo facetado que permita asignar múltiples etiquetas a una misma fuente.
+
+Para mostrar cómo se comunicarían las métricas después de una aplicación real, el ejemplo asigna una precisión hipotética de localización del 84\% a la arquitectura propuesta frente al 60\% del esquema actual, una consistencia de agrupación del 85\% y una tasa de clasificación del 97\% en tareas frecuentes. Estos valores sirven únicamente para demostrar el formato de análisis; deberán sustituirse por cálculos obtenidos de los registros reales antes de utilizarse como evidencia.
+
+\begin{uxtabla}{|L{2.7cm}|Y|Y|}{Registro verificable previsto para el Card Sorting}
+  \uxheadrow \thd{Dato} & \thd{Evidencia} & \thd{Uso en el análisis} \\
+  Agrupación de tarjetas & Exportación o captura por participante & Calcular frecuencia de asociación \\
+  Nombre de los grupos & Etiquetas escritas por cada participante & Comparar vocabulario y categorías \\
+  Tarjetas reubicadas & Notas de observación & Detectar ambigüedad y transversalidad \\
+  Comentarios & Registro anónimo de la sesión & Explicar decisiones y valores atípicos \\
+\end{uxtabla}
+
+Mientras no se cuente con esos registros, los porcentajes de la simulación no se reportarán como resultados de usuarios.
 
 \subsection{9. Obtención de Conclusiones}
-A partir del análisis conjunto, concluimos que la organización del contenido debe basarse en el nivel de ``Intervención y Consumo de Datos''. Un hallazgo fundamental fue que las etiquetas de una sola palabra (ej. ``Datos'', ``Soporte'') no eran tan exitosas ni mutuamente excluyentes frente a las etiquetas más descriptivas. Obtuvimos cuatro grandes categorías descriptivas clave:
+A partir de la revisión del CIF, los escenarios y la simulación del instrumento, proponemos que la organización del contenido se base en el nivel de ``Intervención y Consumo de Datos''. También planteamos que las etiquetas de una sola palabra (ej. ``Datos'', ``Soporte'') podrían resultar menos claras y menos excluyentes que las etiquetas descriptivas. De este análisis se derivan cuatro grandes categorías conceptuales:
 \begin{uxpreg}
   \item \textbf{Fuentes y Extracción de Datos:} Asociado a la operación diaria y reportes (Laura y Diego).
   \item \textbf{Gobierno y Trazabilidad Analítica:} Asociado al contexto y linaje de los datos (Roberto).
   \item \textbf{Supervisión y Tableros Directivos:} Visualización estratégica de alto nivel (Arturo).
   \item \textbf{Integración y Administración de TI:} Credenciales, APIs y accesos técnicos (Ximena y Mariana).
 \end{uxpreg}
-Las sesiones cualitativas ratificaron que el uso de estas etiquetas más descriptivas reducía la fricción inicial de búsqueda en un 35\%.
+Estas categorías orientan la arquitectura inicial y deberán contrastarse con la clasificación realizada por participantes.
 
 \subsection{10. Iteración y Refinamiento}
-La experiencia demostró que no hay una única manera ``correcta'' de hacer el Card Sorting, por lo que mantuvimos la flexibilidad para ajustar durante el proceso. A partir de los conocimientos adquiridos, refinamos iterativamente las etiquetas. Un hallazgo crítico derivado del pilotaje fue que el término original ``Logs de Sistema'' generaba confusión operativa; tras iterar, lo cambiamos a ``Bitácora de Accesos de Plataforma'', logrando un 100\% de comprensión en las pruebas de validación posteriores con un nuevo grupo de participantes. Este nivel de refinamiento consolidó una taxonomía robusta, objetiva y respaldada por datos que fundamenta nuestra Arquitectura de la Información.
+No hay una única manera ``correcta'' de hacer el Card Sorting, por lo que el instrumento debe conservar flexibilidad para ajustarse durante el proceso. En la revisión de escritorio refinamos algunas etiquetas; por ejemplo, sustituimos el término original ``Logs de Sistema'' por ``Bitácora de Accesos de Plataforma'', más cercano al vocabulario institucional. La comprensión de este nombre y la pertinencia de las categorías se evaluarán en la aplicación del ejercicio.

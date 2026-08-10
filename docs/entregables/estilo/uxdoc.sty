@@ -219,6 +219,29 @@
    \BODY
    \bottomrule\end{tabularx}\end{table}}
 
+% tabularx dentro de un flotante no puede partirse entre páginas: una tabla de
+% registro larga se corta al llegar al final de la página. uxtablalarga usa
+% xltabular (longtable + columnas X) para permitir el corte y repetir el
+% encabezado en cada página. El encabezado va como tercer argumento porque
+% longtable necesita conocerlo antes que el cuerpo.
+\RequirePackage{xltabular}
+\NewEnviron{uxtablalarga}[3]% #1 = columnas · #2 = título · #3 = fila de encabezado
+  {\begingroup\footnotesize
+   \setlength{\parskip}{0pt}%
+   \rowcolors{2}{uxrow}{white}%
+   \begin{xltabular}{\linewidth}{#1}
+     \caption{#2}\\
+     \toprule
+     \uxheadrow #3 \\
+     \endfirsthead
+     \toprule
+     \uxheadrow #3 \\
+     \endhead
+     \bottomrule
+     \endlastfoot
+     \BODY
+   \end{xltabular}\endgroup}
+
 \captionsetup[table]{font={small,sf}, labelfont={bf,color=uxnavy},
   textfont={color=uxink}, skip=6pt, justification=raggedright, singlelinecheck=false}
 \captionsetup[figure]{font={small,sf,it}, labelfont={bf,color=uxnavy},
@@ -416,10 +439,12 @@
     \caption{#2}\label{#3}
   \end{figure}}
 
-\newcommand{\figuraux}[3]{%
+% El ancho es opcional y por omisión ocupa la caja de texto. Se declara solo
+% cuando una figura muy alta se pasa del alto de página por unos puntos.
+\newcommand{\figuraux}[4][\linewidth]{%
   \begin{figure}[htbp]\centering
-    \includegraphics[width=\linewidth]{#1}
-    \caption{#2}\label{#3}
+    \includegraphics[width=#1]{#2}
+    \caption{#3}\label{#4}
   \end{figure}}
 
 % Figura a sangre en página horizontal (para el journey map completo).

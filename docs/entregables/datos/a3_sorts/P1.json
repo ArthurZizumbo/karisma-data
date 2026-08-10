@@ -1,0 +1,208 @@
+{
+  "_naturaleza": "Sesión sintética generada con evaluador LLM condicionado por una persona ficticia de la Actividad 1. No corresponde a una persona real.",
+  "evaluador": "P1",
+  "persona": "Laura Mendez (operativo)",
+  "grupos": [
+    {
+      "nombre": "Buscar el dato",
+      "tarjetas": [
+        "T01",
+        "T06",
+        "T13"
+      ],
+      "por_que": "Es por donde empiezo siempre: escribo el concepto y, si no lo ubico, reviso la lista de fuentes que existen. Los filtros los dejo aqui porque son el paso de acotar la misma consulta, aunque casi nunca paso del periodo y la fecha."
+    },
+    {
+      "nombre": "Mis cosas guardadas",
+      "tarjetas": [
+        "T02",
+        "T03",
+        "T04",
+        "T05"
+      ],
+      "por_que": "Todo lo que dice 'mi' o 'mis' lo veo como mi espacio personal. Reutilizo mucho lo anterior para no rearmar la consulta cada vez, y los avisos que yo configuro son parte de eso."
+    },
+    {
+      "nombre": "Los temas que consulto",
+      "tarjetas": [
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "por_que": "Estos son los productos sobre los que me llegan las solicitudes. No son funciones del portal, son el contenido. Los agrupo como me llega la peticion: 'necesito lo de credito', 'necesito lo de captacion'."
+    },
+    {
+      "nombre": "Indicadores y avisos de riesgo",
+      "tarjetas": [
+        "T21",
+        "T22",
+        "T23"
+      ],
+      "por_que": "Son las vistas de resumen y los semaforos. Yo casi no entro ahi porque riesgo no es mi area, pero cuando me piden una cifra para una reunion de direccion sale de aqui."
+    },
+    {
+      "nombre": "Para saber si el dato sirve",
+      "tarjetas": [
+        "T16",
+        "T17",
+        "T18",
+        "T19",
+        "T20",
+        "T35"
+      ],
+      "por_que": "Este es mi grupo mas importante y el que mas me duele hoy. Antes de responder necesito saber que significa el campo, de donde viene, quien lo actualiza, si ya cargo y si paso las validaciones. Hoy eso lo resuelvo escribiendole a un colega."
+    },
+    {
+      "nombre": "Bajar y compartir el resultado",
+      "tarjetas": [
+        "T14",
+        "T15",
+        "T27",
+        "T28"
+      ],
+      "por_que": "El final de mi tarea casi siempre es un Excel o mandarle la consulta a alguien. La vista previa la pongo aqui porque es lo que reviso antes de descargar, para no bajar el archivo equivocado."
+    },
+    {
+      "nombre": "Pedir acceso y permisos",
+      "tarjetas": [
+        "T24",
+        "T25",
+        "T26",
+        "T30"
+      ],
+      "por_que": "Cuando una fuente no me abre, lo que hago es pedirla y despues estar checando si ya me la autorizaron. 'Permisos' lo entiendo como que puedo ver yo, por eso va con el tramite y no con el alta de usuarios."
+    },
+    {
+      "nombre": "Cosas de sistemas que no me tocan",
+      "tarjetas": [
+        "T29",
+        "T31",
+        "T32",
+        "T33",
+        "T34"
+      ],
+      "por_que": "Aqui puse lo que se que existe pero no es mi trabajo ni tengo permiso de tocar: dar de alta gente, ver quien entro a que, y todo lo de conexiones y llaves entre sistemas. Si me aparecieran en mi pantalla diaria solo me estorbarian."
+    }
+  ],
+  "tarjeta_dificil": {
+    "tarjeta": "T35",
+    "razon": "Monitoreo de cargas suena a pantalla de sistemas y mi primer impulso fue mandarla con lo que no me toca. Pero es la respuesta a la pregunta que hago todos los dias: si el dato ya esta actualizado o todavia no. Termine poniendola con lo que uso para confiar en la cifra, aunque sigo sintiendo que quedo en un lugar raro."
+  },
+  "duplicados_solicitados": [
+    {
+      "tarjeta": "T14",
+      "grupos": [
+        "Buscar el dato",
+        "Bajar y compartir el resultado"
+      ],
+      "razon": "La vista previa me sirve en dos momentos: para confirmar que la consulta trajo lo que pedi y para revisar antes de descargar. Si solo vive en la parte de descargas, la voy a extranar mientras todavia estoy buscando."
+    },
+    {
+      "tarjeta": "T02",
+      "grupos": [
+        "Buscar el dato",
+        "Mis cosas guardadas"
+      ],
+      "razon": "Mis busquedas recientes son mias, pero las ocupo justo cuando estoy en el buscador. Esperaria verlas debajo de la caja de busqueda y tambien en mi espacio."
+    },
+    {
+      "tarjeta": "T23",
+      "grupos": [
+        "Mis cosas guardadas",
+        "Indicadores y avisos de riesgo"
+      ],
+      "razon": "Para mi un aviso es un aviso, venga de mi configuracion o del sistema. Si las senales de riesgo solo estan en la seccion de riesgo, nunca las voy a ver porque yo no entro ahi."
+    },
+    {
+      "tarjeta": "T25",
+      "grupos": [
+        "Pedir acceso y permisos",
+        "Mis cosas guardadas"
+      ],
+      "razon": "Es el seguimiento de MIS peticiones. Lo buscaria donde lo pedi, pero tambien esperaria verlo como pendiente en mi pantalla de inicio sin tener que volver a entrar al tramite."
+    },
+    {
+      "tarjeta": "T35",
+      "grupos": [
+        "Para saber si el dato sirve",
+        "Cosas de sistemas que no me tocan"
+      ],
+      "razon": "El proceso de carga es de sistemas, pero el resultado (si ya cargo y a que hora) es informacion que yo necesito antes de usar la cifra. Me bastaria con ver la fecha y hora de actualizacion junto al dato."
+    },
+    {
+      "tarjeta": "T30",
+      "grupos": [
+        "Pedir acceso y permisos",
+        "Cosas de sistemas que no me tocan"
+      ],
+      "razon": "Permisos tiene dos caras: la del administrador que los asigna y la mia, que solo quiere entender por que no puedo abrir una fuente y a quien se la pido."
+    }
+  ],
+  "etiquetas_confusas": [
+    {
+      "tarjeta": "T18",
+      "comentario": "Linaje no es una palabra que yo use. Si no leo la definicion no se que es; yo lo llamaria 'de donde viene el dato' o 'quien lo alimenta'."
+    },
+    {
+      "tarjeta": "T17",
+      "comentario": "Metadatos suena tecnico y no distingo bien en que se diferencia del diccionario de datos. Para mi los dos responden lo mismo: que significa el campo y desde cuando es valido."
+    },
+    {
+      "tarjeta": "T20",
+      "comentario": "Reglas de negocio puede querer decir politicas de la institucion o la formula con la que se calcula la cifra. Con la pura etiqueta no se cual de las dos es, y esa duda es justo la que me hace tomar la variable equivocada."
+    },
+    {
+      "tarjeta": "T33",
+      "comentario": "Consumo por API no me dice nada. Entiendo 'consumo' como gasto y me confunde; no sabria si tiene que ver conmigo."
+    },
+    {
+      "tarjeta": "T32",
+      "comentario": "Credenciales API me suena a contrasenas y por un momento pense que era donde cambio la mia. Tuve que leer la definicion para descartarlo."
+    },
+    {
+      "tarjeta": "T34",
+      "comentario": "Conectores de fuentes lo asocio con cables o configuracion de sistemas; no sabria si me sirve para ver que fuentes hay disponibles."
+    }
+  ],
+  "arbol": [
+    {
+      "tarea": "Localizar una fuente de liquidez",
+      "primer_nivel": "Inicio",
+      "segundo_nivel": "Buscador, escribiendo 'liquidez'",
+      "dudo": true,
+      "comentario": "Mi reflejo es escribir en la caja de busqueda de la primera pantalla, no navegar por menus. Si no me apareciera algo claro, me iria a Exploracion a ver el listado de fuentes, pero ese seria mi segundo intento."
+    },
+    {
+      "tarea": "Exportar la cartera de credito",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Cartera de credito y ahi el boton de descargar a Excel",
+      "dudo": false,
+      "comentario": "Primero abro el dato y luego lo bajo. No se me ocurriria buscar una seccion de exportaciones para hacer la descarga; eso lo entraria solo para revisar una descarga que ya pedi."
+    },
+    {
+      "tarea": "Consultar un indicador de riesgo",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Indicadores de riesgo",
+      "dudo": true,
+      "comentario": "Dudo porque si es de los indicadores principales esperaria verlo ya resumido en el tablero de la pantalla de inicio. Riesgo no es mi area y no se si es un tema mas del catalogo o una vista aparte."
+    },
+    {
+      "tarea": "Revisar quien autorizo un acceso",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Bitacora de accesos o flujos de aprobacion",
+      "dudo": true,
+      "comentario": "Todo lo de usuarios y auditoria lo mando a sistemas. La palabra 'Gobierno' no me dice nada en un portal, no sabria que esperar adentro, asi que ni la considere; si me dijeran que ahi esta, no lo habria adivinado."
+    },
+    {
+      "tarea": "Crear una credencial de integracion",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Credenciales API",
+      "dudo": false,
+      "comentario": "No es algo que yo haga ni tendria permiso, pero 'credencial de integracion' suena claramente a cosa de sistemas y ahi es donde la mandaria si alguien me preguntara."
+    }
+  ],
+  "racional_general": "Organice todo por el orden en que hago mi trabajo, no por como esta armado el portal por dentro. Primero busco el dato, luego reviso mis cosas guardadas porque casi siempre reutilizo una consulta anterior, entro al tema que me pidieron, confirmo que la cifra sirve (definicion, fecha, quien la actualiza y si ya cargo) y termino bajandola a Excel o mandandosela a quien me la pidio. Aparte deje dos cajones: el tramite de pedir acceso cuando una fuente no me abre, y todo lo que se que existe pero no me toca ni entiendo del todo, como llaves, conectores y alta de usuarios. Mi criterio para separar fue simple: si me sirve para responder una solicitud sin escribirle a un colega, va en mis grupos de trabajo; si solo lo veria de lejos, se va con lo de sistemas."
+}

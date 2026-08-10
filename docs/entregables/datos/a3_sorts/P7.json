@@ -1,0 +1,204 @@
+{
+  "_naturaleza": "Sesión sintética generada con evaluador LLM condicionado por una persona ficticia de la Actividad 1. No corresponde a una persona real.",
+  "evaluador": "P7",
+  "persona": "Mariana Ovalle Rios (administracion)",
+  "grupos": [
+    {
+      "nombre": "Cuentas y permisos",
+      "tarjetas": [
+        "T29",
+        "T30",
+        "T05"
+      ],
+      "por_que": "Es el corazon de mi trabajo: doy de alta, cambio de rol y desactivo. Usuarios y roles y Permisos no se pueden separar, porque cuando muevo a alguien de area lo primero que necesito ver es que le habilita ese rol. Mi perfil lo pongo aqui porque para mi es una cuenta mas, solo que la mia; si manana alguien me pide cambiar su area de adscripcion, es el mismo tramite."
+    },
+    {
+      "nombre": "Solicitudes y autorizaciones",
+      "tarjetas": [
+        "T24",
+        "T25",
+        "T26"
+      ],
+      "por_que": "Aqui vive mi dolor diario. Hoy me llegan peticiones de acceso por correo, sin justificacion y sin vigencia, y termino persiguiendo al dueno del dato. Solicitar acceso, Estado de solicitudes y Flujos de aprobacion son un solo tramite visto en tres momentos: la piden, la autoriza quien debe, y yo veo en que va sin abrir el sistema de tickets."
+    },
+    {
+      "nombre": "Evidencia para auditoria",
+      "tarjetas": [
+        "T31",
+        "T28"
+      ],
+      "por_que": "Este grupo es chico pero es el que me salva. Cuando auditoria pregunta quien vio que, o quien se llevo un archivo con datos sensibles, necesito abrir una sola pantalla y mostrarlo. Bitacora de accesos e Historial de exportaciones son lo mismo para mi: el rastro que el sistema deja por mi, en vez de que yo lo arme a mano en una hoja de control."
+    },
+    {
+      "nombre": "Continuidad del servicio",
+      "tarjetas": [
+        "T35",
+        "T19",
+        "T04",
+        "T23"
+      ],
+      "por_que": "Es lo que reviso en la manana antes de que me escriban todos al mismo tiempo. Monitoreo de cargas y Calidad de datos me dicen si un proceso fallo anoche, y las alertas son mi forma de enterarme antes que el usuario. Puse aqui Senales de riesgo porque la definicion dice aviso automatico cuando se rebasa un umbral, y para mi eso es una alerta configurada igual que las mias; que el umbral sea de negocio no cambia que a mi me toca que el aviso salga."
+    },
+    {
+      "nombre": "Sistemas conectados (accesos sin persona)",
+      "tarjetas": [
+        "T34",
+        "T32",
+        "T33"
+      ],
+      "por_que": "Separo lo humano de lo automatico porque se administran distinto. Un conector, su llave y su consumo son el mismo expediente: que sistema se conecta, con que credencial y cuanto esta pidiendo. Estos accesos son los mas peligrosos porque nadie los da de baja: no hay una persona que renuncie y dispare el aviso."
+    },
+    {
+      "nombre": "Ficha de cada fuente",
+      "tarjetas": [
+        "T06",
+        "T16",
+        "T17",
+        "T18",
+        "T20"
+      ],
+      "por_que": "No consulto estas cosas por gusto, las consulto para poder autorizar. Antes de dar un permiso necesito saber que contiene la fuente, quien es su propietario, con que periodicidad se actualiza y bajo que criterio se calcula la cifra. Catalogo, Diccionario, Metadatos, Linaje y Reglas de negocio son para mi la ficha tecnica que debo leer antes de firmar un acceso."
+    },
+    {
+      "nombre": "Herramientas de consulta de los usuarios",
+      "tarjetas": [
+        "T01",
+        "T02",
+        "T03",
+        "T13",
+        "T14",
+        "T15",
+        "T27"
+      ],
+      "por_que": "Esto no lo uso yo, lo usan las areas, pero me lo reportan cuando no les funciona. Buscador, busquedas recientes, favoritos, filtros, vista previa, exportar y compartir son la caja de herramientas del usuario final. Los junto porque cuando llega un ticket que dice no me deja bajar el archivo, todo esta en esta misma pantalla."
+    },
+    {
+      "nombre": "Informacion de las areas de negocio",
+      "tarjetas": [
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T21",
+        "T22"
+      ],
+      "por_que": "Aqui esta el contenido que yo habilito pero no interpreto. Credito, liquidez, derivados, captacion, mercado de dinero, acciones, el tablero de direccion y los indicadores de riesgo son, desde mi silla, ocho cajones de informacion sobre los que decido quien entra y quien no. No los abro por trabajo propio: los abro para verificar que el rol que asigne muestra lo que debia mostrar y nada mas."
+    }
+  ],
+  "tarjeta_dificil": {
+    "tarjeta": "T18",
+    "razon": "Linaje. Al leer la etiqueta pense de inmediato en cadena de custodia, que si es mi terreno: de donde salio, quien lo toco y quien lo entrego. Iba directo a mi grupo de evidencia. Al leer la definicion vi que habla del recorrido del dato hasta el reporte, no del recorrido de las personas, y termine moviendola a la ficha de la fuente. Me quedo la duda: si un dia auditoria me pregunta de donde salio una cifra que alguien exporto, no se si la respuesta esta en Linaje o en mi bitacora."
+  },
+  "duplicados_solicitados": [
+    {
+      "tarjeta": "T32",
+      "grupos": [
+        "Cuentas y permisos",
+        "Sistemas conectados (accesos sin persona)"
+      ],
+      "razon": "Una credencial de API es un acceso que yo firmo igual que el de una persona, y deberia aparecer cuando reviso a quien le di que. Pero se crea y se rota junto con el conector. Si solo vive en el modulo de integraciones, mi revision trimestral de cuentas se queda ciega justo del lado que nadie da de baja."
+    },
+    {
+      "tarjeta": "T06",
+      "grupos": [
+        "Ficha de cada fuente",
+        "Cuentas y permisos"
+      ],
+      "razon": "El catalogo es el inventario de fuentes, pero tambien es la lista contra la que asigno permisos. Cuando doy el rol Analista necesito ver en la misma pantalla que fuentes queda habilitada a consultar. Si el catalogo solo vive del lado de consulta, tengo que abrirlo en otra ventana cada vez que autorizo."
+    },
+    {
+      "tarjeta": "T28",
+      "grupos": [
+        "Evidencia para auditoria",
+        "Herramientas de consulta de los usuarios"
+      ],
+      "razon": "Para el usuario es simplemente en que va mi descarga. Para mi es quien se llevo que informacion y cuando. Es la misma tarjeta leida por dos personas distintas, y las dos la necesitan en su propio lugar."
+    },
+    {
+      "tarjeta": "T19",
+      "grupos": [
+        "Continuidad del servicio",
+        "Ficha de cada fuente"
+      ],
+      "razon": "La calidad de datos es un proceso que corre y puede fallar, y en ese sentido es salud de la plataforma. Pero tambien es un atributo de la fuente que debo poder mostrar cuando alguien reclama que la cifra esta mal y hay que decidir si el problema es de la fuente o del permiso."
+    },
+    {
+      "tarjeta": "T33",
+      "grupos": [
+        "Sistemas conectados (accesos sin persona)",
+        "Continuidad del servicio"
+      ],
+      "razon": "El consumo por API me dice quien esta conectado, y eso pertenece al expediente de la integracion. Pero es tambien mi primer indicio de saturacion: si un sistema empezo a pedir el triple, la caida de manana ya se esta cocinando."
+    },
+    {
+      "tarjeta": "T23",
+      "grupos": [
+        "Continuidad del servicio",
+        "Informacion de las areas de negocio"
+      ],
+      "razon": "La puse con mis alertas porque el mecanismo es identico, pero el umbral lo define riesgo, no yo. Si el area de riesgo la busca junto a sus indicadores y yo la busco junto a mis avisos, esta tarjeta tiene dos duenos y un solo lugar no va a alcanzar."
+    }
+  ],
+  "etiquetas_confusas": [
+    {
+      "tarjeta": "T18",
+      "comentario": "Linaje no es palabra que usemos en administracion de plataformas. Yo diria trazabilidad del dato. Tal como esta escrita la lei como rastro de quien toco la informacion, que es otra cosa."
+    },
+    {
+      "tarjeta": "T17",
+      "comentario": "Metadatos y Diccionario de datos me suenan a la misma cosa dicha de dos maneras. Entiendo la diferencia si me la explican, pero puestas una junto a la otra no sabria a cual entrar primero para averiguar quien es el propietario de una fuente."
+    },
+    {
+      "tarjeta": "T23",
+      "comentario": "Senales de riesgo, Indicadores de riesgo y Mis alertas son tres etiquetas para lo que en mi cabeza es un solo concepto: algo rebaso un limite y hay que avisar. No se cual me toca configurar a mi."
+    },
+    {
+      "tarjeta": "T20",
+      "comentario": "Reglas de negocio es demasiado ancho. En mi area una regla de negocio tambien puede significar quien puede aprobar que, y aqui aparentemente se refiere solo a como se calcula una cifra."
+    },
+    {
+      "tarjeta": "T14",
+      "comentario": "Vista previa no me dice de que. Previa a exportar, previa a compartir, o previa a dar el acceso. La coloque con las herramientas del usuario por descarte."
+    }
+  ],
+  "arbol": [
+    {
+      "tarea": "Localizar una fuente de liquidez",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Buscador unificado o Catalogo de fuentes",
+      "dudo": true,
+      "comentario": "La palabra localizar me empuja al buscador, asi que ahi entraria. Pero titubeo de verdad: para mi el catalogo de fuentes es un inventario, y los inventarios los busco del lado de Gobierno. Si no encuentro liquidez en la caja de busqueda, mi segundo intento seria Gobierno."
+    },
+    {
+      "tarea": "Exportar la cartera de credito",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Cartera de credito, con la opcion de exportar dentro del resultado",
+      "dudo": false,
+      "comentario": "Aqui no dudo. La descarga se pide donde esta el dato, no en un modulo aparte. Lo que si esperaria despues es que esa descarga quede registrada del lado que yo audito, sin que el usuario tenga que hacer nada extra."
+    },
+    {
+      "tarea": "Consultar un indicador de riesgo",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Indicadores de riesgo",
+      "dudo": true,
+      "comentario": "Esta no es mi tarea, asi que voy a tientas. Iria a Exploracion buscando el modulo de riesgo, pero si existe un tablero en Inicio lo mas probable es que el indicador ya este ahi y yo hubiera dado un rodeo innecesario."
+    },
+    {
+      "tarea": "Revisar quien autorizo un acceso",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Bitacora de accesos, o el historial dentro de Usuarios y roles",
+      "dudo": true,
+      "comentario": "Mi reflejo es entrar a mi panel de administracion, porque ahi es donde trabajo. Pero Gobierno suena exactamente al lugar donde alguien pondria las autorizaciones y los flujos de aprobacion. Si la bitacora quedo en Gobierno y las cuentas en Administracion, voy a tener que abrir dos secciones para responder una sola pregunta de auditoria, que es justo lo que hago hoy en cinco sistemas."
+    },
+    {
+      "tarea": "Crear una credencial de integracion",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Credenciales API",
+      "dudo": false,
+      "comentario": "Sin duda. Crear una llave es dar un acceso, y los accesos los otorgo yo. Lo unico que pediria es que al crearla me obligue a poner vigencia y responsable, porque una llave sin fecha de caducidad es una cuenta huerfana esperando."
+    }
+  ],
+  "racional_general": "Ordene las tarjetas por responsabilidad, no por tema. Mi pregunta al tomar cada una fue: si esto falla o si alguien entra donde no debe, la pregunta llega a mi escritorio o al de otra persona. Con eso salieron primero mis cuatro cajones propios: cuentas y permisos, solicitudes y autorizaciones, evidencia para auditoria y continuidad del servicio. Luego separe los accesos que no son personas, porque un conector con su llave y su consumo se administra distinto y sobre todo nadie lo da de baja cuando deja de usarse. La ficha de cada fuente la arme no porque me interese el dato en si, sino porque no puedo autorizar lo que no se que contiene ni de quien es. Al final quedaron dos grupos que reconozco como ajenos: las herramientas con las que consultan los usuarios, que solo toco cuando llega un ticket, y la informacion de las areas de negocio, que para mi son cajones sobre los que decido quien entra. Ese ultimo grupo quedo grande y plano a proposito: no distingo entre derivados y mercado de dinero, distingo entre quien puede verlos y quien no. Si algo me preocupa de como quedo mi orden es que el rastro esta partido: la bitacora, el historial de exportaciones y el linaje cuentan pedazos de la misma historia y quedaron en tres lugares. Cada acceso que autorizo es una responsabilidad que firmo, y hoy para sustentarla tendria que abrir tres pantallas."
+}

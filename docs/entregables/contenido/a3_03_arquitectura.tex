@@ -1,39 +1,64 @@
 \section{Arquitectura de la Información}
 
-A partir de los hallazgos de las actividades anteriores y de las hipótesis planteadas mediante el Card Sorting, estructuramos la Arquitectura de Información (IA) de Karisma Data. El diseño se basó fundamentalmente en mantener una \textbf{mirada sistémica}, reconociendo que los usuarios abandonarán el portal si sienten que están en un laberinto. Desarrollamos la arquitectura siguiendo estos 5 pasos formales:
+A partir de los hallazgos de las actividades anteriores y de las hipótesis planteadas mediante el Card Sorting, estructuramos la Arquitectura de Información (IA) de Karisma Data. El diseño se sostiene en una \textbf{mirada sistémica} (Velasco et al., 2022): los usuarios abandonan el portal si sienten que están en un laberinto, y la orientación la producen la clasificación de los contenidos y su rotulado en el lenguaje del usuario, no en el de los sistemas de origen (Velasco et al., 2022). Los mismos autores señalan que resolver la arquitectura antes de dibujar pantallas permite concentrarse primero en la estructura y solo después en la interfaz. Por eso separamos esta actividad de la de alta fidelidad.
 
-\subsection{1. Identificación de los Usuarios}
-Retomamos las encuestas, las entrevistas y la definición de \textbf{Personas} de la Actividad 1. La arquitectura debe servir a 8 perfiles base, pero prioritariamente a cuatro arquetipos clave: operativos que necesitan inmediatez (Laura), analistas que requieren profundidad (Diego), directivos que buscan resúmenes (Arturo) y técnicos que requieren gobernanza (Ximena y Mariana).
+En los términos de Morville y Rosenfeld (2006), la arquitectura que se documenta a continuación se compone de cuatro sistemas interdependientes. El sistema de organización lo forman las cuatro categorías principales y su jerarquía de segundo nivel. El sistema de etiquetado es el vocabulario con que se nombra cada cosa; el caso más claro es la sustitución del rótulo técnico ``Logs de Sistema'' por ``Bitácora de Accesos'', que es como los evaluadores prototipo nombran ese contenido. El sistema de navegación es la barra lateral fija con sus dos niveles, que mantiene las categorías accesibles en todo momento. El sistema de búsqueda es el buscador unificado de la entrada junto con el motor facetado del catálogo, la vía alterna para quien no quiere recorrer la jerarquía. Desarrollamos la arquitectura siguiendo estos 5 pasos formales:
 
-\subsection{2. Identificación del Contenido}
+\subsection{Identificación de los Usuarios}
+Retomamos las encuestas, las entrevistas y la definición de \textbf{Personas} de la Actividad 1. La arquitectura debe servir a los ocho perfiles definidos en esa actividad, aunque cuatro arquetipos concentran las decisiones estructurales: operativos que necesitan inmediatez (Laura Méndez), analistas que requieren profundidad (Diego Hernández), directivos que buscan síntesis (Arturo Castañeda) y propietarios del dato que responden por su gobierno (Roberto Valdez). Este último pesó de forma determinante: el gobierno del dato ocupa la mitad de la arquitectura resultante. Los cuatro perfiles restantes quedan cubiertos por esos mismos módulos. Auditoría (Elena Ruiz) e ingeniería de datos (Jorge Mendieta) se apoyan en Gobierno del dato; administración (Mariana Ovalle Ríos) e integración (Ximena Solís Barrera), en Administración. Ningún perfil de la Actividad 1 quedó fuera del mapa.
+
+\subsection{Identificación del Contenido}
 A partir del mapeo de procesos y los \textbf{Escenarios (PACT)}, identificamos que el producto digital debía incluir: barras de búsqueda unificada, visores de linaje de datos, catálogos temáticos integrados (abarcando transversalmente áreas operativas como Mercado de Dinero, Captación, Acciones, Crédito, etc., y resolviendo el problema de las fuentes que pertenecen a múltiples temas simultáneamente mediante esquemas de etiquetado múltiple), motores de exportación en segundo plano y una consola de gestión de API. Todo este contenido forma parte del instrumento de Card Sorting.
 
-\subsection{3. Organización del Contenido}
-Agrupamos el contenido utilizando los antecedentes del proyecto y la simulación del Card Sorting, respetando la \textit{folksonomía} interna como una hipótesis que deberá validarse. La arquitectura resultante es la siguiente:
+\subsection{Organización del Contenido}
+El Card Sorting abierto aplicado con los ocho evaluadores prototipo confirmó el primer nivel de la propuesta y obligó a corregir el segundo. Las cuatro categorías principales se sostuvieron: cada evaluador construyó entre siete y ocho grupos, con mediana de ocho, y esos grupos se dejan reducir sin forzarlos a los cuatro módulos previstos. Sin embargo, la matriz de similitud por coocurrencia arrojó \textbf{nueve conglomerados}, no cuatro: datos de negocio (coincidencia unánime de los 8 evaluadores en todos sus pares), riesgo y tableros, integración técnica, accesos y solicitudes, calidad y operación, definición del dato, extracción, consulta y espacio personal. Esa distancia entre cuatro categorías y nueve conglomerados se resolvió en el segundo nivel. La jerarquía que sigue es entonces la \textbf{arquitectura revisada}: incorpora los cambios derivados del ejercicio y de la prueba de árbol documentados en la subsección 4, y no coincide con la propuesta inicial que se puso a prueba.
 
 \begin{uxlist}
-  \item \textbf{1. Inicio / Buscador Unificado:} El punto de entrada central, adaptativo según el rol (desde la barra de búsqueda para Laura, hasta el acceso directo al tablero para Arturo).
-  \item \textbf{2. Exploración y Extracción (Módulo Operativo / Analítico):}
+  \item \textbf{1. Inicio:} buscador unificado, búsquedas recientes, favoritos, mis alertas y mi perfil. Punto de entrada adaptativo según el rol.
+  \item \textbf{2. Exploración y extracción:}
     \begin{uxlist}
-      \item 2.1 Catálogo Temático Integrado (Agrupa dinámicamente temas como \textit{Captación, Mercado de Dinero, Acciones, Crédito}, etc.)
-      \item 2.2 Motor de Búsqueda Facetado (Permite el etiquetado múltiple para que una fuente transversal resida en varios temas simultáneamente)
-      \item 2.3 Motor de Exportación (Descargas asíncronas de alto volumen)
+      \item 2.1 Catálogo temático: cartera de crédito, liquidez, derivados, captación, mercado de dinero y acciones.
+      \item 2.2 Consulta y filtros: buscador facetado, filtros avanzados, vista previa y compartir consulta.
+      \item 2.3 Exportaciones: exportación CSV/Excel e historial de exportaciones.
+      \item 2.4 Tableros e indicadores: tablero ejecutivo, indicadores de riesgo y señales de riesgo. \textit{(Subsección nueva: estos contenidos se movieron aquí desde Gobierno como consecuencia de la prueba de árbol.)}
     \end{uxlist}
-  \item \textbf{3. Gobierno y Supervisión (Módulo Directivo / Regulatorio):}
+  \item \textbf{3. Gobierno del dato:}
     \begin{uxlist}
-      \item 3.1 Catálogo de Metadatos y Diccionario (Reglas de Negocio)
-      \item 3.2 Tableros Directivos (KPIs de Calidad y Riesgo)
+      \item 3.1 Diccionario y metadatos: diccionario de datos, metadatos y reglas de negocio.
+      \item 3.2 Linaje y calidad: linaje, calidad de datos y monitoreo de cargas.
+      \item 3.3 Catálogo de fuentes, con faceta transversal.
     \end{uxlist}
-  \item \textbf{4. Administración (Módulo Plataforma):}
+  \item \textbf{4. Administración:}
     \begin{uxlist}
-      \item 4.1 Gestión de Accesos, Permisos y Bitácora
-      \item 4.2 Credenciales API y Consumo Automatizado
+      \item 4.1 Usuarios, roles y permisos.
+      \item 4.2 Solicitudes y aprobaciones: solicitar acceso, estado de solicitudes y flujos de aprobación.
+      \item 4.3 Bitácora de accesos, con acceso cruzado desde Gobierno del dato.
+      \item 4.4 Integraciones: credenciales API, consumo por API y conectores de fuentes.
     \end{uxlist}
 \end{uxlist}
 
+La categoría 3 dejó de llamarse ``Gobierno y Supervisión'' y pasó a llamarse \textbf{Gobierno del dato}: al salir de ahí los tableros e indicadores, el módulo ya no supervisa nada y conserva únicamente el marco del dato: diccionario, metadatos, reglas de negocio, linaje, calidad y monitoreo de cargas.
+
+\subsubsection{Facetas transversales de etiquetado múltiple}
+El etiquetado múltiple responde a una petición registrada durante las sesiones: los 8 evaluadores prototipo pidieron colocar al menos cinco tarjetas en dos o más grupos a la vez. Se abrieron facetas transversales para las nueve tarjetas que tres o más evaluadores pidieron duplicar. Cada una vive en un lugar canónico de la jerarquía y aparece además en los demás contextos donde se la buscó:
+
+\begin{uxlist}
+  \item \textbf{Consumo por API} --- 6 de los 8 evaluadores pidieron duplicarla.
+  \item \textbf{Calidad de datos} --- 6 de los 8 evaluadores.
+  \item \textbf{Vista previa} --- 4 de los 8 evaluadores.
+  \item \textbf{Catálogo de fuentes} --- 4 de los 8 evaluadores.
+  \item \textbf{Mis alertas} --- 4 de los 8 evaluadores.
+  \item \textbf{Credenciales API} --- 4 de los 8 evaluadores.
+  \item \textbf{Monitoreo de cargas} --- 3 de los 8 evaluadores.
+  \item \textbf{Permisos} --- 3 de los 8 evaluadores.
+  \item \textbf{Historial de exportaciones} --- 3 de los 8 evaluadores.
+\end{uxlist}
+
+Otras cinco tarjetas recibieron peticiones de duplicado de uno o dos evaluadores (búsquedas recientes, señales de riesgo, bitácora de accesos, estado de solicitudes y linaje). Con ese respaldo se mantuvieron en un solo lugar, para no multiplicar rutas sin evidencia suficiente.
+
 Para distinguir este artefacto del mapa de navegación, la Figura \ref{fig:arquitectura} muestra qué necesidades, tareas y objetos de información conforman el sistema, mientras que el mapa posterior representa las rutas para acceder a ellos.
 
-\figuraux{figuras/a3_arquitectura_informacion.png}{Arquitectura de información: relación entre perfiles, tareas, objetos y facetas transversales.}{fig:arquitectura}
+\figuraux[0.97\linewidth]{figuras/a3_arquitectura_informacion.png}{Arquitectura de información: relación entre perfiles, tareas, objetos y facetas transversales.}{fig:arquitectura}
 
 \begin{uxtabla}{|L{3.1cm}|Y|Y|}{Trazabilidad entre antecedentes y decisiones de arquitectura}
   \uxheadrow \thd{Antecedente} & \thd{Decisión propuesta} & \thd{Elemento resultante} \\
@@ -42,21 +67,44 @@ Para distinguir este artefacto del mapa de navegación, la Figura \ref{fig:arqui
   Necesidad de contexto y confianza & Mostrar definición, propietario y linaje & Metadatos y diccionario de datos \\
   Extracciones de alto volumen & Separar la solicitud de su procesamiento & Historial y motor de exportaciones \\
   Control de accesos e integraciones & Reservar funciones según permisos & Administración, bitácora y credenciales API \\
+  Brecha de conocimiento en la validación (Actividad 2) & Responder junto a la cifra si sigue vigente y quién la aprobó & Gobierno: metadatos, linaje y fecha de vigencia \\
+  Brecha de conocimiento en la búsqueda (Actividad 2) & Hacer visibles las fuentes relacionadas que el usuario no sabe que existen & Exploración: catálogo facetado y etiquetado múltiple \\
 \end{uxtabla}
 
-\subsection{4. Pruebas de la Arquitectura de la Información}
-Para validar este esquema, diseñamos una prueba de navegación de tipo ``Tree Testing'' (Prueba de Árbol). El instrumento solicitará a usuarios representativos que indiquen dónde realizarían las siguientes tareas, sin mostrarles la interfaz visual:
+Las dos últimas filas provienen de las brechas de conocimiento marcadas por etapa en el \textit{journey map} de la Actividad 2, y no de las encuestas ni del Card Sorting. Son los puntos del recorrido en los que el usuario avanza sin saber algo que necesita; cada uno queda asignado aquí al nodo de la arquitectura que lo resuelve.
 
-\begin{uxtabla}{|Y|Y|L{2.3cm}|}{Tareas propuestas para la prueba de árbol}
-  \uxheadrow \thd{Tarea} & \thd{Ruta esperada} & \thd{Criterio de éxito} \\
-  Localizar una fuente de liquidez & Exploración $>$ Catálogo & Ruta correcta sin ayuda \\
-  Exportar cartera de crédito & Exploración $>$ Exportaciones & Identifica acción y estado \\
-  Consultar un indicador de riesgo & Gobierno $>$ Tableros & Encuentra el tablero \\
-  Revisar quién autorizó un acceso & Administración $>$ Bitácora & Encuentra el registro \\
-  Crear una credencial de integración & Administración $>$ Credenciales API & Identifica la opción \\
+\subsection{Pruebas de la Arquitectura de la Información}
+Para validar el esquema aplicamos una prueba de navegación de tipo \textit{Tree Testing} (Prueba de Árbol) el 9 de agosto de 2026. La prueba se ejecutó al cierre de cada una de las ocho sesiones de Card Sorting, con las sesiones a ciegas entre sí y sin mostrar interfaz alguna: solo se presentaron los cuatro módulos de primer nivel y se pidió al evaluador prototipo que indicara dónde daría el primer clic y, después, qué esperaba encontrar en el segundo nivel. Cinco tareas por ocho evaluadores produjeron \textbf{40 observaciones} de primer nivel. Además de la ruta elegida se registró si el evaluador titubeó, entendiendo por titubeo que considerara en voz alta más de un módulo antes de decidirse.
+
+\begin{uxtabla}{|L{2.7cm}|L{2.3cm}|L{1.1cm}|Y|L{1.5cm}|}{Resultados de la prueba de árbol: 5 tareas por 8 evaluadores prototipo}
+  \uxheadrow \thd{Tarea} & \thd{Ruta esperada} & \thd{Aciertos} & \thd{Reparto de elecciones} & \thd{Titubearon} \\
+  1. Localizar una fuente de liquidez & Exploración & 6 de 8 & Exploración 6, Inicio 2 & 5 de 8 \\
+  2. Exportar la cartera de crédito & Exploración & 8 de 8 & Exploración 8 (unánime) & 2 de 8 \\
+  3. Consultar un indicador de riesgo & Gobierno & 1 de 8 & Exploración 6, Gobierno 1, Inicio 1 & 6 de 8 \\
+  4. Revisar quién autorizó un acceso & Administración & 6 de 8 & Administración 6, Gobierno 2 & 8 de 8 \\
+  5. Crear una credencial de integración & Administración & 7 de 8 & Administración 7, Inicio 1 & 3 de 8 \\
+  \textbf{Total} & --- & \textbf{28 de 40} & --- & --- \\
 \end{uxtabla}
 
-Por cada tarea se registrarán la ruta elegida, los retrocesos, la necesidad de ayuda y los comentarios del participante. Esto permitirá verificar si la arquitectura es intuitiva sin atribuirle resultados antes de aplicar la prueba.
+El resultado agregado, 28 aciertos de primer nivel sobre 40 observaciones, esconde una distribución muy desigual: dos tareas resolvieron con holgura, dos quedaron en la frontera y una falló de forma inequívoca. Los tres hallazgos, en orden de importancia, fueron los siguientes.
 
-\subsection{5. Diseño de la Navegación}
-Con el contenido organizado, el paso final de esta fase fue traducir la estructura a un sistema de menús. Optamos por un diseño de navegación lateral fijo (\textit{sidebar}) para computadoras de escritorio (dispositivo principal en el entorno corporativo), asegurando que las cuatro categorías principales siempre estén visibles a un clic de distancia, evitando menús ocultos tipo ``hamburguesa'' que añadirían fricción. Esta decisión se contrastará mediante las tareas anteriores durante la fase de prototipado.
+\textbf{La tarea 3 falló y refuta la ubicación propuesta.} Solo 1 de los 8 evaluadores prototipo buscó el indicador de riesgo en Gobierno; 6 de los 8 fueron directamente a Exploración y 1 se quedó en Inicio. Además, 6 de los 8 titubearon antes de elegir. Es el resultado más importante de toda la prueba. La propuesta inicial colocaba los tableros dentro de Gobierno y Supervisión, y los evaluadores no los buscaron ahí: consultar un indicador es una tarea de consulta y no de gobierno. Quien necesita el número lo trata como cualquier otro dato que se va a mirar, no como parte del marco normativo que define ese dato. La matriz de similitud confirma la misma separación por una vía independiente, porque agrupa el conglomerado de riesgo y tableros (señales de riesgo, tablero ejecutivo e indicadores de riesgo, con coincidencias de 6 a 7 sobre 8) aparte del conglomerado de definición del dato (catálogo de fuentes, linaje, reglas de negocio, diccionario de datos y metadatos, con coincidencias de 7 a 8 sobre 8). En consecuencia, los tableros e indicadores de riesgo salieron de Gobierno y se incorporaron a Exploración y extracción como la subsección 2.4 ``Tableros e indicadores''. Al vaciarse de ese contenido, la categoría 3 se renombró a ``Gobierno del dato''.
+
+\textbf{La tarea 4 acertó, pero titubearon los ocho.} Seis de los 8 evaluadores eligieron Administración, que era la ruta esperada, y 2 se fueron a Gobierno; los 8 dudaron antes de responder. El acierto no es limpio: el titubeo unánime señala una frontera ambigua entre gobierno y administración, donde la evidencia de un acceso es a la vez un registro de plataforma y una prueba de auditoría. Los dos evaluadores que se desviaron son los perfiles que responden por esa evidencia, auditoría (Elena Ruiz) y propiedad del dato (Roberto Valdez). ``Bitácora de accesos'' se mantuvo dentro de Administración, porque la matriz la agrupa con fuerza junto a usuarios y roles, permisos, flujos de aprobación, solicitar acceso y estado de solicitudes (coincidencias de 7 a 8 sobre 8), y se añadió un acceso cruzado desde Gobierno del dato para los perfiles que la buscan ahí.
+
+\textbf{Las rutas de extracción e integraciones quedaron claras.} La tarea 2 fue la única unánime, con 8 de 8 aciertos y solo 2 evaluadores que titubearon: exportar la cartera de crédito desde Exploración no ofreció ninguna duda estructural. La tarea 5 acertó 7 de 8, con un único evaluador que se quedó en Inicio y 3 titubeos. Ambas rutas se conservaron sin cambios.
+
+La arquitectura presentada en la subsección 3 \textbf{ya incorpora} estos cambios: este documento presenta la versión corregida, no la que se puso a prueba. La propuesta original se conserva como referencia dentro de este análisis.
+
+\begin{uxnota}[Alcance de la evidencia]
+Los 8 evaluadores prototipo son evaluadores condicionados por las ocho personas de la Actividad 1 bajo el protocolo PerceptUI (Bougie et al., 2026), no personas reales. Los conteos se reportan siempre en absolutos sobre 8 porque con esa n un porcentaje exageraría la fuerza de la evidencia. Esta prueba es una prevalidación que permitió corregir la arquitectura antes de dibujar pantallas; no sustituye la prueba con usuarios reales prevista para la Actividad 5.
+\end{uxnota}
+
+Como siguientes pasos quedan pendientes dos verificaciones que esta corrida no cubre: repetir la tarea 3 sobre la arquitectura revisada para comprobar que el traslado de los tableros a Exploración eleva el acierto, y medir si el acceso cruzado a la bitácora reduce el titubeo de la tarea 4. Ambas se incorporan al guion de la prueba de usabilidad de la Actividad 5 con usuarios reales.
+
+\subsection{Diseño de la Navegación}
+Con el contenido organizado, el paso final de esta fase fue traducir la estructura a un sistema de menús. Optamos por una navegación lateral fija (\textit{sidebar}) para computadoras de escritorio, el dispositivo principal en el entorno corporativo: las cuatro categorías principales quedan siempre visibles a un clic de distancia y se evitan los menús ocultos tipo ``hamburguesa'', que añadirían fricción. Esta decisión se contrastará mediante las tareas anteriores durante la fase de prototipado.
+
+La Figura \ref{fig:wireframe} traduce lo anterior a un bosquejo de baja fidelidad. En él se aprecian los cuatro módulos siempre visibles en la barra lateral, el estado activo que indica en todo momento dónde está el usuario y el segundo nivel desplegado únicamente del módulo en uso, aplicando revelación progresiva para no exponer de golpe toda la jerarquía. A la derecha, el panel de metadatos acompaña al resultado seleccionado dentro de la misma pantalla; con ello, consultar definición, propietario y linaje no obliga a abandonar el contexto de la consulta. El bosquejo ilustra el patrón de navegación y no el inventario completo de contenidos: el segundo nivel que muestra corresponde a la arquitectura revisada de la subsección 3, ya con los cambios derivados de la prueba de árbol.
+
+\figuraux{figuras/a3_wireframe_navegacion.png}{Diseño de la navegación: barra lateral fija con los cuatro módulos, buscador unificado y panel de metadatos. Bosquejo de baja fidelidad elaborado para esta actividad; la interfaz de alta fidelidad se desarrolla en la Actividad 4.}{fig:wireframe}

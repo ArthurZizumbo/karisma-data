@@ -1,0 +1,202 @@
+{
+  "_naturaleza": "Sesión sintética generada con evaluador LLM condicionado por una persona ficticia de la Actividad 1. No corresponde a una persona real.",
+  "evaluador": "P5",
+  "persona": "Jorge Mendieta (ingenieria de datos)",
+  "grupos": [
+    {
+      "nombre": "Tuberias, cargas y conexiones",
+      "tarjetas": [
+        "T34",
+        "T35",
+        "T19",
+        "T32",
+        "T33"
+      ],
+      "por_que": "Esto es literalmente mi jornada. Llego a las 7 de la manana y lo primero que abro es el estado de la carga nocturna y el resultado de las validaciones. Los conectores son el punto donde el banco se enchufa con cada sistema de origen, y las credenciales y el consumo por API son la version desatendida de la misma tuberia: un sistema jalando datos sin que nadie escriba una consulta. Para mi todo eso es una sola sala de maquinas, no cuatro pantallas distintas."
+    },
+    {
+      "nombre": "Diccionario y estructura del dato",
+      "tarjetas": [
+        "T06",
+        "T16",
+        "T17",
+        "T18",
+        "T20"
+      ],
+      "por_que": "Antes de cargar un solo dato dibujo el diagrama. El catalogo me dice que fuentes existen, el diccionario y los metadatos me dicen que significa cada campo y con que periodicidad y unidad llega, el linaje me dice a donde va a parar y las reglas de negocio me dicen como se calcula. Ese paquete es el contrato que yo mapeo contra la estructura del almacen. Si una de esas cosas cambia sin avisarme, se rompe una integracion."
+    },
+    {
+      "nombre": "Consultas y descargas del usuario",
+      "tarjetas": [
+        "T01",
+        "T13",
+        "T14",
+        "T15",
+        "T27",
+        "T28"
+      ],
+      "por_que": "Todo esto es lo que hace el analista contra mis tablas: busca, filtra, ve una muestra, baja el archivo, lo comparte. Lo junto porque desde mi silla es un solo comportamiento y es el que me genera carga. La vista previa la pongo aqui a proposito: es mi defensa para que no jalen millones de renglones solo para ver si era la tabla correcta. Y compartir consulta me interesa porque si comparten la consulta armada dejan de circular archivos fantasma por correo."
+    },
+    {
+      "nombre": "Tablas de negocio que alimento",
+      "tarjetas": [
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "por_que": "Estas seis son las areas de datos que yo integro. Para mi no se diferencian por su significado economico, se diferencian por su esquema, su volumen y su ventana de carga. Cartera y captacion son las pesadas, derivados y mercado de dinero son las que mas cambian de formato. Van juntas porque comparten el mismo tratamiento tecnico, no porque el negocio las vea juntas."
+    },
+    {
+      "nombre": "Indicadores y avisos de riesgo",
+      "tarjetas": [
+        "T21",
+        "T22",
+        "T23"
+      ],
+      "por_que": "Esto es la capa de arriba, la que consume la direccion. Yo no la uso para trabajar pero si me interesa, porque es lo primero que truena cuando una carga fallo: alguien de direccion ve un numero raro en el tablero y a las 8 de la manana tengo el telefono sonando. Lo dejo aparte justamente para saber que salidas dependen de mis procesos."
+    },
+    {
+      "nombre": "Accesos, permisos y solicitudes",
+      "tarjetas": [
+        "T24",
+        "T25",
+        "T26",
+        "T29",
+        "T30",
+        "T31"
+      ],
+      "por_que": "Todo el ciclo de quien puede ver que. Alguien pide acceso, sigue su ruta de autorizacion, ve el estado de su peticion, y al final queda un rol asignado, un permiso y un registro de quien consulto que. Lo pongo junto porque siempre me llega en el mismo momento: cuando un area nueva quiere pegarse a una fuente. Y la bitacora la quiero cerca porque es la unica evidencia de quien me estuvo golpeando la tabla transaccional."
+    },
+    {
+      "nombre": "Mi espacio",
+      "tarjetas": [
+        "T02",
+        "T03",
+        "T04",
+        "T05"
+      ],
+      "por_que": "Lo que es mio y de nadie mas: mi cuenta, mis fuentes marcadas, lo que consulte ayer y los avisos que yo configure. Aqui puse Mis alertas porque dice mis, aunque a mi lo que me importa que me avise es que fallo la carga de anoche, no un indicador de negocio."
+    }
+  ],
+  "tarjeta_dificil": {
+    "tarjeta": "T19",
+    "razon": "Calidad de datos. Me trabe porque tiene dos vidas. Una es operativa y es mia: el archivo de anoche no paso la validacion por un campo de fecha en texto, y eso lo veo pegado al monitoreo de cargas. La otra es de gobierno: el resultado historico de las validaciones es parte de la ficha de la fuente y ahi vive junto al diccionario, porque es lo que le dice al analista si puede confiar en esa tabla. La deje con las cargas porque asi la vivo yo, pero si el portal solo la pone ahi, el area de negocio nunca se va a enterar de que su fuente viene sucia."
+  },
+  "duplicados_solicitados": [
+    {
+      "tarjeta": "T19",
+      "grupos": [
+        "Tuberias, cargas y conexiones",
+        "Diccionario y estructura del dato"
+      ],
+      "razon": "El resultado de la validacion es un evento de mi proceso nocturno y al mismo tiempo un atributo permanente de la fuente. Si solo esta en operacion, el analista consume basura sin saberlo; si solo esta en el diccionario, yo no la veo cuando estoy apagando el incendio a las 3 de la manana."
+    },
+    {
+      "tarjeta": "T32",
+      "grupos": [
+        "Tuberias, cargas y conexiones",
+        "Accesos, permisos y solicitudes"
+      ],
+      "razon": "Una credencial de API es una integracion cuando yo la creo y es un acceso cuando alguien audita quien esta jalando datos. Yo la busco donde estan los conectores; el area de seguridad la va a buscar donde estan los permisos. Las dos tienen razon."
+    },
+    {
+      "tarjeta": "T33",
+      "grupos": [
+        "Tuberias, cargas y conexiones",
+        "Accesos, permisos y solicitudes"
+      ],
+      "razon": "El consumo por API es rendimiento para mi, porque me dice que integracion me esta saturando el almacen, y es auditoria para el que revisa quien se llevo la informacion. Es la misma tabla leida con dos intenciones."
+    },
+    {
+      "tarjeta": "T31",
+      "grupos": [
+        "Accesos, permisos y solicitudes",
+        "Tuberias, cargas y conexiones"
+      ],
+      "razon": "La bitacora de accesos es gobierno, pero yo la uso como herramienta de diagnostico: cuando la base se puso lenta a las 11, lo primero que quiero saber es quien lanzo la consulta masiva y contra que tabla."
+    },
+    {
+      "tarjeta": "T06",
+      "grupos": [
+        "Diccionario y estructura del dato",
+        "Consultas y descargas del usuario"
+      ],
+      "razon": "El catalogo de fuentes es mi inventario tecnico y a la vez es la puerta de entrada del que viene a buscar un dato. Si lo escondo en la seccion de gobierno, el analista no lo abre y se vuelve a fabricar su almacen paralelo en Excel."
+    },
+    {
+      "tarjeta": "T04",
+      "grupos": [
+        "Mi espacio",
+        "Tuberias, cargas y conexiones"
+      ],
+      "razon": "Dice Mis alertas, o sea personal, pero su contenido incluye avisos de cargas, que es lo unico que quiero que me despierte. Deberia poder configurarlas desde la pantalla de monitoreo y verlas en mi espacio."
+    }
+  ],
+  "etiquetas_confusas": [
+    {
+      "tarjeta": "T17",
+      "comentario": "Metadatos y Diccionario de datos. Yo entiendo la diferencia teorica, pero en la practica no se cual abrir primero cuando quiero saber la vigencia y la unidad de medida de un campo. Si son dos pantallas distintas, va a haber dos versiones de la verdad y ese es justo el problema que vengo a resolver."
+    },
+    {
+      "tarjeta": "T23",
+      "comentario": "Senales de riesgo suena identico a Mis alertas: las dos son un aviso cuando algo rebasa un umbral. Si son mecanismos distintos hay que decirlo en la etiqueta; si es el mismo motor con otro nombre, sobra una tarjeta."
+    },
+    {
+      "tarjeta": "T22",
+      "comentario": "Indicadores de riesgo contra Senales de riesgo. Indicador es el numero y senal es el disparo, supongo, pero puestas juntas en una lista yo no sabria cual de las dos abrir."
+    },
+    {
+      "tarjeta": "T20",
+      "comentario": "Reglas de negocio es demasiado amplio. No me queda claro si ahi voy a encontrar la definicion economica que aprueba la Gerencia de Informacion o la formula ya implementada que corre en el proceso. A mi me sirve la segunda, porque es la que cambian sin avisarme."
+    },
+    {
+      "tarjeta": "T26",
+      "comentario": "Flujos de aprobacion, aprobacion de que. Yo tengo aprobaciones de acceso, aprobaciones de catalogo nuevo y aprobaciones de cambio de estructura. La etiqueta sola no me dice a cual me lleva."
+    },
+    {
+      "tarjeta": "T33",
+      "comentario": "Consumo por API es ambiguo: consumo puede leerse como costo, como volumen de peticiones o como cuota asignada. Yo lo quiero como volumen y latencia, pero no lo asumiria."
+    }
+  ],
+  "arbol": [
+    {
+      "tarea": "Localizar una fuente de liquidez",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Catalogo de fuentes",
+      "dudo": false,
+      "comentario": "Voy directo al inventario de fuentes. Si el catalogo esta ahi, no necesito mas. Igual habria empezado escribiendo liquidez en la caja de busqueda si esa caja vive en todas las pantallas."
+    },
+    {
+      "tarea": "Exportar la cartera de credito",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Cartera de credito, y dentro del resultado la accion de exportar",
+      "dudo": false,
+      "comentario": "Exportar no es una seccion, es lo que haces al final de una consulta. Buscaria la fuente, la filtraria y ahi mismo esperaria descargar. Lo que si buscaria en otra parte es el historial de esa descarga, y ahi ya no se si sea Exploracion o Administracion."
+    },
+    {
+      "tarea": "Consultar un indicador de riesgo",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Indicadores de riesgo",
+      "dudo": true,
+      "comentario": "Aqui si titubeo. Un indicador de riesgo suena a algo que ya esta resumido en el tablero de la direccion, y eso lo esperaria en Inicio. Pero yo normalmente no consulto el indicador, consulto la tabla que lo alimenta, y esa esta en Exploracion. Me quedo con Exploracion, aunque abriria Inicio primero si el tablero se ve en la portada."
+    },
+    {
+      "tarea": "Revisar quien autorizo un acceso",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Bitacora de accesos, o flujos de aprobacion",
+      "dudo": true,
+      "comentario": "Dudo de verdad. Para mi Gobierno es gobierno del dato: diccionario, linaje, calidad. Los usuarios y sus permisos los pongo en Administracion. Pero la palabra autorizo suena a gobierno, y si el rastro de aprobaciones vive alli me voy a equivocar de seccion la primera vez. Ademas no se si quien autorizo se ve en la bitacora, que registra consultas, o en el flujo de aprobacion, que registra la ruta."
+    },
+    {
+      "tarea": "Crear una credencial de integracion",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Credenciales API",
+      "dudo": false,
+      "comentario": "Con solo estas cuatro puertas, una llave para que un sistema consuma datos cae en Administracion. Dicho eso, en mi cabeza esa credencial vive pegada al conector de la fuente, y si el portal me obliga a dar la vuelta entre dos secciones para dar de alta una integracion completa, lo voy a sentir partido en dos."
+    }
+  ],
+  "racional_general": "Yo no organice esto por temas del banco, lo organice por donde me duele. Primero separe la sala de maquinas: conectores, cargas, validaciones y consumo automatizado, porque eso es lo que reviso cada manana y lo que me despierta de madrugada. Luego separe el contrato del dato, que es catalogo, diccionario, metadatos, linaje y reglas, porque ahi esta la definicion que yo mapeo contra la estructura del almacen y es donde se originan los cambios no anunciados que despues rastreo. Despues junte todo lo que hace el usuario contra mis tablas, buscar, filtrar, previsualizar, bajar y compartir, porque desde mi silla es un solo comportamiento y es el que genera carga en el sistema. Las seis areas de datos las deje juntas como tablas, no como temas economicos, porque para mi se distinguen por esquema, volumen y ventana de carga. La capa de indicadores y tablero la aparte porque no la uso: solo me interesa saber que salidas se caen cuando falla un proceso mio. Los accesos los agrupe en un ciclo completo, del pedido a la bitacora, porque siempre me llegan en el mismo momento. Y al final mi espacio personal. Lo que mas me incomoda del mazo es que hay pares de tarjetas que huelen a la misma cosa con dos nombres, diccionario contra metadatos y alertas contra senales, y que calidad de datos y credenciales de API se quedan atrapadas entre lo operativo y lo de gobierno. Si el portal las pone en un solo lugar, alguien las va a perder."
+}

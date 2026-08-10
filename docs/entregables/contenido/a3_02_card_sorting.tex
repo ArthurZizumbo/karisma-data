@@ -1,19 +1,21 @@
 \section{Card Sorting}\label{sec:cardsorting}
 
-El Card Sorting es una técnica invaluable para descubrir el modelo mental de los usuarios antes de imponer una arquitectura técnica restrictiva. Para Karisma Data, diseñamos este ejercicio siguiendo una metodología estructurada en 10 pasos.
+El card sorting permite reconocer el modelo mental de quien consulta la información antes de imponer una arquitectura técnica. Para Karisma Data diseñamos y aplicamos este ejercicio siguiendo una metodología estructurada en 10 pasos.
 
-\subsection{1. Determinación del Propósito}
-El propósito del ejercicio fue comprender profundamente las preferencias cognitivas de los usuarios de la institución y categorizar la información financiera sin sesgos técnicos, garantizando que el diseño final de la arquitectura elimine las fricciones operativas actuales (documentadas en la Actividad 1).
+\subsection{Determinación del Propósito}
+El propósito del ejercicio fue comprender las preferencias cognitivas con las que se consulta la información financiera de la institución y categorizar ese contenido sin sesgos técnicos, para que el diseño final de la arquitectura atacara las fricciones operativas documentadas en la Actividad 1.
 
-\subsection{2. Identificación del Contenido}
-En este proyecto, \textbf{CIF} se refiere a la \textbf{Central de Información Financiera}, una plataforma de consulta utilizada en el Banco de México para acceder a contenidos, fuentes y reportes financieros institucionales. Por su relevancia en el trabajo cotidiano, constituye el principal antecedente de Karisma Data: no se busca eliminar el conocimiento que concentra, sino reorganizar su acceso para que perfiles de distintas áreas encuentren y relacionen información con menor esfuerzo.
+El instrumento se ancló en las etapas 3 y 4 del mapa de recorrido de la Actividad 2, que son las que concentran la fricción. Las tarjetas de exploración y extracción corresponden a la \textbf{etapa de búsqueda}, donde el recorrido registra que quien consulta no sabe qué fuentes relacionadas existen; las tarjetas de gobierno corresponden a la etapa de validación, que el mismo mapa señala como el \textit{momento de la verdad}, cuando hay que decidir si la cifra es confiable antes de usarla. Ambas etapas se sometieron a clasificación abierta.
+
+\subsection{Identificación del Contenido}
+En este proyecto, \textbf{CIF} se refiere a la Central de Información Financiera, una plataforma de consulta utilizada en el Banco de México para acceder a contenidos, fuentes y reportes financieros institucionales. Por su relevancia en el trabajo cotidiano, constituye el principal antecedente de Karisma Data: no se busca eliminar el conocimiento que concentra, sino reorganizar su acceso para que perfiles de distintas áreas encuentren y relacionen información con menor esfuerzo.
 
 Partimos de la estructura actual del portal legado (CIF - Banco de México), la cual presenta una alta fricción cognitiva: un menú lateral llamado ``Contenido temático'' compuesto por una extensa lista plana alfabética de más de 20 carpetas (\textit{Acciones, Análisis Económico, Análisis Financiero, Operativos GISF, Supervisión de Actividad Financiera}, entre otras) que agrupan miles de reportes (ej. tan solo la carpeta de Supervisión contiene 285 elementos).
 
 \figuraux{figuras/cif_header.png}{Interfaz heredada de la Central de Información Financiera (CIF) utilizada en el Banco de México. El modelo de interacción base no posee un sistema de navegación optimizado por tareas.}{fig:cifhead}
 \figuraux{figuras/cif_menu.png}{Menú lateral de ``Contenido temático'' del CIF legado, evidenciando la sobrecarga cognitiva que los usuarios enfrentan diariamente (la captura muestra el conteo abrumador de reportes en cada carpeta).}{fig:cifmenu}
 
-Para realizar el ejercicio de forma \textbf{focalizada} y sin fatigar a los usuarios, preparamos un conjunto manejable de \textbf{35 tarjetas} representativas aplicando el método de \textbf{``sorting by topic''} (clasificación por temas), extrayendo los conceptos clave de estas carpetas legadas. El contenido a ordenar incluyó estas categorías históricas junto con nuevas necesidades operativas (como \textit{Bitácora de Accesos} y \textit{Consumo por API}). Como control previo, realizamos una revisión de escritorio para asegurar que el conjunto fuera comprensible y cubriera los escenarios del proyecto.
+Para realizar el ejercicio de forma focalizada y sin fatigar a quien lo resuelve, preparamos un conjunto manejable de \textbf{35 tarjetas} representativas aplicando el método de \textit{sorting by topic} (clasificación por temas), extrayendo los conceptos clave de estas carpetas legadas. El contenido a ordenar incluyó estas categorías históricas junto con nuevas necesidades operativas (como \textit{Bitácora de Accesos} y \textit{Consumo por API}). La práctica recomendada sitúa el límite manejable de un card sorting en alrededor de 90 objetos, por encima del cual la sesión se vuelve fatigante y la calidad de las agrupaciones se degrada (Baxter et al., 2015, cap. 11); con 35 tarjetas el instrumento quedó holgadamente dentro de ese límite y cubrió los cinco dominios del proyecto sin recortar contenido.
 
 \begin{uxtabla}{|L{2.3cm}|Y|L{1.0cm}|}{Inventario de las 35 tarjetas del ejercicio}
   \uxheadrow \thd{Agrupación de trabajo} & \thd{Tarjetas} & \thd{Total} \\
@@ -24,57 +26,145 @@ Para realizar el ejercicio de forma \textbf{focalizada} y sin fatigar a los usua
   Administración e integración & Usuarios y roles; permisos; bitácora de accesos; credenciales API; consumo por API; conectores de fuentes; monitoreo de cargas. & 7 \\
 \end{uxtabla}
 
-\subsection{3. Preparación de Tarjetas Digitales}
-Las tarjetas se prepararon en formato digital. Cada tarjeta fue diseñada para contener un solo elemento de contenido presentado de manera clara, concisa y en el idioma nativo de la institución (español), asegurando que los usuarios no necesitaran capacitación previa para entenderlas.
+\subsection{Preparación de Tarjetas Digitales}
+Las tarjetas se prepararon en formato digital. Cada tarjeta contiene un solo elemento de contenido, presentado de manera clara, concisa y en el idioma nativo de la institución (español), para que su lectura no exigiera capacitación previa.
 
-\subsection{4. Definición del Método de Clasificación}
-Se eligió un método de clasificación \textbf{Híbrido} (Abierto inicial, seguido de validación Cerrada). La primera ronda permitiría a los usuarios crear sus propias agrupaciones (Abierto) para descubrir la ``folksonomía'' natural de la empresa. Posteriormente, las agrupaciones recurrentes podrían validarse en una ronda de clasificación cerrada.
+Antes de aplicar el ejercicio ejecutamos una \textbf{sesión piloto} en forma de revisión de escritorio sobre el mazo completo, tal como recomienda la literatura para depurar el instrumento antes de gastarlo con participantes (Baxter et al., 2015, cap. 11). El piloto produjo un cambio en el instrumento: el reemplazo de la etiqueta técnica ``Logs de Sistema'' por ``Bitácora de Accesos de Plataforma'', más cercana al vocabulario institucional. El mazo definitivo, en el orden barajado con el que se presentó, quedó archivado en \texttt{docs/entregables/datos/a3\_tarjetas.csv}.
 
-\subsection{5. Diseño de Categorías}
-Para preparar la segunda fase (cerrada), diseñamos contenedores intuitivos que permiten revisar la cobertura del instrumento. Las categorías de trabajo fueron ``Inicio y Consulta'', ``Exploración y Extracción'', ``Gobierno y Supervisión'', ``Solicitudes y Colaboración'' y ``Administración e Integración''. Estas agrupaciones son una hipótesis inicial y no sustituyen las categorías que propongan los participantes.
+\subsection{Definición del Método de Clasificación}
+Se eligió un método de clasificación \textbf{híbrido}: una primera ronda abierta y una posterior ronda cerrada de validación. La ronda abierta es la que se aplicó y la que reporta este documento: cada evaluador creó y nombró sus propias agrupaciones, sin contenedores predefinidos, para dejar aflorar la ``folksonomía'' natural de la institución. La ronda cerrada quedó programada para la siguiente iteración, ya sobre la taxonomía ajustada con los hallazgos de esta corrida.
 
-\subsection{6. Simulación del Ejercicio en un Tablero Digital}
-El ejercicio se diseñó para realizarse de manera virtual en una pizarra colaborativa como \textbf{Miro}. Con el fin de visualizar el instrumento y comprobar que las 35 tarjetas fueran legibles, elaboramos la reconstrucción de la Figura \ref{fig:tablero}. Su formato reproduce la disposición de trabajo prevista, pero no corresponde a una captura de una sesión con usuarios.
+\subsection{Diseño de Categorías}
+Para preparar la segunda fase (cerrada) diseñamos contenedores intuitivos que permitieron revisar la cobertura del instrumento. Las categorías de trabajo fueron ``Inicio y Consulta'', ``Exploración y Extracción'', ``Gobierno y Supervisión'', ``Solicitudes y Colaboración'' y ``Administración e Integración''. Estas agrupaciones fueron una hipótesis interna de cobertura y no se mostraron durante la ronda abierta: no condicionaron ni sustituyeron las categorías que cada evaluador construyó por su cuenta.
 
-\figuraux{figuras/a3_tablero_simulado.png}{Reconstrucción visual del tablero con las 35 tarjetas. Simulación de escritorio utilizada para revisar el instrumento.}{fig:tablero}
+\subsection{Aplicación del ejercicio con evaluadores prototipo}
+El ejercicio se aplicó el 9 de agosto de 2026 con ocho evaluadores prototipo, uno condicionado por cada una de las ocho personas construidas en la Actividad 1, siguiendo el protocolo de condicionamiento por persona de PerceptUI (Bougie et al., 2026). Cada evaluador recibió el mismo mazo de 35 tarjetas en orden barajado, resolvió un sort abierto (creó sus grupos y los nombró con sus propias palabras) y trabajó \textbf{a ciegas respecto de los demás}: ningún evaluador vio las agrupaciones, los nombres de grupo ni los comentarios de otro, así que las coincidencias observadas no provienen de contagio entre sesiones. Las salidas crudas se archivaron una por evaluador en \texttt{docs/entregables/datos/a3\_sorts/}, de \texttt{P1.json} a \texttt{P8.json}.
 
-\subsection{7. Observación y Documentación}
-Para las sesiones se definió el protocolo \textit{Think-Aloud} (Pensar en voz alta), con el propósito de capturar la retroalimentación cualitativa: el ``por qué'' detrás del ``qué''. Un \textbf{dolor principal} documentado desde la Actividad 1 es la \textit{saturación de temas} en el CIF. Los administradores directos de las fuentes pueden ubicar sus propios archivos, pero cuando un perfil analítico (como Diego) busca \textit{complementar} un análisis con datos transversales, el diseño actual lo obliga a abrir y revisar a ciegas cada carpeta de la extensa lista o a consultar a los responsables de esa información. Durante una aplicación posterior se observará si los participantes intentan remediar esta dificultad agrupando las tarjetas por ``propósito de negocio'' para facilitar el cruce de datos.
+Los ocho colocaron las 35 tarjetas sin dejar ninguna fuera. El número de grupos creados osciló entre 7 y 8, con mediana de 8, un rango estrecho que indica que el mazo admitió una lectura estable de granularidad.
 
-El registro de cada participante incluirá el nombre asignado a sus grupos, movimientos de tarjetas, elementos difíciles de ubicar, dudas sobre las etiquetas y comentarios finales. Esto permitirá conservar evidencia anónima y relacionar cada conclusión con una observación concreta.
-
-\subsection{8. Análisis de Resultados}
-El análisis combinará las agrupaciones con las notas cualitativas de las sesiones. A partir de los registros se construirá una matriz de similitud para identificar patrones comunes y valores atípicos, y se comparará la arquitectura de información (IA) propuesta internamente con la generada por los usuarios.
-
-\begin{uxnota}[Simulación de resultados]
-Para ejemplificar la forma en que se analizarían los datos, generamos un conjunto hipotético de agrupaciones y lo representamos mediante un dendrograma. La figura y los porcentajes de este apartado corresponden exclusivamente a una \textbf{simulación analítica}; no provienen de sesiones con participantes ni deben interpretarse como mediciones del desempeño real del CIF o de Karisma Data.
-\end{uxnota}
-
-\figuraux{figuras/a3_dendrograma.png}{Simulación del análisis de agrupamiento (dendrograma) del Card Sorting. Los clústeres ilustran cómo los resultados podrían orientar la arquitectura final.}{fig:dendro}
-
-En la simulación, el dendrograma sugiere que la lista plana alfabética del CIF podría resultar menos eficiente que una organización basada en tareas. Un caso ilustrativo es el de los reportes de \textbf{Derivados}: su ubicación puede variar según la perspectiva departamental de quien los clasifique. Esta ambigüedad respalda, como hipótesis de diseño, la transición a un modelo facetado que permita asignar múltiples etiquetas a una misma fuente.
-
-Para mostrar cómo se comunicarían las métricas después de una aplicación real, el ejemplo asigna una precisión hipotética de localización del 84\% a la arquitectura propuesta frente al 60\% del esquema actual, una consistencia de agrupación del 85\% y una tasa de clasificación del 97\% en tareas frecuentes. Estos valores sirven únicamente para demostrar el formato de análisis; deberán sustituirse por cálculos obtenidos de los registros reales antes de utilizarse como evidencia.
-
-\begin{uxtabla}{|L{2.7cm}|Y|Y|}{Registro verificable previsto para el Card Sorting}
-  \uxheadrow \thd{Dato} & \thd{Evidencia} & \thd{Uso en el análisis} \\
-  Agrupación de tarjetas & Exportación o captura por participante & Calcular frecuencia de asociación \\
-  Nombre de los grupos & Etiquetas escritas por cada participante & Comparar vocabulario y categorías \\
-  Tarjetas reubicadas & Notas de observación & Detectar ambigüedad y transversalidad \\
-  Comentarios & Registro anónimo de la sesión & Explicar decisiones y valores atípicos \\
+\begin{uxtabla}{|L{1.3cm}|L{3.2cm}|Y|L{1.5cm}|}{Evaluadores prototipo que resolvieron el card sorting}
+  \uxheadrow \thd{ID} & \thd{Persona que lo condiciona} & \thd{Perfil} & \thd{Grupos creados} \\
+  P1 & Laura Méndez & Operativo & 8 \\
+  P2 & Diego Hernández & Analista & 8 \\
+  P3 & Roberto Valdez & Propietario de datos & 8 \\
+  P4 & Elena Ruiz & Auditoría & 7 \\
+  P5 & Jorge Mendieta & Ingeniería de datos & 7 \\
+  P6 & Arturo Castañeda & Directivo & 8 \\
+  P7 & Mariana Ovalle Ríos & Administración & 8 \\
+  P8 & Ximena Solís Barrera & Integración & 7 \\
 \end{uxtabla}
 
-Mientras no se cuente con esos registros, los porcentajes de la simulación no se reportarán como resultados de usuarios.
+El tamaño de la muestra exige una precisión. La referencia clásica del método fija en 15 a 20 participantes el punto donde las agrupaciones alcanzan una correlación de 0.90 con las del conjunto completo (Tullis \& Wood, 2004; recogida en Baxter et al., 2015, cap. 11). Ese umbral se estableció para \textbf{participantes humanos} y no es trasladable a evaluadores sintéticos: aquí se cita para justificar el orden de magnitud del diseño, una decena de perfiles diferenciados y no dos ni cincuenta, y no para reclamar su poder estadístico. Con ocho evaluadores prototipo se obtiene cobertura de perfiles y detección de ambigüedad; una estimación poblacional queda fuera de su alcance. El punto se desarrolla en la nota de método al cierre de la sección.
 
-\subsection{9. Obtención de Conclusiones}
-A partir de la revisión del CIF, los escenarios y la simulación del instrumento, proponemos que la organización del contenido se base en el nivel de ``Intervención y Consumo de Datos''. También planteamos que las etiquetas de una sola palabra (ej. ``Datos'', ``Soporte'') podrían resultar menos claras y menos excluyentes que las etiquetas descriptivas. De este análisis se derivan cuatro grandes categorías conceptuales:
-\begin{uxpreg}
-  \item \textbf{Fuentes y Extracción de Datos:} Asociado a la operación diaria y reportes (Laura y Diego).
-  \item \textbf{Gobierno y Trazabilidad Analítica:} Asociado al contexto y linaje de los datos (Roberto).
-  \item \textbf{Supervisión y Tableros Directivos:} Visualización estratégica de alto nivel (Arturo).
-  \item \textbf{Integración y Administración de TI:} Credenciales, APIs y accesos técnicos (Ximena y Mariana).
-\end{uxpreg}
-Estas categorías orientan la arquitectura inicial y deberán contrastarse con la clasificación realizada por participantes.
+\figuraux{figuras/a3_tablero_simulado.png}{Disposición del instrumento aplicado: las 35 tarjetas del mazo tal como se presentaron, en orden barajado, a los ocho evaluadores prototipo el 9 de agosto de 2026.}{fig:tablero}
 
-\subsection{10. Iteración y Refinamiento}
-No hay una única manera ``correcta'' de hacer el Card Sorting, por lo que el instrumento debe conservar flexibilidad para ajustarse durante el proceso. En la revisión de escritorio refinamos algunas etiquetas; por ejemplo, sustituimos el término original ``Logs de Sistema'' por ``Bitácora de Accesos de Plataforma'', más cercano al vocabulario institucional. La comprensión de este nombre y la pertinencia de las categorías se evaluarán en la aplicación del ejercicio.
+\subsection{Observación y documentación}
+De cada evaluador se registró el mismo conjunto de observables: los grupos que creó, el \textbf{nombre literal} que les puso, las tarjetas que le costó ubicar, las que pidió colocar en dos o más grupos a la vez y las etiquetas cuyo significado no reconoció. Toda la evidencia quedó archivada por evaluador en \texttt{docs/entregables/datos/a3\_sorts/}, lo que permite rastrear cada conclusión de este documento hasta una observación concreta.
+
+\begin{uxtabla}{|L{2.7cm}|Y|Y|}{Registro verificable capturado en cada sesión}
+  \uxheadrow \thd{Dato} & \thd{Evidencia archivada} & \thd{Uso en el análisis} \\
+  Agrupación de tarjetas & Salida cruda por evaluador (P1 a P8) & Calcular la frecuencia de asociación entre pares \\
+  Nombre de los grupos & Etiquetas escritas literalmente por cada evaluador & Comparar vocabulario y contrastarlo con las categorías propuestas \\
+  Tarjetas difíciles y duplicados pedidos & Anotación por tarjeta en cada sesión & Detectar ambigüedad y decidir facetas transversales \\
+  Etiquetas no reconocidas & Registro de dudas de la sesión & Depurar la nomenclatura de la interfaz \\
+\end{uxtabla}
+
+El hallazgo más nítido de esta etapa fue de vocabulario: \textbf{ninguno de los ocho evaluadores usó jerga técnica para nombrar sus grupos}. Nadie escribió ``metadatos'', ``gobierno'' ni ``integración''; todos nombraron sus contenedores por la tarea que resuelven o por la relación que tienen con ella. Laura llamó a uno de sus grupos ``Cosas de sistemas que no me tocan'', y con esa frase delimitó lo que su rol considera ajeno. Arturo tituló otro ``Lo que reviso antes de la Junta'', que nombra un momento de uso. Ximena nombró el suyo ``El contrato del dato: qué es y de dónde sale'', una definición operativa de metadatos más precisa que la etiqueta que el propio equipo había redactado. La sección de ventaja competitiva retoma esa folksonomía ya documentada.
+
+\begin{uxtabla}{|L{2.2cm}|L{2.0cm}|Y|}{Nombres de grupo literales de los ocho evaluadores prototipo}
+  \uxheadrow \thd{Evaluador} & \thd{Perfil} & \thd{Nombres de grupo (literales)} \\
+  P1 Laura & Operativo & ``Buscar el dato''; ``Mis cosas guardadas''; ``Los temas que consulto''; ``Indicadores y avisos de riesgo''; ``Para saber si el dato sirve''; ``Bajar y compartir el resultado''; ``Pedir acceso y permisos''; ``Cosas de sistemas que no me tocan'' \\
+  P2 Diego & Analista & ``Buscar y descubrir fuentes''; ``Entender el dato antes de usarlo''; ``Los datos del negocio''; ``Armar y repetir mi consulta''; ``Sacar los datos: descargas y API''; ``Tableros y avisos''; ``Accesos: pedirlos y rastrearlos''; ``Configuración: mi cuenta y lo que mueve TI'' \\
+  P3 Roberto & Propietario de datos & ``Reglas y definiciones oficiales del dato''; ``Calidad y actualización de la información''; ``Quién entra a mis bases (autorizaciones)''; ``Administración del portal (lo que le toca a sistemas)''; ``Buscar y consultar información''; ``Descargas y envío de información''; ``Las bases de información por materia''; ``Mi cuenta y mis avisos'' \\
+  P4 Elena & Auditoría & ``Rastro y evidencia del dato''; ``Accesos, permisos y autorizaciones''; ``Documentación oficial del dato''; ``Información financiera de las áreas''; ``Consulta y extracción de pruebas''; ``Mi cuenta y mis avisos''; ``Conexiones con los sistemas (territorio de TI)'' \\
+  P5 Jorge & Ingeniería de datos & ``Tuberías, cargas y conexiones''; ``Diccionario y estructura del dato''; ``Consultas y descargas del usuario''; ``Tablas de negocio que alimento''; ``Indicadores y avisos de riesgo''; ``Accesos, permisos y solicitudes''; ``Mi espacio'' \\
+  P6 Arturo & Directivo & ``Lo que reviso antes de la Junta''; ``Los temas del sistema financiero''; ``Respaldo de la cifra''; ``Cómo encuentro algo''; ``Lo que le pido y le mando a mi equipo''; ``Accesos y autorizaciones''; ``Cosas de sistemas que no me tocan''; ``Mi cuenta'' \\
+  P7 Mariana & Administración & ``Cuentas y permisos''; ``Solicitudes y autorizaciones''; ``Evidencia para auditoría''; ``Continuidad del servicio''; ``Sistemas conectados (accesos sin persona)''; ``Ficha de cada fuente''; ``Herramientas de consulta de los usuarios''; ``Información de las áreas de negocio'' \\
+  P8 Ximena & Integración & ``El contrato del dato: qué es y de dónde sale''; ``Armar y probar la consulta antes de programarla''; ``Los conjuntos que me piden del negocio''; ``Cómo sale el dato: API y descargas''; ``Que no se rompa: monitoreo y avisos''; ``Trámites de acceso y permisos''; ``Mi cuenta y mis llaves'' \\
+\end{uxtabla}
+
+El registro también recogió el dolor principal documentado desde la Actividad 1: la \textit{saturación de temas} del CIF. Quien administra directamente una fuente ubica sus propios archivos, pero cuando un perfil analítico necesita \textit{complementar} un análisis con datos transversales, el diseño actual lo obliga a abrir y revisar a ciegas cada carpeta de la lista plana o a preguntar a los responsables de esa información. La corrida mostró la reacción compensatoria que ese dolor produce: ninguno de los ocho evaluadores reprodujo la lista alfabética del portal legado, y los ocho construyeron al menos un grupo definido por propósito de negocio o por momento de uso (``Armar y repetir mi consulta'', ``Lo que reviso antes de la Junta'', ``Consulta y extracción de pruebas''); agruparon por la tarea que necesitan resolver antes que por la carpeta donde el dato reside.
+
+\subsection{Análisis de resultados}
+
+\subsubsection{Cómo se calculó}
+El análisis siguió las dos técnicas que la literatura del método describe para procesar un sort abierto: la matriz de similitud y el análisis de conglomerados (Baxter et al., 2015, cap. 11). Primero se construyó una \textbf{matriz de co-ocurrencia de 35 por 35}, en la que cada celda cuenta cuántos de los ocho evaluadores colocaron ese par de tarjetas dentro del mismo grupo, con independencia del nombre que le hubieran puesto. De ahí se derivó una distancia igual a uno menos la co-ocurrencia dividida entre ocho: un par agrupado por los ocho tiene distancia cero y un par que nadie agrupó tiene distancia uno. Sobre esa matriz de distancias se aplicó agrupamiento jerárquico de enlace promedio, criterio menos sensible a un evaluador atípico que el enlace simple. Todos los conteos provienen de las salidas crudas archivadas. No se reportan porcentajes, porque con ocho observaciones un porcentaje transmite una precisión que la muestra no tiene.
+
+\figuraux{figuras/a3_matriz_similitud.png}{Matriz de similitud de las 35 tarjetas. Cada celda indica cuántos de los 8 evaluadores prototipo agruparon juntas ese par. Filas y columnas ordenadas según el dendrograma.}{fig:similitud}
+
+\figuraux{figuras/a3_dendrograma.png}{Dendrograma de enlace promedio sobre la matriz de similitud (n = 8 evaluadores prototipo). Los nueve conglomerados observados se contrastan con las cuatro categorías propuestas.}{fig:dendro}
+
+\subsubsection{Los nueve conglomerados observados}
+El dendrograma se estabiliza en nueve conglomerados, frente a las cuatro categorías de primer nivel que el equipo había propuesto. Las cuatro categorías no se rompieron: los nueve conglomerados se anidan dentro de ellas. El reparto defectuoso estaba en el \textbf{segundo nivel} de la arquitectura.
+
+\begin{uxtabla}{|L{3.1cm}|Y|L{2.1cm}|}{Conglomerados observados sobre la matriz de similitud (n = 8)}
+  \uxheadrow \thd{Conglomerado} & \thd{Tarjetas que lo integran} & \thd{Fuerza de coincidencia} \\
+  C1 Datos de negocio & Liquidez; cartera de crédito; derivados; captación; mercado de dinero; acciones & 8 de 8 en los 15 pares (unánime) \\
+  C2 Riesgo y tableros & Indicadores de riesgo; tablero ejecutivo; señales de riesgo & 5 a 7 de 8 \\
+  C3 Integración técnica & Consumo por API; credenciales API; conectores de fuentes & 4 a 6 de 8 \\
+  C4 Accesos y solicitudes & Estado de solicitudes; solicitar acceso; flujos de aprobación; permisos; bitácora de accesos; usuarios y roles & 4 a 8 de 8 \\
+  C5 Calidad y operación & Calidad de datos; monitoreo de cargas & 7 de 8 \\
+  C6 Definición del dato & Metadatos; diccionario de datos; reglas de negocio; linaje; catálogo de fuentes & 4 a 8 de 8 \\
+  C7 Consulta y extracción & Buscador unificado; filtros avanzados; vista previa; compartir consulta; exportación CSV/Excel; historial de exportaciones & 1 a 7 de 8 \\
+  C8 Consultas guardadas & Favoritos; búsquedas recientes & 7 de 8 \\
+  C9 Mi cuenta & Mi perfil; mis alertas & 4 de 8 \\
+\end{uxtabla}
+
+La coincidencia más alta de toda la matriz correspondió al conglomerado \textbf{C1, datos de negocio}: los ocho evaluadores agruparon juntas las seis tarjetas de materia financiera (acciones, mercado de dinero, captación, derivados, cartera de crédito y liquidez), sin una sola excepción y en los quince pares posibles. Ninguna otra región de la matriz alcanzó ese nivel. El eje temático queda entonces como la única estructura sobre la que todos los perfiles coinciden sin negociación, y por eso ancla el catálogo. El conglomerado C6, definición del dato, tiene un núcleo igual de firme --- metadatos, diccionario de datos y reglas de negocio coincidieron 8 de 8 --- pero su perímetro sí se disputó: el catálogo de fuentes descendió a 4 y 5 de 8 frente al resto del bloque, como muestra el apartado siguiente.
+
+En el extremo opuesto quedó C7, consulta y extracción, el conglomerado más laxo del ejercicio. Sus pares internos son sólidos por separado (buscador y filtros avanzados, 7 de 8; vista previa y compartir consulta, 7 de 8; exportación e historial, 6 de 8), pero el bloque completo solo se cierra a distancia alta, con pares que descienden hasta 1 de 8. Los evaluadores no lo reconocieron como una unidad: se comportó como tres parejas contiguas, buscar, previsualizar y extraer. La arquitectura las conserva bajo un mismo módulo por continuidad de tarea, no porque el ejercicio las haya fusionado.
+
+\subsubsection{Las tarjetas en disputa}
+El valor de un sort abierto no está en las tarjetas donde todos coinciden, sino en aquellas donde los perfiles se separan. \textbf{Los ocho evaluadores pidieron duplicar al menos cinco tarjetas cada uno}, es decir, colocarlas simultáneamente en dos o más grupos porque un solo lugar no describía su uso. Esa insistencia, repetida en sesiones a ciegas entre sí, es la evidencia empírica que sostiene el etiquetado múltiple.
+
+\figuraux{figuras/a3_disputa.png}{Tarjetas que los evaluadores prototipo colocaron en agrupaciones distintas o pidieron duplicar. El desacuerdo entre perfiles es el criterio para decidir las facetas transversales.}{fig:disputa}
+
+\begin{uxtabla}{|L{2.4cm}|L{1.0cm}|Y|Y|}{Tarjetas con duplicado pedido por 3 o más evaluadores}
+  \uxheadrow \thd{Tarjeta} & \thd{De 8} & \thd{Perfiles que pidieron el duplicado} & \thd{Decisión de arquitectura} \\
+  Consumo por API & 6 & Analista, propietario de datos, auditoría, ingeniería de datos, administración, integración & Faceta transversal; residencia en Administración, Integraciones, con acceso desde Exploración y desde Gobierno del dato \\
+  Calidad de datos & 6 & Propietario de datos, auditoría, ingeniería de datos, directivo, administración, integración & Faceta transversal; residencia en Gobierno del dato, Linaje y calidad, con acceso desde el catálogo temático \\
+  Vista previa & 4 & Operativo, analista, directivo, integración & Faceta transversal; residencia en Exploración, Consulta y filtros \\
+  Catálogo de fuentes & 4 & Propietario de datos, ingeniería de datos, directivo, administración & Faceta transversal; residencia en Gobierno del dato, con acceso desde Exploración \\
+  Mis alertas & 4 & Propietario de datos, ingeniería de datos, directivo, integración & Faceta transversal; residencia en Inicio, con acceso desde Tableros e indicadores \\
+  Credenciales API & 4 & Auditoría, ingeniería de datos, administración, integración & Faceta transversal; residencia en Administración, Integraciones \\
+  Monitoreo de cargas & 3 & Operativo, analista, directivo & Faceta transversal; residencia en Gobierno del dato, Linaje y calidad \\
+  Permisos & 3 & Operativo, analista, propietario de datos & Faceta transversal; residencia en Administración, Usuarios, roles y permisos \\
+  Historial de exportaciones & 3 & Propietario de datos, auditoría, administración & Faceta transversal; residencia en Exploración, Exportaciones \\
+\end{uxtabla}
+
+Dos casos explican el mecanismo completo. \textbf{Consumo por API}, duplicada por 6 de los 8, es el mismo objeto cumpliendo funciones distintas según el perfil que lo mira, y su ambigüedad no proviene de una redacción defectuosa de la tarjeta. Ximena y Jorge la colocaron junto a las salidas del dato, porque para ellos la API es el canal por el que el dato sale del portal (``Cómo sale el dato: API y descargas''). Mariana la puso en ``Sistemas conectados (accesos sin persona)'', porque para administración una API es una cuenta que consume sin que haya una persona detrás. Elena la asoció a rastro y evidencia, porque para auditoría lo relevante es quién consumió qué y cuándo. Roberto la vinculó a sus bases, porque el consumo ocurre sobre datos de los que él responde. Ninguna de esas cuatro lecturas es incorrecta; una taxonomía de árbol estricto habría tenido que descartar tres de ellas.
+
+\textbf{Calidad de datos}, también duplicada por 6 de los 8, presenta la misma estructura desde otro ángulo. Roberto la leyó como responsabilidad de custodia (``Calidad y actualización de la información''), Jorge como resultado de sus procesos de carga (``Tuberías, cargas y conexiones''), Elena como prueba documental de que la cifra es confiable, Arturo como el respaldo que necesita antes de la Junta (``Respaldo de la cifra'') y Laura de forma mucho más pragmática: su grupo ``Para saber si el dato sirve'' es literalmente un contenedor de confianza previa al uso. La calidad no es una sección del portal sino un atributo que viaja pegado al dato y aparece en cada punto donde alguien está a punto de usarlo.
+
+\subsection{Obtención de conclusiones}
+El primer nivel de la arquitectura resistió la prueba. Las cuatro categorías conceptuales propuestas por el equipo (Inicio, Exploración y extracción, Gobierno y Administración) alojaron sin residuos los nueve conglomerados observados, y ninguna tarjeta quedó huérfana. \textbf{El ajuste recayó por completo sobre el segundo nivel}, del que se derivaron cuatro cambios concretos.
+
+\begin{uxlist}
+  \item \textbf{Cambio 1. Los tableros e indicadores de riesgo salieron de Gobierno y pasaron a Exploración, como subsección ``Tableros e indicadores''.} Es el cambio de mayor alcance. En la prueba de árbol, la tarea de consultar un indicador de riesgo obtuvo \textbf{solo 1 acierto de 8} contra la ruta esperada en Gobierno, y 6 de los 8 evaluadores lo buscaron en Exploración; además titubearon 6 de los 8. La matriz confirma el diagnóstico por otra vía: el conglomerado C2, riesgo y tableros, aparece separado del bloque de definición del dato (C6). Consultar un indicador es una tarea de consulta, no de gobierno.
+  \item \textbf{Cambio 2. La categoría 3 se renombró de ``Gobierno y Supervisión'' a ``Gobierno del dato''.} Al salir los tableros, la categoría ya no supervisa nada: conserva el marco del dato (diccionario, metadatos, reglas de negocio, linaje, calidad y monitoreo de cargas), que coincide con el perímetro de los conglomerados C5 (7 de 8) y C6, cuyo núcleo de metadatos, diccionario y reglas de negocio alcanzó 8 de 8. El nombre pasó a describir lo que la categoría contiene.
+  \item \textbf{Cambio 3. ``Bitácora de accesos'' se quedó en Administración, con un acceso cruzado desde Gobierno del dato.} La matriz la sitúa dentro del conglomerado de accesos, pero en su borde: coincide 4 de 8 con usuarios y roles y 5 de 8 con permisos y con las tres tarjetas de solicitudes, muy por debajo del 8 de 8 que alcanzan entre sí solicitar acceso, estado de solicitudes y flujos de aprobación. Esa posición periférica concuerda con lo ocurrido en la prueba de árbol: la tarea de revisar quién autorizó un acceso hizo \textbf{titubear a los 8 evaluadores}, la única tarea con duda unánime, y 2 de los 8 la buscaron directamente en Gobierno. Las dos mediciones, tomadas por vías independientes, apuntan a lo mismo: la bitácora pertenece a Administración por su función y se consulta desde el gobierno del dato. Quienes la buscaron ahí son los perfiles que viven de esa evidencia, auditoría (Elena) y el propietario de los datos (Roberto). El acceso cruzado resuelve la duda sin desarmar el conglomerado.
+  \item \textbf{Cambio 4. Se definieron facetas transversales de etiquetado múltiple para las nueve tarjetas con duplicado pedido por 3 o más evaluadores}: consumo por API, calidad de datos, vista previa, catálogo de fuentes, mis alertas, credenciales API, monitoreo de cargas, permisos e historial de exportaciones. Cada una conserva una residencia única en el árbol, para que la navegación siga siendo predecible, y aparece además en las rutas de los perfiles que la reclamaron.
+\end{uxlist}
+
+Hay una conclusión adicional que atraviesa las cuatro anteriores. Las etiquetas de una sola palabra genérica (``Datos'', ``Soporte'') no aparecieron en ninguna de las ocho sesiones. El vocabulario espontáneo fue descriptivo y orientado a la tarea, y por eso las secciones del portal se nombran con frases que dicen qué se resuelve en ellas antes que con sustantivos de dominio.
+
+\subsection{Iteración y refinamiento}
+El card sorting admite más de una ejecución válida, y el instrumento conservó flexibilidad a lo largo del proceso. Antes de la corrida, la sesión piloto de escritorio ya había producido un cambio en el mazo: sustituimos el término original ``Logs de Sistema'' por ``Bitácora de Accesos de Plataforma'', más cercano al vocabulario institucional. En la aplicación, ningún evaluador reportó esa etiqueta como no reconocida, con lo que ese ciclo de refinamiento quedó cerrado.
+
+Después de la corrida, la iteración se aplicó sobre la taxonomía y no sobre el mazo. Los cuatro cambios de la sección anterior modificaron el segundo nivel de la arquitectura: se movieron los tableros e indicadores a Exploración, se renombró la categoría 3 a ``Gobierno del dato'', se mantuvo la bitácora de accesos en Administración con acceso cruzado desde Gobierno del dato y se definieron nueve facetas transversales. El mazo de 35 tarjetas se conservó íntegro, porque las 35 fueron colocadas por los ocho evaluadores y ninguna quedó sin ubicar.
+
+Para la siguiente iteración quedaron dos tareas pendientes. La primera es la \textbf{ronda cerrada de validación} prevista en el método híbrido, ya sobre la taxonomía ajustada, para comprobar que los cambios 1 a 3 elevan los aciertos de primer nivel en las tareas que fallaron. La segunda es la ampliación de la muestra con participantes reales, prevista en la Actividad 5.
+
+\begin{uxnota}[Nota de método]
+\textbf{Qué se hizo.} Un card sorting abierto con ocho evaluadores prototipo, cada uno condicionado por una de las personas construidas en la Actividad 1, aplicado el 9 de agosto de 2026 siguiendo el protocolo PerceptUI (Bougie et al., 2026), con sesiones a ciegas entre sí y salidas crudas archivadas por evaluador.
+
+\textbf{Qué permite afirmar.} Cobertura y coherencia interna de la taxonomía: si las 35 tarjetas caben en las categorías propuestas y si esas categorías se sostienen al contrastarlas con agrupaciones construidas sin contenedores previos. También la detección de tarjetas ambiguas o transversales, que es donde el ejercicio rinde más, y la formulación de hipótesis de vocabulario y de rutas de navegación que después pueden ponerse a prueba.
+
+\textbf{Qué no permite afirmar.} Nada sobre el comportamiento de usuarios reales, ninguna generalización estadística a la población de la institución y ninguna medición sobre el desempeño del portal CIF actual. Los conteos de esta sección describen ocho evaluaciones sintéticas, no una muestra poblacional.
+
+\textbf{El límite de fondo.} Las personas que condicionan a los evaluadores son ellas mismas una hipótesis: la Actividad 1 las construyó sin contacto con participantes y así lo hizo constar. El ejercicio pone a prueba la taxonomía \textit{dadas} esas personas, no las personas. Si un perfil está mal caracterizado, el ejercicio hereda ese error sin poder detectarlo, porque el evaluador razona con la ficha que se le entregó. Por eso los resultados orientan decisiones de estructura y no cierran ninguna pregunta sobre quiénes son los usuarios.
+
+\textbf{Sesgos que se anotan.} Los evaluadores prototipo heredan los sesgos del modelo de lenguaje que los ejecuta y los del propio equipo, que redactó en la Actividad 1 las personas sobre las que fueron condicionados. Sus respuestas son predicciones plausibles de cómo clasificaría cada perfil, no datos de campo, y por eso no se mezclan con ninguna cifra proveniente de instrumentos aplicados a personas reales.
+
+\textbf{Cuándo llega la validación humana.} En la prueba de usabilidad SUS de la Actividad 5, con al menos cinco participantes reales, que es la instancia donde estas hipótesis de arquitectura se confirman o se corrigen.
+\end{uxnota}

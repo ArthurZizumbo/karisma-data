@@ -1,0 +1,36 @@
+id,etiqueta,definicion
+T18,Linaje,Recorrido del dato desde su origen hasta el reporte donde se presenta.
+T07,Cartera de credito,Informacion de los creditos otorgados: saldos, plazos y situacion.
+T31,Bitacora de accesos,Registro de quien consulto que informacion y en que momento.
+T01,Buscador unificado,Caja de busqueda unica para localizar fuentes, reportes e indicadores por nombre o por tema.
+T22,Indicadores de riesgo,Metricas de exposicion de la institucion y su comportamiento en el tiempo.
+T15,Exportacion CSV/Excel,Descarga del resultado de una consulta en archivo de hoja de calculo.
+T29,Usuarios y roles,Alta, baja y asignacion de perfil a las personas usuarias del portal.
+T09,Derivados,Operaciones con instrumentos financieros derivados.
+T04,Mis alertas,Avisos configurados sobre cambios, cargas o valores fuera de rango.
+T16,Diccionario de datos,Definicion oficial de cada concepto y de cada campo de informacion.
+T26,Flujos de aprobacion,Ruta de autorizacion que sigue una solicitud hasta ser resuelta.
+T11,Mercado de dinero,Operaciones e indicadores de instrumentos de corto plazo.
+T33,Consumo por API,Volumen y detalle de las peticiones automatizadas que recibe el portal.
+T02,Busquedas recientes,Lista de las ultimas consultas realizadas por la persona usuaria.
+T20,Reglas de negocio,Criterios institucionales que determinan como se calcula una cifra.
+T13,Filtros avanzados,Criterios adicionales para acotar una consulta: fechas, montos, entidades.
+T35,Monitoreo de cargas,Estado y resultado de los procesos que actualizan la informacion.
+T08,Liquidez,Posiciones e indicadores de disponibilidad de recursos.
+T24,Solicitar acceso,Peticion para consultar una fuente que hoy no esta disponible para la persona.
+T06,Catalogo de fuentes,Inventario de las fuentes de informacion disponibles en la institucion.
+T21,Tablero ejecutivo,Vista resumida de los indicadores principales para la direccion.
+T32,Credenciales API,Llaves para que un sistema consuma informacion sin intervencion humana.
+T10,Captacion,Recursos captados del publico: depositos e instrumentos de ahorro.
+T27,Compartir consulta,Envio de una consulta ya armada a otra persona de la institucion.
+T17,Metadatos,Datos sobre el dato: origen, periodicidad, unidad de medida y vigencia.
+T03,Favoritos,Fuentes y reportes marcados por la persona para acceso rapido.
+T34,Conectores de fuentes,Configuracion de la conexion con cada sistema de origen.
+T12,Acciones,Informacion de titulos accionarios y su comportamiento.
+T19,Calidad de datos,Resultado de las validaciones aplicadas a una fuente de informacion.
+T28,Historial de exportaciones,Registro de las descargas solicitadas y su estado de avance.
+T05,Mi perfil,Datos de la cuenta, area de adscripcion y preferencias de la persona usuaria.
+T23,Senales de riesgo,Avisos automaticos cuando un indicador rebasa un umbral definido.
+T30,Permisos,Que puede ver y que puede hacer cada rol dentro del portal.
+T14,Vista previa,Muestra parcial del resultado antes de descargarlo completo.
+T25,Estado de solicitudes,Seguimiento de las peticiones enviadas y su resolucion.

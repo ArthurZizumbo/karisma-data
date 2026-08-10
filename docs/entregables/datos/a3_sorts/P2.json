@@ -1,0 +1,216 @@
+{
+  "_naturaleza": "Sesión sintética generada con evaluador LLM condicionado por una persona ficticia de la Actividad 1. No corresponde a una persona real.",
+  "evaluador": "P2",
+  "persona": "Diego Hernandez (analista)",
+  "grupos": [
+    {
+      "nombre": "Buscar y descubrir fuentes",
+      "tarjetas": [
+        "T01",
+        "T06",
+        "T02",
+        "T03"
+      ],
+      "por_que": "Es por donde arranco siempre. Cuando me piden cruzar creditos con liquidez lo primero que hago es escribir el tema en una caja y ver que hay en el inventario. Mis favoritos y mis busquedas recientes son mi atajo para no volver a rastrear la misma fuente cada lunes."
+    },
+    {
+      "nombre": "Entender el dato antes de usarlo",
+      "tarjetas": [
+        "T16",
+        "T17",
+        "T18",
+        "T19",
+        "T20",
+        "T35"
+      ],
+      "por_que": "Aqui esta todo lo que necesito para confiar en una fuente antes de modelar: que significa cada campo, de donde viene, con que periodicidad, si paso las validaciones, con que criterio se calcula la cifra y si la carga de ayer si corrio. Si esto vive disperso en correos, yo pierdo dias. Es el grupo que mas me importa."
+    },
+    {
+      "nombre": "Los datos del negocio",
+      "tarjetas": [
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "por_que": "Estos seis son los silos, el contenido en si. No son funciones del portal, son temas: creditos, liquidez, derivados, captacion, mercado de dinero y acciones. Los junto porque para mi son intercambiables en el flujo: entro igual a cualquiera y espero encontrar exactamente lo mismo en cada uno."
+    },
+    {
+      "nombre": "Armar y repetir mi consulta",
+      "tarjetas": [
+        "T13",
+        "T14",
+        "T27"
+      ],
+      "por_que": "Es mi mesa de trabajo. Acoto por fechas, montos y entidades, pruebo una muestra chica para ver si la granularidad es la que creo, y si sirve le paso la consulta ya armada a un companero en vez de mandarle un Excel suelto. Es mi manera de que el analisis se pueda repetir."
+    },
+    {
+      "nombre": "Sacar los datos: descargas y API",
+      "tarjetas": [
+        "T15",
+        "T28",
+        "T32",
+        "T33"
+      ],
+      "por_que": "Es la salida del proceso. Si el volumen es chico bajo CSV o Excel, si es grande me voy por API con mi llave. El historial y el consumo son mi evidencia de que la extraccion si corrio y con que parametros; sin eso no puedo reconstruir de donde salio una cifra tres semanas despues."
+    },
+    {
+      "nombre": "Tableros y avisos",
+      "tarjetas": [
+        "T21",
+        "T22",
+        "T23",
+        "T04"
+      ],
+      "por_que": "Es lo que se consume ya digerido, sin que yo tenga que armar nada. El tablero de direccion y los indicadores de riesgo son resultado, no materia prima. Las senales automaticas y mis alertas las pongo aqui porque son la misma idea: que el portal me avise en vez de que yo este revisando a mano."
+    },
+    {
+      "nombre": "Accesos: pedirlos y rastrearlos",
+      "tarjetas": [
+        "T24",
+        "T25",
+        "T26",
+        "T30",
+        "T31"
+      ],
+      "por_que": "Es el tramite que me frena. Encuentro la fuente en el catalogo, no la puedo abrir, pido acceso y me quedo esperando. Necesito ver por donde va la solicitud, quien tiene que autorizarla, que permisos me quedaron y quien ha consultado que. Lo agrupo desde mi lado de solicitante, no desde el lado de quien administra."
+    },
+    {
+      "nombre": "Configuracion: mi cuenta y lo que mueve TI",
+      "tarjetas": [
+        "T05",
+        "T29",
+        "T34"
+      ],
+      "por_que": "Cajon de cosas que se configuran una vez y casi no toco. Mi perfil es mio; el alta de usuarios y la conexion con los sistemas de origen son de TI o del administrador. Los junto porque en mi cabeza son la misma pantalla de ajustes, aunque yo solo pueda entrar a una."
+    }
+  ],
+  "tarjeta_dificil": {
+    "tarjeta": "T35",
+    "razon": "Monitoreo de cargas. Por nombre suena a operacion de TI y deberia ir con conectores y administracion, pero en la practica es la primera pregunta que hago cada manana: si la carga de ayer no corrio, mi analisis sale mal y no me entero. Termine poniendola con calidad y linaje porque para mi es parte de confiar en el dato, no de administrar el portal. Si el portal la esconde en un area de administrador a la que no tengo acceso, me deja ciego."
+  },
+  "duplicados_solicitados": [
+    {
+      "tarjeta": "T35",
+      "grupos": [
+        "Entender el dato antes de usarlo",
+        "Configuracion: mi cuenta y lo que mueve TI"
+      ],
+      "razon": "El estado de la carga es dato de confianza para mi y tarea operativa para TI. Yo necesito ver el semaforo aunque no pueda tocar el proceso."
+    },
+    {
+      "tarjeta": "T14",
+      "grupos": [
+        "Armar y repetir mi consulta",
+        "Sacar los datos: descargas y API"
+      ],
+      "razon": "La vista previa es el paso previo a descargar. Nunca bajo un conjunto completo sin ver una muestra, asi que la espero pegada al boton de exportar y tambien dentro del armado de filtros."
+    },
+    {
+      "tarjeta": "T18",
+      "grupos": [
+        "Entender el dato antes de usarlo",
+        "Sacar los datos: descargas y API"
+      ],
+      "razon": "El linaje me sirve dos veces: antes, para saber de donde viene la fuente, y despues, cuando alguien cuestiona una cifra que ya exporte y tengo que explicar el recorrido completo hasta el reporte."
+    },
+    {
+      "tarjeta": "T02",
+      "grupos": [
+        "Buscar y descubrir fuentes",
+        "Armar y repetir mi consulta"
+      ],
+      "razon": "Mis busquedas recientes son historial de navegacion y a la vez mi unica forma de repetir una consulta con los mismos criterios. Lo segundo me importa mas que lo primero."
+    },
+    {
+      "tarjeta": "T30",
+      "grupos": [
+        "Accesos: pedirlos y rastrearlos",
+        "Configuracion: mi cuenta y lo que mueve TI"
+      ],
+      "razon": "Permisos son dos cosas con el mismo nombre: lo que yo puedo ver hoy (consulta) y lo que el administrador configura por rol (ajuste). Como analista quiero la primera lectura y me estorba que solo exista la segunda."
+    },
+    {
+      "tarjeta": "T33",
+      "grupos": [
+        "Sacar los datos: descargas y API",
+        "Configuracion: mi cuenta y lo que mueve TI"
+      ],
+      "razon": "Mi consumo de API es mi evidencia de que la extraccion automatizada corrio; el consumo total del portal es control de TI. Es la misma pantalla vista desde dos permisos distintos."
+    },
+    {
+      "tarjeta": "T22",
+      "grupos": [
+        "Tableros y avisos",
+        "Los datos del negocio"
+      ],
+      "razon": "Los indicadores de riesgo se ven como tablero, pero tarde o temprano necesito la serie cruda detras del indicador para reproducir el calculo. Deberia poder llegar a ella como a cualquier otro silo."
+    }
+  ],
+  "etiquetas_confusas": [
+    {
+      "tarjeta": "T17",
+      "comentario": "Metadatos y Diccionario de datos suenan a lo mismo para casi todos. Yo si los distingo (uno es la definicion del concepto, el otro es origen, periodicidad, unidad y vigencia), pero si estan separados en el menu voy a abrir los dos siempre. Preferiria una sola ficha de la fuente con ambas cosas."
+    },
+    {
+      "tarjeta": "T20",
+      "comentario": "Reglas de negocio es ambiguo: no se si son las formulas con las que se calcula un indicador o las politicas de quien puede ver que. Lo puse con la documentacion apostando a lo primero."
+    },
+    {
+      "tarjeta": "T23",
+      "comentario": "Senales de riesgo contra Indicadores de riesgo contra Mis alertas: tres etiquetas casi iguales. En mi area le diriamos alertas a todo. Espero acabar recibiendo el mismo aviso por tres caminos."
+    },
+    {
+      "tarjeta": "T26",
+      "comentario": "Flujos de aprobacion no dice aprobacion de que. Puede ser de mi acceso, de una descarga pesada o de la publicacion de una fuente nueva. Lo mande al grupo de accesos porque es el unico tramite que yo vivo."
+    },
+    {
+      "tarjeta": "T34",
+      "comentario": "Conectores de fuentes: no se si es configuracion interna de TI o si es donde yo obtengo la cadena de conexion para pegarle desde Python. Si es lo segundo, esta en el grupo equivocado y nunca lo voy a encontrar."
+    },
+    {
+      "tarjeta": "T11",
+      "comentario": "Mercado de dinero y Captacion las entiendo del negocio, pero como etiquetas de un portal no me dicen la granularidad ni el periodo que traen. El nombre del silo no me sirve si no veo al lado la periodicidad y la vigencia."
+    }
+  ],
+  "arbol": [
+    {
+      "tarea": "Localizar una fuente de liquidez",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Catalogo de fuentes (o el buscador unificado)",
+      "dudo": false,
+      "comentario": "Es lo mas natural: explorar es buscar. En realidad ni entraria al menu, escribiria liquidez en la caja de busqueda global desde donde este parado; espero que el buscador viva en todas las pantallas y no solo dentro de una seccion."
+    },
+    {
+      "tarea": "Exportar la cartera de credito",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Cartera de credito, con el boton de exportar dentro del resultado",
+      "dudo": true,
+      "comentario": "Dudo, pero no de donde exportar sino de donde queda el historial. Para mi exportar es una accion del resultado, no una seccion: armo filtros, veo la vista previa y de ahi bajo el archivo. Lo que no se es si Historial de exportaciones esta en Exploracion, en Inicio o en Administracion, y ese historial es justo lo que necesito para repetir la descarga con los mismos filtros."
+    },
+    {
+      "tarea": "Consultar un indicador de riesgo",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Indicadores de riesgo",
+      "dudo": true,
+      "comentario": "Titubeo real. La palabra indicador me empuja a Inicio, al tablero, porque suena a vista de direccion; pero yo no quiero el numero pintado, quiero la serie y el criterio de calculo, y eso lo espero en Exploracion. Si en Inicio solo veo el numero sin poder abrirlo, me regreso."
+    },
+    {
+      "tarea": "Revisar quien autorizo un acceso",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Bitacora de accesos / Flujos de aprobacion",
+      "dudo": true,
+      "comentario": "Fallo honesto probable. Para mi Gobierno es gobierno del dato: diccionario, linaje, calidad, reglas de negocio. Quien autorizo a quien lo asocio con usuarios, roles y permisos, y eso lo busco en Administracion. Si vive bajo Gobierno lo voy a encontrar hasta el segundo o tercer intento, y solo despues de no hallarlo en Administracion."
+    },
+    {
+      "tarea": "Crear una credencial de integracion",
+      "primer_nivel": "Inicio",
+      "segundo_nivel": "Mi perfil / Mi cuenta, en una pestana de credenciales o llaves",
+      "dudo": true,
+      "comentario": "Aqui voy claramente contra el menu. En las herramientas que uso el token personal siempre vive en mi cuenta, no en un area de administrador, porque la llave es mia y responde por mi. Buscaria en Mi perfil y si no esta me iria a Administracion asumiendo que se la tengo que pedir a TI, lo cual me frena el pipeline varios dias."
+    }
+  ],
+  "racional_general": "Ordene las tarjetas como corre mi trabajo, no por temas. Primero busco la fuente, luego la entiendo antes de tocarla, luego armo y pruebo la consulta, luego la saco en el formato que aguante el volumen, y en paralelo lidio con el tramite de accesos que casi siempre es lo que me detiene. Por eso separe el contenido (los silos: creditos, liquidez, derivados, captacion, mercado de dinero y acciones) de las herramientas del portal: los silos son intercambiables entre si y espero exactamente la misma ficha y las mismas acciones en cada uno. El grupo al que le puse mas peso es el de entender el dato: diccionario, metadatos, linaje, calidad, reglas de negocio y estado de la carga. Mi problema diario no es que falten datos, es que no se si puedo confiar en ellos ni como explicar de donde salio una cifra. Deje aparte lo que se consume ya digerido, tableros y avisos, porque para mi es resultado y no materia prima, y un cajon final de configuracion donde meti lo que se toca una sola vez o lo que ni siquiera me toca a mi. Mi criterio de fondo es simple: cada cosa que descargo tengo que poder repetirla y poder explicarla."
+}

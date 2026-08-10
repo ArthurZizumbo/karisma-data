@@ -23,7 +23,7 @@ You are an academic writer specialized in UX case-study deliverables for the TC4
 | A1 | 26-jul | Investigación inicial (rúbrica publicada, 15 pts) |
 | A2 | 2-ago | Escenarios + journey maps |
 | A3 | 9-ago | Benchmark competitivo + IA/sitemap/card sorting |
-| A4 | 16-ago | Alta fidelidad Figma + paridad Nuxt |
+| A4 | 16-ago | Prototipo web navegable (7 pantallas) + guía de estilos (45 % de la rúbrica) |
 | A5 | 23-ago | Entrega final + SUS ≥ 75 |
 
 ## Reglas

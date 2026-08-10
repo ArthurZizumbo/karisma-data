@@ -1,6 +1,6 @@
 ---
 name: portal-synthetic-users
-description: Run PerceptUI-style synthetic user pre-validation for the Portal Centralizado de Datos Financieros. Use when pre-validating wireframes (A3) or high-fidelity prototypes (A4) with LLM evaluators conditioned on the 6 personas from A1, before real-user testing. Always reported as complementary pre-validation, never as a substitute for the human SUS test of A5.
+description: Run PerceptUI-style synthetic user pre-validation for the Portal Centralizado de Datos Financieros. Use when pre-validating wireframes (A3) or high-fidelity prototypes (A4) with LLM evaluators conditioned on the 8 personas from A1, before real-user testing. Always reported as complementary pre-validation, never as a substitute for the human SUS test of A5.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
@@ -12,7 +12,7 @@ Implementa el diferenciador metodológico de la pista UX: evaluadores sintético
 
 - La pre-validación sintética es **complementaria**: NUNCA sustituye la prueba con humanos que pide la rúbrica (SUS con ≥5 participantes reales en A5). Todo reporte lo declara explícitamente.
 - **Sesgos declarados** en cada reporte: los evaluadores heredan sesgos del LLM y de la redacción de las personas; sus respuestas son predicciones plausibles, no datos de campo. No se mezclan con las cifras de la encuesta ni cuentan para n.
-- Condicionamiento exclusivamente con las **6 personas de A1** (matriz §5.3): el valor metodológico es reutilizar investigación real como condicionamiento, no inventar perfiles ad-hoc.
+- Condicionamiento exclusivamente con las **8 personas de A1** (matriz §5.3; A1 entregó 8 sobre las 6 que pedía la rúbrica, y A3 corrió con las 8): el valor metodológico es reutilizar investigación real como condicionamiento, no inventar perfiles ad-hoc. Las salidas crudas de A3 están en `docs/entregables/datos/a3_sorts/P1..P8.json`.
 - Al menos **1 iteración de diseño documentada** derivada de los hallazgos sintéticos (criterio de aceptación del plan): hallazgo → cambio aplicado → versión posterior.
 - Salidas con racionales en lenguaje natural (no solo puntuaciones): el "por qué" es lo accionable.
 - Honestidad metodológica transversal: en los entregables, los hallazgos sintéticos se rotulan como "pre-validación sintética (PerceptUI)".
@@ -27,7 +27,7 @@ PerceptUI predice cómo respondería un usuario específico a preguntas sobre un
 2. **Condicionar por persona**: un evaluador por persona (6 en total), usando la ficha completa de A1 (demografía, antecedentes, objetivos, pains, hábitos, frase).
 3. **Preguntar sobre la interfaz**: batería fija por pantalla + preguntas específicas de la tarea.
 4. **Recoger racionales**: cada respuesta exige justificación en lenguaje natural anclada a la persona ("como analista de riesgo, esperaría...").
-5. **Sintetizar**: agrupar hallazgos por severidad × frecuencia entre las 6 personas; separar consenso (accionable) de idiosincrasia (observación).
+5. **Sintetizar**: agrupar hallazgos por severidad × frecuencia entre las 8 personas; separar consenso (accionable) de idiosincrasia (observación). Conteos en absolutos sobre 8, nunca en porcentajes: con esa n un porcentaje exagera la fuerza de la evidencia.
 6. **Iterar y documentar**: aplicar al menos 1 cambio de diseño y registrar el antes/después.
 
 ### Plantilla de prompt condicionado (inglés, como todo artefacto de código)
@@ -61,7 +61,7 @@ background and pain points. For each question give (a) your answer and
 | Actividad | Estímulo | Foco de las preguntas | Salida |
 |-----------|----------|-----------------------|--------|
 | A3 | Sitemap, taxonomía del catálogo, wireframes | ¿Dónde buscarías X? Agrupaciones esperadas (apoyo/optimización del card sorting, declarando método) | Ajustes de taxonomía y navegación |
-| A4 | Pantallas de alta fidelidad Figma (login, homes por rol, catálogo, explorador, chat con tarjetas tool-call, export, admin) | Comprensión, confianza (fuente/linaje), fricción por rol, jerarquía visual | Hallazgos priorizados + ≥1 iteración documentada |
+| A4 | **Capturas reales del prototipo web navegable**, 7 pantallas (acceso, inicio, exploración y extracción, gobierno del dato, asistente, administración, exportación) — nunca mockups: es lo que distingue esta pre-validación de una revisión de diseño | Comprensión, confianza (fuente/linaje), fricción por rol, jerarquía visual | Hallazgos priorizados + ≥1 iteración documentada (hallazgo → cambio → versión, con antes y después) |
 | A5 | — | Se reporta el proceso y sus límites junto a los resultados SUS reales | Sección de método en el documento final |
 
 ## Estructura del reporte de pre-validación

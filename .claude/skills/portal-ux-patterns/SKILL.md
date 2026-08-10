@@ -67,7 +67,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 
 - **A2 (journey maps)**: cada escenario debe evidenciar al menos un patrón en el momento de dolor que resuelve.
 - **A3 (competitivo + IA)**: comparar competidores contra estos 6 patrones como ejes.
-- **A4 (alta fidelidad)**: los prototipos Figma deben mostrar los estados intermedios (skeleton, tarjeta de tool call en ejecución, etiqueta de método) — no solo el happy path; paridad de tokens con Nuxt.
+- **A4 (alta fidelidad)**: las pantallas del prototipo web deben mostrar los estados intermedios (skeleton, tarjeta de tool call en ejecución, etiqueta de método) — no solo el happy path; los cuatro estados no felices (vacío, cargando, error, sin permiso) son criterio de US-UX-07.
 - **A5 (SUS)**: las tareas del test de usabilidad se derivan de los criterios verificables de esta tabla.
 
 ## QA Checklist

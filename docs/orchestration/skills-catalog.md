@@ -58,7 +58,7 @@ Skills viven en `.claude/skills/<nombre>/SKILL.md` con frontmatter YAML (`name`,
 |-------|-------------|---------|
 | `portal-ux-research` | Encuesta 13 preguntas (n≥15), 3 entrevistas, personas y mapas de empatía (matriz §5.3), journeys, card sorting, SUS ≥ 75 | EPIC UX |
 | `portal-ux-deliverables` | Documentos A1–A5: rúbrica A1 desglosada, checklist §24, protocolo de absorción §25.2, APA de los 10 papers, PDF Canvas | EPIC UX · A1–A5 |
-| `portal-synthetic-users` | Pre-validación PerceptUI: evaluadores LLM condicionados por las 6 personas para wireframes (A3) y alta fidelidad (A4) | EPIC UX |
+| `portal-synthetic-users` | Pre-validación PerceptUI: evaluadores LLM condicionados por las 8 personas para wireframes (A3) y alta fidelidad (A4) | EPIC UX |
 
 ## Transversal (1)
 

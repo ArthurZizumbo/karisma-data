@@ -14,7 +14,7 @@ frontend/
 │   ├── middleware/       # auth.global.ts (sesión + guarda requiredRole)
 │   ├── stores/           # Pinia: workspace (estado compartido dashboard↔chat)
 │   ├── types/            # tipos compartidos (chat, auth, dashboard)
-│   └── assets/css/       # main.css con tokens @theme (paridad Figma, A4)
+│   └── assets/css/       # main.css con tokens @theme (generado desde uxdoc.sty, US-UX-09)
 ├── nuxt.config.ts        # routeRules SWR en /dashboard
 └── package.json          # packageManager: pnpm (Corepack)
 ```

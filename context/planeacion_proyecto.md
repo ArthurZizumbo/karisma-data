@@ -6,7 +6,7 @@
 
 **Documento:** Planeación SCRUM detallada + alineación con el curso — TC4032 Experiencia del Usuario y Diseño de Interfaces, Maestría en Inteligencia Artificial Aplicada (MNA), ITESM.
 **Periodo:** 20 de julio a 23 de agosto de 2026 (5 semanas, la semana 1 ya en curso).
-**Estado del documento:** plan vivo. Definido el 22-jul-2026; **actualizado el 29-jul-2026** con el cierre de la Actividad 1, la absorción de la rúbrica de la Actividad 2 (§2.3, protocolo §25.2), el estado real de las historias UX (§2.5), el estado verificado de la pista de construcción (§2.6), el método de usuarios prototipo (US-UX-01, §22.1.b), el recálculo de capacidad (§10.2.b) y la cobertura de lo comprometido en A1/A2 por el catálogo técnico (§18.1). Las secciones marcadas ⚠️ PENDIENTE requieren decisión del equipo o rúbrica aún no publicada.
+**Estado del documento:** plan vivo. Definido el 22-jul-2026; **actualizado el 29-jul-2026** con el cierre de la Actividad 1, la absorción de la rúbrica de la Actividad 2 (§2.3, protocolo §25.2), el estado real de las historias UX (§2.5), el estado verificado de la pista de construcción (§2.6), el método de usuarios prototipo (US-UX-01, §22.1.b), el recálculo de capacidad (§10.2.b) y la cobertura de lo comprometido en A1/A2 por el catálogo técnico (§18.1); **actualizado el 10-ago-2026** con el cierre de A2 y A3 (§2.5), la absorción de la rúbrica de A3 (§2.3.b, protocolo §25.2), el cierre de US-UX-05 y US-UX-06, la reformulación del criterio de validación con participantes (§22.1.b), el re-recálculo de capacidad al abrir S4 (§10.2.b) y el replanteo de A4 sobre prototipo web navegable (US-UX-07, §19). Las secciones marcadas ⚠️ PENDIENTE requieren decisión del equipo o rúbrica aún no publicada.
 **Catálogo de historias:** 44 comprometidas — **US-001…US-036** (técnicas, numeración contigua sin huecos) + **US-UX-01…US-UX-08** (entregables del curso), cada una independiente y verificable (INVEST). Más **US-037…US-041**, derivadas de los compromisos de A1/A2 y declaradas **roadmap no comprometido** (§18.1).
 
 ### Equipo 8
@@ -48,12 +48,13 @@
 17. [EPIC 5: Observabilidad, Pruebas y Producción](#epic-5)
 18. [Alcance Descartado y Cobertura de A1/A2](#consolidacion) — incluye §18.1 y las US-037…041 de roadmap
 19. [Roadmap Semanal de Sprints](#19-roadmap)
-20. [Gates de las Semanas 1–2](#20-gates)
+20. [Gates del Calendario Completo](#20-gates)
 21. [Gestión de Riesgos](#21-riesgos)
 22. [Criterios de Éxito del MVP](#22-criterios)
 23. [FinOps: Presupuesto de Operación](#23-finops)
 24. [Checklist de Excelencia — Actividad 1](#24-checklist-a1)
 25. [Pendientes, Protocolo y Registro de Rúbricas](#25-pendientes) — incluye el [registro de absorción](#25-4-registro)
+26. [Avance 4: Contrato de Ejecución de S4](#26-avance-4) — **manda sobre §11–§17 durante la semana del 10 al 16 de agosto**
 - [Anexo A: Instrumentos de Investigación (borrador)](#anexo-a)
 - [Anexo B: Matriz de Personas y Mapas de Empatía](#anexo-b)
 - [Anexo C: Familias de Preguntas del Agente](#anexo-c)
@@ -87,14 +88,14 @@ El hilo conductor metodológico es el proceso UX completo: diseño de instrument
 
 ### 2.1 Calendario de entregas (fechas confirmadas por el equipo, 22-jul-2026)
 
-Las fechas de desarrollo quedaron confirmadas con cadencia dominical. Las rúbricas de A3–A5 siguen ⚠️ pendientes de publicación en Canvas; al publicarse cada una se aplica el protocolo de absorción (§25.2).
+Las fechas de desarrollo quedaron confirmadas con cadencia dominical. **Tres de las cinco actividades están entregadas** (A1, A2 y A3). Las rúbricas de A4 y A5 siguen ⚠️ pendientes de publicación en Canvas; al publicarse cada una se aplica el protocolo de absorción (§25.2). Nota de calibración de peso: A1 y A2 valen 15 puntos cada una, **A3 vale 20**.
 
 | Actividad | Tema | Fecha de entrega | Rúbrica | Sprint | Estado |
 |-----------|------|------------------|---------|--------|--------|
 | **A1** | Definición del producto digital y diseño de instrumentos de investigación de usuario | **dom 26-jul-2026** | **Publicada** (15 pts) | S1 | ✅ **Entregada** 26-jul (§2.5) |
-| **A2** | Diseño de escenarios y Journey Maps | **dom 2-ago-2026** | **Publicada** (15 pts, absorbida 29-jul → §2.3) | S2 | 🔵 Documento terminado, pendiente de subir a Canvas |
-| A3 | Análisis competitivo y Arquitectura de Información | **dom 9-ago-2026** | ⚠️ Pendiente | S3 | Por iniciar |
-| A4 | Interfaces de alta fidelidad | **dom 16-ago-2026** | ⚠️ Pendiente | S4 | Por iniciar |
+| **A2** | Diseño de escenarios y Journey Maps | **dom 2-ago-2026** | **Publicada** (15 pts, absorbida 29-jul → §2.3) | S2 | ✅ **Entregada** 2-ago (§2.5) |
+| **A3** | Análisis competitivo y Arquitectura de Información | **dom 9-ago-2026** | **Publicada** (20 pts, absorbida 9-ago → §2.3.b) | S3 | ✅ **Entregada** 9-ago (§2.5) |
+| **A4** | Interfaces de alta fidelidad | **dom 16-ago-2026** | ⚠️ Pendiente — revisar Canvas hoy lun 10-ago (§25.2) | S4 | 🟠 **En curso**, semana en ejecución |
 | A5 | Entrega final | **dom 23-ago-2026** | ⚠️ Pendiente | S5 | Por iniciar |
 
 ### 2.2 Rúbrica de la Actividad 1 (desglose exacto)
@@ -140,6 +141,25 @@ Elementos obligatorios por sección (extraídos de las instrucciones):
 
 **Delta contra lo asumido en el plan del 22-jul (impacto de la absorción).** Los criterios provisionales de US-UX-05 asumían *3 escenarios (uno por perfil) + 3 journey maps*. La rúbrica real pide **6 escenarios (2 por integrante, 45 %)** y **un solo journey map de equipo (50 %)**. Es un cambio de forma, no de fondo: duplica el número de escenarios pero concentra medio punto de la calificación en un único mapa colaborativo. **No se congeló ningún STRETCH**: el delta se absorbió dentro de los 5 SP originales de US-UX-05 porque los escenarios comparten plantilla y los mapas comparten una única fuente de contenido. Ver el estado de cumplimiento en §2.5 y los criterios definitivos en US-UX-05.
 
+### 2.3.b Rúbrica de la Actividad 3 (desglose exacto — absorbida 9-ago-2026)
+
+Fuente: `docs/general/semana_3/Rubrica/`. Entregable: **PDF** nombrado **"Entregable Actividad 3_equipo_8"**, entrega por Canvas, cuenta para todo el Project Group. **Vale 20 puntos**, no 15 como A1 y A2.
+
+| # | Apartado | Peso | Modalidad | Puntos (de 20) |
+|---|----------|------|-----------|----------------|
+| 1 | Portada con nombres de los integrantes | 2 % | Equipo | 0.40 |
+| 2 | Introducción sobre la actividad realizada | 3 % | Equipo | 0.60 |
+| 3 | Desarrollo del ejercicio de **análisis competitivo** (5 pasos) | 25 % | Equipo | 5.00 |
+| 4 | Desarrollo del ejercicio de **card sorting** (10 pasos) | 25 % | Equipo | 5.00 |
+| 5 | Desarrollo del ejercicio de **arquitectura de información** (5 pasos) | 25 % | Equipo | 5.00 |
+| 6 | Desarrollo del ejercicio de **mapa de navegación** (6 pasos) | 20 % | Equipo | 4.00 |
+
+**El descriptor que define la calificación.** Los cuatro criterios de desarrollo comparten la misma banda de tres niveles: *Completo* = "se incluyen **todos** los elementos solicitados"; *Parcialmente* = "se incluyen los elementos solicitados **pero puede carecer de contenido** alguno o varios"; *Incompleto* = "faltan elementos o el contenido es irrelevante". Consecuencia operativa, y es la que gobernó toda la semana 3: **la rúbrica no premia profundidad, premia cobertura demostrada de los 26 pasos numerados** (5 + 10 + 5 + 6). Un paso ausente —o presente pero redactado en futuro, sin contenido propio— baja un criterio de 25 % de "Completo" a "Parcialmente", y eso cuesta hasta 3 de los 20 puntos. De ahí la regla de trabajo que se adoptó: cada paso identificable por su subtítulo y ninguno escrito en tiempo futuro.
+
+**Lo que la rúbrica dice sobre los participantes, y qué habilitó.** Textualmente, el equipo "puede apoyarse de usuarios potenciales, o personas cercanas que puedan sugerir un interés para el proyecto". Es permisiva en el reclutamiento y **no exige un número mínimo de participantes humanos**. Eso permitió ejecutar el card sorting con evaluadores prototipo condicionados por persona (§3.8, PerceptUI) sin salir de la banda "Completo", a condición de reportar los pasos 6, 7 y 8 en pasado y con datos calculados sobre salidas crudas archivadas. La consecuencia sobre el compromiso de validación del plan está en §22.1.b: **la validación con personas reales queda concentrada íntegramente en la prueba SUS de A5**.
+
+**Delta contra lo asumido en el plan del 22-jul.** Los criterios provisionales de US-UX-06 pedían benchmark, sitemap, card sorting y flujos por rol. La rúbrica real añade dos exigencias que el plan no modelaba: (a) el **mapa de navegación como cuarto ejercicio con peso propio (20 %)**, separado de la arquitectura de información, y (b) la **secuencia de pasos numerados como unidad de evaluación**. No cambia el esfuerzo comprometido —siguen siendo 4 SP— sino la forma de presentarlo. **No se congeló ningún STRETCH.** El recurso de apoyo que la propia rúbrica nombra, Ramírez Mejía (2023), *Grocery shopping app, Part 3*, quedó citado en el documento.
+
 ### 2.4 Mapeo actividad → capítulos del proceso UX → épicas
 
 | Actividad | Proceso UX | Épicas que la alimentan | Evidencia diferenciadora |
@@ -150,7 +170,7 @@ Elementos obligatorios por sección (extraídos de las instrucciones):
 | A4 | Prototipar | EPIC UX (US-UX-07), E3/E4 (agente, dashboard) | Alta fidelidad en Figma **+ prototipo funcional en Nuxt 4** |
 | A5 | Probar + Entregar | EPIC UX (US-UX-08), E5 (observabilidad, deploy) | Pruebas de usabilidad (SUS) + pre-validación sintética PerceptUI |
 
-### 2.5 Estado de las entregas y de las historias UX (al 29-jul-2026)
+### 2.5 Estado de las entregas y de las historias UX (actualizado al 10-ago-2026)
 
 Registro de avance real. La convención de estado de este plan es: ✅ **cerrada** (entregada y verificada contra su rúbrica) · 🔵 **terminada, pendiente de entrega** · 🟡 **abierta con desviación declarada** · ☐ **no iniciada**. Las casillas `- [ ]` dentro de cada US son tareas; el estado consolidado vive aquí.
 
@@ -160,18 +180,22 @@ Registro de avance real. La convención de estado de este plan es: ✅ **cerrada
 | US-UX-02 | A1 | 3 | ✅ **Cerrada** | Portada con los 3 integrantes, introducción con método y organización, audiencia con los 6 elementos exigidos, problema cuantificado con fuente por renglón y 3 figuras, y producto digital con tipo, características y beneficios. |
 | US-UX-03 | A1 | 3 | ✅ **Cerrada y excedida** | **8 personas** en lugar de 6 (Jacqueline 2, Alexandro 4, Arthur 2), todas con foto, básicos (nombre, edad, sexo, ubicación, ocupación), antecedentes, objetivos, pain points, hábitos y frase. Se añadió designación de **persona primaria** (Hartson y Pyla) y una sección de alcance y límite del método que la rúbrica no pedía. |
 | US-UX-04 | A1 | 2 | ✅ **Cerrada y excedida** | **8 mapas de empatía** en lugar de 6, cuadrantes "Says/Thinks/Does/Feels" con ≥3 observaciones, plantilla uniforme y cada mapa indivisible en una sola página (corrección de la observación del profesor sobre A1). |
-| US-UX-05 | A2 | 5 | 🔵 **Terminada, pendiente de subir** | **6 escenarios** (2 por integrante) con los 4 elementos de la rúbrica rotulados + **4 journey maps**: 3 individuales y el **de equipo** con taller documentado, listado de 15 actividades, 7 etapas × 7 carriles, curva emocional, trazabilidad a la característica del producto y anexo tabular. |
+| US-UX-05 | A2 | 5 | ✅ **Cerrada y excedida** | **6 escenarios** (2 por integrante) con los 4 elementos de la rúbrica rotulados + **4 journey maps**: 3 individuales y el **de equipo** con taller documentado, listado de 15 actividades, 7 etapas × 7 carriles, curva emocional, trazabilidad a la característica del producto y anexo tabular. Entregada el 2-ago. |
+| US-UX-06 | A3 | 4 | ✅ **Cerrada y excedida** | Los **26 pasos de la rúbrica cubiertos y visibles como subtítulo**, ninguno en tiempo futuro. Benchmark de **6 alternativas** (Bloomberg, Power BI, Pyramid Analytics, ThoughtSpot, Collibra y la práctica actual de bases aisladas + Excel + correo) con precios y calificaciones verificados con URL y fecha de consulta, matriz comparativa, cuatro dimensiones de ventaja y estrategias de mitigación. **Card sorting abierto ejecutado el 9-ago** con 8 evaluadores prototipo condicionados por las 8 personas de A1, mazo de 35 tarjetas, sesión piloto que cambió una etiqueta, salidas crudas archivadas por evaluador en `docs/entregables/datos/a3_sorts/`, matriz de similitud 35×35, dendrograma de enlace promedio y **9 conglomerados** contrastados contra las 4 categorías propuestas. Arquitectura de información de 4 categorías con jerarquía de segundo nivel y **9 facetas transversales** de etiquetado múltiple. **Prueba de árbol de 5 rutas** que confirmó 4 y **refutó 1** (el indicador de riesgo: 1 acierto de 8), con el cambio aplicado sobre el mapa antes de A4. Anexo con el registro completo del ejercicio. Entregada el 9-ago. |
 
-**SP consumidos de la EPIC UX: 16 de 28** (11 de A1 + 5 de A2). Restan 12 SP MUST (US-UX-06 4 · US-UX-07 5 · US-UX-08 3) más los +4 STRETCH de US-UX-08.
+**SP consumidos de la EPIC UX: 20 de 28** (11 de A1 + 5 de A2 + 4 de A3). Restan 8 SP MUST (US-UX-07 5 · US-UX-08 3) más los +4 STRETCH de US-UX-08. **La pista calificada va completa y en tiempo: 3 de 5 actividades entregadas, las tres por encima de la banda "Completo" de su rúbrica.**
 
-**Las dos desviaciones que arrastran consecuencias, y qué las cierra:**
+**Las desviaciones que arrastran consecuencias, y qué las cierra (actualizado 10-ago):**
 
-1. **El método fue usuarios prototipo, no trabajo de campo aplicado.** Decisión tomada por restricción de tiempo en la semana 1 y registrada aquí el 29-jul: los instrumentos se diseñaron completos y la audiencia se caracterizó con el conocimiento de dominio del equipo, la investigación documental y la observación de canales. Los criterios de campo de US-UX-03/US-UX-04 se reformularon en consecuencia, y el journey map de A2 se declara *mapa de supuestos* siguiendo la advertencia de la propia literatura de journey mapping. **Es un método legítimo y los dos documentos lo declaran, así que no hay deuda oculta**: lo que hay es una secuencia de validación pendiente, y está donde el plan ya la tenía prevista — el card sorting de A3 (≥6 participantes) y la prueba SUS de A5 (≥5 participantes, exigida por la rúbrica de A5). La única línea que no se cruza es presentar los supuestos como hallazgos, y ambos entregables la respetan. Nota de calibración: la meta de n≥15 respuestas era una **autoexigencia del equipo**, no un requisito de la rúbrica, y quedaba desproporcionada frente a lo que A1 pedía (6 personas y 6 mapas); se entregaron 8 de cada uno.
-2. **El alcance de perfiles creció de 3 a 8.** *(ver también §5.3, ya actualizada)* El plan modela consistentemente 3 perfiles (Operativo, Analista, Directivo) y los documentos entregados trabajan con **8 perfiles de uso** y 4 roles de control de acceso. Los 4 roles RBAC de US-016 no cambian, así que **la pista técnica no se ve afectada**; lo que cambia es el material de las actividades siguientes: el sitemap de A3 y las pantallas de A4 deben cubrir 8 perfiles agrupados en 4 espacios de trabajo, no 3. Esto ya está reflejado en los criterios de US-UX-06 y US-UX-07.
+1. **El método fue usuarios prototipo, no trabajo de campo aplicado.** Decisión tomada por restricción de tiempo en la semana 1 y registrada aquí el 29-jul: los instrumentos se diseñaron completos y la audiencia se caracterizó con el conocimiento de dominio del equipo, la investigación documental y la observación de canales. Los criterios de campo de US-UX-03/US-UX-04 se reformularon en consecuencia, y el journey map de A2 se declara *mapa de supuestos* siguiendo la advertencia de la propia literatura de journey mapping. **Es un método legítimo y los dos documentos lo declaran, así que no hay deuda oculta**: lo que hay es una secuencia de validación pendiente, y está donde el plan ya la tenía prevista — el card sorting de A3 y la prueba SUS de A5 (≥5 participantes, exigida por la rúbrica de A5). **Actualización 10-ago: el card sorting de A3 se ejecutó con 8 evaluadores prototipo condicionados por persona, no con participantes humanos.** La rúbrica de A3 no los exigía (§2.3.b) y el documento declara el método sin ambigüedad, así que la banda no se pierde; lo que cambia es la aritmética de la validación: **de dos ventanas previstas queda una sola**, la prueba SUS de A5, y por eso deja de ser negociable (§22.1.b). La única línea que no se cruza es presentar los supuestos como hallazgos, y ambos entregables la respetan. Nota de calibración: la meta de n≥15 respuestas era una **autoexigencia del equipo**, no un requisito de la rúbrica, y quedaba desproporcionada frente a lo que A1 pedía (6 personas y 6 mapas); se entregaron 8 de cada uno.
+2. **El alcance de perfiles creció de 3 a 8.** *(ver también §5.3, ya actualizada)* El plan modela consistentemente 3 perfiles (Operativo, Analista, Directivo) y los documentos entregados trabajan con **8 perfiles de uso** y 4 roles de control de acceso. Los 4 roles RBAC de US-016 no cambian, así que **la pista técnica no se ve afectada**; lo que cambia es el material de las actividades siguientes: el sitemap de A3 y las pantallas de A4 deben cubrir 8 perfiles agrupados en 4 espacios de trabajo, no 3. Esto ya está reflejado en los criterios de US-UX-06 y US-UX-07. **Cerrado el 9-ago:** la arquitectura de información de A3 resolvió los 8 perfiles en 4 categorías de primer nivel —Inicio, Exploración y extracción, Gobierno del dato, Administración— y el mapa de navegación con su corrección aplicada es el contrato que heredan las pantallas de A4.
+3. **La pista de construcción sigue en cero al abrir S4 (§2.6), y eso cambia lo que A4 puede prometer.** Los criterios de US-UX-07 se escribieron asumiendo un prototipo Nuxt corriendo del que salieran capturas reales para la tabla de paridad y para la pre-validación sintética. Ese prototipo no existe. La decisión del 10-ago es no fingir paridad: A4 se construye como **prototipo web navegable de alta fidelidad** —interfaces explorables derivadas de la arquitectura ya validada en A3— y la tabla del documento declara con exactitud qué es diseño navegable y qué está conectado a datos reales. Ver US-UX-07 y §19 (S4).
 
-### 2.6 Estado de la pista de construcción (verificado al 29-jul-2026)
+### 2.6 Estado de la pista de construcción (verificado al 10-ago-2026)
 
 Verificación directa del repositorio, no estimación. **Las 36 historias técnicas están sin iniciar: 0 SP de 58 MUST.** Las seis carpetas de producto contienen únicamente su `AGENTS.md`.
+
+> **Re-verificado el 10-ago-2026 al abrir S4: sin cambios.** `backend/`, `frontend/`, `ml/` y `db/` contienen solo su `AGENTS.md`; `infra/` y `data/` están vacías; no existen `Makefile`, `docker-compose.yml`, `.env.example`, `backend/pyproject.toml`, `frontend/package.json` ni `.github/workflows/`. Los 11 SP técnicos de S2 y los 16 de S3 tampoco se ejecutaron. **Es el tercer sprint consecutivo en el que la pista UX cumple y la de construcción no arranca**, y a dos semanas del cierre ya no es un retraso recuperable dentro del curso: ver el re-recálculo de §10.2.b y la consecuencia sobre A4 en US-UX-07. Lo que sí creció en el mismo periodo es la cadena de análisis reproducible: `docs/entregables/analisis_a3.py` (matriz de similitud, dendrograma y prueba de árbol), `generar_figuras_a3.py`, `generar_anexo_a3.py` y las salidas crudas del card sorting en `datos/a3_sorts/`. Es código real, versionado y auditable — no es código de producto, pero sí es evidencia de método.
 
 | Épica | US | SP MUST | Estado | Verificación |
 |-------|----|---------|--------|--------------|
@@ -564,6 +588,29 @@ El déficit de −11 SP se calculó sobre las 5 semanas completas. Al cierre de 
 
 **Lo que no se recorta, porque es la evidencia del curso:** US-001/002 (sin esqueleto no hay nada), US-006 (sin datos no hay pantalla con contenido), US-015/016/017 (sin auth no hay espacio por rol que fotografiar ni tool call gobernada), US-008 en su versión keyword (es el "momento de la verdad" del journey de A2), US-020/021/023 (el agente es el diferenciador del proyecto), US-028 (las tarjetas de tool call no se pueden simular en Figma) y US-034 (sin deploy no hay prueba SUS ni métricas para A5).
 
+**Re-recálculo al 10-ago-2026 (apertura de S4).** La escalera de recorte anterior se diseñó suponiendo que la construcción arrancaba el 30-jul. No arrancó, y dos sprints después la aritmética vuelve a cambiar.
+
+| Concepto | SP |
+|----------|-----|
+| Consumido a la fecha (UX A1 11 + A2 5 + A3 4) | 20 |
+| Capacidad restante (S4 15 + S5 15) | **30** |
+| Demanda restante UX (US-UX-07 5 · US-UX-08 3) | 8 |
+| Demanda restante técnica MUST (E0 6 · E1 10 · E2 13 · E3 11 · E4 9 · E5 9) | 58 |
+| **Déficit real** | **≈ −36** |
+
+**Lo que esto significa, dicho sin rodeos: la pista de construcción completa ya no cabe en el curso**, ni siquiera aplicando los 17 SP de la escalera de recorte. Con 30 SP de capacidad y 8 comprometidos a las dos actividades que faltan, quedan **≈22 SP para código** frente a los 41 que sobrevivirían tras el recorte máximo. Seguir planificando 36 historias técnicas es planificar una ficción.
+
+**La decisión que sustituye a la escalera, y su criterio.** Se invierte la prioridad: **el código que se escriba en S4 y S5 es el que sostiene la evidencia UX de A4 y A5, y nada más.** En orden:
+
+| # | Qué se construye | Por qué sobrevive | SP aprox. |
+|---|------------------|-------------------|-----------|
+| 1 | **Prototipo web navegable** con las 5 interfaces de A4 y datos de ejemplo embebidos | *Es* el entregable de A4 y el objeto de la prueba SUS de A5. Sin él no hay ninguna de las dos | 5–7 |
+| 2 | **Despliegue accesible por URL** (Cloud Run o alternativa estática equivalente) | Sin URL no hay sesión de usabilidad remota en A5 | 1–2 |
+| 3 | Datos sintéticos mínimos que den contenido creíble a las pantallas (recorte de US-006) | Una pantalla vacía no se puede probar con un participante | 2 |
+| 4 | Backend real (auth, capa semántica, agente ADK, SSE) | **Se documenta como roadmap**, no como entrega del curso | — |
+
+Los renglones 1–3 caben en la capacidad restante; el 4 no, y por eso pasa a la tabla de alcance de A4 y al apartado de trabajo futuro de A5. **Es un recorte de MUST acordado por escrito y con fecha, que es lo que §10.3 y §25.2 mandan hacer en vez de descubrirlo el 22-ago.** El proyecto no pierde su tesis —la arquitectura, la capa semántica y el agente están diseñados, fundamentados en diez papers y documentados—; pierde su implementación completa dentro del curso, y eso se declara en lugar de disimularse.
+
 ### 10.3 Regla de prioridad
 
 > **Regla de oro del equipo:** ante conflicto de tiempo, gana el entregable de la actividad UX de la semana. Un portal impresionante con 70 en las actividades es un mal trade; unas actividades de 100 con un portal honesto de MVP es el objetivo.
@@ -697,11 +744,11 @@ El déficit de −11 SP se calculó sobre las 5 semanas completas. Al cierre de 
 - [x] Descomponer el objetivo en listado de actividades y construir el journey map de equipo en taller
 - [x] Construir los 3 journey maps individuales (extra sobre la rúbrica)
 - [x] Validar trazabilidad A1→A2 y armar el PDF
-- [ ] Subir "Entregable Actividad 2_equipo_8.pdf" a Canvas antes del dom 2-ago 23:59
+- [x] Subir "Entregable Actividad 2_equipo_8.pdf" a Canvas antes del dom 2-ago 23:59
 
 **Estimación:** 5 puntos (~2.5 días). **Sprint:** S2.
 
-**Estado al 29-jul-2026: 🔵 TERMINADA, PENDIENTE DE SUBIR.** Entregado por encima de la rúbrica: **6 escenarios** con los cuatro elementos rotulados explícitamente y **4 journey maps** (3 individuales + el de equipo) en lugar del único exigido. Extras que ninguna banda pedía: taller de construcción documentado con su fundamento bibliográfico (Walter, 2022), listado de 15 actividades, 7 etapas × 7 carriles con curva emocional declarada de −2 a +2, alcance declarado como *mapa de supuestos* con los tres supuestos fuertes y la pregunta que verifica cada uno, matriz de trazabilidad fricción → oportunidad → característica → métrica, principios rectores y antiprincipios, y figura de recorridos entrelazados que conecta los seis escenarios. El anexo con el mapa en formato de tabla salió del documento en la revisión de contenido del 29-jul: era la tercera de tres reproducciones del mismo mapa (panorámica, desarrollo etapa por etapa y tabla) y se conservó solo la panorámica con su lectura interpretativa. **Desviación de forma frente al plan del 22-jul:** se planearon 3 escenarios y 3 mapas; la rúbrica real pedía 6 escenarios y 1 mapa de equipo. Absorbido sin coste extra de SP (§2.3).
+**Estado al 10-ago-2026: ✅ CERRADA.** Entregada el 2-ago-2026 (`docs/semana_2/Entregable Actividad 2_equipo_8.pdf`). Entregado por encima de la rúbrica: **6 escenarios** con los cuatro elementos rotulados explícitamente y **4 journey maps** (3 individuales + el de equipo) en lugar del único exigido. Extras que ninguna banda pedía: taller de construcción documentado con su fundamento bibliográfico (Walter, 2022), listado de 15 actividades, 7 etapas × 7 carriles con curva emocional declarada de −2 a +2, alcance declarado como *mapa de supuestos* con los tres supuestos fuertes y la pregunta que verifica cada uno, matriz de trazabilidad fricción → oportunidad → característica → métrica, principios rectores y antiprincipios, y figura de recorridos entrelazados que conecta los seis escenarios. El anexo con el mapa en formato de tabla salió del documento en la revisión de contenido del 29-jul: era la tercera de tres reproducciones del mismo mapa (panorámica, desarrollo etapa por etapa y tabla) y se conservó solo la panorámica con su lectura interpretativa. **Desviación de forma frente al plan del 22-jul:** se planearon 3 escenarios y 3 mapas; la rúbrica real pedía 6 escenarios y 1 mapa de equipo. Absorbido sin coste extra de SP (§2.3).
 
 ### US-UX-06 — Análisis competitivo y Arquitectura de Información (A3)
 
@@ -709,24 +756,41 @@ El déficit de −11 SP se calculó sobre las 5 semanas completas. Al cierre de 
 - **quiero** un benchmark de productos comparables y la arquitectura de información del portal,
 - **para que** las decisiones de estructura y navegación estén justificadas frente a alternativas reales y validadas con usuarios.
 
-**Criterios de Aceptación (provisionales ⚠️):**
+**Criterios de Aceptación (definitivos — rúbrica publicada y absorbida el 9-ago-2026, §2.3.b):**
 
-- Benchmark de 4–6 referentes reales (candidatos: Collibra/Alation/DataHub como catálogos; Power BI/Looker/Metabase como BI; ThoughtSpot como búsqueda conversacional) con matriz de características vs. los **8 perfiles de uso de A1 agrupados en los 4 espacios de trabajo** (operativo, analista, directivo, administrador) y hallazgos accionables.
-- Sitemap completo del portal (login, homes por rol, catálogo, explorador, chat, exportaciones, panel admin) coherente con los permisos RBAC de US-016. **Derivarlo de `docs/security.md`**, que es la matriz de permisos implementada: eso convierte el sitemap en reflejo de un sistema real en lugar de una hipótesis de estructura.
-- Card sorting ejecutado (remoto con ≥6 colegas, u optimizado con pre-validación sintética §3.8 declarando método) y su impacto documentado en la taxonomía. **Es la primera validación con participantes del proyecto** y la que empieza a contrastar los usuarios prototipo de A1 (US-UX-01, §22.1.b): conviene aprovechar la sesión para verificar de paso uno o dos de los supuestos fuertes declarados en A2.
-- Flujos de navegación por rol (diagramas) y taxonomía del catálogo alineada a la estrategia RAG bifurcada (§3.5), **exportada del seed real de `catalog_source`/`catalog_field`** para que el vocabulario del card sorting sea el del producto y no uno inventado para el ejercicio.
+- **Los 26 pasos numerados de la rúbrica, cada uno identificable por su subtítulo y con contenido propio**, nunca redactado en futuro: 5 de análisis competitivo, 10 de card sorting, 5 de arquitectura de información y 6 de mapa de navegación.
+- **Análisis competitivo (25 %)**: identificación de competidores, recolección de información con fuentes citadas y fechadas, análisis comparativo, ventaja competitiva y estrategias de mejora. Precios y calificaciones de clientes con URL y fecha de consulta; las estimaciones de agregadores etiquetadas como tales y distinguidas de las tarifas oficiales.
+- **Card sorting (25 %)**: los diez pasos con datos calculados sobre salidas crudas archivadas, no simuladas. Si se ejecuta con evaluadores prototipo condicionados por persona (§3.8), la nota de método lo declara sin ambigüedad y el vocabulario del documento no llama "participantes" ni "usuarios" a los evaluadores.
+- **Arquitectura de información (25 %)**: los cuatro sistemas de Morville y Rosenfeld (organización, etiquetado, navegación y búsqueda), con las categorías derivadas del ejercicio y no impuestas por el equipo.
+- **Mapa de navegación (20 %)**: jerarquía visualizada, subcategorías determinadas, validación con resultados y al menos **un cambio aplicado** por efecto de esa validación.
+- Portada con los nombres de los 3 integrantes (2 %) y sección titulada literalmente **"Introducción"** (3 %).
+- Trazabilidad viva con A1 y A2: las personas y los escenarios se llaman igual, y el instrumento se ancla en las etapas de fricción del journey map de equipo.
 
 **Tareas técnicas:**
 
-- [ ] Investigar y capturar los 4–6 productos del benchmark
-- [ ] Construir matriz comparativa y conclusiones
-- [ ] Ejecutar card sorting y sintetizar resultados
-- [ ] Dibujar sitemap + flujos por rol y armar el PDF
-- [ ] Insertar capturas reales de login y catálogo como evidencia de "arquitectura implementada"
+- [x] Investigar y capturar los productos del benchmark (6 alternativas, con capturas de interfaz reales)
+- [x] Construir matriz comparativa y conclusiones
+- [x] Ejecutar card sorting y sintetizar resultados
+- [x] Dibujar sitemap + flujos por rol y armar el PDF
+- [ ] ~~Insertar capturas reales de login y catálogo como evidencia de "arquitectura implementada"~~ **No se cumplió**: la pista de construcción sigue en 0 % (§2.6). Se sustituyó por el wireframe de navegación `figuras/a3_wireframe_navegacion.png`, declarado como diseño y no como producto
+- [x] Subir "Entregable Actividad 3_equipo_8.pdf" a Canvas antes del dom 9-ago 23:59
 
 **Estimación:** 4 puntos (~2 días). **Sprint:** S3.
 
-**Nota de replanificación (29-jul).** A3 es la actividad **menos dependiente de código** de las cinco: benchmark, sitemap y card sorting son trabajo de escritorio. Por eso su semana es la que absorbe el arranque técnico atrasado (§19, S3). El riesgo de esta actividad no es el retraso sino **perder el regalo**: si US-016 no cierra antes del jue 6-ago, `docs/security.md` no existe y el sitemap vuelve a ser hipótesis. Costo si se pierde: un diferenciador, no puntos de banda.
+**Estado al 10-ago-2026: ✅ CERRADA Y EXCEDIDA.** Entregada el 9-ago-2026 (`docs/semana_3/Entregable Actividad 3_equipo_8.pdf`, 54 páginas). Lo que se entregó, contra lo que la rúbrica pedía:
+
+| Ejercicio | Lo exigido | Lo entregado |
+|-----------|-----------|--------------|
+| Competitivo (5 pasos) | Identificar, recolectar, analizar, ventaja, estrategias | **6 alternativas** con ficha, postura competitiva de Annacchino, capturas de interfaz reales, precios verificados (Bloomberg 31,980 USD/año y 28,320 USD por asiento con contrato mínimo de 2 años; G2 4.4/5 sobre 69 reseñas), tabla de trazabilidad de fuentes con fecha de consulta, y el hallazgo fechado del **retiro de Power BI Q&A en dic-2026** usado como argumento de ventana competitiva |
+| Card sorting (10 pasos) | Ejercicio ejecutado y analizado | Mazo de **35 tarjetas** derivado del portal legado (CIF), sesión piloto que cambió una etiqueta, **8 evaluadores prototipo** condicionados por las 8 personas de A1 y ciegos entre sí, salidas crudas por evaluador en `datos/a3_sorts/P1..P8.json`, matriz de co-ocurrencia 35×35, dendrograma de enlace promedio, **9 conglomerados** frente a las 4 categorías propuestas, tarjetas en disputa y anexo con el registro completo |
+| Arquitectura (5 pasos) | Usuarios, contenido, organización, pruebas, navegación | 4 categorías de primer nivel con jerarquía de segundo nivel, **9 facetas transversales** de etiquetado múltiple justificadas por las peticiones de duplicado, y los cuatro sistemas de Morville y Rosenfeld nombrados explícitamente |
+| Mapa de navegación (6 pasos) | Jerarquía, subcategorías, validación, iteración | **Prueba de árbol de 5 rutas** en la misma corrida: 4 confirmadas y **1 refutada** —el indicador de riesgo obtuvo 1 acierto de 8 y 6 evaluadores lo buscaron en Exploración—, con el cambio aplicado antes de A4: tableros e indicadores se movieron a Exploración y extracción (2.4) y la tercera categoría se renombró **Gobierno del dato** |
+
+Extras que ninguna banda pedía: análisis reproducible en Python versionado (`analisis_a3.py`, `generar_figuras_a3.py`, `generar_anexo_a3.py`), conteos sobre 8 en lugar de porcentajes —porque con ocho observaciones un porcentaje transmite una precisión que la muestra no tiene—, folksonomía literal de los ocho evaluadores transcrita, y nota de método que acota qué puede afirmarse a partir de 40 datos de prueba de árbol y 280 colocaciones de tarjetas.
+
+**La desviación declarada:** el card sorting se ejecutó con **evaluadores prototipo, no con ≥6 colegas humanos** como decía el criterio provisional del 22-jul. La rúbrica no exigía participantes humanos (§2.3.b) y el documento declara el método en la introducción, en la sección y en el anexo, así que la banda no se pierde. La consecuencia se registra donde importa: §22.1.b y la prueba SUS de A5, que queda como **única** ventana de validación humana del proyecto.
+
+**El regalo que se perdió, y qué lo sustituyó.** El criterio pedía derivar el sitemap de `docs/security.md` y montar capturas de login y catálogo reales. US-016 nunca se implementó, así que el sitemap se construyó desde el card sorting en lugar de desde la matriz de permisos. Costo: un diferenciador, no puntos de banda — exactamente como el plan había previsto el 29-jul. Lo sustituyó `figuras/a3_wireframe_navegacion.png`, que además queda como **punto de partida de la alta fidelidad de A4**.
 
 ### US-UX-07 — Interfaces de alta fidelidad (A4)
 
@@ -734,23 +798,46 @@ El déficit de −11 SP se calculó sobre las 5 semanas completas. Al cierre de 
 - **quiero** el sistema de diseño y las pantallas de alta fidelidad del portal, en paridad con el prototipo funcional,
 - **para que** la entrega de A4 muestre tanto el diseño pulido como el producto vivo que lo implementa.
 
-**Criterios de Aceptación (provisionales ⚠️):**
+> ⚠️ **Criterios superados por §26.2 (10-ago-2026).** Los de abajo se conservan como registro de
+> lo que se asumió el 22-jul, antes de leer la rúbrica. **Los vigentes están en
+> [§26](#26-avance-4)**, que reescribe los ocho criterios, retira Figma y sustituye la tabla de
+> paridad por la tabla de alcance de tres estados.
 
-- Sistema de diseño documentado: tokens de color (modo claro; oscuro stretch), tipografía, espaciado, estados de componentes (default/hover/focus/error/loading). **Fuente única: los tokens `@theme` de `frontend/app/assets/css/main.css`; Figma se deriva de ahí, no al revés.** Así la paridad del criterio siguiente es automática y no un trabajo de conciliación.
+**Criterios de Aceptación (provisionales ⚠️, superados — ver §26.2):**
+
+- Sistema de diseño documentado: tokens de color (modo claro; oscuro stretch), tipografía, espaciado, estados de componentes (default/hover/focus/error/loading). **Fuente única: los tokens del prototipo navegable** (`@theme` de Tailwind v4), derivados a su vez de la paleta y la tipografía del sistema LaTeX de A1–A3 (`docs/entregables/estilo/uxdoc.sty`), de modo que los cinco documentos del curso y la interfaz se lean como el mismo producto. Cualquier archivo de Figma se deriva de ahí, no al revés.
 - Pantallas de alta fidelidad en Figma: login, **home por espacio de trabajo ×4** (operativo, analista, directivo, administrador — los 8 perfiles de A1 se agrupan en estos 4), catálogo con resultados, explorador con filtros, chat con tarjetas de tool call (estados: anunciando/ejecutando/resultado/error), tarjetas predictivas con drill-down, flujo de exportación (solicitud→job→enlace), panel admin de usuarios.
 - Paridad demostrada: tabla pantalla-Figma ↔ ruta del prototipo Nuxt donde exista implementación (E4). **Lo que quede solo en diseño se marca explícitamente como *roadmap* en esa misma tabla** — incluidas las capacidades que A2 promete y el catálogo US-001…036 no cubre (§25.5, hallazgo 2). El silencio sobre ellas es lo único que no funciona: un evaluador puede contrastar las oportunidades del journey contra el prototipo.
 - Pre-validación con evaluadores sintéticos condicionados por las **8 personas** (§3.8): protocolo, hallazgos y al menos 1 iteración de diseño documentada. **Debe correr sobre capturas reales del prototipo, no sobre mockups**: es lo que la distingue de una revisión de diseño convencional.
 
-**Tareas técnicas:**
+**Tareas técnicas (reformuladas el 10-ago, ver el replanteo al final de la US):**
 
-- [ ] Definir tokens en `main.css` y derivar la librería de componentes en Figma
-- [ ] Diseñar las ~11 pantallas de alta fidelidad
-- [ ] Correr pre-validación sintética sobre capturas reales y aplicar iteración
-- [ ] Documentar paridad Figma↔Nuxt, marcando el roadmap, y armar el PDF
+- [ ] Definir los tokens de diseño derivados de `uxdoc.sty` (paleta, tipografía, escala de espaciado, radios, estados)
+- [ ] Construir el **prototipo web navegable** con las 5 interfaces de alta fidelidad explorables
+- [ ] Diseñar los estados que no son pantalla completa: vacío, cargando, error, sin permiso, y los 4 estados de la tarjeta de tool call
+- [ ] Correr pre-validación sintética sobre las pantallas navegables y aplicar **≥1 iteración documentada** (hallazgo → cambio → versión)
+- [ ] Documentar la tabla de alcance —qué es diseño navegable, qué está conectado a datos y qué es *roadmap*— y armar el PDF
+- [ ] Subir "Entregable Actividad 4_equipo_8.pdf" a Canvas antes del dom 16-ago 23:59
 
 **Estimación:** 5 puntos (~2.5 días). **Responsable líder:** Alexandro. **Sprint:** S4.
 
 **Nota de replanificación (29-jul): esta es la actividad de mayor exposición del proyecto.** Su mitigación de déficit declarada es "las capturas del prototipo reducen las pantallas dibujadas". Si el frontend no corre el **jue 13-ago** (gate nuevo de §20), la mitigación se invierte y hay que dibujar *más* en la semana que ya iba corta: se pierden el criterio de paridad, la pre-validación sobre pantallas reales y los patrones 3, 4 y 6 de §6.2, que solo se demuestran en movimiento. Es la única semana del calendario donde dos días de retraso son irrecuperables.
+
+**Replanteo del 10-ago-2026: el escenario de riesgo se materializó, y A4 cambia de forma.** El frontend no existe (§2.6), así que la mitigación "las capturas del prototipo reducen las pantallas dibujadas" ya no es aplicable. La decisión del equipo es **no dibujar mockups estáticos ni fingir paridad**, sino invertir la semana en un **prototipo web navegable de alta fidelidad**: una página que el evaluador abre y recorre, con las cinco interfaces del portal derivadas de la arquitectura que A3 validó. Es la opción con más evidencia por hora invertida, porque un prototipo navegable *es* alta fidelidad, sirve de base a la pre-validación sintética sobre pantallas reales —el criterio que distingue esta actividad de una revisión de diseño convencional— y se convierte en el objeto sobre el que corre la prueba SUS de A5.
+
+**Las 5 interfaces, y de dónde sale cada una.** ⚠️ *Set propuesto, pendiente de confirmación del equipo.* La derivación no es libre: cuatro salen literalmente de las categorías de primer nivel que el card sorting produjo y la prueba de árbol corrigió (§US-UX-06), y la quinta es el diferenciador del proyecto, transversal a todas.
+
+| # | Interfaz | Origen en los entregables previos | Patrones UX que demuestra (§6.2) |
+|---|----------|-----------------------------------|----------------------------------|
+| 1 | **Inicio** — buscador unificado, búsquedas recientes, favoritos, mis alertas | Categoría 1 de la IA de A3; primera etapa del journey map de equipo de A2 | Revelación progresiva; espacios de trabajo por rol |
+| 2 | **Exploración y extracción** — catálogo temático facetado, filtros, vista previa, exportación, y **2.4 Tableros e indicadores** | Categoría 2 de la IA, ya con la corrección que la prueba de árbol impuso (los tableros se movieron aquí) | Tarjetas predictivas con drill-down; estado compartido tablero↔chat |
+| 3 | **Gobierno del dato** — diccionario y metadatos, linaje y calidad, catálogo de fuentes | Categoría 3 de la IA, renombrada tras el card sorting; es el "momento de la verdad" del journey de A2 | Overlay de linaje explicable |
+| 4 | **Asistente conversacional** — chat con tarjetas de tool call en sus 4 estados y streaming con Stop | Diferenciador del proyecto (§4.2); escenarios 1 y 3 de A2; papers 06 y 07 | Transparencia de tool call; streaming real y cancelable |
+| 5 | **Administración** — usuarios, roles y permisos, solicitudes y aprobaciones, bitácora de accesos, integraciones | Categoría 4 de la IA; escenario 5 de A2 (acceso mínimo suficiente) | Espacios de trabajo por rol |
+
+El **login** enmarca las cinco como pantalla de entrada, pero no cuenta como una de ellas: su valor de evidencia es bajo y su costo de diseño también. Las **9 facetas transversales** de A3 se resuelven como accesos cruzados entre interfaces, no como duplicados de contenido — ese es el contrato que el mapa de navegación dejó firmado.
+
+**Lo que esta forma de A4 obliga a declarar, y no es negociable.** El documento debe distinguir con exactitud tres estados por pantalla: *navegable con datos de ejemplo*, *navegable sin datos* y *roadmap*. Incluye las capacidades que A2 promete y el catálogo técnico no cubre (§25.5, hallazgo 2). El silencio sobre ellas es lo único que no funciona: un evaluador puede contrastar las oportunidades del journey de A2 contra lo que la pantalla hace.
 
 ### US-UX-08 — Evaluación de usabilidad y entrega final (A5)
 
@@ -1726,6 +1813,8 @@ Mitigaciones: benchmark competitivo repartido entre los 3 en paralelo; US-020/02
 >
 > Congelado en esta semana: US-012 y pgvector (recorte 1 de §10.2.b), US-013, US-014; US-018/019 se mueven a S4 con su degradación acordada.
 
+> **Cierre real de S3 (10-ago-2026).** La pista UX cumplió y excedió: **A3 entregada el 9-ago** con los 26 pasos de la rúbrica cubiertos, benchmark de 6 alternativas con datos verificados, card sorting ejecutado con 8 evaluadores prototipo y análisis reproducible, arquitectura de 4 categorías con 9 facetas y prueba de árbol que refutó una hipótesis del equipo y produjo un cambio aplicado (US-UX-06). **Los 16 SP técnicos no se ejecutaron: cero código, por tercer sprint consecutivo.** El gate del jue 6-ago (`docs/security.md`) venció sin cumplirse y con él se perdió el diferenciador de "arquitectura implementada"; el sitemap se construyó desde el card sorting, que era el plan B previsto. La semana barata para el código se gastó, en cambio, en levantar la calidad del entregable tras absorber la rúbrica el mismo domingo.
+
 ### Sprint 4 — lun 10 al dom 16-ago · Actividad 4 (Alta Fidelidad)
 
 **Objetivo:** A4 entregada + frontend completo con patrones UX. **SP:** 5 UX (US-UX-07) + 14 técnicos (US-023/024 streaming cierre 5, US-025 3, US-026/027 3, US-028/029 3) = 19 (−4).
@@ -1745,6 +1834,20 @@ Mitigaciones: Figma y Nuxt comparten sistema de diseño (sin doble trabajo); cap
 > | **Dom 16** | **Entrega A4, 20:00** | | |
 >
 > Válvulas de esta semana, en orden: 500 K en lugar de 1 M → US-024 sin Reintentar → US-019 solo en Figma → US-026 a 2 niveles de revelación.
+
+> **Replanteo de S4 (10-ago-2026): la semana se reorganiza alrededor del prototipo navegable.** El plan de arriba asume un backend y un frontend que no existen, así que se sustituye. El objetivo de la semana ya no son 14 SP técnicos repartidos en siete historias, sino **un artefacto: la página con las 5 interfaces de alta fidelidad explorables** (US-UX-07), que es a la vez el entregable de A4 y el objeto de prueba de A5. **SP:** 5 UX + ~8 de construcción del prototipo = 13, dentro de la capacidad de 15 por primera vez en el proyecto.
+>
+> | Día | Trabajo |
+> |-----|---------|
+> | **Lun 10** | Tokens de diseño derivados de `uxdoc.sty` (paleta, tipografía, escala, radios, estados); esqueleto navegable con las 5 rutas y la barra lateral de dos niveles que el mapa de A3 fijó; confirmar el set de 5 interfaces con el equipo |
+> | **Mar 11** | Interfaces 1 (Inicio) y 2 (Exploración y extracción, con tableros e indicadores en 2.4 y drill-down) |
+> | **Mié 12** | Interfaces 3 (Gobierno del dato, con overlay de linaje) y 5 (Administración) |
+> | **Jue 13** | Interfaz 4 (Asistente conversacional) con los 4 estados de la tarjeta de tool call y el streaming simulado con Stop. **Congelamiento para pre-validación.** |
+> | **Vie 14** | **Pre-validación sintética sobre las pantallas navegables** con las 8 personas; aplicar **≥1 iteración documentada**; maquetar A4 con la tabla de alcance (navegable con datos / navegable sin datos / roadmap). **12:00 — punto de decisión sobre el alcance del SUS de A5** |
+> | **Sáb 15** | Revisión cruzada contra la rúbrica de A4 en cuanto se publique (§25.2) |
+> | **Dom 16** | **Entrega A4, 20:00** |
+>
+> Válvulas de esta semana, en orden: los 4 estados de la tarjeta de tool call se muestran como galería en lugar de secuencia animada → el drill-down del tablero se reduce a 2 niveles → la interfaz 5 (Administración) se entrega en un solo nivel. **Lo que no se sacrifica:** las 5 interfaces navegables y la iteración documentada de pre-validación, porque son los dos criterios que ninguna otra evidencia sustituye.
 
 ### Sprint 5 — lun 17 al dom 23-ago · Actividad 5 (Entrega Final)
 
@@ -1779,9 +1882,9 @@ Pruebas de usabilidad (≥5 usuarios, SUS) sobre el deploy de Cloud Run; documen
 
 ---
 
-## 20. Gates de las Semanas 1–2 {#20-gates}
+## 20. Gates del Calendario Completo {#20-gates}
 
-Estado verificado al 29-jul-2026. La columna Estado se mantiene actualizada: un gate vencido sin cumplir no se borra, se re-fecha con su nueva fecha comprometida.
+Estado verificado al 10-ago-2026. La columna Estado se mantiene actualizada: un gate vencido sin cumplir no se borra, se re-fecha con su nueva fecha comprometida.
 
 | Día | Gate | Criterio de éxito | Estado |
 |-----|------|-------------------|--------|
@@ -1794,14 +1897,17 @@ Estado verificado al 29-jul-2026. La columna Estado se mantiene actualizada: un 
 | **Dom 26-jul** | **Entrega A1 en Canvas** | Confirmación de subida antes de 23:59 | ✅ **Cumplido** |
 | Mié 30-jul | `dbmate up` con migraciones de usuarios/catálogo en las 3 máquinas | `schema.sql` idéntico en los 3 entornos | ⏳ Re-fechado **dom 2-ago** |
 | **Vie 1-ago** | **Login JWT funcional end-to-end** (US-015/016/017) | Token con scope de rol; 401 sin token y 403 con rol insuficiente verificados desde el frontend | ⏳ Re-fechado **mar 4-ago** |
-| **Dom 2-ago** | **Entrega A2 en Canvas** | Confirmación de subida antes de 23:59 | ⏳ Documento listo (48 y 51 páginas en `docs/semana_1/` y `docs/semana_2/`) |
+| **Dom 2-ago** | **Entrega A2 en Canvas** | Confirmación de subida antes de 23:59 | ✅ **Cumplido** |
+| Jue 6-ago | `docs/security.md` con la matriz de permisos real | El sitemap de A3 se deriva de permisos implementados | ❌ **Vencido sin cumplir.** Se perdió el diferenciador; el sitemap se construyó desde el card sorting (plan B previsto) |
+| **Dom 9-ago** | **Entrega A3 en Canvas** | Confirmación de subida antes de 23:59 | ✅ **Cumplido** (54 páginas, rúbrica de 20 pts absorbida el mismo día) |
+| Lun 10-ago | Revisar Canvas por la rúbrica de A4 y aplicar §25.2 antes de trabajar | Rúbrica volcada a tabla criterio→peso→banda | ⏳ **Hoy** |
 
 **Gates nuevos añadidos el 29-jul** (cierran las tres restricciones de fecha del calendario técnico):
 
 | Día | Gate | Criterio de éxito |
 |-----|------|-------------------|
 | **Jue 6-ago** | `docs/security.md` con la matriz de permisos real | El sitemap de A3 se deriva de permisos implementados, no de hipótesis |
-| **Jue 13-ago** | **Pantallas congeladas para captura** | Set completo capturado: login, homes por rol, catálogo, dashboard con drill-down, chat en 4 estados, export, admin |
+| **Jue 13-ago** | ~~Pantallas congeladas para captura~~ → **5 interfaces navegables terminadas** | Reformulado el 10-ago: no hay prototipo funcional del cual capturar. El criterio pasa a ser que las 5 interfaces de US-UX-07 se recorran de punta a punta y queden congeladas para la pre-validación del vie 14 |
 | **Vie 14-ago 12:00** | Decisión sobre el alcance del SUS de A5 | Si el chat SSE no está estable, las tareas se limitan a catálogo + dashboard + export y el agente se muestra solo en el video |
 | **Lun 17-ago** | Congelamiento de funcionalidad + deploy verificado | `min_instances = 1` y smoke tests verdes antes de la primera sesión con usuario |
 
@@ -1811,7 +1917,7 @@ Estado verificado al 29-jul-2026. La columna Estado se mantiene actualizada: un 
 
 | ID | Categoría | Riesgo | Prob. | Impacto | Mitigación |
 |----|-----------|--------|-------|---------|------------|
-| R01 | Curso | Rúbricas A2–A5 difieren de lo asumido | Alta | Alto | Protocolo de absorción §25.2; STRETCH técnicos como válvula; criterios provisionales ya escritos por actividad |
+| R01 | Curso | ~~Rúbricas A2–A5 difieren de lo asumido~~ **Materializado 3 veces y absorbido 3 veces (10-ago)** | Media | Medio | A2 absorbida el 29-jul (§2.3), A3 el 9-ago (§2.3.b), ambas sin congelar STRETCH. Quedan A4 y A5: **revisar Canvas los lunes 10 y 17-ago antes de tocar el entregable**. El patrón observado es que las rúbricas cambian la *forma* (número de piezas, pasos numerados, peso por ejercicio), no el fondo, y que el costo de absorberlas tarde es maquetar dos veces |
 | R02 | Curso | ~~No juntar n≥15 respuestas de encuesta a tiempo~~ **Materializado y resuelto (29-jul)** | — | — | Se ejecutó el plan B ampliado: método de **usuarios prototipo** con instrumentos diseñados y base declarada (US-UX-01). El riesgo se cierra; su sucesor es mantener la coherencia del método (§22.1.b) y aprovechar las ventanas de validación de A3 y A5 |
 | R03 | Personas | Semana con carga laboral/personal de un integrante | Media | Alto | Trabajo asincrónico, plantillas comunes, revisión cruzada; entregables individuales (personas/mapas) empezados desde el miércoles, no el sábado |
 | R04 | Técnica | Curva de aprendizaje de Google ADK | Media | Medio | Gate "hello tool" en S1 (2 semanas antes de US-020); fallback: SDK GenAI directo con tool-calling manual |
@@ -1822,7 +1928,9 @@ Estado verificado al 29-jul-2026. La columna Estado se mantiene actualizada: un 
 | R09 | FinOps | Costo API/cloud se sale del presupuesto académico | Baja | Bajo | Flash-Lite + scale-to-zero + presupuesto §23 con alerta de billing al 50 % |
 | R10 | Alcance | Tentación de construir el alcance descartado (§18) | Alta | Medio | Descarte firmado por el equipo; nueva funcionalidad solo por refinamiento formal (US-037+); la regla de oro §10.3 |
 | R11 | Alcance | Scope creep de seguridad (refresh tokens, recuperación de contraseña, OAuth externo, RLS por fila) | Media | Medio | Alcance de US-015…019 cerrado por escrito: JWT access simple + seed de usuarios + CRUD admin; todo lo demás documentado como trabajo futuro en `docs/security.md` |
-| R12 | Técnica | Desincronización de esquema de BD entre integrantes | Media | Medio | dbmate como única vía de cambio de esquema; gate del 30-jul (`schema.sql` idéntico en 3 máquinas); migraciones en PR review |
+| R12 | Técnica | Desincronización de esquema de BD entre integrantes | Baja | Bajo | dbmate como única vía de cambio de esquema; gate del 30-jul (`schema.sql` idéntico en 3 máquinas); migraciones en PR review. **Degradado el 10-ago:** sin código no hay esquema que desincronizar |
+| **R13** | **Curso** | **Materializado (10-ago): la pista de construcción no arranca y ya no cabe en el curso** | — | **Alto** | Tres sprints con 0 SP técnicos ejecutados (§2.6). Déficit re-calculado en ≈ −36 SP (§10.2.b). **Respuesta acordada:** invertir la prioridad y construir solo lo que sostiene A4 y A5 — prototipo web navegable, URL accesible y datos de ejemplo—, y declarar el backend como roadmap en la tabla de alcance de A4 y en el trabajo futuro de A5. El riesgo residual ya no es de calendario sino de **honestidad de la entrega**: lo que no se implemente debe decirse, nunca insinuarse |
+| **R14** | **Curso** | **La prueba SUS de A5 es ahora la única validación humana del proyecto** | Media | **Alto** | El card sorting de A3 se resolvió con evaluadores prototipo (§22.1.b), así que se acabaron las ventanas alternas. Mitigación con fecha: **reclutar los ≥5 participantes desde esta semana**, no el lun 17-ago; tener la URL del prototipo navegable arriba antes del mar 18; y ensayar la sesión con un integrante antes del primer participante |
 
 ---
 
@@ -1831,7 +1939,7 @@ Estado verificado al 29-jul-2026. La columna Estado se mantiene actualizada: un 
 ### 22.1 Curso (los que califican)
 
 - A1: 15/15 con todos los criterios en banda "Completo" (checklist §24). **Al 29-jul: entregada con los 8 rubros en "Completo" y excedida en cantidad (8 personas y 8 mapas); la retroalimentación del profesor fue positiva con una sola observación de maquetación, ya corregida.**
-- A2–A5: 100 en cada rúbrica al publicarse, con al menos un diferenciador por actividad (journey maps sobre flujos reales; benchmark con matriz por perfiles; alta fidelidad + prototipo vivo; usabilidad medida con SUS + pre-validación sintética).
+- A2–A5: 100 en cada rúbrica al publicarse, con al menos un diferenciador por actividad (journey maps sobre flujos reales; benchmark con matriz por perfiles; alta fidelidad + prototipo vivo; usabilidad medida con SUS + pre-validación sintética). **Al 10-ago:** A2 entregada el 2-ago con 6 escenarios y 4 journey maps (diferenciador: taller documentado y mapa declarado como mapa de supuestos); **A3 entregada el 9-ago** con los 26 pasos cubiertos (diferenciador: card sorting con análisis reproducible en Python y prueba de árbol que refutó una hipótesis del propio equipo y produjo un cambio aplicado). El diferenciador de A4 se ajusta de "alta fidelidad + prototipo vivo" a **"alta fidelidad navegable + iteración de diseño documentada por pre-validación sintética"**, porque el prototipo funcional con backend no existirá (§10.2.b, R13).
 - Documento final que se lee como caso de estudio UX completo (estándar Grocery App, superado en evidencia).
 
 ### 22.1.b Criterio de coherencia del método (añadido 29-jul)
@@ -1840,7 +1948,10 @@ A1 y A2 se construyeron con **usuarios prototipo** (US-UX-01). El criterio no es
 
 - **Cada artefacto declara su base.** Ya se cumple: A1 llama a sus personas arquetipos hipotéticos y A2 declara su journey map como mapa de supuestos, con los tres supuestos fuertes enunciados junto a la pregunta del instrumento que los verifica.
 - **Ninguna cifra sin fuente consultada directamente.** Ya se cumple: los indicadores sin dato dicen "pendiente de medición" y enlazan a su pregunta.
-- **La validación llega en su momento previsto:** card sorting de A3 (≥6 participantes) y prueba SUS de A5 (≥5 participantes, exigida por rúbrica). Con esas dos, el caso de estudio cierra el ciclo completo: hipótesis en A1–A2, estructura validada en A3, usabilidad medida en A5.
+- ~~**La validación llega en su momento previsto:** card sorting de A3 (≥6 participantes) y prueba SUS de A5 (≥5 participantes, exigida por rúbrica).~~ **Reformulado el 10-ago-2026, y es el ajuste más importante de esta revisión.** El card sorting de A3 se ejecutó con **8 evaluadores prototipo condicionados por persona** (protocolo PerceptUI), no con participantes humanos. La rúbrica de A3 no los exigía (§2.3.b) y el entregable declara el método en la introducción, en la sección y en el anexo, así que no hay incoherencia entre lo que el método permite afirmar y lo que el documento afirma — que es el criterio de este apartado. Lo que sí cambia es la aritmética:
+  - **De las dos ventanas de validación humana previstas, queda una: la prueba SUS de A5** (≥5 participantes, exigida por su rúbrica). Deja de ser una de dos y pasa a ser la única, y por lo tanto **no es negociable ni posponible**. Si esa sesión no ocurre, el proyecto entero cierra sin un solo dato de comportamiento humano y la frase "usabilidad medida" no se puede escribir en el documento final.
+  - **El reclutamiento de los ≥5 participantes arranca ahora, no el lun 17-ago.** Es la tarea con más plazo de espera de todo el calendario y la única que no depende del equipo.
+  - **Lo que la cadena de pre-validación sintética sí construyó** es una serie de hipótesis progresivamente más finas: personas y mapas en A1, supuestos declarados en A2, estructura y rutas en A3, pantallas en A4. La prueba de A5 no valida una intuición: contrasta cuatro semanas de predicciones documentadas, y esa es una posición metodológica más fuerte, no más débil — siempre que la prueba efectivamente ocurra.
 - En el documento final, el apartado de método explica esta secuencia como una decisión y no como una carencia — que es lo que fue.
 
 ### 22.2 Producto/UX
@@ -1900,7 +2011,7 @@ Para 15/15 y sobrepasar. Responsable de integración final: Arthur. Deadline int
 ### 25.1 Decisiones abiertas del equipo (kickoff)
 
 1. ~~Confirmar nombre del producto~~ ✅ **Resuelto de hecho el 26-jul: Karisma Data**, entregado como marca en A1 y A2 (portada, encabezado y símbolo en `docs/entregables/imagenes/logo_karisma_marca.png`). Registrado el 29-jul en §1. Falta confirmar los roles propuestos (§Equipo).
-2. ~~Confirmar fechas de desarrollo~~ ✅ Confirmadas 22-jul (§2.1). ~~Verificar la publicación de las rúbricas~~ ✅ **A2 verificada y absorbida el 29-jul** (§2.3, registro §25.4). Falta verificar en Canvas A3, A4 y A5.
+2. ~~Confirmar fechas de desarrollo~~ ✅ Confirmadas 22-jul (§2.1). ~~Verificar la publicación de las rúbricas~~ ✅ **A2 absorbida el 29-jul** (§2.3) y **A3 el 9-ago** (§2.3.b); ambas en el registro §25.4. **Falta verificar en Canvas A4 (hoy, lun 10-ago) y A5 (lun 17-ago).**
 3. Acordar horario fijo de sync (recomendado: 30 min lun/jue + revisión asíncrona sáb).
 4. Confirmar cuenta GCP a usar y presupuesto de billing. **Urgente:** es prerrequisito del gate re-fechado del vie 31-jul (acceso a Gemini) y del deploy de S5.
 
@@ -1924,22 +2035,739 @@ Bitácora que exige el paso 4 de §25.2. Una fila por rúbrica absorbida.
 | Fecha | Rúbrica | Delta contra lo asumido | SP recalculados | STRETCH congelados | Dónde quedó registrado |
 |-------|---------|-------------------------|-----------------|--------------------|------------------------|
 | 29-jul-2026 | **A2 — Diseño de escenarios y Journey Maps** (15 pts: 2 % portada · 3 % introducción · 45 % dos escenarios por integrante · 50 % journey map de equipo) | Se asumían 3 escenarios (uno por perfil) y 3 journey maps. La rúbrica pide **6 escenarios** (2 por integrante) y **un journey map de equipo** que concentra el 50 % | Sin cambio: 5 SP. El delta se absorbió porque los escenarios comparten plantilla y los 4 mapas comparten una única fuente de contenido (`figuras/journey_data.py`) | **Ninguno** | §2.3 (desglose), US-UX-05 (criterios definitivos), §2.5 (estado) |
-| ⏳ Pendiente | A3 — Análisis competitivo y Arquitectura de Información | Revisar Canvas el **lun 3-ago** antes de cualquier trabajo de A3 | — | — | — |
-| ⏳ Pendiente | A4 — Interfaces de alta fidelidad | Revisar Canvas el **lun 10-ago** | — | — | — |
+| 9-ago-2026 | **A3 — Análisis competitivo y Arquitectura de Información** (**20 pts**: 2 % portada · 3 % introducción · 25 % análisis competitivo · 25 % card sorting · 25 % arquitectura de información · 20 % mapa de navegación) | La actividad vale **20 puntos, no 15**. Añade el **mapa de navegación como cuarto ejercicio con peso propio** y evalúa por **cobertura de 26 pasos numerados**, no por profundidad. Permite apoyarse en "usuarios potenciales o personas cercanas" sin exigir un mínimo de participantes humanos | Sin cambio: 4 SP. El delta fue de forma (cada paso identificable por su subtítulo), no de esfuerzo | **Ninguno** | §2.3.b (desglose), US-UX-06 (criterios definitivos y cierre), §2.5 (estado), §22.1.b (consecuencia sobre la validación) |
+| 10-ago-2026 | **A4 — Interfaces de alta fidelidad** (**25 pts**: 2 % portada · 3 % introducción · **50 % prototipos de alta fidelidad, 10 pts c/u con tope de 50** · **45 % guía de estilos, 9 pts por sección con tope de 45**) | Dos deltas. **(1)** La guía de estilos vale **45 %** y era un criterio de tokens dentro de US-UX-07: la rúbrica nombra siete secciones puntuadas. **(2)** Figma y Lunacy **se recomiendan, no se exigen** —ningún criterio de evaluación las menciona—, así que los prototipos se construyen como la aplicación web real. Los topes de 5 y 5 obligan a entregar **7 pantallas y 11 secciones**, porque con cinco justas una pieza en banda "Parcialmente" cuesta puntos irrecuperables | US-UX-07 se mantiene en 5 SP. Nace **US-UX-09** (guía de estilos, 2 SP) por refinamiento formal. Construcción re-itemizada de ~11 a 21 SP. Total S4: **26 SP sobre 29 de capacidad de una persona** | **Ninguno** (ya congelados el 10-ago) | **§26** (contrato ejecutable de S4), §26.1 (recálculo), [`docs/semana_4/plan_excelencia.md`](../docs/semana_4/plan_excelencia.md) |
 | ⏳ Pendiente | A5 — Entrega final | Revisar Canvas el **lun 17-ago** | — | — | — |
 
 ### 25.5 Deuda documental detectada el 29-jul
 
 | # | Hallazgo | Acción |
 |---|----------|--------|
-| 1 | El plan modelaba **3 perfiles**; A1 y A2 trabajan con **8 perfiles de uso** y 4 roles RBAC | Los 4 roles de US-016 no cambian, así que la pista técnica no se toca. El sitemap de A3 y las pantallas de A4 deben cubrir 8 perfiles agrupados en **4 espacios de trabajo**. Registrado en §2.5 |
+| 1 | ~~El plan modelaba **3 perfiles**; A1 y A2 trabajan con **8 perfiles de uso** y 4 roles RBAC~~ **Cerrado el 9-ago** | La arquitectura de información de A3 resolvió los 8 perfiles en **4 categorías de primer nivel** (Inicio · Exploración y extracción · Gobierno del dato · Administración) y el mapa de navegación es el contrato que heredan las 5 interfaces de A4 (US-UX-07) |
 | 2 | A2 promete capacidades que **no existen en el catálogo US-001…036**: consultas guardadas, marca de versión retirada con enlace a la vigente, notificación dirigida por cambio de definición, copiado con procedencia, comparación lado a lado de variables similares y credenciales de API autogestionadas | Un evaluador de A4/A5 puede contrastar las oportunidades del journey contra el prototipo. Dos salidas legítimas: implementar las dos más baratas y de mayor peso narrativo (**marca de versión retirada** y **copiado con procedencia**, ambas atributos del catálogo ya seedeado, ≈1 SP juntas) y declarar el resto como **roadmap** en la tabla de paridad de A4. El silencio no es opción (R10) |
 | 3 | `docs/semana_2/plan_semana_2_excelencia.md` apunta a `docs/documento_proyecto/main.tex`, ruta que ya no existe | La fuente única de entregables es `docs/entregables/` (ver su `README.md`) |
-| 4 | Faltan dos herramientas locales: `gitleaks` (sin él el secrets-scan de `make check` no corre, y es gate obligatorio de PR) y `corepack` en PATH con Node 25 | Instalar `gitleaks` el jue 30-jul con US-001; fijar **Node 22 LTS** en `frontend/Dockerfile` para que las 3 máquinas coincidan |
+| 4 | Faltan dos herramientas locales: `gitleaks` (sin él el secrets-scan de `make check` no corre, y es gate obligatorio de PR) y `corepack` en PATH con Node 25 | ~~Instalar `gitleaks` el jue 30-jul con US-001~~ **Sin efecto al 10-ago:** no hay `Makefile` ni código que escanear. Se resuelve cuando arranque el prototipo navegable; fijar **Node 22 LTS** en ese momento |
+| 5 | **Detectado el 10-ago:** `CLAUDE.md`/`AGENTS.md` documentan `make dev`, `make check`, `make data` y `make db-up` como comandos del proyecto, y ninguno existe | Ya está dicho en §2.6 ("son contrato, todavía no código"), pero conviene repetirlo donde se lee: mientras no exista el `Makefile`, **el QA gate del repo es la revisión cruzada del entregable, no `make check`**. No inventar salidas de comandos que no corren |
+| 6 | **Detectado el 10-ago:** el plan comprometía capturas reales de producto como evidencia en A3 y A4, y esa evidencia no existirá | A3 lo sustituyó por un wireframe declarado como diseño. A4 lo sustituye por el prototipo navegable con su **tabla de alcance de tres estados** (navegable con datos / navegable sin datos / roadmap). La regla en ambos casos es la misma: nunca presentar diseño como producto en funcionamiento |
 
 ---
 
-## Anexo A: Instrumentos de Investigación (borrador) {#anexo-a}
+## 26. Avance 4: Contrato de Ejecución de S4 {#26-avance-4}
+
+### 26.0 Qué es esta sección y qué manda
+
+Esta sección nace de la **absorción de la rúbrica de A4**, publicada y leída el lunes 10-ago-2026
+(protocolo §25.2, registro en §25.4). Contiene las User Stories de S4 **con su alcance recortado
+al de esta semana**, no con el alcance de producción que describen §11–§17.
+
+**Regla de precedencia: durante S4 (lun 10 – dom 16 de agosto), en caso de conflicto entre esta
+sección y §11–§17, manda §26.** Fuera de esa ventana, §11–§17 siguen siendo la definición del
+producto. No se borra nada de las secciones anteriores: se les antepone la referencia, igual que
+se hizo con la nota del 29-jul y con el replanteo del 10-ago.
+
+El desarrollo completo de la semana —lectura literal de la rúbrica, las siete pantallas una por
+una, el sistema de diseño con sus valores, la infraestructura con sus comandos, el plan de
+figuras, el día por día y el checklist final— vive en
+[`docs/semana_4/plan_excelencia.md`](../docs/semana_4/plan_excelencia.md). Esta sección es su
+contraparte ejecutable: qué historia se cierra, con qué criterios y en qué día.
+
+**Los dos hechos que la rúbrica cambió:**
+
+1. **La guía de estilos vale 45 % de los 25 puntos**, casi tanto como los prototipos (50 %).
+   Ninguna US la cubría con ese peso: era un criterio dentro de US-UX-07. Entra como
+   **US-UX-09** por refinamiento formal, con criterios y estimación propios, porque enterrar
+   medio entregable dentro del criterio de otra historia es exactamente el trabajo silencioso que
+   R10 prohíbe.
+2. **Figma y Lunacy se recomiendan, no se exigen.** El texto dice «se recomienda el uso de dos
+   aplicaciones» y ningún criterio de evaluación las menciona. Los prototipos se construyen como
+   **la aplicación web real**, y de ella salen las capturas del documento.
+
+### 26.1 Recálculo de capacidad de S4
+
+El calendario de §19 asumía 15 SP para S4 sobre tres integrantes a ~12 h cada uno (36 h ÷ 2.4 h/SP).
+La ejecución real de esta semana es **de una sola persona a 9–12 h diarias**.
+
+| Concepto | Valor |
+|----------|-------|
+| Horas disponibles lun 10 (media tarde) a dom 16 | ≈ 70 h |
+| Constante del plan | 2.4 h/SP |
+| **Capacidad nominal de S4** | **≈ 29 SP** |
+| Comprometido en §26.2 | **26 SP** |
+| **Holgura** | **3 SP (≈ 10 %)** |
+
+Setenta horas de una persona rinden más que treinta y seis repartidas entre tres, y por eso la
+capacidad nominal sube. Lo que no sube es la tolerancia al error: una persona sola no tiene de
+quién absorber un día perdido, y la holgura del 10 % es delgada. Para eso están las válvulas de
+§26.5, escritas de antemano y en orden.
+
+**Corrección de una estimación previa, que conviene registrar.** La tabla de prioridad invertida
+de §10.2.b estimó el trabajo de construcción en «prototipo navegable 5–7 SP + URL accesible 1–2 SP
++ datos sintéticos mínimos 2 SP», es decir 8–11 SP. Al itemizarlo por US, la suma de construcción
+da **21 SP**. La diferencia no es alcance nuevo: es alcance que la estimación gruesa no veía
+porque trataba «el prototipo» como una sola bolsa. Se corrige aquí y no se disimula.
+
+---
+
+### US-001 — Entorno de desarrollo y esqueleto navegable (alcance S4)
+
+**Como** desarrollador del portal,
+- **quiero** un monorepo que arranque backend, frontend y base de datos con un solo comando, y un esqueleto de Nuxt 4 con las rutas del mapa de A3 ya navegables,
+- **para que** el resto de la semana consista en llenar pantallas y no en pelear con la configuración.
+
+**Criterios de Aceptación (alcance S4):**
+
+- `docker-compose.yml` levanta FastAPI, Nuxt y PostgreSQL con pgvector; `make dev` los arranca.
+- `Makefile` con los objetivos que `CLAUDE.md`/`AGENTS.md` ya documentan como contrato: `dev`, `lint`, `test`, `data`, `db-new`, `db-up`, `db-rollback`. Sin `$(shell ...)` evaluado en tiempo de parseo.
+- Nuxt 4 con **estructura `app/`**; la estructura de Nuxt 3 es motivo de rechazo.
+- Las **ocho rutas del contrato de navegación** existen y responden: `/acceso`, `/inicio`, `/exploracion`, `/exploracion/tableros`, `/exploracion/exportar`, `/gobierno`, `/asistente`, `/administracion`.
+- Ruta `/` con el **índice de siete botones**, cada uno con su etiqueta de alcance.
+- Barra lateral fija de dos niveles con estado activo y segundo nivel desplegado solo del módulo en uso (revelación progresiva, tal como el mapa de A3 la dejó).
+- Franja de aviso de alcance visible en **todas** las rutas, no solo en el índice.
+
+**Tareas técnicas:**
+
+- [ ] `Makefile` y `docker-compose.yml` en la raíz
+- [ ] `frontend/` con Nuxt 4, `app/`, Tailwind v4 y `nuxt.config.ts`
+- [ ] `backend/` con FastAPI mínimo y `/health`
+- [ ] Layout con barra lateral de dos niveles y franja de alcance
+- [ ] Las ocho rutas y el índice de siete botones
+- [ ] Rama `feature/UX-US-UX-07-alta-fidelidad`
+
+**Estimación:** 1 punto. **Día:** lun 10. **Estado esperado al cierre:** cerrada.
+
+---
+
+### US-002 — Dependencias reproducibles y esqueleto de migraciones (alcance S4)
+
+**Como** desarrollador,
+- **quiero** las dependencias de Python y de Node fijadas y reproducibles, y dbmate listo para crear migraciones,
+- **para que** el entorno del martes sea el mismo del domingo y el esquema tenga una única vía de cambio.
+
+**Criterios de Aceptación (alcance S4):**
+
+- `backend/pyproject.toml` con Poetry y `poetry.lock` versionado. Nunca `pip` ad-hoc.
+- `frontend/package.json` con **`packageManager` fijando pnpm por Corepack** y `pnpm-lock.yaml` versionado. Nunca npm ni yarn.
+- **Node 22 LTS fijado**, no el 25 instalado localmente, que no es LTS.
+- `db/migrations/` creado y `dbmate` operando contra el PostgreSQL del compose.
+- `.env.example` con las tres variables sin las que la aplicación no arranca: `DATABASE_URL`, `JWT_SECRET_KEY`, `GEMINI_API_KEY`.
+- `gitleaks` instalado localmente, que es lo que faltaba para que el secrets-scan corra (§25.5-4).
+
+**Fuera de alcance esta semana:** GitHub Actions (US-004). El QA gate sigue siendo la revisión cruzada, como fija §25.5-5.
+
+**Tareas técnicas:**
+
+- [ ] `poetry init` y dependencias del backend
+- [ ] `pnpm init` con `packageManager` y Node 22 en `.nvmrc`
+- [ ] `dbmate` verificado contra el compose
+- [ ] `.env.example` y confirmación de que el backend **no arranca** sin las tres variables
+- [ ] Instalar `gitleaks`
+
+**Estimación:** 0.5 puntos. **Día:** lun 10. **Estado esperado al cierre:** cerrada degradada (sin CI).
+
+---
+
+### US-UX-09 — Guía de estilos del producto digital (A4) *(nueva, refinamiento formal del 10-ago)*
+
+**Como** equipo de diseño,
+- **quiero** una guía de estilos completa del producto, generada desde la misma fuente que la interfaz,
+- **para que** el 45 % de la calificación de A4 quede cubierto y el documento no pueda contradecir a la aplicación.
+
+**Por qué es una US nueva.** La rúbrica de A4 puntúa la guía de estilos a 9 puntos por sección con
+tope de 45, y nombra siete secciones. En el catálogo vigente esto era un criterio dentro de
+US-UX-07 redactado como «tokens de color, tipografía, espaciado, estados». Con ese peso deja de
+ser un criterio y pasa a ser un entregable. Entra por la vía que §18 exige para todo alcance
+nuevo: US numerada, con criterios, estimación y sprint.
+
+**Criterios de Aceptación:**
+
+- **Las siete secciones que la rúbrica puntúa**, cada una identificable por su propio subtítulo:
+  identidad de la marca · tipografía · paleta de colores · componentes gráficos de la interface ·
+  iconografía · conclusiones generales del reporte · referencias bibliográficas.
+- **Cuatro secciones adicionales** que la rúbrica menciona en su Sección 2 sin puntuarlas
+  explícitamente: imágenes e ilustraciones · retícula y espaciado · microinteracciones y
+  animaciones · accesibilidad · voz y tono · documentación y control de versiones.
+- **Paleta de cuatro familias × cinco tonos** con hex a la vista, ancladas en los colores ya
+  versionados de `docs/entregables/estilo/uxdoc.sty`, más neutros, semánticos y una **paleta
+  categórica de series de gráfica** distinta de la de marca.
+- **Matriz de contraste WCAG verificada por script**, no a ojo, con las reglas que se derivan de
+  ella escritas como reglas (el ámbar `#F97316` nunca lleva texto blanco: 2.6:1).
+- **Matriz de botones de 3 variantes × 5 estados**, más variante destructiva y estado de carga,
+  frente a las 9 celdas del material de referencia del curso.
+- **Un solo script, `generar_tokens_a4.py`**, emite el bloque `@theme` de Tailwind, la matriz de
+  contraste y las láminas del documento. La aplicación y el PDF no pueden divergir porque salen
+  del mismo archivo.
+- **Ruta `/guia`** en la propia aplicación que renderiza el sistema de diseño vivo. Las láminas de
+  componentes se capturan de ahí, no se dibujan.
+- Guía versionada como **v1.0, 16-ago-2026**, con bitácora de cambios y su política de
+  actualización.
+
+**Tareas técnicas:**
+
+- [ ] `generar_tokens_a4.py`: leer paleta de `uxdoc.sty`, emitir `@theme`, matriz de contraste y láminas
+- [ ] Escribir el bloque `@theme` en `frontend/app/assets/css/main.css`
+- [ ] Ruta `/guia` con paleta, tipografía, botones, campos, chips, tablas, tarjetas e iconos
+- [ ] Redactar las once secciones en `contenido/a4_03_guia_estilos.tex`
+- [ ] Verificar que ningún color del documento esté escrito a mano
+
+**Estimación:** 2 puntos. **Día:** lun 10 (tokens y `/guia`), sáb 15 (redacción). **Responsable líder:** Arthur. **Sprint:** S4.
+
+---
+
+### US-003 — Despliegue serverless en GCP (alcance S4: puente `gcloud run deploy`)
+
+**Como** equipo,
+- **quiero** el prototipo accesible por una dirección pública desde el segundo día de la semana,
+- **para que** el reclutamiento de participantes de A5 pueda empezar ya y no el lunes 17.
+
+**Criterios de Aceptación (alcance S4):**
+
+- Proyecto **`tareas-computo-nube`** (número 403109840468), facturación `014738-BE619E-7D4F64`,
+  región **`us-central1`**. El proyecto `karisma-data` existe sin facturación y **no se usa**.
+- **Dos servicios Cloud Run**: `karisma-api` y `karisma-web`, ambos con `min-instances 0`,
+  `max-instances 3`, 512 MiB y concurrencia 80.
+- **Cloud SQL `karisma-pg`**: PostgreSQL 15, edición Enterprise, `db-f1-micro`, zonal, 10 GB HDD
+  sin crecimiento automático, sin respaldos. Conectada desde Cloud Run con
+  `--add-cloudsql-instances`, **sin conector de acceso VPC serverless**, que costaría más que la
+  propia base.
+- **El navegador solo habla con el frontend**: las rutas `/api/**` se proxyean desde Nitro. Sin
+  CORS, cookie `httpOnly` del mismo sitio, y `karisma-api` desplegado con
+  `--no-allow-unauthenticated`. **Salida documentada** si esto excede 45 minutos: backend público
+  con JWT obligatorio en todo endpoint de datos, y el cierre por IAM pasa a S5. Se declara la
+  elección tomada, no se insinúa.
+- Artifact Registry con política de limpieza a 3 etiquetas; Secret Manager con `DATABASE_URL` y
+  `JWT_SECRET_KEY`.
+- **Tres alertas de presupuesto**: 22.50, 36 y 45 USD. El costo proyectado es ≈ 10–14 USD/mes y
+  los créditos gratuitos lo absorben; las alertas se ponen igual, porque un crédito que se agota
+  sin aviso deja el prototipo caído en mitad de la semana del SUS.
+
+**Fuera de alcance:** Terraform. Sigue congelado, como fijó el recorte #9.
+
+**Tareas técnicas:**
+
+- [ ] Habilitar `run`, `sqladmin`, `artifactregistry`, `secretmanager`, `cloudbuild`
+- [ ] Artifact Registry `karisma` con política de limpieza
+- [ ] Cloud SQL `karisma-pg` con los flags de arriba
+- [ ] Secret Manager y `Dockerfile` multi-etapa de ambos servicios
+- [ ] Primer despliegue de los dos servicios y verificación de la dirección pública
+- [ ] Tres alertas de presupuesto
+
+**Estimación:** 1 punto. **Día:** mar 11, mañana, con **tope duro de 3 horas**. **Estado esperado al cierre:** cerrada degradada.
+
+---
+
+### US-006 — Silos sintéticos mínimos creíbles (alcance S4)
+
+**Como** evaluador del prototipo,
+- **quiero** que cada pantalla tenga datos que se comporten como los de una institución financiera,
+- **para que** la evaluación mida el diseño y no la ausencia de contenido.
+
+**Criterios de Aceptación (alcance S4):**
+
+- **Semilla fija `20260720`** en Polars, Faker y numpy. `make data` reproduce byte a byte.
+- Tres silos —créditos, liquidez y derivados— con **volúmenes recortados**: lo suficiente para que
+  las tablas paginen, los filtros filtren y el preagregado tenga de dónde salir. No hay razón para
+  generar cinco millones de filas que nadie va a mirar.
+- **Esquemas deliberadamente crípticos y heterogéneos** entre silos (`cli_ref`, `id_cliente`,
+  `ctpty_cd` para la misma entidad), porque ese es el problema que el portal resuelve y la
+  pantalla debe poder mostrarlo.
+- **~0.1 % de anomalías inyectadas** y documentadas en `data/README.md`, para que la vista de
+  calidad de datos tenga algo real que reportar.
+- **Serie preagregada de 500 000 puntos** lista para el tablero.
+
+**Tareas técnicas:**
+
+- [ ] `ml/data/generators.py` con la semilla y los tres silos
+- [ ] Inyección de anomalías y `data/README.md`
+- [ ] Preagregado server-side de la serie del tablero
+- [ ] Objetivo `make data`
+
+**Estimación:** 1.5 puntos. **Día:** mar 11. **Estado esperado al cierre:** cerrada degradada.
+
+---
+
+### US-015 — Autenticación JWT y acceso (alcance S4)
+
+**Como** usuario del portal,
+- **quiero** entrar con mis credenciales y que la sesión determine lo que veo,
+- **para que** cada espacio de trabajo se muestre con el rol que le corresponde.
+
+**Criterios de Aceptación (alcance S4):**
+
+- `POST /api/auth/token` con **PyJWT HS256**, `SECRET_KEY` de 32 bytes y expiración de 30 minutos.
+- Contraseñas con **pwdlib Argon2**. Los 7 usuarios sembrados llevan la contraseña **prehasheada
+  en la migración**, nunca en texto plano en el SQL.
+- El JWT vive **solo en cookie `httpOnly`**, establecida por el proxy de Nitro. El cliente nunca
+  lo lee; consulta `/api/auth/me`.
+- Error 401 con mensaje neutro («Credenciales incorrectas»), sin revelar si el usuario existe.
+- Expiración con **re-login limpio**. Sin refresh token: decisión de alcance cerrada por R11.
+- **Selector de perfil de demostración** en la pantalla de acceso, con los cuatro roles y su propia
+  etiqueta: *acceso de demostración, habilitado únicamente en este prototipo*.
+
+**Tareas técnicas:**
+
+- [ ] `backend/app/core/auth.py` y el endpoint del token
+- [ ] Migración `create_app_user` con los 7 usuarios y Argon2
+- [ ] Proxy de Nitro que establece la cookie
+- [ ] Pantalla `/acceso` con sus cinco estados
+- [ ] Selector de demostración con su etiqueta
+
+**Estimación:** 1.5 puntos. **Día:** mar 11. **Estado esperado al cierre:** cerrada.
+
+---
+
+### US-016 — Autorización RBAC por scopes (alcance S4)
+
+**Como** responsable del gobierno del dato,
+- **quiero** que cada endpoint declare qué permiso exige,
+- **para que** ningún usuario —ni el agente actuando en su nombre— acceda a datos que no le corresponden.
+
+**Criterios de Aceptación (alcance S4):**
+
+- Roles como scopes en el JWT: `operativo`, `analista`, `directivo`, `admin`.
+- **Todo endpoint de datos** con `Security(get_current_user, scopes=[...])`.
+- **401 sin token o con token inválido**, con cabecera `WWW-Authenticate: Bearer`. **403
+  autenticado sin permiso.**
+- Matriz de permisos: catálogo para todos los autenticados · consultas puntuales operativo+ ·
+  agregaciones, cruces y export analista+ · resúmenes directivos directivo+ · gestión de usuarios
+  solo admin.
+- **`docs/security.md` escrito**, que es el gate del 6-ago que sigue vencido y sin cumplir.
+
+**Tareas técnicas:**
+
+- [ ] `get_current_user` con `SecurityScopes`
+- [ ] Aplicar `Security(...)` a todos los endpoints de datos
+- [ ] Redactar `docs/security.md` con la matriz
+- [ ] Verificación manual de 401 y 403 por rol
+
+**Estimación:** 1 punto. **Día:** mar 11. **Estado esperado al cierre:** cerrada.
+
+---
+
+### US-008 — Catálogo semántico por palabra clave (alcance S4)
+
+**Como** Laura Méndez, perfil de consulta operativa,
+- **quiero** encontrar una fuente escribiendo cómo la llamo yo, no como la llama el sistema de origen,
+- **para que** validar una cifra deje de costarme correos y esperas.
+
+**Criterios de Aceptación (alcance S4):**
+
+- `GET /api/catalog/search` con búsqueda **por palabra clave** (ILIKE o tsvector). La búsqueda
+  híbrida con pgvector sigue diferida por el recorte #1.
+- Catálogo sembrado con **200 a 400 entradas** y **~30 notas de conocimiento tribal**.
+- Cada resultado devuelve fuente, definición, propietario, fecha de vigencia y facetas, que es lo
+  que alimenta el panel de metadatos.
+- La migración `enable_pgvector` **sí se aplica** esta semana, aunque la búsqueda no la use: deja
+  el esquema listo y evita una migración más en S5.
+
+**Tareas técnicas:**
+
+- [ ] Migración `create_catalog` con índice tsvector
+- [ ] Migración `enable_pgvector`
+- [ ] `ml/data/seed_catalog.py` con las entradas y las notas tribales
+- [ ] Endpoint de búsqueda y su respuesta Pydantic
+
+**Estimación:** 1 punto. **Día:** mar 11. **Estado esperado al cierre:** cerrada degradada.
+
+---
+
+### US-017 — Guarda de sesión y ocultamiento por rol (alcance S4)
+
+**Como** usuario,
+- **quiero** ver solo los módulos que mi rol puede usar,
+- **para que** la interfaz no me ofrezca puertas que se van a cerrar en mi cara.
+
+**Criterios de Aceptación (alcance S4):**
+
+- Middleware global de Nuxt que valida la sesión y redirige a `/acceso` sin ella.
+- Los módulos sin permiso **no se muestran** en la barra lateral; no basta con deshabilitarlos.
+- Acceso directo por URL a una ruta sin permiso devuelve el estado **«sin permiso»** diseñado, con
+  indicación de a quién solicitar el acceso y **sin botón de reintento**.
+- Expiración de sesión con re-login limpio, sin pantalla en blanco.
+
+**Tareas técnicas:**
+
+- [ ] `app/middleware/auth.global.ts`
+- [ ] Composable `useSession` con visibilidad de módulos por scope
+- [ ] Estado «sin permiso» como componente reutilizable
+
+**Estimación:** 0.5 puntos. **Día:** mié 12. **Estado esperado al cierre:** cerrada.
+
+---
+
+### US-027 — Espacios de trabajo por rol (alcance S4)
+
+**Como** cada uno de los ocho perfiles de A1,
+- **quiero** que la pantalla de inicio me presente primero lo que uso,
+- **para que** no tenga que recorrer la interfaz de otro para llegar a la mía.
+
+**Criterios de Aceptación (alcance S4):**
+
+- **Tres composiciones distintas de `/inicio`**: operativo con el buscador dominante; analista con
+  explorador y exportaciones recientes; directivo con tres tarjetas de indicador primero y el
+  buscador reducido. El administrador entra a `/administracion`.
+- Los 8 perfiles de A1 quedan cubiertos por los 4 espacios, con la tabla de correspondencia
+  documentada.
+- Fundamento empírico citado en el documento: **sin consenso experto sobre «buen layout» (kappa
+  0.25 sobre 20 diseñadores y 600 interfaces)**, se parte de defaults por rol en vez de una vista
+  única.
+
+**Fuera de alcance:** reordenamiento por arrastre persistido, que es STRETCH y sigue congelado.
+
+**Tareas técnicas:**
+
+- [ ] Las tres composiciones de `/inicio`
+- [ ] Búsquedas recientes, favoritos y alertas con datos de ejemplo
+- [ ] Tabla perfil → espacio → pantalla principal para el documento
+
+**Estimación:** 1 punto. **Día:** mié 12. **Estado esperado al cierre:** cerrada.
+
+---
+
+### US-025 — Tablero de alto rendimiento (alcance S4: 500 K preagregados)
+
+**Como** Arturo Castañeda, perfil de supervisión directiva,
+- **quiero** recorrer una serie larga sin que la interfaz se atasque,
+- **para que** pueda mirar el comportamiento completo y no una muestra recortada.
+
+**Criterios de Aceptación (alcance S4):**
+
+- Serie de **500 000 puntos preagregados server-side con Polars**, que es la degradación acordada
+  frente al millón original y **se declara como tal en el documento**, no se disfraza.
+- Apache ECharts vía `vue-echarts` como **`<LazyVChart/>`**, con importaciones modulares de
+  `echarts/core`, `sampling: 'lttb'` y `large: true`.
+- **Pan y zoom sin saltos perceptibles.** Medición de fluidez registrada.
+- Las interacciones de drill-down **emiten al store Pinia `workspace`**, que es la base del estado
+  compartido con el chat.
+- Toda gráfica lleva **alternativa en tabla** y **resumen textual** para lector de pantalla, y usa
+  la paleta categórica con forma de marcador y patrón de línea propios, para que la información no
+  dependa del color.
+
+**Tareas técnicas:**
+
+- [ ] Endpoint de serie preagregada
+- [ ] `LazyVChart` con importaciones modulares
+- [ ] Store `workspace` y emisión de drill-down
+- [ ] Tabla alternativa y resumen textual
+- [ ] Medición de fluidez
+
+**Estimación:** 2 puntos. **Día:** mié 12. **Estado esperado al cierre:** cerrada degradada.
+
+---
+
+### US-026 — Revelación progresiva y tarjetas predictivas (alcance S4)
+
+**Como** perfil directivo,
+- **quiero** entender el estado global de un vistazo y poder bajar al detalle cuando algo me llame la atención,
+- **para que** la profundidad esté disponible sin estar impuesta.
+
+**Criterios de Aceptación (alcance S4):**
+
+- **Tres tarjetas predictivas** con proyección estática, cada una con **etiqueta de método
+  visible**: por ejemplo «Riesgo de liquidez +12 % el próximo mes — proyección lineal sobre datos
+  sintéticos». **No se finge aprendizaje automático** (honestidad de demo).
+- **Drill-down de tres niveles en dos clics como máximo**: tarjeta → panel expandible con la serie
+  → tabla de detalle → enlace al explorador.
+- Estados de carga con **skeleton y sin desplazamiento de maquetación**, y vacíos diseñados.
+
+**Válvula:** si el reloj aprieta, el drill-down baja a dos niveles. Es la segunda válvula de §26.5.
+
+**Tareas técnicas:**
+
+- [ ] Las tres tarjetas con su etiqueta de método
+- [ ] Los tres niveles de revelación
+- [ ] Skeleton con dimensiones reservadas
+
+**Estimación:** 1 punto. **Día:** mié 12. **Estado esperado al cierre:** cerrada.
+
+---
+
+### US-029 — Overlay de linaje explicable (alcance S4)
+
+**Como** Roberto Valdez, propietario del dato,
+- **quiero** ver de dónde viene una cifra sin salir de donde estoy,
+- **para que** pueda responder por ella sin abrir otro sistema.
+
+**Criterios de Aceptación (alcance S4):**
+
+- Al expandir un campo, un panel superpuesto muestra el **recorrido del dato desde su sistema de
+  origen** hasta la cifra visible, con las transformaciones intermedias, el propietario y la fecha
+  de vigencia.
+- **El overlay no altera el flujo de lectura**: se despliega bajo demanda, se cierra y la pantalla
+  queda como estaba.
+- Foco atrapado mientras está abierto, cierre con `Esc` y con clic fuera, foco devuelto al
+  disparador.
+- **Estado compartido tablero↔chat con payload estático** (degradación del recorte #12): los
+  filtros activos viajan como contexto a `/asistente`, pero el agente no muta el tablero.
+
+**Tareas técnicas:**
+
+- [ ] Componente de overlay con su gestión de foco
+- [ ] Datos de linaje en el catálogo sembrado
+- [ ] Paso de filtros del tablero al contexto del asistente
+
+**Estimación:** 1 punto. **Día:** jue 13. **Estado esperado al cierre:** cerrada degradada.
+
+---
+
+### US-018 / US-019 — Administración de usuarios (alcance S4: degradación acordada)
+
+**Como** Mariana Ovalle Ríos, perfil de administración de la plataforma,
+- **quiero** dar de alta, cambiar de rol y desactivar usuarios,
+- **para que** el gobierno del acceso sea demostrable y no una promesa.
+
+**Criterios de Aceptación (alcance S4):**
+
+- **Listar, cambiar rol y desactivar.** Sin formulario de edición completa: es la degradación
+  acordada de antemano en §10.2 y el recorte #5.
+- **Desactivación por borrado lógico** (`disabled = true`), nunca `DELETE` físico.
+- **Un administrador no puede desactivarse a sí mismo.**
+- Las acciones destructivas usan el color semántico destructivo, están **separadas espacialmente**
+  de las acciones normales y piden confirmación explícita.
+- Nunca se renderiza ni se registra `hashed_password`.
+- Estados de carga, vacío y error consistentes con el sistema de diseño de US-UX-09.
+
+**Tareas técnicas:**
+
+- [ ] Endpoints de listar, cambiar rol y desactivar con scope `admin`
+- [ ] Tabla de usuarios con badges de rol y de estado
+- [ ] Modal de confirmación y protección del propio administrador
+- [ ] Bitácora de accesos con el acceso cruzado desde `/gobierno`
+
+**Estimación:** 1 punto. **Día:** jue 13. **Estado esperado al cierre:** cerrada degradada.
+
+---
+
+### US-009 — Exportación en segundo plano (alcance S4: flujo completo, fachada de infraestructura)
+
+**Como** Diego Hernández, perfil de análisis de datos,
+- **quiero** pedir una extracción grande y seguir trabajando mientras se procesa,
+- **para que** la espera deje de bloquear mi jornada.
+
+**Criterios de Aceptación (alcance S4):**
+
+- `POST /api/export` devuelve **`job_id` de inmediato**; el trabajo corre en `BackgroundTasks`.
+- **La interfaz nunca se bloquea.** El estado del trabajo se consulta desde cualquier pantalla.
+- Historial de exportaciones con **enlace firmado y caducidad de 24 horas**.
+- Los tres momentos del flujo —solicitud, trabajo en curso, enlace— son navegables y capturables
+  por separado, porque el valor de esta pantalla está en el tiempo y eso es justo lo que un
+  archivo de diseño representa mal.
+
+**Fuera de alcance:** política de ciclo de vida del bucket y auditoría de duración (recorte #3).
+
+**Tareas técnicas:**
+
+- [ ] Migración `create_export_job`
+- [ ] Endpoint con `BackgroundTasks` y consulta de estado
+- [ ] Pantalla `/exploracion/exportar` con los tres momentos
+- [ ] Bucket con enlace firmado
+
+**Estimación:** 1 punto. **Día:** jue 13. **Estado esperado al cierre:** demostrada en prototipo.
+
+---
+
+### US-023 — Streaming SSE y cancelación real (alcance S4: transporte real, contenido guionizado)
+
+**Como** cualquiera de los tres perfiles de consulta,
+- **quiero** ver la respuesta formarse y poder detenerla cuando ya vi lo que buscaba,
+- **para que** la espera sea legible y no un reloj de arena.
+
+**Criterios de Aceptación (alcance S4):**
+
+- `/api/chat` emite **Server-Sent Events reales** desde un generador asíncrono de FastAPI, con
+  cuatro eventos tipados: `tool_call`, `token`, `error`, `done`.
+- **El contenido es determinista y guionizado**, y así se etiqueta en pantalla y en el documento.
+  Lo real —y lo que importa demostrar— es el transporte, el orden de los eventos y la cancelación.
+- **Botón «Detener» visible durante toda la generación.** Al pulsarlo el cliente aborta la
+  petición, el backend detecta la desconexión y **cancela el generador de verdad**, dejando
+  registro del evento. La prueba se documenta con una captura del registro del servidor.
+- **La cancelación a mitad de stream no deja tareas colgadas.**
+- La tarjeta de tool call **se emite antes de esperar datos**, para que el progreso se perciba.
+- **Regla anti-alucinación, que aplica aunque el contenido sea guionizado:** toda cifra procede de
+  una tarjeta de tool call visible y cita su fuente del catálogo. Sin tarjeta, no hay número.
+- El contrato de eventos se diseña para que **enchufar Gemini detrás cueste una hora, no un día**.
+
+**Go/no-go del sáb 15 a las 12:00.** Si el andamiaje está verde y sobran horas, Gemini 3.5
+Flash-Lite se conecta detrás del mismo contrato sin tocar el cliente, y entonces US-020 y US-021
+dejan de ser roadmap. Si no, se entrega guionizado y **se declara**.
+
+**Tareas técnicas:**
+
+- [ ] Generador asíncrono con los cuatro eventos
+- [ ] Detección de desconexión y cancelación del generador
+- [ ] Composable `useChatStream` con `AbortController`
+- [ ] Guion determinista de tres conversaciones de ejemplo
+- [ ] Captura del registro que prueba la cancelación
+
+**Estimación:** 2 puntos. **Día:** vie 14. **Estado esperado al cierre:** demostrada en prototipo.
+
+---
+
+### US-024 — Error tipado en el stream (alcance S4)
+
+**Como** usuario del asistente,
+- **quiero** saber qué paso falló cuando algo se rompe a mitad de una respuesta,
+- **para que** pueda decidir si reintentar o pedir un permiso.
+
+**Criterios de Aceptación (alcance S4):**
+
+- Evento `error` **tipado**, que dice qué paso falló y no solo que falló.
+- **Distingue error recuperable de error de permiso**: un 403 muestra mensaje de rol insuficiente y
+  **no ofrece reintento**.
+- El historial de la conversación **no se borra** cuando llega un error.
+
+**Fuera de alcance:** botón «Reintentar». Es el recorte #4, acordado por escrito.
+
+**Tareas técnicas:**
+
+- [ ] Tipado del evento `error` y su emisión desde el generador
+- [ ] Tarjeta de tool call en su cuarto estado
+- [ ] Diferenciación visual de error recuperable y error de permiso
+
+**Estimación:** 0.5 puntos. **Día:** vie 14. **Estado esperado al cierre:** cerrada degradada.
+
+---
+
+### US-028 — Tarjetas de visibilidad de tool call (alcance S4)
+
+**Como** cualquier usuario que reciba una cifra del asistente,
+- **quiero** ver qué consultó antes de leer lo que me dice,
+- **para que** pueda auditar la respuesta en lugar de creerla.
+
+**Este es el criterio que no se puede simular en un archivo de diseño**, y por eso nunca entró en
+ninguna lista de recortes.
+
+**Criterios de Aceptación (alcance S4):**
+
+- **Cuatro estados de la tarjeta**, en secuencia dentro de la conversación y como galería en la
+  guía de estilos:
+  1. **Anuncio** — «Consultando base de liquidez…», antes de tener el dato.
+  2. **Ejecución** — indicador de progreso y tiempo transcurrido.
+  3. **Resultado** — mini-tabla o cifra **antes del texto generado**, con la fuente citada.
+  4. **Error** — qué paso falló y qué hacer.
+- Los eventos `tool_call` alimentan las tarjetas **sin volver a renderizar el historial completo**.
+- Anatomía completa documentada: icono de herramienta, nombre legible de la operación, tiempo,
+  resultado plegable y cita de fuente.
+
+**Válvula:** los cuatro estados se muestran como galería en lugar de secuencia animada. Es la
+primera válvula de §26.5, y la más barata.
+
+**Tareas técnicas:**
+
+- [ ] Componente `ToolCallCard` con sus cuatro estados
+- [ ] Consumo de eventos sin re-render del historial
+- [ ] Galería de los cuatro estados en `/guia`
+
+**Estimación:** 1.5 puntos. **Día:** vie 14. **Estado esperado al cierre:** cerrada.
+
+---
+
+### US-UX-07 — Interfaces de alta fidelidad (A4) — **criterios reescritos el 10-ago**
+
+> Los criterios provisionales de §11 se conservan como registro de lo que se asumió el 22-jul.
+> **Los vigentes son estos.**
+
+**Como** equipo de diseño,
+- **quiero** siete pantallas de alta fidelidad construidas en el stack del producto, desplegadas y recorribles, con su alcance declarado sin ambigüedad,
+- **para que** la entrega de A4 muestre el producto y no una representación de él, y para que A5 tenga sobre qué correr la prueba SUS.
+
+**Criterios de Aceptación (vigentes):**
+
+1. **Siete prototipos de alta fidelidad**, navegables y desplegados: acceso · inicio · exploración
+   y extracción (con la rama 2.4 y el drill-down) · gobierno del dato (con el overlay de linaje) ·
+   asistente conversacional (con los 4 estados y el Stop) · administración · exportación. La
+   rúbrica alcanza su tope con cinco; se entregan siete porque una pantalla juzgada
+   «Parcialmente» con solo cinco cuesta puntos que ningún otro apartado recupera.
+2. **Sistema de diseño con fuente única**, cubierto por US-UX-09. Derivación en un solo sentido:
+   `uxdoc.sty` → `@theme` de Tailwind → interfaz → capturas → PDF. **Nada fluye hacia atrás.**
+3. **Cada ruta anclada a una rama del mapa de navegación de A3.** Ninguna rama sin ruta, ninguna
+   ruta sin rama; se verifica con una tabla de dos columnas. Las **nueve facetas transversales**
+   se resuelven como accesos cruzados, no como duplicados de contenido.
+4. **Los cuatro estados no felices diseñados** en cada pantalla: vacío, cargando sin desplazamiento
+   de maquetación, error, sin permiso.
+5. **Tabla de alcance de tres estados** por pantalla —*navegable con datos de ejemplo* ·
+   *navegable sin datos* · *roadmap*—, que **sustituye a la tabla de paridad** del criterio 3
+   original: con un solo artefacto no hay dos lados que comparar. Incluye las seis capacidades que
+   A2 prometió y el catálogo no cubre (§25.5-2) y las US-037…041. **El silencio sobre ellas es lo
+   único que no funciona.**
+6. **Pre-validación con los 8 evaluadores prototipo sobre capturas reales del prototipo, no sobre
+   mockups**, con **al menos una iteración documentada como hallazgo → cambio → versión**, con el
+   antes y el después lado a lado. Sin la captura del antes, la iteración no es verificable y no
+   cuenta. Dos tareas se heredan de la prueba de árbol de A3: repetir la tarea del indicador de
+   riesgo sobre la arquitectura revisada, y medir si el acceso cruzado a la bitácora reduce el
+   titubeo de la tarea de autorización.
+7. **Nota de herramienta** en la introducción del documento, que justifica construir en web frente
+   a las dos aplicaciones que la rúbrica recomienda, anclada a los cuatro requisitos que la propia
+   rúbrica pone a un prototipo de alta fidelidad y al objetivo OEA 2.2.
+8. **PDF entregado como `Entregable Actividad 4_equipo_8.pdf`** antes del dom 16-ago 23:59, con
+   portada de los tres integrantes.
+
+**Tareas técnicas:**
+
+- [ ] Guion de capturas con Playwright a viewport fijo, reproducible
+- [ ] `main_a4.tex` y `contenido/a4_00` a `a4_07`
+- [ ] Portadilla `\uxparte{IV}` en `main_completo.tex` y actualización de «Sobre este documento»
+- [ ] Tabla ruta ↔ rama y tabla de alcance de tres estados
+- [ ] Pre-validación, iteración y recaptura de las pantallas afectadas
+- [ ] Compilar, revisión cruzada y subir a Canvas
+
+**Estimación:** 5 puntos. **Días:** sáb 15 y dom 16. **Estado esperado al cierre:** cerrada.
+
+---
+
+### 26.3 Estado de todas las US al cierre de S4
+
+Cuatro estados. Esta tabla es la que alimenta directamente la tabla de alcance del PDF, así que
+**ninguna US puede quedar sin declarar**.
+
+| Estado | US |
+|--------|----|
+| **Cerrada** | US-001, US-015, US-016, US-017, US-026, US-027, US-028, US-UX-07, US-UX-09 |
+| **Cerrada degradada** | US-002 (sin CI) · US-003 (puente, sin Terraform) · US-006 (volúmenes recortados) · US-008 (solo palabra clave) · US-018/019 (sin edición completa) · US-024 (sin Reintentar) · US-025 (500 K) · US-029 (estado compartido estático) |
+| **Demostrada en prototipo, no productiva** | US-009 (exportación) · US-023 (contenido guionizado) |
+| **Roadmap declarado en el documento** | US-011 completa · US-020 y US-021 (agente ADK real, salvo que el go/no-go del sábado salga verde) · US-037 a US-041 · las seis capacidades de §25.5-2 |
+| **Congeladas, sin cambio** | US-012, US-013, US-014, US-022, US-035, US-036 y todos los bloques `+N STRETCH` |
+| **De S5, no se tocan** | US-004, US-005, US-030, US-031, US-032, US-033, US-034, US-UX-08 |
+
+### 26.4 Gates de S4, con hora
+
+| Cuándo | Gate | Si falla |
+|--------|------|----------|
+| **Mar 11, 12:00** | **Dirección pública viva** con los dos servicios desplegados | Es la mitigación con fecha de R14. Sin URL el martes, el reclutamiento de A5 se retrasa una semana y el riesgo se vuelve estructural |
+| **Vie 14, 12:00** | Decisión sobre el alcance de la prueba SUS de A5 | Se decide con lo que haya; no se pospone al lunes |
+| **Vie 14, 20:00** | **Congelamiento.** Ninguna pantalla se toca salvo por la iteración del sábado | Sin congelamiento no hay capturas estables y la pre-validación corre sobre un blanco móvil |
+| **Sáb 15, 12:00** | Go/no-go de Gemini real | Si es no, se declara guionizado y se sigue. No se negocia después |
+| **Dom 16, 20:00** | **Entrega en Canvas** | Margen de 3h59 contra el cierre de las 23:59 |
+
+### 26.5 Válvulas de S4, en orden, y los no negociables
+
+Se aplican **en este orden** y solo cuando el reloj obligue:
+
+1. Los cuatro estados de la tarjeta de tool call se muestran como **galería** en lugar de secuencia animada.
+2. El drill-down del tablero baja de **tres niveles a dos**.
+3. **Administración** se entrega en un solo nivel.
+4. La pantalla de **exportación sale del set** y quedan seis prototipos.
+
+**No negociables**, porque son lo que ninguna otra evidencia sustituye:
+
+- Las **cinco interfaces de la arquitectura** de A3, navegables.
+- La **iteración documentada** de pre-validación.
+- La **guía de estilos completa** con sus siete secciones puntuadas, que vale 45 %.
+
+### 26.6 Lo que S4 deja fuera, con nombre y razón
+
+El silencio es lo único que no funciona, así que queda escrito:
+
+| Fuera de S4 | Razón |
+|-------------|-------|
+| **US-011 completa** (10 consultas de referencia) | La versión mínima que alimenta las pantallas sí está. El resto no cambia ninguna banda de la rúbrica |
+| **US-020 y US-021** (agente ADK con Gemini real) | El spike «hello tool» nunca se corrió. Se declara roadmap, salvo que el go/no-go del sábado salga verde |
+| **US-004** (GitHub Actions) | El QA gate de esta semana es la revisión cruzada (§25.5-5). Un pipeline sin tests que correr no aporta |
+| **Terraform más allá del puente** | Recorte #9, ya acordado |
+| **US-012, US-013, US-014, US-022, US-035, US-036** | Congeladas desde el 29-jul y el 10-ago |
+| **US-030 a US-034** | Son de S5: observabilidad, TTFT, costo y pase a producción |
+| **Modo oscuro** | Un modo oscuro mal contrastado resta más de lo que suma, y la semana no da para verificar dos paletas. Queda en el roadmap de la guía de estilos |
+
+---
 
 ### A.1 Encuesta (Google Forms, ~7 min, anónima)
 
@@ -2013,6 +2841,8 @@ Seed del set de evaluación (STRETCH S5, US-035) y guion de la demo:
 
 **FIN DEL DOCUMENTO**
 
-**Última actualización:** miércoles 29 de julio de 2026 — cierre de A1 con el método de usuarios prototipo (US-UX-01, §5.2, §22.1.b), absorción de la rúbrica de A2 (§2.3), estado real de las historias UX (§2.5), estado verificado de la pista de construcción (§2.6), recálculo de capacidad con la escalera de recorte (§10.2.b), cobertura de lo comprometido en A1/A2 y US-037…041 de roadmap (§18.1), replanificación del roadmap S2–S5 (§19), gates re-fechados (§20) y registro de absorción (§25.4).
+**Última actualización:** lunes 10 de agosto de 2026 — cierre de US-UX-05 y US-UX-06 con A2 y A3 entregadas (§2.5), absorción de la rúbrica de A3 (§2.3.b, registro §25.4), reformulación del criterio de validación con participantes tras ejecutar el card sorting con evaluadores prototipo (§22.1.b), re-verificación de la pista de construcción en 0 % al abrir S4 (§2.6), re-recálculo de capacidad con déficit de ≈ −36 SP y la inversión de prioridad que lo cierra (§10.2.b), replanteo de A4 como prototipo web navegable de 5 interfaces (US-UX-07, §19 S4), gates actualizados (§20) y riesgos R13/R14 abiertos (§21).
+
+**Actualización previa:** miércoles 29 de julio de 2026 — cierre de A1 con el método de usuarios prototipo (US-UX-01, §5.2, §22.1.b), absorción de la rúbrica de A2 (§2.3), estado real de las historias UX (§2.5), estado verificado de la pista de construcción (§2.6), recálculo de capacidad con la escalera de recorte (§10.2.b), cobertura de lo comprometido en A1/A2 y US-037…041 de roadmap (§18.1), replanificación del roadmap S2–S5 (§19), gates re-fechados (§20) y registro de absorción (§25.4).
 **Mantenedor:** Arthur Zizumbo (Platform/Agent lead) — Equipo 8
 **Próxima revisión:** al entregar A2 (dom 2-ago) y al publicarse la rúbrica de A3 (revisar Canvas el lun 3-ago antes de trabajar en A3)

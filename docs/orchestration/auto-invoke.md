@@ -62,7 +62,8 @@
 | Elaborar personas / mapas de empatía (matriz §5.3, Anexo B) | `portal-ux-research` |
 | Escenarios y journey maps con trazabilidad cita→pain→oportunidad | `portal-ux-research` |
 | Benchmark competitivo, sitemap, card sorting (A3) | `portal-ux-research` + `portal-ux-deliverables` |
-| Pantallas de alta fidelidad Figma + paridad Nuxt (A4) | `portal-ux-patterns` + `portal-ux-deliverables` |
+| Prototipo web navegable de alta fidelidad y guía de estilos (A4) | `portal-ux-patterns` + `portal-frontend-components` + `portal-ux-deliverables` |
+| Revisar defectos de interfaz antes de congelar pantallas | [`checklist-ui.md`](checklist-ui.md) (archivo, no skill) |
 | Pre-validación sintética de wireframes/prototipos (PerceptUI) | `portal-synthetic-users` |
 | Prueba de usabilidad SUS (≥5 participantes, meta ≥75) | `portal-ux-research` |
 | Redactar/maquetar documento de actividad (PDF Canvas) | `portal-ux-deliverables` |

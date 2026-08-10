@@ -12,8 +12,9 @@ proyecto; no hay dos versiones del mismo párrafo.
 | Archivo | Qué produce | Para qué |
 |---------|-------------|----------|
 | `main_a1.tex` | 48 páginas | Actividad 1, entregada el 26-jul-2026 |
-| `main_a2.tex` | 41 páginas | Actividad 2, se entrega el 2-ago-2026 |
-| `main_completo.tex` | 91 páginas | Documento acumulado del proyecto: Parte I (A1) y Parte II (A2), con numeración continua |
+| `main_a2.tex` | 41 páginas | Actividad 2, entregada el 2-ago-2026 |
+| `main_a3.tex` | 57 páginas | Actividad 3, se entrega el 9-ago-2026 |
+| `main_completo.tex` | 147 páginas | Documento acumulado del proyecto: Parte I (A1), Parte II (A2) y Parte III (A3), con numeración continua |
 
 El PDF que se sube a Canvas se copia con el nombre exacto que exige la actividad:
 
@@ -146,10 +147,12 @@ Esta carpeta es la que evoluciona; aquella no se toca.
 
 ## Añadir una actividad nueva
 
-1. Escribir el contenido en `contenido/a3_*.tex`, sin preámbulo ni `\begin{document}`.
-2. Crear `main_a3.tex` copiando el envoltorio de A2 y cambiando portada, encabezado y `\input`.
-3. Añadir en `main_completo.tex` una portadilla `\uxparte{III}{...}{...}` y los `\input`
-   correspondientes.
+1. Escribir el contenido en `contenido/aN_*.tex`, sin preámbulo ni `\begin{document}`.
+2. Crear `main_aN.tex` copiando el envoltorio de la actividad anterior y cambiando portada,
+   encabezado y `\input`.
+3. Añadir en `main_completo.tex` una portadilla `\uxparte{N}{...}{...}` y los `\input`
+   correspondientes, y actualizar la portada, el `pdftitle` y la sección
+   «Sobre este documento».
 
 ## Sistema de diseño
 

@@ -1,32 +1,67 @@
 % ============================================================================
 \section{Conclusión y siguientes pasos}
 
-El análisis competitivo, el ejercicio de Card Sorting y el diseño de la Arquitectura de Información y Mapa de Navegación marcan una pauta crucial para Karisma Data. A través del análisis de competidores como Bloomberg, Power BI y Pyramid Analytics, identificamos que el verdadero valor diferenciador no reside en añadir más funcionalidades técnicas, sino en reducir la fricción cognitiva y ofrecer un entorno gobernado, trazable y adaptado al vocabulario de la institución.
+El análisis competitivo del panel de seis alternativas --- Bloomberg, Power BI, Pyramid Analytics, ThoughtSpot, Collibra y la práctica actual de bases aisladas --- mostró que ninguna resolvió de manera simultánea el catálogo gobernado, el linaje visible y la consulta en lenguaje natural sobre el vocabulario propio de la institución sin imponer una licencia por usuario. Las plataformas financieras cubrieron la profundidad del dato de mercado; las herramientas de inteligencia de negocio, la visualización; las plataformas de gobierno, el catálogo. Cada una dejó fuera al menos uno de los tres elementos y todas trasladaron el costo al número de asientos contratados. El valor diferenciador de Karisma Data se ubicó, por eso, en reducir la fricción cognitiva dentro de un entorno gobernado y trazable.
 
-El diseño del Card Sorting proporcionó un instrumento concreto para contrastar la estructura actual con el modelo mental de los usuarios. La simulación permitió revisar la cobertura de las 35 tarjetas y plantear una primera organización según el nivel de intervención y consumo de datos. Esta arquitectura y el Mapa de Navegación aplican revelación progresiva para que operativos, analistas y directivos encuentren un camino acorde con sus tareas, pero sus etiquetas y rutas deberán confirmarse mediante la aplicación del ejercicio y las pruebas de árbol descritas.
+El ejercicio de Card Sorting abierto se aplicó con ocho evaluadores prototipo condicionados por las personas de la Actividad 1 y dejó tres resultados concretos. Primero, el conglomerado de datos de negocio --- cartera de crédito, liquidez, derivados, captación, mercado de dinero y acciones --- obtuvo coincidencia unánime de los 8 evaluadores en todos sus pares, con lo cual el primer nivel temático quedó firme. Segundo, la matriz de similitud arrojó nueve conglomerados frente a las cuatro categorías propuestas, lo que ubicó el problema en el segundo nivel y no en la raíz. Tercero, los 8 evaluadores pidieron colocar al menos cinco tarjetas en dos o más grupos a la vez, y dos de ellas concentraron la presión: Consumo por API y Calidad de datos fueron solicitadas como transversales por 6 evaluadores cada una. Con esa evidencia el equipo optó por facetas de etiquetado múltiple y descartó forzar una única ubicación para esas tarjetas.
 
-Con esta estructura definida, el siguiente paso estratégico será desarrollar los prototipos interactivos (wireframes de baja y alta fidelidad), probando flujos específicos del mapa de navegación con los usuarios finales para afinar los detalles de la interfaz antes del desarrollo técnico.
+La prueba de árbol confirmó cuatro de las cinco rutas y refutó una. La ruta de extracción que representó a Diego Hernández resultó unánime, con 8 aciertos de 8 en la tarea de exportar la cartera de crédito. La hipótesis de Ximena Solís sobre las credenciales de integración alojadas en un segundo nivel de Administración quedó confirmada con 7 aciertos de 8. El supuesto del equipo sobre dónde buscaría Arturo Castañeda un indicador de riesgo quedó desmentido: la tarea de consultar un indicador de riesgo obtuvo un solo acierto de 8 y 6 evaluadores lo buscaron en Exploración, no en la categoría de gobierno donde el equipo lo había colocado. Esa refutación se tradujo en un cambio aplicado sobre el mapa antes de iniciar el prototipado: los tableros y los indicadores de riesgo se movieron a Exploración y extracción como subsección 2.4, y la tercera categoría se renombró Gobierno del dato al quedarse solo con el marco del dato.
+
+La validación se realizó con evaluadores prototipo, y eso acota lo que puede afirmarse a partir de ella. Los 40 datos de la prueba de árbol y las 280 colocaciones de tarjetas fueron predicciones plausibles condicionadas por las ocho personas de la Actividad 1 bajo el protocolo PerceptUI, no comportamiento observado de personas reales. Sirvieron para descartar decisiones caras antes de dibujar una sola pantalla y para priorizar qué rutas merecen atención, pero no sustituyeron la evidencia humana.
+
+Los siguientes pasos quedaron acotados en dos frentes. En la Actividad 4 la arquitectura revisada se traducirá en prototipos de alta fidelidad tomando el mapa como contrato de navegación, para que cada pantalla ocupe la posición que el ejercicio validó y las nueve facetas transversales se resuelvan como accesos cruzados y no como duplicados de contenido. En la Actividad 5 la prueba de usabilidad con personas reales y el instrumento SUS confirmarán o corregirán con evidencia humana lo que aquí se anticipó, con atención particular a la nueva ubicación de los tableros y a la bitácora de accesos, la ruta donde titubearon los 8 evaluadores.
 
 % ============================================================================
 \section{Referencias}
 
 \begin{uxreferencias}
+Annacchino, M. A. (2003). \textit{New product development: From initial idea to product
+management}. Elsevier.
+
+Atlan. (2026). \textit{Atlan named a Leader in the 2026 Gartner Magic Quadrant for D\&A Governance Platforms}. Consultado el 9 de agosto de 2026 en \href{https://atlan.com/}{sitio oficial de Atlan}.
+
 Baxter, K., Courage, C., y Caine, K. (2015). \textit{Understanding your users: A practical
 guide to user research methods} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
+
+Bloomberg L.P. (2026). \textit{Bloomberg Professional Services}. Consultado el 6 de agosto de 2026 en \href{https://www.bloomberg.com/professional/}{sitio oficial de Bloomberg Professional}.
+
+Bougie, N., Ye, X., Marconi, G. M., y Watanabe, N. (2026). \textit{PerceptUI: LLM agents as
+human-aligned synthetic users for UI/UX evaluation}. arXiv. \href{https://arxiv.org/abs/2606.05697}{arxiv.org/abs/2606.05697}.
+
+Collibra. (2026). \textit{Collibra Data Intelligence Platform}. Consultado el 9 de agosto de 2026 en \href{https://www.collibra.com/}{sitio oficial de Collibra}.
 
 Garrett, J. J. (2010). \textit{The elements of user experience: User-centered design for the
 web and beyond} (2.\textsuperscript{a} ed.). New Riders.
 
+LSEG. (2026). \textit{LSEG Workspace}. Consultado el 9 de agosto de 2026 en \href{https://www.lseg.com/}{sitio oficial de LSEG}.
+
+Microsoft. (2024). \textit{Important update to Microsoft Power BI pricing}. Consultado el 6 de agosto de 2026 en \href{https://powerbi.microsoft.com/blog/important-update-to-microsoft-power-bi-pricing/}{blog oficial de Power BI}.
+
+Microsoft. (2026a). \textit{Deprecating Power BI Q\&A}. Consultado el 9 de agosto de 2026 en \href{https://powerbi.microsoft.com/en-us/blog/deprecating-power-bi-qa/}{blog oficial de Power BI}.
+
+Microsoft. (2026b). \textit{Microsoft Purview pricing}. Consultado el 9 de agosto de 2026 en \href{https://azure.microsoft.com/en-us/pricing/details/purview/}{página oficial de precios de Purview}.
+
 Morville, P., y Rosenfeld, L. (2006). \textit{Information architecture for the World Wide Web:
 Designing large-scale web sites} (3.\textsuperscript{a} ed.). O'Reilly Media.
+
+Pyramid Analytics. (2026). \textit{Decision Intelligence Platform y opciones de precios}. Consultado el 6 de agosto de 2026 en \href{https://www.pyramidanalytics.com/decision-intelligence-platform/get-pricing/}{página oficial de precios}.
+
+Ramírez Mejía, A. I. (2023). \textit{Grocery shopping app. A guided UX case study. Part 3:
+Competitive analysis and information architecture} [Diapositivas]. TC4032, Experiencia del
+usuario y diseño de interfaces, Maestría en Inteligencia Artificial Aplicada, ITESM.
+
+ServiceNow. (2026). \textit{Pyramid Analytics: Expanding data-driven AI}. Consultado el 9 de agosto de 2026 en \href{https://www.servicenow.com/workflow/news/pyramid-analytics-expanding-data-driven-ai.html}{sala de prensa de ServiceNow}.
 
 Spencer, D. (2009). \textit{Card sorting: Designing usable categories}. Rosenfeld Media.
 
 Spool, J. (2005). \textit{The anatomy of a design decision}. UIE.
 
-Bloomberg L.P. (2026). \textit{Bloomberg Professional Services}. Consultado el 6 de agosto de 2026 en \href{https://www.bloomberg.com/professional/}{sitio oficial de Bloomberg Professional}.
+ThoughtSpot. (2026). \textit{ThoughtSpot plans and pricing}. Consultado el 9 de agosto de 2026 en \href{https://www.thoughtspot.com/pricing}{página oficial de precios de ThoughtSpot}.
 
-Microsoft. (2024). \textit{Important update to Microsoft Power BI pricing}. Consultado el 6 de agosto de 2026 en \href{https://powerbi.microsoft.com/blog/important-update-to-microsoft-power-bi-pricing/}{blog oficial de Power BI}.
+Tullis, T., y Wood, L. (2004). How many users are enough for a card-sorting study?
+\textit{Proceedings of the Usability Professionals Association Conference}.
 
-Pyramid Analytics. (2026). \textit{Decision Intelligence Platform y opciones de precios}. Consultado el 6 de agosto de 2026 en \href{https://www.pyramidanalytics.com/decision-intelligence-platform/get-pricing/}{página oficial de precios}.
+Velasco, J., Morales, L., y Penado, C. (2022). Arquitectura de la información. En M. Del Río
+y F. Linares (Eds.), \textit{UX Latam: Historias sobre definición y diseño de servicios
+digitales} (pp. 47-63). Universidad del Pacífico.
 \end{uxreferencias}

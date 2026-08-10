@@ -1,0 +1,216 @@
+{
+  "_naturaleza": "Sesión sintética generada con evaluador LLM condicionado por una persona ficticia de la Actividad 1. No corresponde a una persona real.",
+  "evaluador": "P3",
+  "persona": "Roberto Valdez (propietario de datos)",
+  "grupos": [
+    {
+      "nombre": "Reglas y definiciones oficiales del dato",
+      "tarjetas": [
+        "T06",
+        "T16",
+        "T17",
+        "T18",
+        "T20"
+      ],
+      "por_que": "Esto es exactamente lo que yo certifico y lo que hoy mando por correo en PDF. Si el portal tiene un solo lugar donde el analista lea la definicion oficial, la ficha del campo, de donde viene la cifra y con que criterio se calcula, dejo de contestar las mismas dudas por telefono. El catalogo de fuentes va aqui porque es el inventario de lo que mi subgerencia respalda: es el repositorio unico que siempre he pedido."
+    },
+    {
+      "nombre": "Calidad y actualizacion de la informacion",
+      "tarjetas": [
+        "T19",
+        "T34",
+        "T35"
+      ],
+      "por_que": "Antes de que alguien consulte mi base yo necesito saber que la carga corrio, que las validaciones pasaron y que la conexion apunta al sistema de origen correcto. Es mi control previo: si algo de esto falla, la cifra que publiquen no cuadra y la explicacion recae en mi area."
+    },
+    {
+      "nombre": "Quien entra a mis bases (autorizaciones)",
+      "tarjetas": [
+        "T24",
+        "T25",
+        "T26",
+        "T30",
+        "T31"
+      ],
+      "por_que": "Hoy esto lo llevo casi a mano: reviso el motivo de consulta, pido a TI el acceso y despues no tengo forma de comprobar quien vio que. Lo junte todo porque para mi es un solo tramite: la persona solicita, yo autorizo, se le define que puede ver de lo mio y queda el rastro. La bitacora va aqui, no en un rincon de sistemas, porque es mi evidencia."
+    },
+    {
+      "nombre": "Administracion del portal (lo que le toca a sistemas)",
+      "tarjetas": [
+        "T29",
+        "T32",
+        "T33"
+      ],
+      "por_que": "Alta y baja de personas y todo lo de las llaves automaticas no lo opero yo, lo opera TI. Lo aparte para no confundirlo con mi autorizacion: una cosa es que a alguien le abran una cuenta en el portal y otra muy distinta es que yo le abra mi cartera de credito."
+    },
+    {
+      "nombre": "Buscar y consultar informacion",
+      "tarjetas": [
+        "T01",
+        "T02",
+        "T03",
+        "T13",
+        "T14",
+        "T21"
+      ],
+      "por_que": "Todo esto es la parte de pantalla con la que la gente llega al dato: buscar por nombre o por tema, acotar por fechas o entidades, ver una muestra y el tablero de la direccion. Yo lo uso poco para mi trabajo diario, pero es justo lo que hacen los analistas que me llaman, asi que va junto."
+    },
+    {
+      "nombre": "Descargas y envio de informacion",
+      "tarjetas": [
+        "T15",
+        "T27",
+        "T28"
+      ],
+      "por_que": "Aqui esta mi mayor dolor de cabeza. La gente baja un Excel, se lo guarda meses y luego publica con datos viejos y sin trazabilidad. Puse compartir consulta junto con las descargas a proposito: prefiero mil veces que se manden la consulta armada y no el archivo. Y el historial de descargas lo quiero visible, no escondido."
+    },
+    {
+      "nombre": "Las bases de informacion por materia",
+      "tarjetas": [
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T22",
+        "T23"
+      ],
+      "por_que": "Son los temas de informacion tal como estan repartidos entre subgerencias. Cartera de credito es la mia y de esa respondo yo; las demas son de otras areas. Los indicadores y las senales de riesgo los meti aqui porque son contenido de negocio, no herramientas del portal; ademas se calculan sobre estas bases y quien los publique tiene que usar la version vigente."
+    },
+    {
+      "nombre": "Mi cuenta y mis avisos",
+      "tarjetas": [
+        "T04",
+        "T05"
+      ],
+      "por_que": "Lo minimo personal: mi area de adscripcion y los avisos que yo quiero recibir. A mi lo unico que me interesa que me avise es que una carga fallo o que un valor salio fuera de rango en mi informacion."
+    }
+  ],
+  "tarjeta_dificil": {
+    "tarjeta": "T33",
+    "razon": "Consumo por API. Honestamente no se bien que es una API y estuve por dejarla con las cosas de sistemas sin pensarla mas. Pero al leer la definicion, volumen y detalle de peticiones automatizadas que recibe el portal, cai en cuenta de que eso significa que hay sistemas llevandose informacion sin que nadie me pregunte el motivo de consulta. Si de ahi sale mi cartera de credito, eso es un acceso a mis bases y yo deberia verlo y poder frenarlo. La deje en administracion porque quien la configura es TI, pero no me deja tranquilo."
+  },
+  "duplicados_solicitados": [
+    {
+      "tarjeta": "T33",
+      "grupos": [
+        "Administracion del portal (lo que le toca a sistemas)",
+        "Quien entra a mis bases (autorizaciones)"
+      ],
+      "razon": "Lo opera sistemas, pero es otra puerta por donde se llevan mi informacion. Si un sistema consulta credito en automatico yo quiero verlo en el mismo lugar donde veo la bitacora, no en un tablero tecnico que nunca abro."
+    },
+    {
+      "tarjeta": "T30",
+      "grupos": [
+        "Quien entra a mis bases (autorizaciones)",
+        "Administracion del portal (lo que le toca a sistemas)"
+      ],
+      "razon": "Los permisos tienen dos caras: la general del portal, que la define TI por rol, y la de mi informacion, que la defino yo cuando autorizo el nivel granular. Necesito ver lo mismo desde los dos lados."
+    },
+    {
+      "tarjeta": "T28",
+      "grupos": [
+        "Descargas y envio de informacion",
+        "Quien entra a mis bases (autorizaciones)"
+      ],
+      "razon": "El historial de exportaciones es la lista de quien se llevo una copia de mis datos. Para el analista es el seguimiento de su descarga; para mi es control de accesos puro."
+    },
+    {
+      "tarjeta": "T19",
+      "grupos": [
+        "Calidad y actualizacion de la informacion",
+        "Reglas y definiciones oficiales del dato"
+      ],
+      "razon": "El resultado de las validaciones es parte del sello de la fuente. Cuando yo digo que esta es la version certificada por mi subgerencia, esa afirmacion se sostiene en las validaciones, asi que debe leerse junto a la definicion y no en otra pantalla."
+    },
+    {
+      "tarjeta": "T06",
+      "grupos": [
+        "Reglas y definiciones oficiales del dato",
+        "Buscar y consultar informacion"
+      ],
+      "razon": "Para mi el catalogo es mi inventario, lo que gobierno. Para el analista es por donde empieza a buscar. Es la misma lista vista desde dos escritorios."
+    },
+    {
+      "tarjeta": "T34",
+      "grupos": [
+        "Calidad y actualizacion de la informacion",
+        "Administracion del portal (lo que le toca a sistemas)"
+      ],
+      "razon": "La configuracion de la conexion la hace sistemas, yo no le muevo. Pero si esta apuntando al sistema de origen equivocado el problema me lo cobran a mi, asi que lo quiero pegado al monitoreo de cargas."
+    },
+    {
+      "tarjeta": "T04",
+      "grupos": [
+        "Mi cuenta y mis avisos",
+        "Calidad y actualizacion de la informacion"
+      ],
+      "razon": "Como preferencia personal va en mi cuenta, pero lo que yo quiero que me avise es exactamente lo del grupo de calidad: cargas y valores fuera de rango."
+    }
+  ],
+  "etiquetas_confusas": [
+    {
+      "tarjeta": "T33",
+      "comentario": "Consumo por API no me dice nada. Si me lo pusieran como consultas automaticas de otros sistemas lo entenderia de inmediato y sabria que me incumbe."
+    },
+    {
+      "tarjeta": "T32",
+      "comentario": "Credenciales API. Entiendo que son llaves, pero no se quien las pide ni con que autorizacion. Me suena a que alguien puede sacar informacion sin que quede por escrito el motivo de consulta."
+    },
+    {
+      "tarjeta": "T23",
+      "comentario": "Senales de riesgo, indicadores de riesgo y mis alertas suenan a lo mismo en mi vocabulario. Tuve que leer las tres definiciones dos veces para separarlas y aun asi dudo cual me llegaria por correo."
+    },
+    {
+      "tarjeta": "T18",
+      "comentario": "Linaje es palabra de gente joven. Yo toda la vida le he dicho trazabilidad, o de donde sale la cifra. Se entiende con la definicion, pero con la pura etiqueta habria pasado de largo."
+    },
+    {
+      "tarjeta": "T34",
+      "comentario": "Conectores de fuentes. No distingo bien la diferencia entre el conector y la carga; para mi es lo mismo, que la informacion llegue completa y a tiempo."
+    },
+    {
+      "tarjeta": "T17",
+      "comentario": "Metadatos. Yo le llamo la ficha tecnica del campo. Lo entiendo, pero si esta a un lado de diccionario de datos no queda claro que va en cada uno y voy a acabar documentando dos veces."
+    }
+  ],
+  "arbol": [
+    {
+      "tarea": "Localizar una fuente de liquidez",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Catalogo de fuentes",
+      "dudo": true,
+      "comentario": "Dude entre entrar a Inicio y usar la caja de busqueda, o irme a Exploracion al catalogo. Me fui al catalogo porque yo pienso en inventarios, no en buscadores, pero reconozco que un analista teclearia liquidez en la primera caja que vea."
+    },
+    {
+      "tarea": "Exportar la cartera de credito",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Cartera de credito, y ahi mismo la opcion de descargar",
+      "dudo": false,
+      "comentario": "Primero abro la base, aplico mis filtros, veo la muestra y de ahi descargo. La descarga no la busco como menu aparte, la espero pegada a la consulta. Otra cosa es el registro de quien descargo: eso si lo buscaria en Gobierno."
+    },
+    {
+      "tarea": "Consultar un indicador de riesgo",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Indicadores de riesgo",
+      "dudo": true,
+      "comentario": "Titubee con Inicio. Si es de los indicadores principales de la institucion, lo normal es que ya este en el tablero de la direccion y no tenga que buscarlo. Entre a Exploracion porque quiero el indicador con su definicion y su fuente al lado, no un numero suelto."
+    },
+    {
+      "tarea": "Revisar quien autorizo un acceso",
+      "primer_nivel": "Gobierno",
+      "segundo_nivel": "Bitacora de accesos o flujos de aprobacion",
+      "dudo": true,
+      "comentario": "Aqui dude de verdad. Autorizar accesos es mi trabajo de gobierno, asi que entre a Gobierno. Pero todo lo de usuarios y permisos suena a Administracion, y si la bitacora la guardaron junto con las cuentas de usuario me voy a equivocar. Que aparezca en dos lados me parecera desorden, pero que este en el lado equivocado me deja sin evidencia."
+    },
+    {
+      "tarea": "Crear una credencial de integracion",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Credenciales API",
+      "dudo": false,
+      "comentario": "Voy a Administracion sin dudar porque eso es de sistemas, aunque no sabria hacerlo ni me corresponde. Lo que si exijo es que antes de crear una llave que toque credito, la solicitud pase por mi visto bueno igual que la de cualquier persona."
+    }
+  ],
+  "racional_general": "Organice el portal como esta organizado mi trabajo, que es en dos mitades. La primera es lo que yo respaldo con mi nombre: las definiciones, la ficha de cada campo, de donde viene la cifra, las reglas de calculo, las validaciones y las cargas. Si eso vive en un solo lugar y actualizado, dejo de ser el cuello de botella y dejo de mandar diccionarios en PDF por correo. La segunda mitad es el control de quien toca mi informacion: quien la pide, quien la autoriza, que puede ver, quien la consulto y quien se llevo una copia. Todo lo demas, buscar, filtrar, ver una muestra, el tablero de la direccion y los temas por materia, lo agrupe como lo veria el analista que me llama, no como lo veo yo, porque son las pantallas donde el se mueve. Lo unico que separe con cuidado fue lo de sistemas: las altas de usuarios y las llaves automaticas no las opero yo, pero si por ahi sale credito quiero enterarme, porque al final, si publican un analisis con datos desactualizados o mal interpretados, el problema y las explicaciones recaen en mi area."
+}

@@ -1,0 +1,202 @@
+{
+  "_naturaleza": "Sesión sintética generada con evaluador LLM condicionado por una persona ficticia de la Actividad 1. No corresponde a una persona real.",
+  "evaluador": "P8",
+  "persona": "Ximena Solis Barrera (integracion)",
+  "grupos": [
+    {
+      "nombre": "El contrato del dato: que es y de donde sale",
+      "tarjetas": [
+        "T06",
+        "T16",
+        "T17",
+        "T18",
+        "T20"
+      ],
+      "por_que": "Esto es lo primero que abro y lo unico que me deja dormir. Antes de escribir una sola linea necesito el inventario, la definicion oficial del campo, su periodicidad y unidad, de donde viene y con que regla se calcula la cifra. Si esto no esta completo y versionado, no integro: construir sobre una fuente sin contrato es firmar la llamada de las 7 de la manana cuando se rompa."
+    },
+    {
+      "nombre": "Armar y probar la consulta antes de programarla",
+      "tarjetas": [
+        "T01",
+        "T13",
+        "T14",
+        "T27"
+      ],
+      "por_que": "Mi habito es probar con una muestra chica antes de automatizar. Busco, acoto por fechas y entidades, veo la vista previa para confirmar el formato de salida y, si el area de riesgos me pidio la herramienta, le mando la consulta ya armada para que confirme que ese es el numero que queria. Es un mismo bloque de trabajo, no cuatro pantallas distintas."
+    },
+    {
+      "nombre": "Los conjuntos que me piden del negocio",
+      "tarjetas": [
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T21",
+        "T22"
+      ],
+      "por_que": "Para mi todos estos son el mismo tipo de cosa: conjuntos de datos que alguien me pide combinar. El negocio los llama por su nombre, yo los veo como fuentes con esquema. Los junte porque cuando me piden exposicion por contraparte tengo que abrir dos o tres de estos a la vez. El tablero ejecutivo lo deje aqui porque es la misma cifra ya presentada, aunque no es una pantalla que yo use: yo construyo tableros, no los consulto."
+    },
+    {
+      "nombre": "Como sale el dato: API y descargas",
+      "tarjetas": [
+        "T33",
+        "T34",
+        "T15",
+        "T28"
+      ],
+      "por_que": "Todo esto son vias de salida del dato. La API es la que quiero, y las descargas son justo el trabajo manual que estoy tratando de eliminar: no quiero bajar un archivo cada lunes. Puse conectores aqui porque asumo que es donde se configura la conexion, aunque sospecho que esa parte no me toca a mi. Consumo por API lo necesito para saber si mi proceso se paso de volumen antes de que alguien me lo reclame."
+    },
+    {
+      "nombre": "Que no se rompa: monitoreo y avisos",
+      "tarjetas": [
+        "T35",
+        "T19",
+        "T04",
+        "T23"
+      ],
+      "por_que": "Este es mi grupo defensivo. Mi proceso corre cada manana: necesito saber si la carga termino, si la fuente paso sus validaciones y que me avisen antes de que falle en produccion, no despues. Senales de riesgo la puse aqui aunque sea un aviso de negocio y no de plataforma: para mi es lo mismo, algo cruzo un umbral y alguien tiene que enterarse automaticamente."
+    },
+    {
+      "nombre": "Tramites de acceso y permisos",
+      "tarjetas": [
+        "T24",
+        "T25",
+        "T26",
+        "T29",
+        "T30",
+        "T31"
+      ],
+      "por_que": "Todo lo que me frena. Cada fuente nueva es un tramite distinto con responsable y tiempo de respuesta distintos: pido acceso, veo en que va, y me entero de que hay una ruta de aprobacion. Usuarios, permisos y bitacora los meti aqui aunque no sean mios, son del administrador; los agrupe porque en mi cabeza es el mismo cajon de quien decide que puedo ver. Si esto sigue tardando dias, la gente lo va a resolver por fuera del portal."
+    },
+    {
+      "nombre": "Mi cuenta y mis llaves",
+      "tarjetas": [
+        "T05",
+        "T32",
+        "T03",
+        "T02"
+      ],
+      "por_que": "Mi espacio de autoservicio. Espero generar mis credenciales desde mi propio perfil, sin ticket y sin esperar aprobacion, junto con mis favoritos y mis ultimas consultas. Si la llave vive en otro lado que no sea mi cuenta, ya significa que tengo que pedirsela a alguien."
+    }
+  ],
+  "tarjeta_dificil": {
+    "tarjeta": "T34",
+    "razon": "Conectores de fuentes. No se si es MI conexion al portal o la conexion del portal con los sistemas de origen. Si es lo primero, va conmigo en integracion; si es lo segundo, es de la plataforma y ni deberia verla. La deje en salida del dato por descarte, pero la definicion dice sistema de origen y eso apunta a que no es mia. Es exactamente el tipo de etiqueta ambigua que me hace abrir la pantalla nada mas para descubrir que no tengo permiso."
+  },
+  "duplicados_solicitados": [
+    {
+      "tarjeta": "T32",
+      "grupos": [
+        "Mi cuenta y mis llaves",
+        "Como sale el dato: API y descargas"
+      ],
+      "razon": "Es el punto donde se juntan las dos cosas. La genero desde mi perfil como autoservicio, pero pertenece al flujo de integracion: cuando estoy programando la carga, la llave la busco junto a la documentacion de la API, no en mis preferencias personales."
+    },
+    {
+      "tarjeta": "T19",
+      "grupos": [
+        "El contrato del dato: que es y de donde sale",
+        "Que no se rompa: monitoreo y avisos"
+      ],
+      "razon": "Antes de integrar la miro para decidir si confio en la fuente; despues de integrar la miro todos los dias para saber si algo se degrado. Es la misma tarjeta cumpliendo dos funciones en dos momentos distintos de mi trabajo."
+    },
+    {
+      "tarjeta": "T17",
+      "grupos": [
+        "El contrato del dato: que es y de donde sale",
+        "Los conjuntos que me piden del negocio"
+      ],
+      "razon": "Los metadatos deberian estar tambien colgados de cada conjunto, no solo en una seccion aparte. Cuando abro cartera de credito quiero ver ahi mismo la periodicidad y la vigencia del campo, sin navegar a otra pantalla y perder el contexto."
+    },
+    {
+      "tarjeta": "T04",
+      "grupos": [
+        "Que no se rompa: monitoreo y avisos",
+        "Mi cuenta y mis llaves"
+      ],
+      "razon": "Dice mis alertas, o sea son configuracion mia. Las consulto en el monitoreo pero las doy de alta en mis preferencias. Si solo viven en monitoreo, no voy a encontrar donde ajustarlas."
+    },
+    {
+      "tarjeta": "T14",
+      "grupos": [
+        "Armar y probar la consulta antes de programarla",
+        "Como sale el dato: API y descargas"
+      ],
+      "razon": "La uso para validar la consulta, pero tambien es el paso previo obligado antes de bajar el archivo completo o antes de mandar la peticion en firme. Deberia aparecer en los dos lugares."
+    },
+    {
+      "tarjeta": "T33",
+      "grupos": [
+        "Como sale el dato: API y descargas",
+        "Tramites de acceso y permisos"
+      ],
+      "razon": "Para mi es mi consumo, para el administrador es control de uso institucional. Segun quien entre significa una cosa u otra, y eso me hace dudar de si voy a ver mis peticiones o las de todos."
+    }
+  ],
+  "etiquetas_confusas": [
+    {
+      "tarjeta": "T17",
+      "comentario": "Metadatos y diccionario de datos me suenan a lo mismo. No se en cual de las dos voy a encontrar los valores validos de un campo y en cual la periodicidad, y termino abriendo las dos. En mi trabajo yo le diria a todo esto la documentacion del campo."
+    },
+    {
+      "tarjeta": "T20",
+      "comentario": "Reglas de negocio es demasiado abierto. No se si es la formula con la que se calcula la cifra, una politica de quien puede verla, o texto suelto que alguien escribio una vez. Lo que yo necesito saber es si esa regla esta versionada y si cambia me avisan."
+    },
+    {
+      "tarjeta": "T26",
+      "comentario": "Flujos de aprobacion suena a lenguaje de sistema, no a lo que yo quiero saber. Yo solo pregunto quien autoriza y cuanto tarda. Si me muestran un diagrama de ruta y no una fecha estimada, no me sirve."
+    },
+    {
+      "tarjeta": "T23",
+      "comentario": "Senales de riesgo, indicadores de riesgo y mis alertas se traslapan. Tres etiquetas parecidas para cosas distintas es justo lo que hace que la gente entre a la equivocada."
+    },
+    {
+      "tarjeta": "T11",
+      "comentario": "Mercado de dinero y captacion son vocabulario del area de negocio, no mio. Los reconozco de oidas pero no podria decir que campos trae cada uno; necesito el nombre tecnico del conjunto y su esquema al lado para saber cual me estan pidiendo."
+    },
+    {
+      "tarjeta": "T18",
+      "comentario": "Linaje lo entiendo, pero no se si me va a mostrar un diagrama bonito o la informacion util: en que proceso se transformo el campo y en que version. Lo primero es decoracion, lo segundo es lo que necesito cuando algo no cuadra."
+    }
+  ],
+  "arbol": [
+    {
+      "tarea": "Localizar una fuente de liquidez",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Catalogo de fuentes (o el buscador unificado desde ahi mismo)",
+      "dudo": false,
+      "comentario": "Es lo que hago siempre: entro al catalogo y busco el conjunto. Explorar es donde vive el inventario, no tengo duda."
+    },
+    {
+      "tarea": "Exportar la cartera de credito",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Cartera de credito, y desde el resultado de la consulta el boton de exportar",
+      "dudo": true,
+      "comentario": "Dudo porque exportar puede ser dos cosas: la accion sobre la consulta, que espero en Exploracion, o la seccion de descargas con su historial y estado, que buscaria en Administracion. Yo entraria primero por el conjunto, pero si lo que quiero es ver si mi descarga de ayer termino, no se en cual de las dos me toca. Honestamente esta tarjeta me hace titubear cada vez."
+    },
+    {
+      "tarea": "Consultar un indicador de riesgo",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Indicadores de riesgo",
+      "dudo": false,
+      "comentario": "Un indicador es un dato mas, y los datos estan en Exploracion. Si estuviera solo en Inicio o en un tablero ejecutivo tendria problema, porque yo no consulto tableros de direccion, yo necesito la serie para consumirla."
+    },
+    {
+      "tarea": "Revisar quien autorizo un acceso",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Bitacora de accesos, o el estado de la solicitud si es una que yo pedi",
+      "dudo": true,
+      "comentario": "Aqui me equivocaria seguro si la respuesta era Gobierno. Para mi Gobierno es gobierno del dato: diccionario, linaje, calidad, reglas. Usuarios, permisos y bitacoras son cosas de administrar el portal, o sea Administracion. Que las dos palabras puedan significar permisos es un problema de la etiqueta, no mio."
+    },
+    {
+      "tarea": "Crear una credencial de integracion",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Credenciales API",
+      "dudo": true,
+      "comentario": "Dudo mucho y ademas me incomoda. Yo esperaria crearla desde mi perfil, en autoservicio, y no veo mi perfil como primer nivel. Que la llave viva en Administracion me da la senal de que voy a tener que pedirle a un administrador que me la genere, y eso es justo el ticket que quiero evitar. Buscaria primero en Inicio a ver si mi cuenta cuelga de ahi, y solo despues entraria a Administracion."
+    }
+  ],
+  "racional_general": "Organice todo por el orden en que hago mi trabajo, no por temas. Primero el contrato del dato, que es lo que reviso antes de comprometerme: catalogo, definicion, metadatos, linaje y la regla con la que se calcula la cifra. Luego el armado y la prueba de la consulta con una muestra chica. Despues los conjuntos del negocio, que para mi son todos la misma cosa aunque el area les ponga nombres distintos. Enseguida las vias por las que el dato sale, donde la API es la que quiero y las descargas manuales son el trabajo que quiero eliminar. Luego el bloque defensivo de monitoreo, calidad y avisos, porque yo soy quien recibe la llamada cuando algo se rompe en produccion. Al final los tramites de acceso, que son mi mayor friccion, y mi cuenta con mis llaves, que es donde espero resolver todo sin pedir permiso. El criterio de fondo es simple: separe lo que necesito para confiar en el dato de lo que necesito para consumirlo y de lo que necesito para que no se caiga. Si el portal me obliga a saltar entre esas tres cosas para una sola integracion, voy a terminar guardando una copia local, que es exactamente lo que este portal deberia evitar."
+}

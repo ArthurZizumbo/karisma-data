@@ -1,11 +1,30 @@
-\uxsection{0. Preliminares y Objetivos}
+\uxsection{Introducción}
 
-El presente documento detalla el proceso para definir las funcionalidades y la estructura de información de \textbf{Karisma Data}, el Portal Centralizado de Datos Institucional.
+El presente documento define las funcionalidades y la estructura de información de \textbf{Karisma Data}, el Portal Centralizado de Datos Institucional. El trabajo se organiza en dos fases complementarias: primero, un \textbf{análisis competitivo} que evalúa competidores y alternativas funcionales, fija la postura estratégica frente a cada uno y establece la ventaja competitiva del portal; después, la \textbf{organización de la información}, que traduce esa ventaja en estructura mediante un instrumento de \textit{Card Sorting} de 35 tarjetas, su aplicación y la definición de la arquitectura de información y del mapa de navegación.
 
-Siguiendo los lineamientos de la rúbrica (OEA 1.5 y 1.6), el trabajo se divide en dos fases:
+La segunda fase se sostiene en una \textbf{mirada sistémica}: la estructura no se diseña pantalla por pantalla, sino como un sistema de contenidos y rutas cuyo propósito es producir en quien navega la \textbf{ilusión de orientación}, es decir, la certeza permanente de saber dónde está, qué hay alrededor y cómo volver (Velasco et al., 2022). El riesgo opuesto es el síndrome de la ``estación de metro confusa'', donde los callejones sin salida y las etiquetas inconsistentes obligan a reconstruir el mapa mental en cada visita. Para los perfiles descritos en las entregas anteriores, desde la validación rápida de Laura Méndez hasta las exigencias de gobierno de datos de Roberto Valdez, esa orientación es la condición para confiar en la cifra que se llevan.
+
+\textbf{Continuidad de la serie.} Esta actividad es el tercer paso de una investigación acumulativa. La Actividad 1 delimitó el problema, la audiencia institucional y las ocho personas que representan los perfiles de uso del portal. La Actividad 2 tradujo esas personas en seis escenarios y cuatro \textit{journey maps}, y de ellos derivó los principios rectores (Respaldado, Simple primero, Profundidad a un paso, Sin sorpresas, Explicable) junto con sus antiprincipios. La Actividad 3 convierte esos hallazgos en estructura: lo que en A2 era un recorrido narrado aquí se vuelve jerarquía de contenidos, etiquetas y rutas verificables.
+
+\textbf{Decisión de método.} La validación de esta actividad se ejecutó con \textbf{evaluadores prototipo} condicionados por las personas de la Actividad 1, en continuidad con el método que sostiene A1 y A2. Esa continuidad es explícita y conviene rastrearla: la Actividad 1 caracterizó a la audiencia sin contacto con participantes y calificó el resultado como una hipótesis de trabajo fundamentada y no como un hallazgo empírico; la Actividad 2 construyó el recorrido sobre esa base y lo presentó como un mapa de supuestos, todavía sin datos de campo. Esta actividad es el primer momento en que esa cadena de supuestos se somete a un ejercicio estructurado, con un registro que puede revisarse en el anexo. La decisión responde al propósito de la etapa: mientras la estructura todavía se está formando conviene contrastarla contra perfiles estables y comparables entre sí, lo que permite iterar agrupamientos y etiquetas antes de comprometer un prototipo. La validación con personas reales ocurre en la prueba de usabilidad de la Actividad 5, cuando el objeto de evaluación ya es una interfaz operable y la medición resulta interpretable.
+
+\textbf{Mapa de lectura.} El documento se lee en cuatro secciones encadenadas, cada una sosteniendo una decisión distinta:
+
 \begin{uxlist}
-  \item \textbf{Análisis Competitivo:} Evaluación de competidores y alternativas funcionales, definiendo posturas estratégicas (Defensiva, Persecución Directa/Oblicua) y estableciendo una ventaja competitiva clara.
-  \item \textbf{Organización de la Información:} Diseño de un instrumento de \textit{Card Sorting} con 35 tarjetas, simulación de su aplicación y definición de la Arquitectura de la Información (IA), manteniendo una \textbf{mirada sistémica} para garantizar la ``ilusión de orientación'' en los usuarios.
+  \lead{Sección 1. Análisis competitivo}{Qué construimos y contra qué. Delimita el alcance del portal frente a Bloomberg Terminal, las herramientas de BI y la práctica actual de bases, Excel y correo, y fija la postura estratégica que define lo que Karisma Data sí resuelve.}
+  \lead{Sección 2. Card sorting}{Cómo contrastamos la estructura propuesta con el modelo mental de quien la usará. Presenta el instrumento de 35 tarjetas, su ejecución con los ocho evaluadores prototipo y los acuerdos y desacuerdos de agrupamiento que corrigen las etiquetas.}
+  \lead{Sección 3. Arquitectura de la información}{Cómo queda organizado el contenido. Convierte los agrupamientos validados en una jerarquía de secciones y categorías, con las reglas de nomenclatura y de revelación progresiva que la gobiernan.}
+  \lead{Sección 4. Mapa de navegación}{Por dónde se llega a cada cosa. Traza las rutas entre pantallas, los puntos de entrada por rol y los caminos de retorno que vuelven operativa la orientación prometida en la sección anterior.}
 \end{uxlist}
 
-Se busca evitar el síndrome de la ``estación de metro confusa'', en la cual los callejones sin salida (errores 404) y los menús inconsistentes frustran a los usuarios. Nuestro objetivo es que los perfiles descubiertos en entregas anteriores, desde la validación rápida de Laura hasta la necesidad de gobierno de datos de Roberto, sientan el control absoluto sobre el sistema de información.
+La siguiente tabla sirve de guía de lectura para la evaluación: indica dónde se atiende cada apartado de la rúbrica y con qué peso.
+
+\begin{uxtabla}{|L{6.4cm}|L{1.5cm}|Y|}{Trazabilidad entre los apartados de la rúbrica y el documento}
+  \uxheadrow \thd{Apartado de la rúbrica} & \thd{Peso} & \thd{Dónde se atiende} \\
+  Portada con los nombres de los integrantes & 2 \% & Portada \\
+  Introducción & 3 \% & Esta sección \\
+  Desarrollo del ejercicio de análisis competitivo & 25 \% & Sección 1 \\
+  Desarrollo del ejercicio de card sorting & 25 \% & Sección 2 \\
+  Desarrollo del ejercicio de information architecture & 25 \% & Sección 3 \\
+  Desarrollo del ejercicio de mapa de navegación & 20 \% & Sección 4 \\
+\end{uxtabla}

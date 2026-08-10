@@ -1,0 +1,212 @@
+{
+  "_naturaleza": "Sesión sintética generada con evaluador LLM condicionado por una persona ficticia de la Actividad 1. No corresponde a una persona real.",
+  "evaluador": "P6",
+  "persona": "Arturo Castaneda (directivo)",
+  "grupos": [
+    {
+      "nombre": "Lo que reviso antes de la Junta",
+      "tarjetas": [
+        "T21",
+        "T22",
+        "T23",
+        "T04",
+        "T19"
+      ],
+      "por_que": "Esta es mi pantalla de los quince minutos previos a la reunion. Necesito el tablero, los indicadores de riesgo y cualquier aviso de que algo se salio de rango. Meti aqui Calidad de datos aunque suena tecnico, porque si voy a exponer una cifra ante la Junta quiero ver junto al indicador si el dato paso sus validaciones. Un semaforo, no un reporte."
+    },
+    {
+      "nombre": "Los temas del sistema financiero",
+      "tarjetas": [
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "por_que": "Estas seis son las materias de las que hablo todos los dias: credito, liquidez, derivados, captacion, mercado de dinero y acciones. No son funciones del portal, son los temas. Asi esta organizada mi cabeza y asi esta organizada la agenda de la Junta."
+    },
+    {
+      "nombre": "Respaldo de la cifra",
+      "tarjetas": [
+        "T18",
+        "T16",
+        "T17",
+        "T20",
+        "T35"
+      ],
+      "por_que": "Todo esto responde a la unica pregunta que de verdad me quita el sueno: si me preguntan en la Junta de donde salio este numero, que respondo. De donde viene, como se calcula, que quiere decir el concepto y si ya se actualizo. No lo voy a leer completo, pero necesito saber que existe y que alguien lo firmo."
+    },
+    {
+      "nombre": "Como encuentro algo",
+      "tarjetas": [
+        "T01",
+        "T02",
+        "T03",
+        "T13",
+        "T06"
+      ],
+      "por_que": "Cuando busco algo puntual no navego menus: escribo en la caja de busqueda. Aqui van el buscador, lo que ya busque antes, lo que marque para tenerlo a la mano y el inventario de lo que existe. Los filtros los puse aqui porque acotan la busqueda, aunque la palabra avanzados me dice que eso ya no es para mi."
+    },
+    {
+      "nombre": "Lo que le pido y le mando a mi equipo",
+      "tarjetas": [
+        "T15",
+        "T14",
+        "T28",
+        "T27"
+      ],
+      "por_que": "Yo casi no descargo nada; le pido a mis gerentes que preparen el material. Pero cuando necesito mandar algo a un subgobernador o llevar un anexo a la reunion, todo esto es la misma accion para mi: ver una muestra, bajarlo, ver si ya salio y compartirlo con quien corresponde."
+    },
+    {
+      "nombre": "Accesos y autorizaciones",
+      "tarjetas": [
+        "T24",
+        "T25",
+        "T26",
+        "T30",
+        "T29",
+        "T31"
+      ],
+      "por_que": "En el Banco la informacion sensible se pide, se autoriza y queda registrada. Aqui junte pedir un acceso, ver como va la peticion, quien la firma, que puede ver cada quien y el registro de quien consulto que. Yo no opero esto, pero es de lo poco tecnico sobre lo que si me llaman a responder cuando hay una revision de control interno."
+    },
+    {
+      "nombre": "Cosas de sistemas que no me tocan",
+      "tarjetas": [
+        "T32",
+        "T33",
+        "T34"
+      ],
+      "por_que": "Sinceramente no se para que sirven. Llaves, peticiones automatizadas, conexiones con sistemas de origen. Eso es de la Direccion de Sistemas o del equipo de datos. Si aparece en mi pantalla es ruido; preferiria ni verlo."
+    },
+    {
+      "nombre": "Mi cuenta",
+      "tarjetas": [
+        "T05"
+      ],
+      "por_que": "Esta quedo sola porque no pertenece a ninguna otra pila. Es mi nombre, mi area y mis preferencias. La abro una vez al ano."
+    }
+  ],
+  "tarjeta_dificil": {
+    "tarjeta": "T35",
+    "razon": "Monitoreo de cargas. La etiqueta suena a tablero de sistemas y mi primer impulso fue mandarla a la pila de cosas que no me tocan. Pero al leer la definicion me di cuenta de que responde a mi pregunta de todos los lunes: el dato que estoy viendo ya esta actualizado o me van a decir en la Junta que es de hace tres semanas. Termine poniendola en Respaldo de la cifra, pero dude bastante y no me gusta como se llama."
+  },
+  "duplicados_solicitados": [
+    {
+      "tarjeta": "T35",
+      "grupos": [
+        "Respaldo de la cifra",
+        "Cosas de sistemas que no me tocan"
+      ],
+      "razon": "El proceso de carga es de sistemas, pero su resultado es mi certeza. A mi no me interesa el proceso; me interesa una linea que diga actualizado al 31 de julio junto al indicador. Si solo vive en un menu de sistemas, nunca la voy a ver."
+    },
+    {
+      "tarjeta": "T19",
+      "grupos": [
+        "Lo que reviso antes de la Junta",
+        "Respaldo de la cifra"
+      ],
+      "razon": "Calidad de datos es a la vez el detalle tecnico que revisan mis gerentes y el sello que yo necesito ver encima del numero. Deberia estar en las dos partes: un semaforo en el tablero y el detalle completo en la ficha del dato."
+    },
+    {
+      "tarjeta": "T04",
+      "grupos": [
+        "Lo que reviso antes de la Junta",
+        "Mi cuenta"
+      ],
+      "razon": "Mis alertas es contenido de riesgo, pero el posesivo mis me dice que soy yo quien las configura, y eso es una preferencia de mi cuenta. Yo esperaria verlas en el tablero y poder ajustarlas desde mi perfil."
+    },
+    {
+      "tarjeta": "T06",
+      "grupos": [
+        "Como encuentro algo",
+        "Respaldo de la cifra"
+      ],
+      "razon": "El catalogo de fuentes es donde busco cuando no se el nombre exacto, pero tambien es la lista oficial de lo que existe y de quien es dueno de cada dato. Sirve para encontrar y para acreditar."
+    },
+    {
+      "tarjeta": "T31",
+      "grupos": [
+        "Accesos y autorizaciones",
+        "Cosas de sistemas que no me tocan"
+      ],
+      "razon": "La bitacora la usan control interno y auditoria, no yo. Pero si un dia se filtra informacion de mercado antes de tiempo, esa bitacora es lo primero que me van a pedir y ahi si es mi problema."
+    },
+    {
+      "tarjeta": "T14",
+      "grupos": [
+        "Lo que le pido y le mando a mi equipo",
+        "Como encuentro algo"
+      ],
+      "razon": "La vista previa es parte de bajar un archivo, pero tambien es como confirmo que encontre lo que buscaba antes de pedirle a alguien que lo prepare."
+    }
+  ],
+  "etiquetas_confusas": [
+    {
+      "tarjeta": "T17",
+      "comentario": "Metadatos. Esa palabra no existe en mi vocabulario. Datos sobre el dato me suena a acertijo. Yo diria ficha del indicador o ficha tecnica."
+    },
+    {
+      "tarjeta": "T18",
+      "comentario": "Linaje. La palabra sola no me dice nada, parece de genealogia. Lo que yo pido es de donde salio esta cifra, o la trazabilidad del numero."
+    },
+    {
+      "tarjeta": "T20",
+      "comentario": "Reglas de negocio. En el Banco no somos un negocio. Yo diria criterios metodologicos o normativa institucional. Con esa etiqueta pensaria que la pantalla es de otra institucion."
+    },
+    {
+      "tarjeta": "T32",
+      "comentario": "Credenciales API. No se que es una API ni por que tiene llaves. Solo se que no es para mi."
+    },
+    {
+      "tarjeta": "T33",
+      "comentario": "Consumo por API. Lo mismo. Ademas consumo yo lo asocio a consumo privado en las cuentas nacionales, asi que la etiqueta me manda a otro tema por completo."
+    },
+    {
+      "tarjeta": "T23",
+      "comentario": "Senales de riesgo contra Mis alertas: no entiendo la diferencia. Las dos son avisos de que algo se salio de rango. Tener las dos etiquetas me hace dudar de cual es la buena, y esa duda es exactamente lo que no quiero antes de una reunion."
+    },
+    {
+      "tarjeta": "T13",
+      "comentario": "Filtros avanzados. La palabra avanzados me expulsa. Yo solo quiero cambiar el periodo y la entidad; si me dicen avanzado asumo que necesito a un gerente."
+    }
+  ],
+  "arbol": [
+    {
+      "tarea": "Localizar una fuente de liquidez",
+      "primer_nivel": "Inicio",
+      "segundo_nivel": "Buscador unificado, la caja de busqueda de la pantalla principal",
+      "dudo": true,
+      "comentario": "Por logica la palabra Exploracion es la que corresponde, y ahi la habria hallado. Pero yo no navego menus: entro, escribo liquidez en la caja de busqueda y espero que el portal me lleve. Si el buscador no esta en Inicio, me pierdo."
+    },
+    {
+      "tarea": "Exportar la cartera de credito",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Cartera de credito, y dentro de la vista el boton de descargar",
+      "dudo": false,
+      "comentario": "Primero busco el tema y luego bajo el archivo. No buscaria un menu que se llame Exportaciones: la descarga tiene que estar donde esta el dato. Dicho eso, esto normalmente se lo pido a un gerente."
+    },
+    {
+      "tarea": "Consultar un indicador de riesgo",
+      "primer_nivel": "Inicio",
+      "segundo_nivel": "Tablero ejecutivo, indicadores clave del mes",
+      "dudo": false,
+      "comentario": "Aqui no dudo nada. Si abro el portal quince minutos antes de la Junta, los indicadores de riesgo tienen que estar en la primera pantalla, sin un clic de por medio."
+    },
+    {
+      "tarea": "Revisar quien autorizo un acceso",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Bitacora de accesos, o Flujos de aprobacion",
+      "dudo": true,
+      "comentario": "Aqui hay un problema serio con la etiqueta. En el Banco, Gobierno quiere decir Junta de Gobierno. Si veo un menu que dice Gobierno voy a suponer que ahi estan los materiales institucionales o las actas, no los permisos. Por eso me fui a Administracion, que es donde esperaria las cosas de usuarios y accesos. Titubee, y probablemente entraria primero a Gobierno por curiosidad y saldria confundido."
+    },
+    {
+      "tarea": "Crear una credencial de integracion",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Credenciales API, o algo que diga sistemas",
+      "dudo": true,
+      "comentario": "No entiendo la tarea y no la haria nunca. Credencial de integracion para mi suena a un gafete. Fui a Administracion por descarte, porque las otras tres claramente no son. Esto se lo encargaria a Sistemas."
+    }
+  ],
+  "racional_general": "Organice las tarjetas por el momento del dia en que las usaria, no por lo que son tecnicamente. Mi primera pila es la pantalla de los quince minutos antes de la Junta de Gobierno: tablero, indicadores, avisos. La segunda son los temas del sistema financiero, porque asi esta armada mi agenda y asi me preguntan los subgobernadores. La tercera es la que mas me importa aunque casi no la abra: el respaldo de la cifra, todo lo que me permite contestar de donde salio este numero, porque mi peor escenario es que dos directores lleguen a una reunion con dos cifras distintas. Despues quedaron las pilas de trabajo: como encuentro algo, que le pido y que le mando a mi equipo, y los tramites de acceso. Al final aparte una pila de cosas de sistemas que sinceramente no entiendo y que en mi pantalla solo serian ruido, y mi cuenta, que quedo sola. Si tuviera que quedarme con una sola regla: no me den bases de datos, denme certezas, y pongan el respaldo a un toque de distancia por si me lo piden."
+}

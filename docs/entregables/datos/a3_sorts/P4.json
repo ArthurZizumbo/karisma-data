@@ -1,0 +1,194 @@
+{
+  "_naturaleza": "Sesión sintética generada con evaluador LLM condicionado por una persona ficticia de la Actividad 1. No corresponde a una persona real.",
+  "evaluador": "P4",
+  "persona": "Elena Ruiz (auditoria)",
+  "grupos": [
+    {
+      "nombre": "Rastro y evidencia del dato",
+      "tarjetas": [
+        "T18",
+        "T31",
+        "T19",
+        "T35",
+        "T28"
+      ],
+      "por_que": "Este es mi grupo de trabajo, el que abriria todos los dias. Todo lo que esta aqui responde a las tres preguntas con las que armo un papel de trabajo: de donde vino el dato, quien lo toco y quien se lo llevo. El linaje me da el ciclo de vida, la bitacora me da los ojos que lo vieron, el monitoreo de cargas me da la fecha exacta en que entro al sistema, la calidad de datos me prueba que alguien ejecuto el control y el historial de exportaciones me dice quien saco informacion del perimetro. Si estas cinco pantallas existen, dejo de mandar oficios a TI pidiendo extracciones."
+    },
+    {
+      "nombre": "Accesos, permisos y autorizaciones",
+      "tarjetas": [
+        "T30",
+        "T29",
+        "T24",
+        "T25",
+        "T26",
+        "T32"
+      ],
+      "por_que": "Aqui puse el ciclo completo de un acceso: alguien lo pide, alguien lo autoriza, queda asignado a un rol y ese rol define que puede ver. Yo no los uso para pedir permisos, los uso para cruzar la matriz de acceso contra el organigrama y detectar usuarios inactivos con privilegios vivos. Meti las credenciales API aqui, aunque suenen a cosa tecnica, porque para mi una llave es un usuario que no es persona: si consume informacion sensible tiene que tener duenio, vigencia y autorizacion documentada igual que cualquiera."
+    },
+    {
+      "nombre": "Documentacion oficial del dato",
+      "tarjetas": [
+        "T06",
+        "T16",
+        "T17",
+        "T20"
+      ],
+      "por_que": "Estas son mis fuentes de criterio. Una auditoria compara lo que el sistema hace contra lo que la institucion dijo que iba a hacer, y lo segundo tiene que estar escrito en algun lado. El catalogo me sirve como inventario, que es lo primero que pido en cualquier revision. El diccionario y los metadatos me dan la definicion oficial contra la cual comparo. Las reglas de negocio me dicen como debio calcularse la cifra. Sin este grupo, cualquier hallazgo mio es opinion."
+    },
+    {
+      "nombre": "Informacion financiera de las areas",
+      "tarjetas": [
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T22",
+        "T23",
+        "T21"
+      ],
+      "por_que": "Todo esto es contenido sustantivo de otras areas y no es mi materia: yo no analizo la economia, vigilo los procesos que la producen. Los junte a proposito en un solo bloque porque para mi funcionan igual, son objetos auditables. Cuando me toca revisar la publicacion de un reporte entro aqui unicamente a ubicar la variable especifica y de inmediato me voy al rastro. Puse el tablero ejecutivo con ellos porque es la vitrina de estas mismas cifras, es lo que ve la Junta, no una herramienta mia."
+    },
+    {
+      "nombre": "Consulta y extraccion de pruebas",
+      "tarjetas": [
+        "T01",
+        "T13",
+        "T14",
+        "T15",
+        "T27",
+        "T02"
+      ],
+      "por_que": "Son las herramientas con las que armo el expediente. Busco la variable, la acoto por fechas y entidades, reviso la vista previa para no descargar de mas y exporto lo que se va a anexar al informe. Las busquedas recientes las valoro mas de lo que parece: cuando me preguntan como llegue a un hallazgo, poder reconstruir mis propios pasos es parte de mi propia trazabilidad. Compartir consulta lo puse aqui con reservas, porque es util para mandarle al auditado exactamente lo que revise, pero tambien es una puerta por la que sale informacion."
+    },
+    {
+      "nombre": "Mi cuenta y mis avisos",
+      "tarjetas": [
+        "T05",
+        "T03",
+        "T04"
+      ],
+      "por_que": "Es lo personal, lo que configuro una vez y casi no vuelvo a tocar. Los favoritos me sirven para tener a la mano las fuentes de la auditoria en curso y las alertas para enterarme si algo se movio en un periodo que ya revise. Es el grupo mas chico y el que menos peso tiene en mi trabajo, pero necesita estar separado porque no es evidencia de nadie mas que mia."
+    },
+    {
+      "nombre": "Conexiones con los sistemas (territorio de TI)",
+      "tarjetas": [
+        "T34",
+        "T33"
+      ],
+      "por_que": "Aparte esta lo que claramente no opero yo. Los conectores son configuracion de la gente de sistemas y honestamente no se que se hace en esa pantalla. El consumo por API si me interesa mucho, porque es trafico automatizado que se lleva informacion sin que nadie firme nada, pero lo dejo aqui porque siento que vive en el mundo tecnico y no en el mio. Si el portal me deja verlo aunque sea de solo lectura, lo agradeceria."
+    }
+  ],
+  "tarjeta_dificil": {
+    "tarjeta": "T34",
+    "razon": "Conectores de fuentes. No logre decidir si es una pantalla de configuracion, y entonces no me toca ni entrar, o si es un inventario de las conexiones vivas, y entonces es justo lo que necesito para saber por donde entra y sale informacion del banco. La definicion dice configuracion de la conexion, asi que la mande al bloque de sistemas, pero me quedo incomoda: si nadie me deja ver esa lista, hay un pedazo del perimetro que no puedo auditar y yo no puedo cerrar un informe con un hueco asi."
+  },
+  "duplicados_solicitados": [
+    {
+      "tarjeta": "T33",
+      "grupos": [
+        "Rastro y evidencia del dato",
+        "Conexiones con los sistemas (territorio de TI)"
+      ],
+      "razon": "Es dos cosas al mismo tiempo. Para TI es un tema de capacidad y de fierros. Para mi es una bitacora de accesos que no hizo ninguna persona, y las fugas que no puedo rastrear son exactamente las que me pide explicar la Junta de Gobierno. Yo necesito verla junto a la bitacora humana, no escondida en un apartado tecnico."
+    },
+    {
+      "tarjeta": "T32",
+      "grupos": [
+        "Accesos, permisos y autorizaciones",
+        "Conexiones con los sistemas (territorio de TI)"
+      ],
+      "razon": "La llave la crea y la rota sistemas, eso lo entiendo. Pero una credencial es un privilegio otorgado, y si no aparece en la misma vista donde reviso usuarios y roles se me van a escapar las llaves huerfanas de gente que ya no trabaja aqui. Es el hallazgo clasico que encuentro cada anio."
+    },
+    {
+      "tarjeta": "T19",
+      "grupos": [
+        "Rastro y evidencia del dato",
+        "Documentacion oficial del dato"
+      ],
+      "razon": "El resultado de la validacion es evidencia de que el control se ejecuto, y por eso lo puse con el rastro. Pero las validaciones aplicadas tambien son parte de lo que la institucion documento que iba a revisar, o sea criterio. Yo lo consultaria desde los dos lados: primero para saber que se debia validar y luego para probar que si se valido."
+    },
+    {
+      "tarjeta": "T28",
+      "grupos": [
+        "Rastro y evidencia del dato",
+        "Consulta y extraccion de pruebas"
+      ],
+      "razon": "Depende de a quien pertenece la descarga. Si es mia, la busco donde exporto, junto a la vista previa. Si es de un tercero, es evidencia de salida de informacion y la quiero al lado de la bitacora de accesos. La etiqueta no me dice cual de las dos es, y esa diferencia para mi es enorme."
+    },
+    {
+      "tarjeta": "T26",
+      "grupos": [
+        "Accesos, permisos y autorizaciones",
+        "Rastro y evidencia del dato"
+      ],
+      "razon": "Si el flujo autoriza solicitudes de acceso, va con permisos. Si tambien autoriza la publicacion de un dato, entonces es la prueba de quien aprobo la calidad antes de publicar, que es literalmente lo que voy a buscar cuando audite el reporte de agregados monetarios. Mientras no me aclaren que se aprueba ahi, lo quiero en los dos lugares."
+    }
+  ],
+  "etiquetas_confusas": [
+    {
+      "tarjeta": "T18",
+      "comentario": "Linaje. Tuve que leer la definicion para entenderla; sola no me dice nada. Nosotros le decimos trazabilidad o ciclo de vida del dato, y asi la habria encontrado a la primera. Es la funcion que mas me importa del portal y tiene el nombre mas opaco del mazo."
+    },
+    {
+      "tarjeta": "T17",
+      "comentario": "Metadatos. Suena a jerga de sistemas y se me traslapa con diccionario de datos; leyendo las dos definiciones sigo sin tener claro cual abriria para saber la periodicidad de una variable. En mis papeles de trabajo le digo ficha tecnica del dato."
+    },
+    {
+      "tarjeta": "T23",
+      "comentario": "Senales de riesgo. No la distingo de Mis alertas: las dos dicen aviso cuando algo se sale de rango. Termine separandolas por corazonada, una para la institucion y otra para mi, no porque las etiquetas me lo explicaran."
+    },
+    {
+      "tarjeta": "T22",
+      "comentario": "Indicadores de riesgo. Para mi riesgo significa riesgo operativo, de control y de acceso; aqui resulta que es exposicion financiera. Es un choque de vocabulario que me hizo dudar donde ponerla y donde la buscaria despues."
+    },
+    {
+      "tarjeta": "T20",
+      "comentario": "Reglas de negocio. Es demasiado ancha. No se si son las politicas institucionales que yo cito como criterio o la formula tecnica con la que se calcula la cifra. Como auditora necesito saber si eso es normativa o es codigo."
+    },
+    {
+      "tarjeta": "T33",
+      "comentario": "Consumo por API. La palabra API me suena a mesa de ayuda, no a mi materia. Si dijera accesos automatizados de sistemas la habria puesto sin dudar junto a la bitacora."
+    }
+  ],
+  "arbol": [
+    {
+      "tarea": "Localizar una fuente de liquidez",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Catalogo de fuentes",
+      "dudo": true,
+      "comentario": "Titubee porque mi instinto fue escribir liquidez en el buscador de la pagina de Inicio y dejar que el sistema me lleve. Si tuviera que navegar por menu si me voy a Exploracion y busco el inventario de fuentes, que es como pido las cosas en una auditoria: primero el catalogo, luego la fuente."
+    },
+    {
+      "tarea": "Exportar la cartera de credito",
+      "primer_nivel": "Exploracion",
+      "segundo_nivel": "Cartera de credito, y de ahi el boton de exportar sobre el resultado",
+      "dudo": false,
+      "comentario": "Para mi exportar no es una seccion, es lo ultimo que hago dentro de la consulta. Abro la cartera, la acoto y descargo. Lo unico que si esperaria en otro lado es el registro de esa descarga, ese lo buscaria en Gobierno."
+    },
+    {
+      "tarea": "Consultar un indicador de riesgo",
+      "primer_nivel": "Gobierno",
+      "segundo_nivel": "Indicadores y senales de riesgo",
+      "dudo": true,
+      "comentario": "Aqui me voy a equivocar y lo se. En mi cabeza la palabra riesgo pertenece al mundo de control, cumplimiento y gobierno, no al de consultar cifras, asi que mi primer clic seria Gobierno. Si no lo encuentro ahi me regresaria a Exploracion, pero pierdo tiempo y probablemente me quejo del menu."
+    },
+    {
+      "tarea": "Revisar quien autorizo un acceso",
+      "primer_nivel": "Gobierno",
+      "segundo_nivel": "Bitacora de accesos, o flujos de aprobacion",
+      "dudo": true,
+      "comentario": "Dudo entre dos subsecciones, no entre secciones. La palabra autorizo me manda a flujos de aprobacion, pero yo quiero la evidencia sellada y esa la asocio con la bitacora. Tambien me pasa por la cabeza Administracion, porque ahi viven usuarios y permisos, aunque para mi Administracion es donde se otorga y Gobierno donde queda el rastro. Con esa duda igual entro primero a Gobierno."
+    },
+    {
+      "tarea": "Crear una credencial de integracion",
+      "primer_nivel": "Administracion",
+      "segundo_nivel": "Credenciales API",
+      "dudo": false,
+      "comentario": "Crear es dar de alta, y las altas viven donde se administran usuarios y roles. Aclaro que yo nunca crearia una: entraria solo a ver la lista, quien la genero y desde cuando esta viva. Me preocuparia mucho que esa pantalla no exija autorizacion previa ni deje registro en la bitacora."
+    }
+  ],
+  "racional_general": "No organice el portal por temas financieros porque esa no es mi cabeza. Lo organice por la secuencia con la que armo un papel de trabajo. Primero separe lo que uso para probar cosas, el rastro y la evidencia, porque mi frase de siempre es que no puedo basar una auditoria en cadenas de correos. Luego junte todo el ciclo de un acceso, desde que se pide hasta que queda otorgado, que es la mitad de mi trabajo del anio. Despues aparte la documentacion oficial, que es mi criterio: lo que la institucion se comprometio a hacer. El contenido financiero lo compacte en un solo bloque a proposito, son objetos auditables y no herramientas mias, con ubicarlos me basta. Al final quedaron las herramientas de consulta con las que extraigo pruebas, lo personal y lo que claramente es territorio de sistemas. Lo que mas me incomoda de este ejercicio es que las funciones que a mi me salvan el tiempo, linaje, bitacora y consumo automatizado, tienen los nombres mas oscuros del mazo, mientras que las cifras que yo casi no toco tienen etiquetas clarisimas. Si el portal se organiza pensando solo en quien consulta cifras, yo voy a seguir levantando tickets a TI y esa es justo la lentitud que me esta comiendo los tiempos de entrega."
+}

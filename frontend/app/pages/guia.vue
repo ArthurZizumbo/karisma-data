@@ -169,7 +169,7 @@ const LAMINAS = Object.freeze([
         class="flex items-center gap-2 text-cuerpo text-error"
       >
         <Icon name="lucide:x-circle" class="size-4 shrink-0" aria-hidden="true" />
-        {{ t('guide.accessibility.failures', { total: sistema.incumplimientos.length }) }}
+        {{ t('guide.accessibility.failures', sistema.incumplimientos.length, { total: sistema.incumplimientos.length }) }}
       </p>
     </section>
   </section>

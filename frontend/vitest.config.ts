@@ -12,6 +12,7 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     include: ['test/**/*.spec.ts'],
+    setupFiles: ['./test/configuracion.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary'],
@@ -19,7 +20,7 @@ export default defineConfig({
       // and leaving it out of the report made it invisible to coverage.
       include: ['app/**/*.ts', 'app/**/*.vue', 'server/**/*.ts'],
       // Type declarations emit no runtime code.
-      exclude: ['app/types/**'],
+      exclude: ['app/types/**', 'app/utils/tokens.generated.ts'],
       thresholds: {
         lines: 50,
         functions: 50,

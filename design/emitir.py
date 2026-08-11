@@ -17,8 +17,9 @@ from __future__ import annotations
 
 import argparse
 import sys
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Final, Sequence
+from typing import Final
 
 from design.contraste import matriz, separaciones
 from design.sistema import (
@@ -33,7 +34,6 @@ from design.sistema import (
     SEMANTICOS,
     SERIES,
     SOMBRAS,
-    SEPARACION_SEMANTICA,
     SUPERFICIE,
     TIPOGRAFIA,
     VERSION,
@@ -41,6 +41,9 @@ from design.sistema import (
     Token,
     tokens_de_color,
 )
+
+#: Both modes ship, and every measurement is computed once per mode.
+MODOS: Final[tuple[Modo, ...]] = ("claro", "oscuro")
 
 RAIZ: Final[Path] = Path(__file__).resolve().parents[1]
 CSS: Final[Path] = RAIZ / "frontend" / "app" / "assets" / "css" / "main.css"
@@ -294,7 +297,7 @@ def emitir_ts() -> str:
         "",
         "export const CONTRASTES: readonly ParContraste[] = [",
     ]
-    for modo in ("claro", "oscuro"):
+    for modo in MODOS:
         for par in matriz(modo):
             out.append(
                 f"  {{ token: '{par.frente}', modo: '{modo}', "
@@ -303,7 +306,7 @@ def emitir_ts() -> str:
     out.append("]")
     out.append("")
     out.append("export const SEPARACIONES: readonly SeparacionSemantica[] = [")
-    for modo in ("claro", "oscuro"):
+    for modo in MODOS:
         for s in separaciones(modo):
             out.append(
                 f"  {{ uno: '{s.uno}', otro: '{s.otro}', modo: '{modo}', "
@@ -311,12 +314,21 @@ def emitir_ts() -> str:
             )
     out.append("]")
     out.append("")
+    out.append("/**")
+    out.append(" * Peor separacion semantica por modo, DERIVADA del calculo.")
+    out.append(" *")
+    out.append(" * Estuvo escrita a mano y se desincronizo del computo: declaraba 13.4")
     out.append(
-        "/** Peor separacion semantica medida por modo. En claro es un techo. */"
+        " * donde la medicion daba 13.6, que es el mismo defecto que este sistema"
     )
+    out.append(
+        " * existe para impedir. Una prueba lo detecto y ahora no puede repetirse."
+    )
+    out.append(" */")
     out.append("export const PEOR_SEPARACION = {")
-    for modo, valor in SEPARACION_SEMANTICA.items():
-        out.append(f"  {modo}: {valor},")
+    for modo in MODOS:
+        peor = min(s.distancia for s in separaciones(modo))
+        out.append(f"  {modo}: {peor},")
     out.append("} as const")
     out.append("")
     out.append("export const TOKENS: readonly TokenColor[] = [")

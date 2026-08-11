@@ -235,7 +235,7 @@
       "copied": "Copiado",
       "unsupported": "Este navegador no da acceso al portapapeles: el valor queda escrito a la vista para copiarlo a mano.",
       "title": "Paleta",
-      "count": "{count} tokens",
+      "count": "{count} tokens de color",
       "noClipboard": "Este navegador no da acceso al portapapeles: selecciona el valor a mano.",
       "decorative": "decorativo, no informa",
       "why": "Por qué esta paleta"
@@ -444,7 +444,7 @@
         "verdict": "Veredicto"
       },
       "separations": "Separación de los semánticos bajo dicromacia",
-      "failures": "{total} tokens incumplen la regla que declaran",
+      "failures": "{total} token incumple la regla que declara | {total} tokens incumplen la regla que declaran",
       "ceiling": {
         "oscuro": "Peor separación entre dos marcas semánticas, simulando protanopia, deuteranopia y tritanopia. Por encima de 20 se distinguen por color; aun así todas llevan forma e icono.",
         "claro": "Peor separación entre dos marcas semánticas bajo dicromacia simulada. Es un techo medido, no falta de esfuerzo: sobre fondo claro los cuatro semánticos deben superar 4.5:1, lo que los encierra por debajo de 0.16 de luminancia, y cuatro tonos no separan ahí dentro. Por eso el color nunca viaja solo: un lector con protanopia distingue error de aviso por el aspa y el triángulo."

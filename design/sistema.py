@@ -167,19 +167,17 @@ SEMANTICOS: Final[tuple[Token, ...]] = (
     ),
 )
 
-#: Measured limit of the semantic channel, recorded because it decides a rule.
+#: Why "colour plus shape plus icon" is load bearing rather than polite.
 #:
-#: Dark mode separates by dE=21.8 under the worst of the three simulated
-#: dichromacies. Light mode reaches only dE=13.4, and that is a ceiling and not
-#: a lack of effort: on a light ground all four semantics must clear 4.5:1,
-#: which caps them below 0.16 relative luminance, and four hues do not separate
-#: inside that band. A search over red and amber candidates found 13.4 as the
-#: best available, up from 6.4.
+#: Dark mode separates the semantic marks well under all three simulated
+#: dichromacies. Light mode does not, and cannot: on a light ground all four
+#: must clear 4.5:1, which caps them below 0.16 relative luminance, and four
+#: hues do not separate inside that band. A reader with protanopia tells an
+#: error from a warning by the cross and the triangle, not by the hue.
 #:
-#: This is why "colour plus shape plus icon" is load bearing rather than polite.
-#: A reader with protanopia distinguishes an error from a warning in light mode
-#: by the cross and the triangle, not by the hue.
-SEPARACION_SEMANTICA: Final[dict[str, float]] = {"claro": 13.4, "oscuro": 21.8}
+#: The number itself is deliberately absent here. It was written by hand once,
+#: drifted from the computation, and a test caught it: design/contraste.py
+#: measures it and design/emitir.py publishes what it measured.
 
 #: Categorical series for charts. Ordered so that adjacent series separate under
 #: every simulated dichromacy; each one also carries its own marker shape and

@@ -28,12 +28,12 @@ Veredicto = Literal["AAA", "AA", "AA-grande", "grafico", "superficie", "falla"]
 Dicromacia = Literal["protanopia", "deuteranopia", "tritanopia"]
 
 #: sRGB to LMS and back, Vienot, Brettel and Mollon 1999.
-_RGB_LMS: Final = (
+_RGB_LMS: Final[tuple[tuple[float, float, float], ...]] = (
     (0.31399022, 0.63951294, 0.04649755),
     (0.15537241, 0.75789446, 0.08670142),
     (0.01775239, 0.10944209, 0.87256922),
 )
-_LMS_RGB: Final = (
+_LMS_RGB: Final[tuple[tuple[float, float, float], ...]] = (
     (5.47221206, -4.6419601, 0.16963708),
     (-1.1252419, 2.29317094, -0.1678952),
     (0.02980165, -0.19318073, 1.16364789),
@@ -76,7 +76,11 @@ def _lineal(canal: int) -> float:
 def _canales(hex_color: str) -> tuple[float, float, float]:
     """Return the three linear-light channels of a hex colour."""
     limpio = hex_color.lstrip("#")
-    return tuple(_lineal(int(limpio[i : i + 2], 16)) for i in (0, 2, 4))  # type: ignore[return-value]
+    return (
+        _lineal(int(limpio[0:2], 16)),
+        _lineal(int(limpio[2:4], 16)),
+        _lineal(int(limpio[4:6], 16)),
+    )
 
 
 def luminancia(hex_color: str) -> float:
@@ -102,11 +106,19 @@ def veredicto(ratio: float) -> Veredicto:
     return "falla"
 
 
+Matriz3 = tuple[tuple[float, float, float], ...]
+
+
 def _producto(
-    matriz: tuple, vector: tuple[float, float, float]
+    matriz: Matriz3, vector: tuple[float, float, float]
 ) -> tuple[float, float, float]:
     """Multiply a 3x3 matrix by a vector."""
-    return tuple(sum(fila[i] * vector[i] for i in range(3)) for fila in matriz)  # type: ignore[return-value]
+    fila_a, fila_b, fila_c = matriz
+    return (
+        sum(fila_a[i] * vector[i] for i in range(3)),
+        sum(fila_b[i] * vector[i] for i in range(3)),
+        sum(fila_c[i] * vector[i] for i in range(3)),
+    )
 
 
 def simular(hex_color: str, dicromacia: Dicromacia) -> tuple[float, float, float]:
@@ -132,7 +144,7 @@ def _lab(rgb: tuple[float, float, float]) -> tuple[float, float, float]:
 def distancia(uno: str, otro: str, dicromacia: Dicromacia) -> float:
     """Return the CIE76 distance between two colours as a dichromat sees them."""
     a, b = _lab(simular(uno, dicromacia)), _lab(simular(otro, dicromacia))
-    return sum((x - y) ** 2 for x, y in zip(a, b)) ** 0.5
+    return float(sum((x - y) ** 2 for x, y in zip(a, b, strict=True)) ** 0.5)
 
 
 def _suelo(modo: Modo) -> str:
@@ -167,11 +179,11 @@ def separaciones(modo: Modo) -> tuple[Separacion, ...]:
     for uno, otro in itertools.combinations(SEMANTICOS, 2):
         peor: Separacion | None = None
         for dicromacia in _PROYECCION:
-            d = distancia(uno.valor(modo), otro.valor(modo), dicromacia)  # type: ignore[arg-type]
+            d = distancia(uno.valor(modo), otro.valor(modo), dicromacia)
             if peor is None or d < peor.distancia:
                 peor = Separacion(
                     uno.nombre, otro.nombre, modo, dicromacia, round(d, 1)
-                )  # type: ignore[arg-type]
+                )
         if peor is not None:
             salida.append(peor)
     return tuple(salida)
@@ -196,7 +208,8 @@ def incumplimientos(modo: Modo) -> tuple[str, ...]:
             )
         if not token.informa and ratio >= 3.0:
             fallos.append(
-                f"{token.nombre} declara que no informa y alcanza {ratio:.2f}:1 en {modo}"
+                f"{token.nombre} declara que no informa y alcanza "
+                f"{ratio:.2f}:1 en {modo}"
             )
     return tuple(fallos)
 

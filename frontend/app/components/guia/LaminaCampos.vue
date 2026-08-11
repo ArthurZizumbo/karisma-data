@@ -14,7 +14,7 @@
  * decoration: it is how the state is read.
  */
 import { useI18n } from 'vue-i18n'
-import { ANILLO_FOCO } from '~/utils/foco'
+import { ANILLO_FOCO, ANILLO_FOCO_CONGELADO } from '~/utils/foco'
 
 const { t } = useI18n()
 
@@ -64,7 +64,7 @@ function claseCampo(estado: string): string {
         <input
           :id="`campo-${campo.id}`"
           type="text"
-          :class="[claseCampo(campo.id), campo.id === 'focus' ? 'outline-2 outline-offset-2 outline-info' : '']"
+          :class="[claseCampo(campo.id), campo.id === 'focus' ? ANILLO_FOCO_CONGELADO : '']"
           :placeholder="t('guide.fields.placeholder')"
           :value="campo.valor"
           :disabled="campo.id === 'disabled'"

@@ -235,7 +235,7 @@
       "copied": "Copied",
       "unsupported": "This browser grants no clipboard access: the value stays written in plain sight so it can be copied by hand.",
       "title": "Palette",
-      "count": "{count} tokens",
+      "count": "{count} colour tokens",
       "noClipboard": "This browser gives no clipboard access: select the value by hand.",
       "decorative": "decorative, does not inform",
       "why": "Why this palette"
@@ -439,12 +439,12 @@
       "verdictLegend": "The verdict is printed exactly as the generator emits it: AAA, AA, AA-grande, which means large text only from 18 px up, and falla, which means it fails.",
       "sample": "Sample text",
       "column": {
-        "token": "Token",
+        "token": "Token name",
         "ratio": "Contrast",
         "verdict": "Verdict"
       },
       "separations": "Semantic separation under dichromacy",
-      "failures": "{total} tokens break the rule they declare",
+      "failures": "{total} token breaks the rule it declares | {total} tokens break the rule they declare",
       "ceiling": {
         "oscuro": "Worst separation between two semantic marks, simulating protanopia, deuteranopia and tritanopia. Above 20 they are told apart by colour; even so, all of them carry a shape and an icon.",
         "claro": "Worst separation between two semantic marks under simulated dichromacy. It is a measured ceiling, not a lack of effort: over a light ground all four semantics must clear 4.5:1, which caps them below 0.16 luminance, and four hues do not separate inside that band. That is why colour never travels alone: a reader with protanopia tells an error from a warning by the cross and the triangle."

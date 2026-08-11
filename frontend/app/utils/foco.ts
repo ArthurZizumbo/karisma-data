@@ -25,7 +25,7 @@
  * behind, or the reader reads it as a selected state.
  */
 export const ANILLO_FOCO
-  = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
+  = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info'
 
 /**
  * The same ring, painted unconditionally.
@@ -36,7 +36,7 @@ export const ANILLO_FOCO
  * documents a ring the browser does not paint is the defect this module exists
  * to close.
  */
-export const ANILLO_FOCO_CONGELADO = 'outline-2 outline-offset-2 outline-primary'
+export const ANILLO_FOCO_CONGELADO = 'outline-2 outline-offset-2 outline-info'
 
 /**
  * The ring for controls that live on the dark chrome, such as the sidebar.
@@ -56,4 +56,4 @@ export const ANILLO_FOCO_INVERSO
  * container, so the offset is negative and the ring lands inside the cell.
  */
 export const ANILLO_FOCO_INTERNO
-  = 'focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-surface'
+  = 'focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ground'

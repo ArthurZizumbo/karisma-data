@@ -330,10 +330,16 @@ export const SEPARACIONES: readonly SeparacionSemantica[] = [
   { uno: 'ok', otro: 'info', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 30.4 },
 ]
 
-/** Peor separacion semantica medida por modo. En claro es un techo. */
+/**
+ * Peor separacion semantica por modo, DERIVADA del calculo.
+ *
+ * Estuvo escrita a mano y se desincronizo del computo: declaraba 13.4
+ * donde la medicion daba 13.6, que es el mismo defecto que este sistema
+ * existe para impedir. Una prueba lo detecto y ahora no puede repetirse.
+ */
 export const PEOR_SEPARACION = {
-  claro: 13.4,
-  oscuro: 21.8,
+  claro: 13.6,
+  oscuro: 21.5,
 } as const
 
 export const TOKENS: readonly TokenColor[] = [

@@ -30,6 +30,20 @@ const workspace = leer('../pnpm-workspace.yaml')
 
 const MAYOR_ESPERADO = '22'
 
+/**
+ * Floor of the Node 22 line, raised on 10-ago-2026 when @nuxtjs/i18n entered.
+ *
+ * Its toolchain pulls oxc-parser, whose native binding declares
+ * `engines: ^20.19.0 || >=22.12.0`. pnpm skips an optional dependency whose
+ * engines do not fit the range the project declares, so with `>=22.0.0` the
+ * binding was silently omitted and every command that loads the module -
+ * `nuxt prepare`, `nuxt typecheck`, `nuxt build` - died with "Cannot find
+ * module ./parser.win32-x64-msvc.node". Narrowing the range is what installs
+ * it. `.nvmrc` and the Dockerfile keep naming the line, not the patch: both
+ * resolve to a current 22.x, which is already above this floor.
+ */
+const MINIMO_ESPERADO = '22.12.0'
+
 describe('CA-2 · gestor de paquetes fijado y verificable', () => {
   it('declara pnpm con version exacta y hash de integridad', () => {
     // Without the sha512 suffix the field pins the version but not its
@@ -62,14 +76,22 @@ describe('CA-3 · Node 22 fijado en las cuatro puertas', () => {
   })
 
   it('acota engines.node al mayor 22 con un rango, no con una cadena suelta', () => {
-    expect(manifiesto.engines?.node).toBe('>=22.0.0 <23.0.0')
+    expect(manifiesto.engines?.node).toBe(`>=${MINIMO_ESPERADO} <23.0.0`)
   })
 
   it('declara devEngines.runtime, que es la unica puerta que descarga y fija', () => {
     const runtime = manifiesto.devEngines?.runtime
     expect(runtime?.name).toBe('node')
-    expect(runtime?.version).toBe(`^${MAYOR_ESPERADO}.0.0`)
+    expect(runtime?.version).toBe(`^${MINIMO_ESPERADO}`)
     expect(runtime?.onFail).toBe('download')
+  })
+
+  it('no baja el piso por debajo del que exigen los binarios nativos', () => {
+    // The two gates that install Node must not drift below the version the
+    // oxc-parser binding needs, or pnpm goes back to skipping it and the
+    // failure resurfaces as a missing .node file at build time.
+    expect(manifiesto.engines?.node).toContain(MINIMO_ESPERADO)
+    expect(manifiesto.devEngines?.runtime?.version).toContain(MINIMO_ESPERADO)
   })
 
   it('usa node:22-slim en las dos etapas del Dockerfile', () => {

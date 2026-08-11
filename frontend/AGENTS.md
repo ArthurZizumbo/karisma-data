@@ -21,7 +21,7 @@ frontend/
 
 ## Reglas de la carpeta
 
-- **UI solo en español** — strings directos en templates; PROHIBIDO i18n (`useI18n`, locales). Sin emojis.
+- **UI bilingüe español + inglés** (decisión del 10-ago-2026, deroga «UI solo en español») — ninguna cadena visible se escribe en un componente: van a `frontend/i18n/locales/{es,en}.json` con claves jerárquicas en inglés (`nav.module.home`, `screen.index.title`) y se resuelven con `useI18n()` importado de `vue-i18n`. `strategy: 'no_prefix'`: las URLs no cambian y `RUTAS_CONTRATO` sigue anclado al mapa de A3. El idioma viaja en la cookie `karisma_locale`, que escribe `useIdioma()` y aplica `app.vue` antes del primer render. Sin emojis.
 - `<script setup lang="ts">` y tipos estrictos en todo; props/emits tipados.
 - **Nuxt 4**: `useFetch` devuelve `shallowRef` — jamás reactividad profunda sobre payloads masivos; componentes pesados como `Lazy*`; SWR vía `routeRules` en el dashboard directivo.
 - **ECharts**: siempre `vue-echarts` como `<LazyVChart/>`, imports modulares de `echarts/core`; series >=1M puntos con agregación server-side Polars + `sampling: 'lttb'` + `large: true` (degradación acordada: 500K).

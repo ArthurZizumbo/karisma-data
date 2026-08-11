@@ -5,7 +5,8 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
 import FranjaAlcance from '~/components/nav/FranjaAlcance.vue'
-import { RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
+import { RUTA_GUIA, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
+import { crearI18nDePrueba } from './i18nDePrueba'
 
 /**
  * US-001 — `scripts/smoke_rutas.sh` as a verifiable contract.
@@ -43,22 +44,25 @@ function constanteDelGuion(nombre: string): string {
   return guion.match(new RegExp(`^${nombre}="?([^"\\n]+)"?$`, 'm'))?.[1] ?? ''
 }
 
-describe('el smoke recorre exactamente las rutas del contrato', () => {
-  it('declara las nueve rutas: el indice mas las ocho del contrato', () => {
+describe('el smoke recorre exactamente las rutas publicas del portal', () => {
+  it('declara las diez rutas: el indice, la guia y las ocho del contrato', () => {
     // The order of the walk is not part of the contract -the script chains no
     // state between routes- but the set is: one route too many or too few and
     // the smoke stops covering what it claims to cover.
     const rutas = rutasDelGuion()
 
-    expect([...rutas].sort()).toEqual([RUTA_INDICE, ...RUTAS_CONTRATO].sort())
+    expect([...rutas].sort()).toEqual([RUTA_INDICE, RUTA_GUIA, ...RUTAS_CONTRATO].sort())
     expect(new Set(rutas).size).toBe(rutas.length)
   })
 
   it('cuadra su total esperado con las rutas que recorre', () => {
     // The script aborts when the two numbers disagree; this test keeps that
     // abort from being discovered with the environment up and the gate looming.
+    //
+    // Two above the contract, not one: the index and the style guide are the
+    // two routes that answer 200 without being a branch of the A3 map.
     expect(Number(constanteDelGuion('TOTAL_ESPERADO'))).toBe(rutasDelGuion().length)
-    expect(Number(constanteDelGuion('TOTAL_ESPERADO'))).toBe(RUTAS_CONTRATO.length + 1)
+    expect(Number(constanteDelGuion('TOTAL_ESPERADO'))).toBe(RUTAS_CONTRATO.length + 2)
   })
 })
 
@@ -70,7 +74,9 @@ describe('el smoke busca una marca que la franja realmente imprime', () => {
     const marca = constanteDelGuion('MARCA_FRANJA')
 
     expect(marca).not.toBe('')
-    expect(mount(FranjaAlcance).html()).toContain(marca)
+    expect(
+      mount(FranjaAlcance, { global: { plugins: [crearI18nDePrueba()] } }).html(),
+    ).toContain(marca)
   })
 
   it('consulta la sonda del api en la ruta que el backend expone', () => {

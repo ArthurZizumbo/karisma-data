@@ -1,0 +1,50 @@
+%% ============================================================================
+%%  Entregable Actividad 4 — Equipo 8
+%%  Prototipo web de alta fidelidad y guía de estilos
+%%  TC4032 Experiencia del usuario y diseño de interfaces · MNA · ITESM
+%%
+%%  Este es el envoltorio de la entrega semanal. El contenido vive en
+%%  contenido/a4_*.tex y se reutiliza sin cambios en main_completo.tex.
+%%
+%%  Compilar con XeLaTeX (dos pasadas para el índice):
+%%      latexmk -xelatex main_a4.tex
+%%
+%%  Los ocho \input siguen el orden fijado en la sección 12.1 del plan de
+%%  excelencia de la semana 4. Cada uno se envuelve en \IfFileExists porque el
+%%  documento se escribe en dos manos: US-UX-09 es dueña de a4_03 y a4_06, y
+%%  US-UX-07 de los seis restantes. Así el envoltorio compila en cualquier
+%%  momento de la semana y cada archivo entra en el PDF en cuanto existe, sin
+%%  que ninguna de las dos historias tenga que editar esta lista.
+%% ============================================================================
+\documentclass[11pt,letterpaper]{article}
+\usepackage{estilo/uxdoc}
+
+%% Láminas generadas por docs/entregables/generar_tokens_a4.py a partir de los
+%% 37 \definecolor de estilo/uxdoc.sty. Define \versionguia, \fechaguia,
+%% \laminaPaleta, \laminaContraste, \laminaTipografia y \laminaReticula.
+%% Ningún hexadecimal se teclea en contenido/a4_*.tex: sale de aquí.
+\input{estilo/a4_tokens}
+
+\uxencabezado{Actividad 4 · Karisma Data}
+\hypersetup{pdftitle={Actividad 4. Prototipo de alta fidelidad y guia de estilos}}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Índice}
+
+\begin{document}
+
+\uxportada{Actividad 4}{Prototipo web de alta fidelidad\\y guía de estilos}{16 de agosto de 2026}
+
+\tableofcontents
+\clearpage
+
+\IfFileExists{contenido/a4_00_preliminares.tex}{\input{contenido/a4_00_preliminares}}{}
+\IfFileExists{contenido/a4_01_metodo_prototipado.tex}{\input{contenido/a4_01_metodo_prototipado}}{}
+\IfFileExists{contenido/a4_02_prototipos.tex}{\input{contenido/a4_02_prototipos}}{}
+\input{contenido/a4_03_guia_estilos}
+\IfFileExists{contenido/a4_04_prevalidacion.tex}{\input{contenido/a4_04_prevalidacion}}{}
+\IfFileExists{contenido/a4_05_alcance.tex}{\input{contenido/a4_05_alcance}}{}
+\input{contenido/a4_06_cierre}
+\IfFileExists{contenido/a4_07_anexo.tex}{\input{contenido/a4_07_anexo}}{}
+
+\end{document}

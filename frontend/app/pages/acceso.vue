@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useTituloDeRuta } from '~/composables/useTituloDeRuta'
 
 definePageMeta({ layout: 'acceso' })
 
+const { t } = useI18n()
 const { titulo, ruta } = useTituloDeRuta()
 </script>
 
@@ -12,8 +14,7 @@ const { titulo, ruta } = useTituloDeRuta()
       {{ titulo }}
     </h1>
     <p class="max-w-prose text-muted">
-      Contendrá el formulario de entrada con usuario y contraseña, y llevará a cada perfil a su
-      pantalla inicial.
+      {{ t('screen.access.description') }}
     </p>
   </section>
 </template>

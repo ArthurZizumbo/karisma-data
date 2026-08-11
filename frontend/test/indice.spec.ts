@@ -3,15 +3,19 @@ import { defineComponent } from 'vue'
 import { describe, expect, it } from 'vitest'
 import Indice from '~/pages/index.vue'
 import { PROTOTIPOS, RUTAS_CONTRATO } from '~/utils/navegacion'
+import { type CodigoIdioma, crearI18nDePrueba, mensaje } from './i18nDePrueba'
 
 const EnlaceStub = defineComponent({
   props: { to: { type: String, required: true } },
   template: '<a :href="to"><slot /></a>',
 })
 
-function montarIndice() {
+function montarIndice(idioma: CodigoIdioma = 'es') {
   return mount(Indice, {
-    global: { components: { NuxtLink: EnlaceStub } },
+    global: {
+      plugins: [crearI18nDePrueba(idioma)],
+      components: { NuxtLink: EnlaceStub },
+    },
   })
 }
 
@@ -54,10 +58,26 @@ describe('índice de prototipos en /', () => {
     const texto = montarIndice().text()
 
     for (const prototipo of PROTOTIPOS) {
-      expect(texto).toContain(prototipo.nombre)
-      expect(texto).toContain(prototipo.ramaA3)
+      expect(texto).toContain(mensaje('es', prototipo.claveNombre))
+      expect(texto).toContain(mensaje('es', prototipo.claveRama))
     }
     expect(texto).toContain('Navegable sin datos')
     expect(texto).toContain('Perfil operativo')
+  })
+
+  it('traduce el índice completo cuando la interfaz está en inglés', () => {
+    // The index is the screen with the most text that does not come from a page
+    // file: names, A3 branches, scope labels and profiles all travel through the
+    // navigation contract. If any of them had kept a Spanish literal, it would
+    // surface here and nowhere else.
+    const texto = montarIndice('en').text()
+
+    for (const prototipo of PROTOTIPOS) {
+      expect(texto).toContain(mensaje('en', prototipo.claveNombre))
+      expect(texto).toContain(mensaje('en', prototipo.claveRama))
+    }
+    expect(texto).toContain('Navigable without data')
+    expect(texto).toContain('Operations profile')
+    expect(texto).not.toContain('Navegable sin datos')
   })
 })

@@ -17,6 +17,16 @@ set -eu
 
 MAYOR_ESPERADO=22
 
+# Piso de la linea 22, elevado el 10-ago-2026 al entrar @nuxtjs/i18n. Su cadena
+# arrastra oxc-parser, cuyo binario nativo declara "engines: ^20.19.0 ||
+# >=22.12.0". pnpm omite una dependencia OPCIONAL cuyo engines no cabe en el
+# rango que declara el proyecto, asi que con ">=22.0.0" el binario no se
+# instalaba y "nuxt prepare", "nuxt typecheck" y "nuxt build" morian con
+# "Cannot find module ./parser.<plataforma>.node". Ocurre igual en Linux, de
+# modo que la imagen de Docker se veria afectada tambien. .nvmrc y el Dockerfile
+# siguen nombrando la linea, no el parche: cualquier 22.x vigente la cumple.
+MINIMO_ESPERADO=22.12.0
+
 RAIZ=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 FRONTEND="$RAIZ/frontend"
 
@@ -55,7 +65,7 @@ comprobar ".nvmrc" "$nvmrc" "$MAYOR_ESPERADO"
 # imagen de Compose, donde jq no esta instalado.
 if [ -f "$FRONTEND/package.json" ]; then
     # Se aplanan los saltos de linea pero NO los espacios: el valor de
-    # engines.node lleva uno dentro (">=22.0.0 <23.0.0") y borrarlo haria
+    # engines.node lleva uno dentro (">=22.12.0 <23.0.0") y borrarlo haria
     # fallar la comparacion contra un manifiesto correcto.
     compacto=$(tr '\n\r\t' '   ' < "$FRONTEND/package.json" | sed 's/  */ /g')
     engines=$(printf '%s' "$compacto" \
@@ -69,8 +79,8 @@ else
     dev_version=""
     dev_on_fail=""
 fi
-comprobar "engines.node" "${engines:-<ausente>}" ">=$MAYOR_ESPERADO.0.0 <$((MAYOR_ESPERADO + 1)).0.0"
-comprobar "devEngines.runtime" "${dev_version:-<ausente>}" "^$MAYOR_ESPERADO.0.0"
+comprobar "engines.node" "${engines:-<ausente>}" ">=$MINIMO_ESPERADO <$((MAYOR_ESPERADO + 1)).0.0"
+comprobar "devEngines.runtime" "${dev_version:-<ausente>}" "^$MINIMO_ESPERADO"
 
 # --- Puerta 4: Dockerfile, en TODAS sus etapas ------------------------------
 # Se leen todas las lineas FROM y no solo la primera: una imagen de ejecucion

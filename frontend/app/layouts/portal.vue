@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import CabeceraProducto from '~/components/comun/CabeceraProducto.vue'
 import BarraLateral from '~/components/nav/BarraLateral.vue'
 import FranjaAlcance from '~/components/nav/FranjaAlcance.vue'
 
-const entorno = useRuntimeConfig().public.entorno
+const { t } = useI18n()
 </script>
 
 <template>
@@ -16,19 +18,14 @@ const entorno = useRuntimeConfig().public.entorno
       href="#contenido"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-surface"
     >
-      Saltar al contenido
+      {{ t('chrome.skipToContent') }}
     </a>
 
     <BarraLateral />
 
     <div class="flex min-w-0 flex-1 flex-col">
-      <header
-        class="flex h-[var(--header-height)] shrink-0 items-center justify-end border-b border-line bg-surface-alt px-6"
-      >
-        <span class="rounded-sm border border-line px-2 py-1 text-sm text-muted">
-          Entorno: {{ entorno }}
-        </span>
-      </header>
+      <!-- The sidebar already names the product, so the header does not. -->
+      <CabeceraProducto :con-marca="false" />
 
       <FranjaAlcance />
 

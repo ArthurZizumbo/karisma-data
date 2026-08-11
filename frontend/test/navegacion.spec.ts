@@ -1,16 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import {
-  AVISO_ALCANCE,
-  etiquetaDeRuta,
-  FACETAS_TRANSVERSALES,
+  claveDeRuta,
+  CLAVE_AVISO_ALCANCE,
+  CLAVES_FACETAS_TRANSVERSALES,
   MODULOS,
   moduloActivo,
   PROTOTIPOS,
   RUTA_ACCESO,
   RUTA_ASISTENTE,
+  RUTA_GUIA,
   RUTA_INDICE,
   RUTAS_CONTRATO,
 } from '~/utils/navegacion'
+import { mensaje } from './i18nDePrueba'
 
 const RUTAS_ESPERADAS = [
   '/acceso',
@@ -80,8 +82,8 @@ describe('integridad del contrato de navegación', () => {
   })
 
   it('declara las nueve facetas transversales de A3', () => {
-    expect(FACETAS_TRANSVERSALES).toHaveLength(9)
-    expect(new Set(FACETAS_TRANSVERSALES).size).toBe(9)
+    expect(CLAVES_FACETAS_TRANSVERSALES).toHaveLength(9)
+    expect(new Set(CLAVES_FACETAS_TRANSVERSALES).size).toBe(9)
   })
 
   it('marca facetas transversales en los cuatro módulos, no solo en el total', () => {
@@ -99,14 +101,45 @@ describe('integridad del contrato de navegación', () => {
     }
 
     const total = porModulo.reduce((suma, modulo) => suma + modulo.marcadas, 0)
-    expect(total).toBeLessThanOrEqual(FACETAS_TRANSVERSALES.length)
+    expect(total).toBeLessThanOrEqual(CLAVES_FACETAS_TRANSVERSALES.length)
   })
 
   it('usa un texto de franja único y explícito sobre el alcance', () => {
-    expect(AVISO_ALCANCE).toBe(
+    expect(mensaje('es', CLAVE_AVISO_ALCANCE)).toBe(
       'Prototipo de alta fidelidad de Karisma Data con datos sintéticos. '
       + 'No está conectado a sistemas reales de ninguna institución.',
     )
+  })
+})
+
+describe('el contrato de navegación no guarda ninguna palabra suelta', () => {
+  /** Every translation key the contract asks the catalogues to resolve. */
+  const CLAVES_DEL_CONTRATO = [
+    CLAVE_AVISO_ALCANCE,
+    ...CLAVES_FACETAS_TRANSVERSALES,
+    ...MODULOS.flatMap(modulo => [
+      modulo.claveEtiqueta,
+      ...modulo.subrutas.map(subruta => subruta.claveEtiqueta),
+    ]),
+    ...PROTOTIPOS.flatMap(prototipo => [prototipo.claveNombre, prototipo.claveRama]),
+  ]
+
+  it.each(CLAVES_DEL_CONTRATO)('resuelve %s en los dos catálogos', (clave) => {
+    // A key added to es.json and forgotten in en.json renders the Spanish text
+    // through the fallback and nobody notices until an evaluator switches the
+    // language. `mensaje` throws when the key is absent, which is the point.
+    expect(mensaje('es', clave)).not.toBe('')
+    expect(mensaje('en', clave)).not.toBe('')
+  })
+
+  it('no deja ninguna etiqueta del árbol en español dentro del catálogo inglés', () => {
+    const traducidas = CLAVES_DEL_CONTRATO.filter(
+      clave => mensaje('es', clave) !== mensaje('en', clave),
+    )
+
+    // 'Karisma Data' is the only reader facing string that is identical in both
+    // languages, and it is not part of the tree: every entry here must change.
+    expect(traducidas).toHaveLength(CLAVES_DEL_CONTRATO.length)
   })
 })
 
@@ -123,12 +156,39 @@ describe('índice de prototipos', () => {
       // unreachable assertion. What can actually break is somebody introducing
       // a state outside the three state table of A4.
       expect(ESTADOS_DE_ALCANCE).toContain(prototipo.alcance)
-      expect(prototipo.ramaA3).not.toBe('')
+      expect(prototipo.claveRama).not.toBe('')
     }
   })
 
   it('deja tableros fuera del índice porque es zona de la pantalla de exploración', () => {
     expect(PROTOTIPOS.map(prototipo => prototipo.ruta)).not.toContain('/exploracion/tableros')
+  })
+})
+
+describe('la guía de estilos entra como constante propia, no como octavo prototipo', () => {
+  it('declara RUTA_GUIA con la dirección que el smoke recorre', () => {
+    expect(RUTA_GUIA).toBe('/guia')
+  })
+
+  it('no la mete en el contrato de navegación, que sigue en ocho rutas', () => {
+    // RUTAS_CONTRATO declares branches of the A3 site map and /guia is not one:
+    // adding it there would claim a branch that the card sorting never produced
+    // and would make `moduloActivo` and `claveDeRuta` answer for a route with no
+    // label in either catalogue.
+    expect(RUTAS_CONTRATO).toHaveLength(8)
+    expect(RUTAS_CONTRATO).not.toContain(RUTA_GUIA)
+  })
+
+  it('no la cuenta como prototipo, que sigue en siete botones', () => {
+    // The A4 rubric scores prototypes in one section and the style guide in
+    // another. An eighth numbered button would move points from one to the
+    // other and break the map the A3 deliverable already promised.
+    expect(PROTOTIPOS).toHaveLength(7)
+    expect(PROTOTIPOS.map(prototipo => prototipo.ruta)).not.toContain(RUTA_GUIA)
+  })
+
+  it('no la confunde con ninguna de las otras rutas sueltas', () => {
+    expect(new Set([RUTA_INDICE, RUTA_ACCESO, RUTA_ASISTENTE, RUTA_GUIA]).size).toBe(4)
   })
 })
 
@@ -164,20 +224,24 @@ describe('moduloActivo', () => {
   })
 })
 
-describe('etiquetaDeRuta', () => {
-  it.each(RUTAS_ESPERADAS)('devuelve un título no vacío para %s', (ruta) => {
-    const etiqueta = etiquetaDeRuta(ruta)
-    expect(etiqueta).toBeTruthy()
-    expect(etiqueta?.length).toBeGreaterThan(0)
+describe('claveDeRuta', () => {
+  it.each(RUTAS_ESPERADAS)('devuelve una clave traducible para %s', (ruta) => {
+    const clave = claveDeRuta(ruta)
+    expect(clave).toBeTruthy()
+    expect(mensaje('es', clave as string)).not.toBe('')
+    expect(mensaje('en', clave as string)).not.toBe('')
   })
 
-  it('devuelve el nombre de la rama de A3, no la ruta', () => {
-    expect(etiquetaDeRuta('/exploracion/tableros')).toBe('Tableros e indicadores')
-    expect(etiquetaDeRuta('/exploracion/exportar')).toBe('Exportaciones')
-    expect(etiquetaDeRuta('/gobierno')).toBe('Gobierno del dato')
+  it('devuelve la rama de A3, no la ruta, en los dos idiomas', () => {
+    expect(mensaje('es', claveDeRuta('/exploracion/tableros') as string))
+      .toBe('Tableros e indicadores')
+    expect(mensaje('en', claveDeRuta('/exploracion/tableros') as string))
+      .toBe('Dashboards and indicators')
+    expect(mensaje('es', claveDeRuta('/gobierno') as string)).toBe('Gobierno del dato')
+    expect(mensaje('en', claveDeRuta('/gobierno') as string)).toBe('Data governance')
   })
 
   it('no reconoce el índice como rama del mapa', () => {
-    expect(etiquetaDeRuta(RUTA_INDICE)).toBeUndefined()
+    expect(claveDeRuta(RUTA_INDICE)).toBeUndefined()
   })
 })

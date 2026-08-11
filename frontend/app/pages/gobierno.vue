@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useTituloDeRuta } from '~/composables/useTituloDeRuta'
 
 definePageMeta({ layout: 'portal' })
 
+const { t } = useI18n()
 const { titulo, ruta } = useTituloDeRuta()
 </script>
 
@@ -12,8 +14,7 @@ const { titulo, ruta } = useTituloDeRuta()
       {{ titulo }}
     </h1>
     <p class="max-w-prose text-muted">
-      Contendrá el diccionario y los metadatos, el linaje y la calidad del dato, y el catálogo de
-      fuentes.
+      {{ t('screen.governance.description') }}
     </p>
   </section>
 </template>

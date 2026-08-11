@@ -1,0 +1,387 @@
+{
+  "brand": {
+    "name": "Karisma Data"
+  },
+  "chrome": {
+    "environment": "Environment: {environment}",
+    "skipToContent": "Skip to content"
+  },
+  "language": {
+    "groupLabel": "Interface language",
+    "switchTo": "View the interface in {language}",
+    "current": "Interface in {language}"
+  },
+  "nav": {
+    "aria": {
+      "main": "Main navigation",
+      "crossCutting": "Cross-cutting access"
+    },
+    "module": {
+      "home": "Home",
+      "explore": "Explore and extract",
+      "governance": "Data governance",
+      "administration": "Administration"
+    },
+    "branch": {
+      "homeSearch": "Unified search",
+      "homeRecent": "Recent searches",
+      "homeFavorites": "Favorites",
+      "homeAlerts": "My alerts",
+      "homeProfile": "My profile",
+      "exploreCatalog": "Subject catalog",
+      "exploreQuery": "Query and filters",
+      "exploreExports": "Exports",
+      "exploreDashboards": "Dashboards and indicators",
+      "governanceDictionary": "Dictionary and metadata",
+      "governanceLineage": "Lineage and quality",
+      "governanceSources": "Source catalog",
+      "administrationUsers": "Users, roles and permissions",
+      "administrationRequests": "Requests and approvals",
+      "administrationAudit": "Access log",
+      "administrationIntegrations": "Integrations"
+    },
+    "assistant": {
+      "label": "Conversational assistant",
+      "note": "Cross-cutting to the four categories."
+    },
+    "facets": {
+      "caption": "Cross-cutting facets",
+      "hint": "{facet}: reachable from more than one branch of the map",
+      "branchTitle": "{label}: cross-cutting facet, reachable from more than one branch",
+      "branchAria": "{id} {label}, cross-cutting facet",
+      "items": {
+        "apiConsumption": "API consumption",
+        "dataQuality": "Data quality",
+        "preview": "Preview",
+        "sourceCatalog": "Source catalog",
+        "myAlerts": "My alerts",
+        "apiCredentials": "API credentials",
+        "loadMonitoring": "Load monitoring",
+        "permissions": "Permissions",
+        "exportHistory": "Export history"
+      }
+    }
+  },
+  "prototype": {
+    "name": {
+      "access": "Sign in",
+      "export": "Export"
+    },
+    "branch": {
+      "access": "Entry screen; it frames the others without being a branch of the map",
+      "home": "1. Home",
+      "explore": "2. Explore and extract — 2.1 Subject catalog, 2.2 Query and filters",
+      "governance": "3. Data governance — 3.1 Dictionary and metadata, 3.2 Lineage and quality, 3.3 Source catalog",
+      "assistant": "Cross-cutting to the four categories",
+      "administration": "4. Administration — 4.1 to 4.4",
+      "export": "2.3 Exports"
+    },
+    "scope": {
+      "withData": "Navigable with sample data",
+      "withoutData": "Navigable without data",
+      "roadmap": "On the roadmap"
+    },
+    "profile": {
+      "operations": "Operations profile",
+      "analyst": "Analyst profile",
+      "executive": "Executive profile",
+      "administration": "Administration profile"
+    }
+  },
+  "scope": {
+    "notice": "High fidelity prototype of Karisma Data running on synthetic data. It is not connected to the real systems of any institution.",
+    "ariaLabel": "Prototype scope notice"
+  },
+  "screen": {
+    "index": {
+      "title": "High fidelity prototypes",
+      "subtitle": "Seven screens of the Activity 3 site map. Every button states its scope and its profile."
+    },
+    "access": {
+      "description": "Will hold the sign-in form with user name and password, and will take each profile to its landing screen."
+    },
+    "home": {
+      "description": "Will hold the unified search, recent searches, favorites, my alerts and my profile."
+    },
+    "explore": {
+      "description": "Will hold the subject catalog and the faceted filter query over the sources of the portal."
+    },
+    "exports": {
+      "description": "Will hold the background export to CSV and Excel together with the export history."
+    },
+    "dashboards": {
+      "description": "Will hold the executive dashboard, the risk indicators and the risk signals, inside the same exploration screen."
+    },
+    "governance": {
+      "description": "Will hold the dictionary and metadata, data lineage and quality, and the source catalog."
+    },
+    "administration": {
+      "description": "Will hold users, roles and permissions, requests and approvals, the access log and the integrations."
+    },
+    "assistant": {
+      "description": "Will hold the conversation with the agent, the card of every query it runs and the lineage detail of the answer."
+    }
+  },
+  "error": {
+    "code": "Error {code}",
+    "title": "This screen could not be shown",
+    "hint": "You can go back to the prototype index and enter through another screen. If the error repeats, write it down together with the address you were trying to open.",
+    "action": {
+      "backToIndex": "Back to the prototype index"
+    },
+    "cause": {
+      "forbidden": "Your profile is not allowed to open this screen.",
+      "notFound": "The requested address does not match any screen of the prototype.",
+      "serverError": "The server could not build the screen.",
+      "unknown": "The screen could not be opened because of an unexpected error."
+    }
+  },
+  "guide": {
+    "title": "Living design system",
+    "subtitle": "Every colour, every size and every contrast ratio on this page comes out of the token generator. What is shown here is exactly what gets printed in the Activity 4 style guide.",
+    "version": "Version {version} · {date}",
+    "source": "Single source: docs/entregables/estilo/uxdoc.sty. Derivation runs one way only and nothing flows back.",
+    "generatedProse": "Token names, usage notes and contrast rules are published in Spanish because they come from the single source of the deliverable, which is a Spanish document. The rest of the interface follows the chosen language.",
+    "entry": {
+      "heading": "Style guide",
+      "description": "Palette, typography, components and iconography of the portal, generated from the same source as the Activity 4 document. It is not a prototype: it is the system the seven of them are built with.",
+      "action": "Open the style guide"
+    },
+    "index": {
+      "title": "Plates of the guide",
+      "aria": "Plate index"
+    },
+    "plate": {
+      "palette": "Colour palette",
+      "typography": "Typography",
+      "buttons": "Buttons",
+      "fields": "Fields, chips and badges",
+      "tables": "Tables",
+      "cards": "Cards",
+      "icons": "Iconography",
+      "accessibility": "Contrast and accessibility"
+    },
+    "palette": {
+      "description": "Four families of five steps, seven neutrals, four semantic tokens and six chart series colours. The hexadecimal you read is the one the generator emitted: not a single one is typed here.",
+      "total": "{total} colour tokens",
+      "group": {
+        "family": "Brand family",
+        "neutrals": "Neutrals",
+        "semantic": "Semantic tokens",
+        "series": "Categorical chart series"
+      },
+      "anchor": "Anchor",
+      "anchorHint": "Colour already versioned in uxdoc.sty since Activity 1",
+      "reuse": "Reuses {token}",
+      "copy": "Copy {hex}, from token {token}",
+      "copied": "Copied {hex}",
+      "unsupported": "This browser grants no clipboard access: the value stays written in plain sight so it can be copied by hand."
+    },
+    "typography": {
+      "description": "Two families served from this origin and nine roles. The type on this screen is the type of the document, so the specimen cannot lie.",
+      "specimen": "Pack my box with five dozen liquor jugs. 0123456789",
+      "weightNote": "All nine roles weigh 400: hierarchy is built with size, colour and white space, never with faux bold.",
+      "family": {
+        "display": "Lexend Deca, for headings",
+        "sans": "Fira Sans, for body copy and figures"
+      },
+      "column": {
+        "role": "Role",
+        "token": "Tailwind token",
+        "size": "Size",
+        "lineHeight": "Line height",
+        "usage": "Usage"
+      }
+    },
+    "buttons": {
+      "description": "Three variants by five states, plus the destructive action and the loading one. Seventeen cells, because a matrix with holes is the fastest way for two screens to disagree.",
+      "frozenNote": "Hover, focus and pressed states are shown frozen: it is the only way to capture them on a plate.",
+      "rule": "One primary action per screen and no more. Amber is never a button: it informs, it does not call to action.",
+      "focusRing": "The focus ring is one and the same across the product, and this plate publishes it literally: the very ring the real controls paint, minus the focus-visible variant when it is frozen.",
+      "variant": {
+        "filled": "Filled",
+        "outline": "Outline",
+        "text": "Text",
+        "destructive": "Destructive"
+      },
+      "state": {
+        "rest": "Rest",
+        "hover": "Hover",
+        "focus": "Focused",
+        "active": "Pressed",
+        "disabled": "Disabled",
+        "loading": "Working"
+      },
+      "label": {
+        "filled": "Run query",
+        "outline": "View lineage",
+        "text": "Cancel",
+        "destructive": "Delete export",
+        "loading": "Exporting"
+      }
+    },
+    "fields": {
+      "description": "Six field states, five status chips and the role badges. The border uses the strong neutral: it is the fourth finding of the matrix and the reason the matrix exists.",
+      "borderNote": "The field border reaches 4.55:1 over the surface. The light rule stays at 1.42:1 and cannot delimit a field, only separate blocks.",
+      "badgeNote": "The role badge is the only documented exception to the radius scale: it uses the full radius.",
+      "placeholder": "Type to filter",
+      "help": "Accepted format: four digit ledger key.",
+      "error": "The amount must be greater than zero.",
+      "state": {
+        "rest": "Rest",
+        "focus": "Focused",
+        "filled": "With a value",
+        "error": "With an error",
+        "disabled": "Disabled",
+        "readonly": "Read only"
+      },
+      "label": {
+        "account": "Ledger account",
+        "period": "Period",
+        "amount": "Maximum amount",
+        "source": "Source",
+        "code": "Export key",
+        "note": "Reconciliation note"
+      },
+      "chips": "Status chips",
+      "chip": {
+        "neutral": "Unclassified",
+        "info": "Under review",
+        "success": "Reconciled",
+        "warning": "Needs attention",
+        "danger": "Rejected"
+      },
+      "badges": "Role badges"
+    },
+    "tables": {
+      "description": "Fixed header, alternating rows, tabular figures aligned to the right and sort order announced through aria-sort. Every numeric column of Karisma Data looks like this.",
+      "caption": "Recent exports by source, with synthetic demo figures",
+      "sort": "Sort by {column}",
+      "sortHint": "A sortable header announces its state through aria-sort, not only with an arrow: an arrow on its own never reaches a screen reader.",
+      "column": {
+        "source": "Source",
+        "records": "Records",
+        "amount": "Amount (MXN)",
+        "status": "Status"
+      },
+      "row": {
+        "treasury": "Treasury",
+        "credit": "Loan portfolio",
+        "deposits": "Deposits",
+        "markets": "Markets",
+        "operations": "Operations"
+      },
+      "status": {
+        "ready": "Ready",
+        "running": "Running",
+        "failed": "Failed"
+      },
+      "empty": {
+        "title": "No results",
+        "body": "No source matches the filter. Drop one filter to widen the search."
+      }
+    },
+    "cards": {
+      "description": "The indicator card with its four unhappy states and the assistant tool call card with its four moments. No figure ever appears without a query behind it.",
+      "kpi": {
+        "label": "Consolidated balance",
+        "delta": "+2.4 % against the previous close",
+        "footnote": "Simulated projection over synthetic data"
+      },
+      "statesTitle": "The four unhappy states",
+      "state": {
+        "loading": "Loading",
+        "loadingBody": "The indicator is being computed. The skeleton keeps the height of the figure so the card does not jump when the value lands.",
+        "empty": "No data",
+        "emptyBody": "There are no movements in the chosen period. Widen the date range.",
+        "error": "Could not be computed",
+        "errorBody": "The warehouse query did not answer. Retrying keeps the filters already applied.",
+        "retry": "Retry",
+        "forbidden": "No permission",
+        "forbiddenBody": "Your profile does not reach this source. Access is requested from Administration.",
+        "request": "Request access"
+      },
+      "toolCall": {
+        "title": "Assistant tool call card",
+        "note": "The four states are always visible: the assistant announces the query before running it, and an answer with no query behind it carries no figures.",
+        "query": "Balance by source, July 2026 close",
+        "state": {
+          "announced": "About to query",
+          "running": "Querying",
+          "done": "Query finished",
+          "error": "The query failed"
+        },
+        "body": {
+          "announced": "Query declared before it runs. It can still be stopped.",
+          "running": "Reading the semantic layer. Step 3 of 5.",
+          "done": "5 rows read from the treasury catalogue.",
+          "error": "The source did not answer. The reply carries no figures because no query returned any."
+        },
+        "stop": "Stop",
+        "retry": "Retry",
+        "lineage": "View lineage"
+      }
+    },
+    "icons": {
+      "description": "An inventory by function, not by shape. Each icon is named after what it does in the portal and carries its own accessible name.",
+      "family": "A single Lucide family. No hand drawn SVG and no emoji used as a structural icon.",
+      "sizes": "Three sizes: 16 px in a table cell, 20 px in a button or a chip, 24 px in a card heading.",
+      "label": "{name}, {size} pixels",
+      "group": {
+        "search": "Search and navigation",
+        "data": "Data and analysis",
+        "governance": "Data governance",
+        "actions": "Actions",
+        "system": "State and system"
+      },
+      "item": {
+        "search": "Search",
+        "filter": "Filter",
+        "recent": "Recent query",
+        "favorite": "Favourite",
+        "alert": "Alert",
+        "table": "Result table",
+        "barChart": "Indicator dashboard",
+        "lineChart": "Time series",
+        "source": "Data source",
+        "preview": "Preview",
+        "dictionary": "Data dictionary",
+        "lineage": "Data lineage",
+        "quality": "Verified quality",
+        "users": "Users and roles",
+        "credentials": "API credentials",
+        "export": "Export",
+        "spreadsheet": "Spreadsheet",
+        "copy": "Copy",
+        "delete": "Delete",
+        "drilldown": "Drill down",
+        "assistant": "Conversational assistant",
+        "success": "Success",
+        "attention": "Needs attention",
+        "error": "Failure",
+        "loading": "Working",
+        "noPermission": "No permission",
+        "language": "Interface language"
+      }
+    },
+    "accessibility": {
+      "description": "The contrast matrix does not illustrate the system: it corrects it. Four combinations that were taken for granted fell below the minimum, and all four changed token.",
+      "findings": "The four defects the matrix found",
+      "finding": "Finding {number}",
+      "measured": "Measured pair",
+      "replacement": "Pair that replaces it",
+      "rules": "Rules derived from the matrix",
+      "matrix": "Full contrast matrix",
+      "matrixCount": "{total} pairs measured with the WCAG 2.x formula",
+      "verdictLegend": "The verdict is printed exactly as the generator emits it: AAA, AA, AA-grande, which means large text only from 18 px up, and falla, which means it fails.",
+      "sample": "Sample text",
+      "column": {
+        "foreground": "Foreground",
+        "background": "Background",
+        "ratio": "Ratio",
+        "verdict": "Verdict",
+        "rule": "Rule"
+      }
+    }
+  }
+}

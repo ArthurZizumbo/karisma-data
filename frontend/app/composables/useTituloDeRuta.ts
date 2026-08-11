@@ -1,7 +1,8 @@
 import { computed, type ComputedRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
-import { etiquetaDeRuta } from '~/utils/navegacion'
+import { claveDeRuta } from '~/utils/navegacion'
 
 /** What every screen of the contract needs from the current route. */
 export interface PantallaDeContrato {
@@ -20,13 +21,21 @@ export interface PantallaDeContrato {
  * route takes dynamic params and Vue reuses the component instance the heading
  * would keep the first value it ever computed.
  *
+ * Since the bilingual decision of 10-ago-2026 the navigation contract holds
+ * translation keys, so the heading is translated here and stays reactive to a
+ * language change as well as to a route change.
+ *
  * @returns The heading and the path, both reactive.
  */
 export function useTituloDeRuta(): PantallaDeContrato {
   const route = useRoute()
+  const { t } = useI18n()
 
   return {
-    titulo: computed(() => etiquetaDeRuta(route.path) ?? route.path),
+    titulo: computed(() => {
+      const clave = claveDeRuta(route.path)
+      return clave === undefined ? route.path : t(clave)
+    }),
     ruta: computed(() => route.path),
   }
 }

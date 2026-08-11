@@ -54,11 +54,11 @@ pytest tests/backend/test_auth.py::test_name -q   # un solo test
 | Cloud | GCP: Cloud Run scale-to-zero, Secret Manager, GCS, Artifact Registry + Terraform (`infra/`) | Presupuesto < $45 USD/mes, alerta billing al 50 % |
 | CI/CD | GitHub Actions | push → lint+test; merge a `main` → build + `dbmate up` + deploy |
 
-**Descartados — no reactivar**: fastapi-users, Alembic, Redis, Dagster, python-jose/passlib, refresh tokens, recuperación de contraseña, OAuth/SSO externo, RLS por fila, i18n, drift detection, switch A/B de LLM, EPICs 6–11 completos (consolidados en §18 del plan).
+**Descartados — no reactivar**: fastapi-users, Alembic, Redis, Dagster, python-jose/passlib, refresh tokens, recuperación de contraseña, OAuth/SSO externo, RLS por fila, drift detection, switch A/B de LLM, EPICs 6–11 completos (consolidados en §18 del plan).
 
 ## Reglas de código NON-NEGOTIABLE
 
-- **Idioma**: código (identificadores, comentarios, docstrings Google-style) en inglés; prosa visible al lector (UI, docs `.md`, entregables) en español neutro. **No hay i18n**: la UI es solo en español.
+- **Idioma**: código (identificadores, comentarios, docstrings Google-style) en inglés; prosa visible al lector (docs `.md`, entregables) en español neutro. **Decisión del 10-ago-2026: la interfaz web es bilingüe español + inglés con i18n real** (`@nuxtjs/i18n`, `strategy: 'no_prefix'`, `defaultLocale: 'es'`, cookie `karisma_locale`); deroga la regla anterior de UI solo en español. Ninguna cadena visible se escribe en un componente: viven en `frontend/i18n/locales/{es,en}.json` con claves jerárquicas en inglés. Los entregables PDF del curso siguen siendo solo en español.
 - **Sin emojis** en código, comentarios, prints, commits ni logs.
 - **Logging**: `structlog.get_logger()`, nunca `print()` en producción.
 - **Type hints** obligatorios en todo Python.

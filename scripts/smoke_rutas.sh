@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 #  Smoke de extremo a extremo de US-001 - Karisma Data.
 #
-#  Recorre las nueve rutas del contrato de navegacion contra el servicio web y
+#  Recorre las diez rutas publicas del portal contra el servicio web y
 #  despues consulta la sonda del api. Cubre en una sola pasada CA-4 (las rutas
 #  responden), CA-7 (la franja de alcance esta en TODAS, incluidas / y /acceso)
 #  y CA-8 (/health responde).
@@ -29,9 +29,12 @@ ESPERA_MAXIMA="${ESPERA_MAXIMA:-60}"
 # pantalla podria leerse como un sistema real y eso es lo que CA-7 impide.
 MARCA_FRANJA="data-franja-alcance"
 
-# Las nueve rutas: el indice mas las ocho del contrato de navegacion de A3.
+# Las diez rutas: el indice, las ocho del contrato de navegacion de A3 y la
+# guia de estilos de A4, que no es rama del mapa ni prototipo y por eso vive
+# fuera de RUTAS_CONTRATO. Aqui si entra: responde 200 y lleva franja.
 RUTAS=(
   "/"
+  "/guia"
   "/acceso"
   "/inicio"
   "/exploracion"
@@ -42,7 +45,7 @@ RUTAS=(
   "/administracion"
 )
 
-TOTAL_ESPERADO=9
+TOTAL_ESPERADO=10
 
 CUERPO=""
 
@@ -111,7 +114,7 @@ main() {
   command -v curl >/dev/null 2>&1 || fallar "falta curl en el PATH"
 
   if [ "${#RUTAS[@]}" -ne "$TOTAL_ESPERADO" ]; then
-    fallar "el guion declara ${#RUTAS[@]} rutas y el contrato de navegacion fija ${TOTAL_ESPERADO}"
+    fallar "el guion declara ${#RUTAS[@]} rutas y el portal publica ${TOTAL_ESPERADO}"
   fi
 
   CUERPO="$(mktemp)"

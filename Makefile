@@ -20,7 +20,7 @@ ENV_FRONTEND := frontend/.env.local
 
 .DEFAULT_GOAL := help
 
-.PHONY: help dev lint test data db-new db-up db-rollback check verificar \
+.PHONY: help dev lint test data tokens db-new db-up db-rollback check verificar \
         comprobar-env-backend comprobar-env-frontend
 
 # ---------------------------------------------------------------------------
@@ -87,14 +87,28 @@ check: lint ## lint mas secrets-scan. Obligatorio antes de abrir un PR
 	@echo "Comprobando que el escaneo detecta de verdad (CA-7b)..."
 	bash scripts/verificar_gitleaks.sh
 
-verificar: ## Comprueba pines de Node, deteccion de secretos y reproducibilidad
+verificar: ## Comprueba pines, secretos, reproducibilidad y tokens de diseno
 	sh scripts/verificar_pines.sh
 	sh scripts/verificar_gitleaks.sh
 	sh scripts/verificar_reproducibilidad.sh
+	sh scripts/verificar_tokens_a4.sh
 
 # ---------------------------------------------------------------------------
 #  Datos sinteticos
 # ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+#  Tokens de diseno - la guia de estilos de A4 y la aplicacion salen del mismo
+#  archivo. La cadena va en un solo sentido:
+#      docs/entregables/estilo/uxdoc.sty  ->  generar_tokens_a4.py  ->
+#      main.css + tokens.generated.ts + a4_tokens.tex + a4_tokens.json
+#  Las cuatro salidas son generadas: editarlas a mano hace divergir el
+#  prototipo del PDF del curso y "make verificar" lo detecta.
+# ---------------------------------------------------------------------------
+
+tokens: ## Regenera los tokens de diseno (@theme, paleta tipada, laminas y manifiesto)
+	@command -v poetry >/dev/null 2>&1 || { echo "Falta poetry en el PATH. Instalalo antes de correr make tokens." >&2; exit 1; }
+	poetry -P backend run python docs/entregables/generar_tokens_a4.py
 
 data: ## DEGRADADO hasta US-006: genera los silos sinteticos con semilla fija
 	@echo "make data todavia no genera nada." >&2

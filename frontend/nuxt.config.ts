@@ -1,4 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
+import { NOMBRES_EMPAQUETADOS } from './app/components/guia/inventarioIconos'
 
 /**
  * Base URL of the FastAPI service. Nitro proxies /api/** to it so the browser
@@ -23,7 +24,37 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/fonts',
     '@nuxt/icon',
+    '@nuxtjs/i18n',
+    '@vueuse/nuxt',
   ],
+
+  /**
+   * Bilingual interface, decided on 10-ago-2026: Spanish and English with real
+   * i18n. Only the web application is bilingual; the A4 deliverable stays in
+   * Spanish.
+   *
+   * `strategy: 'no_prefix'` is the load bearing choice. RUTAS_CONTRATO is
+   * anchored to the A3 site map and pinned by test/navegacion.spec.ts and by
+   * scripts/smoke_rutas.sh; a /en/ prefix would rewrite all nine URLs and break
+   * both. The language travels in a cookie and the addresses never change.
+   *
+   * `detectBrowserLanguage: false` is equally deliberate. With detection on,
+   * the module resolves the locale as cookie -> accept-language -> navigator,
+   * so an evaluator whose browser is configured in English would open the demo
+   * in English on the first visit. Disabling it makes the boot deterministic
+   * (always Spanish) and moves the cookie to app code: useIdioma() writes
+   * `karisma_locale` when the reader chooses, and app.vue applies it before the
+   * first render, which is why there is no flash of the wrong language.
+   */
+  i18n: {
+    strategy: 'no_prefix',
+    defaultLocale: 'es',
+    detectBrowserLanguage: false,
+    locales: [
+      { code: 'es', language: 'es-MX', file: 'es.json' },
+      { code: 'en', language: 'en-US', file: 'en.json' },
+    ],
+  },
 
   /**
    * The two families declared in the @theme block of main.css were tokens with
@@ -44,11 +75,20 @@ export default defineNuxtConfig({
    * One icon family only, per rule 3 of the interface checklist. The Lucide
    * collection is installed as a package so the icons are bundled instead of
    * fetched from the Iconify API at runtime.
+   *
+   * `scan` alone is not enough for /guia. The scanner reads the sources looking
+   * for literal names, and the icon plate iterates an inventory, so every
+   * `:name` there is assembled at run time and no scan can see it: under
+   * `nuxt dev` the module still answers through the Iconify API and the plate
+   * looks complete, while the production bundle ships it empty. Declaring the
+   * inventory here closes that gap, and it is the same array the plate walks,
+   * so the two cannot drift.
    */
   icon: {
     mode: 'svg',
     clientBundle: {
       scan: true,
+      icons: [...NOMBRES_EMPAQUETADOS],
     },
   },
   ssr: true,

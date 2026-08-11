@@ -7,6 +7,11 @@ import type { ModuloNav, Prototipo } from '~/types/navegacion'
  * script all derive from this module. No route literal is written inside a Vue
  * file: adding a route here is the only way to add a route to the portal, and
  * every entry must point at a branch of the A3 site map.
+ *
+ * Since the bilingual decision of 10-ago-2026 the module holds no reader facing
+ * word either: every label is a translation key resolved by vue-i18n at render
+ * time. Routes stay identical in both languages because the i18n strategy is
+ * `no_prefix`.
  */
 
 /** Index of the seven prototypes. Not a branch of the A3 map either. */
@@ -18,72 +23,83 @@ export const RUTA_ACCESO = '/acceso'
 /** Conversational assistant. Cross cutting to the four categories of the A3 map. */
 export const RUTA_ASISTENTE = '/asistente'
 
-/** Notice shown on every route so that no screenshot can be read as a live system. */
-export const AVISO_ALCANCE
-  = 'Prototipo de alta fidelidad de Karisma Data con datos sintéticos. '
-    + 'No está conectado a sistemas reales de ninguna institución.'
+/**
+ * Living design system of A4. Neither a prototype nor a branch of the A3 map.
+ *
+ * It stays out of PROTOTIPOS and out of RUTAS_CONTRATO on purpose: the rubric
+ * scores prototypes in one section and the style guide in another, so listing
+ * the guide as an eighth prototype would blur the two, and putting it in the
+ * contract would claim a branch of the A3 map that does not exist.
+ */
+export const RUTA_GUIA = '/guia'
+
+/**
+ * Key of the notice shown on every route so that no screenshot can be read as a
+ * live system.
+ */
+export const CLAVE_AVISO_ALCANCE = 'scope.notice'
 
 /**
  * The nine cards that three or more evaluators asked to duplicate during the A3
  * card sorting. Each one lives in a canonical branch and is also reachable from
  * the other contexts where it was looked for.
  */
-export const FACETAS_TRANSVERSALES: readonly string[] = Object.freeze([
-  'Consumo por API',
-  'Calidad de datos',
-  'Vista previa',
-  'Catálogo de fuentes',
-  'Mis alertas',
-  'Credenciales API',
-  'Monitoreo de cargas',
-  'Permisos',
-  'Historial de exportaciones',
+export const CLAVES_FACETAS_TRANSVERSALES: readonly string[] = Object.freeze([
+  'nav.facets.items.apiConsumption',
+  'nav.facets.items.dataQuality',
+  'nav.facets.items.preview',
+  'nav.facets.items.sourceCatalog',
+  'nav.facets.items.myAlerts',
+  'nav.facets.items.apiCredentials',
+  'nav.facets.items.loadMonitoring',
+  'nav.facets.items.permissions',
+  'nav.facets.items.exportHistory',
 ])
 
 /** The four first level categories of the A3 map, in their canonical order. */
 export const MODULOS: readonly ModuloNav[] = Object.freeze([
   {
     id: '1',
-    etiqueta: 'Inicio',
+    claveEtiqueta: 'nav.module.home',
     ruta: '/inicio',
     subrutas: [
-      { id: '1.1', etiqueta: 'Buscador unificado', ruta: '/inicio' },
-      { id: '1.2', etiqueta: 'Búsquedas recientes', ruta: '/inicio' },
-      { id: '1.3', etiqueta: 'Favoritos', ruta: '/inicio' },
-      { id: '1.4', etiqueta: 'Mis alertas', ruta: '/inicio', facetaTransversal: true },
-      { id: '1.5', etiqueta: 'Mi perfil', ruta: '/inicio' },
+      { id: '1.1', claveEtiqueta: 'nav.branch.homeSearch', ruta: '/inicio' },
+      { id: '1.2', claveEtiqueta: 'nav.branch.homeRecent', ruta: '/inicio' },
+      { id: '1.3', claveEtiqueta: 'nav.branch.homeFavorites', ruta: '/inicio' },
+      { id: '1.4', claveEtiqueta: 'nav.branch.homeAlerts', ruta: '/inicio', facetaTransversal: true },
+      { id: '1.5', claveEtiqueta: 'nav.branch.homeProfile', ruta: '/inicio' },
     ],
   },
   {
     id: '2',
-    etiqueta: 'Exploración y extracción',
+    claveEtiqueta: 'nav.module.explore',
     ruta: '/exploracion',
     subrutas: [
-      { id: '2.1', etiqueta: 'Catálogo temático', ruta: '/exploracion' },
-      { id: '2.2', etiqueta: 'Consulta y filtros', ruta: '/exploracion', facetaTransversal: true },
-      { id: '2.3', etiqueta: 'Exportaciones', ruta: '/exploracion/exportar', facetaTransversal: true },
-      { id: '2.4', etiqueta: 'Tableros e indicadores', ruta: '/exploracion/tableros' },
+      { id: '2.1', claveEtiqueta: 'nav.branch.exploreCatalog', ruta: '/exploracion' },
+      { id: '2.2', claveEtiqueta: 'nav.branch.exploreQuery', ruta: '/exploracion', facetaTransversal: true },
+      { id: '2.3', claveEtiqueta: 'nav.branch.exploreExports', ruta: '/exploracion/exportar', facetaTransversal: true },
+      { id: '2.4', claveEtiqueta: 'nav.branch.exploreDashboards', ruta: '/exploracion/tableros' },
     ],
   },
   {
     id: '3',
-    etiqueta: 'Gobierno del dato',
+    claveEtiqueta: 'nav.module.governance',
     ruta: '/gobierno',
     subrutas: [
-      { id: '3.1', etiqueta: 'Diccionario y metadatos', ruta: '/gobierno' },
-      { id: '3.2', etiqueta: 'Linaje y calidad', ruta: '/gobierno', facetaTransversal: true },
-      { id: '3.3', etiqueta: 'Catálogo de fuentes', ruta: '/gobierno', facetaTransversal: true },
+      { id: '3.1', claveEtiqueta: 'nav.branch.governanceDictionary', ruta: '/gobierno' },
+      { id: '3.2', claveEtiqueta: 'nav.branch.governanceLineage', ruta: '/gobierno', facetaTransversal: true },
+      { id: '3.3', claveEtiqueta: 'nav.branch.governanceSources', ruta: '/gobierno', facetaTransversal: true },
     ],
   },
   {
     id: '4',
-    etiqueta: 'Administración',
+    claveEtiqueta: 'nav.module.administration',
     ruta: '/administracion',
     subrutas: [
-      { id: '4.1', etiqueta: 'Usuarios, roles y permisos', ruta: '/administracion', facetaTransversal: true },
-      { id: '4.2', etiqueta: 'Solicitudes y aprobaciones', ruta: '/administracion' },
-      { id: '4.3', etiqueta: 'Bitácora de accesos', ruta: '/administracion' },
-      { id: '4.4', etiqueta: 'Integraciones', ruta: '/administracion', facetaTransversal: true },
+      { id: '4.1', claveEtiqueta: 'nav.branch.administrationUsers', ruta: '/administracion', facetaTransversal: true },
+      { id: '4.2', claveEtiqueta: 'nav.branch.administrationRequests', ruta: '/administracion' },
+      { id: '4.3', claveEtiqueta: 'nav.branch.administrationAudit', ruta: '/administracion' },
+      { id: '4.4', claveEtiqueta: 'nav.branch.administrationIntegrations', ruta: '/administracion', facetaTransversal: true },
     ],
   },
 ])
@@ -96,57 +112,57 @@ export const MODULOS: readonly ModuloNav[] = Object.freeze([
 export const PROTOTIPOS: readonly Prototipo[] = Object.freeze([
   {
     numero: 0,
-    nombre: 'Acceso',
+    claveNombre: 'prototype.name.access',
     ruta: RUTA_ACCESO,
-    ramaA3: 'Pantalla de entrada; enmarca las demás sin ser rama del mapa',
+    claveRama: 'prototype.branch.access',
     alcance: 'navegable-sin-datos',
     rolSugerido: 'operativo',
   },
   {
     numero: 1,
-    nombre: 'Inicio',
+    claveNombre: 'nav.module.home',
     ruta: '/inicio',
-    ramaA3: '1. Inicio',
+    claveRama: 'prototype.branch.home',
     alcance: 'navegable-sin-datos',
     rolSugerido: 'operativo',
   },
   {
     numero: 2,
-    nombre: 'Exploración y extracción',
+    claveNombre: 'nav.module.explore',
     ruta: '/exploracion',
-    ramaA3: '2. Exploración y extracción — 2.1 Catálogo temático, 2.2 Consulta y filtros',
+    claveRama: 'prototype.branch.explore',
     alcance: 'navegable-sin-datos',
     rolSugerido: 'analista',
   },
   {
     numero: 3,
-    nombre: 'Gobierno del dato',
+    claveNombre: 'nav.module.governance',
     ruta: '/gobierno',
-    ramaA3: '3. Gobierno del dato — 3.1 Diccionario y metadatos, 3.2 Linaje y calidad, 3.3 Catálogo de fuentes',
+    claveRama: 'prototype.branch.governance',
     alcance: 'navegable-sin-datos',
     rolSugerido: 'analista',
   },
   {
     numero: 4,
-    nombre: 'Asistente conversacional',
+    claveNombre: 'nav.assistant.label',
     ruta: RUTA_ASISTENTE,
-    ramaA3: 'Transversal a las cuatro categorías',
+    claveRama: 'prototype.branch.assistant',
     alcance: 'navegable-sin-datos',
     rolSugerido: 'directivo',
   },
   {
     numero: 5,
-    nombre: 'Administración',
+    claveNombre: 'nav.module.administration',
     ruta: '/administracion',
-    ramaA3: '4. Administración — 4.1 a 4.4',
+    claveRama: 'prototype.branch.administration',
     alcance: 'navegable-sin-datos',
     rolSugerido: 'administrador',
   },
   {
     numero: 6,
-    nombre: 'Exportación',
+    claveNombre: 'prototype.name.export',
     ruta: '/exploracion/exportar',
-    ramaA3: '2.3 Exportaciones',
+    claveRama: 'prototype.branch.export',
     alcance: 'navegable-sin-datos',
     rolSugerido: 'analista',
   },
@@ -187,20 +203,21 @@ export function moduloActivo(rutaActual: string): ModuloNav | undefined {
 }
 
 /**
- * Label of the A3 branch rendered by a contract route, used as the page heading.
- * Returns undefined for the index, which is not a branch of the map.
+ * Translation key of the A3 branch rendered by a contract route, used as the
+ * page heading. Returns undefined for the index, which is not a branch of the
+ * map.
  */
-export function etiquetaDeRuta(rutaActual: string): string | undefined {
+export function claveDeRuta(rutaActual: string): string | undefined {
   const ruta = normalizarRuta(rutaActual)
   const modulo = MODULOS.find(candidato => candidato.ruta === ruta)
   if (modulo) {
-    return modulo.etiqueta
+    return modulo.claveEtiqueta
   }
   const subruta = MODULOS.flatMap(candidato => candidato.subrutas).find(
     candidato => candidato.ruta === ruta,
   )
   if (subruta) {
-    return subruta.etiqueta
+    return subruta.claveEtiqueta
   }
-  return PROTOTIPOS.find(prototipo => prototipo.ruta === ruta)?.nombre
+  return PROTOTIPOS.find(prototipo => prototipo.ruta === ruta)?.claveNombre
 }

@@ -1,0 +1,387 @@
+{
+  "brand": {
+    "name": "Karisma Data"
+  },
+  "chrome": {
+    "environment": "Entorno: {environment}",
+    "skipToContent": "Saltar al contenido"
+  },
+  "language": {
+    "groupLabel": "Idioma de la interfaz",
+    "switchTo": "Ver la interfaz en {language}",
+    "current": "Interfaz en {language}"
+  },
+  "nav": {
+    "aria": {
+      "main": "Navegación principal",
+      "crossCutting": "Acceso transversal"
+    },
+    "module": {
+      "home": "Inicio",
+      "explore": "Exploración y extracción",
+      "governance": "Gobierno del dato",
+      "administration": "Administración"
+    },
+    "branch": {
+      "homeSearch": "Buscador unificado",
+      "homeRecent": "Búsquedas recientes",
+      "homeFavorites": "Favoritos",
+      "homeAlerts": "Mis alertas",
+      "homeProfile": "Mi perfil",
+      "exploreCatalog": "Catálogo temático",
+      "exploreQuery": "Consulta y filtros",
+      "exploreExports": "Exportaciones",
+      "exploreDashboards": "Tableros e indicadores",
+      "governanceDictionary": "Diccionario y metadatos",
+      "governanceLineage": "Linaje y calidad",
+      "governanceSources": "Catálogo de fuentes",
+      "administrationUsers": "Usuarios, roles y permisos",
+      "administrationRequests": "Solicitudes y aprobaciones",
+      "administrationAudit": "Bitácora de accesos",
+      "administrationIntegrations": "Integraciones"
+    },
+    "assistant": {
+      "label": "Asistente conversacional",
+      "note": "Transversal a las cuatro categorías."
+    },
+    "facets": {
+      "caption": "Facetas transversales",
+      "hint": "{facet}: se alcanza desde más de una rama del mapa",
+      "branchTitle": "{label}: faceta transversal, alcanzable desde más de una rama",
+      "branchAria": "{id} {label}, faceta transversal",
+      "items": {
+        "apiConsumption": "Consumo por API",
+        "dataQuality": "Calidad de datos",
+        "preview": "Vista previa",
+        "sourceCatalog": "Catálogo de fuentes",
+        "myAlerts": "Mis alertas",
+        "apiCredentials": "Credenciales API",
+        "loadMonitoring": "Monitoreo de cargas",
+        "permissions": "Permisos",
+        "exportHistory": "Historial de exportaciones"
+      }
+    }
+  },
+  "prototype": {
+    "name": {
+      "access": "Acceso",
+      "export": "Exportación"
+    },
+    "branch": {
+      "access": "Pantalla de entrada; enmarca las demás sin ser rama del mapa",
+      "home": "1. Inicio",
+      "explore": "2. Exploración y extracción — 2.1 Catálogo temático, 2.2 Consulta y filtros",
+      "governance": "3. Gobierno del dato — 3.1 Diccionario y metadatos, 3.2 Linaje y calidad, 3.3 Catálogo de fuentes",
+      "assistant": "Transversal a las cuatro categorías",
+      "administration": "4. Administración — 4.1 a 4.4",
+      "export": "2.3 Exportaciones"
+    },
+    "scope": {
+      "withData": "Navegable con datos de ejemplo",
+      "withoutData": "Navegable sin datos",
+      "roadmap": "En hoja de ruta"
+    },
+    "profile": {
+      "operations": "Perfil operativo",
+      "analyst": "Perfil analista",
+      "executive": "Perfil directivo",
+      "administration": "Perfil de administración"
+    }
+  },
+  "scope": {
+    "notice": "Prototipo de alta fidelidad de Karisma Data con datos sintéticos. No está conectado a sistemas reales de ninguna institución.",
+    "ariaLabel": "Aviso de alcance del prototipo"
+  },
+  "screen": {
+    "index": {
+      "title": "Prototipos de alta fidelidad",
+      "subtitle": "Siete pantallas del mapa de sitio de la Actividad 3. Cada botón declara su alcance y su perfil."
+    },
+    "access": {
+      "description": "Contendrá el formulario de entrada con usuario y contraseña, y llevará a cada perfil a su pantalla inicial."
+    },
+    "home": {
+      "description": "Contendrá el buscador unificado, las búsquedas recientes, los favoritos, mis alertas y mi perfil."
+    },
+    "explore": {
+      "description": "Contendrá el catálogo temático y la consulta con filtros facetados sobre las fuentes del portal."
+    },
+    "exports": {
+      "description": "Contendrá la exportación a CSV y Excel en segundo plano junto con el historial de exportaciones."
+    },
+    "dashboards": {
+      "description": "Contendrá el tablero ejecutivo, los indicadores de riesgo y las señales de riesgo, dentro de la misma pantalla de exploración."
+    },
+    "governance": {
+      "description": "Contendrá el diccionario y los metadatos, el linaje y la calidad del dato, y el catálogo de fuentes."
+    },
+    "administration": {
+      "description": "Contendrá usuarios, roles y permisos, las solicitudes y aprobaciones, la bitácora de accesos y las integraciones."
+    },
+    "assistant": {
+      "description": "Contendrá la conversación con el agente, las tarjetas de cada consulta que ejecuta y el detalle de linaje de la respuesta."
+    }
+  },
+  "error": {
+    "code": "Error {code}",
+    "title": "No se pudo mostrar esta pantalla",
+    "hint": "Puedes volver al índice de prototipos y entrar por otra pantalla. Si el error se repite, anótalo con la dirección que intentabas abrir.",
+    "action": {
+      "backToIndex": "Volver al índice de prototipos"
+    },
+    "cause": {
+      "forbidden": "Tu perfil no tiene permiso para abrir esta pantalla.",
+      "notFound": "La dirección solicitada no corresponde a ninguna pantalla del prototipo.",
+      "serverError": "El servidor no pudo construir la pantalla.",
+      "unknown": "La pantalla no pudo abrirse por un error inesperado."
+    }
+  },
+  "guide": {
+    "title": "Sistema de diseño vivo",
+    "subtitle": "Cada color, cada tamaño y cada razón de contraste de esta página sale del generador de tokens. Lo que se ve aquí es exactamente lo que se imprime en la guía de estilos de la Actividad 4.",
+    "version": "Versión {version} · {date}",
+    "source": "Fuente única: docs/entregables/estilo/uxdoc.sty. La derivación va en un solo sentido y nada fluye hacia atrás.",
+    "generatedProse": "Los nombres de token, los usos y las reglas de contraste se publican en español porque provienen de la fuente única del entregable, que es un documento en español. El resto de la interfaz sigue el idioma elegido.",
+    "entry": {
+      "heading": "Guía de estilos",
+      "description": "Paleta, tipografía, componentes e iconografía del portal, generados desde la misma fuente que el documento de la Actividad 4. No es un prototipo: es el sistema con el que están hechos los siete.",
+      "action": "Abrir la guía de estilos"
+    },
+    "index": {
+      "title": "Láminas de la guía",
+      "aria": "Índice de láminas"
+    },
+    "plate": {
+      "palette": "Paleta de color",
+      "typography": "Tipografía",
+      "buttons": "Botones",
+      "fields": "Campos, chips e insignias",
+      "tables": "Tablas",
+      "cards": "Tarjetas",
+      "icons": "Iconografía",
+      "accessibility": "Contraste y accesibilidad"
+    },
+    "palette": {
+      "description": "Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie. El hexadecimal que se lee es el que el generador emitió: aquí no hay ninguno escrito a mano.",
+      "total": "{total} tokens de color",
+      "group": {
+        "family": "Familia de marca",
+        "neutrals": "Neutros",
+        "semantic": "Semánticos",
+        "series": "Serie categórica de gráfica"
+      },
+      "anchor": "Ancla",
+      "anchorHint": "Color ya versionado en uxdoc.sty desde la Actividad 1",
+      "reuse": "Reúsa {token}",
+      "copy": "Copiar {hex}, del token {token}",
+      "copied": "Copiado {hex}",
+      "unsupported": "Este navegador no da acceso al portapapeles: el valor queda escrito a la vista para copiarlo a mano."
+    },
+    "typography": {
+      "description": "Dos familias servidas desde el propio origen y nueve roles. El tipo de esta pantalla es el mismo que el del documento, así que el espécimen no puede mentir.",
+      "specimen": "El veloz murciélago hindú comía feliz cardillo y kiwi. 0123456789",
+      "weightNote": "Los nueve roles pesan 400: la jerarquía se construye con tamaño, color y espacio en blanco, nunca con negrita simulada.",
+      "family": {
+        "display": "Lexend Deca, para titulares",
+        "sans": "Fira Sans, para cuerpo y cifras"
+      },
+      "column": {
+        "role": "Rol",
+        "token": "Token de Tailwind",
+        "size": "Tamaño",
+        "lineHeight": "Interlínea",
+        "usage": "Uso"
+      }
+    },
+    "buttons": {
+      "description": "Tres variantes por cinco estados, más la acción destructiva y la de carga. Diecisiete celdas, porque una matriz con huecos es la forma más rápida de que dos pantallas discrepen.",
+      "frozenNote": "Los estados de puntero, foco y pulsado se muestran fijos: es la única manera de capturarlos en una lámina.",
+      "rule": "Una sola acción primaria por pantalla. El ámbar nunca es un botón: informa, no llama a la acción.",
+      "focusRing": "El anillo de foco es uno solo en todo el producto y esta lámina lo publica literal: el mismo que pintan los controles reales, sin la variante focus-visible cuando se congela.",
+      "variant": {
+        "filled": "Contenido",
+        "outline": "Contorno",
+        "text": "Texto",
+        "destructive": "Destructiva"
+      },
+      "state": {
+        "rest": "Reposo",
+        "hover": "Puntero encima",
+        "focus": "Con foco",
+        "active": "Pulsado",
+        "disabled": "Deshabilitado",
+        "loading": "En proceso"
+      },
+      "label": {
+        "filled": "Ejecutar consulta",
+        "outline": "Ver linaje",
+        "text": "Cancelar",
+        "destructive": "Eliminar exportación",
+        "loading": "Exportando"
+      }
+    },
+    "fields": {
+      "description": "Seis estados de campo, cinco chips de estado y las insignias de rol. El borde usa el neutro fuerte: es el cuarto hallazgo de la matriz y la razón de que la matriz exista.",
+      "borderNote": "El borde de campo da 4.55:1 sobre la superficie. El filete claro se queda en 1.42:1 y no puede delimitar un campo, solo separar bloques.",
+      "badgeNote": "La insignia de rol es la única excepción documentada a la escala de radios: usa el radio completo.",
+      "placeholder": "Escribe para filtrar",
+      "help": "Formato aceptado: clave contable de cuatro dígitos.",
+      "error": "El importe debe ser mayor que cero.",
+      "state": {
+        "rest": "Reposo",
+        "focus": "Con foco",
+        "filled": "Con valor",
+        "error": "Con error",
+        "disabled": "Deshabilitado",
+        "readonly": "Solo lectura"
+      },
+      "label": {
+        "account": "Cuenta contable",
+        "period": "Periodo",
+        "amount": "Importe máximo",
+        "source": "Fuente",
+        "code": "Clave de exportación",
+        "note": "Nota de conciliación"
+      },
+      "chips": "Chips de estado",
+      "chip": {
+        "neutral": "Sin clasificar",
+        "info": "En revisión",
+        "success": "Conciliado",
+        "warning": "Requiere atención",
+        "danger": "Rechazado"
+      },
+      "badges": "Insignias de rol"
+    },
+    "tables": {
+      "description": "Cabecera fija, fila alterna, cifras tabulares alineadas a la derecha y orden anunciado con aria-sort. Toda columna numérica de Karisma Data se ve así.",
+      "caption": "Exportaciones recientes por fuente, con cifras sintéticas de demostración",
+      "sort": "Ordenar por {column}",
+      "sortHint": "El encabezado ordenable anuncia su estado con aria-sort, no solo con una flecha: una flecha sola no llega al lector de pantalla.",
+      "column": {
+        "source": "Fuente",
+        "records": "Registros",
+        "amount": "Importe (MXN)",
+        "status": "Estado"
+      },
+      "row": {
+        "treasury": "Tesorería",
+        "credit": "Cartera de crédito",
+        "deposits": "Captación",
+        "markets": "Mercados",
+        "operations": "Operación"
+      },
+      "status": {
+        "ready": "Disponible",
+        "running": "En proceso",
+        "failed": "Fallida"
+      },
+      "empty": {
+        "title": "Sin resultados",
+        "body": "Ninguna fuente coincide con el filtro. Quita un filtro para ampliar la búsqueda."
+      }
+    },
+    "cards": {
+      "description": "La tarjeta de indicador con sus cuatro estados no felices y la tarjeta de consulta del asistente con sus cuatro momentos. Ninguna cifra aparece sin una consulta detrás.",
+      "kpi": {
+        "label": "Saldo consolidado",
+        "delta": "+2.4 % contra el cierre anterior",
+        "footnote": "Proyección simulada sobre datos sintéticos"
+      },
+      "statesTitle": "Los cuatro estados no felices",
+      "state": {
+        "loading": "Cargando",
+        "loadingBody": "El indicador se está calculando. La silueta ocupa el alto de la cifra para que la tarjeta no salte al llegar el dato.",
+        "empty": "Sin datos",
+        "emptyBody": "No hay movimientos en el periodo elegido. Amplía el rango de fechas.",
+        "error": "No se pudo calcular",
+        "errorBody": "La consulta al almacén no respondió. Reintentar conserva los filtros aplicados.",
+        "retry": "Reintentar",
+        "forbidden": "Sin permiso",
+        "forbiddenBody": "Tu perfil no alcanza esta fuente. El acceso se pide desde Administración.",
+        "request": "Solicitar acceso"
+      },
+      "toolCall": {
+        "title": "Tarjeta de consulta del asistente",
+        "note": "Los cuatro estados son visibles siempre: el asistente anuncia la consulta antes de ejecutarla, y una respuesta sin consulta detrás no lleva cifras.",
+        "query": "Saldo por fuente, cierre de julio de 2026",
+        "state": {
+          "announced": "Va a consultar",
+          "running": "Consultando",
+          "done": "Consulta terminada",
+          "error": "La consulta falló"
+        },
+        "body": {
+          "announced": "Consulta declarada antes de ejecutarse. Todavía se puede detener.",
+          "running": "Leyendo la capa semántica. Paso 3 de 5.",
+          "done": "5 filas leídas del catálogo de tesorería.",
+          "error": "La fuente no respondió. La respuesta no incluye cifras porque ninguna consulta las devolvió."
+        },
+        "stop": "Detener",
+        "retry": "Reintentar",
+        "lineage": "Ver linaje"
+      }
+    },
+    "icons": {
+      "description": "Inventario por función, no por forma. Cada icono se nombra por lo que hace en el portal y lleva su propio nombre accesible.",
+      "family": "Familia única Lucide. Ningún SVG dibujado a mano y ningún emoji como icono estructural.",
+      "sizes": "Tres tamaños: 16 px en celda de tabla, 20 px en botón y chip, 24 px en encabezado de tarjeta.",
+      "label": "{name}, {size} píxeles",
+      "group": {
+        "search": "Búsqueda y navegación",
+        "data": "Datos y análisis",
+        "governance": "Gobierno del dato",
+        "actions": "Acciones",
+        "system": "Estado y sistema"
+      },
+      "item": {
+        "search": "Buscar",
+        "filter": "Filtrar",
+        "recent": "Consulta reciente",
+        "favorite": "Favorito",
+        "alert": "Alerta",
+        "table": "Tabla de resultados",
+        "barChart": "Tablero de indicadores",
+        "lineChart": "Serie temporal",
+        "source": "Fuente de datos",
+        "preview": "Vista previa",
+        "dictionary": "Diccionario de datos",
+        "lineage": "Linaje del dato",
+        "quality": "Calidad verificada",
+        "users": "Usuarios y roles",
+        "credentials": "Credenciales de API",
+        "export": "Exportar",
+        "spreadsheet": "Hoja de cálculo",
+        "copy": "Copiar",
+        "delete": "Eliminar",
+        "drilldown": "Desplegar el detalle",
+        "assistant": "Asistente conversacional",
+        "success": "Correcto",
+        "attention": "Requiere atención",
+        "error": "Fallo",
+        "loading": "En proceso",
+        "noPermission": "Sin permiso",
+        "language": "Idioma de la interfaz"
+      }
+    },
+    "accessibility": {
+      "description": "La matriz de contraste no ilustra el sistema: lo corrige. Cuatro combinaciones que se daban por buenas no llegaban al mínimo, y las cuatro cambiaron de token.",
+      "findings": "Los cuatro defectos que encontró la matriz",
+      "finding": "Hallazgo {number}",
+      "measured": "Par medido",
+      "replacement": "Par que lo sustituye",
+      "rules": "Reglas derivadas de la matriz",
+      "matrix": "Matriz completa de contraste",
+      "matrixCount": "{total} pares medidos con la fórmula WCAG 2.x",
+      "verdictLegend": "El veredicto se imprime tal como lo emite el generador: AAA, AA, AA-grande (solo a partir de 18 px) y falla.",
+      "sample": "Texto de muestra",
+      "column": {
+        "foreground": "Frente",
+        "background": "Fondo",
+        "ratio": "Razón",
+        "verdict": "Veredicto",
+        "rule": "Regla"
+      }
+    }
+  }
+}

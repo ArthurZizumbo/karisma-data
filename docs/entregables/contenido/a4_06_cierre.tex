@@ -1,0 +1,99 @@
+% ============================================================================
+%  Actividad 4 · Cierre — conclusiones generales y referencias
+%
+%  Propiedad de US-UX-09. Son las secciones puntuadas 6 y 7 de las siete que
+%  la rúbrica evalúa en el apartado de guía de estilos. Se escriben en pasado
+%  y con cifras: la banda alta premia lo que se hizo, no lo que se piensa
+%  hacer.
+% ============================================================================
+
+% ============================================================================
+\section{Conclusiones generales del reporte}
+
+La Actividad 3 cerró con una arquitectura validada y una refutación: la tarea de consultar un indicador de riesgo obtuvo un solo acierto de ocho y seis evaluadores lo buscaron en Exploración, de modo que los tableros se movieron a esa categoría y la tercera se renombró Gobierno del dato. Esta actividad tomó ese mapa como contrato y lo convirtió en producto. El resultado se puede contar, y por eso se cuenta.
+
+\subsection{Qué se construyó, en cifras}
+
+El sistema de diseño quedó reducido a una sola fuente. Los \textbf{37 nombres de color} viven en la hoja de estilo del curso ---once anclas de la Actividad 1 que conservaron su valor byte a byte, veinte declaraciones nuevas y seis reúsos explícitos--- y un generador único emitió cuatro salidas a partir de ellos: el bloque de tokens que la aplicación consume, la paleta tipada que la ruta del sistema vivo imprime, las cuatro láminas de este documento y un manifiesto legible por máquina. Sobre esa base se documentaron \textbf{9 roles tipográficos}, ocho pasos de espaciado, cuatro radios, tres niveles de sombra, cuatro puntos de quiebre y cinco medidas de densidad.
+
+La guía se entregó en \textbf{trece secciones} con subtítulo propio ---once de contenido visual y las dos de este cierre--- y el inventario de componentes se publicó con su recuento a la vista: \textbf{17 celdas} de botón, seis estados de campo, cinco semánticas de chip, cuatro insignias de rol y los cuatro estados de la tarjeta de llamada a herramienta, repartidos en \textbf{siete láminas} de la ruta viva del sistema de diseño.
+
+\subsection{Qué cambió por evidencia y no por gusto}
+
+El hallazgo con más consecuencias no salió de una discusión de diseño: salió de un cálculo. La matriz de \textbf{44 pares de contraste} refutó cuatro reglas que la planeación de la semana daba por buenas.
+
+\begin{enumerate}[leftmargin=*,itemsep=4pt,topsep=6pt]
+\item El texto claro sobre el ámbar de acento se citaba con 2{,}6:1 y el cálculo dio \textbf{2{,}80:1} con blanco puro y \textbf{2{,}68:1} con la superficie real del producto. El veredicto no cambió; el número impreso, sí.
+\item El texto de aviso fallaba el nivel AA con \textbf{3{,}96:1} y pasó al acento 900, con \textbf{7{,}58:1}.
+\item El ámbar de acento no alcanzó el 3:1 de elemento gráfico ---\textbf{2{,}68:1}--- y quedó reducido a un papel decorativo: todo ámbar que informa usa el acento 700, con \textbf{4{,}40:1}.
+\item El filete claro como borde de campo daba \textbf{1{,}42:1} y el borde pasó al neutro fuerte, con \textbf{4{,}55:1}.
+\end{enumerate}
+
+Los cuatro se corrigieron en los tokens y no en el texto, y el efecto colateral se midió en lugar de suponerse: al mover el token de texto de acento, la insignia del botón de prototipo pasó de \textbf{4{,}12:1}, que falla AA, a \textbf{7{,}89:1}, nivel AAA, sin que nadie tocara el componente. Sin el cálculo, los cuatro defectos habrían llegado impresos a este PDF con el rótulo \enquote{verificado}, que es la peor de las combinaciones posibles: un error con sello de calidad.
+
+Una segunda decisión cambió por evidencia técnica. Las láminas de paleta, contraste, tipografía y retícula estaban planeadas como imágenes generadas con una biblioteca de graficación y se emitieron como \textbf{LaTeX}. El motivo fue concreto: la biblioteca habría tenido que cargar por su cuenta los archivos de tipo que la aplicación descarga al construirse, y si cargaba otro, el espécimen tipográfico de este documento mostraría una letra que el producto no usa. El documento ya carga las dos familias reales, de modo que el espécimen impreso es el tipo que el navegador pinta.
+
+La tercera fue de idioma. La interfaz pasó a ser bilingüe español e inglés con \textbf{79 claves por catálogo} y paridad exacta verificada por prueba automática, lo que obligó a que el contrato de navegación dejara de guardar palabras y guardara claves de traducción. Sin ese cambio, el índice de prototipos ---nombres, ramas del mapa de A3, alcance y perfil--- habría quedado en español dentro de la interfaz en inglés. Este documento, en cambio, se entrega solo en español: la decisión alcanza al producto, no a los entregables.
+
+\subsection{Qué quedó fuera, y por qué}
+
+\begin{uxtabla}{|L{4.4cm}|Y|}{Lo que la guía dejó fuera de la versión 1.0}
+  \uxheadrow \thd{Fuera de alcance} & \thd{Motivo declarado} \\
+  Modo oscuro & Verificar una segunda paleta completa con la misma matriz de 44 pares no cabía en la semana, y un modo oscuro mal contrastado resta más de lo que suma \\
+  Densidad compacta & Exige una segunda escala de altura de fila verificada sobre la tabla de datos; sin esa verificación sería un token sin respaldo \\
+  Pesos tipográficos por encima de 400 & Una de las dos familias se distribuye solo en Regular: un peso mayor produciría negrita simulada en pantalla y negrita real en el PDF, y las capturas dejarían de coincidir con el documento \\
+  La ruta del sistema de diseño como prototipo & La rúbrica puntúa los prototipos en un apartado y la guía en otro; contarla como pantalla habría mezclado los dos. Quedó fuera del contrato de navegación, que conserva sus ocho rutas y sus siete prototipos \\
+  Componentes no renderizados & La guía no documentó ninguna pieza que el producto no dibuje. Es la regla que impide que un documento describa un sistema que la aplicación no tiene \\
+\end{uxtabla}
+
+\subsection{Qué aprendió el equipo al convertir arquitectura en pantallas}
+
+Que una guía de estilos es un artefacto ejecutable o no es nada. Mientras la paleta vivió en una tabla escrita a mano, dos de sus reglas eran falsas y nadie lo notó; en cuanto pasó por un cálculo reproducible, cuatro se cayeron el mismo día. La lección se puede formular como criterio de trabajo: \textbf{toda afirmación del sistema de diseño que pueda calcularse, se calcula}, y la que no pueda calcularse se escribe con su condición de entrada para que alguien pueda refutarla después.
+
+La segunda lección fue de dirección. La cadena que va de la hoja de estilo al PDF corre en un solo sentido, y esa restricción ---que al principio parecía burocracia--- fue lo que hizo baratos los cuatro arreglos: cambiar un token corrigió a la vez la aplicación, las láminas y el documento. En el sentido contrario, cada corrección habría costado tres ediciones y habría dejado dos oportunidades de divergencia.
+
+\subsection{Qué se lleva la Actividad 5}
+
+La Actividad 5 recibe un encargo acotado y ya escrito. Primero, la \textbf{prueba de usabilidad con personas reales} y el instrumento SUS con meta de 75 o más, que es la primera evidencia humana de una serie que hasta aquí se sostuvo en evaluadores prototipo. Segundo, las \textbf{dos verificaciones que la Actividad 3 dejó abiertas}: repetir la tarea del indicador de riesgo sobre la arquitectura revisada y medir si el acceso cruzado a la bitácora reduce el titubeo que registraron los ocho evaluadores. Tercero, las \textbf{correcciones de la guía} que salgan de esa prueba, que entran a la bitácora de la versión 1.1 con el número de participantes y la medición que las motiva. El sistema de diseño llega a esa prueba con su matriz publicada, de modo que cualquier hallazgo de legibilidad se puede contrastar contra un número y no contra una impresión.
+
+% ============================================================================
+\section{Referencias bibliográficas}
+
+Las referencias siguen el formato APA 7 con sangría francesa. Se citan las fuentes que sostienen decisiones concretas del documento y no un inventario de lecturas: el material de apoyo que la propia rúbrica nombra, la norma de accesibilidad contra la que se calculó la matriz de contraste, los artículos de 2026 que respaldan la transparencia de las llamadas a herramienta, los valores por omisión por perfil y el estado compartido entre tablero y asistente, y las obras de método que la serie de entregables viene usando desde la Actividad 1. El origen generativo del sistema visual ---la ficha de estilo de tablero denso que el equipo adoptó en la Actividad 1--- queda declarado en la cabecera de la hoja de estilo y en el archivo de instrucciones de \texttt{docs/entregables/}; por tratarse de una herramienta interna del equipo y no de una publicación, se documenta ahí y no como entrada bibliográfica.
+
+\begin{uxreferencias}
+Allen, J., y Chudley, J. (2012). \textit{Smashing UX design: Foundations for designing online
+user experiences}. Wiley.
+
+Bachkaniwala, R., Luo, C., So, R., Mahajan, D., y Rong, K. (2026). \textit{Stream2LLM: Overlap
+context streaming and prefill for reduced time-to-first-token}. arXiv. \href{https://arxiv.org/abs/2604.16395}{arxiv.org/abs/2604.16395}.
+
+Bai, J., Zhang, Z., Zhang, J., y Zhu, Z. (2026). \textit{Insight agents: An LLM-based
+multi-agent system for data insights}. arXiv. \href{https://arxiv.org/abs/2601.20048}{arxiv.org/abs/2601.20048}.
+
+Bougie, N., Ye, X., Marconi, G. M., y Watanabe, N. (2026). \textit{PerceptUI: LLM agents as
+human-aligned synthetic users for UI/UX evaluation}. arXiv. \href{https://arxiv.org/abs/2606.05697}{arxiv.org/abs/2606.05697}.
+
+Hartson, R., y Pyla, P. (2019). \textit{The UX book: Agile UX design for a quality user
+experience} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
+
+Jang, J., y Li, W.-S. (2026). \textit{TwinBI: An agentic digital twin for efficient augmented
+interactions with business intelligence dashboards}. arXiv. \href{https://arxiv.org/abs/2606.13731}{arxiv.org/abs/2606.13731}.
+
+Morville, P., y Rosenfeld, L. (2006). \textit{Information architecture for the World Wide Web:
+Designing large-scale web sites} (3.\textsuperscript{a} ed.). O'Reilly Media.
+
+Naik, S., Passi, S., Vorvoreanu, M., Saponas, S., y Hall, A. K. (2026). \enquote{So there's a
+catch-22 here}: How early adopters who build multi-agent LLM systems conceptualize transparency.
+arXiv. \href{https://arxiv.org/abs/2606.08323}{arxiv.org/abs/2606.08323}.
+
+Peng, Y.-H., Das, S., Bigham, J. P., y Wu, J. (2026). \textit{Efficient personalization of
+generative user interfaces}. arXiv. \href{https://arxiv.org/abs/2604.09876}{arxiv.org/abs/2604.09876}.
+
+Ramírez Mejía, A. I. (2023). \textit{Grocery shopping app. A guided UX case study. Part 4:
+Prototyping and style guide} [Diapositivas]. TC4032, Experiencia del usuario y diseño de
+interfaces, Maestría en Inteligencia Artificial Aplicada, ITESM.
+
+W3C. (2023). \textit{Web Content Accessibility Guidelines (WCAG) 2.2}. World Wide Web
+Consortium. Consultado el 10 de agosto de 2026 en \href{https://www.w3.org/TR/WCAG22/}{w3.org/TR/WCAG22/}.
+\end{uxreferencias}

@@ -1,48 +1,141 @@
-/* app/assets/css/main.css — generado, no editar a mano */
+/* app/assets/css/main.css - generado, no editar a mano */
 /*
+ * Guia de estilos de Karisma Data v1.0 - 2026-08-16
+ *
+ * GENERADO. No editar a mano: cualquier cambio se pierde en la siguiente
+ * corrida y hace divergir la aplicacion del PDF del curso.
+ *
  * Fuente unica: docs/entregables/estilo/uxdoc.sty
- * Generador:    scripts/generar_tokens_a4.py (US-UX-09), que regenera este
- *               archivo completo a partir de los \definecolor de uxdoc.sty.
- * La derivacion va en un solo sentido: uxdoc.sty -> @theme -> interfaz ->
- * capturas -> PDF. Nada fluye hacia atras. Cualquier token escrito a mano hace
- * divergir la aplicacion del documento del curso.
+ * Generador:    docs/entregables/generar_tokens_a4.py
+ * Regenerar:    make tokens
+ * Verificar:    python docs/entregables/generar_tokens_a4.py --verificar
+ *
+ * La derivacion va en un solo sentido: uxdoc.sty -> @theme -> interfaz
+ * -> capturas -> PDF. Nada fluye hacia atras.
  */
 @import "tailwindcss";
 
 @theme {
-  /* Marca — anclas versionadas en uxdoc.sty */
-  --color-primary: #2563EB;        /* uxblue  · accion primaria, enlaces, foco */
-  --color-primary-dark: #1F4D78;   /* uxnavy  · barra lateral, cabecera de tabla, titulares */
-  --color-secondary: #3B82F6;      /* uxsky   · serie primaria de grafica */
-  --color-secondary-soft: #B8CCE4; /* uxpale  · relleno suave, area bajo curva */
-  --color-accent: #F97316;         /* uxamber · uso escaso; NUNCA con texto blanco (2.6:1) */
-  --color-accent-text: #C2540A;    /* texto de aviso sobre fondo claro */
+  /* Primaria - azul institucional */
+  --color-primary-100: #DBEAFE;          /* uxprimary100 - Relleno informativo y fondo de chip de estado. */
+  --color-primary-300: #93C5FD;          /* uxprimary300 - Relleno de seleccion y de fila marcada. */
+  --color-primary-500: #2563EB;          /* uxblue (ancla) - Accion primaria, enlace y anillo de foco. */
+  --color-primary-700: #1F4D78;          /* uxnavy (ancla) - Barra lateral, cabecera de tabla y titulares. */
+  --color-primary-900: #0F2C46;          /* uxprimary900 - Fondo mas oscuro de la barra lateral colapsada. */
 
-  /* Neutros — sin negro ni blanco puros */
-  --color-surface: #F8FAFC;        /* uxsurface */
-  --color-surface-alt: #EEF3FA;    /* uxrow · fila alterna de tabla */
-  --color-line: #CBD5E1;           /* uxline */
-  --color-muted: #64748B;          /* uxmuted · solo texto secundario de 14px o mas */
-  --color-ink: #1E293B;            /* uxink */
+  /* Secundaria - azul de grafica */
+  --color-secondary-100: #E3EDF7;        /* uxsecondary100 - Area bajo la curva de la serie secundaria. */
+  --color-secondary-300: #B8CCE4;        /* uxpale (ancla) - Relleno suave, borde de tarjeta y area de banda. */
+  --color-secondary-500: #3B82F6;        /* uxsky (ancla) - Serie primaria de grafica y barra de progreso. */
+  --color-secondary-700: #1E5FA8;        /* uxsecondary700 - Serie secundaria enfatizada y eje activo. */
+  --color-secondary-900: #14385F;        /* uxsecondary900 - Rejilla y eje sobre grafica de fondo oscuro. */
 
-  /* Semanticos */
-  --color-success: #166534;        /* uxgreen */
-  --color-danger: #B91C1C;
-  --color-warning: #C2540A;
+  /* Acento - ambar de uso escaso */
+  --color-accent-100: #FEEBD9;           /* uxaccent100 - Fondo del aviso de alcance y del banner de demo. */
+  --color-accent-300: #FDBA8C;           /* uxaccent300 - Filete y relleno del aviso. */
+  --color-accent-500: #F97316;           /* uxamber (ancla) - Solo decorativo: filete de marca. No informa. */
+  --color-accent-700: #C2540A;           /* uxaccent700 - Todo ambar que informa: icono, borde y marca. */
+  --color-accent-900: #7C3606;           /* uxaccent900 - Texto de aviso sobre el acento 100. */
 
-  /* Tipografia */
-  --font-display: "Lexend Deca", sans-serif;  /* solo peso Regular: jerarquia por tamano y color */
-  --font-sans: "Fira Sans", sans-serif;
+  /* Complemento - verde de confirmacion */
+  --color-success-100: #DCFCE7;          /* uxsuccess100 - Fondo de la insignia de confirmacion. */
+  --color-success-300: #86EFAC;          /* uxsuccess300 - Filete de la insignia de confirmacion. */
+  --color-success-500: #16A34A;          /* uxsuccess500 - Marca grafica de confirmacion en tablero. */
+  --color-success-700: #166534;          /* uxgreen (ancla) - Confirmacion en texto y estado correcto. */
+  --color-success-900: #0B3D1F;          /* uxsuccess900 - Texto sobre el relleno de confirmacion. */
 
-  /* Densidad — ficha Data-Dense Dashboard de ui-ux-pro-max */
-  --sidebar-width: 240px;
-  --header-height: 56px;
-  --grid-gap: 8px;
-  --card-padding: 12px;
-  --table-row-height: 36px;
+  /* Neutros - sin negro ni blanco puros */
+  --color-surface: #F8FAFC;              /* uxsurface (ancla) - Superficie de pagina y de tarjeta. */
+  --color-surface-alt: #EEF3FA;          /* uxrow (ancla) - Fila alterna de tabla y cabecera de panel. */
+  --color-line: #CBD5E1;                 /* uxline (ancla) - Filete decorativo y separador que no informa. */
+  --color-line-strong: #64748B;          /* uxmuted (ancla) (= muted) - Borde de campo de formulario y limite de componente que informa. */
+  --color-muted: #64748B;                /* uxmuted (ancla) - Texto secundario, solo a partir de 14 px. */
+  --color-ink: #1E293B;                  /* uxink (ancla) - Texto de cuerpo y cifra de tabla. */
+  --color-ink-strong: #0F172A;           /* uxinkstrong - Cifra de tarjeta KPI y titulo de dialogo. */
 
-  /* Radios — una sola escala; --radius-full es la unica excepcion documentada */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+  /* Semanticos - el aviso y el informativo reusan la escala */
+  --color-danger: #B91C1C;               /* uxdanger - Error, campo invalido y accion destructiva. */
+  --color-danger-strong: #7F1D1D;        /* uxdangerstrong - Error enfatizado y titulo destructivo. */
+  --color-warning: #C2540A;              /* uxaccent700 (= accent-700) - Aviso que informa; reusa el acento 700. */
+  --color-info: #2563EB;                 /* uxblue (ancla) (= primary-500) - Mensaje informativo; reusa la primaria 500. */
+
+  /* Serie categorica de grafica - todas con 3:1 o mas sobre la superficie */
+  --color-serie-1: #2563EB;              /* uxblue (ancla) (= primary-500) - Serie 1 de grafica categorica. */
+  --color-serie-2: #C2540A;              /* uxaccent700 (= accent-700) - Serie 2 de grafica categorica. */
+  --color-serie-3: #166534;              /* uxgreen (ancla) (= success-700) - Serie 3 de grafica categorica. */
+  --color-serie-4: #7C3AED;              /* uxserie4 - Serie 4 de grafica categorica. */
+  --color-serie-5: #0E7490;              /* uxserie5 - Serie 5 de grafica categorica. */
+  --color-serie-6: #9D174D;              /* uxserie6 - Serie 6 de grafica categorica. */
+
+  /* Alias de US-001 - derivados de la escala, nunca escritos aparte */
+  --color-primary: #2563EB;              /* = primary-500 */
+  --color-primary-dark: #1F4D78;         /* = primary-700 */
+  --color-secondary: #3B82F6;            /* = secondary-500 */
+  --color-secondary-soft: #B8CCE4;       /* = secondary-300 */
+  --color-accent: #F97316;               /* = accent-500 */
+  --color-accent-text: #7C3606;          /* = accent-900 */
+  --color-success: #166534;              /* = success-700 */
+
+  /* Tipografia - dos familias servidas desde el propio origen */
+  --font-display: "Lexend Deca", sans-serif; /* Titulares */
+  --font-sans: "Fira Sans", sans-serif;  /* Cuerpo */
+
+  /* Escala tipografica - 9 roles. El peso no construye jerarquia */
+  --text-display: 32px;                  /* Cifra unica de portada de tablero y titulo de pantalla vacia. */
+  --text-display--line-height: 40px;
+  --text-display--font-weight: 400;
+  --text-display--letter-spacing: -0.01em;
+  --text-titulo-1: 24px;                 /* Titulo de pantalla, uno solo por vista. */
+  --text-titulo-1--line-height: 32px;
+  --text-titulo-1--font-weight: 400;
+  --text-titulo-1--letter-spacing: -0.01em;
+  --text-titulo-2: 20px;                 /* Titulo de tarjeta, de panel y de lamina. */
+  --text-titulo-2--line-height: 28px;
+  --text-titulo-2--font-weight: 400;
+  --text-titulo-3: 16px;                 /* Subtitulo y encabezado de grupo de campos. */
+  --text-titulo-3--line-height: 22px;
+  --text-titulo-3--font-weight: 400;
+  --text-cuerpo: 14px;                   /* Texto por omision de la interfaz densa. */
+  --text-cuerpo--line-height: 20px;
+  --text-cuerpo--font-weight: 400;
+  --text-cuerpo-amplio: 16px;            /* Parrafo largo: ayuda, respuesta del asistente y aviso de alcance. */
+  --text-cuerpo-amplio--line-height: 26px;
+  --text-cuerpo-amplio--font-weight: 400;
+  --text-etiqueta: 12px;                 /* Etiqueta de campo, encabezado de columna y texto de chip. */
+  --text-etiqueta--line-height: 16px;
+  --text-etiqueta--font-weight: 400;
+  --text-etiqueta--letter-spacing: 0.04em;
+  --text-dato: 18px;                     /* Cifra de tarjeta KPI y celda numerica, con cifras tabulares. */
+  --text-dato--line-height: 24px;
+  --text-dato--font-weight: 400;
+  --text-micro: 11px;                    /* Nota al pie, marca de tiempo y leyenda de grafica. */
+  --text-micro--line-height: 16px;
+  --text-micro--font-weight: 400;
+
+  /* Ritmo de espaciado en base 4: Tailwind deriva 4/8/12/16/24/32/48/64 */
+  --spacing: 4px;                        /* unidad del ritmo */
+
+  /* Radios */
+  --radius-sm: 4px;                      /* Chip, insignia y campo de una linea. */
+  --radius-md: 6px;                      /* Boton, campo de formulario y celda de tabla activa. */
+  --radius-lg: 10px;                     /* Tarjeta, panel y dialogo. */
+  --radius-full: 999px;                  /* Avatar, punto de estado y boton circular de icono. */
+
+  /* Sombras - un solo color de sombra, la tinta mas oscura del sistema */
+  --shadow-reposo: 0 1px 2px 0 rgb(15 23 42 / 0.06); /* Tarjeta y tabla en reposo. */
+  --shadow-elevado: 0 2px 6px -1px rgb(15 23 42 / 0.1); /* Tarjeta al pasar el puntero y menu abierto. */
+  --shadow-flotante: 0 8px 24px -6px rgb(15 23 42 / 0.18); /* Dialogo, panel lateral y sugerencia flotante. */
+
+  /* Puntos de quiebre */
+  --breakpoint-sm: 768px;                /* Tableta vertical: la barra lateral se colapsa a iconos. */
+  --breakpoint-md: 1024px;               /* Tableta horizontal: vuelve la barra lateral con etiqueta. */
+  --breakpoint-lg: 1280px;               /* Escritorio: aparece la segunda columna del tablero. */
+  --breakpoint-xl: 1440px;               /* Escritorio ancho: ancho de captura de las figuras de A4. */
+
+  /* Densidad - ficha Data-Dense Dashboard de ui-ux-pro-max */
+  --sidebar-width: 240px;                /* Ancho de la barra lateral desplegada. */
+  --header-height: 56px;                 /* Alto de la cabecera fija. */
+  --grid-gap: 8px;                       /* Canal entre columnas de la reticula de 12. */
+  --card-padding: 12px;                  /* Relleno interno de tarjeta y de panel. */
+  --table-row-height: 36px;              /* Alto de fila de tabla densa. */
 }

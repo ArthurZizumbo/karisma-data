@@ -5,6 +5,7 @@ import { createMemoryHistory, createRouter, RouterLink } from 'vue-router'
 import { describe, expect, it } from 'vitest'
 import BarraLateral from '~/components/nav/BarraLateral.vue'
 import { MODULOS, RUTA_ASISTENTE, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
+import { type CodigoIdioma, crearI18nDePrueba, mensaje } from './i18nDePrueba'
 
 const Vacio = defineComponent({ template: '<div />' })
 
@@ -18,7 +19,7 @@ const Vacio = defineComponent({ template: '<div />' })
  * What prevents that is the :aria-current="undefined" fallthrough of the
  * component, and with the stub that line of defence went untested.
  */
-async function montarEn(ruta: string): Promise<VueWrapper> {
+async function montarEn(ruta: string, idioma: CodigoIdioma = 'es'): Promise<VueWrapper> {
   const router = createRouter({
     history: createMemoryHistory(),
     routes: [RUTA_INDICE, ...RUTAS_CONTRATO].map(path => ({ path, component: Vacio })),
@@ -28,7 +29,7 @@ async function montarEn(ruta: string): Promise<VueWrapper> {
 
   return mount(BarraLateral, {
     global: {
-      plugins: [router],
+      plugins: [router, crearI18nDePrueba(idioma)],
       components: { NuxtLink: RouterLink },
       stubs: { Icon: true },
     },
@@ -137,12 +138,41 @@ describe('BarraLateral: estado activo derivado de la ruta', () => {
     const actual = wrapper.get('[aria-current="page"]')
 
     expect(actual.attributes('href')).toBe(RUTA_ASISTENTE)
-    expect(actual.text()).toContain('Asistente conversacional')
+    expect(actual.text()).toContain(mensaje('es', 'nav.assistant.label'))
   })
 
   it('no marca ningún enlace cuando la ruta queda fuera de la barra', async () => {
     const wrapper = await montarEn('/acceso')
     expect(wrapper.findAll('[aria-current="page"]')).toHaveLength(0)
+  })
+})
+
+describe('BarraLateral: el árbol de A3 se traduce entero', () => {
+  it('rotula módulos, hojas y facetas en el idioma activo', async () => {
+    // The sidebar is the densest surface of the prototype: four modules, sixteen
+    // leaves and nine facet chips. A literal left in Spanish anywhere in that
+    // tree survives every other test in the suite.
+    const wrapper = await montarEn('/exploracion', 'en')
+    const texto = wrapper.text()
+
+    expect(texto).toContain(mensaje('en', 'nav.module.explore'))
+    expect(texto).toContain(mensaje('en', 'nav.branch.exploreDashboards'))
+    expect(texto).toContain(mensaje('en', 'nav.facets.caption'))
+    expect(texto).toContain(mensaje('en', 'nav.assistant.label'))
+    expect(texto).not.toContain(mensaje('es', 'nav.module.explore'))
+  })
+
+  it('traduce los rótulos accesibles, no solo el texto visible', async () => {
+    const wrapper = await montarEn('/exploracion', 'en')
+    const rotulos = wrapper.findAll('nav').map(nav => nav.attributes('aria-label'))
+
+    expect(rotulos).toContain(mensaje('en', 'nav.aria.main'))
+    expect(rotulos).toContain(mensaje('en', 'nav.aria.crossCutting'))
+
+    // The cross cutting facet marker carries its own accessible name, built
+    // from the branch label; it must travel with the language too.
+    const transversal = wrapper.get('[data-nivel="2"] a[aria-label]')
+    expect(transversal.attributes('aria-label')).toContain('cross-cutting facet')
   })
 })
 

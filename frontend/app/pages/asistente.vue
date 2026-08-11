@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useTituloDeRuta } from '~/composables/useTituloDeRuta'
 
 definePageMeta({ layout: 'portal' })
 
+const { t } = useI18n()
 const { titulo, ruta } = useTituloDeRuta()
 </script>
 
@@ -12,8 +14,7 @@ const { titulo, ruta } = useTituloDeRuta()
       {{ titulo }}
     </h1>
     <p class="max-w-prose text-muted">
-      Contendrá la conversación con el agente, las tarjetas de cada consulta que ejecuta y el
-      detalle de linaje de la respuesta.
+      {{ t('screen.assistant.description') }}
     </p>
   </section>
 </template>

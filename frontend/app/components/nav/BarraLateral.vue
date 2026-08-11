@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
+import { ANILLO_FOCO_INVERSO } from '~/utils/foco'
 import {
-  FACETAS_TRANSVERSALES,
+  CLAVES_FACETAS_TRANSVERSALES,
   MODULOS,
   RUTA_ASISTENTE,
   RUTA_INDICE,
@@ -10,6 +12,7 @@ import {
 } from '~/utils/navegacion'
 
 const route = useRoute()
+const { t } = useI18n()
 
 /**
  * Active module is derived from the route on every render. Keeping it as local
@@ -35,12 +38,13 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
   >
     <NuxtLink
       :to="RUTA_INDICE"
-      class="font-display text-lg text-surface underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-soft"
+      class="font-display text-lg text-surface underline-offset-4 hover:underline"
+      :class="ANILLO_FOCO_INVERSO"
     >
-      Karisma Data
+      {{ t('brand.name') }}
     </NuxtLink>
 
-    <nav aria-label="Navegación principal">
+    <nav :aria-label="t('nav.aria.main')">
       <ul class="flex flex-col gap-1">
         <li
           v-for="modulo in MODULOS"
@@ -52,9 +56,10 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
             :to="modulo.ruta"
             :aria-current="esActivo(modulo.ruta) ? 'page' : undefined"
             :aria-expanded="moduloDesplegado?.id === modulo.id"
-            class="block rounded-md px-3 py-2 text-sm hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-soft aria-[current=page]:bg-primary aria-[current=page]:font-medium"
+            class="block rounded-md px-3 py-2 text-sm hover:bg-primary aria-[current=page]:bg-primary aria-[current=page]:font-medium"
+            :class="ANILLO_FOCO_INVERSO"
           >
-            {{ modulo.id }}. {{ modulo.etiqueta }}
+            {{ modulo.id }}. {{ t(modulo.claveEtiqueta) }}
           </NuxtLink>
 
           <ul
@@ -68,13 +73,14 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
               <NuxtLink
                 :to="subruta.ruta"
                 :title="subruta.facetaTransversal
-                  ? `${subruta.etiqueta}: faceta transversal, alcanzable desde más de una rama`
+                  ? t('nav.facets.branchTitle', { label: t(subruta.claveEtiqueta) })
                   : undefined"
                 :aria-label="subruta.facetaTransversal
-                  ? `${subruta.id} ${subruta.etiqueta}, faceta transversal`
+                  ? t('nav.facets.branchAria', { id: subruta.id, label: t(subruta.claveEtiqueta) })
                   : undefined"
                 :aria-current="esActivo(subruta.ruta, modulo.ruta) ? 'page' : undefined"
-                class="flex items-center gap-2 rounded-sm px-2 py-1 text-sm text-secondary-soft hover:bg-primary hover:text-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-soft aria-[current=page]:bg-primary aria-[current=page]:text-surface"
+                class="flex items-center gap-2 rounded-sm px-2 py-1 text-sm text-secondary-soft hover:bg-primary hover:text-surface aria-[current=page]:bg-primary aria-[current=page]:text-surface"
+                :class="ANILLO_FOCO_INVERSO"
               >
                 <Icon
                   v-if="subruta.facetaTransversal"
@@ -82,7 +88,7 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
                   class="size-3 shrink-0"
                   aria-hidden="true"
                 />
-                <span>{{ subruta.id }} {{ subruta.etiqueta }}</span>
+                <span>{{ subruta.id }} {{ t(subruta.claveEtiqueta) }}</span>
               </NuxtLink>
             </li>
           </ul>
@@ -92,16 +98,17 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
 
     <hr class="border-t border-secondary-soft opacity-40">
 
-    <nav aria-label="Acceso transversal" class="flex flex-col gap-2">
+    <nav :aria-label="t('nav.aria.crossCutting')" class="flex flex-col gap-2">
       <NuxtLink
         :to="RUTA_ASISTENTE"
         :aria-current="esActivo(RUTA_ASISTENTE) ? 'page' : undefined"
-        class="block rounded-md px-3 py-2 text-sm hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-soft aria-[current=page]:bg-primary aria-[current=page]:font-medium"
+        class="block rounded-md px-3 py-2 text-sm hover:bg-primary aria-[current=page]:bg-primary aria-[current=page]:font-medium"
+        :class="ANILLO_FOCO_INVERSO"
       >
-        Asistente conversacional
+        {{ t('nav.assistant.label') }}
       </NuxtLink>
       <p class="px-3 text-sm text-secondary-soft">
-        Transversal a las cuatro categorías.
+        {{ t('nav.assistant.note') }}
       </p>
     </nav>
 
@@ -114,16 +121,16 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
         entering the heading tree.
       -->
       <p id="facetas-transversales" class="px-3 text-sm text-secondary-soft">
-        Facetas transversales
+        {{ t('nav.facets.caption') }}
       </p>
       <ul class="flex flex-wrap gap-1 px-3">
         <li
-          v-for="faceta in FACETAS_TRANSVERSALES"
-          :key="faceta"
-          :title="`${faceta}: se alcanza desde más de una rama del mapa`"
+          v-for="clave in CLAVES_FACETAS_TRANSVERSALES"
+          :key="clave"
+          :title="t('nav.facets.hint', { facet: t(clave) })"
           class="rounded-sm border border-secondary-soft px-2 py-0.5 text-sm text-secondary-soft"
         >
-          {{ faceta }}
+          {{ t(clave) }}
         </li>
       </ul>
     </section>

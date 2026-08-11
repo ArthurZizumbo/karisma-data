@@ -8,10 +8,11 @@
  */
 import { useI18n } from 'vue-i18n'
 import { ANILLO_FOCO } from '~/utils/foco'
-import { useModo, type ModoElegido } from '~/composables/useModo'
+import type { ModoElegido } from '~/composables/useModo'
+import { useSistemaDiseno } from '~/stores/sistemaDiseno'
 
 const { t } = useI18n()
-const { eleccion, elegir } = useModo()
+const sistema = useSistemaDiseno()
 
 const OPCIONES: readonly { valor: ModoElegido, icono: string }[] = [
   { valor: 'claro', icono: 'lucide:sun' },
@@ -36,11 +37,11 @@ const OPCIONES: readonly { valor: ModoElegido, icono: string }[] = [
       :key="opcion.valor"
       type="button"
       data-selector-modo
-      :aria-pressed="eleccion === opcion.valor"
+      :aria-pressed="sistema.eleccion === opcion.valor"
       :title="t(`chrome.mode.${opcion.valor}`)"
       class="flex items-center gap-1 px-2 py-1 text-etiqueta text-corriente-tenue aria-pressed:bg-corriente-pleno aria-pressed:text-ground"
       :class="ANILLO_FOCO"
-      @click="elegir(opcion.valor)"
+      @click="sistema.elegir(opcion.valor)"
     >
       <Icon :name="opcion.icono" class="size-4 shrink-0" aria-hidden="true" />
       <span class="sr-only">{{ t(`chrome.mode.${opcion.valor}`) }}</span>

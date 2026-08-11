@@ -70,11 +70,11 @@ export const CORRIENTE: readonly TokenColor[] = [
   },
   {
     nombre: 'corriente-tenue',
-    claro: '#7A8698',
+    claro: '#5F6A7D',
     oscuro: '#7A8698',
     clase: 'bg-corriente-tenue',
     informa: true,
-    uso: 'Texto secundario y nodo alcanzable. El unico token identico en los dos modos.',
+    uso: 'Texto secundario y nodo alcanzable. En claro se oscurece para cumplir 4.5:1.',
   },
   {
     nombre: 'corriente-medio',
@@ -97,7 +97,7 @@ export const CORRIENTE: readonly TokenColor[] = [
 export const SEMANTICOS: readonly TokenColor[] = [
   {
     nombre: 'error',
-    claro: '#C4341A',
+    claro: '#8C1D18',
     oscuro: '#FF5A36',
     clase: 'bg-error',
     informa: true,
@@ -105,7 +105,7 @@ export const SEMANTICOS: readonly TokenColor[] = [
   },
   {
     nombre: 'aviso',
-    claro: '#8A5A00',
+    claro: '#9A6200',
     oscuro: '#FFC233',
     clase: 'bg-aviso',
     informa: true,
@@ -121,8 +121,8 @@ export const SEMANTICOS: readonly TokenColor[] = [
   },
   {
     nombre: 'info',
-    claro: '#1D4ED8',
-    oscuro: '#7DD3FC',
+    claro: '#6D28D9',
+    oscuro: '#C4B5FD',
     clase: 'bg-info',
     informa: true,
     uso: 'Informativo y enlace. Siempre subrayado o con icono.',
@@ -264,6 +264,77 @@ export const REGLAS: readonly string[] = [
   'La prosa no pasa de 68 caracteres por linea.',
   'La barra lateral colapsa de verdad por debajo de 768 px. El sistema anterior lo declaraba y no lo implementaba, y dejaba el contenido en 135 px.',
 ]
+
+export interface ParContraste {
+  readonly token: string
+  readonly modo: 'claro' | 'oscuro'
+  readonly ratio: number
+  readonly veredicto: string
+}
+
+export interface SeparacionSemantica {
+  readonly uno: string
+  readonly otro: string
+  readonly modo: 'claro' | 'oscuro'
+  readonly dicromacia: string
+  readonly distancia: number
+}
+
+export const CONTRASTES: readonly ParContraste[] = [
+  { token: 'ground-alt', modo: 'claro', ratio: 1.08, veredicto: 'superficie' },
+  { token: 'grid', modo: 'claro', ratio: 1.2, veredicto: 'grafico' },
+  { token: 'corriente-apagado', modo: 'claro', ratio: 1.98, veredicto: 'grafico' },
+  { token: 'corriente-tenue', modo: 'claro', ratio: 5.05, veredicto: 'AA' },
+  { token: 'corriente-medio', modo: 'claro', ratio: 8.14, veredicto: 'AAA' },
+  { token: 'corriente-pleno', modo: 'claro', ratio: 16.58, veredicto: 'AAA' },
+  { token: 'error', modo: 'claro', ratio: 8.42, veredicto: 'AAA' },
+  { token: 'aviso', modo: 'claro', ratio: 4.71, veredicto: 'AA' },
+  { token: 'ok', modo: 'claro', ratio: 5.68, veredicto: 'AA' },
+  { token: 'info', modo: 'claro', ratio: 6.56, veredicto: 'AA' },
+  { token: 'serie-1', modo: 'claro', ratio: 6.19, veredicto: 'AA' },
+  { token: 'serie-2', modo: 'claro', ratio: 4.64, veredicto: 'AA' },
+  { token: 'serie-3', modo: 'claro', ratio: 5.68, veredicto: 'AA' },
+  { token: 'serie-4', modo: 'claro', ratio: 6.56, veredicto: 'AA' },
+  { token: 'serie-5', modo: 'claro', ratio: 4.95, veredicto: 'AA' },
+  { token: 'serie-6', modo: 'claro', ratio: 7.28, veredicto: 'AAA' },
+  { token: 'ground-alt', modo: 'oscuro', ratio: 1.08, veredicto: 'superficie' },
+  { token: 'grid', modo: 'oscuro', ratio: 1.21, veredicto: 'grafico' },
+  { token: 'corriente-apagado', modo: 'oscuro', ratio: 2.54, veredicto: 'grafico' },
+  { token: 'corriente-tenue', modo: 'oscuro', ratio: 5.36, veredicto: 'AA' },
+  { token: 'corriente-medio', modo: 'oscuro', ratio: 10.93, veredicto: 'AAA' },
+  { token: 'corriente-pleno', modo: 'oscuro', ratio: 17.72, veredicto: 'AAA' },
+  { token: 'error', modo: 'oscuro', ratio: 6.37, veredicto: 'AA' },
+  { token: 'aviso', modo: 'oscuro', ratio: 12.26, veredicto: 'AAA' },
+  { token: 'ok', modo: 'oscuro', ratio: 11.35, veredicto: 'AAA' },
+  { token: 'info', modo: 'oscuro', ratio: 10.71, veredicto: 'AAA' },
+  { token: 'serie-1', modo: 'oscuro', ratio: 11.86, veredicto: 'AAA' },
+  { token: 'serie-2', modo: 'oscuro', ratio: 12.26, veredicto: 'AAA' },
+  { token: 'serie-3', modo: 'oscuro', ratio: 11.35, veredicto: 'AAA' },
+  { token: 'serie-4', modo: 'oscuro', ratio: 10.71, veredicto: 'AAA' },
+  { token: 'serie-5', modo: 'oscuro', ratio: 13.65, veredicto: 'AAA' },
+  { token: 'serie-6', modo: 'oscuro', ratio: 10.91, veredicto: 'AAA' },
+]
+
+export const SEPARACIONES: readonly SeparacionSemantica[] = [
+  { uno: 'error', otro: 'aviso', modo: 'claro', dicromacia: 'deuteranopia', distancia: 22.1 },
+  { uno: 'error', otro: 'ok', modo: 'claro', dicromacia: 'protanopia', distancia: 16.7 },
+  { uno: 'error', otro: 'info', modo: 'claro', dicromacia: 'tritanopia', distancia: 62.1 },
+  { uno: 'aviso', otro: 'ok', modo: 'claro', dicromacia: 'protanopia', distancia: 32.3 },
+  { uno: 'aviso', otro: 'info', modo: 'claro', dicromacia: 'tritanopia', distancia: 37.6 },
+  { uno: 'ok', otro: 'info', modo: 'claro', dicromacia: 'tritanopia', distancia: 13.6 },
+  { uno: 'error', otro: 'aviso', modo: 'oscuro', dicromacia: 'deuteranopia', distancia: 21.5 },
+  { uno: 'error', otro: 'ok', modo: 'oscuro', dicromacia: 'protanopia', distancia: 26.1 },
+  { uno: 'error', otro: 'info', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 77.9 },
+  { uno: 'aviso', otro: 'ok', modo: 'oscuro', dicromacia: 'protanopia', distancia: 33.9 },
+  { uno: 'aviso', otro: 'info', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 33.6 },
+  { uno: 'ok', otro: 'info', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 30.4 },
+]
+
+/** Peor separacion semantica medida por modo. En claro es un techo. */
+export const PEOR_SEPARACION = {
+  claro: 13.4,
+  oscuro: 21.8,
+} as const
 
 export const TOKENS: readonly TokenColor[] = [
   ...SUPERFICIE,

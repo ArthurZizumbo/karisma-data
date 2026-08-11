@@ -21,6 +21,7 @@ const usePolling
 
 export default defineNuxtConfig({
   modules: [
+    '@pinia/nuxt',
     '@nuxt/eslint',
     '@nuxt/fonts',
     '@nuxt/icon',

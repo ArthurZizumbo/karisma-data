@@ -171,17 +171,22 @@
       "description": "Four families of five steps, seven neutrals, four semantic tokens and six chart series colours. The hexadecimal you read is the one the generator emitted: not a single one is typed here.",
       "total": "{total} colour tokens",
       "group": {
-        "family": "Brand family",
-        "neutrals": "Neutrals",
-        "semantic": "Semantic tokens",
-        "series": "Categorical chart series"
+        "surface": "Ground and grid",
+        "current": "Current",
+        "semantic": "Semantic",
+        "series": "Chart series"
       },
       "anchor": "Anchor",
       "anchorHint": "Colour already versioned in uxdoc.sty since Activity 1",
       "reuse": "Reuses {token}",
-      "copy": "Copy {hex}, from token {token}",
-      "copied": "Copied {hex}",
-      "unsupported": "This browser grants no clipboard access: the value stays written in plain sight so it can be copied by hand."
+      "copy": "Copy the value of {token}",
+      "copied": "Copied",
+      "unsupported": "This browser grants no clipboard access: the value stays written in plain sight so it can be copied by hand.",
+      "title": "Palette",
+      "count": "{count} tokens",
+      "noClipboard": "This browser gives no clipboard access: select the value by hand.",
+      "decorative": "decorative, does not inform",
+      "why": "Why this palette"
     },
     "typography": {
       "description": "Two families served from this origin and nine roles. The type on this screen is the type of the document, so the specimen cannot lie.",
@@ -378,16 +383,32 @@
       "replacement": "Pair that replaces it",
       "rules": "Rules derived from the matrix",
       "matrix": "Full contrast matrix",
-      "matrixCount": "{total} pairs measured with the WCAG 2.x formula",
+      "matrixCount": "{total} measured pairs",
       "verdictLegend": "The verdict is printed exactly as the generator emits it: AAA, AA, AA-grande, which means large text only from 18 px up, and falla, which means it fails.",
       "sample": "Sample text",
       "column": {
-        "foreground": "Foreground",
-        "background": "Background",
-        "ratio": "Ratio",
-        "verdict": "Verdict",
-        "rule": "Rule"
+        "token": "Token",
+        "ratio": "Contrast",
+        "verdict": "Verdict"
+      },
+      "separations": "Semantic separation under dichromacy",
+      "failures": "{total} tokens break the rule they declare",
+      "ceiling": {
+        "oscuro": "Worst separation between two semantic marks, simulating protanopia, deuteranopia and tritanopia. Above 20 they are told apart by colour; even so, all of them carry a shape and an icon.",
+        "claro": "Worst separation between two semantic marks under simulated dichromacy. It is a measured ceiling, not a lack of effort: over a light ground all four semantics must clear 4.5:1, which caps them below 0.16 luminance, and four hues do not separate inside that band. That is why colour never travels alone: a reader with protanopia tells an error from a warning by the cross and the triangle."
       }
+    },
+    "type": {
+      "title": "Typography",
+      "role": "Role",
+      "size": "Size and leading",
+      "weight": "Weight",
+      "why": "Why this scale",
+      "rationale": "The previous scale had nine roles and a single weight: the page measured 750 of 750 text nodes at weight 400, headings included, and a title to body ratio of 1.71. With size as the only channel and steps of 1.2, no jump read as a jump. Weight is a channel now: 400 for running text, 500 for labels and figures, 600 for headings."
+    },
+    "mode": {
+      "claro": "light mode",
+      "oscuro": "dark mode"
     }
   }
 }

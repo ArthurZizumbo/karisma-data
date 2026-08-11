@@ -1,153 +1,130 @@
 <script setup lang="ts">
-import type { TonoToken } from '~/utils/tokens.generated'
-
-import { useClipboard } from '@vueuse/core'
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { ANILLO_FOCO } from '~/utils/foco'
-import { FAMILIAS, NEUTROS, SEMANTICOS, SERIES } from '~/utils/tokens.generated'
-
 /**
- * Colour plate of the living design system.
+ * Colour plate: the specimen leads and the prose folds.
  *
- * Every hexadecimal on screen is read from the generated palette, never typed:
- * that is the whole reason the plate exists. A value written by hand here would
- * look right and would still make the application diverge from the PDF, which
- * is the defect US-UX-09 was opened to remove.
+ * The measured page put its first colour 718 pixels down, behind four
+ * paragraphs of justification, in a 508 pixel column that left 55% of the width
+ * empty. The audience decided on 11-ago-2026 is the team that builds: they come
+ * to copy a token, compare a state or check a ratio, so the swatch comes first
+ * and the reasoning waits behind a disclosure.
+ *
+ * Every hex and every ratio is read from the store, never typed. The store
+ * resolves each token against the mode on screen, so switching to dark does not
+ * leave a light-mode value printed under a dark swatch.
  */
-defineOptions({ name: 'LaminaPaleta' })
-
-/** A labelled block of the plate. Families keep the label the generator emits. */
-interface GrupoPaleta {
-  /** Stable identifier, also used as the list key. */
-  readonly id: string
-  /** Translation key of the group heading. */
-  readonly clave: string
-  /** Generated Spanish label of a brand family, absent on the other groups. */
-  readonly etiqueta: string | null
-  readonly tokens: readonly TonoToken[]
-}
-
-const GRUPOS: readonly GrupoPaleta[] = Object.freeze([
-  ...FAMILIAS.map(familia => ({
-    id: familia.clave,
-    clave: 'guide.palette.group.family',
-    etiqueta: familia.etiqueta,
-    tokens: familia.tonos,
-  })),
-  { id: 'neutros', clave: 'guide.palette.group.neutrals', etiqueta: null, tokens: NEUTROS },
-  { id: 'semanticos', clave: 'guide.palette.group.semantic', etiqueta: null, tokens: SEMANTICOS },
-  { id: 'series', clave: 'guide.palette.group.series', etiqueta: null, tokens: SERIES },
-])
-
-const TOTAL_TOKENS = GRUPOS.reduce((suma, grupo) => suma + grupo.tokens.length, 0)
+import { useI18n } from 'vue-i18n'
+import { useClipboard } from '@vueuse/core'
+import { ANILLO_FOCO } from '~/utils/foco'
+import { useSistemaDiseno } from '~/stores/sistemaDiseno'
+import type { TokenColor } from '~/utils/tokens.generated'
 
 const { t } = useI18n()
-
-/**
- * Clipboard access, with the unsupported branch visible instead of silent.
- *
- * `isSupported` is false during SSR and in a browser that denies the API, so
- * the copy control declares itself unavailable and the value stays printed in
- * full: the reader can still select it by hand.
- */
+const sistema = useSistemaDiseno()
 const { copy, copied, isSupported } = useClipboard()
 
-/** Value of the last swatch the reader asked to copy, announced politely. */
-const ultimoHex = ref('')
+const GRUPOS: readonly { clave: string, tokens: readonly TokenColor[] }[] = [
+  { clave: 'surface', tokens: sistema.superficie },
+  { clave: 'current', tokens: sistema.corriente },
+  { clave: 'semantic', tokens: sistema.semanticos },
+  { clave: 'series', tokens: sistema.series },
+]
 
-/** True once a copy was attempted and the browser refused it. */
-const falloAlCopiar = ref(false)
-
-async function copiarTono(tono: TonoToken): Promise<void> {
-  ultimoHex.value = tono.hex
-  falloAlCopiar.value = false
-  try {
-    await copy(tono.hex)
-  }
-  catch {
-    // A denied clipboard permission rejects the write. Without this branch the
-    // rejection would surface as an unhandled promise and the reader would be
-    // left believing the value was copied.
-    falloAlCopiar.value = true
-  }
+/** Ratio of a token against the ground, in the mode on screen. */
+function razon(nombre: string): number | undefined {
+  return sistema.contrastes.find((par) => par.token === nombre)?.ratio
 }
 </script>
 
 <template>
-  <section
-    data-lamina="paleta"
-    class="flex flex-col gap-4 rounded-lg border border-line bg-surface p-[var(--card-padding)] shadow-reposo"
-  >
-    <header class="flex flex-col gap-1">
-      <h2 class="font-display text-titulo-2 text-primary-dark">
-        {{ t('guide.plate.palette') }}
+  <section data-lamina="paleta" class="flex flex-col gap-6">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <h2 class="text-titulo-2 text-corriente-pleno">
+        {{ t('guide.palette.title') }}
       </h2>
-      <p class="max-w-prose text-cuerpo text-muted">
-        {{ t('guide.palette.description') }}
+      <p class="text-micro text-corriente-tenue">
+        {{ t('guide.palette.count', { count: sistema.tokens.length }) }}
       </p>
-      <p class="text-etiqueta text-muted">
-        {{ t('guide.palette.total', { total: TOTAL_TOKENS }) }}
-      </p>
-      <p v-if="!isSupported || falloAlCopiar" class="text-cuerpo text-accent-text">
-        {{ t('guide.palette.unsupported') }}
-      </p>
-    </header>
+    </div>
 
-    <!--
-      Polite live region: the confirmation of a copy is the only feedback the
-      control gives, and a colour change alone never reaches a screen reader.
-    -->
-    <p role="status" aria-live="polite" class="min-h-5 text-cuerpo text-success-900">
-      <span v-if="copied">{{ t('guide.palette.copied', { hex: ultimoHex }) }}</span>
-    </p>
-
-    <div v-for="grupo in GRUPOS" :key="grupo.id" class="flex flex-col gap-2">
-      <h3 class="font-display text-titulo-3 text-ink">
-        {{ t(grupo.clave) }}
-        <span v-if="grupo.etiqueta" lang="es" class="text-cuerpo text-muted">
-          · {{ grupo.etiqueta }}
-        </span>
+    <div v-for="grupo in GRUPOS" :key="grupo.clave" class="flex flex-col gap-2">
+      <h3 class="text-etiqueta uppercase text-corriente-tenue">
+        {{ t(`guide.palette.group.${grupo.clave}`) }}
       </h3>
-
-      <ul class="grid gap-[var(--grid-gap)] sm:grid-cols-3 lg:grid-cols-5">
-        <li v-for="tono in grupo.tokens" :key="tono.nombre" class="flex flex-col gap-1">
-          <button
-            type="button"
-            :data-token="tono.nombre"
-            :disabled="!isSupported"
-            :aria-label="t('guide.palette.copy', { hex: tono.hex, token: tono.nombre })"
-            class="flex flex-col gap-1 rounded-md border border-line-strong bg-surface p-2 text-left hover:border-primary disabled:cursor-not-allowed"
-            :class="ANILLO_FOCO"
-            @click="copiarTono(tono)"
-          >
-            <span
-              class="h-10 w-full rounded-sm border border-line-strong"
-              :style="{ backgroundColor: tono.hex }"
-              aria-hidden="true"
-            />
-            <span class="text-cuerpo text-ink">{{ tono.nombre }}</span>
-            <span class="text-etiqueta tabular-nums text-ink">{{ tono.hex }}</span>
-            <span class="text-micro text-muted">{{ tono.clase }}</span>
-            <span class="flex flex-wrap gap-1">
-              <span
-                v-if="tono.esAncla"
-                :title="t('guide.palette.anchorHint')"
-                class="rounded-sm border border-accent-700 px-1 text-micro text-accent-text"
-              >
-                {{ t('guide.palette.anchor') }}
-              </span>
-              <span
-                v-if="tono.reusa"
-                class="rounded-sm border border-line-strong px-1 text-micro text-muted"
-              >
-                {{ t('guide.palette.reuse', { token: tono.reusa }) }}
-              </span>
-            </span>
-          </button>
-          <span lang="es" class="text-micro text-muted">{{ tono.uso }}</span>
+      <ul class="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3">
+        <li
+          v-for="token in grupo.tokens"
+          :key="token.nombre"
+          data-token
+          class="flex flex-col border border-grid bg-ground"
+        >
+          <!-- The swatch is the specimen: it takes the height, not the caption. -->
+          <span
+            class="h-16 w-full border-b border-grid"
+            :style="{ backgroundColor: sistema.valor(token) }"
+            aria-hidden="true"
+          />
+          <div class="flex flex-col gap-1 p-3">
+            <code class="text-etiqueta text-corriente-pleno">{{ token.nombre }}</code>
+            <button
+              type="button"
+              data-copiar
+              class="flex items-center gap-1 text-left font-mono text-micro text-corriente-medio hover:text-corriente-pleno"
+              :class="ANILLO_FOCO"
+              :aria-label="t('guide.palette.copy', { token: token.nombre })"
+              @click="copy(sistema.valor(token))"
+            >
+              <Icon name="lucide:copy" class="size-3 shrink-0" aria-hidden="true" />
+              {{ sistema.valor(token) }}
+            </button>
+            <p class="flex items-center gap-1 text-micro text-corriente-tenue">
+              <template v-if="razon(token.nombre) !== undefined">
+                <Icon
+                  v-if="!token.informa"
+                  name="lucide:eye-off"
+                  class="size-3 shrink-0"
+                  aria-hidden="true"
+                />
+                {{ razon(token.nombre) }}:1
+                <span v-if="!token.informa">{{ t('guide.palette.decorative') }}</span>
+              </template>
+            </p>
+          </div>
         </li>
       </ul>
     </div>
+
+    <p v-if="copied" role="status" class="text-micro text-ok">
+      {{ t('guide.palette.copied') }}
+    </p>
+    <!--
+      `isSupported` is false on the server, where there is no navigator, and
+      true in the browser: rendering it directly emitted a node the client then
+      discarded, which is the hydration mismatch the audit found. ClientOnly
+      keeps the branch out of the server pass entirely.
+    -->
+    <ClientOnly>
+      <p v-if="!isSupported" class="text-micro text-corriente-tenue">
+        {{ t('guide.palette.noClipboard') }}
+      </p>
+    </ClientOnly>
+
+    <!-- The reasoning that used to open the plate now closes it. -->
+    <details class="border-t border-grid pt-3">
+      <summary
+        class="cursor-pointer text-etiqueta text-corriente-tenue"
+        :class="ANILLO_FOCO"
+      >
+        {{ t('guide.palette.why') }}
+      </summary>
+      <ul class="mt-2 flex max-w-(--medida-maxima) flex-col gap-1">
+        <li
+          v-for="regla in sistema.reglas"
+          :key="regla"
+          class="text-cuerpo text-corriente-medio"
+        >
+          {{ regla }}
+        </li>
+      </ul>
+    </details>
   </section>
 </template>

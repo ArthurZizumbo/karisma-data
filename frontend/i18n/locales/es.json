@@ -171,17 +171,22 @@
       "description": "Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie. El hexadecimal que se lee es el que el generador emitió: aquí no hay ninguno escrito a mano.",
       "total": "{total} tokens de color",
       "group": {
-        "family": "Familia de marca",
-        "neutrals": "Neutros",
+        "surface": "Suelo y retícula",
+        "current": "Corriente",
         "semantic": "Semánticos",
-        "series": "Serie categórica de gráfica"
+        "series": "Series de gráfica"
       },
       "anchor": "Ancla",
       "anchorHint": "Color ya versionado en uxdoc.sty desde la Actividad 1",
       "reuse": "Reúsa {token}",
-      "copy": "Copiar {hex}, del token {token}",
-      "copied": "Copiado {hex}",
-      "unsupported": "Este navegador no da acceso al portapapeles: el valor queda escrito a la vista para copiarlo a mano."
+      "copy": "Copiar el valor de {token}",
+      "copied": "Copiado",
+      "unsupported": "Este navegador no da acceso al portapapeles: el valor queda escrito a la vista para copiarlo a mano.",
+      "title": "Paleta",
+      "count": "{count} tokens",
+      "noClipboard": "Este navegador no da acceso al portapapeles: selecciona el valor a mano.",
+      "decorative": "decorativo, no informa",
+      "why": "Por qué esta paleta"
     },
     "typography": {
       "description": "Dos familias servidas desde el propio origen y nueve roles. El tipo de esta pantalla es el mismo que el del documento, así que el espécimen no puede mentir.",
@@ -377,17 +382,33 @@
       "measured": "Par medido",
       "replacement": "Par que lo sustituye",
       "rules": "Reglas derivadas de la matriz",
-      "matrix": "Matriz completa de contraste",
-      "matrixCount": "{total} pares medidos con la fórmula WCAG 2.x",
+      "matrix": "Matriz de contraste completa",
+      "matrixCount": "{total} pares medidos",
       "verdictLegend": "El veredicto se imprime tal como lo emite el generador: AAA, AA, AA-grande (solo a partir de 18 px) y falla.",
       "sample": "Texto de muestra",
       "column": {
-        "foreground": "Frente",
-        "background": "Fondo",
-        "ratio": "Razón",
-        "verdict": "Veredicto",
-        "rule": "Regla"
+        "token": "Token",
+        "ratio": "Contraste",
+        "verdict": "Veredicto"
+      },
+      "separations": "Separación de los semánticos bajo dicromacia",
+      "failures": "{total} tokens incumplen la regla que declaran",
+      "ceiling": {
+        "oscuro": "Peor separación entre dos marcas semánticas, simulando protanopia, deuteranopia y tritanopia. Por encima de 20 se distinguen por color; aun así todas llevan forma e icono.",
+        "claro": "Peor separación entre dos marcas semánticas bajo dicromacia simulada. Es un techo medido, no falta de esfuerzo: sobre fondo claro los cuatro semánticos deben superar 4.5:1, lo que los encierra por debajo de 0.16 de luminancia, y cuatro tonos no separan ahí dentro. Por eso el color nunca viaja solo: un lector con protanopia distingue error de aviso por el aspa y el triángulo."
       }
+    },
+    "type": {
+      "title": "Tipografía",
+      "role": "Rol",
+      "size": "Tamaño e interlínea",
+      "weight": "Peso",
+      "why": "Por qué esta escala",
+      "rationale": "La escala anterior tenía nueve roles y un solo peso: la página medía 750 de 750 nodos de texto en peso 400, encabezados incluidos, y una relación título/cuerpo de 1.71. Con el tamaño como único canal y pasos de 1.2, ningún salto se leía como salto. Ahora el peso es un canal: 400 para texto corrido, 500 para etiquetas y cifras, 600 para titulares."
+    },
+    "mode": {
+      "claro": "modo claro",
+      "oscuro": "modo oscuro"
     }
   }
 }

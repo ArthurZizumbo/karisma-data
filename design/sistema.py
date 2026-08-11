@@ -128,9 +128,9 @@ CORRIENTE: Final[tuple[Token, ...]] = (
     ),
     Token(
         "corriente-tenue",
+        "#5F6A7D",
         "#7A8698",
-        "#7A8698",
-        "Texto secundario y nodo alcanzable. El unico token identico en los dos modos.",
+        "Texto secundario y nodo alcanzable. En claro se oscurece para cumplir 4.5:1.",
     ),
     Token(
         "corriente-medio",
@@ -153,19 +153,33 @@ CORRIENTE: Final[tuple[Token, ...]] = (
 SEMANTICOS: Final[tuple[Token, ...]] = (
     Token(
         "error",
-        "#C4341A",
+        "#8C1D18",
         "#FF5A36",
         "Error y accion destructiva. Siempre con icono de aspa.",
     ),
-    Token("aviso", "#8A5A00", "#FFC233", "Aviso. Siempre con icono de triangulo."),
+    Token("aviso", "#9A6200", "#FFC233", "Aviso. Siempre con icono de triangulo."),
     Token("ok", "#1F6F43", "#4ADE80", "Confirmacion. Siempre con icono de marca."),
     Token(
         "info",
-        "#1D4ED8",
-        "#7DD3FC",
+        "#6D28D9",
+        "#C4B5FD",
         "Informativo y enlace. Siempre subrayado o con icono.",
     ),
 )
+
+#: Measured limit of the semantic channel, recorded because it decides a rule.
+#:
+#: Dark mode separates by dE=21.8 under the worst of the three simulated
+#: dichromacies. Light mode reaches only dE=13.4, and that is a ceiling and not
+#: a lack of effort: on a light ground all four semantics must clear 4.5:1,
+#: which caps them below 0.16 relative luminance, and four hues do not separate
+#: inside that band. A search over red and amber candidates found 13.4 as the
+#: best available, up from 6.4.
+#:
+#: This is why "colour plus shape plus icon" is load bearing rather than polite.
+#: A reader with protanopia distinguishes an error from a warning in light mode
+#: by the cross and the triangle, not by the hue.
+SEPARACION_SEMANTICA: Final[dict[str, float]] = {"claro": 13.4, "oscuro": 21.8}
 
 #: Categorical series for charts. Ordered so that adjacent series separate under
 #: every simulated dichromacy; each one also carries its own marker shape and

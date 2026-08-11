@@ -20,6 +20,7 @@ import sys
 from pathlib import Path
 from typing import Final, Sequence
 
+from design.contraste import matriz, separaciones
 from design.sistema import (
     CORRIENTE,
     DENSIDAD,
@@ -32,6 +33,7 @@ from design.sistema import (
     SEMANTICOS,
     SERIES,
     SOMBRAS,
+    SEPARACION_SEMANTICA,
     SUPERFICIE,
     TIPOGRAFIA,
     VERSION,
@@ -122,9 +124,13 @@ def _bloque_color(modo: Modo, sangria: str) -> list[str]:
         lineas.append(f"{sangria}/* {titulo} */")
         for token in grupo:
             nota = "" if token.informa else "  /* no informa */"
-            lineas.append(f"{sangria}--color-{token.nombre}: {token.valor(modo)};{nota}")
+            lineas.append(
+                f"{sangria}--color-{token.nombre}: {token.valor(modo)};{nota}"
+            )
         lineas.append("")
-    lineas.append(f"{sangria}/* Alias de US-001: nombres viejos, valores del sistema nuevo */")
+    lineas.append(
+        f"{sangria}/* Alias de US-001: nombres viejos, valores del sistema nuevo */"
+    )
     for viejo, nuevo in ALIAS:
         lineas.append(f"{sangria}--color-{viejo}: var(--color-{nuevo});")
     return lineas
@@ -168,8 +174,12 @@ def emitir_css() -> str:
     oscuro = _bloque_color("oscuro", "    ")
     sombras_oscuras = [f"    --shadow-{n}: {o};" for n, _c, o, _u in SOMBRAS]
 
-    out.append("/* Modo oscuro. Por omision manda el sistema operativo; el lector puede")
-    out.append("   forzarlo con data-theme, y por eso la consulta se excluye a si misma")
+    out.append(
+        "/* Modo oscuro. Por omision manda el sistema operativo; el lector puede"
+    )
+    out.append(
+        "   forzarlo con data-theme, y por eso la consulta se excluye a si misma"
+    )
     out.append("   cuando ya hay una eleccion explicita de modo claro. */")
     out.append("@media (prefers-color-scheme: dark) {")
     out.append('  :root:not([data-theme="claro"]) {')
@@ -266,6 +276,49 @@ def emitir_ts() -> str:
         out.append(f"  {_cadena(regla)},")
     out.append("]")
     out.append("")
+    out += [
+        "export interface ParContraste {",
+        "  readonly token: string",
+        "  readonly modo: 'claro' | 'oscuro'",
+        "  readonly ratio: number",
+        "  readonly veredicto: string",
+        "}",
+        "",
+        "export interface SeparacionSemantica {",
+        "  readonly uno: string",
+        "  readonly otro: string",
+        "  readonly modo: 'claro' | 'oscuro'",
+        "  readonly dicromacia: string",
+        "  readonly distancia: number",
+        "}",
+        "",
+        "export const CONTRASTES: readonly ParContraste[] = [",
+    ]
+    for modo in ("claro", "oscuro"):
+        for par in matriz(modo):
+            out.append(
+                f"  {{ token: '{par.frente}', modo: '{modo}', "
+                f"ratio: {par.ratio}, veredicto: '{par.veredicto}' }},"
+            )
+    out.append("]")
+    out.append("")
+    out.append("export const SEPARACIONES: readonly SeparacionSemantica[] = [")
+    for modo in ("claro", "oscuro"):
+        for s in separaciones(modo):
+            out.append(
+                f"  {{ uno: '{s.uno}', otro: '{s.otro}', modo: '{modo}', "
+                f"dicromacia: '{s.dicromacia}', distancia: {s.distancia} }},"
+            )
+    out.append("]")
+    out.append("")
+    out.append(
+        "/** Peor separacion semantica medida por modo. En claro es un techo. */"
+    )
+    out.append("export const PEOR_SEPARACION = {")
+    for modo, valor in SEPARACION_SEMANTICA.items():
+        out.append(f"  {modo}: {valor},")
+    out.append("} as const")
+    out.append("")
     out.append("export const TOKENS: readonly TokenColor[] = [")
     out.append("  ...SUPERFICIE,")
     out.append("  ...CORRIENTE,")
@@ -282,7 +335,9 @@ def _salidas() -> tuple[tuple[Path, str], ...]:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """Write every output, or check them when ``--verificar`` is passed."""
-    parser = argparse.ArgumentParser(description="Emite el sistema de diseno del portal.")
+    parser = argparse.ArgumentParser(
+        description="Emite el sistema de diseno del portal."
+    )
     parser.add_argument(
         "--verificar",
         action="store_true",

@@ -20,15 +20,15 @@
 
   /* Corriente - el estado se lee por luminancia */
   --color-corriente-apagado: #A8B2C1;  /* no informa */
-  --color-corriente-tenue: #7A8698;
+  --color-corriente-tenue: #5F6A7D;
   --color-corriente-medio: #414B5B;
   --color-corriente-pleno: #14171D;
 
   /* Semanticos - color mas forma mas icono, nunca color solo */
-  --color-error: #C4341A;
-  --color-aviso: #8A5A00;
+  --color-error: #8C1D18;
+  --color-aviso: #9A6200;
   --color-ok: #1F6F43;
-  --color-info: #1D4ED8;
+  --color-info: #6D28D9;
 
   /* Series categoricas - cada una con su marcador y su patron */
   --color-serie-1: #1D4ED8;
@@ -169,7 +169,7 @@
     --color-error: #FF5A36;
     --color-aviso: #FFC233;
     --color-ok: #4ADE80;
-    --color-info: #7DD3FC;
+    --color-info: #C4B5FD;
 
     /* Series categoricas - cada una con su marcador y su patron */
     --color-serie-1: #7DD3FC;
@@ -239,7 +239,7 @@
     --color-error: #FF5A36;
     --color-aviso: #FFC233;
     --color-ok: #4ADE80;
-    --color-info: #7DD3FC;
+    --color-info: #C4B5FD;
 
     /* Series categoricas - cada una con su marcador y su patron */
     --color-serie-1: #7DD3FC;

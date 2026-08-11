@@ -1,0 +1,48 @@
+/* app/assets/css/main.css — generado, no editar a mano */
+/*
+ * Fuente unica: docs/entregables/estilo/uxdoc.sty
+ * Generador:    scripts/generar_tokens_a4.py (US-UX-09), que regenera este
+ *               archivo completo a partir de los \definecolor de uxdoc.sty.
+ * La derivacion va en un solo sentido: uxdoc.sty -> @theme -> interfaz ->
+ * capturas -> PDF. Nada fluye hacia atras. Cualquier token escrito a mano hace
+ * divergir la aplicacion del documento del curso.
+ */
+@import "tailwindcss";
+
+@theme {
+  /* Marca — anclas versionadas en uxdoc.sty */
+  --color-primary: #2563EB;        /* uxblue  · accion primaria, enlaces, foco */
+  --color-primary-dark: #1F4D78;   /* uxnavy  · barra lateral, cabecera de tabla, titulares */
+  --color-secondary: #3B82F6;      /* uxsky   · serie primaria de grafica */
+  --color-secondary-soft: #B8CCE4; /* uxpale  · relleno suave, area bajo curva */
+  --color-accent: #F97316;         /* uxamber · uso escaso; NUNCA con texto blanco (2.6:1) */
+  --color-accent-text: #C2540A;    /* texto de aviso sobre fondo claro */
+
+  /* Neutros — sin negro ni blanco puros */
+  --color-surface: #F8FAFC;        /* uxsurface */
+  --color-surface-alt: #EEF3FA;    /* uxrow · fila alterna de tabla */
+  --color-line: #CBD5E1;           /* uxline */
+  --color-muted: #64748B;          /* uxmuted · solo texto secundario de 14px o mas */
+  --color-ink: #1E293B;            /* uxink */
+
+  /* Semanticos */
+  --color-success: #166534;        /* uxgreen */
+  --color-danger: #B91C1C;
+  --color-warning: #C2540A;
+
+  /* Tipografia */
+  --font-display: "Lexend Deca", sans-serif;  /* solo peso Regular: jerarquia por tamano y color */
+  --font-sans: "Fira Sans", sans-serif;
+
+  /* Densidad — ficha Data-Dense Dashboard de ui-ux-pro-max */
+  --sidebar-width: 240px;
+  --header-height: 56px;
+  --grid-gap: 8px;
+  --card-padding: 12px;
+  --table-row-height: 36px;
+
+  /* Radios — una sola escala; --radius-full es la unica excepcion documentada */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+}

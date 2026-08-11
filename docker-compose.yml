@@ -1,0 +1,149 @@
+# ---------------------------------------------------------------------------
+#  Karisma Data - entorno de desarrollo local (US-001, epica E0)
+#
+#  Puerta de entrada: "make dev" (equivale a "docker compose up --build").
+#  Tres servicios se levantan siempre -db, api, web- y uno auxiliar -dbmate-
+#  que vive en un perfil para que "up" no lo arranque.
+#
+#  Variables de entorno: un archivo por aplicativo, nunca uno en la raiz.
+#    backend/.env.local   -> servicios db, api y dbmate
+#    frontend/.env.local  -> servicio web
+#  Ambos se declaran con "required: false" para que el archivo pueda validarse
+#  y cachearse en CI sin secretos presentes; la comprobacion de que existen la
+#  hace el Makefile antes de levantar nada, con el mensaje de remedio exacto.
+#
+#  Recarga en caliente (RU-02): los servicios corren la imagen de produccion,
+#  que sirve el bundle ya construido. El bucle de edicion rapida documentado en
+#  el plan es "pnpm dev" en el host contra el api de este Compose. Las
+#  variables de polling quedan declaradas aqui porque son la unica forma de que
+#  el watcher vea cambios a traves de un bind mount de Windows.
+# ---------------------------------------------------------------------------
+
+name: karisma-data
+
+services:
+
+  # -------------------------------------------------------------------------
+  #  db - PostgreSQL 15 con pgvector disponible (la extension se HABILITA por
+  #  migracion dbmate en US-002, jamas a mano).
+  # -------------------------------------------------------------------------
+  db:
+    image: pgvector/pgvector:pg15
+    env_file:
+      - path: ./backend/.env.local
+        required: false
+    ports:
+      # Puerto del host configurable: esta maquina puede tener un PostgreSQL
+      # propio ocupando el 5432. El puerto interno nunca cambia.
+      # Los tres servicios publican SOLO en loopback: en una red no confiable
+      # -campus, coworking- un 0.0.0.0 deja la base de desarrollo y el backend
+      # accesibles desde la LAN. Publicar api ademas contradecia la premisa de
+      # un solo origen que sostiene todo este archivo.
+      - "127.0.0.1:${POSTGRES_HOST_PORT:-5432}:5432"
+    volumes:
+      - karisma_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER:-karisma}\" -d \"$${POSTGRES_DB:-karisma}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  # -------------------------------------------------------------------------
+  #  api - FastAPI. El Dockerfile lo escribe el dominio backend; aqui solo se
+  #  referencia el contexto de build. La imagen honra $PORT (8000 en Compose,
+  #  8080 en Cloud Run).
+  # -------------------------------------------------------------------------
+  api:
+    build:
+      context: ./backend
+    env_file:
+      - path: ./backend/.env.local
+        required: false
+    environment:
+      PORT: "8000"
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      # RU-03: volumen anonimo que enmascara el entorno virtual. Ningun .venv
+      # del host -binarios de otra arquitectura- puede pisar las dependencias
+      # instaladas dentro de la imagen.
+      - /app/.venv
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+
+  # -------------------------------------------------------------------------
+  #  web - Nuxt 4 SSR. Unico origen que ve el navegador: /api/** se resuelve
+  #  por el proxy de Nitro hacia el servicio api, sin CORS.
+  # -------------------------------------------------------------------------
+  web:
+    build:
+      context: ./frontend
+    env_file:
+      - path: ./frontend/.env.local
+        required: false
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "3000"
+      NITRO_PORT: "3000"
+      # RU-02: en Windows el watcher no recibe eventos inotify a traves del
+      # bind mount; el sondeo periodico es la unica via fiable.
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      # RU-03: mismo motivo que en api, para los binarios nativos de npm.
+      - /app/node_modules
+    depends_on:
+      # service_started y no service_healthy a proposito: el proxy de Nitro
+      # resuelve /api/** en cada solicitud, asi que web no necesita un api sano
+      # para arrancar. Con esta condicion "docker compose ps" muestra siempre
+      # las tres filas de CA-1 y es el smoke el que dice que se rompio.
+      api:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:3000/').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))\""]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+
+  # -------------------------------------------------------------------------
+  #  dbmate - unica via de cambio de esquema. Corre como servicio de Compose y
+  #  no como binario del host: evita una instalacion manual por maquina y hace
+  #  que make db-* se comporte igual en las tres.
+  #  Vive en el perfil "herramientas": "docker compose up" no lo arranca, y
+  #  "docker compose run dbmate" activa su perfil automaticamente.
+  #  Primera migracion aplicada en US-002: enable_pgvector_extension.
+  # -------------------------------------------------------------------------
+  dbmate:
+    # La imagen trae pg_dump 18.4 y el servidor es 15.18, asi que db/schema.sql
+    # sale con meta-comandos de restriccion que psql 15 no entiende. Para
+    # dbmate es consistente -siempre usa su propio cliente-, pero una
+    # restauracion manual del volcado tiene que hacerse con un cliente 18, no
+    # con el psql que acompana al servidor. Si el esquema crece y eso estorba,
+    # se fija una imagen con cliente 15 en vez de subir el servidor.
+    image: ghcr.io/amacneil/dbmate:2
+    profiles:
+      - herramientas
+    working_dir: /
+    env_file:
+      - path: ./backend/.env.local
+        required: false
+    volumes:
+      - ./db:/db
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  karisma_pgdata:
+    name: karisma_pgdata

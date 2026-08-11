@@ -1,0 +1,78 @@
+[project]
+name = "karisma-api"
+version = "0.1.0"
+description = "API del Portal Centralizado de Datos Financieros (Karisma Data)"
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "Equipo 8 MNA ITESM" }]
+dependencies = [
+    "fastapi (>=0.141.1,<0.142.0)",
+    "uvicorn[standard] (>=0.52.1,<0.53.0)",
+    "pydantic-settings (>=2.15.0,<3.0.0)",
+    "structlog (>=26.1.0,<27.0.0)",
+]
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.1.1,<10.0.0)",
+    "pytest-asyncio (>=1.4.0,<2.0.0)",
+    "httpx (>=0.28.1,<0.29.0)",
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "ruff (>=0.16.2,<0.17.0)",
+    "mypy (>=2.3.0,<3.0.0)",
+]
+
+[tool.poetry]
+package-mode = true
+packages = [{ include = "app" }]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# The test suite lives in tests/backend/ at the repository root, not inside
+# backend/. CLAUDE.md is the orchestrator and overrides the portal-cicd
+# template. Consequence: every tool below is invoked from the repository root
+# and must be pointed at this file explicitly, because none of them discovers
+# a configuration file that sits in a sibling directory of the target paths.
+#   pytest -c backend/pyproject.toml tests/backend
+#   ruff check --config backend/pyproject.toml backend/app tests/backend
+#   mypy --config-file backend/pyproject.toml backend/app
+[tool.pytest.ini_options]
+minversion = "9.0"
+pythonpath = ["."]
+addopts = "-ra --strict-markers --cov=backend/app --cov-report=term-missing --cov-fail-under=70"
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
+
+# line-length stays at the ruff default (88) on purpose: tests/backend/ sits
+# outside this file's directory, so a config-less `ruff format --check` would
+# otherwise disagree with the project configuration on those files.
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+src = ["backend", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "S", "ANN", "D", "RUF"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+# Tests assert (S101) and carry fake credentials on purpose (S105-S107).
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "S107"]
+"**/tests/**" = ["S101", "S105", "S106", "S107"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_configs = true
+warn_unreachable = true
+show_error_codes = true

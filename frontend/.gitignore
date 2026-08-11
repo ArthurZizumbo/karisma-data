@@ -1,0 +1,3 @@
+# Artefacto de cobertura de vitest. El resto (node_modules, .nuxt, .output)
+# ya lo cubre el .gitignore de la raiz.
+coverage/

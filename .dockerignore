@@ -1,0 +1,71 @@
+# ---------------------------------------------------------------------------
+#  .dockerignore de la raiz.
+#
+#  Aplica a las construcciones cuyo contexto es el repositorio completo, por
+#  ejemplo "gcloud run deploy --source ." o una imagen de utilidades. Los dos
+#  aplicativos tienen ademas su propio .dockerignore -backend/ y frontend/-,
+#  que es el que actua en "docker compose build", donde el contexto es la
+#  carpeta del aplicativo.
+#
+#  Objetivo doble: contexto pequeno y ningun secreto dentro de una imagen.
+# ---------------------------------------------------------------------------
+
+# Control de versiones y metadatos
+.git
+.gitignore
+.gitattributes
+.github
+
+# Dependencias y entornos: se instalan dentro de la imagen, nunca se copian.
+# Los patrones llevan **/ porque Docker casa contra la ruta relativa completa:
+# "node_modules" a secas solo alcanza el del primer nivel, no backend/ ni frontend/.
+**/node_modules
+**/.pnpm-store
+**/.venv
+**/venv
+**/__pycache__
+**/*.py[cod]
+
+# Artefactos de construccion y cache de herramientas
+.nuxt
+.output
+dist
+build
+.pytest_cache
+.mypy_cache
+.ruff_cache
+htmlcov
+.coverage
+coverage
+
+# Secretos: jamas dentro de una imagen, ni del contexto que se sube a Cloud Build.
+# Con ** porque backend/.env.local y frontend/.env.local viven en subdirectorio y
+# el patron sin prefijo NO los alcanzaba: "gcloud run deploy --source ." habria
+# subido ambos al bucket de staging con la contrasena de la base y el JWT_SECRET_KEY.
+**/.env
+**/.env.*
+!**/.env.example
+**/*.pem
+**/*.key
+**/credentials.json
+**/service-account*.json
+**/gcp-*.json
+
+# Contenido que no participa en ninguna construccion
+docs
+context
+data
+db/seeds
+*.md
+!README.md
+
+# Configuracion de editores y sistema operativo
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+
+# Herramientas de agentes
+.claude
+AGENTS.md
+CLAUDE.md

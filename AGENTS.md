@@ -63,6 +63,7 @@ pytest tests/backend/test_auth.py::test_name -q   # un solo test
 - **Logging**: `structlog.get_logger()`, nunca `print()` en producción.
 - **Type hints** obligatorios en todo Python.
 - **DRY**: función usada 2+ veces → `backend/app/utils/`, `ml/utils/` o `frontend/app/composables/`.
+- **Tests solo sobre comportamiento que existe. PROHIBIDO** probar placeholders, andamiaje o funcionalidad no programada todavía. Un test cuya aserción no puede fallar, que mide algo distinto de lo que su nombre promete, o que fija el marcado de una pantalla que la siguiente US va a reescribir, es deuda: se borra en el primer cambio real y mientras tanto compra cobertura que no significa nada. La cobertura es un piso mínimo, nunca un objetivo: **un 100 % sobre andamiaje vale menos que un 70 % sobre lógica**. Antes de escribir un test, responder qué defecto concreto lo haría fallar; si no hay respuesta, no se escribe.
 - **SoC**: router recibe → service procesa → model persiste. Tools ADK en `ml/agent/tools/`, nunca en routers; sin lógica de negocio en routers ni componentes Vue.
 - **Seguridad por rol**: todo endpoint de datos con `Security(get_current_user, scopes=[...])`; matriz de permisos en `docs/security.md`; `/api/chat` propaga el Bearer del usuario a cada tool call (el agente jamás ve datos que el usuario no puede ver).
 - **Anti-alucinación**: toda cifra en respuestas del agente proviene de un tool call; sin tool call no se muestran números; se cita la fuente del catálogo.
@@ -81,6 +82,7 @@ pytest tests/backend/test_auth.py::test_name -q   # un solo test
 4. Si tocó permisos/auth: pruebas 401/403 parametrizadas por rol en verde.
 5. Si tocó chat/agente: cancelación verificada (sin tareas colgadas) y evento `tool_call` emitido antes del texto.
 6. Si es entregable UX: checklist de la actividad verificado contra la rúbrica (A1: §24 del plan).
+7. Ningún test nuevo sobre placeholders ni sobre código que aún no existe (ver regla en NON-NEGOTIABLE). Si un test no puede fallar, se borra, no se ajusta.
 
 ## Git y PR
 

@@ -1,71 +1,88 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { GRUPOS_DE_ICONOS, TAMANOS_DE_ICONO } from '~/components/guia/inventarioIconos'
-
 /**
- * Icon plate of the living design system.
+ * Icon plate, rebuilt in the diagram world.
  *
- * The plate walks the very inventory that nuxt.config.ts hands to
- * `icon.clientBundle.icons`. Reading the list from anywhere else would let the
- * bundle and the plate drift, and the drift only shows up in a production
- * build: `nuxt dev` still resolves an unbundled icon through the Iconify API,
- * so the hole appears in the deployed capture and nowhere before it.
+ * The inventory is named by function and never by shape, which is what makes it
+ * usable: someone looking for "lineage" finds it, someone looking for "the one
+ * with the branches" does not need to.
  *
- * Every icon carries its own accessible name, size included, because the three
- * sizes stand next to each other and a lone name repeated three times tells a
- * screen reader nothing about which one is which.
+ * The grid is dense on purpose. The measured version spent 84 glyphs of equal
+ * weight with the function label in the smallest type of the cell, so the plate
+ * read as decoration; the name leads now and the glyph is the specimen beside
+ * it.
+ *
+ * The names are literals from a shared module, the very array `nuxt.config.ts`
+ * feeds to the bundler. A name assembled at run time renders an empty box in a
+ * production build while looking correct under the dev server, which is the
+ * kind of defect that only shows up in the captured plate.
  */
-defineOptions({ name: 'LaminaIconos' })
+import { useI18n } from 'vue-i18n'
+import { ANILLO_FOCO } from '~/utils/foco'
+import { GRUPOS_DE_ICONOS, TAMANOS_DE_ICONO } from '~/components/guia/inventarioIconos'
 
 const { t } = useI18n()
 </script>
 
 <template>
-  <section
-    data-lamina="iconos"
-    class="flex flex-col gap-4 rounded-lg border border-line bg-surface p-[var(--card-padding)] shadow-reposo"
-  >
-    <header class="flex flex-col gap-1">
-      <h2 class="font-display text-titulo-2 text-primary-dark">
-        {{ t('guide.plate.icons') }}
-      </h2>
-      <p class="max-w-prose text-cuerpo text-muted">
-        {{ t('guide.icons.description') }}
-      </p>
-      <p class="max-w-prose text-cuerpo text-muted">
-        {{ t('guide.icons.family') }}
-      </p>
-      <p class="max-w-prose text-cuerpo text-muted">
-        {{ t('guide.icons.sizes') }}
-      </p>
-    </header>
+  <section data-lamina="iconos" class="flex flex-col gap-8">
+    <h2 class="text-titulo-2 text-corriente-pleno">
+      {{ t('guide.plate.icons') }}
+    </h2>
 
     <div v-for="grupo in GRUPOS_DE_ICONOS" :key="grupo.clave" class="flex flex-col gap-2">
-      <h3 class="font-display text-titulo-3 text-ink">
+      <h3 class="text-etiqueta uppercase text-corriente-tenue">
         {{ t(grupo.clave) }}
       </h3>
-      <ul class="grid gap-[var(--grid-gap)] sm:grid-cols-3 lg:grid-cols-5">
+      <ul class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-x-6">
         <li
           v-for="entrada in grupo.entradas"
           :key="entrada.nombre"
-          class="flex flex-col items-center gap-1 rounded-md border border-line-strong bg-surface-alt p-2 text-center"
+          data-icono
+          class="flex items-center gap-3 border-t border-grid py-2"
         >
-          <span class="flex items-end gap-3">
-            <Icon
-              v-for="tamano in TAMANOS_DE_ICONO"
-              :key="tamano.px"
-              :name="entrada.nombre"
-              :data-icono="entrada.nombre"
-              role="img"
-              :aria-label="t('guide.icons.label', { name: t(entrada.clave), size: tamano.px })"
-              :class="tamano.clase"
-              class="shrink-0 text-ink"
-            />
+          <Icon
+            :name="entrada.nombre"
+            class="size-5 shrink-0 text-corriente-pleno"
+            :aria-label="t(entrada.clave)"
+          />
+          <span class="min-w-0 flex-1 truncate text-cuerpo text-corriente-pleno">
+            {{ t(entrada.clave) }}
           </span>
-          <span aria-hidden="true" class="text-cuerpo text-ink">{{ t(entrada.clave) }}</span>
-          <span aria-hidden="true" class="text-micro text-ink">{{ entrada.nombre }}</span>
+          <code class="shrink-0 font-mono text-micro text-corriente-tenue">
+            {{ entrada.nombre.replace('lucide:', '') }}
+          </code>
         </li>
       </ul>
     </div>
+
+    <div class="flex flex-col gap-2">
+      <h3 class="text-etiqueta uppercase text-corriente-tenue">
+        {{ t('guide.icons.sizes') }}
+      </h3>
+      <ul class="flex items-end gap-6">
+        <li
+          v-for="tamano in TAMANOS_DE_ICONO"
+          :key="tamano.px"
+          data-tamano-icono
+          class="flex flex-col items-center gap-1"
+        >
+          <Icon
+            name="lucide:database"
+            :class="[tamano.clase, 'text-corriente-pleno']"
+            :aria-label="t('guide.icons.label', { name: t('guide.icons.item.source'), size: tamano.px })"
+          />
+          <code class="font-mono text-micro text-corriente-tenue">{{ tamano.px }}</code>
+        </li>
+      </ul>
+    </div>
+
+    <details class="border-t border-grid pt-3">
+      <summary class="cursor-pointer text-etiqueta text-corriente-tenue" :class="ANILLO_FOCO">
+        {{ t('guide.palette.why') }}
+      </summary>
+      <p class="mt-2 max-w-(--medida-maxima) text-cuerpo text-corriente-medio">
+        {{ t('guide.icons.family') }}
+      </p>
+    </details>
   </section>
 </template>

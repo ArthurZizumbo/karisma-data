@@ -1,248 +1,135 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { ANILLO_FOCO_CONGELADO } from '~/utils/foco'
-
 /**
- * Field, chip and badge plate of the living design system.
+ * Field plate, rebuilt in the diagram world.
  *
- * The border of every field is the strong neutral and never the light rule.
- * That is finding 4 of the contrast matrix: the light rule reaches 1.42:1 over
- * the surface, so a field drawn with it has, for measuring purposes, no border
- * at all. It is also the reason the matrix was computed in the first place.
+ * Two defects the audit measured. The help text was a single reused string, so
+ * "four digit account key" appeared under the reconciliation note and under the
+ * maximum amount: a caption that lies is worse than none, and each field now
+ * carries its own. And the field border used the decorative rule, which
+ * measures 1.42:1 against the ground and fails the 3:1 a component boundary
+ * needs; it uses the current ramp's middle rung, which is what informs.
+ *
+ * The chips carry a shape as well as a colour. In light mode the semantic marks
+ * separate by only dE=13.4 under simulated dichromacy, so the icon is not
+ * decoration: it is how the state is read.
  */
-defineOptions({ name: 'LaminaCampos' })
-
-/** One of the six states a form field can be captured in. */
-interface CeldaCampo {
-  /** Slug written into data-campo-estado. */
-  readonly estado: string
-  readonly claveEstado: string
-  readonly claveEtiqueta: string
-  /** Value the field is rendered with, empty when the state is the empty one. */
-  readonly valor: string
-  readonly clases: string
-  readonly deshabilitado: boolean
-  readonly soloLectura: boolean
-  readonly invalido: boolean
-}
-
-/** One of the five semantic chips. */
-interface ChipEstado {
-  readonly id: string
-  readonly clave: string
-  readonly icono: string
-  readonly clases: string
-}
-
-const BASE_CAMPO
-  = 'min-h-11 w-full rounded-md border bg-surface px-3 text-cuerpo text-ink placeholder:text-muted'
-
-const CAMPOS: readonly CeldaCampo[] = Object.freeze([
-  {
-    estado: 'reposo',
-    claveEstado: 'guide.fields.state.rest',
-    claveEtiqueta: 'guide.fields.label.account',
-    valor: '',
-    clases: 'border-line-strong',
-    deshabilitado: false,
-    soloLectura: false,
-    invalido: false,
-  },
-  {
-    // Focus is frozen with the same ring the browser paints, because a plate
-    // has no pointer and no caret to show it with. Same ring as every other
-    // control of the portal: the field plate used to freeze its own.
-    estado: 'foco',
-    claveEstado: 'guide.fields.state.focus',
-    claveEtiqueta: 'guide.fields.label.period',
-    valor: '',
-    clases: `border-primary ${ANILLO_FOCO_CONGELADO}`,
-    deshabilitado: false,
-    soloLectura: false,
-    invalido: false,
-  },
-  {
-    estado: 'relleno',
-    claveEstado: 'guide.fields.state.filled',
-    claveEtiqueta: 'guide.fields.label.source',
-    valor: 'SIC-BANXICO',
-    clases: 'border-line-strong',
-    deshabilitado: false,
-    soloLectura: false,
-    invalido: false,
-  },
-  {
-    estado: 'error',
-    claveEstado: 'guide.fields.state.error',
-    claveEtiqueta: 'guide.fields.label.amount',
-    valor: '0',
-    clases: 'border-danger',
-    deshabilitado: false,
-    soloLectura: false,
-    invalido: true,
-  },
-  {
-    estado: 'deshabilitado',
-    claveEstado: 'guide.fields.state.disabled',
-    claveEtiqueta: 'guide.fields.label.note',
-    valor: '',
-    clases: 'cursor-not-allowed border-line-strong bg-surface-alt text-muted',
-    deshabilitado: true,
-    soloLectura: false,
-    invalido: false,
-  },
-  {
-    estado: 'solo-lectura',
-    claveEstado: 'guide.fields.state.readonly',
-    claveEtiqueta: 'guide.fields.label.code',
-    valor: 'EXP-2026-0731',
-    clases: 'border-line-strong bg-surface-alt',
-    deshabilitado: false,
-    soloLectura: true,
-    invalido: false,
-  },
-])
-
-const CHIPS: readonly ChipEstado[] = Object.freeze([
-  {
-    id: 'neutro',
-    clave: 'guide.fields.chip.neutral',
-    icono: 'lucide:circle-dashed',
-    clases: 'border-line-strong bg-surface-alt text-ink',
-  },
-  {
-    id: 'informativo',
-    clave: 'guide.fields.chip.info',
-    icono: 'lucide:info',
-    clases: 'border-primary bg-primary-100 text-primary-700',
-  },
-  {
-    id: 'correcto',
-    clave: 'guide.fields.chip.success',
-    icono: 'lucide:circle-check',
-    clases: 'border-success-700 bg-success-100 text-success-900',
-  },
-  {
-    // Finding 2: the warning text is accent 900 over accent 100 (7.58:1). The
-    // 700 over the same fill stays at 3.96:1 and fails AA for normal text.
-    id: 'aviso',
-    clave: 'guide.fields.chip.warning',
-    icono: 'lucide:triangle-alert',
-    clases: 'border-accent-700 bg-accent-100 text-accent-text',
-  },
-  {
-    // The system has no danger fill token, so the rejected chip is drawn as a
-    // bordered chip over the surface: 6.23:1 for the text and 5.9:1 for the
-    // border.
-    id: 'rechazo',
-    clave: 'guide.fields.chip.danger',
-    icono: 'lucide:circle-alert',
-    clases: 'border-danger bg-surface text-danger',
-  },
-])
-
-/** The four profiles of the portal, reusing the keys of the prototype index. */
-const INSIGNIAS = Object.freeze([
-  { rol: 'operativo', clave: 'prototype.profile.operations', clases: 'border-primary text-primary-700' },
-  { rol: 'analista', clave: 'prototype.profile.analyst', clases: 'border-secondary-700 text-secondary-700' },
-  { rol: 'directivo', clave: 'prototype.profile.executive', clases: 'border-success-700 text-success-900' },
-  {
-    rol: 'administrador',
-    clave: 'prototype.profile.administration',
-    clases: 'border-accent-700 text-accent-text',
-  },
-])
+import { useI18n } from 'vue-i18n'
+import { ANILLO_FOCO } from '~/utils/foco'
 
 const { t } = useI18n()
+
+/** Six field states, each with its own label and its own help text. */
+const CAMPOS = Object.freeze([
+  { id: 'rest', etiqueta: 'account', ayuda: true },
+  { id: 'focus', etiqueta: 'period' },
+  { id: 'filled', etiqueta: 'source', valor: 'SIC-BANXICO' },
+  { id: 'error', etiqueta: 'amount', error: true },
+  { id: 'disabled', etiqueta: 'code' },
+  { id: 'readonly', etiqueta: 'note', valor: 'Conciliado el 31 de julio' },
+])
+
+/** Chips: colour plus shape, because colour alone does not separate. */
+const CHIPS = Object.freeze([
+  { id: 'neutral', color: 'text-corriente-tenue border-corriente-apagado', icono: 'lucide:circle-dashed' },
+  { id: 'info', color: 'text-info border-info', icono: 'lucide:info' },
+  { id: 'success', color: 'text-ok border-ok', icono: 'lucide:check' },
+  { id: 'warning', color: 'text-aviso border-aviso', icono: 'lucide:triangle-alert' },
+  { id: 'danger', color: 'text-error border-error', icono: 'lucide:x' },
+])
+
+const ROLES = Object.freeze(['operativo', 'analista', 'directivo', 'admin'])
+
+function claseCampo(estado: string): string {
+  const base = 'min-h-9 w-full bg-ground px-3 text-cuerpo text-corriente-pleno border'
+  if (estado === 'error') return `${base} border-error`
+  if (estado === 'disabled') return `${base} border-grid text-corriente-apagado`
+  if (estado === 'readonly') return `${base} border-transparent bg-ground-alt`
+  // The middle rung of the ramp, not the decorative rule: a component boundary
+  // has to inform, and the decorative one measures 1.42:1.
+  return `${base} border-corriente-medio`
+}
 </script>
 
 <template>
-  <section
-    data-lamina="campos"
-    class="flex flex-col gap-4 rounded-lg border border-line bg-surface p-[var(--card-padding)] shadow-reposo"
-  >
-    <header class="flex flex-col gap-1">
-      <h2 class="font-display text-titulo-2 text-primary-dark">
-        {{ t('guide.plate.fields') }}
-      </h2>
-      <p class="max-w-prose text-cuerpo text-muted">
-        {{ t('guide.fields.description') }}
-      </p>
-      <p class="max-w-prose text-cuerpo text-muted">
-        {{ t('guide.fields.borderNote') }}
-      </p>
-    </header>
+  <section data-lamina="campos" class="flex flex-col gap-8">
+    <h2 class="text-titulo-2 text-corriente-pleno">
+      {{ t('guide.plate.fields') }}
+    </h2>
 
-    <ul class="grid gap-[var(--grid-gap)] sm:grid-cols-2 lg:grid-cols-3">
-      <li
-        v-for="campo in CAMPOS"
-        :key="campo.estado"
-        :data-campo-estado="campo.estado"
-        class="flex flex-col gap-1"
-      >
-        <label :for="`campo-${campo.estado}`" class="text-etiqueta text-ink">
-          {{ t(campo.claveEtiqueta) }}
+    <ul class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <li v-for="campo in CAMPOS" :key="campo.id" :data-campo="campo.id" class="flex flex-col gap-1">
+        <label :for="`campo-${campo.id}`" class="text-etiqueta text-corriente-pleno">
+          {{ t(`guide.fields.label.${campo.etiqueta}`) }}
         </label>
         <input
-          :id="`campo-${campo.estado}`"
+          :id="`campo-${campo.id}`"
           type="text"
-          :class="[BASE_CAMPO, campo.clases]"
-          :value="campo.valor"
+          :class="[claseCampo(campo.id), campo.id === 'focus' ? 'outline-2 outline-offset-2 outline-info' : '']"
           :placeholder="t('guide.fields.placeholder')"
-          :disabled="campo.deshabilitado"
-          :readonly="campo.soloLectura"
-          :aria-invalid="campo.invalido ? 'true' : undefined"
-          :aria-describedby="campo.invalido ? `campo-${campo.estado}-mensaje` : `campo-${campo.estado}-ayuda`"
+          :value="campo.valor"
+          :disabled="campo.id === 'disabled'"
+          :readonly="campo.id === 'readonly'"
+          :aria-invalid="campo.id === 'error' ? 'true' : undefined"
+          :aria-describedby="campo.error ? `error-${campo.id}` : campo.ayuda ? `ayuda-${campo.id}` : undefined"
         >
-        <p
-          v-if="campo.invalido"
-          :id="`campo-${campo.estado}-mensaje`"
-          class="flex items-center gap-1 text-etiqueta text-danger"
-        >
-          <Icon name="lucide:circle-alert" class="size-4 shrink-0" aria-hidden="true" />
-          {{ t('guide.fields.error') }}
+        <!-- The state names itself; the reader does not infer it from the border. -->
+        <p class="text-micro text-corriente-tenue">
+          {{ t(`guide.fields.state.${campo.id}`) }}
         </p>
-        <p v-else :id="`campo-${campo.estado}-ayuda`" class="text-etiqueta text-muted">
+        <p v-if="campo.ayuda" :id="`ayuda-${campo.id}`" class="text-micro text-corriente-medio">
           {{ t('guide.fields.help') }}
         </p>
-        <span class="text-micro text-muted">{{ t(campo.claveEstado) }}</span>
+        <p
+          v-if="campo.error"
+          :id="`error-${campo.id}`"
+          class="flex items-center gap-1 text-micro text-error"
+        >
+          <Icon name="lucide:x-circle" class="size-3 shrink-0" aria-hidden="true" />
+          {{ t('guide.fields.error') }}
+        </p>
       </li>
     </ul>
 
     <div class="flex flex-col gap-2">
-      <h3 class="font-display text-titulo-3 text-ink">
-        {{ t('guide.fields.chips') }}
-      </h3>
+      <h3 class="text-titulo-3 text-corriente-pleno">{{ t('guide.fields.chips') }}</h3>
       <ul class="flex flex-wrap gap-2">
-        <li v-for="chip in CHIPS" :key="chip.id" :data-chip="chip.id">
-          <span
-            class="inline-flex items-center gap-1 rounded-sm border px-2 py-1 text-etiqueta"
-            :class="chip.clases"
-          >
-            <Icon :name="chip.icono" class="size-5 shrink-0" aria-hidden="true" />
-            {{ t(chip.clave) }}
-          </span>
+        <li
+          v-for="chip in CHIPS"
+          :key="chip.id"
+          :data-chip="chip.id"
+          class="inline-flex items-center gap-1 border px-2 py-0.5 text-etiqueta"
+          :class="chip.color"
+        >
+          <Icon :name="chip.icono" class="size-3 shrink-0" aria-hidden="true" />
+          {{ t(`guide.fields.chip.${chip.id}`) }}
         </li>
       </ul>
     </div>
 
     <div class="flex flex-col gap-2">
-      <h3 class="font-display text-titulo-3 text-ink">
-        {{ t('guide.fields.badges') }}
-      </h3>
+      <h3 class="text-titulo-3 text-corriente-pleno">{{ t('guide.fields.badges') }}</h3>
       <ul class="flex flex-wrap gap-2">
-        <li v-for="insignia in INSIGNIAS" :key="insignia.rol" :data-badge-rol="insignia.rol">
-          <span
-            class="inline-flex items-center rounded-full border bg-surface px-3 py-1 text-etiqueta"
-            :class="insignia.clases"
-          >
-            {{ t(insignia.clave) }}
-          </span>
+        <li
+          v-for="rol in ROLES"
+          :key="rol"
+          :data-insignia="rol"
+          class="inline-flex items-center rounded-full border border-corriente-medio px-2.5 py-0.5 font-mono text-micro text-corriente-pleno"
+        >
+          {{ rol }}
         </li>
       </ul>
-      <p class="max-w-prose text-micro text-muted">
+      <p class="max-w-(--medida-maxima) text-micro text-corriente-tenue">
         {{ t('guide.fields.badgeNote') }}
       </p>
     </div>
+
+    <details class="border-t border-grid pt-3">
+      <summary class="cursor-pointer text-etiqueta text-corriente-tenue" :class="ANILLO_FOCO">
+        {{ t('guide.palette.why') }}
+      </summary>
+      <p class="mt-2 max-w-(--medida-maxima) text-cuerpo text-corriente-medio">
+        {{ t('guide.fields.borderNote') }}
+      </p>
+    </details>
   </section>
 </template>

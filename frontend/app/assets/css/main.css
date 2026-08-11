@@ -38,45 +38,6 @@
   --color-serie-5: #0E7490;
   --color-serie-6: #9D174D;
 
-  /* Alias de US-001: nombres viejos, valores del sistema nuevo */
-  --color-surface: var(--color-ground);
-  --color-surface-alt: var(--color-ground-alt);
-  --color-line: var(--color-grid);
-  --color-line-strong: var(--color-corriente-medio);
-  --color-muted: var(--color-corriente-tenue);
-  --color-ink: var(--color-corriente-pleno);
-  --color-ink-strong: var(--color-corriente-pleno);
-  --color-primary: var(--color-info);
-  --color-primary-100: var(--color-ground-alt);
-  --color-primary-300: var(--color-corriente-apagado);
-  --color-primary-500: var(--color-info);
-  --color-primary-700: var(--color-corriente-medio);
-  --color-primary-900: var(--color-corriente-pleno);
-  --color-primary-dark: var(--color-corriente-medio);
-  --color-secondary: var(--color-info);
-  --color-secondary-100: var(--color-ground-alt);
-  --color-secondary-300: var(--color-corriente-apagado);
-  --color-secondary-500: var(--color-info);
-  --color-secondary-700: var(--color-corriente-medio);
-  --color-secondary-900: var(--color-corriente-pleno);
-  --color-secondary-soft: var(--color-corriente-apagado);
-  --color-accent: var(--color-aviso);
-  --color-accent-100: var(--color-ground-alt);
-  --color-accent-300: var(--color-corriente-apagado);
-  --color-accent-500: var(--color-aviso);
-  --color-accent-700: var(--color-aviso);
-  --color-accent-900: var(--color-aviso);
-  --color-accent-text: var(--color-aviso);
-  --color-success: var(--color-ok);
-  --color-success-100: var(--color-ground-alt);
-  --color-success-300: var(--color-corriente-apagado);
-  --color-success-500: var(--color-ok);
-  --color-success-700: var(--color-ok);
-  --color-success-900: var(--color-ok);
-  --color-danger: var(--color-error);
-  --color-danger-strong: var(--color-error);
-  --color-warning: var(--color-aviso);
-  --color-info: var(--color-info);
 
   /* Tipografia - el peso es un canal de jerarquia, no decoracion */
   --font-display: "Lexend Deca", system-ui, sans-serif;
@@ -179,45 +140,6 @@
     --color-serie-5: #67E8F9;
     --color-serie-6: #F9A8D4;
 
-    /* Alias de US-001: nombres viejos, valores del sistema nuevo */
-    --color-surface: var(--color-ground);
-    --color-surface-alt: var(--color-ground-alt);
-    --color-line: var(--color-grid);
-    --color-line-strong: var(--color-corriente-medio);
-    --color-muted: var(--color-corriente-tenue);
-    --color-ink: var(--color-corriente-pleno);
-    --color-ink-strong: var(--color-corriente-pleno);
-    --color-primary: var(--color-info);
-    --color-primary-100: var(--color-ground-alt);
-    --color-primary-300: var(--color-corriente-apagado);
-    --color-primary-500: var(--color-info);
-    --color-primary-700: var(--color-corriente-medio);
-    --color-primary-900: var(--color-corriente-pleno);
-    --color-primary-dark: var(--color-corriente-medio);
-    --color-secondary: var(--color-info);
-    --color-secondary-100: var(--color-ground-alt);
-    --color-secondary-300: var(--color-corriente-apagado);
-    --color-secondary-500: var(--color-info);
-    --color-secondary-700: var(--color-corriente-medio);
-    --color-secondary-900: var(--color-corriente-pleno);
-    --color-secondary-soft: var(--color-corriente-apagado);
-    --color-accent: var(--color-aviso);
-    --color-accent-100: var(--color-ground-alt);
-    --color-accent-300: var(--color-corriente-apagado);
-    --color-accent-500: var(--color-aviso);
-    --color-accent-700: var(--color-aviso);
-    --color-accent-900: var(--color-aviso);
-    --color-accent-text: var(--color-aviso);
-    --color-success: var(--color-ok);
-    --color-success-100: var(--color-ground-alt);
-    --color-success-300: var(--color-corriente-apagado);
-    --color-success-500: var(--color-ok);
-    --color-success-700: var(--color-ok);
-    --color-success-900: var(--color-ok);
-    --color-danger: var(--color-error);
-    --color-danger-strong: var(--color-error);
-    --color-warning: var(--color-aviso);
-    --color-info: var(--color-info);
     --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
     --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
   }
@@ -249,47 +171,37 @@
     --color-serie-5: #67E8F9;
     --color-serie-6: #F9A8D4;
 
-    /* Alias de US-001: nombres viejos, valores del sistema nuevo */
-    --color-surface: var(--color-ground);
-    --color-surface-alt: var(--color-ground-alt);
-    --color-line: var(--color-grid);
-    --color-line-strong: var(--color-corriente-medio);
-    --color-muted: var(--color-corriente-tenue);
-    --color-ink: var(--color-corriente-pleno);
-    --color-ink-strong: var(--color-corriente-pleno);
-    --color-primary: var(--color-info);
-    --color-primary-100: var(--color-ground-alt);
-    --color-primary-300: var(--color-corriente-apagado);
-    --color-primary-500: var(--color-info);
-    --color-primary-700: var(--color-corriente-medio);
-    --color-primary-900: var(--color-corriente-pleno);
-    --color-primary-dark: var(--color-corriente-medio);
-    --color-secondary: var(--color-info);
-    --color-secondary-100: var(--color-ground-alt);
-    --color-secondary-300: var(--color-corriente-apagado);
-    --color-secondary-500: var(--color-info);
-    --color-secondary-700: var(--color-corriente-medio);
-    --color-secondary-900: var(--color-corriente-pleno);
-    --color-secondary-soft: var(--color-corriente-apagado);
-    --color-accent: var(--color-aviso);
-    --color-accent-100: var(--color-ground-alt);
-    --color-accent-300: var(--color-corriente-apagado);
-    --color-accent-500: var(--color-aviso);
-    --color-accent-700: var(--color-aviso);
-    --color-accent-900: var(--color-aviso);
-    --color-accent-text: var(--color-aviso);
-    --color-success: var(--color-ok);
-    --color-success-100: var(--color-ground-alt);
-    --color-success-300: var(--color-corriente-apagado);
-    --color-success-500: var(--color-ok);
-    --color-success-700: var(--color-ok);
-    --color-success-900: var(--color-ok);
-    --color-danger: var(--color-error);
-    --color-danger-strong: var(--color-error);
-    --color-warning: var(--color-aviso);
-    --color-info: var(--color-info);
     --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
     --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
+}
+
+/*
+ * Objetivo tactil minimo en dispositivos de puntero grueso.
+ *
+ * Medido a 375 px sobre /guia: 58 controles por debajo de 44 px, todos
+ * por ALTURA y ninguno por ancho. Arreglarlo control a control habria
+ * dejado el siguiente fuera, asi que la regla vive en el sistema.
+ *
+ * La condicion es pointer: coarse y no un punto de quiebre de ancho: la
+ * regla trata de dedos, no de pantallas estrechas, y un raton a 375 px
+ * no necesita 44 px de alto.
+ */
+@media (pointer: coarse) {
+  button,
+  summary,
+  input,
+  select,
+  textarea,
+  [role="button"],
+  a:not(.prosa a) {
+    min-height: 44px;
+  }
+
+  /* Un enlace dentro de un parrafo sigue el flujo del texto. */
+  p a,
+  .sr-only {
+    min-height: revert;
+  }
 }
 
 /* Reglas que el sistema declara y que la interfaz debe cumplir:

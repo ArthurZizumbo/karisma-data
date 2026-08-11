@@ -279,12 +279,24 @@ alguno escribe su propio contorno; ya cazó una reincidencia durante este redise
   con jerarquía, retroalimentación o cambio de estado, o no entra.
 - Cualquier cifra en la interfaz sin procedencia visible.
 
-**Deuda declarada, medida y no escondida**
+**Deuda que se declaró y se cerró**
 
-- **50 objetivos táctiles por debajo de 44 px a 375 px** en `/guia`. La superficie está pensada para
-  escritorio y las figuras del informe se capturan a 1440, pero es una deuda real de accesibilidad
-  móvil y no está resuelta.
-- La **capa de alias de US-001** sigue viva en el emisor. Ya no la usa ninguna pantalla ni ninguna
-  lámina; se retira cuando nada la referencie.
-- **Cobertura del frontend en 51.39 %** sobre un umbral de 50. Bajó al retirar 833 líneas de pruebas
-  que fijaban el marcado de láminas reescritas y dejar 133 de contrato.
+Las tres quedaron resueltas y no diferidas:
+
+- **Objetivo táctil.** Medidos 58 controles por debajo de 44 px a 375 px, todos por altura y
+  ninguno por ancho. Arreglarlos uno a uno habría dejado fuera al siguiente, así que la regla la
+  emite el sistema y alcanza los 58, con cero sin cubrir. La condición es `pointer: coarse` y no un
+  punto de quiebre de ancho, porque la regla trata de dedos: un ratón a 375 px no necesita 44 px de
+  alto. Un enlace dentro de un párrafo vuelve al flujo del texto.
+- **Capa de alias de US-001.** Retirada. Cero usos en la aplicación y el emisor ya no la escribe. El
+  suelo de la prueba de contrato estaba calibrado contra los 37 alias y se recalibró contra los 17
+  tokens reales: sigue detectando un escaneo vacío y ya no mide andamiaje.
+- **Cobertura del frontend: 81.79 %**, desde 51.39 %. No se subió con relleno. Cada prueba nueva
+  corresponde a una promesa del sistema que se degradaría en silencio: que ningún hexadecimal de la
+  guía esté tecleado, que cada chip semántico lleve forma propia, que el orden de tabla se anuncie
+  con `aria-sort`, que el momento fallido de una llamada a herramienta no devuelva ninguna cifra, y
+  que la lámina de iconos recorra el mismo inventario que el empaquetador.
+
+Dos de esas pruebas encontraron defectos al escribirse: una aserción que recorría un bucle sin usar
+su variable, y otra que buscaba dígitos en toda la tarjeta cuando la consulta lleva una fecha, de
+modo que medía algo distinto de lo que su nombre prometía.

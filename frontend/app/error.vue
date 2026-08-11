@@ -35,7 +35,7 @@ function volverAlIndice(): void {
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-surface font-sans text-ink">
+  <div class="flex min-h-screen flex-col bg-ground font-sans text-corriente-pleno">
     <!--
       The error screen renders outside every layout, so it mounts the product
       header itself. Without it the reader lands here with no way back to the
@@ -46,23 +46,23 @@ function volverAlIndice(): void {
     <FranjaAlcance />
 
     <main class="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 px-6 py-12">
-      <p class="text-sm text-muted">
+      <p class="text-sm text-corriente-tenue">
         {{ t('error.code', { code: error.statusCode }) }}
       </p>
-      <h1 class="font-display text-2xl text-primary-dark">
+      <h1 class="font-display text-2xl text-corriente-medio">
         {{ t('error.title') }}
       </h1>
-      <p class="text-ink">
+      <p class="text-corriente-pleno">
         {{ t(claveDeCausa) }}
       </p>
-      <p class="text-sm text-muted">
+      <p class="text-sm text-corriente-tenue">
         {{ t('error.hint') }}
       </p>
       <div>
         <button
           type="button"
           data-volver-al-indice
-          class="rounded-md bg-primary px-4 py-2 text-surface hover:bg-primary-dark"
+          class="rounded-md bg-info px-4 py-2 text-ground hover:bg-corriente-medio"
           :class="ANILLO_FOCO"
           @click="volverAlIndice"
         >

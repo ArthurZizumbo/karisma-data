@@ -17,11 +17,11 @@ const { idiomaActual, opciones, cambiarIdioma } = useIdioma()
     data-selector-idioma
     role="group"
     :aria-label="t('language.groupLabel')"
-    class="flex items-center gap-1 rounded-md border border-line px-1 py-0.5"
+    class="flex items-center gap-1 rounded-md border border-grid px-1 py-0.5"
   >
     <Icon
       name="lucide:languages"
-      class="size-4 shrink-0 text-ink"
+      class="size-4 shrink-0 text-corriente-pleno"
       aria-hidden="true"
     />
     <button
@@ -34,7 +34,7 @@ const { idiomaActual, opciones, cambiarIdioma } = useIdioma()
       :aria-label="idiomaActual === opcion.codigo
         ? t('language.current', { language: opcion.endonimo })
         : t('language.switchTo', { language: opcion.endonimo })"
-      class="rounded-sm px-2 py-0.5 text-sm text-ink hover:bg-secondary-soft aria-pressed:bg-primary-dark aria-pressed:text-surface"
+      class="rounded-sm px-2 py-0.5 text-sm text-corriente-pleno hover:bg-corriente-apagado aria-pressed:bg-corriente-medio aria-pressed:text-ground"
       :class="ANILLO_FOCO"
       @click="cambiarIdioma(opcion.codigo)"
     >

@@ -4,7 +4,7 @@ import FranjaAlcance from '~/components/nav/FranjaAlcance.vue'
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-surface font-sans text-ink">
+  <div class="flex min-h-screen flex-col bg-ground font-sans text-corriente-pleno">
     <CabeceraProducto />
 
     <FranjaAlcance />

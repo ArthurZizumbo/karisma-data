@@ -49,51 +49,6 @@ RAIZ: Final[Path] = Path(__file__).resolve().parents[1]
 CSS: Final[Path] = RAIZ / "frontend" / "app" / "assets" / "css" / "main.css"
 TS: Final[Path] = RAIZ / "frontend" / "app" / "utils" / "tokens.generated.ts"
 
-#: US-001 wrote these names and nine screens plus seven plates consume them
-#: today. They are kept as names and mapped onto the new system, never given a
-#: value of their own: emitting the redesign without them would break every
-#: screen at once and turn a visual change into an outage.
-ALIAS: Final[tuple[tuple[str, str], ...]] = (
-    ("surface", "ground"),
-    ("surface-alt", "ground-alt"),
-    ("line", "grid"),
-    ("line-strong", "corriente-medio"),
-    ("muted", "corriente-tenue"),
-    ("ink", "corriente-pleno"),
-    ("ink-strong", "corriente-pleno"),
-    ("primary", "info"),
-    ("primary-100", "ground-alt"),
-    ("primary-300", "corriente-apagado"),
-    ("primary-500", "info"),
-    ("primary-700", "corriente-medio"),
-    ("primary-900", "corriente-pleno"),
-    ("primary-dark", "corriente-medio"),
-    ("secondary", "info"),
-    ("secondary-100", "ground-alt"),
-    ("secondary-300", "corriente-apagado"),
-    ("secondary-500", "info"),
-    ("secondary-700", "corriente-medio"),
-    ("secondary-900", "corriente-pleno"),
-    ("secondary-soft", "corriente-apagado"),
-    ("accent", "aviso"),
-    ("accent-100", "ground-alt"),
-    ("accent-300", "corriente-apagado"),
-    ("accent-500", "aviso"),
-    ("accent-700", "aviso"),
-    ("accent-900", "aviso"),
-    ("accent-text", "aviso"),
-    ("success", "ok"),
-    ("success-100", "ground-alt"),
-    ("success-300", "corriente-apagado"),
-    ("success-500", "ok"),
-    ("success-700", "ok"),
-    ("success-900", "ok"),
-    ("danger", "error"),
-    ("danger-strong", "error"),
-    ("warning", "aviso"),
-    ("info", "info"),
-)
-
 
 def _cabecera(marca_comentario: str) -> list[str]:
     """Return the do-not-edit banner every output carries."""
@@ -131,11 +86,6 @@ def _bloque_color(modo: Modo, sangria: str) -> list[str]:
                 f"{sangria}--color-{token.nombre}: {token.valor(modo)};{nota}"
             )
         lineas.append("")
-    lineas.append(
-        f"{sangria}/* Alias de US-001: nombres viejos, valores del sistema nuevo */"
-    )
-    for viejo, nuevo in ALIAS:
-        lineas.append(f"{sangria}--color-{viejo}: var(--color-{nuevo});")
     return lineas
 
 
@@ -194,6 +144,42 @@ def emitir_css() -> str:
     out.append(':root[data-theme="oscuro"] {')
     out += oscuro
     out += sombras_oscuras
+    out.append("}")
+    out.append("")
+    out.append("/*")
+    out.append(" * Objetivo tactil minimo en dispositivos de puntero grueso.")
+    out.append(" *")
+    out.append(
+        " * Medido a 375 px sobre /guia: 58 controles por debajo de 44 px, todos"
+    )
+    out.append(" * por ALTURA y ninguno por ancho. Arreglarlo control a control habria")
+    out.append(" * dejado el siguiente fuera, asi que la regla vive en el sistema.")
+    out.append(" *")
+    out.append(
+        " * La condicion es pointer: coarse y no un punto de quiebre de ancho: la"
+    )
+    out.append(
+        " * regla trata de dedos, no de pantallas estrechas, y un raton a 375 px"
+    )
+    op = " * no necesita 44 px de alto."
+    out.append(op)
+    out.append(" */")
+    out.append("@media (pointer: coarse) {")
+    out.append("  button,")
+    out.append("  summary,")
+    out.append("  input,")
+    out.append("  select,")
+    out.append("  textarea,")
+    out.append('  [role="button"],')
+    out.append("  a:not(.prosa a) {")
+    out.append("    min-height: 44px;")
+    out.append("  }")
+    out.append("")
+    out.append("  /* Un enlace dentro de un parrafo sigue el flujo del texto. */")
+    out.append("  p a,")
+    out.append("  .sr-only {")
+    out.append("    min-height: revert;")
+    out.append("  }")
     out.append("}")
     out.append("")
     out.append("/* Reglas que el sistema declara y que la interfaz debe cumplir:")

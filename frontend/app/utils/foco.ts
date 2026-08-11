@@ -46,7 +46,7 @@ export const ANILLO_FOCO_CONGELADO = 'outline-2 outline-offset-2 outline-info'
  * dark background.
  */
 export const ANILLO_FOCO_INVERSO
-  = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-soft'
+  = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-corriente-apagado'
 
 /**
  * The inverse ring, drawn inwards.

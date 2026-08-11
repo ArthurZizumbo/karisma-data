@@ -178,7 +178,12 @@ describe('el @theme generado cubre toda clase de token que la interfaz escribe',
 
     // Without these two floors the assertion above would also pass over an
     // empty scan, which is the way a check like this rots without a sound.
-    expect(TOKENS.get('color')!.size).toBeGreaterThan(30)
+    //
+    // The colour floor was 30 while the theme carried 37 compatibility aliases
+    // of US-001 on top of the real tokens. Those aliases were retired once no
+    // template referenced them, so the floor now sits under the real count: it
+    // still catches an empty scan and no longer measures scaffolding.
+    expect(TOKENS.get('color')!.size).toBeGreaterThan(12)
     expect(inspeccionadas.length).toBeGreaterThan(50)
     expect(huerfanas.map(({ archivo, clase }) => `${archivo}: ${clase}`)).toEqual([])
   })

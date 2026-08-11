@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+#  Karisma Data - configuracion del escaneo de secretos (US-002, CA-7).
+#
+#  Extiende el conjunto de reglas por omision de gitleaks en lugar de sustituirlo:
+#  escribir reglas propias desde cero seria empezar por detras del estado del arte
+#  y quedarse ahi.
+#
+#  La lista de permitidos es el punto exacto donde un escaneo se vuelve teatro.
+#  Por eso son tres entradas, cada una con su motivo escrito, y por eso existe
+#  scripts/verificar_gitleaks.sh: inyecta un secreto de prueba y FALLA si el
+#  escaneo no lo detecta. La lista no puede crecer hasta volver inutil la barrera.
+# ---------------------------------------------------------------------------
+
+title = "Karisma Data"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = """
+Plantillas de entorno versionadas. Las tres variables obligatorias van con valor
+VACIO a proposito -DATABASE_URL=, JWT_SECRET_KEY=, GEMINI_API_KEY=-, de modo que
+no hay nada que filtrar; lo que si contienen son ejemplos de forma de URL con la
+palabra "contrasena" como marcador, que algunas reglas genericas leen como
+credencial. Los valores reales viven en .env.local, que .gitignore excluye.
+"""
+targets = ["path"]
+paths = ['''(^|/)\.env\.example$''']
+
+[[allowlists]]
+description = """
+Candados de dependencias. Los hashes de integridad -sha512 en pnpm-lock.yaml,
+sha256 en poetry.lock- son cadenas de entropia alta y por eso disparan las
+reglas genericas, pero no son secretos: son exactamente lo contrario, la prueba
+publica de que el artefacto descargado es el declarado. Se generan solos y no
+se editan a mano.
+"""
+targets = ["path"]
+paths = [
+    '''(^|/)pnpm-lock\.yaml$''',
+    '''(^|/)poetry\.lock$''',
+]
+
+[[allowlists]]
+description = """
+Artefactos generados o de terceros que no forman parte del codigo fuente:
+dependencias instaladas, cachés de herramientas y salidas de compilacion. Nada
+de esto se versiona -.gitignore ya lo excluye-, pero "gitleaks dir" recorre el
+arbol de trabajo, no el indice de git, y sin esta entrada tardaria minutos en
+escanear node_modules en cada "make check".
+"""
+targets = ["path"]
+paths = [
+    '''(^|/)node_modules/''',
+    '''(^|/)\.venv/''',
+    '''(^|/)\.nuxt/''',
+    '''(^|/)\.output/''',
+    '''(^|/)\.git/''',
+    '''(^|/)__pycache__/''',
+    '''(^|/)\.(pytest|ruff|mypy)_cache/''',
+]

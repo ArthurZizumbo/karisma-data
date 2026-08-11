@@ -98,6 +98,16 @@ services:
       HOST: "0.0.0.0"
       PORT: "3000"
       NITRO_PORT: "3000"
+      # El destino del proxy lo fija el contenedor, no .env.local, y "environment"
+      # gana sobre "env_file" en Compose. El motivo es que las dos formas de
+      # levantar el portal necesitan valores DISTINTOS y hasta hoy compartian el
+      # mismo archivo: dentro de esta red el backend es "api", desde el host es
+      # "localhost". Con el nombre de servicio escrito en .env.local, un
+      # "pnpm dev" en la maquina arrancaba, pintaba la pantalla entera y fallaba
+      # solo al entrar, con un error de servidor que no dice que la culpa es de
+      # una variable. Aqui el contenedor se configura solo y .env.local queda
+      # libre para describir el host, que es donde vive quien lo edita.
+      NUXT_API_BASE: "http://api:8000"
       # RU-02: en Windows el watcher no recibe eventos inotify a traves del
       # bind mount; el sondeo periodico es la unica via fiable.
       WATCHPACK_POLLING: "true"

@@ -1,4 +1,39 @@
 {
+  "access": {
+    "title": "Entrar a Karisma Data",
+    "subtitle": "Usa tu usuario del portal. Cada perfil entra directo a su pantalla inicial.",
+    "fields": {
+      "username": "Usuario",
+      "password": "Contraseña",
+      "showPassword": "Mostrar la contraseña",
+      "hidePassword": "Ocultar la contraseña"
+    },
+    "actions": {
+      "enter": "Entrar",
+      "entering": "Entrando"
+    },
+    "errors": {
+      "usernameRequired": "Escribe tu usuario para continuar.",
+      "passwordRequired": "Escribe tu contraseña para continuar.",
+      "credentials": "Credenciales incorrectas",
+      "server": "No se pudo abrir la sesión. Vuelve a intentarlo en unos segundos.",
+      "demoDisabled": "El acceso de demostración está apagado en este entorno."
+    },
+    "expired": {
+      "title": "Tu sesión caducó",
+      "detail": "La sesión dura 30 minutos y la tuya terminó. Vuelve a entrar para continuar."
+    },
+    "demo": {
+      "title": "Entrar como perfil de demostración",
+      "label": "Acceso de demostración, habilitado únicamente en este prototipo",
+      "roles": {
+        "operativo": "Operativo",
+        "analista": "Analista",
+        "directivo": "Directivo",
+        "admin": "Administración"
+      }
+    }
+  },
   "brand": {
     "name": "Karisma Data"
   },
@@ -98,19 +133,16 @@
     "notice": "Prototipo de alta fidelidad de Karisma Data con datos sintéticos. No está conectado a sistemas reales de ninguna institución.",
     "ariaLabel": "Aviso de alcance del prototipo"
   },
+  "session": {
+    "signOut": "Cerrar sesión"
+  },
   "screen": {
     "index": {
       "title": "Prototipos de alta fidelidad",
       "subtitle": "Siete pantallas del mapa de sitio de la Actividad 3. Cada botón declara su alcance y su perfil."
     },
     "access": {
-      "description": "Contendrá el formulario de entrada con usuario y contraseña, y llevará a cada perfil a su pantalla inicial.",
-      "capability": {
-        "login": "Entrada con usuario y contrasena",
-        "demo": "Selector de perfil de demostracion",
-        "roles": "Los cuatro roles del portal",
-        "session": "Sesion en cookie httpOnly con re-entrada limpia"
-      }
+      "description": "Contendrá el formulario de entrada con usuario y contraseña, y llevará a cada perfil a su pantalla inicial."
     },
     "home": {
       "description": "Contendrá el buscador unificado, las búsquedas recientes, los favoritos, mis alertas y mi perfil.",

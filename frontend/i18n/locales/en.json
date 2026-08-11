@@ -1,4 +1,39 @@
 {
+  "access": {
+    "title": "Sign in to Karisma Data",
+    "subtitle": "Use your portal account. Each profile lands straight on its own screen.",
+    "fields": {
+      "username": "Username",
+      "password": "Password",
+      "showPassword": "Show the password",
+      "hidePassword": "Hide the password"
+    },
+    "actions": {
+      "enter": "Sign in",
+      "entering": "Signing in"
+    },
+    "errors": {
+      "usernameRequired": "Type your username to continue.",
+      "passwordRequired": "Type your password to continue.",
+      "credentials": "Incorrect credentials",
+      "server": "The session could not be opened. Try again in a few seconds.",
+      "demoDisabled": "Demo access is switched off in this environment."
+    },
+    "expired": {
+      "title": "Your session expired",
+      "detail": "Sessions last 30 minutes and yours has ended. Sign in again to carry on."
+    },
+    "demo": {
+      "title": "Enter as a demonstration profile",
+      "label": "Demo access, enabled only in this prototype",
+      "roles": {
+        "operativo": "Operations",
+        "analista": "Analyst",
+        "directivo": "Executive",
+        "admin": "Administration"
+      }
+    }
+  },
   "brand": {
     "name": "Karisma Data"
   },
@@ -98,19 +133,16 @@
     "notice": "High fidelity prototype of Karisma Data running on synthetic data. It is not connected to the real systems of any institution.",
     "ariaLabel": "Prototype scope notice"
   },
+  "session": {
+    "signOut": "Sign out"
+  },
   "screen": {
     "index": {
       "title": "High fidelity prototypes",
       "subtitle": "Seven screens of the Activity 3 site map. Every button states its scope and its profile."
     },
     "access": {
-      "description": "Will hold the sign-in form with user name and password, and will take each profile to its landing screen.",
-      "capability": {
-        "login": "Sign in with username and password",
-        "demo": "Demonstration profile selector",
-        "roles": "The four roles of the portal",
-        "session": "httpOnly cookie session with clean re-entry"
-      }
+      "description": "Will hold the sign-in form with user name and password, and will take each profile to its landing screen."
     },
     "home": {
       "description": "Will hold the unified search, recent searches, favorites, my alerts and my profile.",

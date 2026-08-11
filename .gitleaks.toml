@@ -59,3 +59,28 @@ paths = [
     '''(^|/)__pycache__/''',
     '''(^|/)\.(pytest|ruff|mypy)_cache/''',
 ]
+
+[[allowlists]]
+description = """
+Entorno local del desarrollador. .gitignore excluye .env.* (linea 127) y
+"git ls-files" confirma que ninguno esta versionado: los valores que viven ahi
+-la clave de firma de desarrollo, la de Gemini y, desde US-015,
+KARISMA_DEMO_PASSWORD- no pueden llegar a un commit. "gitleaks dir" recorre el
+arbol de trabajo y no el indice, asi que los leia igualmente y producia una
+alarma permanente sobre el unico archivo del repositorio que, por construccion,
+no puede filtrar nada. Una puerta que suena siempre se acaba ignorando, y ese
+es el modo real en que este escaneo dejaria de servir.
+
+La excepcion vale UNICAMENTE mientras git ignore el archivo. Es una condicion,
+no una promesa: scripts/verificar_gitleaks.sh la comprueba con "git check-ignore"
+en cada corrida y FALLA si algun dia .env.local deja de estar ignorado o
+aparece en el indice, que es justo el momento en que esta entrada pasaria de
+quitar ruido a ocultar una fuga.
+
+Lo que esta entrada NO cubre, y conviene que se lea aqui: los siete hashes
+argon2id que siembra db/migrations/*_create_app_user.sql se escanean enteros y
+no disparan nada -"gitleaks dir db" sale limpio-. No se pidio ni se necesita
+ninguna excepcion por ellos.
+"""
+targets = ["path"]
+paths = ['''(^|/)\.env\.local$''']

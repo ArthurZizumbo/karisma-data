@@ -33,6 +33,10 @@ interface EventoFalso {
   path: string
   method: string
   context: { nitro: { runtimeConfig?: ConfiguracionDeRuntime } }
+  /** Request headers, read since US-015 for the origin check. */
+  cabeceras: Record<string, string>
+  /** Cookies of the request, read since US-015 for the bearer injection. */
+  cookies: Record<string, string>
 }
 
 /** Answer of the fake upstream, so assertions read the handler output. */
@@ -51,7 +55,7 @@ const BASE_INICIAL = 'http://api-de-compose:8000'
 let configuracionDelProceso: ConfiguracionDeRuntime
 
 function crearEvento(path: string, method = 'GET'): EventoFalso {
-  return { path, method, context: { nitro: {} } }
+  return { path, method, context: { nitro: {} }, cabeceras: {}, cookies: {} }
 }
 
 /**
@@ -73,6 +77,14 @@ beforeEach(() => {
 
   vi.stubGlobal('getRequestURL', () => new URL('https://karisma-web.example/api/x'))
   vi.stubGlobal('getRequestIP', () => '203.0.113.7')
+
+  // Added by US-015: the handler reads the session cookie to build the bearer
+  // header and the fetch metadata headers to reject a foreign origin.
+  vi.stubGlobal(
+    'getHeader',
+    (evento: EventoFalso, nombre: string) => evento.cabeceras[nombre.toLowerCase()],
+  )
+  vi.stubGlobal('getCookie', (evento: EventoFalso, nombre: string) => evento.cookies[nombre])
 
   vi.stubGlobal(
     'createError',
@@ -144,9 +156,15 @@ describe('el destino sale de runtimeConfig en cada solicitud', () => {
 })
 
 describe('la ruta completa viaja intacta', () => {
+  // The sample used to be /api/auth/token. Since US-015 that path has a Nitro
+  // handler of its own and the proxy refuses it on purpose, so it can no longer
+  // stand for "any endpoint of the backend". /api/auth/me replaces it and is a
+  // better witness anyway: it is the one route under /api/auth that really does
+  // travel through here, so it proves the prefix survives without borrowing a
+  // path that is now somebody else's. The assertion below did not change.
   it.each([
     '/api/health',
-    '/api/auth/token',
+    '/api/auth/me',
     '/api/catalog/search',
     '/api/chat',
     '/api/exploracion/creditos/2026',
@@ -159,14 +177,14 @@ describe('la ruta completa viaja intacta', () => {
     expect(new URL(respuesta.destino).pathname).toBe(ruta)
   })
 
-  it('no reescribe /api/auth/token como /auth/token', async () => {
+  it('no reescribe /api/auth/me como /auth/me', async () => {
     // The backend serves ALL of its endpoints under /api/*: stripping the
     // prefix -the classic proxy configuration mistake- breaks every one at once.
     const manejador = await cargarManejador()
 
-    const respuesta = await manejador(crearEvento('/api/auth/token'))
+    const respuesta = await manejador(crearEvento('/api/auth/me'))
 
-    expect(respuesta.destino).not.toBe(`${BASE_INICIAL}/auth/token`)
+    expect(respuesta.destino).not.toBe(`${BASE_INICIAL}/auth/me`)
     expect(new URL(respuesta.destino).pathname.startsWith('/api/')).toBe(true)
   })
 
@@ -245,13 +263,17 @@ describe('el destino es configurable sin reconstruir la imagen', () => {
 })
 
 describe('no deja escapar del prefijo /api', () => {
-  // h3 decodes the path BEFORE routing, so "/api/%2e%2e/openapi.json" still
-  // matches this catch-all while resolving to "/openapi.json" against the
-  // backend. Verified by exploiting it against the live Compose before fixing
-  // it: it returned the full OpenAPI schema through the public origin. Without
-  // these cases the single-origin boundary that the whole design rests on does
-  // not exist, and on Cloud Run the backend is left with ingress closed and
-  // reachable all the same.
+  // h3 routes on the RAW path -it does NOT decode before matching, and the
+  // first version of this comment claimed the opposite, which is what hid the
+  // alias defect the block below now covers-. What reaches this handler is
+  // therefore whatever the client typed, escapes included, and the handler
+  // decodes once before deciding anything.
+  //
+  // Verified by exploiting it against the live Compose before fixing it:
+  // "/api/%2e%2e/openapi.json" returned the full OpenAPI schema through the
+  // public origin. Without these cases the single-origin boundary that the
+  // whole design rests on does not exist, and on Cloud Run the backend is left
+  // with ingress closed and reachable all the same.
   it.each([
     ['/api/%2E%2E/openapi.json'],
     ['/api/../health'],
@@ -296,5 +318,97 @@ describe('no relega al cliente las cabeceras de reenvio', () => {
     expect(respuesta.cabeceras?.['x-forwarded-proto']).toBe('https')
     expect(respuesta.cabeceras?.['x-forwarded-host']).toBe('karisma-web.example')
     expect(respuesta.cabeceras?.forwarded).toBe('')
+  })
+
+  it('no relaya el authorization que manda el cliente', async () => {
+    // Since US-015 the session lives in an httpOnly cookie and only this
+    // handler turns it into a bearer. Relaying the header the client sent would
+    // reopen the second door: a token typed by hand would reach the API with
+    // the same authority, and the session would stop living in one place.
+    const manejador = await cargarManejador()
+    const evento = crearEvento('/api/catalogo')
+    evento.cabeceras.authorization = 'Bearer token-inventado-por-el-cliente'
+
+    const respuesta = await manejador(evento)
+
+    expect(respuesta.cabeceras?.authorization).toBe('')
+  })
+
+  it('vacia la cookie hacia el upstream', async () => {
+    // The backend authenticates with the bearer and has no use for the cookie.
+    // Letting it through would deliver the token by two routes at once, and the
+    // second one ends up written in an upstream access log.
+    const manejador = await cargarManejador()
+    const evento = crearEvento('/api/catalogo')
+    evento.cookies.karisma_sesion = 'jwt.de.prueba.sin-secreto'
+
+    const respuesta = await manejador(evento)
+
+    expect(respuesta.cabeceras?.cookie).toBe('')
+    expect(respuesta.cabeceras?.authorization).toBe('Bearer jwt.de.prueba.sin-secreto')
+  })
+})
+
+describe('no reenvia una ruta que Nitro se sirve a si mismo', () => {
+  // The defect this block exists for was live and exploitable, and it was found
+  // by the security audit of US-015, not by a test.
+  //
+  // The three routes under server/api/auth/ are the reason the JWT never
+  // reaches the browser: each one calls the API, puts the token in the
+  // httpOnly cookie and answers with the session alone. Nitro matches them on
+  // the RAW path, so "/api/auth%2Fdemo" -where the slash is an escape and not
+  // a separator- missed the specific handler and fell through to this proxy,
+  // which forwarded it verbatim. Uvicorn decodes once, resolved it to
+  // /api/auth/demo and answered with a real JWT, which came back to the page
+  // as JSON: readable by any script on it, and with DEMO_LOGIN_ENABLED on -the
+  // state in which the A4 captures are recorded- as an admin.
+  //
+  // Reproduced against the live Compose: POST /api/auth%2Fdemo answered 200
+  // with access_token in the body. Two doors close it, and both are needed:
+  // decoding once before deciding, and refusing the three paths outright.
+  it.each([
+    ['/api/auth%2Ftoken'],
+    ['/api/auth%2Fdemo'],
+    ['/api/auth%2Flogout'],
+    ['/api/%61uth/demo'],
+    ['/api/auth/%64emo'],
+  ])('rechaza el alias %s sin tocar el backend', async (ruta) => {
+    const manejador = await cargarManejador()
+
+    await expect(manejador(crearEvento(ruta, 'POST'))).rejects.toMatchObject({
+      statusCode: 404,
+    })
+  })
+
+  it('rechaza tambien la ruta escrita tal cual, que nunca deberia llegar aqui', async () => {
+    // Nitro resolves it before this file runs, so a request that arrives here
+    // spelling it plainly has been routed by something that is not Nitro. The
+    // proxy has no way to serve it correctly, and forwarding it is the leak.
+    const manejador = await cargarManejador()
+
+    await expect(manejador(crearEvento('/api/auth/token', 'POST'))).rejects.toMatchObject({
+      statusCode: 404,
+    })
+  })
+
+  it('deja pasar el resto de /api/auth, que si es del backend', async () => {
+    // /api/auth/me has no Nitro handler: it is read through the proxy with the
+    // bearer injected from the cookie, and closing the whole prefix would take
+    // the session check down with it.
+    const manejador = await cargarManejador()
+
+    const respuesta = await manejador(crearEvento('/api/auth/me'))
+
+    expect(respuesta.destino).toBe(`${BASE_INICIAL}/api/auth/me`)
+  })
+
+  it('un escape mal formado es 400 y no una ruta', async () => {
+    // decodeURIComponent throws on "%zz". Letting it propagate would turn a
+    // malformed request into a 500 with a stack trace.
+    const manejador = await cargarManejador()
+
+    await expect(manejador(crearEvento('/api/%zz/catalogo'))).rejects.toMatchObject({
+      statusCode: 400,
+    })
   })
 })

@@ -22,10 +22,23 @@ import { type CodigoIdioma, crearI18nDePrueba, mensaje } from './i18nDePrueba'
  * `definePageMeta` is a macro compiled by the Nuxt plugin, and it does not
  * exist here: it is replaced by a double that records the declared meta, so the
  * layout each screen asks for is verifiable without booting Nuxt.
+ *
+ * Two of the assertions below only make sense while a screen is still a
+ * placeholder: the sentence that starts with "Contendra" and the heading taken
+ * from the A3 branch. `/acceso` left both lists on 11-ago-2026, when US-015
+ * implemented it: it now titles itself with the action it asks for and it holds
+ * a form instead of a promise, so measuring it against the scaffolding would be
+ * measuring something that is no longer there. The list shrinks by one screen
+ * per User Story and it disappears when the last one stops being scaffolding,
+ * not before. What `/acceso` keeps, because it is contract and not
+ * scaffolding, is its `data-ruta`, its layout and its single `h1`.
  */
 
 /** Page modules as Nuxt discovers them: by file path under app/pages. */
 const modulosDePagina = import.meta.glob<{ default: Component }>('../app/pages/**/*.vue')
+
+/** Contract routes whose content is still a declared placeholder. */
+const RUTAS_CON_ANDAMIAJE = RUTAS_CONTRATO.filter(ruta => ruta !== RUTA_ACCESO)
 
 const PREFIJO_PAGINAS = '../app/pages'
 
@@ -91,6 +104,15 @@ beforeEach(() => {
   vi.stubGlobal('definePageMeta', (meta: Record<string, unknown>) => {
     metaDeclarada = meta
   })
+  // `/acceso` reads the shared session through useState since US-015. The
+  // double keeps this suite about pages and layouts, which is what it measures.
+  const estados = new Map<string, unknown>()
+  vi.stubGlobal('useState', (clave: string, inicial?: () => unknown) => {
+    if (!estados.has(clave)) {
+      estados.set(clave, ref(inicial?.()))
+    }
+    return estados.get(clave)
+  })
 
   return () => {
     vi.unstubAllGlobals()
@@ -139,13 +161,13 @@ describe('cada pantalla pide el layout que le corresponde', () => {
 })
 
 describe('el titulo de cada pantalla sale del contrato de navegacion', () => {
-  it.each(RUTAS_CONTRATO)('titula %s con la rama del mapa de A3', async (ruta) => {
+  it.each(RUTAS_CON_ANDAMIAJE)('titula %s con la rama del mapa de A3', async (ruta) => {
     const wrapper = await montarPagina(ruta)
 
     expect(wrapper.get('h1').text()).toBe(mensaje('es', claveDeRuta(ruta) as string))
   })
 
-  it.each(RUTAS_CONTRATO)('retitula %s al cambiar la interfaz a ingles', async (ruta) => {
+  it.each(RUTAS_CON_ANDAMIAJE)('retitula %s al cambiar la interfaz a ingles', async (ruta) => {
     const wrapper = await montarPagina(ruta, 'en')
 
     expect(wrapper.get('h1').text()).toBe(mensaje('en', claveDeRuta(ruta) as string))
@@ -156,7 +178,7 @@ describe('el titulo de cada pantalla sale del contrato de navegacion', () => {
     // literal instead of a key renders the same sentence in both languages; a
     // page that points at a key the catalogue does not have renders the key
     // path itself, which vue-i18n prints verbatim.
-    for (const ruta of RUTAS_CONTRATO) {
+    for (const ruta of RUTAS_CON_ANDAMIAJE) {
       const enEspanol = (await montarPagina(ruta)).get('p').text()
       const enIngles = (await montarPagina(ruta, 'en')).get('p').text()
 

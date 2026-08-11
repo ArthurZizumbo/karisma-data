@@ -32,6 +32,10 @@ class Settings(BaseSettings):
         gemini_api_key: API key used by the conversational agent.
         app_env: Deployment environment label, such as ``local`` or ``prod``.
         log_level: Minimum severity emitted by structlog.
+        demo_login_enabled: Whether the credential-free demo access is mounted.
+            Off by default on purpose: an environment that forgets the variable
+            stays closed, and turning it on is a deliberate act written into the
+            deployment.
     """
 
     database_url: str
@@ -39,6 +43,7 @@ class Settings(BaseSettings):
     gemini_api_key: str
     app_env: str = LOCAL_ENV
     log_level: str = "INFO"
+    demo_login_enabled: bool = False
 
     model_config = SettingsConfigDict(env_file=".env.local", extra="ignore")
 

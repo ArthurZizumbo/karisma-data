@@ -5,8 +5,9 @@ import logging
 import structlog
 from fastapi import FastAPI
 
-from app.api import health
+from app.api import auth, health
 from app.core.config import LOCAL_ENV, get_settings
+from app.services.auth_service import InvalidCredentialsError
 
 logger = structlog.get_logger()
 
@@ -63,11 +64,23 @@ def create_app() -> FastAPI:
         openapi_url="/openapi.json" if expose_docs else None,
     )
     application.include_router(health.router)
+    application.include_router(auth.router)
+
+    # The demo access is not an endpoint with an "if" inside: it is a router
+    # that is not mounted. Off, the route does not exist -404 and nothing in
+    # /openapi.json- instead of a 403 that would confirm the door is there.
+    if settings.demo_login_enabled:
+        application.include_router(auth.demo_router)
+
+    application.add_exception_handler(
+        InvalidCredentialsError, auth.handle_invalid_credentials
+    )
 
     logger.info(
         "application_started",
         app_env=settings.app_env,
         log_level=settings.log_level,
+        demo_login_enabled=settings.demo_login_enabled,
     )
     return application
 

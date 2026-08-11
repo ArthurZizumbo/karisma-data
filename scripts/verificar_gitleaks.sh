@@ -85,6 +85,39 @@ fi
 
 echo "  el escaneo lo detecto y salio distinto de 0, como debe"
 
+# --- La excepcion de .env.local sigue siendo legitima ------------------------
+# .gitleaks.toml aparta los .env.local del escaneo porque .gitignore los excluye
+# y ninguno puede llegar a un commit. Esa entrada es la unica de la lista que
+# depende de un hecho externo al archivo de configuracion, y por eso se
+# comprueba aqui: el dia que uno de esos archivos deje de estar ignorado, o
+# aparezca en el indice, la exclusion pasaria de quitar ruido a esconder una
+# credencial real y este guion tiene que ser quien lo diga.
+echo ""
+echo "  comprobando la excepcion de .env.local"
+
+for entorno in $(find "$RAIZ" -name '.env.local' -not -path '*/node_modules/*' -not -path '*/.git/*'); do
+    relativo=${entorno#"$RAIZ"/}
+
+    if ! git -C "$RAIZ" check-ignore -q "$entorno"; then
+        echo ""
+        echo "FALLA: $relativo NO esta ignorado por git." >&2
+        echo "La lista de permitidos de .gitleaks.toml lo aparta del escaneo dando" >&2
+        echo "por hecho que no puede commitearse. Ya no es cierto: o vuelve a" >&2
+        echo ".gitignore, o se retira esa entrada de .gitleaks.toml." >&2
+        exit 1
+    fi
+
+    if [ -n "$(git -C "$RAIZ" ls-files -- "$entorno")" ]; then
+        echo ""
+        echo "FALLA: $relativo esta en el indice de git." >&2
+        echo "Sacalo con 'git rm --cached $relativo' y rota lo que hubiera dentro:" >&2
+        echo "un secreto que llego al indice se considera comprometido." >&2
+        exit 1
+    fi
+
+    echo "    $relativo ignorado y fuera del indice"
+done
+
 # --- Y el arbol real debe seguir limpio sin el fixture ----------------------
 limpiar
 trap - EXIT INT TERM

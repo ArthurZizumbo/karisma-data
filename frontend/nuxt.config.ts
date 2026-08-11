@@ -118,6 +118,13 @@ export default defineNuxtConfig({
     public: {
       // Overridable at runtime through NUXT_PUBLIC_ENTORNO.
       entorno: process.env.NUXT_PUBLIC_ENTORNO ?? 'local',
+      // Whether the entry screen offers the credential-free demonstration
+      // profiles. This flag only decides what is shown: the real gate is
+      // DEMO_LOGIN_ENABLED on the backend, which does not even mount the route
+      // when it is off. On by default because the prototype is evaluated with
+      // the door open; a deployment that closes it sets NUXT_PUBLIC_DEMO_ACCESO
+      // to false so the interface stops advertising a door that answers 404.
+      demoAcceso: process.env.NUXT_PUBLIC_DEMO_ACCESO !== 'false',
     },
   },
   compatibilityDate: '2026-08-10',

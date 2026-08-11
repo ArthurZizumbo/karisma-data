@@ -200,12 +200,17 @@ de la unidad única.
 
 | Punto de quiebre | Comportamiento |
 |---|---|
-| 768 px | La barra lateral se colapsa a iconos |
+| 768 px | **Declarado, no implementado.** El token existe y `BarraLateral.vue:37` usa `w-[var(--sidebar-width)]` sin ningún modificador responsivo. Medido a 375 px: la barra ocupa el 64 % y deja el contenido en 135 px, con 112 px de desbordamiento horizontal |
 | 1024 px | Vuelve la barra lateral con etiqueta |
 | 1280 px | Aparece la segunda columna del tablero |
 | 1440 px | Ancho de captura de las figuras de A4 |
 
 Medidas fijas del chasis: barra lateral 240 px, cabecera 56 px, fila de tabla densa 36 px.
+
+**Los cuatro puntos de quiebre son aspiración, no comportamiento.** En toda la aplicación existen
+7 modificadores `sm:`, 7 `lg:` y 2 `xl:`, y `guia.vue` y `portal.vue` no tienen ninguno. Corregido
+el 11-ago-2026 tras medirlo: la versión anterior de este documento describía el colapso como si
+ocurriera.
 
 ## Elevation & Depth
 

@@ -1,280 +1,290 @@
 ---
 name: Karisma Data
-description: Sistema de diseño vigente del portal centralizado de datos financieros, extraído del generador de tokens
+description: Sistema de diseño del portal, escrito desde lo construido y no desde lo planeado
 colors:
-  primary-100: "#DBEAFE"
-  primary-300: "#93C5FD"
-  primary-500: "#2563EB"
-  primary-700: "#1F4D78"
-  primary-900: "#0F2C46"
-  secondary-100: "#E3EDF7"
-  secondary-300: "#B8CCE4"
-  secondary-500: "#3B82F6"
-  secondary-700: "#1E5FA8"
-  secondary-900: "#14385F"
-  accent-100: "#FEEBD9"
-  accent-300: "#FDBA8C"
-  accent-500: "#F97316"
-  accent-700: "#C2540A"
-  accent-900: "#7C3606"
-  success-100: "#DCFCE7"
-  success-300: "#86EFAC"
-  success-500: "#16A34A"
-  success-700: "#166534"
-  success-900: "#0B3D1F"
-  surface: "#F8FAFC"
-  surface-alt: "#EEF3FA"
-  line: "#CBD5E1"
-  line-strong: "#64748B"
-  muted: "#64748B"
-  ink: "#1E293B"
-  ink-strong: "#0F172A"
-  danger: "#B91C1C"
-  danger-strong: "#7F1D1D"
-  warning: "#C2540A"
-  info: "#2563EB"
-  serie-1: "#2563EB"
-  serie-2: "#C2540A"
-  serie-3: "#166534"
-  serie-4: "#7C3AED"
+  ground: "#F4F6F9"
+  ground-alt: "#EAEEF4"
+  grid: "#DCE2EB"
+  corriente-apagado: "#A8B2C1"
+  corriente-tenue: "#5F6A7D"
+  corriente-medio: "#414B5B"
+  corriente-pleno: "#14171D"
+  error: "#8C1D18"
+  aviso: "#9A6200"
+  ok: "#1F6F43"
+  info: "#6D28D9"
+  serie-1: "#1D4ED8"
+  serie-2: "#B45309"
+  serie-3: "#1F6F43"
+  serie-4: "#6D28D9"
   serie-5: "#0E7490"
   serie-6: "#9D174D"
+  ground-oscuro: "#0A0A0C"
+  ground-alt-oscuro: "#131519"
+  grid-oscuro: "#1C2028"
+  corriente-apagado-oscuro: "#4A5361"
+  corriente-tenue-oscuro: "#7A8698"
+  corriente-medio-oscuro: "#B4C2D4"
+  corriente-pleno-oscuro: "#E8F4FF"
+  error-oscuro: "#FF5A36"
+  aviso-oscuro: "#FFC233"
+  ok-oscuro: "#4ADE80"
+  info-oscuro: "#C4B5FD"
 typography:
   display:
-    fontFamily: "Lexend Deca, sans-serif"
-    fontSize: "32px"
-    fontWeight: 400
-    lineHeight: "40px"
-    letterSpacing: "-0.01em"
+    fontFamily: "Lexend Deca, system-ui, sans-serif"
+    fontSize: "40px"
+    fontWeight: 600
+    lineHeight: "44px"
+    letterSpacing: "-0.02em"
   titulo-1:
-    fontFamily: "Lexend Deca, sans-serif"
-    fontSize: "24px"
-    fontWeight: 400
-    lineHeight: "32px"
-    letterSpacing: "-0.01em"
+    fontFamily: "Lexend Deca, system-ui, sans-serif"
+    fontSize: "28px"
+    fontWeight: 600
+    lineHeight: "34px"
+    letterSpacing: "-0.015em"
   titulo-2:
-    fontFamily: "Lexend Deca, sans-serif"
+    fontFamily: "Lexend Deca, system-ui, sans-serif"
     fontSize: "20px"
-    fontWeight: 400
-    lineHeight: "28px"
+    fontWeight: 600
+    lineHeight: "26px"
+    letterSpacing: "-0.01em"
   titulo-3:
-    fontFamily: "Lexend Deca, sans-serif"
-    fontSize: "16px"
-    fontWeight: 400
-    lineHeight: "22px"
+    fontFamily: "Fira Sans, system-ui, sans-serif"
+    fontSize: "15px"
+    fontWeight: 600
+    lineHeight: "20px"
   cuerpo:
-    fontFamily: "Fira Sans, sans-serif"
+    fontFamily: "Fira Sans, system-ui, sans-serif"
     fontSize: "14px"
     fontWeight: 400
-    lineHeight: "20px"
+    lineHeight: "21px"
   cuerpo-amplio:
-    fontFamily: "Fira Sans, sans-serif"
+    fontFamily: "Fira Sans, system-ui, sans-serif"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: "26px"
   etiqueta:
-    fontFamily: "Fira Sans, sans-serif"
+    fontFamily: "Fira Sans, system-ui, sans-serif"
     fontSize: "12px"
-    fontWeight: 400
+    fontWeight: 500
     lineHeight: "16px"
-    letterSpacing: "0.04em"
+    letterSpacing: "0.03em"
   dato:
-    fontFamily: "Fira Sans, sans-serif"
-    fontSize: "18px"
-    fontWeight: 400
-    lineHeight: "24px"
+    fontFamily: "IBM Plex Mono, ui-monospace, monospace"
+    fontSize: "16px"
+    fontWeight: 500
+    lineHeight: "22px"
   micro:
-    fontFamily: "Fira Sans, sans-serif"
+    fontFamily: "Fira Sans, system-ui, sans-serif"
     fontSize: "11px"
-    fontWeight: 400
-    lineHeight: "16px"
+    fontWeight: 500
+    lineHeight: "15px"
+    letterSpacing: "0.02em"
 rounded:
-  sm: "4px"
-  md: "6px"
-  lg: "10px"
+  sm: "2px"
+  md: "4px"
+  lg: "6px"
   full: "999px"
 spacing:
   unidad: "4px"
-  grid-gap: "8px"
-  card-padding: "12px"
-  sidebar-width: "240px"
-  header-height: "56px"
-  table-row-height: "36px"
+  grid-gap: "16px"
+  panel-padding: "24px"
+  sidebar-width: "232px"
+  sidebar-collapsed: "56px"
+  header-height: "52px"
+  table-row-height: "34px"
 components:
   boton-primario:
-    backgroundColor: "{colors.primary-500}"
-    textColor: "#FFFFFF"
-    typography: "{typography.cuerpo}"
+    backgroundColor: "{colors.corriente-pleno}"
+    textColor: "{colors.ground}"
+    typography: "{typography.etiqueta}"
     rounded: "{rounded.md}"
-    padding: "8px 16px"
-  boton-secundario:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.primary-700}"
-    typography: "{typography.cuerpo}"
+    padding: "0 12px"
+    height: "36px"
+  boton-contorno:
+    backgroundColor: "{colors.ground}"
+    textColor: "{colors.corriente-pleno}"
+    typography: "{typography.etiqueta}"
     rounded: "{rounded.md}"
-    padding: "8px 16px"
+    padding: "0 12px"
+    height: "36px"
   boton-destructivo:
-    backgroundColor: "{colors.danger}"
-    textColor: "#FFFFFF"
-    typography: "{typography.cuerpo}"
+    backgroundColor: "{colors.ground}"
+    textColor: "{colors.error}"
+    typography: "{typography.etiqueta}"
     rounded: "{rounded.md}"
-    padding: "8px 16px"
+    padding: "0 12px"
+    height: "36px"
   campo:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.ground}"
+    textColor: "{colors.corriente-pleno}"
     typography: "{typography.cuerpo}"
     rounded: "{rounded.md}"
-    padding: "8px 12px"
-  tarjeta:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.lg}"
-    padding: "{spacing.card-padding}"
+    padding: "0 12px"
+    height: "36px"
   chip:
-    backgroundColor: "{colors.primary-100}"
-    textColor: "{colors.primary-700}"
+    backgroundColor: "{colors.ground}"
+    textColor: "{colors.corriente-tenue}"
     typography: "{typography.etiqueta}"
     rounded: "{rounded.sm}"
     padding: "2px 8px"
   fila-tabla:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.ground}"
+    textColor: "{colors.corriente-pleno}"
     typography: "{typography.cuerpo}"
     height: "{spacing.table-row-height}"
+  nodo-diagrama:
+    backgroundColor: "{colors.corriente-pleno}"
+    rounded: "{rounded.full}"
+    size: "10px"
 ---
 
 # Design
 
 ## Overview
 
-Sistema de una sola fuente: `docs/entregables/generar_tokens_a4.py` emite el bloque `@theme` de
-Tailwind v4, la paleta tipada que consume la interfaz, las láminas LaTeX y un manifiesto JSON.
-**Ningún color se escribe a mano en un componente**, y hay un `grep` que lo verifica.
+**Mundo visual: diagrama hombre-máquina.** Una retícula visible como suelo, conectores ortogonales,
+y corriente que se enciende al recorrer una cifra hacia su origen. Elegido por el usuario el
+11-ago-2026 sobre la dirección que el tiro de concepto había asignado.
 
-Modo de la superficie: **Operate**. El éxito es que la persona termine su tarea, así que la
-escaneabilidad, la consistencia y la densidad de datos pesan más que la expresión. Confirmado el
-11-ago-2026: cuando la necesidad del usuario trabajando y la del evaluador chocan, gana el usuario.
+**Modo de la superficie: Operate.** El éxito es que la persona termine su tarea. Cuando la
+necesidad del usuario trabajando y la del evaluador chocan, gana el usuario.
 
-**Este documento captura el estado vigente antes del rediseño, y es a la vez referencia y
-anti-referencia.** Lo que sirve —la disciplina de fuente única, la matriz de contraste calculada,
-la escala de nueve roles, el vocabulario en español— se conserva. Lo que no —el diagnóstico está en
-«Do's and Don'ts»— se reemplaza en `new-work`.
+**Fuente única, en un solo sentido:**
+
+```
+design/sistema.py        <- los valores, declarados una vez
+design/contraste.py      <- WCAG y las tres dicromacias, calculadas
+design/emitir.py         <- publica lo que midio
+        |
+        +--> frontend/app/assets/css/main.css        (@theme + los dos modos)
+        +--> frontend/app/utils/tokens.generated.ts  (paleta tipada)
+        |
+        v
+   stores/sistemaDiseno.ts   <- resuelve cada token contra el modo en pantalla
+        |
+        v
+   los componentes
+```
+
+`docs/entregables/estilo/uxdoc.sty` **no está en esta cadena**. Es la hoja de estilo del informe del
+curso y está congelada: A1, A2 y A3 ya se entregaron y compilan contra ella. Una muestra de color del
+portal impresa en el informe es **contenido, no formato**.
+
+Este documento se escribe **al cerrar el rediseño y desde el código construido**. La versión anterior
+describía el sistema que se iba a reemplazar y afirmaba, entre otras cosas, que la barra lateral
+colapsaba a 768 px: el token existía y nadie lo había implementado.
 
 ## Colors
 
-Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie
-categórica distintos de la paleta de marca. **Los once colores marcados como ancla conservan su
-valor byte a byte** porque las entregas A1, A2 y A3 ya están calificadas y compilan contra ellos:
-`primary-500`, `primary-700`, `secondary-300`, `secondary-500`, `accent-500`, `success-700`,
-`surface`, `surface-alt`, `line`, `muted`, `ink`.
+**Dos canales, y esa separación es la decisión central.**
 
-**Reglas derivadas de la matriz de contraste, calculada con la fórmula WCAG 2.x sobre 37 pares.**
-No son opiniones: el cálculo refutó cuatro reglas que se habían dado por buenas.
+**Canal 1, la corriente.** Cuatro peldaños de luminancia pura: `corriente-apagado`, `-tenue`,
+`-medio`, `-pleno`. La luminancia es el único canal que ninguna dicromacia pierde, así que el estado
+se lee por brillo. Salto mínimo medido: 0.061 en claro y 0.149 en oscuro.
 
-| Regla | Razón |
-|---|---|
-| `accent-500` es **solo decorativo**. Nunca informa | 2.68:1 sobre `surface`, falla el 3:1 de elemento gráfico |
-| El ámbar que informa usa `accent-700` | 4.40:1, cumple |
-| El texto de aviso usa `accent-900` sobre `accent-100` | 7.58:1 AAA. Con `accent-700` daba 3.96:1 y fallaba AA |
-| El borde de campo usa `line-strong`, no `line` | `line` da 1.42:1 y falla el 3:1 de límite de componente |
-| `muted` solo a partir de 14 px, y **nunca sobre `surface-alt`** | 4.27:1 sobre `surface-alt`: AA-grande únicamente |
-| Blanco sobre `accent-500`: **prohibido** | 2.80:1. El número que circulaba, 2.6:1, estaba mal |
+**Canal 2, los semánticos.** `error`, `aviso`, `ok`, `info`, y siempre **color más forma más icono**.
+Nunca color solo, y no por cortesía: la separación medida bajo las tres dicromacias simuladas es de
+dE 21.5 en oscuro y **13.4 en claro**. El segundo es un techo estructural, no falta de esfuerzo:
+sobre fondo claro los cuatro deben superar 4.5:1, lo que los encierra por debajo de 0.16 de
+luminancia, y cuatro tonos no separan ahí dentro. Un lector con protanopia distingue un error de un
+aviso **por el aspa y el triángulo**.
 
-Ninguna gráfica depende solo del color: cada serie lleva forma de marcador y patrón de línea
-propios, más alternativa en tabla y resumen textual.
+**No hay verde en la rampa de corriente.** La paleta original del mundo era de semáforo, y rojo
+contra verde bajo protanopia separa dE=20.0: justo en el umbral, sostenido solo por luminancia.
+
+`grid` y `corriente-apagado` quedan **por debajo de 3:1 a propósito** y el sistema declara que no
+informan nunca. Son retícula y filete decorativo, no límite de componente. La verificación comprueba
+las dos direcciones: que lo que informa alcance el umbral y que lo que dice no informar no lo alcance.
 
 ## Typography
 
-Dos familias servidas desde el propio origen: **Lexend Deca** para titulares y **Fira Sans** para
-texto. Nueve roles, cada uno con su interlineado fijado en píxeles.
+Tres familias: **Lexend Deca** para titulares, **Fira Sans** para texto, **IBM Plex Mono** para
+cifras. Nueve roles.
 
-El cuerpo por omisión es **14 px**, no 16: es una interfaz densa donde una tabla tiene que dejar
-ver muchas filas. Los 16 px viven en `cuerpo-amplio`, para párrafos largos como la ayuda, la
-respuesta del asistente y el aviso de alcance. Las cifras usan `dato` con numeración tabular, para
-que las columnas numéricas alineen.
+**El peso es un canal de jerarquía**, no decoración: 400 para texto corrido, 500 para etiquetas y
+cifras, 600 para titulares. El sistema anterior fijaba 400 en los nueve roles, y la página medida
+daba **750 de 750 nodos de texto en ese único peso**, encabezados incluidos, con una relación
+título/cuerpo de 1.71. Con el tamaño como único canal y pasos de 1.2, ningún salto se leía como salto.
+
+El cuerpo por omisión es 14 px: es una interfaz densa donde una tabla tiene que dejar ver muchas
+filas. La prosa no pasa de **68 caracteres por línea**; lo medido antes llegaba a 179.
 
 ## Layout
 
-Retícula de 12 columnas con canal de 8 px. Ritmo en base 4: Tailwind deriva 4/8/12/16/24/32/48/64
-de la unidad única.
+Retícula de 12 columnas con canal de 16 px, ritmo en base 4.
 
-| Punto de quiebre | Comportamiento |
+| Punto de quiebre | Comportamiento, verificado en el navegador |
 |---|---|
-| 768 px | **Declarado, no implementado.** El token existe y `BarraLateral.vue:37` usa `w-[var(--sidebar-width)]` sin ningún modificador responsivo. Medido a 375 px: la barra ocupa el 64 % y deja el contenido en 135 px, con 112 px de desbordamiento horizontal |
-| 1024 px | Vuelve la barra lateral con etiqueta |
-| 1280 px | Aparece la segunda columna del tablero |
-| 1440 px | Ancho de captura de las figuras de A4 |
+| 768 px | La barra lateral **colapsa de verdad** a una franja de 56 px de iconos |
+| 1024 px | Vuelve con etiqueta |
+| 1280 px | Segunda columna del tablero |
+| 1440 px | Ancho de captura de las figuras del informe |
 
-Medidas fijas del chasis: barra lateral 240 px, cabecera 56 px, fila de tabla densa 36 px.
-
-**Los cuatro puntos de quiebre son aspiración, no comportamiento.** En toda la aplicación existen
-7 modificadores `sm:`, 7 `lg:` y 2 `xl:`, y `guia.vue` y `portal.vue` no tienen ninguno. Corregido
-el 11-ago-2026 tras medirlo: la versión anterior de este documento describía el colapso como si
-ocurriera.
+Medido a 375 px sobre `/guia`: desbordamiento horizontal **0**, barra lateral **56 px**, contenido
+**319 px**, y **cero** elementos desbordando fuera de un contenedor con scroll propio. Las cifras
+anteriores eran 112, 240, 135 y 148.
 
 ## Elevation & Depth
 
-Tres niveles, y ninguno es negro puro: la sombra se tiñe con `ink-strong` a baja opacidad.
-
-- **reposo** `0 1px 2px 0 rgb(15 23 42 / 0.06)` para tarjeta y tabla en reposo.
-- **elevado** `0 2px 6px -1px rgb(15 23 42 / 0.1)` para tarjeta con puntero encima y menú abierto.
-- **flotante** `0 8px 24px -6px rgb(15 23 42 / 0.18)` para diálogo, panel lateral y sugerencia.
+**Dos niveles, y solo donde comunican.** `menu` para lo que se abre encima, `dialogo` para lo que
+interrumpe. El mundo separa regiones con la retícula y con `ground-alt`, no con sombra: el sistema
+anterior declaraba tres niveles y la página medida usaba uno.
 
 ## Shapes
 
-Cuatro radios, asignados por función y no por gusto: 4 px chip e insignia · 6 px botón, campo y
-celda activa · 10 px tarjeta, panel y diálogo · 999 px avatar, punto de estado y botón circular.
+Radios de 2, 4 y 6 px, más el círculo completo para lo que es genuinamente redondo. El mundo está
+**dibujado, no moldeado**: las esquinas son ajustadas.
 
-El anillo de foco tiene **una sola definición**, en `frontend/app/utils/foco.ts`, con la cadena de
-clases literal para que el escáner de Tailwind la vea. Ningún `.vue` escribe una clase de contorno.
+El anillo de foco tiene **una sola definición**, en `app/utils/foco.ts`, con la cadena de clases
+literal para que el escáner de Tailwind la vea. Una prueba recorre todos los `.vue` y falla si
+alguno escribe su propio contorno; ya cazó una reincidencia durante este rediseño.
 
 ## Components
 
-- **Barra lateral** sobre `primary-700`, con las cuatro categorías del mapa de A3 y las nueve
-  facetas transversales como accesos cruzados.
-- **Franja de alcance** permanente: declara que el prototipo usa datos sintéticos y no está
-  conectado a sistemas reales. No se oculta ni se cierra.
-- **Selector de idioma** en las cuatro superficies de chasis. La interfaz es bilingüe con
-  estrategia sin prefijo: las URL no cambian.
-- **Tarjeta de llamada a herramienta**, cuatro estados en secuencia: anuncio, ejecución, resultado
-  con la fuente citada, error. El resultado aparece **antes** del texto generado.
-- **Tabla densa** con cabecera fija, fila alterna sobre `surface-alt`, cifras tabulares y
-  `aria-sort`.
-- **Los cuatro estados no felices** —vacío, cargando sin desplazamiento de maquetación, error y sin
-  permiso— son parte de cada pantalla. El estado «sin permiso» indica a quién pedir acceso y **no
-  ofrece reintento**.
+- **Barra lateral**: el mismo suelo que la página, separada por filete. El módulo activo se marca con
+  corriente y peso, nunca con un bloque de color. La versión anterior era una losa de 240 × 900 del
+  color de más contraste de la pantalla, y ganaba la primera lectura por delante del título.
+- **Cabecera**: selector de modo de tres estados —claro, oscuro y seguir al sistema— y selector de
+  idioma. Presente en las cuatro superficies de chasis.
+- **Tarjeta de indicador**: la cifra manda, sin borde, con una regla derivando hacia ella. Lleva su
+  etiqueta de método visible cuando es una proyección: honestidad de demostración.
+- **Cadena de llamada a herramienta**: cuatro nodos colgando de una regla, con la corriente subiendo
+  por la rampa. La consulta es visible en los cuatro momentos, y el que falla **no lleva ninguna
+  cifra**. Es la regla antialucinación hecha inspeccionable.
+- **Estado pendiente**: una pantalla cuyo contenido llega en una US posterior lo declara con sus
+  capacidades como nodos apagados y el identificador de la historia que las entrega.
+- **Los cuatro estados no felices** —vacío, cargando sin desplazamiento, error y sin permiso— son
+  parte de cada pantalla.
 
 ## Do's and Don'ts
 
-**Conservar**
+**Reglas del sistema, que la interfaz debe cumplir**
 
-- La fuente única y el `grep` que prueba que ningún color está escrito a mano.
-- La matriz de contraste calculada, no estimada. Ya evitó cuatro defectos impresos.
-- El vocabulario de tokens en español y los nombres congelados: renombrar rompe componentes.
-- Los once colores ancla, byte a byte.
+- El estado se lee por luminancia. El color lo refuerza y nunca lo sustituye.
+- Todo semántico viaja con forma e icono.
+- `corriente-apagado` y `grid` no informan nunca.
+- El peso construye jerarquía: 400, 500, 600.
+- La prosa no pasa de 68 caracteres por línea.
+- La barra lateral colapsa por debajo de 768 px.
 
-**Reemplazar. Diagnóstico del 11-ago-2026 sobre la interfaz renderizada**
+**Prohibido**
 
-- **El sistema es monocromo azul sin quererlo.** Marca, texto secundario, bordes de chip, bordes de
-  botón y barra lateral caen todos en la misma familia. Cuando todo es el color de marca, nada
-  destaca: eso es lo que se lee como apagado. Falta terreno neutro de verdad.
-- **La escala de nueve roles existe y la interfaz usa dos.** El título de pantalla es apenas mayor
-  que el cuerpo. La jerarquía está emitida en los tokens y no aplicada en las plantillas.
-- **Sopa de cajas.** Chip, tarjeta, botón y lámina comparten borde de 1 px y peso visual. Los tres
-  niveles de elevación están definidos y prácticamente sin usar.
-- **La navegación no usa ni un icono** habiendo 34 de Lucide empaquetados, y la marca es texto
-  plano sin ninguna forma gráfica.
-- **La causa raíz, y es de arquitectura, no de gusto:** la paleta se derivó de `uxdoc.sty`, una
-  hoja de estilo LaTeX pensada para tinta sobre papel. Optimizaba legibilidad impresa, no jerarquía
-  en pantalla. **La dirección de la cadena se invirtió el 11-ago-2026**: el sistema de diseño del
-  producto pasa a ser el origen y el generador exporta hacia LaTeX. La tesis de fuente única
-  sobrevive intacta; lo que cambia es quién manda.
+- Editar `main.css` o `tokens.generated.ts` a mano. Son generados y `make verificar` lo detecta.
+- Leer un token desde el módulo generado en un componente: se lee del store, que lo resuelve contra
+  el modo en pantalla.
+- Derivar el aspecto del portal de `uxdoc.sty`.
+- Scroll-hijack, marquesinas y animación decorativa. El modo es Operate: la animación se justifica
+  con jerarquía, retroalimentación o cambio de estado, o no entra.
+- Cualquier cifra en la interfaz sin procedencia visible.
 
-**Prohibido, y no por conservadurismo**
+**Deuda declarada, medida y no escondida**
 
-- Nada de scroll-hijack, marquesinas ni animación decorativa. El modo es Operate y en un portal
-  bancario el movimiento gratuito resta credibilidad. La animación se justifica con jerarquía,
-  retroalimentación o cambio de estado, o no entra.
-- Nunca editar `main.css` ni `tokens.generated.ts` a mano: son generados, y `make verificar` lo
-  detecta.
-- Ninguna cifra en la interfaz sin procedencia visible. Sin tarjeta de herramienta, no hay número.
+- **50 objetivos táctiles por debajo de 44 px a 375 px** en `/guia`. La superficie está pensada para
+  escritorio y las figuras del informe se capturan a 1440, pero es una deuda real de accesibilidad
+  móvil y no está resuelta.
+- La **capa de alias de US-001** sigue viva en el emisor. Ya no la usa ninguna pantalla ni ninguna
+  lámina; se retira cuando nada la referencie.
+- **Cobertura del frontend en 51.39 %** sobre un umbral de 50. Bajó al retirar 833 líneas de pruebas
+  que fijaban el marcado de láminas reescritas y dejar 133 de contrato.

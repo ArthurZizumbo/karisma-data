@@ -14,6 +14,13 @@
 SHELL := /bin/sh
 .SHELLFLAGS := -e -c
 
+# Si make se lanza desde PowerShell o cmd.exe, /bin/sh no esta en el PATH y GNU
+# Make se cae a cmd.exe: ahi "test -f" y "{ ... }" no son comandos y toda receta
+# muere con un error que no dice por que. Esta comprobacion lo dice.
+ifeq ($(shell echo $$$$),$$$$)
+$(error Este Makefile necesita un shell POSIX. En Windows abre Git Bash y vuelve a intentarlo: cd /c/Users/<usuario>/Proyectos/MNA/proyecto_ui && make <objetivo>)
+endif
+
 COMPOSE := docker compose
 ENV_BACKEND := backend/.env.local
 ENV_FRONTEND := frontend/.env.local

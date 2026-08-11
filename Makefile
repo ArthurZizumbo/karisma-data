@@ -2,24 +2,16 @@
 #  Karisma Data - unica puerta de entrada al entorno de desarrollo (US-001).
 #
 #  Requiere GNU Make y un shell POSIX. En Windows se ejecuta desde Git Bash:
-#  SHELL := /bin/sh es obligatorio porque, sin el, GNU Make lanzaria las
-#  recetas con cmd.exe y ninguna de ellas funcionaria (RU-01).
+#  # Este Makefile NO fija SHELL. Cada receta es un comando de una sola linea, de
+# modo que funciona igual con cmd.exe -el shell que GNU Make usa en Windows- que
+# con cualquier shell POSIX. La logica que necesita sh vive en scripts/*.sh y se
+# invoca explicitamente con bash, que es el patron que ya funciona en los otros
+# proyectos del equipo.
 #
-#  Ninguna receta evalua funciones de make que invoquen a un proceso externo
-#  en tiempo de parseo (CA-2b). Las variables de entorno se cargan DENTRO de
-#  la receta que las necesita, de modo que un .env.local ausente no rompe ni
-#  siquiera "make help".
-# ---------------------------------------------------------------------------
+# La version anterior fijaba SHELL := /bin/sh y las recetas llevaban dentro
+# guiones POSIX. Eso obligaba a lanzar make desde Git Bash y fallaba desde
+# PowerShell con "test no se reconoce como un comando", sin decir por que.
 
-SHELL := /bin/sh
-.SHELLFLAGS := -e -c
-
-# Si make se lanza desde PowerShell o cmd.exe, /bin/sh no esta en el PATH y GNU
-# Make se cae a cmd.exe: ahi "test -f" y "{ ... }" no son comandos y toda receta
-# muere con un error que no dice por que. Esta comprobacion lo dice.
-ifeq ($(shell echo $$$$),$$$$)
-$(error Este Makefile necesita un shell POSIX. En Windows abre Git Bash y vuelve a intentarlo: cd /c/Users/<usuario>/Proyectos/MNA/proyecto_ui && make <objetivo>)
-endif
 
 COMPOSE := docker compose
 ENV_BACKEND := backend/.env.local
@@ -35,15 +27,7 @@ ENV_FRONTEND := frontend/.env.local
 # ---------------------------------------------------------------------------
 
 help: ## Muestra esta ayuda
-	@echo "Karisma Data - objetivos disponibles"
-	@echo ""
-	@awk 'BEGIN { FS = ":.*## " } /^[a-zA-Z0-9_.-]+:.*## / { printf "  %-14s %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
-	@echo ""
-	@echo "Degradaciones vigentes (no son fallos sorpresa):"
-	@echo "  data       falla: el generador de silos sinteticos llega en US-006"
-	@echo ""
-	@echo "Cerradas en US-002: db-new, db-up y db-rollback quedaron verificados"
-	@echo "contra el PostgreSQL del compose, y check ya corre su secrets-scan."
+	@bash scripts/ayuda.sh
 
 # ---------------------------------------------------------------------------
 #  Entorno de desarrollo
@@ -63,8 +47,8 @@ dev: comprobar-env-backend comprobar-env-frontend ## Levanta db, api y web con D
 # lintearia con el set por defecto de ruff y backend/app con el del proyecto:
 # dos configuraciones distintas para el mismo repositorio.
 lint: ## ruff y mypy en backend/, eslint y typecheck en frontend/
-	@command -v poetry >/dev/null 2>&1 || { echo "Falta poetry en el PATH. Instalalo antes de correr make lint." >&2; exit 1; }
-	@command -v pnpm >/dev/null 2>&1 || { echo "Falta pnpm en el PATH. Instalalo antes de correr make lint." >&2; exit 1; }
+	@bash scripts/comprobar_requisitos.sh herramienta poetry
+	@bash scripts/comprobar_requisitos.sh herramienta pnpm
 	poetry -P backend run ruff check --config backend/pyproject.toml backend tests
 	poetry -P backend run ruff format --check --config backend/pyproject.toml backend tests
 	poetry -P backend run mypy --config-file backend/pyproject.toml backend/app tests
@@ -72,8 +56,8 @@ lint: ## ruff y mypy en backend/, eslint y typecheck en frontend/
 	pnpm --dir frontend typecheck
 
 test: ## pytest en tests/backend y vitest en frontend/
-	@command -v poetry >/dev/null 2>&1 || { echo "Falta poetry en el PATH. Instalalo antes de correr make test." >&2; exit 1; }
-	@command -v pnpm >/dev/null 2>&1 || { echo "Falta pnpm en el PATH. Instalalo antes de correr make test." >&2; exit 1; }
+	@bash scripts/comprobar_requisitos.sh herramienta poetry
+	@bash scripts/comprobar_requisitos.sh herramienta pnpm
 	poetry -P backend run pytest -c backend/pyproject.toml tests/backend
 	pnpm --dir frontend test
 
@@ -83,12 +67,7 @@ test: ## pytest en tests/backend y vitest en frontend/
 # pregunta es si lo que estas a punto de commitear lleva un secreto. El barrido
 # del historial es mas lento y solo tiene sentido en CI (US-004).
 check: lint ## lint mas secrets-scan. Obligatorio antes de abrir un PR
-	@command -v gitleaks >/dev/null 2>&1 || { \
-	    echo "secrets-scan NO ejecutado: gitleaks no esta en el PATH." >&2; \
-	    echo "Instalalo con: winget install --id Gitleaks.Gitleaks --exact" >&2; \
-	    echo "Si ya lo instalaste, abre una terminal nueva: winget modifica el PATH" >&2; \
-	    echo "persistido y un shell ya abierto conserva el anterior." >&2; \
-	    exit 1; }
+	@bash scripts/comprobar_requisitos.sh herramienta gitleaks
 	gitleaks dir . --config .gitleaks.toml --redact --no-banner --no-color
 	@echo ""
 	@echo "Comprobando que el escaneo detecta de verdad (CA-7b)..."
@@ -114,14 +93,11 @@ verificar: ## Comprueba pines, secretos, reproducibilidad y tokens de diseno
 # ---------------------------------------------------------------------------
 
 tokens: ## Regenera los tokens de diseno (@theme, paleta tipada, laminas y manifiesto)
-	@command -v poetry >/dev/null 2>&1 || { echo "Falta poetry en el PATH. Instalalo antes de correr make tokens." >&2; exit 1; }
+	@bash scripts/comprobar_requisitos.sh herramienta poetry
 	poetry -P backend run python docs/entregables/generar_tokens_a4.py
 
 data: ## DEGRADADO hasta US-006: genera los silos sinteticos con semilla fija
-	@echo "make data todavia no genera nada." >&2
-	@echo "El generador de silos sinteticos (ml/data/generators.py, semilla fija) se entrega en US-006." >&2
-	@echo "data/silos/ sigue vacio a proposito: ninguna capa de US-001 depende de datos generados." >&2
-	@exit 1
+	@bash scripts/degradado_data.sh
 
 # ---------------------------------------------------------------------------
 #  Esquema de base de datos - unica via de cambio: dbmate
@@ -136,33 +112,21 @@ data: ## DEGRADADO hasta US-006: genera los silos sinteticos con semilla fija
 # ---------------------------------------------------------------------------
 
 db-new: comprobar-env-backend ## Crea una migracion. Uso: make db-new SLUG=create_catalog
-	@test -n "$(SLUG)" || { echo "Falta SLUG. Uso: make db-new SLUG=create_catalog" >&2; exit 1; }
-	@set -a; . ./$(ENV_BACKEND); set +a; \
-	    export DATABASE_URL="$${DBMATE_URL:-$$DATABASE_URL}"; \
-	    $(COMPOSE) run --rm -e DATABASE_URL dbmate new "$(SLUG)"
+	@bash scripts/comprobar_requisitos.sh slug "$(SLUG)"
+	@bash scripts/dbmate.sh new "$(SLUG)"
 
 db-up: comprobar-env-backend ## Aplica las migraciones pendientes y regenera db/schema.sql
-	@set -a; . ./$(ENV_BACKEND); set +a; \
-	    export DATABASE_URL="$${DBMATE_URL:-$$DATABASE_URL}"; \
-	    $(COMPOSE) run --rm -e DATABASE_URL dbmate --wait up
+	@bash scripts/dbmate.sh --wait up
 
 db-rollback: comprobar-env-backend ## Revierte la ultima migracion aplicada
-	@set -a; . ./$(ENV_BACKEND); set +a; \
-	    export DATABASE_URL="$${DBMATE_URL:-$$DATABASE_URL}"; \
-	    $(COMPOSE) run --rm -e DATABASE_URL dbmate rollback
+	@bash scripts/dbmate.sh rollback
 
 # ---------------------------------------------------------------------------
 #  Comprobaciones internas
 # ---------------------------------------------------------------------------
 
 comprobar-env-backend:
-	@test -f $(ENV_BACKEND) || { \
-	    echo "Falta $(ENV_BACKEND)." >&2; \
-	    echo "Crealo a partir de la plantilla: cp backend/.env.example $(ENV_BACKEND)" >&2; \
-	    exit 1; }
+	@bash scripts/comprobar_requisitos.sh entorno $(ENV_BACKEND)
 
 comprobar-env-frontend:
-	@test -f $(ENV_FRONTEND) || { \
-	    echo "Falta $(ENV_FRONTEND)." >&2; \
-	    echo "Crealo a partir de la plantilla: cp frontend/.env.example $(ENV_FRONTEND)" >&2; \
-	    exit 1; }
+	@bash scripts/comprobar_requisitos.sh entorno $(ENV_FRONTEND)

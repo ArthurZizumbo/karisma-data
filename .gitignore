@@ -108,6 +108,13 @@ node_modules/
 #  no se versionan. El README que documenta el esquema y las anomalías sí.
 # ---------------------------------------------------------------------------
 data/silos/
+# El sidecar del agregado es .json: *.parquet no lo cubre y sin esta linea
+# serie_tablero_meta.json acabaria commiteado por accidente (US-006, R11).
+data/aggregates/
+# Salidas transitorias: .smoke la escribe "--scale smoke" y .verificacion la
+# corrida de control de scripts/verificar_datos.sh. Sus parquet ya estan
+# tapados; sus README y manifiestos, sin esta linea, no.
+data/.*/
 data/exports/
 *.parquet
 *.duckdb

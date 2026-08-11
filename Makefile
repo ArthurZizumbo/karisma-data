@@ -46,19 +46,37 @@ dev: comprobar-env-backend comprobar-env-frontend ## Levanta db, api y web con D
 # que esta en un directorio hermano del objetivo. Sin la bandera, tests/ se
 # lintearia con el set por defecto de ruff y backend/app con el del proyecto:
 # dos configuraciones distintas para el mismo repositorio.
+#
+# La comprobacion de tipos va en dos invocaciones y no en una: tests/backend y
+# tests/ml tienen cada uno su conftest.py, ninguno de los dos directorios es un
+# paquete -no hay __init__.py a proposito, porque anadirlo cambiaria el nombre
+# de modulo que pytest calcula para todo el directorio- y mypy resuelve los dos
+# archivos al mismo modulo "conftest" y aborta con "Duplicate module named".
+# Las alternativas que documenta mypy son peores aqui: --explicit-package-bases
+# renombra los modulos de las pruebas y rompe el "from conftest import ..." de
+# tests/backend, que es de US-002 y no se toca. El primer comando conserva
+# "tests" entero -asi un directorio de pruebas nuevo queda cubierto sin editar
+# esta linea- y solo aparta el subarbol del segundo.
+#
+# scripts/ entra en los tres objetivos desde US-015: scripts/generar_hashes_demo.py
+# produce los hashes argon2id que siembra una migracion, y una herramienta que
+# escribe credenciales en el esquema no puede quedarse fuera de la puerta de
+# calidad. Los .sh del mismo directorio no los toca ninguna de las dos: ruff y
+# mypy solo miran archivos .py.
 lint: ## ruff y mypy en backend/, eslint y typecheck en frontend/
 	@bash scripts/comprobar_requisitos.sh herramienta poetry
 	@bash scripts/comprobar_requisitos.sh herramienta pnpm
-	poetry -P backend run ruff check --config backend/pyproject.toml backend tests
-	poetry -P backend run ruff format --check --config backend/pyproject.toml backend tests
-	poetry -P backend run mypy --config-file backend/pyproject.toml backend/app tests
+	poetry -P backend run ruff check --config backend/pyproject.toml backend ml scripts tests
+	poetry -P backend run ruff format --check --config backend/pyproject.toml backend ml scripts tests
+	poetry -P backend run mypy --config-file backend/pyproject.toml --exclude '^tests/ml/' backend/app scripts tests
+	poetry -P backend run mypy --config-file backend/pyproject.toml ml tests/ml
 	pnpm --dir frontend lint
 	pnpm --dir frontend typecheck
 
 test: ## pytest en tests/backend y vitest en frontend/
 	@bash scripts/comprobar_requisitos.sh herramienta poetry
 	@bash scripts/comprobar_requisitos.sh herramienta pnpm
-	poetry -P backend run pytest -c backend/pyproject.toml tests/backend
+	poetry -P backend run pytest -c backend/pyproject.toml tests/backend tests/ml
 	pnpm --dir frontend test
 
 # El subcomando es "dir" y no "detect": gitleaks 8.30 retiro detect y lo separo
@@ -73,11 +91,12 @@ check: lint ## lint mas secrets-scan. Obligatorio antes de abrir un PR
 	@echo "Comprobando que el escaneo detecta de verdad (CA-7b)..."
 	bash scripts/verificar_gitleaks.sh
 
-verificar: ## Comprueba pines, secretos, reproducibilidad y tokens de diseno
+verificar: ## Comprueba pines, secretos, reproducibilidad, tokens y datos
 	sh scripts/verificar_pines.sh
 	sh scripts/verificar_gitleaks.sh
 	sh scripts/verificar_reproducibilidad.sh
 	sh scripts/verificar_tokens_a4.sh
+	sh scripts/verificar_datos.sh
 
 # ---------------------------------------------------------------------------
 #  Datos sinteticos
@@ -96,8 +115,12 @@ tokens: ## Regenera los tokens de diseno (@theme, paleta tipada, laminas y manif
 	@bash scripts/comprobar_requisitos.sh herramienta poetry
 	poetry -P backend run python docs/entregables/generar_tokens_a4.py
 
-data: ## DEGRADADO hasta US-006: genera los silos sinteticos con semilla fija
-	@bash scripts/degradado_data.sh
+data: ## Genera los silos sinteticos y la serie preagregada (semilla fija 20260720)
+	@bash scripts/comprobar_requisitos.sh herramienta poetry
+	poetry -P backend run python -m ml.data.generators --out data
+	@echo ""
+	@echo "Silos en data/silos/, serie preagregada en data/aggregates/."
+	@echo "Resumen legible, esquemas y anomalias: data/README.md"
 
 # ---------------------------------------------------------------------------
 #  Esquema de base de datos - unica via de cambio: dbmate

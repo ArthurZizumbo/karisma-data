@@ -9,5 +9,5 @@ echo "Karisma Data - objetivos disponibles"
 echo ""
 awk 'BEGIN { FS = ":.*## " } /^[a-zA-Z0-9_.-]+:.*## / { printf "  %-14s %s\n", $1, $2 }' Makefile
 echo ""
-echo "Degradaciones vigentes (no son fallos sorpresa):"
-echo "  data       falla: el generador de silos sinteticos llega en US-006"
+echo "data/ no se versiona: los silos se regeneran con semilla fija. Sin"
+echo "'make data' el explorador y el tablero no tienen nada que mostrar."

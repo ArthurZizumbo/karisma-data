@@ -9,9 +9,12 @@ dependencies = [
     "uvicorn[standard] (>=0.52.1,<0.53.0)",
     "pydantic-settings (>=2.15.0,<3.0.0)",
     "structlog (>=26.1.0,<27.0.0)",
-    "polars (>=1,<2)",
-    "numpy (>=2,<3)",
-    "faker (>=40,<41)",
+    # Pin exacto y no rango: la reproducibilidad byte a byte de los Parquet de
+    # US-006 depende del escritor. Un caret convertiria "reproduce byte a byte"
+    # en "hasta que alguien corra poetry update". Polars vive en el grupo
+    # principal porque el endpoint de la serie preagregada lo necesita dentro
+    # de la imagen, que se construye con "poetry export --only main".
+    "polars (==1.43.2)",
     "pyjwt (>=2.11,<3.0)",
     "pwdlib[argon2] (>=0.3,<0.4)",
     "sqlmodel (>=0.0.28,<0.0.29)",
@@ -20,6 +23,14 @@ dependencies = [
 ]
 
 [dependency-groups]
+# Insumos del generador de datos sinteticos (US-006). Grupo propio y no "dev"
+# porque no son herramientas de quien programa sino insumos de un artefacto
+# entregable, y porque "poetry export --only main" tiene que dejarlos fuera de
+# la imagen: el generador nunca corre dentro del contenedor api.
+data = [
+    "numpy (==2.5.2)",
+    "faker (==40.36.0)",
+]
 dev = [
     "pytest (>=9.1.1,<10.0.0)",
     "pytest-asyncio (>=1.4.0,<2.0.0)",
@@ -47,8 +58,16 @@ build-backend = "poetry.core.masonry.api"
 #   mypy --config-file backend/pyproject.toml backend/app
 [tool.pytest.ini_options]
 minversion = "9.0"
-pythonpath = ["."]
-addopts = "-ra --strict-markers --cov=backend/app --cov-report=term-missing --cov-fail-under=70"
+# Las rutas de pythonpath se resuelven contra el rootdir, y "-c
+# backend/pyproject.toml" fija el rootdir en <repo>/backend: "." es backend/ y
+# ".." es la raiz del repositorio, que es por donde entra el paquete ml. La
+# alternativa -un tests/ml/conftest.py con su propio bootstrap de sys.path-
+# esta descartada: pytest calcula el nombre de modulo de un conftest.py por su
+# basename cuando el directorio no es paquete, asi que dos archivos con ese
+# nombre colisionan y el "from conftest import MINIMAL_ENV" de
+# tests/backend/test_config.py acaba resolviendo al conftest equivocado.
+pythonpath = [".", ".."]
+addopts = "-ra --strict-markers --cov=backend/app --cov=ml --cov-report=term-missing --cov-fail-under=70"
 asyncio_mode = "strict"
 asyncio_default_fixture_loop_scope = "function"
 
@@ -57,7 +76,13 @@ branch = true
 
 [tool.coverage.report]
 show_missing = true
-exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    # El guardian de ml/data/generators.py: su cuerpo es una linea de
+    # despacho hacia main(), que si esta cubierta por las pruebas.
+    'if __name__ == "__main__":',
+]
 
 # line-length stays at the ruff default (88) on purpose: tests/backend/ sits
 # outside this file's directory, so a config-less `ruff format --check` would
@@ -65,10 +90,16 @@ exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
 [tool.ruff]
 line-length = 88
 target-version = "py312"
-src = ["backend", "tests"]
+src = ["backend", "ml", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "S", "ANN", "D", "RUF"]
+
+# El paquete ml vive en la raiz del repositorio y no dentro de ninguna de las
+# entradas de src, asi que sin esta declaracion isort lo ordena como si fuera
+# una dependencia de terceros y "ruff check" y "ruff format" se contradicen.
+[tool.ruff.lint.isort]
+known-first-party = ["ml"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

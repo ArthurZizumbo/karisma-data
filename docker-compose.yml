@@ -69,6 +69,11 @@ services:
       # del host -binarios de otra arquitectura- puede pisar las dependencias
       # instaladas dentro de la imagen.
       - /app/.venv
+      # US-006: los silos y la serie preagregada NO entran a la imagen -el
+      # Dockerfile hace COPY app ./app y nada mas-, asi que el contenedor solo
+      # los alcanza por este montaje. En solo lectura: los genera "make data"
+      # en el host con semilla fija y ningun proceso del api debe escribirlos.
+      - ./data:/app/data:ro
     depends_on:
       db:
         condition: service_healthy

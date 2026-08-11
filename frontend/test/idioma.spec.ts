@@ -50,15 +50,30 @@ describe('los dos catálogos son intercambiables', () => {
     }
   })
 
-  it('traduce de verdad: solo dos mensajes coinciden en los dos idiomas', () => {
+  /**
+   * A value that is an identifier rather than prose.
+   *
+   * A dotted module path or an all-caps system code is what the reader types,
+   * so translating it would be a defect: `smq.saldo_consolidado` has no English
+   * spelling. The shape is checked mechanically instead of enumerating names,
+   * because a growing allowlist eventually stops being a check; prose can never
+   * satisfy this pattern.
+   */
+  function esIdentificador(valor: string): boolean {
+    return /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/.test(valor) || /^[A-Z][A-Z0-9-]{2,}$/.test(valor)
+  }
+
+  it('traduce de verdad: solo lo intraducible coincide en los dos idiomas', () => {
     // The failure mode this catches is the cheap one: copying es.json over
     // en.json to make the build pass and leaving the Spanish text in place.
     //
-    // The two exceptions are deliberate and enumerated so that a third one has
-    // to be argued: 'Karisma Data' is a proper name and does not translate, and
-    // 'Error {code}' is spelled the same way in both languages.
+    // Two exceptions are enumerated because they are neither identifiers nor
+    // translatable: 'Karisma Data' is a proper name, and 'Error {code}' is
+    // spelled the same way in both languages.
     const identicas = clavesDe('es').filter(
-      clave => mensaje('es', clave) === mensaje('en', clave),
+      clave =>
+        mensaje('es', clave) === mensaje('en', clave)
+        && !esIdentificador(mensaje('es', clave)),
     )
 
     expect(identicas).toEqual(['brand.name', 'error.code'])

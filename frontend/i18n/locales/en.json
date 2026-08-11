@@ -217,7 +217,8 @@
       "tables": "Tables",
       "cards": "Cards",
       "icons": "Iconography",
-      "accessibility": "Contrast and accessibility"
+      "accessibility": "Contrast and accessibility",
+      "lineage": "Data lineage"
     },
     "palette": {
       "description": "Four families of five steps, seven neutrals, four semantic tokens and six chart series colours. The hexadecimal you read is the one the generator emitted: not a single one is typed here.",
@@ -461,6 +462,60 @@
     "mode": {
       "claro": "light mode",
       "oscuro": "dark mode"
+    },
+    "lineage": {
+      "description": "Each hop states where the figure came from, what was done to it, who answers for it and how long it stays valid. The final figure never appears without its source.",
+      "owner": "Owner",
+      "validity": "Valid until",
+      "hop": {
+        "origen": {
+          "title": "Source system",
+          "system": "SIC-BANXICO · daily position",
+          "transform": "Untransformed. The figure as the source publishes it.",
+          "owner": "Treasury",
+          "validity": "31 Jul 2026"
+        },
+        "ingesta": {
+          "title": "Ingestion",
+          "system": "karisma.silos.liquidez",
+          "transform": "Currency conversion at close and cancelled positions dropped.",
+          "owner": "Data platform",
+          "validity": "31 Jul 2026"
+        },
+        "transformacion": {
+          "title": "Semantic layer",
+          "system": "smq.saldo_consolidado",
+          "transform": "Summed by business unit, memorandum accounts excluded.",
+          "owner": "Data governance",
+          "validity": "31 Jul 2026"
+        },
+        "publicacion": {
+          "title": "Published figure",
+          "system": "tablero.saldo_consolidado",
+          "transform": "Untransformed. This is what the screen shows.",
+          "owner": "Treasury",
+          "validity": "31 Jul 2026"
+        }
+      },
+      "figure": {
+        "label": "Consolidated balance",
+        "source": "Source: SIC-BANXICO via smq.saldo_consolidado"
+      },
+      "conflict": {
+        "title": "When two systems disagree",
+        "canonical": {
+          "system": "SIC-BANXICO",
+          "value": "12,405,780.40",
+          "verdict": "canonical"
+        },
+        "divergent": {
+          "system": "Local accounting close",
+          "value": "12,405,612.05",
+          "verdict": "differs by 168.35"
+        },
+        "rule": "The canonical source is always named. Staying silent about the discrepancy is what sends the reader back to email, which is exactly the problem this portal exists to remove."
+      },
+      "rationale": "This plate exists because the design review flagged that \"View lineage\" was a button label with nothing specified behind it. A system documenting five status chips and no way to defend a figure fails the profile whose job is to answer for it."
     }
   }
 }

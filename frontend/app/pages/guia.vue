@@ -20,6 +20,7 @@ import { useI18n } from 'vue-i18n'
 import LaminaBotones from '~/components/guia/LaminaBotones.vue'
 import LaminaCampos from '~/components/guia/LaminaCampos.vue'
 import LaminaIconos from '~/components/guia/LaminaIconos.vue'
+import LaminaLinaje from '~/components/guia/LaminaLinaje.vue'
 import LaminaPaleta from '~/components/guia/LaminaPaleta.vue'
 import LaminaTablas from '~/components/guia/LaminaTablas.vue'
 import LaminaTarjetas from '~/components/guia/LaminaTarjetas.vue'
@@ -42,6 +43,7 @@ const LAMINAS = Object.freeze([
   { id: 'tablas', clave: 'guide.plate.tables' },
   { id: 'tarjetas', clave: 'guide.plate.cards' },
   { id: 'iconos', clave: 'guide.plate.icons' },
+  { id: 'linaje', clave: 'guide.plate.lineage' },
   { id: 'accesibilidad', clave: 'guide.plate.accessibility' },
 ])
 </script>
@@ -81,6 +83,7 @@ const LAMINAS = Object.freeze([
     <LaminaTablas id="lamina-tablas" />
     <LaminaTarjetas id="lamina-tarjetas" />
     <LaminaIconos id="lamina-iconos" />
+    <LaminaLinaje id="lamina-linaje" />
 
     <!--
       Eighth plate. It documents the generator itself, so it stays in the page:

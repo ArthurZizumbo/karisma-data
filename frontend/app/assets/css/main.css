@@ -107,7 +107,7 @@
   --grid-gap: 16px;  /* Canal entre columnas de la reticula de 12. */
   --panel-padding: 24px;  /* Relleno interno de panel. El sistema anterior usaba 12 sobre 1137 de ancho. */
   --table-row-height: 34px;  /* Alto de fila de tabla densa. */
-  --medida-maxima: 68;  /* Caracteres por linea maximos en prosa. Lo medido antes llegaba a 179. */
+  --medida-maxima: 68ch;  /* Caracteres por linea maximos en prosa. Lo medido antes llegaba a 179. */
 }
 
 /* Modo oscuro. Por omision manda el sistema operativo; el lector puede
@@ -173,6 +173,22 @@
 
     --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
     --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
+}
+
+/*
+ * Medida de linea.
+ *
+ * El token --medida-maxima existia y 15 de 26 parrafos largos lo
+ * excedian, el peor a 205 caracteres: declarado y no aplicado, que es el
+ * mismo defecto que el punto de quiebre que nunca colapso. La regla vive
+ * en el sistema para que el siguiente parrafo no vuelva a escaparse.
+ *
+ * Se excluye lo que no es prosa: una celda de tabla, una etiqueta y un
+ * bloque de codigo se leen de un vistazo y limitarlos los romperia.
+ */
+p:not([class*='max-w']):not(td p):not(th p),
+li:not([class*='max-w']):not(nav li):not(ul[class*='grid'] li) {
+  max-width: var(--medida-maxima);
 }
 
 /*

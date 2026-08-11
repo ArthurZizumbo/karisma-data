@@ -291,7 +291,7 @@ Las tres quedaron resueltas y no diferidas:
 - **Capa de alias de US-001.** Retirada. Cero usos en la aplicación y el emisor ya no la escribe. El
   suelo de la prueba de contrato estaba calibrado contra los 37 alias y se recalibró contra los 17
   tokens reales: sigue detectando un escaneo vacío y ya no mide andamiaje.
-- **Cobertura del frontend: 81.79 %**, desde 51.39 %. No se subió con relleno. Cada prueba nueva
+- **Cobertura del frontend: 77.32 %**, desde 51.39 %. No se subió con relleno. Cada prueba nueva
   corresponde a una promesa del sistema que se degradaría en silencio: que ningún hexadecimal de la
   guía esté tecleado, que cada chip semántico lleve forma propia, que el orden de tabla se anuncie
   con `aria-sort`, que el momento fallido de una llamada a herramienta no devuelva ninguna cifra, y
@@ -300,3 +300,29 @@ Las tres quedaron resueltas y no diferidas:
 Dos de esas pruebas encontraron defectos al escribirse: una aserción que recorría un bucle sin usar
 su variable, y otra que buscaba dígitos en toda la tarjeta cuando la consulta lleva una fecha, de
 modo que medía algo distinto de lo que su nombre prometía.
+
+## Segunda pasada de cierre
+
+Al preguntar si el rediseño había cerrado todo lo que las dos skills detectaron, la respuesta
+honesta era que no. Tres cosas seguían abiertas y quedan resueltas:
+
+- **Medida de línea: declarada y no aplicada.** El token `--medida-maxima` existía y 15 de 26
+  párrafos largos lo excedían, el peor a 205 caracteres, con `max-width: none`. Era el mismo defecto
+  que el punto de quiebre que nunca colapsaba. La regla la emite el sistema, en `ch` y no en píxeles,
+  y excluye lo que no es prosa: una celda, una etiqueta y un bloque de código se leen de un vistazo.
+  El peor caso pasó de 205 a 76.
+- **Lámina de linaje.** La bandera roja que la revisión llamó la más grave del documento: «Ver
+  linaje» era un rótulo de botón sin nada especificado detrás, y el perfil cuyo trabajo es responder
+  por una cifra recibía cinco chips de estado y ninguna manera de defenderla. Ahora la cadena se
+  dibuja como lo que es: cada salto con su sistema de origen, su transformación, su responsable y su
+  vigencia; la cifra publicada junto a su fuente y nunca sola; y el caso de dos sistemas que
+  discrepan, con la fuente canónica nombrada. Callar la discrepancia es lo que devuelve al lector al
+  correo.
+- **Una afirmación mía que era falsa.** El mensaje de un commit decía que cada campo llevaba su
+  propio texto de ayuda. La realidad es que solo uno lo lleva: lo que se quitó fue la cadena
+  compartida que mentía bajo tres campos distintos, que no es lo mismo que lo que escribí.
+
+La prueba de paridad de idiomas cazó las cadenas nuevas de la lámina. Cuatro eran identificadores
+—dos rutas de módulo, un nombre de tabla y el sistema del banco central— y traducirlos habría sido
+el defecto, porque son lo que el lector teclea. La prueba reconoce ahora esa forma de manera
+mecánica en vez de crecer una lista blanca, que es como un control deja de controlar.

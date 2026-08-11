@@ -119,7 +119,7 @@ def emitir_css() -> str:
         out.append(f"  --breakpoint-{nombre}: {px}px;  /* {uso} */")
     out.append("")
     for nombre, px, uso in DENSIDAD:
-        unidad = "" if nombre == "medida-maxima" else "px"
+        unidad = "ch" if nombre == "medida-maxima" else "px"
         out.append(f"  --{nombre}: {px}{unidad};  /* {uso} */")
     out.append("}")
     out.append("")
@@ -144,6 +144,28 @@ def emitir_css() -> str:
     out.append(':root[data-theme="oscuro"] {')
     out += oscuro
     out += sombras_oscuras
+    out.append("}")
+    out.append("")
+    out.append("/*")
+    out.append(" * Medida de linea.")
+    out.append(" *")
+    out.append(" * El token --medida-maxima existia y 15 de 26 parrafos largos lo")
+    out.append(
+        " * excedian, el peor a 205 caracteres: declarado y no aplicado, que es el"
+    )
+    out.append(
+        " * mismo defecto que el punto de quiebre que nunca colapso. La regla vive"
+    )
+    out.append(" * en el sistema para que el siguiente parrafo no vuelva a escaparse.")
+    out.append(" *")
+    out.append(
+        " * Se excluye lo que no es prosa: una celda de tabla, una etiqueta y un"
+    )
+    out.append(" * bloque de codigo se leen de un vistazo y limitarlos los romperia.")
+    out.append(" */")
+    out.append("p:not([class*='max-w']):not(td p):not(th p),")
+    out.append("li:not([class*='max-w']):not(nav li):not(ul[class*='grid'] li) {")
+    out.append("  max-width: var(--medida-maxima);")
     out.append("}")
     out.append("")
     out.append("/*")

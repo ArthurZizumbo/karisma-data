@@ -217,7 +217,8 @@
       "tables": "Tablas",
       "cards": "Tarjetas",
       "icons": "Iconografía",
-      "accessibility": "Contraste y accesibilidad"
+      "accessibility": "Contraste y accesibilidad",
+      "lineage": "Linaje del dato"
     },
     "palette": {
       "description": "Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie. El hexadecimal que se lee es el que el generador emitió: aquí no hay ninguno escrito a mano.",
@@ -461,6 +462,60 @@
     "mode": {
       "claro": "modo claro",
       "oscuro": "modo oscuro"
+    },
+    "lineage": {
+      "description": "Cada salto declara de dónde viene el dato, qué se le hizo, quién responde por él y hasta cuándo es válido. La cifra final no aparece sin su fuente.",
+      "owner": "Responsable",
+      "validity": "Vigencia",
+      "hop": {
+        "origen": {
+          "title": "Sistema de origen",
+          "system": "SIC-BANXICO · posición diaria",
+          "transform": "Sin transformar. Es el dato tal como lo publica la fuente.",
+          "owner": "Tesorería",
+          "validity": "31-jul-2026"
+        },
+        "ingesta": {
+          "title": "Ingesta",
+          "system": "karisma.silos.liquidez",
+          "transform": "Conversión de divisa al cierre y descarte de posiciones canceladas.",
+          "owner": "Plataforma de datos",
+          "validity": "31-jul-2026"
+        },
+        "transformacion": {
+          "title": "Capa semántica",
+          "system": "smq.saldo_consolidado",
+          "transform": "Suma por unidad de negocio, con las cuentas de orden excluidas.",
+          "owner": "Gobierno del dato",
+          "validity": "31-jul-2026"
+        },
+        "publicacion": {
+          "title": "Cifra publicada",
+          "system": "tablero.saldo_consolidado",
+          "transform": "Sin transformar. Es lo que la pantalla muestra.",
+          "owner": "Tesorería",
+          "validity": "31-jul-2026"
+        }
+      },
+      "figure": {
+        "label": "Saldo consolidado",
+        "source": "Fuente: SIC-BANXICO vía smq.saldo_consolidado"
+      },
+      "conflict": {
+        "title": "Cuando dos sistemas no coinciden",
+        "canonical": {
+          "system": "SIC-BANXICO",
+          "value": "12 405 780.40",
+          "verdict": "canónica"
+        },
+        "divergent": {
+          "system": "Cierre contable local",
+          "value": "12 405 612.05",
+          "verdict": "diverge en 168.35"
+        },
+        "rule": "La fuente canónica se nombra siempre. Callar la discrepancia es lo que devuelve al lector al correo, que es exactamente el problema que este portal existe para quitar."
+      },
+      "rationale": "Esta lámina existe porque la revisión de diseño señaló que «Ver linaje» era un rótulo de botón sin nada especificado detrás. Un sistema que documenta cinco chips de estado y ninguna manera de defender una cifra no sirve al perfil cuyo trabajo es responder por ella."
     }
   }
 }

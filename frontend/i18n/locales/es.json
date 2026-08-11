@@ -104,28 +104,80 @@
       "subtitle": "Siete pantallas del mapa de sitio de la Actividad 3. Cada botón declara su alcance y su perfil."
     },
     "access": {
-      "description": "Contendrá el formulario de entrada con usuario y contraseña, y llevará a cada perfil a su pantalla inicial."
+      "description": "Contendrá el formulario de entrada con usuario y contraseña, y llevará a cada perfil a su pantalla inicial.",
+      "capability": {
+        "login": "Entrada con usuario y contrasena",
+        "demo": "Selector de perfil de demostracion",
+        "roles": "Los cuatro roles del portal",
+        "session": "Sesion en cookie httpOnly con re-entrada limpia"
+      }
     },
     "home": {
-      "description": "Contendrá el buscador unificado, las búsquedas recientes, los favoritos, mis alertas y mi perfil."
+      "description": "Contendrá el buscador unificado, las búsquedas recientes, los favoritos, mis alertas y mi perfil.",
+      "capability": {
+        "search": "Buscador unificado",
+        "recent": "Busquedas recientes",
+        "favorites": "Favoritos",
+        "alerts": "Mis alertas"
+      }
     },
     "explore": {
-      "description": "Contendrá el catálogo temático y la consulta con filtros facetados sobre las fuentes del portal."
+      "description": "Contendrá el catálogo temático y la consulta con filtros facetados sobre las fuentes del portal.",
+      "capability": {
+        "catalog": "Catalogo tematico de fuentes",
+        "facets": "Consulta con filtros facetados",
+        "metadata": "Panel de metadatos con propietario y vigencia",
+        "tribal": "Notas de conocimiento tribal"
+      }
     },
     "exports": {
-      "description": "Contendrá la exportación a CSV y Excel en segundo plano junto con el historial de exportaciones."
+      "description": "Contendrá la exportación a CSV y Excel en segundo plano junto con el historial de exportaciones.",
+      "capability": {
+        "request": "Solicitud que devuelve identificador de inmediato",
+        "progress": "Trabajo en curso consultable desde cualquier pantalla",
+        "link": "Enlace firmado con caducidad de 24 horas",
+        "history": "Historial de exportaciones"
+      }
     },
     "dashboards": {
-      "description": "Contendrá el tablero ejecutivo, los indicadores de riesgo y las señales de riesgo, dentro de la misma pantalla de exploración."
+      "description": "Contendrá el tablero ejecutivo, los indicadores de riesgo y las señales de riesgo, dentro de la misma pantalla de exploración.",
+      "capability": {
+        "series": "Serie de 500 000 puntos preagregados",
+        "drill": "Drill-down de tres niveles en dos clics",
+        "table": "Alternativa en tabla de toda grafica",
+        "summary": "Resumen textual para lector de pantalla"
+      }
     },
     "governance": {
-      "description": "Contendrá el diccionario y los metadatos, el linaje y la calidad del dato, y el catálogo de fuentes."
+      "description": "Contendrá el diccionario y los metadatos, el linaje y la calidad del dato, y el catálogo de fuentes.",
+      "capability": {
+        "dictionary": "Diccionario de datos y metadatos",
+        "lineage": "Overlay de linaje desde el sistema de origen",
+        "owner": "Propietario del dato y fecha de vigencia",
+        "quality": "Calidad del dato y anomalias detectadas"
+      }
     },
     "administration": {
-      "description": "Contendrá usuarios, roles y permisos, las solicitudes y aprobaciones, la bitácora de accesos y las integraciones."
+      "description": "Contendrá usuarios, roles y permisos, las solicitudes y aprobaciones, la bitácora de accesos y las integraciones.",
+      "capability": {
+        "list": "Listado de usuarios con su rol y su estado",
+        "role": "Cambio de rol",
+        "disable": "Desactivacion por borrado logico",
+        "audit": "Bitacora de accesos"
+      }
     },
     "assistant": {
-      "description": "Contendrá la conversación con el agente, las tarjetas de cada consulta que ejecuta y el detalle de linaje de la respuesta."
+      "description": "Contendrá la conversación con el agente, las tarjetas de cada consulta que ejecuta y el detalle de linaje de la respuesta.",
+      "capability": {
+        "stream": "Respuesta que se forma en vivo, con Detener real",
+        "toolcards": "Tarjetas de llamada a herramienta en sus cuatro estados",
+        "stop": "Cancelacion que no deja tareas colgadas",
+        "typedError": "Error tipado que dice que paso fallo"
+      }
+    },
+    "pending": {
+      "heading": "Contenido de {us}",
+      "note": "Cada nodo se enciende cuando su historia de usuario entra. Esta pantalla es navegable y su contenido esta declarado, no supuesto."
     }
   },
   "error": {

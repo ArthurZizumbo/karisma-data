@@ -104,28 +104,80 @@
       "subtitle": "Seven screens of the Activity 3 site map. Every button states its scope and its profile."
     },
     "access": {
-      "description": "Will hold the sign-in form with user name and password, and will take each profile to its landing screen."
+      "description": "Will hold the sign-in form with user name and password, and will take each profile to its landing screen.",
+      "capability": {
+        "login": "Sign in with username and password",
+        "demo": "Demonstration profile selector",
+        "roles": "The four roles of the portal",
+        "session": "httpOnly cookie session with clean re-entry"
+      }
     },
     "home": {
-      "description": "Will hold the unified search, recent searches, favorites, my alerts and my profile."
+      "description": "Will hold the unified search, recent searches, favorites, my alerts and my profile.",
+      "capability": {
+        "search": "Unified search",
+        "recent": "Recent searches",
+        "favorites": "Favourites",
+        "alerts": "My alerts"
+      }
     },
     "explore": {
-      "description": "Will hold the subject catalog and the faceted filter query over the sources of the portal."
+      "description": "Will hold the subject catalog and the faceted filter query over the sources of the portal.",
+      "capability": {
+        "catalog": "Thematic catalogue of sources",
+        "facets": "Query with faceted filters",
+        "metadata": "Metadata panel with owner and validity",
+        "tribal": "Tribal knowledge notes"
+      }
     },
     "exports": {
-      "description": "Will hold the background export to CSV and Excel together with the export history."
+      "description": "Will hold the background export to CSV and Excel together with the export history.",
+      "capability": {
+        "request": "Request returning an identifier immediately",
+        "progress": "Job status readable from any screen",
+        "link": "Signed link expiring in 24 hours",
+        "history": "Export history"
+      }
     },
     "dashboards": {
-      "description": "Will hold the executive dashboard, the risk indicators and the risk signals, inside the same exploration screen."
+      "description": "Will hold the executive dashboard, the risk indicators and the risk signals, inside the same exploration screen.",
+      "capability": {
+        "series": "Series of 500,000 pre-aggregated points",
+        "drill": "Three-level drill-down in two clicks",
+        "table": "Table alternative for every chart",
+        "summary": "Text summary for screen readers"
+      }
     },
     "governance": {
-      "description": "Will hold the dictionary and metadata, data lineage and quality, and the source catalog."
+      "description": "Will hold the dictionary and metadata, data lineage and quality, and the source catalog.",
+      "capability": {
+        "dictionary": "Data dictionary and metadata",
+        "lineage": "Lineage overlay from the source system",
+        "owner": "Data owner and validity date",
+        "quality": "Data quality and detected anomalies"
+      }
     },
     "administration": {
-      "description": "Will hold users, roles and permissions, requests and approvals, the access log and the integrations."
+      "description": "Will hold users, roles and permissions, requests and approvals, the access log and the integrations.",
+      "capability": {
+        "list": "User list with role and status",
+        "role": "Role change",
+        "disable": "Deactivation by soft delete",
+        "audit": "Access log"
+      }
     },
     "assistant": {
-      "description": "Will hold the conversation with the agent, the card of every query it runs and the lineage detail of the answer."
+      "description": "Will hold the conversation with the agent, the card of every query it runs and the lineage detail of the answer.",
+      "capability": {
+        "stream": "Answer forming live, with a real Stop",
+        "toolcards": "Tool call cards in their four states",
+        "stop": "Cancellation leaving no dangling tasks",
+        "typedError": "Typed error naming the step that failed"
+      }
+    },
+    "pending": {
+      "heading": "Delivered by {us}",
+      "note": "Each node lights up when its user story lands. This screen is navigable and its content is declared, not assumed."
     }
   },
   "error": {

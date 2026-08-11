@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import CabeceraPantalla from '~/components/comun/CabeceraPantalla.vue'
 import BotonPrototipo from '~/components/nav/BotonPrototipo.vue'
 import { ANILLO_FOCO } from '~/utils/foco'
 import { PROTOTIPOS, RUTA_GUIA, RUTA_INDICE } from '~/utils/navegacion'
@@ -9,16 +10,12 @@ const { t } = useI18n()
 
 <template>
   <section :data-ruta="RUTA_INDICE" class="flex flex-col gap-6">
-    <header class="flex flex-col gap-2">
-      <h1 class="font-display text-titulo-1 text-corriente-pleno">
-        {{ t('screen.index.title') }}
-      </h1>
-      <p class="max-w-prose text-muted">
-        {{ t('screen.index.subtitle') }}
-      </p>
-    </header>
+    <CabeceraPantalla
+      :titulo="t('screen.index.title')"
+      :descripcion="t('screen.index.subtitle')"
+    />
 
-    <ul class="grid gap-[var(--grid-gap)] sm:grid-cols-2 xl:grid-cols-3">
+    <ul class="grid gap-x-10 sm:grid-cols-2 xl:grid-cols-3">
       <li v-for="prototipo in PROTOTIPOS" :key="prototipo.numero">
         <BotonPrototipo :prototipo="prototipo" />
       </li>
@@ -30,21 +27,19 @@ const { t } = useI18n()
       button: it is the system the seven above are built with, and it carries no
       data-prototipo attribute.
     -->
-    <aside
-      data-guia
-      class="flex flex-col gap-2 rounded-lg border border-t-4 border-line border-t-accent-700 bg-surface-alt p-[var(--card-padding)]"
-    >
-      <h2 class="font-display text-titulo-2 text-primary-dark">
+    <aside data-guia class="flex flex-col gap-2 border-l-2 border-info pl-5">
+      <h2 class="text-titulo-2 text-corriente-pleno">
         {{ t('guide.entry.heading') }}
       </h2>
-      <p class="max-w-prose text-cuerpo text-ink">
+      <p class="max-w-(--medida-maxima) text-cuerpo text-corriente-medio">
         {{ t('guide.entry.description') }}
       </p>
       <NuxtLink
         :to="RUTA_GUIA"
-        class="inline-flex min-h-11 w-fit items-center rounded-md border border-primary bg-surface px-4 text-cuerpo text-primary hover:bg-primary-100"
+        class="mt-1 inline-flex min-h-9 w-fit items-center gap-2 border border-corriente-medio px-3 text-etiqueta text-corriente-pleno hover:bg-corriente-pleno hover:text-ground"
         :class="ANILLO_FOCO"
       >
+        <Icon name="lucide:circuit-board" class="size-4 shrink-0" aria-hidden="true" />
         {{ t('guide.entry.action') }}
       </NuxtLink>
     </aside>

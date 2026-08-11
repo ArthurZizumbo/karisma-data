@@ -25,6 +25,7 @@ import LaminaPaleta from '~/components/guia/LaminaPaleta.vue'
 import LaminaTablas from '~/components/guia/LaminaTablas.vue'
 import LaminaTarjetas from '~/components/guia/LaminaTarjetas.vue'
 import LaminaTipografia from '~/components/guia/LaminaTipografia.vue'
+import NavegacionLaminas from '~/components/guia/NavegacionLaminas.vue'
 import { ANILLO_FOCO } from '~/utils/foco'
 import { RUTA_GUIA } from '~/utils/navegacion'
 import { useSistemaDiseno } from '~/stores/sistemaDiseno'
@@ -61,20 +62,7 @@ const LAMINAS = Object.freeze([
       </p>
     </header>
 
-    <nav :aria-label="t('guide.index.aria')">
-      <ul class="flex flex-wrap gap-x-4 gap-y-1">
-        <li v-for="lamina in LAMINAS" :key="lamina.id">
-          <a
-            :href="`#lamina-${lamina.id}`"
-            :data-indice-lamina="lamina.id"
-            class="text-etiqueta text-corriente-tenue underline-offset-4 hover:text-corriente-pleno hover:underline"
-            :class="ANILLO_FOCO"
-          >
-            {{ t(lamina.clave) }}
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <NavegacionLaminas :laminas="LAMINAS" />
 
     <LaminaPaleta id="lamina-paleta" />
     <LaminaTipografia id="lamina-tipografia" />

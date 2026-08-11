@@ -176,6 +176,23 @@
 }
 
 /*
+ * Desplazamiento al saltar a un ancla.
+ *
+ * La navegacion de laminas es pegajosa, asi que sin este margen el
+ * encabezado de destino quedaria justo debajo de ella y el lector
+ * aterrizaria en el parrafo, no en el titulo.
+ */
+[id^='lamina-'] {
+  scroll-margin-top: calc(var(--header-height) + var(--spacing) * 12);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*
  * Medida de linea.
  *
  * El token --medida-maxima existia y 15 de 26 parrafos largos lo

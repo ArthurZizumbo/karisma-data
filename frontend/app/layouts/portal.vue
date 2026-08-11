@@ -8,7 +8,9 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-surface font-sans text-ink">
+  <div
+    class="flex min-h-screen bg-ground font-sans text-corriente-pleno bg-[linear-gradient(to_right,var(--color-grid)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-grid)_1px,transparent_1px)] bg-size-[24px_24px]"
+  >
     <!--
       First focusable element of the document. Without it, a keyboard user walks
       through the ~20 sidebar links on EVERY one of the seven screens before
@@ -16,7 +18,7 @@ const { t } = useI18n()
     -->
     <a
       href="#contenido"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-surface"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-corriente-pleno focus:px-4 focus:py-2 focus:text-ground"
     >
       {{ t('chrome.skipToContent') }}
     </a>
@@ -29,7 +31,7 @@ const { t } = useI18n()
 
       <FranjaAlcance />
 
-      <main id="contenido" class="flex-1 px-6 py-8">
+      <main id="contenido" class="flex-1 px-4 py-8 md:px-8">
         <slot />
       </main>
     </div>

@@ -88,7 +88,24 @@ export default defineNuxtConfig({
     mode: 'svg',
     clientBundle: {
       scan: true,
-      icons: [...NOMBRES_EMPAQUETADOS],
+      icons: [
+        ...NOMBRES_EMPAQUETADOS,
+        // Chassis inventory. `scan: true` does not see a name composed at
+        // runtime, so the sidebar and the header declare theirs here and the
+        // components read from the same literals.
+        'lucide:circle',
+        'lucide:circuit-board',
+        'lucide:contrast',
+        'lucide:git-branch',
+        'lucide:house',
+        'lucide:message-square',
+        'lucide:monitor',
+        'lucide:moon',
+        'lucide:search',
+        'lucide:settings',
+        'lucide:shield-check',
+        'lucide:sun',
+      ],
     },
   },
   ssr: true,

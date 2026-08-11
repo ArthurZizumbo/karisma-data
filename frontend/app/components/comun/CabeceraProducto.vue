@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import SelectorIdioma from '~/components/comun/SelectorIdioma.vue'
+import SelectorModo from '~/components/comun/SelectorModo.vue'
 import { ANILLO_FOCO } from '~/utils/foco'
 import { RUTA_INDICE } from '~/utils/navegacion'
 
@@ -30,21 +31,25 @@ const entorno = useRuntimeConfig().public.entorno
 <template>
   <header
     data-cabecera-producto
-    class="flex h-[var(--header-height)] shrink-0 items-center gap-3 border-b border-line bg-surface-alt px-6"
+    class="flex h-(--header-height) shrink-0 items-center gap-3 border-b border-grid bg-ground px-4 md:px-6"
     :class="conMarca ? 'justify-between' : 'justify-end'"
   >
     <NuxtLink
       v-if="conMarca"
       :to="RUTA_INDICE"
-      class="font-display text-lg text-primary-dark underline-offset-4 hover:underline"
+      class="flex items-center gap-2 text-titulo-3 text-corriente-pleno"
       :class="ANILLO_FOCO"
     >
+      <Icon name="lucide:circuit-board" class="size-5 shrink-0 text-info" aria-hidden="true" />
       {{ t('brand.name') }}
     </NuxtLink>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
+      <SelectorModo />
       <SelectorIdioma />
-      <span class="rounded-sm border border-line px-2 py-1 text-sm text-ink">
+      <span
+        class="hidden rounded-sm border border-corriente-apagado px-2 py-1 text-micro text-corriente-tenue sm:inline"
+      >
         {{ t('chrome.environment', { environment: entorno }) }}
       </span>
     </div>

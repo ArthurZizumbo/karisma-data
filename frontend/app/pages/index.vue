@@ -10,7 +10,7 @@ const { t } = useI18n()
 <template>
   <section :data-ruta="RUTA_INDICE" class="flex flex-col gap-6">
     <header class="flex flex-col gap-2">
-      <h1 class="font-display text-2xl text-primary-dark">
+      <h1 class="font-display text-titulo-1 text-corriente-pleno">
         {{ t('screen.index.title') }}
       </h1>
       <p class="max-w-prose text-muted">

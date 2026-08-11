@@ -10,7 +10,7 @@ const { titulo, ruta } = useTituloDeRuta()
 
 <template>
   <section :data-ruta="ruta" class="flex flex-col gap-2">
-    <h1 class="font-display text-2xl text-primary-dark">
+    <h1 class="font-display text-titulo-1 text-corriente-pleno">
       {{ titulo }}
     </h1>
     <p class="max-w-prose text-muted">

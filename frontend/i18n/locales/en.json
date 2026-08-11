@@ -4,7 +4,13 @@
   },
   "chrome": {
     "environment": "Environment: {environment}",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "mode": {
+      "aria": "Colour mode",
+      "claro": "Light",
+      "oscuro": "Dark",
+      "sistema": "Match system"
+    }
   },
   "language": {
     "groupLabel": "Interface language",

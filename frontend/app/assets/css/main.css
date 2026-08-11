@@ -1,141 +1,303 @@
-/* app/assets/css/main.css - generado, no editar a mano */
 /*
- * Guia de estilos de Karisma Data v1.0 - 2026-08-16
+ * Karisma Data - sistema de diseno del portal v2.0 - 2026-08-16
  *
- * GENERADO. No editar a mano: cualquier cambio se pierde en la siguiente
- * corrida y hace divergir la aplicacion del PDF del curso.
+ * GENERADO. No editar a mano: la siguiente corrida lo sobrescribe.
  *
- * Fuente unica: docs/entregables/estilo/uxdoc.sty
- * Generador:    docs/entregables/generar_tokens_a4.py
- * Regenerar:    make tokens
- * Verificar:    python docs/entregables/generar_tokens_a4.py --verificar
+ * Fuente:    design/sistema.py
+ * Emisor:    design/emitir.py
+ * Regenerar: make tokens
  *
- * La derivacion va en un solo sentido: uxdoc.sty -> @theme -> interfaz
- * -> capturas -> PDF. Nada fluye hacia atras.
- */
+ * El estilo del INFORME vive en docs/entregables/estilo/uxdoc.sty y es otro
+ * sistema: esta cadena no lo lee ni lo escribe.
+*/
 @import "tailwindcss";
 
 @theme {
-  /* Primaria - azul institucional */
-  --color-primary-100: #DBEAFE;          /* uxprimary100 - Relleno informativo y fondo de chip de estado. */
-  --color-primary-300: #93C5FD;          /* uxprimary300 - Relleno de seleccion y de fila marcada. */
-  --color-primary-500: #2563EB;          /* uxblue (ancla) - Accion primaria, enlace y anillo de foco. */
-  --color-primary-700: #1F4D78;          /* uxnavy (ancla) - Barra lateral, cabecera de tabla y titulares. */
-  --color-primary-900: #0F2C46;          /* uxprimary900 - Fondo mas oscuro de la barra lateral colapsada. */
+  /* Suelo y reticula */
+  --color-ground: #F4F6F9;
+  --color-ground-alt: #EAEEF4;
+  --color-grid: #DCE2EB;  /* no informa */
 
-  /* Secundaria - azul de grafica */
-  --color-secondary-100: #E3EDF7;        /* uxsecondary100 - Area bajo la curva de la serie secundaria. */
-  --color-secondary-300: #B8CCE4;        /* uxpale (ancla) - Relleno suave, borde de tarjeta y area de banda. */
-  --color-secondary-500: #3B82F6;        /* uxsky (ancla) - Serie primaria de grafica y barra de progreso. */
-  --color-secondary-700: #1E5FA8;        /* uxsecondary700 - Serie secundaria enfatizada y eje activo. */
-  --color-secondary-900: #14385F;        /* uxsecondary900 - Rejilla y eje sobre grafica de fondo oscuro. */
+  /* Corriente - el estado se lee por luminancia */
+  --color-corriente-apagado: #A8B2C1;  /* no informa */
+  --color-corriente-tenue: #7A8698;
+  --color-corriente-medio: #414B5B;
+  --color-corriente-pleno: #14171D;
 
-  /* Acento - ambar de uso escaso */
-  --color-accent-100: #FEEBD9;           /* uxaccent100 - Fondo del aviso de alcance y del banner de demo. */
-  --color-accent-300: #FDBA8C;           /* uxaccent300 - Filete y relleno del aviso. */
-  --color-accent-500: #F97316;           /* uxamber (ancla) - Solo decorativo: filete de marca. No informa. */
-  --color-accent-700: #C2540A;           /* uxaccent700 - Todo ambar que informa: icono, borde y marca. */
-  --color-accent-900: #7C3606;           /* uxaccent900 - Texto de aviso sobre el acento 100. */
+  /* Semanticos - color mas forma mas icono, nunca color solo */
+  --color-error: #C4341A;
+  --color-aviso: #8A5A00;
+  --color-ok: #1F6F43;
+  --color-info: #1D4ED8;
 
-  /* Complemento - verde de confirmacion */
-  --color-success-100: #DCFCE7;          /* uxsuccess100 - Fondo de la insignia de confirmacion. */
-  --color-success-300: #86EFAC;          /* uxsuccess300 - Filete de la insignia de confirmacion. */
-  --color-success-500: #16A34A;          /* uxsuccess500 - Marca grafica de confirmacion en tablero. */
-  --color-success-700: #166534;          /* uxgreen (ancla) - Confirmacion en texto y estado correcto. */
-  --color-success-900: #0B3D1F;          /* uxsuccess900 - Texto sobre el relleno de confirmacion. */
+  /* Series categoricas - cada una con su marcador y su patron */
+  --color-serie-1: #1D4ED8;
+  --color-serie-2: #B45309;
+  --color-serie-3: #1F6F43;
+  --color-serie-4: #6D28D9;
+  --color-serie-5: #0E7490;
+  --color-serie-6: #9D174D;
 
-  /* Neutros - sin negro ni blanco puros */
-  --color-surface: #F8FAFC;              /* uxsurface (ancla) - Superficie de pagina y de tarjeta. */
-  --color-surface-alt: #EEF3FA;          /* uxrow (ancla) - Fila alterna de tabla y cabecera de panel. */
-  --color-line: #CBD5E1;                 /* uxline (ancla) - Filete decorativo y separador que no informa. */
-  --color-line-strong: #64748B;          /* uxmuted (ancla) (= muted) - Borde de campo de formulario y limite de componente que informa. */
-  --color-muted: #64748B;                /* uxmuted (ancla) - Texto secundario, solo a partir de 14 px. */
-  --color-ink: #1E293B;                  /* uxink (ancla) - Texto de cuerpo y cifra de tabla. */
-  --color-ink-strong: #0F172A;           /* uxinkstrong - Cifra de tarjeta KPI y titulo de dialogo. */
+  /* Alias de US-001: nombres viejos, valores del sistema nuevo */
+  --color-surface: var(--color-ground);
+  --color-surface-alt: var(--color-ground-alt);
+  --color-line: var(--color-grid);
+  --color-line-strong: var(--color-corriente-medio);
+  --color-muted: var(--color-corriente-tenue);
+  --color-ink: var(--color-corriente-pleno);
+  --color-ink-strong: var(--color-corriente-pleno);
+  --color-primary: var(--color-info);
+  --color-primary-100: var(--color-ground-alt);
+  --color-primary-300: var(--color-corriente-apagado);
+  --color-primary-500: var(--color-info);
+  --color-primary-700: var(--color-corriente-medio);
+  --color-primary-900: var(--color-corriente-pleno);
+  --color-primary-dark: var(--color-corriente-medio);
+  --color-secondary: var(--color-info);
+  --color-secondary-100: var(--color-ground-alt);
+  --color-secondary-300: var(--color-corriente-apagado);
+  --color-secondary-500: var(--color-info);
+  --color-secondary-700: var(--color-corriente-medio);
+  --color-secondary-900: var(--color-corriente-pleno);
+  --color-secondary-soft: var(--color-corriente-apagado);
+  --color-accent: var(--color-aviso);
+  --color-accent-100: var(--color-ground-alt);
+  --color-accent-300: var(--color-corriente-apagado);
+  --color-accent-500: var(--color-aviso);
+  --color-accent-700: var(--color-aviso);
+  --color-accent-900: var(--color-aviso);
+  --color-accent-text: var(--color-aviso);
+  --color-success: var(--color-ok);
+  --color-success-100: var(--color-ground-alt);
+  --color-success-300: var(--color-corriente-apagado);
+  --color-success-500: var(--color-ok);
+  --color-success-700: var(--color-ok);
+  --color-success-900: var(--color-ok);
+  --color-danger: var(--color-error);
+  --color-danger-strong: var(--color-error);
+  --color-warning: var(--color-aviso);
+  --color-info: var(--color-info);
 
-  /* Semanticos - el aviso y el informativo reusan la escala */
-  --color-danger: #B91C1C;               /* uxdanger - Error, campo invalido y accion destructiva. */
-  --color-danger-strong: #7F1D1D;        /* uxdangerstrong - Error enfatizado y titulo destructivo. */
-  --color-warning: #C2540A;              /* uxaccent700 (= accent-700) - Aviso que informa; reusa el acento 700. */
-  --color-info: #2563EB;                 /* uxblue (ancla) (= primary-500) - Mensaje informativo; reusa la primaria 500. */
+  /* Tipografia - el peso es un canal de jerarquia, no decoracion */
+  --font-display: "Lexend Deca", system-ui, sans-serif;
+  --font-sans: "Fira Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  /* Serie categorica de grafica - todas con 3:1 o mas sobre la superficie */
-  --color-serie-1: #2563EB;              /* uxblue (ancla) (= primary-500) - Serie 1 de grafica categorica. */
-  --color-serie-2: #C2540A;              /* uxaccent700 (= accent-700) - Serie 2 de grafica categorica. */
-  --color-serie-3: #166534;              /* uxgreen (ancla) (= success-700) - Serie 3 de grafica categorica. */
-  --color-serie-4: #7C3AED;              /* uxserie4 - Serie 4 de grafica categorica. */
-  --color-serie-5: #0E7490;              /* uxserie5 - Serie 5 de grafica categorica. */
-  --color-serie-6: #9D174D;              /* uxserie6 - Serie 6 de grafica categorica. */
-
-  /* Alias de US-001 - derivados de la escala, nunca escritos aparte */
-  --color-primary: #2563EB;              /* = primary-500 */
-  --color-primary-dark: #1F4D78;         /* = primary-700 */
-  --color-secondary: #3B82F6;            /* = secondary-500 */
-  --color-secondary-soft: #B8CCE4;       /* = secondary-300 */
-  --color-accent: #F97316;               /* = accent-500 */
-  --color-accent-text: #7C3606;          /* = accent-900 */
-  --color-success: #166534;              /* = success-700 */
-
-  /* Tipografia - dos familias servidas desde el propio origen */
-  --font-display: "Lexend Deca", sans-serif; /* Titulares */
-  --font-sans: "Fira Sans", sans-serif;  /* Cuerpo */
-
-  /* Escala tipografica - 9 roles. El peso no construye jerarquia */
-  --text-display: 32px;                  /* Cifra unica de portada de tablero y titulo de pantalla vacia. */
-  --text-display--line-height: 40px;
-  --text-display--font-weight: 400;
-  --text-display--letter-spacing: -0.01em;
-  --text-titulo-1: 24px;                 /* Titulo de pantalla, uno solo por vista. */
-  --text-titulo-1--line-height: 32px;
-  --text-titulo-1--font-weight: 400;
-  --text-titulo-1--letter-spacing: -0.01em;
-  --text-titulo-2: 20px;                 /* Titulo de tarjeta, de panel y de lamina. */
-  --text-titulo-2--line-height: 28px;
-  --text-titulo-2--font-weight: 400;
-  --text-titulo-3: 16px;                 /* Subtitulo y encabezado de grupo de campos. */
-  --text-titulo-3--line-height: 22px;
-  --text-titulo-3--font-weight: 400;
-  --text-cuerpo: 14px;                   /* Texto por omision de la interfaz densa. */
-  --text-cuerpo--line-height: 20px;
+  /* Cifra unica que domina una pantalla. */
+  --text-display: 40px;
+  --text-display--line-height: 44px;
+  --text-display--font-weight: 600;
+  --text-display--letter-spacing: -0.02em;
+  /* Titulo de pantalla, uno por vista. */
+  --text-titulo-1: 28px;
+  --text-titulo-1--line-height: 34px;
+  --text-titulo-1--font-weight: 600;
+  --text-titulo-1--letter-spacing: -0.015em;
+  /* Titulo de panel y de lamina. */
+  --text-titulo-2: 20px;
+  --text-titulo-2--line-height: 26px;
+  --text-titulo-2--font-weight: 600;
+  --text-titulo-2--letter-spacing: -0.01em;
+  /* Encabezado de grupo y de columna. */
+  --text-titulo-3: 15px;
+  --text-titulo-3--line-height: 20px;
+  --text-titulo-3--font-weight: 600;
+  /* Texto por omision de la interfaz densa. */
+  --text-cuerpo: 14px;
+  --text-cuerpo--line-height: 21px;
   --text-cuerpo--font-weight: 400;
-  --text-cuerpo-amplio: 16px;            /* Parrafo largo: ayuda, respuesta del asistente y aviso de alcance. */
+  /* Parrafo largo: ayuda y respuesta del asistente. */
+  --text-cuerpo-amplio: 16px;
   --text-cuerpo-amplio--line-height: 26px;
   --text-cuerpo-amplio--font-weight: 400;
-  --text-etiqueta: 12px;                 /* Etiqueta de campo, encabezado de columna y texto de chip. */
+  /* Etiqueta de campo y encabezado de tabla. */
+  --text-etiqueta: 12px;
   --text-etiqueta--line-height: 16px;
-  --text-etiqueta--font-weight: 400;
-  --text-etiqueta--letter-spacing: 0.04em;
-  --text-dato: 18px;                     /* Cifra de tarjeta KPI y celda numerica, con cifras tabulares. */
-  --text-dato--line-height: 24px;
-  --text-dato--font-weight: 400;
-  --text-micro: 11px;                    /* Nota al pie, marca de tiempo y leyenda de grafica. */
-  --text-micro--line-height: 16px;
-  --text-micro--font-weight: 400;
+  --text-etiqueta--font-weight: 500;
+  --text-etiqueta--letter-spacing: 0.03em;
+  /* Cifra de tabla y de tarjeta, con cifras tabulares. */
+  --text-dato: 16px;
+  --text-dato--line-height: 22px;
+  --text-dato--font-weight: 500;
+  /* Nota al pie y leyenda de grafica. */
+  --text-micro: 11px;
+  --text-micro--line-height: 15px;
+  --text-micro--font-weight: 500;
+  --text-micro--letter-spacing: 0.02em;
 
-  /* Ritmo de espaciado en base 4: Tailwind deriva 4/8/12/16/24/32/48/64 */
-  --spacing: 4px;                        /* unidad del ritmo */
+  --spacing: 4px;
 
-  /* Radios */
-  --radius-sm: 4px;                      /* Chip, insignia y campo de una linea. */
-  --radius-md: 6px;                      /* Boton, campo de formulario y celda de tabla activa. */
-  --radius-lg: 10px;                     /* Tarjeta, panel y dialogo. */
-  --radius-full: 999px;                  /* Avatar, punto de estado y boton circular de icono. */
+  --radius-sm: 2px;  /* Chip, insignia y celda. */
+  --radius-md: 4px;  /* Boton, campo y nodo del diagrama. */
+  --radius-lg: 6px;  /* Panel y dialogo. */
+  --radius-full: 999px;  /* Punto de estado y boton circular de icono. */
 
-  /* Sombras - un solo color de sombra, la tinta mas oscura del sistema */
-  --shadow-reposo: 0 1px 2px 0 rgb(15 23 42 / 0.06); /* Tarjeta y tabla en reposo. */
-  --shadow-elevado: 0 2px 6px -1px rgb(15 23 42 / 0.1); /* Tarjeta al pasar el puntero y menu abierto. */
-  --shadow-flotante: 0 8px 24px -6px rgb(15 23 42 / 0.18); /* Dialogo, panel lateral y sugerencia flotante. */
+  --shadow-menu: 0 4px 12px -2px rgb(10 10 12 / 0.12);  /* Menu abierto y sugerencia flotante. */
+  --shadow-dialogo: 0 16px 40px -12px rgb(10 10 12 / 0.22);  /* Dialogo y panel lateral. */
 
-  /* Puntos de quiebre */
-  --breakpoint-sm: 768px;                /* Tableta vertical: la barra lateral se colapsa a iconos. */
-  --breakpoint-md: 1024px;               /* Tableta horizontal: vuelve la barra lateral con etiqueta. */
-  --breakpoint-lg: 1280px;               /* Escritorio: aparece la segunda columna del tablero. */
-  --breakpoint-xl: 1440px;               /* Escritorio ancho: ancho de captura de las figuras de A4. */
+  --breakpoint-sm: 768px;  /* La barra lateral se colapsa a una franja de iconos. IMPLEMENTADO, no declarado. */
+  --breakpoint-md: 1024px;  /* Vuelve la barra lateral con etiqueta. */
+  --breakpoint-lg: 1280px;  /* Aparece la segunda columna del tablero. */
+  --breakpoint-xl: 1440px;  /* Ancho de captura de las figuras del informe. */
 
-  /* Densidad - ficha Data-Dense Dashboard de ui-ux-pro-max */
-  --sidebar-width: 240px;                /* Ancho de la barra lateral desplegada. */
-  --header-height: 56px;                 /* Alto de la cabecera fija. */
-  --grid-gap: 8px;                       /* Canal entre columnas de la reticula de 12. */
-  --card-padding: 12px;                  /* Relleno interno de tarjeta y de panel. */
-  --table-row-height: 36px;              /* Alto de fila de tabla densa. */
+  --sidebar-width: 232px;  /* Ancho de la barra lateral desplegada. */
+  --sidebar-collapsed: 56px;  /* Ancho de la franja de iconos por debajo de 768 px. */
+  --header-height: 52px;  /* Alto de la cabecera fija. */
+  --grid-gap: 16px;  /* Canal entre columnas de la reticula de 12. */
+  --panel-padding: 24px;  /* Relleno interno de panel. El sistema anterior usaba 12 sobre 1137 de ancho. */
+  --table-row-height: 34px;  /* Alto de fila de tabla densa. */
+  --medida-maxima: 68;  /* Caracteres por linea maximos en prosa. Lo medido antes llegaba a 179. */
 }
+
+/* Modo oscuro. Por omision manda el sistema operativo; el lector puede
+   forzarlo con data-theme, y por eso la consulta se excluye a si misma
+   cuando ya hay una eleccion explicita de modo claro. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="claro"]) {
+    /* Suelo y reticula */
+    --color-ground: #0A0A0C;
+    --color-ground-alt: #131519;
+    --color-grid: #1C2028;  /* no informa */
+
+    /* Corriente - el estado se lee por luminancia */
+    --color-corriente-apagado: #4A5361;  /* no informa */
+    --color-corriente-tenue: #7A8698;
+    --color-corriente-medio: #B4C2D4;
+    --color-corriente-pleno: #E8F4FF;
+
+    /* Semanticos - color mas forma mas icono, nunca color solo */
+    --color-error: #FF5A36;
+    --color-aviso: #FFC233;
+    --color-ok: #4ADE80;
+    --color-info: #7DD3FC;
+
+    /* Series categoricas - cada una con su marcador y su patron */
+    --color-serie-1: #7DD3FC;
+    --color-serie-2: #FFC233;
+    --color-serie-3: #4ADE80;
+    --color-serie-4: #C4B5FD;
+    --color-serie-5: #67E8F9;
+    --color-serie-6: #F9A8D4;
+
+    /* Alias de US-001: nombres viejos, valores del sistema nuevo */
+    --color-surface: var(--color-ground);
+    --color-surface-alt: var(--color-ground-alt);
+    --color-line: var(--color-grid);
+    --color-line-strong: var(--color-corriente-medio);
+    --color-muted: var(--color-corriente-tenue);
+    --color-ink: var(--color-corriente-pleno);
+    --color-ink-strong: var(--color-corriente-pleno);
+    --color-primary: var(--color-info);
+    --color-primary-100: var(--color-ground-alt);
+    --color-primary-300: var(--color-corriente-apagado);
+    --color-primary-500: var(--color-info);
+    --color-primary-700: var(--color-corriente-medio);
+    --color-primary-900: var(--color-corriente-pleno);
+    --color-primary-dark: var(--color-corriente-medio);
+    --color-secondary: var(--color-info);
+    --color-secondary-100: var(--color-ground-alt);
+    --color-secondary-300: var(--color-corriente-apagado);
+    --color-secondary-500: var(--color-info);
+    --color-secondary-700: var(--color-corriente-medio);
+    --color-secondary-900: var(--color-corriente-pleno);
+    --color-secondary-soft: var(--color-corriente-apagado);
+    --color-accent: var(--color-aviso);
+    --color-accent-100: var(--color-ground-alt);
+    --color-accent-300: var(--color-corriente-apagado);
+    --color-accent-500: var(--color-aviso);
+    --color-accent-700: var(--color-aviso);
+    --color-accent-900: var(--color-aviso);
+    --color-accent-text: var(--color-aviso);
+    --color-success: var(--color-ok);
+    --color-success-100: var(--color-ground-alt);
+    --color-success-300: var(--color-corriente-apagado);
+    --color-success-500: var(--color-ok);
+    --color-success-700: var(--color-ok);
+    --color-success-900: var(--color-ok);
+    --color-danger: var(--color-error);
+    --color-danger-strong: var(--color-error);
+    --color-warning: var(--color-aviso);
+    --color-info: var(--color-info);
+    --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+    --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
+  }
+}
+
+:root[data-theme="oscuro"] {
+    /* Suelo y reticula */
+    --color-ground: #0A0A0C;
+    --color-ground-alt: #131519;
+    --color-grid: #1C2028;  /* no informa */
+
+    /* Corriente - el estado se lee por luminancia */
+    --color-corriente-apagado: #4A5361;  /* no informa */
+    --color-corriente-tenue: #7A8698;
+    --color-corriente-medio: #B4C2D4;
+    --color-corriente-pleno: #E8F4FF;
+
+    /* Semanticos - color mas forma mas icono, nunca color solo */
+    --color-error: #FF5A36;
+    --color-aviso: #FFC233;
+    --color-ok: #4ADE80;
+    --color-info: #7DD3FC;
+
+    /* Series categoricas - cada una con su marcador y su patron */
+    --color-serie-1: #7DD3FC;
+    --color-serie-2: #FFC233;
+    --color-serie-3: #4ADE80;
+    --color-serie-4: #C4B5FD;
+    --color-serie-5: #67E8F9;
+    --color-serie-6: #F9A8D4;
+
+    /* Alias de US-001: nombres viejos, valores del sistema nuevo */
+    --color-surface: var(--color-ground);
+    --color-surface-alt: var(--color-ground-alt);
+    --color-line: var(--color-grid);
+    --color-line-strong: var(--color-corriente-medio);
+    --color-muted: var(--color-corriente-tenue);
+    --color-ink: var(--color-corriente-pleno);
+    --color-ink-strong: var(--color-corriente-pleno);
+    --color-primary: var(--color-info);
+    --color-primary-100: var(--color-ground-alt);
+    --color-primary-300: var(--color-corriente-apagado);
+    --color-primary-500: var(--color-info);
+    --color-primary-700: var(--color-corriente-medio);
+    --color-primary-900: var(--color-corriente-pleno);
+    --color-primary-dark: var(--color-corriente-medio);
+    --color-secondary: var(--color-info);
+    --color-secondary-100: var(--color-ground-alt);
+    --color-secondary-300: var(--color-corriente-apagado);
+    --color-secondary-500: var(--color-info);
+    --color-secondary-700: var(--color-corriente-medio);
+    --color-secondary-900: var(--color-corriente-pleno);
+    --color-secondary-soft: var(--color-corriente-apagado);
+    --color-accent: var(--color-aviso);
+    --color-accent-100: var(--color-ground-alt);
+    --color-accent-300: var(--color-corriente-apagado);
+    --color-accent-500: var(--color-aviso);
+    --color-accent-700: var(--color-aviso);
+    --color-accent-900: var(--color-aviso);
+    --color-accent-text: var(--color-aviso);
+    --color-success: var(--color-ok);
+    --color-success-100: var(--color-ground-alt);
+    --color-success-300: var(--color-corriente-apagado);
+    --color-success-500: var(--color-ok);
+    --color-success-700: var(--color-ok);
+    --color-success-900: var(--color-ok);
+    --color-danger: var(--color-error);
+    --color-danger-strong: var(--color-error);
+    --color-warning: var(--color-aviso);
+    --color-info: var(--color-info);
+    --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+    --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
+}
+
+/* Reglas que el sistema declara y que la interfaz debe cumplir:
+   - El estado se lee por luminancia. El color lo refuerza y nunca lo sustituye.
+   - No hay verde en la rampa de corriente: rojo contra verde separa dE=20.0 bajo protanopia, justo en el umbral.
+   - Todo semantico viaja con forma e icono. El color solo no distingue error de aviso: bajo protanopia separan dE=7.2 si se les deja solos.
+   - corriente-apagado y grid no informan nunca. Quedan por debajo de 3:1 a proposito, porque son filete y reticula, no limite de componente.
+   - El peso es un canal de jerarquia: 400 para texto corrido, 500 para etiquetas y cifras, 600 para titulares. Nueve roles con un solo peso no son nueve roles.
+   - La prosa no pasa de 68 caracteres por linea.
+   - La barra lateral colapsa de verdad por debajo de 768 px. El sistema anterior lo declaraba y no lo implementaba, y dejaba el contenido en 135 px.
+*/

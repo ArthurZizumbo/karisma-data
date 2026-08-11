@@ -10,7 +10,7 @@ const { t } = useI18n()
     data-franja-alcance
     role="note"
     :aria-label="t('scope.ariaLabel')"
-    class="sticky top-0 z-10 shrink-0 border-b border-line bg-secondary-soft px-6 py-2 text-sm text-ink"
+    class="sticky top-0 z-10 shrink-0 border-b border-grid bg-ground-alt px-4 py-2 text-etiqueta text-corriente-medio md:px-8"
   >
     {{ t(CLAVE_AVISO_ALCANCE) }}
   </p>

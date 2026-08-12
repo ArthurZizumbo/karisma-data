@@ -33,6 +33,7 @@ const { titulo, ruta } = useTituloDeRuta()
 <template>
   <section :data-ruta="ruta" class="flex flex-col gap-8">
     <CabeceraPantalla :titulo="titulo" :descripcion="t('screen.dashboards.description')" />
+    <LazyTableroPredicciones />
 
     <ClientOnly>
       <LazySeriePanel />

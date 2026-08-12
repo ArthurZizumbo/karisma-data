@@ -787,5 +787,72 @@
         "fail": "No cumple el umbral acordado."
       }
     }
+  },
+  "forecast": {
+    "section": {
+      "title": "Proyección del próximo mes",
+      "description": "Tres cifras proyectadas sobre la serie preagregada, cada una con el método que la produjo. Abre una tarjeta para ver la serie y el detalle por mes."
+    },
+    "sample": {
+      "badge": "Datos sintéticos"
+    },
+    "metric": {
+      "liquidityCoverage": "Cobertura de liquidez (LCR)",
+      "availableBalance": "Saldo disponible promedio diario",
+      "currencyConcentration": "Concentración en divisa extranjera"
+    },
+    "unit": {
+      "millionsMxn": "millones de MXN"
+    },
+    "method": {
+      "label": "Método",
+      "olsLinear": "Proyección lineal por mínimos cuadrados sobre {points} meses de datos sintéticos · horizonte de {horizon} mes · R² {r2}",
+      "disclaimer": "No hay aprendizaje automático detrás de esta cifra: es una recta ajustada a la historia sintética del prototipo."
+    },
+    "projection": {
+      "title": "Proyección para {month}",
+      "change": "frente a {month}"
+    },
+    "observed": {
+      "label": "Último mes observado: {month}"
+    },
+    "source": {
+      "label": "Origen del dato",
+      "detail": "Campo {field} de la serie preagregada, {aggregation}."
+    },
+    "aggregation": {
+      "weightedMean": "media ponderada por número de posiciones",
+      "dailyMean": "promedio diario del mes",
+      "shareOfTotal": "participación sobre el total del mes"
+    },
+    "action": {
+      "expand": "Ver la serie",
+      "collapse": "Ocultar la serie",
+      "detail": "Ver el detalle por mes",
+      "hideDetail": "Ocultar el detalle por mes",
+      "explore": "Abrir el campo en el explorador",
+      "retry": "Reintentar"
+    },
+    "state": {
+      "loading": "Calculando las proyecciones del tablero.",
+      "emptyTitle": "Sin historia suficiente para proyectar",
+      "emptyHint": "Se necesitan al menos {minimum} meses de historia. Abre el explorador para revisar la serie completa.",
+      "errorTitle": "No se pudo cargar el histórico",
+      "errorHint": "El archivo de historia mensual no llegó, así que ninguna tarjeta muestra cifra. Puedes reintentar sin salir de la pantalla."
+    },
+    "chart": {
+      "title": "Serie mensual de {metric} con su tramo proyectado",
+      "summary": "{metric}: {points} meses observados, de {from} a {to}. El mínimo fue {min} y el máximo {max}. El último observado es {last} y la proyección para {next} es {projected}, una variación de {change}.",
+      "legendObserved": "Observado, línea continua",
+      "legendProjected": "Proyectado, línea discontinua y marcador hueco"
+    },
+    "table": {
+      "caption": "Detalle mensual de {metric}, con la proyección en la última fila.",
+      "month": "Mes",
+      "value": "Valor",
+      "change": "Variación mensual",
+      "projectedRow": "Proyección",
+      "gap": "sin mes previo"
+    }
   }
 }

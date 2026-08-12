@@ -787,5 +787,72 @@
         "fail": "Does not meet the agreed threshold."
       }
     }
+  },
+  "forecast": {
+    "section": {
+      "title": "Next month projection",
+      "description": "Three figures projected over the preaggregated series, each one with the method that produced it. Open a card to see the series and the month by month detail."
+    },
+    "sample": {
+      "badge": "Synthetic data"
+    },
+    "metric": {
+      "liquidityCoverage": "Liquidity coverage ratio (LCR)",
+      "availableBalance": "Average daily available balance",
+      "currencyConcentration": "Foreign currency concentration"
+    },
+    "unit": {
+      "millionsMxn": "million MXN"
+    },
+    "method": {
+      "label": "Method",
+      "olsLinear": "Least squares linear projection over {points} months of synthetic data · {horizon} month horizon · R² {r2}",
+      "disclaimer": "There is no machine learning behind this figure: it is a straight line fitted to the synthetic history of the prototype."
+    },
+    "projection": {
+      "title": "Projection for {month}",
+      "change": "against {month}"
+    },
+    "observed": {
+      "label": "Last observed month: {month}"
+    },
+    "source": {
+      "label": "Where the figure comes from",
+      "detail": "Field {field} of the preaggregated series, {aggregation}."
+    },
+    "aggregation": {
+      "weightedMean": "mean weighted by number of positions",
+      "dailyMean": "daily mean of the month",
+      "shareOfTotal": "share of the monthly total"
+    },
+    "action": {
+      "expand": "See the series",
+      "collapse": "Hide the series",
+      "detail": "See the month by month detail",
+      "hideDetail": "Hide the month by month detail",
+      "explore": "Open the field in the explorer",
+      "retry": "Try again"
+    },
+    "state": {
+      "loading": "Computing the dashboard projections.",
+      "emptyTitle": "Not enough history to project",
+      "emptyHint": "At least {minimum} months of history are needed. Open the explorer to review the full series.",
+      "errorTitle": "The history could not be loaded",
+      "errorHint": "The monthly history file did not arrive, so no card shows a figure. You can try again without leaving the screen."
+    },
+    "chart": {
+      "title": "Monthly series of {metric} with its projected segment",
+      "summary": "{metric}: {points} observed months, from {from} to {to}. The minimum was {min} and the maximum {max}. The last observed value is {last} and the projection for {next} is {projected}, a change of {change}.",
+      "legendObserved": "Observed, solid line",
+      "legendProjected": "Projected, dashed line and hollow marker"
+    },
+    "table": {
+      "caption": "Month by month detail of {metric}, with the projection in the last row.",
+      "month": "Month",
+      "value": "Value",
+      "change": "Monthly change",
+      "projectedRow": "Projection",
+      "gap": "no previous month"
+    }
   }
 }

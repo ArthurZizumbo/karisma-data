@@ -106,9 +106,55 @@ export default defineNuxtConfig({
         'lucide:settings',
         'lucide:shield-check',
         'lucide:sun',
+        // Dashboard inventory (US-025). The six marker shapes come from the
+        // series palette, where they are composed from a table at run time, so
+        // the scanner cannot see them either.
+        'lucide:copy',
+        'lucide:database',
+        'lucide:diamond',
+        'lucide:filter-x',
+        'lucide:gauge',
+        'lucide:info',
+        'lucide:map-pin',
+        'lucide:maximize',
+        'lucide:navigation',
+        'lucide:refresh-cw',
+        'lucide:square',
+        'lucide:table',
+        'lucide:triangle',
+        'lucide:triangle-alert',
       ],
     },
   },
+  /**
+   * One extra scan root, and it exists for a single reason: the name.
+   *
+   * `frontend/AGENTS.md` and CA-2 of US-025 require the chart to be written as
+   * `<LazyVChart/>`. With the default `pathPrefix: true` the wrapper in
+   * `app/components/echarts/VChart.client.vue` would auto-import as
+   * `EchartsVChart`, so the required name would simply not exist. Declaring the
+   * directory without the prefix registers it as `VChart`, and Nuxt derives the
+   * lazy form from that. The second entry restores the default behaviour for
+   * the rest of `components/`, which every screen consumes through explicit
+   * imports and stays as it is.
+   */
+  components: [
+    { path: '~/components/echarts', pathPrefix: false },
+    { path: '~/components', pathPrefix: true },
+  ],
+
+  /**
+   * No `routeRules` here, and the omission is a decision rather than a gap.
+   *
+   * The dashboard skill proposes `swr` on the dashboard route. `/exploracion/
+   * tableros` sits behind the global guard, which resolves the session during
+   * SSR and renders the "no permission" state in place: an SWR entry caches the
+   * rendered HTML per route, so it would hand an `operativo` the markup that
+   * was rendered for an `analista`. What replaces it is caching of the DATA and
+   * not of the page -ETag plus `Cache-Control: private, max-age=300` on
+   * `GET /api/metrics/series`- which lives in the browser of the authorised
+   * reader and never in a shared cache.
+   */
   ssr: true,
   devtools: { enabled: false },
   css: ['~/assets/css/main.css'],

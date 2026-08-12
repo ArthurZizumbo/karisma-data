@@ -195,7 +195,7 @@ SCOPE_REGISTRY: Final[Mapping[RouteKey, PermissionRule]] = MappingProxyType(
             scopes=(Scope.ANALISTA,),
             rule="Serie preagregada del tablero",
             us="US-025",
-            status="planificado",
+            status="vigente",
         ),
         RouteKey("POST", "/api/metrics/aggregate"): PermissionRule(
             scopes=(Scope.ANALISTA,),

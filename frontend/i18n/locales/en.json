@@ -675,5 +675,117 @@
         "exposicionNeta": "Net derivative exposure"
       }
     }
+  },
+  "dashboard": {
+    "title": "Preaggregated liquidity series",
+    "degradation": {
+      "notice": "Agreed scope for this delivery: 500,000 points preaggregated on the server, not the raw million rows."
+    },
+    "chart": {
+      "ariaLabel": "Line chart of the preaggregated series. The full description is in the summary below.",
+      "figcaption": "{metric} by {grouping}, from {from} to {to}. {lines} lines and {points} plotted points."
+    },
+    "metric": {
+      "label": "Metric",
+      "balance": "Available balance",
+      "lcrRatio": "LCR ratio",
+      "positions": "Position count"
+    },
+    "grouping": {
+      "label": "Grouping",
+      "businessUnit": "Business unit",
+      "currency": "Currency",
+      "maturity": "Maturity bucket",
+      "series": "Single series"
+    },
+    "density": {
+      "label": "Reading density",
+      "summary": "Summary",
+      "detail": "Detail",
+      "full": "Full load",
+      "fullHint": "Draws all 250 lines and 500,000 points. This is the performance evidence."
+    },
+    "zoom": {
+      "in": "Zoom in",
+      "out": "Zoom out",
+      "reset": "Show the whole period",
+      "windowStart": "Window start",
+      "windowEnd": "Window end"
+    },
+    "legend": {
+      "title": "Legend",
+      "muted": "Every other line is drawn in grey: beyond six colours a legend stops being readable.",
+      "toggleHint": "Switch this line on or off in the chart."
+    },
+    "drill": {
+      "hint": "Pick a line to filter the dashboard and the assistant context.",
+      "clear": "Clear filters",
+      "focused": "Filtered by {series}."
+    },
+    "table": {
+      "toggle": "Show the detail table",
+      "hide": "Hide the detail table",
+      "caption": "Numeric detail of {metric}, from {from} to {to}.",
+      "note": "Values travel as 32 bit floating point, with a maximum relative error of 6e-8.",
+      "gap": "no data",
+      "column": {
+        "date": "Date",
+        "series": "Series",
+        "value": "Value",
+        "min": "Minimum",
+        "max": "Maximum",
+        "mean": "Mean",
+        "last": "Last",
+        "change": "Change"
+      }
+    },
+    "summary": {
+      "text": "{metric} from {from} to {to}: {lines} lines and {points} points. The highest line is {top}, changing by {change} over the period; its maximum was {max} on {maxDate} and its minimum {min} on {minDate}.",
+      "empty": "There is no series to describe under the current filters."
+    },
+    "state": {
+      "loading": "Loading the preaggregated series.",
+      "emptyTitle": "No data under these filters",
+      "emptyBody": "The query is valid and the server answered without errors, but no series matches the filters. Drop one of them to see data again.",
+      "error": {
+        "title": "The series could not be loaded",
+        "body": "The server did not deliver the data frame. You can retry without losing your filters.",
+        "retry": "Retry"
+      },
+      "seedMissing": {
+        "title": "No data has been seeded yet",
+        "body": "The dashboard aggregate is not on the server. It is generated from the fixed project seed and is not versioned.",
+        "command": "Run make data at the repository root and load this screen again."
+      }
+    },
+    "source": {
+      "title": "Where the data comes from",
+      "file": "Source file",
+      "rawRows": "Raw rows before aggregation",
+      "aggregatedRows": "Preaggregated rows",
+      "seed": "Generator seed",
+      "transformations": "Transformations applied",
+      "precision": "Transport precision",
+      "precisionValue": "32 bit floating point for the chart and for the table, with a maximum relative error of 6e-8.",
+      "calendar": "The time axis does not skip public holidays: it is a declared limitation of the synthetic generator.",
+      "fxNote": "Exchange rate note"
+    },
+    "measure": {
+      "title": "Fluidity measurement",
+      "run": "Measure fluidity",
+      "running": "Measuring fluidity",
+      "copy": "Copy the report",
+      "copied": "Report copied to the clipboard",
+      "frames": "Frames measured",
+      "p50": "Median frame (p50)",
+      "p95": "95th percentile frame",
+      "worst": "Worst frame",
+      "longFrames": "Frames above the threshold",
+      "script": "Pan and zoom script, version {version}, {steps} steps.",
+      "verdict": {
+        "pass": "Meets the agreed threshold.",
+        "fail": "Does not meet the agreed threshold."
+      }
+    }
   }
 }

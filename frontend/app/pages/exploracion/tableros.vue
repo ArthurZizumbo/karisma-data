@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import CabeceraPantalla from '~/components/comun/CabeceraPantalla.vue'
-import EstadoPendiente from '~/components/comun/EstadoPendiente.vue'
 import { useTituloDeRuta } from '~/composables/useTituloDeRuta'
+import { ALTO_GRAFICA } from '~/utils/opcionSerie'
 
 definePageMeta({ layout: 'portal' })
 
@@ -11,19 +10,35 @@ const { t } = useI18n()
 const { titulo, ruta } = useTituloDeRuta()
 
 /**
- * What this screen will hold, and the User Story that delivers it.
+ * Dashboards screen, zone C of the A3 map.
  *
- * Declared rather than implied: a title over an empty page reads as a screen
- * that failed to load, which is the one reading the deliverable cannot afford.
+ * The four properties `test/pantallas.spec.ts` measures on every contract route
+ * are preserved deliberately, and that file is not opened by this User Story: a
+ * single `data-ruta` root, the declared layout, one `h1` taken from the A3
+ * branch, and a first `<p>` that is the bilingual description of the screen.
+ *
+ * The panel enters under `ClientOnly` for two independent reasons. The chart
+ * cannot render on the server -there is no canvas- and its payload is an
+ * `ArrayBuffer` that would have to be inflated to base64 to survive the SSR
+ * response. The fallback is the very same skeleton the panel uses while it
+ * loads, with the very same reserved height, so hydration does not move a single
+ * pixel of the page.
+ *
+ * US-026 inserts its predictive cards ahead of the panel, in its own commit. The
+ * three conditions it has to preserve are the ones above plus the presence of
+ * `[data-zona="serie"]`.
  */
-const CAPACIDADES = computed(() =>
-  (['series', 'drill', 'table', 'summary'] as const).map(clave => t(`screen.dashboards.capability.${clave}`)),
-)
 </script>
 
 <template>
   <section :data-ruta="ruta" class="flex flex-col gap-8">
     <CabeceraPantalla :titulo="titulo" :descripcion="t('screen.dashboards.description')" />
-    <EstadoPendiente :capacidades="CAPACIDADES" us="US-025" />
+
+    <ClientOnly>
+      <LazySeriePanel />
+      <template #fallback>
+        <SerieEstado estado="cargando" :alto="ALTO_GRAFICA" />
+      </template>
+    </ClientOnly>
   </section>
 </template>

@@ -79,7 +79,7 @@ Bloque generado. **No editar a mano**: regenerar con el comando de la sección 1
 | `GET /api/catalog/search` | *(ninguno)* | Catalogo para todos los autenticados | US-008 | vigente |
 | `GET /api/catalog/{entry_id}` | *(ninguno)* | Ficha de catalogo, mismo criterio | US-008 | vigente |
 | `POST /api/query/records` | `operativo` | Consulta puntual sobre un silo | US-011 | planificado |
-| `GET /api/metrics/series` | `analista` | Serie preagregada del tablero | US-025 | planificado |
+| `GET /api/metrics/series` | `analista` | Serie preagregada del tablero | US-025 | vigente |
 | `POST /api/metrics/aggregate` | `analista` | Agregaciones y cruces de la capa semantica | US-011 | planificado |
 | `POST /api/export` | `analista` | Exportacion en segundo plano | US-009 | planificado |
 | `GET /api/export/{job_id}` | `analista` | Estado del trabajo y enlace firmado | US-009 | planificado |
@@ -269,8 +269,8 @@ Descartado con su razón, para que no se reabra sin decisión de equipo:
 |---|---|---|---|
 | 1 | `admin` alcanza los resúmenes directivos por ser el rango más alto | Separación de funciones imperfecta: quien administra usuarios también lee el tablero ejecutivo | Equipo, si el modelo deja de ser un orden total |
 | 2 | `frontend/app/types/navegacion.ts` declara `'administrador'` donde el scope es `admin` | Hoy solo rotula el índice de prototipos; mañana es un `if` que nunca se cumple contra un token real | **US-017** |
-| 3 | La matriz solo interroga hoy las rutas vivas: tres de dieciséis filas | La política de las trece restantes está escrita y sin ejercitar hasta que su US llegue | Cada US dueña, al montar su router |
-| 4 | Verificación manual del 403 a través del proxy | **Reasignada el 12-ago-2026.** US-008 publicó sus dos rutas con `scopes=()` —cualquier sesión válida—, así que no cerró esta deuda: hoy **ninguna ruta viva puede responder 403** y la rama `else` de la matriz parametrizada es inalcanzable contra la aplicación real. El mecanismo sí está ejercitado contra la aplicación sintética, que usa la dependencia de producción. La cierra la primera US que publique una ruta con scope no vacío | **US-009** (`POST /api/export`, `analista`) |
+| 3 | La matriz solo interroga hoy las rutas vivas: **cuatro** de dieciséis filas | La política de las doce restantes está escrita y sin ejercitar hasta que su US llegue. La cuenta sube sola: cada US que monta su router cambia su fila a `vigente` y la matriz la interroga desde ese momento | Cada US dueña, al montar su router |
+| 4 | ~~Verificación manual del 403 a través del proxy~~ | **CERRADA el 12-ago-2026 por US-025.** Fue reasignada dos veces: US-008 publicó sus dos rutas con `scopes=()` —cualquier sesión válida— y no pudo cerrarla, así que quedó a la espera de la primera ruta con scope no vacío. Esa ruta es `GET /api/metrics/series` (`analista`). Desde hoy la rama `else` de la matriz parametrizada **sí se ejerce contra la aplicación real** —el caso `operativo` de esa fila devuelve 403 con `permisos_insuficientes`— y el rechazo está comprobado a mano por los dos caminos, el api directo y el proxy de Nitro. Evidencia: `docs/manual-test/us-025.md` §1 y la sección «autorizacion» de `scripts/smoke_serie.sh` | **US-025** (cerrada) |
 | 5 | Sin auditoría persistente de quién consultó qué | Un incidente se reconstruye leyendo bitácoras efímeras | Fuera de alcance (sección 10) |
 
 ## 12. Bitácora
@@ -278,3 +278,6 @@ Descartado con su razón, para que no se reabra sin decisión de equipo:
 | Fecha | Cambio |
 |---|---|
 | 11-ago-2026 | Documento creado por US-016. Vocabulario de cuatro roles con jerarquía total, matriz generada desde `SCOPE_REGISTRY`, contrato HTTP con los cinco códigos bilingües, guardia de cobertura de tres capas y comprobación de arranque. Cierra el gate del 6-ago-2026 |
+| 12-ago-2026 | Auditoría de seguridad sobre el diff de US-016 y US-008. Dos agujeros de la propia guardia corregidos: la ruta cuyo path es el prefijo exacto (`/api`, sin barra final) se escapaba del filtro, y un `Mount` bajo `/api` se saltaba en silencio; se añaden las amenazas A-11 y A-12 y la clase de violación `ruta_ajena`. El registro de búsquedas del catálogo pasa a `consulta_hash` SHA-256: `build_tsquery` no lematiza y el texto tecleado salía casi literal |
+| 12-ago-2026 | US-008 pone en `vigente` las dos rutas del catálogo, ambas con `scopes=()` |
+| 12-ago-2026 | US-025 pone en `vigente` `GET /api/metrics/series` con scope `analista`. Es la primera ruta viva con scope no vacío, así que **cierra la deuda 4**: el 403 queda comprobado contra la aplicación real por los dos caminos, el api directo y el proxy de Nitro |

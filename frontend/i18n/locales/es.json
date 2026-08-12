@@ -675,5 +675,117 @@
         "exposicionNeta": "Exposición neta en derivados"
       }
     }
+  },
+  "dashboard": {
+    "title": "Serie preagregada de liquidez",
+    "degradation": {
+      "notice": "Alcance acordado para esta entrega: 500 000 puntos preagregados en el servidor, no el millón de filas crudas."
+    },
+    "chart": {
+      "ariaLabel": "Gráfica de líneas de la serie preagregada. La descripción completa está en el resumen que sigue.",
+      "figcaption": "{metric} por {grouping}, de {from} a {to}. {lines} líneas y {points} puntos dibujados."
+    },
+    "metric": {
+      "label": "Métrica",
+      "balance": "Saldo disponible",
+      "lcrRatio": "Razón LCR",
+      "positions": "Número de posiciones"
+    },
+    "grouping": {
+      "label": "Agrupación",
+      "businessUnit": "Unidad de negocio",
+      "currency": "Divisa",
+      "maturity": "Bucket de vencimiento",
+      "series": "Serie individual"
+    },
+    "density": {
+      "label": "Densidad de lectura",
+      "summary": "Resumen",
+      "detail": "Detalle",
+      "full": "Carga completa",
+      "fullHint": "Dibuja las 250 líneas y los 500 000 puntos. Es la evidencia de rendimiento."
+    },
+    "zoom": {
+      "in": "Acercar",
+      "out": "Alejar",
+      "reset": "Ver todo el periodo",
+      "windowStart": "Inicio de la ventana",
+      "windowEnd": "Fin de la ventana"
+    },
+    "legend": {
+      "title": "Leyenda",
+      "muted": "Las demás líneas se dibujan en gris: por encima de seis colores la leyenda deja de ser legible.",
+      "toggleHint": "Activa o desactiva esta línea en la gráfica."
+    },
+    "drill": {
+      "hint": "Elige una línea para filtrar el tablero y el contexto del asistente.",
+      "clear": "Quitar filtros",
+      "focused": "Filtrado por {series}."
+    },
+    "table": {
+      "toggle": "Ver la tabla de detalle",
+      "hide": "Ocultar la tabla de detalle",
+      "caption": "Detalle numérico de {metric}, de {from} a {to}.",
+      "note": "Los valores viajan en coma flotante de 32 bits, con un error relativo máximo de 6e-8.",
+      "gap": "sin dato",
+      "column": {
+        "date": "Fecha",
+        "series": "Serie",
+        "value": "Valor",
+        "min": "Mínimo",
+        "max": "Máximo",
+        "mean": "Media",
+        "last": "Último",
+        "change": "Variación"
+      }
+    },
+    "summary": {
+      "text": "{metric} de {from} a {to}: {lines} líneas y {points} puntos. La línea más alta es {top}, con una variación de {change} en el periodo; su máximo fue {max} el {maxDate} y su mínimo {min} el {minDate}.",
+      "empty": "No hay ninguna serie que describir con los filtros actuales."
+    },
+    "state": {
+      "loading": "Cargando la serie preagregada.",
+      "emptyTitle": "Ningún dato con estos filtros",
+      "emptyBody": "La consulta es válida y el servidor respondió sin errores, pero ninguna serie cumple los filtros. Quita alguno para volver a ver datos.",
+      "error": {
+        "title": "No se pudo cargar la serie",
+        "body": "El servidor no entregó el marco de datos. Puedes reintentar sin perder los filtros.",
+        "retry": "Reintentar"
+      },
+      "seedMissing": {
+        "title": "Todavía no hay datos sembrados",
+        "body": "El agregado del tablero no está en el servidor. Se genera con la semilla fija del proyecto y no se versiona.",
+        "command": "Ejecuta make data en la raíz del repositorio y vuelve a cargar esta pantalla."
+      }
+    },
+    "source": {
+      "title": "Procedencia del dato",
+      "file": "Archivo de origen",
+      "rawRows": "Filas crudas antes de agregar",
+      "aggregatedRows": "Filas preagregadas",
+      "seed": "Semilla del generador",
+      "transformations": "Transformaciones aplicadas",
+      "precision": "Precisión del transporte",
+      "precisionValue": "Coma flotante de 32 bits para la gráfica y para la tabla, con un error relativo máximo de 6e-8.",
+      "calendar": "El eje temporal no descuenta días festivos: es una limitación declarada del generador sintético.",
+      "fxNote": "Nota del tipo de cambio"
+    },
+    "measure": {
+      "title": "Medición de fluidez",
+      "run": "Medir fluidez",
+      "running": "Midiendo la fluidez",
+      "copy": "Copiar el informe",
+      "copied": "Informe copiado al portapapeles",
+      "frames": "Cuadros medidos",
+      "p50": "Mediana del cuadro (p50)",
+      "p95": "Percentil 95 del cuadro",
+      "worst": "Peor cuadro",
+      "longFrames": "Cuadros por encima del umbral",
+      "script": "Guión de pan y zoom, versión {version}, {steps} pasos.",
+      "verdict": {
+        "pass": "Cumple el umbral acordado.",
+        "fail": "No cumple el umbral acordado."
+      }
+    }
   }
 }

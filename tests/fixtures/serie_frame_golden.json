@@ -1,0 +1,95 @@
+{
+  "descripcion": "Testigo dorado del marco binario KSER1. Lo escribe US-025 con scripts/generar_marco_dorado.py y lo leen las dos suites: tests/backend/test_serie_frame.py y frontend/test/serieBinaria.spec.ts.",
+  "generado_por": "scripts/generar_marco_dorado.py",
+  "formato": "KSER1",
+  "version": 1,
+  "tipo_de_contenido": "application/vnd.karisma.serie-v1",
+  "nota_base64": "serie_frame_golden.b64 es UNA sola linea de base64 con salto final. Decodificar con atob(texto.trim()) en el navegador.",
+  "nota_valores": "valores son los numeros ya estrechados a float32, comparables por igualdad exacta; null es NaN, el hueco que se dibuja sin punto. valores_originales son los float64 que entraron al codificador.",
+  "bytes": 1040,
+  "sha256": "5b3afcb2277148ad66a38ae96e7c002dd143bfb93315bf3233cdbbac006e6599",
+  "cabecera": {
+    "agrupacion": "unidad_negocio",
+    "catalogo": [
+      {
+        "clave": "TESORERIA",
+        "label_en": "Treasury",
+        "label_es": "Tesoreria",
+        "serie_id": null
+      },
+      {
+        "clave": "7",
+        "label_en": "Treasury · Mexican peso · One month",
+        "label_es": "Tesoreria · Peso mexicano · Un mes",
+        "serie_id": 7
+      }
+    ],
+    "conteo": {
+      "fechas": 3,
+      "puntos": 6,
+      "series": 2
+    },
+    "fecha_max": "2018-11-02",
+    "fecha_min": "2018-10-31",
+    "metrica": "saldo_disponible_mxn",
+    "offsets": {
+      "fechas": 992,
+      "series": 1008,
+      "total": 1040,
+      "valores": 1016
+    },
+    "orden": [
+      "serie",
+      "fecha"
+    ],
+    "origen": {
+      "archivo": "data/aggregates/serie_tablero.parquet",
+      "filas_agregadas": 500000,
+      "filas_crudas": 1000000,
+      "generado_por": "make data",
+      "nota_tipo_cambio_en": "Fixed synthetic exchange rate. Not a market quote.",
+      "nota_tipo_cambio_es": "Tipo de cambio sintetico fijo. No es una cotizacion de mercado.",
+      "semilla": 20260720,
+      "silo": "liquidez",
+      "transformaciones": [
+        "testigo dorado: sin transformaciones reales"
+      ]
+    },
+    "reduccion": {
+      "bloque": 1,
+      "metodo": "media_por_bloque",
+      "puntos_originales": 3
+    },
+    "unidad": "MXN"
+  },
+  "fechas": [
+    17835,
+    17836,
+    17837
+  ],
+  "fechas_iso": [
+    "2018-10-31",
+    "2018-11-01",
+    "2018-11-02"
+  ],
+  "series_id": [
+    65535,
+    7
+  ],
+  "valores": [
+    1234567.875,
+    0.10000000149011612,
+    null,
+    -2.5,
+    9.99999993922529e-09,
+    987654336.0
+  ],
+  "valores_originales": [
+    1234567.89,
+    0.1,
+    null,
+    -2.5,
+    1e-08,
+    987654321.0
+  ]
+}

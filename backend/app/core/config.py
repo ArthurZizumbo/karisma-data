@@ -5,6 +5,7 @@ required secret is missing, instead of failing later with an obscure error.
 """
 
 from functools import lru_cache
+from pathlib import Path
 from typing import Self
 
 from pydantic import Field, model_validator
@@ -36,6 +37,10 @@ class Settings(BaseSettings):
             Off by default on purpose: an environment that forgets the variable
             stays closed, and turning it on is a deliberate act written into the
             deployment.
+        data_dir: Root of the read-only data directory, where ``make data``
+            leaves the synthetic silos and the preaggregated dashboard series.
+            It has a default because it is a path and not a secret: the strict
+            rule that keeps the three credentials mandatory is untouched.
     """
 
     database_url: str
@@ -44,6 +49,7 @@ class Settings(BaseSettings):
     app_env: str = LOCAL_ENV
     log_level: str = "INFO"
     demo_login_enabled: bool = False
+    data_dir: Path = Path("data")
 
     model_config = SettingsConfigDict(env_file=".env.local", extra="ignore")
 

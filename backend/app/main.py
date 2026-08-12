@@ -7,6 +7,7 @@ from fastapi import FastAPI
 
 from app.api import auth, health
 from app.core.config import LOCAL_ENV, get_settings
+from app.core.permissions import assert_scope_coverage
 from app.services.auth_service import InvalidCredentialsError
 
 logger = structlog.get_logger()
@@ -46,6 +47,8 @@ def create_app() -> FastAPI:
 
     Raises:
         pydantic.ValidationError: If a required environment variable is missing.
+        ScopeCoverageError: If a route under ``/api`` is not governed by the
+            permission policy.
     """
     settings = get_settings()
     configure_logging(settings.log_level)
@@ -75,6 +78,12 @@ def create_app() -> FastAPI:
     application.add_exception_handler(
         InvalidCredentialsError, auth.handle_invalid_credentials
     )
+
+    # Last check before the application is usable, and deliberately before the
+    # record below: a route under /api without a declared permission stops the
+    # startup instead of being served open. It runs on the application already
+    # built, so it sees exactly the routers this configuration mounted.
+    assert_scope_coverage(application)
 
     logger.info(
         "application_started",

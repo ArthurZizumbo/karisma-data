@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { esFalloDeAcceso, useSesion } from '~/composables/useSesion'
+import { RUTA_ADMINISTRACION, RUTA_INICIO } from '~/utils/espaciosTrabajo'
 import { RUTAS_CONTRATO } from '~/utils/navegacion'
 import { aSesionUsuario, destinoPorRol, esRolUsuario, estadoDeFallo, ROLES } from '~/utils/sesion'
 
@@ -25,13 +26,26 @@ describe('el destino de cada rol existe de verdad', () => {
     }
   })
 
-  it('no manda dos roles al mismo sitio', () => {
-    // Two roles sharing a landing screen is the shape the table takes when
-    // somebody copies a line and forgets to change it, and it silently undoes
-    // the whole point of routing by profile.
+  it('lleva a los tres perfiles de consulta a inicio y al admin a administracion', () => {
+    // This replaces `no manda dos roles al mismo sitio`, which asserted four
+    // DISTINCT landing routes. That assertion stopped being true on purpose,
+    // and it is retired rather than adjusted: US-027 gave `/inicio` three
+    // compositions chosen by role, so sending the analyst to `/exploracion` and
+    // the executive to `/exploracion/tableros` meant neither of them would ever
+    // see the screen built for them. Routing by profile now happens INSIDE the
+    // home screen; only the administrator, whose work does not start with data,
+    // lands somewhere else.
+    //
+    // The defect this catches is the restoration of the old table, which would
+    // make two of the three compositions unreachable after signing in without
+    // breaking anything else in the suite. Membership in RUTAS_CONTRATO stays
+    // pinned by the `it` above, which this User Story does not touch.
     const destinos = ROLES.map(destinoPorRol)
+    const fueraDeInicio = ROLES.filter(rol => destinoPorRol(rol) !== RUTA_INICIO)
 
-    expect(new Set(destinos).size).toBe(ROLES.length)
+    expect(new Set(destinos).size).toBe(2)
+    expect(fueraDeInicio).toEqual(['admin'])
+    expect(destinoPorRol('admin')).toBe(RUTA_ADMINISTRACION)
   })
 })
 

@@ -1,4 +1,5 @@
 import type { RolUsuario, SesionUsuario } from '~/types/sesion'
+import { espacioDeRol } from '~/utils/espaciosTrabajo'
 
 /**
  * Pure session helpers, shared by the browser and by the Nitro routes.
@@ -17,23 +18,6 @@ export const ROLES: readonly RolUsuario[] = Object.freeze([
 ])
 
 /**
- * Landing route of each role.
- *
- * Every value is a route of `RUTAS_CONTRATO`, and a test pins that: a landing
- * route that no page file serves turns a correct login into a 404, which is the
- * one failure that looks like a broken product on the first click.
- *
- * US-027 changes this table and nothing else when the four workspaces get their
- * own screens.
- */
-const DESTINOS: Readonly<Record<RolUsuario, string>> = Object.freeze({
-  operativo: '/inicio',
-  analista: '/exploracion',
-  directivo: '/exploracion/tableros',
-  admin: '/administracion',
-})
-
-/**
  * Query value that asks the entry screen to explain that the session expired.
  *
  * Declared here because US-017 writes the redirect and this screen reads it:
@@ -44,11 +28,20 @@ export const MOTIVO_EXPIRADA = 'expirada'
 /**
  * Route a role lands on right after entering.
  *
+ * Derived from the workspace contract instead of held as a table of its own.
+ * The table this function used to carry sent every role to a different screen -
+ * the analyst to the catalogue, the executive to the dashboards - and US-027
+ * turned that into a defect the moment `/inicio` grew three compositions: an
+ * analyst who lands on `/exploracion` never sees the one built for them. Two
+ * landing screens, then: the home screen for the three consultation profiles
+ * and the administration screen for the administrator, which is the only
+ * profile whose work does not start with data.
+ *
  * @param rol - Role of the session that was just opened.
  * @returns Path of the landing screen.
  */
 export function destinoPorRol(rol: RolUsuario): string {
-  return DESTINOS[rol]
+  return espacioDeRol(rol).pantallaPrincipal
 }
 
 /**

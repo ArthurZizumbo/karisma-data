@@ -151,7 +151,7 @@
       "description": "Contendrá el formulario de entrada con usuario y contraseña, y llevará a cada perfil a su pantalla inicial."
     },
     "home": {
-      "description": "Contendrá el buscador unificado, las búsquedas recientes, los favoritos, mis alertas y mi perfil.",
+      "description": "Reúne el buscador unificado, las búsquedas recientes, los favoritos, mis alertas y mi perfil, ordenados según el perfil con el que entraste.",
       "capability": {
         "search": "Buscador unificado",
         "recent": "Busquedas recientes",
@@ -572,6 +572,108 @@
     },
     "signedOut": {
       "notice": "Los prototipos del portal piden sesión. Sin ella te devuelven a la pantalla de acceso; el índice y la guía de estilos quedan siempre abiertos."
+    }
+  },
+  "workspace": {
+    "greeting": "Hola, {name}",
+    "loading": "Preparando tu espacio de trabajo",
+    "intro": {
+      "operativo": "Tu espacio abre con el buscador: localizar una cifra y comprobarla es lo primero que haces al entrar.",
+      "analista": "Tu espacio abre con el explorador y tus exportaciones: retomas el trabajo donde lo dejaste.",
+      "directivo": "Tu espacio abre con los indicadores del último corte y deja la búsqueda a una línea."
+    },
+    "sample": {
+      "badge": "Datos de ejemplo",
+      "hint": "Las listas y las cifras de esta pantalla son sintéticas: sirven para mostrar la disposición del espacio de trabajo, no para tomar decisiones."
+    },
+    "search": {
+      "label": "Buscar en el catálogo",
+      "placeholder": "Nombre de campo, tabla o concepto de negocio",
+      "action": "Buscar",
+      "hint": "Escribe un nombre físico como ratio_lcr o un concepto como cobertura de liquidez."
+    },
+    "recent": {
+      "title": "Búsquedas recientes",
+      "empty": "Todavía no has buscado nada. Lo que consultes aparecerá aquí."
+    },
+    "favorites": {
+      "title": "Fuentes favoritas",
+      "empty": "No has marcado ninguna fuente como favorita."
+    },
+    "alerts": {
+      "title": "Mis alertas",
+      "empty": "No hay señales pendientes de revisar."
+    },
+    "exports": {
+      "title": "Exportaciones recientes",
+      "empty": "No has generado ninguna extracción todavía."
+    },
+    "explorer": {
+      "title": "Consultas guardadas",
+      "empty": "No has guardado ninguna consulta.",
+      "action": "Abrir el explorador"
+    },
+    "indicators": {
+      "title": "Indicadores del último corte",
+      "asOf": "Corte al {date}",
+      "change": "{value} contra el mes anterior",
+      "open": "Ver en el tablero",
+      "unit": {
+        "percent": "por ciento",
+        "millionsMxn": "millones de pesos",
+        "days": "días"
+      }
+    },
+    "profile": {
+      "title": "Mi perfil",
+      "role": "Perfil",
+      "lastAccess": "Último acceso"
+    },
+    "severity": {
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Informativa"
+    },
+    "exportStatus": {
+      "ready": "Lista",
+      "running": "En proceso",
+      "expired": "Caducada"
+    },
+    "samples": {
+      "recent": {
+        "lcr": "Razón de cobertura de liquidez",
+        "capital": "Saldo de capital",
+        "mora": "Días de mora",
+        "nocional": "Nocional en dólares",
+        "disponible": "Monto disponible"
+      },
+      "favorite": {
+        "liquidez": "Liquidez y tesorería",
+        "creditos": "Cartera de crédito",
+        "derivados": "Derivados y coberturas",
+        "regulatorio": "Reportes regulatorios"
+      },
+      "alert": {
+        "lcrBajoUmbral": "La cobertura de liquidez bajó del umbral interno",
+        "cargaRetrasada": "La carga de cartera de ayer terminó con retraso",
+        "definicionActualizada": "Cambió la definición de días de mora en el diccionario"
+      },
+      "export": {
+        "carteraMensual": "Cartera mensual por producto",
+        "posicionesDerivados": "Posiciones de derivados",
+        "moraPorSucursal": "Mora por sucursal",
+        "liquidezDiaria": "Liquidez diaria"
+      },
+      "query": {
+        "moraMayor90": "Cartera con mora mayor a 90 días",
+        "lcrPorUnidad": "Cobertura de liquidez por unidad de negocio",
+        "exposicionContraparte": "Exposición por contraparte"
+      },
+      "indicator": {
+        "lcr": "Cobertura de liquidez",
+        "carteraVencida": "Cartera vencida",
+        "exposicionNeta": "Exposición neta en derivados"
+      }
     }
   }
 }

@@ -151,7 +151,7 @@
       "description": "Will hold the sign-in form with user name and password, and will take each profile to its landing screen."
     },
     "home": {
-      "description": "Will hold the unified search, recent searches, favorites, my alerts and my profile.",
+      "description": "Brings together the unified search, recent searches, favourites, my alerts and my profile, ordered by the profile you signed in with.",
       "capability": {
         "search": "Unified search",
         "recent": "Recent searches",
@@ -572,6 +572,108 @@
     },
     "signedOut": {
       "notice": "The portal prototypes require a session. Without one they send you back to the entry screen; the index and the style guide stay open."
+    }
+  },
+  "workspace": {
+    "greeting": "Hello, {name}",
+    "loading": "Preparing your workspace",
+    "intro": {
+      "operativo": "Your workspace opens with the search box: finding a figure and checking it is the first thing you do.",
+      "analista": "Your workspace opens with the explorer and your exports, so you pick the work up where you left it.",
+      "directivo": "Your workspace opens with the indicators of the latest close and keeps the search to a single line."
+    },
+    "sample": {
+      "badge": "Sample data",
+      "hint": "The lists and figures on this screen are synthetic: they show how the workspace is laid out, and no decision should rest on them."
+    },
+    "search": {
+      "label": "Search the catalog",
+      "placeholder": "Field name, table or business concept",
+      "action": "Search",
+      "hint": "Type a physical name such as ratio_lcr, or a concept such as liquidity coverage."
+    },
+    "recent": {
+      "title": "Recent searches",
+      "empty": "You have not searched for anything yet. What you look up will show here."
+    },
+    "favorites": {
+      "title": "Favorite sources",
+      "empty": "You have not marked any source as a favorite."
+    },
+    "alerts": {
+      "title": "My alerts",
+      "empty": "There are no signals waiting for review."
+    },
+    "exports": {
+      "title": "Recent exports",
+      "empty": "You have not generated any extract yet."
+    },
+    "explorer": {
+      "title": "Saved queries",
+      "empty": "You have not saved any query.",
+      "action": "Open the explorer"
+    },
+    "indicators": {
+      "title": "Indicators of the latest close",
+      "asOf": "As of {date}",
+      "change": "{value} against the previous month",
+      "open": "Open in the dashboard",
+      "unit": {
+        "percent": "percent",
+        "millionsMxn": "million pesos",
+        "days": "days"
+      }
+    },
+    "profile": {
+      "title": "My profile",
+      "role": "Profile",
+      "lastAccess": "Last access"
+    },
+    "severity": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Informational"
+    },
+    "exportStatus": {
+      "ready": "Ready",
+      "running": "Running",
+      "expired": "Expired"
+    },
+    "samples": {
+      "recent": {
+        "lcr": "Liquidity coverage ratio",
+        "capital": "Principal balance",
+        "mora": "Days past due",
+        "nocional": "Notional in US dollars",
+        "disponible": "Available amount"
+      },
+      "favorite": {
+        "liquidez": "Liquidity and treasury",
+        "creditos": "Loan portfolio",
+        "derivados": "Derivatives and hedging",
+        "regulatorio": "Regulatory reporting"
+      },
+      "alert": {
+        "lcrBajoUmbral": "Liquidity coverage fell below the internal threshold",
+        "cargaRetrasada": "Yesterday portfolio load finished late",
+        "definicionActualizada": "The definition of days past due changed in the dictionary"
+      },
+      "export": {
+        "carteraMensual": "Monthly portfolio by product",
+        "posicionesDerivados": "Derivative positions",
+        "moraPorSucursal": "Past due by branch",
+        "liquidezDiaria": "Daily liquidity"
+      },
+      "query": {
+        "moraMayor90": "Portfolio more than 90 days past due",
+        "lcrPorUnidad": "Liquidity coverage by business unit",
+        "exposicionContraparte": "Exposure by counterparty"
+      },
+      "indicator": {
+        "lcr": "Liquidity coverage",
+        "carteraVencida": "Non-performing loans",
+        "exposicionNeta": "Net derivative exposure"
+      }
     }
   }
 }

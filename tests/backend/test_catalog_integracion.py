@@ -21,10 +21,9 @@ circular.
 import asyncio
 import json
 import os
-import sys
 from collections.abc import AsyncIterator, Sequence
 from pathlib import Path
-from typing import Any, Final
+from typing import Any, Final, cast
 
 import pytest
 import pytest_asyncio
@@ -172,8 +171,15 @@ def event_loop_policy() -> asyncio.AbstractEventLoopPolicy:
     Returns:
         The selector policy on Windows, the default one elsewhere.
     """
-    if sys.platform == "win32":
-        return asyncio.WindowsSelectorEventLoopPolicy()
+    # The policy is looked up by name instead of behind a sys.platform test.
+    # mypy narrows sys.platform to the platform running the check and declares
+    # the other branch unreachable, so any form of that comparison fails the
+    # lint on Windows and would fail it the other way round on a Linux runner.
+    # Asking whether the class exists is also the more honest question: it is
+    # defined only on Windows, which is exactly the condition that matters.
+    politica_windows = getattr(asyncio, "WindowsSelectorEventLoopPolicy", None)
+    if politica_windows is not None:
+        return cast(asyncio.AbstractEventLoopPolicy, politica_windows())
     return asyncio.DefaultEventLoopPolicy()
 
 
@@ -222,20 +228,37 @@ async def sesion(sesion_sembrada: AsyncSession) -> AsyncSession:
 
 
 async def _buscar(
-    sesion: AsyncSession, consulta: str, **extra: object
+    sesion: AsyncSession,
+    consulta: str,
+    *,
+    only_current: bool = True,
+    limit: int = catalog_service.DEFAULT_LIMIT,
+    offset: int = catalog_service.DEFAULT_OFFSET,
 ) -> CatalogSearchResponse:
     """Search inside the fixture source.
+
+    The optional arguments are spelled out instead of forwarded as ``**extra``:
+    a kwargs bag types as ``Any``, which the lint rejects, and it also hides a
+    typo in a keyword name behind a signature that accepts anything.
 
     Args:
         sesion: Session with the fixture catalog inserted.
         consulta: Free text of the search.
-        **extra: Further arguments forwarded to the service.
+        only_current: When true, entries whose validity is already closed are
+            excluded.
+        limit: Page size.
+        offset: Rows skipped before the page.
 
     Returns:
         The response payload.
     """
     return await catalog_service.search(
-        sesion, raw_query=consulta, sources=[FUENTE], **extra
+        sesion,
+        raw_query=consulta,
+        sources=[FUENTE],
+        only_current=only_current,
+        limit=limit,
+        offset=offset,
     )
 
 

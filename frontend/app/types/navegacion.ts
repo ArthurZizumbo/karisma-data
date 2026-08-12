@@ -9,14 +9,25 @@
  * words live in i18n/locales/{es,en}.json and nowhere else.
  */
 
+import type { RolUsuario } from '~/types/sesion'
+
 /** How much of a screen is actually usable right now. */
 export type EstadoAlcance
   = | 'navegable-con-datos'
     | 'navegable-sin-datos'
     | 'roadmap'
 
-/** Profile the screen is primarily designed for. Mirrors the JWT scopes. */
-export type RolSugerido = 'operativo' | 'analista' | 'directivo' | 'administrador'
+/**
+ * Profile the screen is primarily designed for. Mirrors the JWT scopes.
+ *
+ * It is an alias and not a second list, so the docstring above is TRUE instead
+ * of merely rewritten: the fourth role used to be spelled `administrador` here
+ * while the `scope` claim, the CHECK constraint of `app_user` and the whole
+ * guard say `admin`. Today the difference is harmless because nothing compares
+ * the two; the day a screen writes `if (rol === ...)` against a token, it stops
+ * being harmless.
+ */
+export type RolSugerido = RolUsuario
 
 /** Second level entry of the sidebar: a sub branch of the A3 map. */
 export interface SubrutaNav {

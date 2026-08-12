@@ -101,6 +101,12 @@
         "permissions": "Permissions",
         "exportHistory": "Export history"
       }
+    },
+    "session": {
+      "anonymous": "Not signed in. Modules appear according to your profile.",
+      "signIn": "Sign in to the portal",
+      "ariaLabel": "Session status",
+      "profile": "{role} profile"
     }
   },
   "prototype": {
@@ -548,6 +554,24 @@
         "rule": "The canonical source is always named. Staying silent about the discrepancy is what sends the reader back to email, which is exactly the problem this portal exists to remove."
       },
       "rationale": "This plate exists because the design review flagged that \"View lineage\" was a button label with nothing specified behind it. A system documenting five status chips and no way to defend a figure fails the profile whose job is to answer for it."
+    }
+  },
+  "authz": {
+    "noPermission": {
+      "title": "You do not have permission to view this screen",
+      "body": "Your profile does not have permission to view this information. Request access from the portal administrator.",
+      "required": "This screen requires the {required} profile; yours is {current}.",
+      "requestTo": "Request it under Administration › Requests and approvals, handled by the portal administration.",
+      "exit": "Go to my workspace"
+    },
+    "role": {
+      "operativo": "Operations",
+      "analista": "Analyst",
+      "directivo": "Executive",
+      "admin": "Administrator"
+    },
+    "signedOut": {
+      "notice": "The portal prototypes require a session. Without one they send you back to the entry screen; the index and the style guide stay open."
     }
   }
 }

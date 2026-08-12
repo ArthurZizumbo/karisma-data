@@ -19,7 +19,7 @@ ENV_FRONTEND := frontend/.env.local
 
 .DEFAULT_GOAL := help
 
-.PHONY: help dev lint test data tokens db-new db-up db-rollback db-seed check \
+.PHONY: help dev lint test data tokens permisos-ui db-new db-up db-rollback db-seed check \
         verificar comprobar-env-backend comprobar-env-frontend
 
 # ---------------------------------------------------------------------------
@@ -91,11 +91,12 @@ check: lint ## lint mas secrets-scan. Obligatorio antes de abrir un PR
 	@echo "Comprobando que el escaneo detecta de verdad (CA-7b)..."
 	bash scripts/verificar_gitleaks.sh
 
-verificar: ## Comprueba pines, secretos, reproducibilidad, tokens y datos
+verificar: ## Comprueba pines, secretos, reproducibilidad, tokens, permisos y datos
 	sh scripts/verificar_pines.sh
 	sh scripts/verificar_gitleaks.sh
 	sh scripts/verificar_reproducibilidad.sh
 	sh scripts/verificar_tokens_a4.sh
+	sh scripts/verificar_permisos_ui.sh
 	sh scripts/verificar_datos.sh
 
 # ---------------------------------------------------------------------------
@@ -114,6 +115,20 @@ verificar: ## Comprueba pines, secretos, reproducibilidad, tokens y datos
 tokens: ## Regenera los tokens de diseno (@theme, paleta tipada, laminas y manifiesto)
 	@bash scripts/comprobar_requisitos.sh herramienta poetry
 	poetry -P backend run python docs/entregables/generar_tokens_a4.py
+
+# ---------------------------------------------------------------------------
+#  Mapa de permisos de la interfaz - la matriz de permisos vive en el backend y
+#  el frontend consume una PROYECCION generada de ella sobre el mapa de sitio
+#  de A3. La cadena, tambien en un solo sentido:
+#      backend/app/core/{scopes,permissions}.py + frontend/app/utils/navegacion.ts
+#      ->  scripts/generar_permisos_ui.py  ->  frontend/app/utils/permisos.generated.ts
+#  Editar la salida a mano abre una segunda politica que puede discrepar de
+#  ROLE_HIERARCHY; "make verificar" lo detecta regenerando y difiendo.
+# ---------------------------------------------------------------------------
+
+permisos-ui: ## Regenera el mapa de permisos que la interfaz usa para ocultar por rol
+	@bash scripts/comprobar_requisitos.sh herramienta poetry
+	poetry -P backend run python scripts/generar_permisos_ui.py
 
 data: ## Genera los silos sinteticos y la serie preagregada (semilla fija 20260720)
 	@bash scripts/comprobar_requisitos.sh herramienta poetry

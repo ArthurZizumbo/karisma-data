@@ -38,7 +38,7 @@ const CLAVE_ROL: Record<RolSugerido, string> = {
   operativo: 'prototype.profile.operations',
   analista: 'prototype.profile.analyst',
   directivo: 'prototype.profile.executive',
-  administrador: 'prototype.profile.administration',
+  admin: 'prototype.profile.administration',
 }
 </script>
 

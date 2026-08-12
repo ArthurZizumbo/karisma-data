@@ -19,6 +19,14 @@
 #  proxy que no llega, una cookie que pierde un atributo. Nada de eso puede
 #  quedar en verde a partir de aqui.
 #
+#  Desde US-017 el recorrido ENTRA ANTES de recorrer. Siete de las diez rutas
+#  estan guardadas: sin cookie responden 302 hacia /acceso, asi que el guion
+#  acuna una sesion de administracion -el unico perfil que alcanza las diez- y
+#  recorre con ella. Y comprueba los dos casos negativos que ninguna prueba
+#  unitaria puede ver, porque los dos son respuestas HTTP del servidor:
+#  una ruta de producto sin cookie devuelve 302 hacia /acceso, y una ruta que
+#  el perfil no alcanza devuelve 403 con el estado disenado en el cuerpo.
+#
 #  Uso, con el entorno ya levantado por "make dev" en otra terminal:
 #      bash scripts/smoke_rutas.sh
 #
@@ -70,15 +78,28 @@ VIDA_COOKIE=1800
 ROL_DEMO="analista"
 USUARIO_DEMO="dhernandez"
 
+# Perfiles de la guarda (US-017). El recorrido usa "admin" porque es el unico
+# que alcanza las diez rutas; el caso negativo usa "operativo" contra la rama
+# 2.3, que exige "analista", que es el escalon inmediatamente superior: con un
+# perfil mas bajo el 403 no probaria que la jerarquia se respeta.
+ROL_RECORRIDO="admin"
+ROL_SIN_PERMISO="operativo"
+RUTA_GUARDADA="/inicio"
+RUTA_DE_MAYOR_RANGO="/exploracion/exportar"
+MARCA_SIN_PERMISO='data-estado="sin-permiso"'
+
 CUERPO=""
 CABECERAS=""
 GALLETAS=""
+GALLETAS_RECORRIDO=""
+GALLETAS_SIN_PERMISO=""
 
 limpiar() {
   # El tarro de galletas lleva un JWT valido durante media hora: se borra pase lo
   # que pase, igual que el cuerpo y las cabeceras.
   local temporal
-  for temporal in "$CUERPO" "$CABECERAS" "$GALLETAS"; do
+  for temporal in "$CUERPO" "$CABECERAS" "$GALLETAS" \
+    "$GALLETAS_RECORRIDO" "$GALLETAS_SIN_PERMISO"; do
     if [ -n "$temporal" ] && [ -f "$temporal" ]; then
       rm -f "$temporal"
     fi
@@ -110,7 +131,11 @@ comprobar_ruta() {
   local url="${BASE_WEB}${ruta}"
   local codigo
 
-  if ! codigo="$(curl -sS -o "$CUERPO" -w '%{http_code}' --max-time 20 "$url")"; then
+  # Con cookie a proposito: desde US-017 siete de estas diez rutas exigen
+  # sesion, y sin ella un 302 se leeria como una ruta rota en vez de como la
+  # guarda haciendo su trabajo.
+  if ! codigo="$(curl -sS -o "$CUERPO" -b "$GALLETAS_RECORRIDO" \
+      -w '%{http_code}' --max-time 20 "$url")"; then
     fallar "sin respuesta de $url"
   fi
 
@@ -251,6 +276,87 @@ comprobar_credencial_rechazada() {
   printf '  OK   %-24s HTTP 401   rechazo neutro y tipificado\n' "/api/auth/token"
 }
 
+# ---------------------------------------------------------------------------
+#  Guarda de sesion y ocultamiento por rol (US-017).
+#
+#  Las tres funciones de abajo miden lo unico que ninguna prueba unitaria del
+#  frontend puede medir: el codigo HTTP con el que el servidor responde. La
+#  guarda decide en SSR, antes del primer byte de HTML, y una decision que se
+#  tomara despues -en el navegador, tras hidratar- serviria la pantalla
+#  prohibida durante un instante y aqui devolveria 200.
+# ---------------------------------------------------------------------------
+
+acunar_sesion() {
+  # $1: rol  $2: archivo del tarro de galletas
+  local rol="$1"
+  local tarro="$2"
+  local url="${BASE_WEB}/api/auth/demo"
+  local codigo
+
+  if ! codigo="$(curl -sS -o "$CUERPO" -c "$tarro" -w '%{http_code}' --max-time 20 \
+      -X POST -H 'Content-Type: application/json' \
+      -d "{\"rol\":\"${rol}\"}" "$url")"; then
+    fallar "sin respuesta de $url"
+  fi
+
+  if [ "$codigo" = "404" ]; then
+    # Sin puerta de demostracion no hay sesion, y sin sesion el recorrido
+    # entero devolveria 302: se dice por que, en vez de dejar diez fallos de
+    # ruta que parecen un portal roto.
+    fallar "DEMO_LOGIN_ENABLED esta apagada en este entorno, asi que no se puede acunar la sesion de ${rol}. Desde US-017 las siete rutas de producto exigen sesion y el recorrido no puede correr sin ella"
+  fi
+
+  if [ "$codigo" != "200" ]; then
+    fallar "$url respondio HTTP ${codigo} al acunar la sesion de ${rol} y se esperaba 200"
+  fi
+}
+
+comprobar_guarda_sin_sesion() {
+  local url="${BASE_WEB}${RUTA_GUARDADA}"
+  local codigo destino
+
+  # Sin -b y sin -L: interesa la respuesta cruda. Un 200 aqui significaria que
+  # una ruta de producto se sirve entera a quien no ha entrado.
+  if ! codigo="$(curl -sS -o "$CUERPO" -D "$CABECERAS" -w '%{http_code}' --max-time 20 "$url")"; then
+    fallar "sin respuesta de $url"
+  fi
+
+  if [ "$codigo" != "302" ]; then
+    fallar "${RUTA_GUARDADA} sin sesion respondio HTTP ${codigo} y se esperaba 302: la guarda no esta decidiendo en el servidor"
+  fi
+
+  destino="$(grep -i '^location:' "$CABECERAS" | tr -d '\r' | head -n 1)"
+  case "$destino" in
+    *"/acceso"*) ;;
+    *) fallar "${RUTA_GUARDADA} sin sesion redirigio a '${destino}' y se esperaba /acceso" ;;
+  esac
+
+  printf '  OK   %-24s HTTP 302   sin sesion rebota a /acceso\n' "$RUTA_GUARDADA"
+}
+
+comprobar_guarda_por_rol() {
+  local url="${BASE_WEB}${RUTA_DE_MAYOR_RANGO}"
+  local codigo
+
+  if ! codigo="$(curl -sS -o "$CUERPO" -b "$GALLETAS_SIN_PERMISO" \
+      -w '%{http_code}' --max-time 20 "$url")"; then
+    fallar "sin respuesta de $url"
+  fi
+
+  if [ "$codigo" != "403" ]; then
+    fallar "${RUTA_DE_MAYOR_RANGO} con perfil ${ROL_SIN_PERMISO} respondio HTTP ${codigo} y se esperaba 403"
+  fi
+
+  grep -q "$MARCA_SIN_PERMISO" "$CUERPO" \
+    || fallar "el cuerpo de ${RUTA_DE_MAYOR_RANGO} no lleva ${MARCA_SIN_PERMISO}: el 403 llego sin el estado disenado y el lector ve una pantalla en blanco"
+
+  grep -q "$MARCA_FRANJA" "$CUERPO" \
+    || fallar "la ruta bloqueada perdio la franja de alcance: el estado sin permiso salio del layout del portal"
+
+  printf '  OK   %-24s HTTP 403   %s ve el estado sin permiso\n' \
+    "$RUTA_DE_MAYOR_RANGO" "$ROL_SIN_PERMISO"
+}
+
 comprobar_alias_del_path() {
   local url="${BASE_WEB}/api/auth%2Fdemo"
   local codigo
@@ -285,17 +391,29 @@ main() {
   CUERPO="$(mktemp)"
   CABECERAS="$(mktemp)"
   GALLETAS="$(mktemp)"
+  GALLETAS_RECORRIDO="$(mktemp)"
+  GALLETAS_SIN_PERMISO="$(mktemp)"
 
   printf 'Smoke de US-001 contra %s y %s\n\n' "$BASE_WEB" "$BASE_API"
 
   esperar_servicio "$BASE_WEB/" "el servicio web"
   esperar_servicio "${BASE_API}/health" "el servicio api"
 
+  # La guarda sin sesion va primero: es la unica comprobacion que necesita el
+  # navegador limpio, y despues de acunar las cookies ya no se puede observar.
+  comprobar_guarda_sin_sesion
+
+  acunar_sesion "$ROL_RECORRIDO" "$GALLETAS_RECORRIDO"
+  acunar_sesion "$ROL_SIN_PERMISO" "$GALLETAS_SIN_PERMISO"
+  printf '  OK   %-24s sesiones de %s y %s acunadas\n' "/api/auth/demo" \
+    "$ROL_RECORRIDO" "$ROL_SIN_PERMISO"
+
   local ruta
   for ruta in "${RUTAS[@]}"; do
     comprobar_ruta "$ruta"
   done
 
+  comprobar_guarda_por_rol
   comprobar_salud
 
   printf '
@@ -311,7 +429,7 @@ main() {
   comprobar_alias_del_path
 
   printf '
-%s/%s rutas, /health y la sesion en verde
+%s/%s rutas, /health, la sesion y la guarda en verde
 ' "${#RUTAS[@]}" "$TOTAL_ESPERADO"
 }
 

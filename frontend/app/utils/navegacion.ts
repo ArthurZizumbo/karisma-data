@@ -156,7 +156,7 @@ export const PROTOTIPOS: readonly Prototipo[] = Object.freeze([
     ruta: '/administracion',
     claveRama: 'prototype.branch.administration',
     alcance: 'navegable-sin-datos',
-    rolSugerido: 'administrador',
+    rolSugerido: 'admin',
   },
   {
     numero: 6,

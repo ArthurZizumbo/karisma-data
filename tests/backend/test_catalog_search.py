@@ -14,9 +14,10 @@ a renamed block is a screen that renders empty with a 200 behind it.
 
 from collections.abc import Callable, Mapping
 from datetime import date
-from typing import TYPE_CHECKING, Any, Final
+from typing import TYPE_CHECKING, Any, Final, cast
 
 import pytest
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from app.core.database import get_session
@@ -215,7 +216,10 @@ def crear_cliente_catalogo(
 
     def _crear(sesion: SesionFalsa) -> TestClient:
         cliente = crear_cliente(demo=False)
-        cliente.app.dependency_overrides[get_session] = lambda: sesion
+        # TestClient.app is typed as the generic ASGI callable; the override
+        # registry only exists on the FastAPI instance underneath it.
+        aplicacion = cast(FastAPI, cliente.app)
+        aplicacion.dependency_overrides[get_session] = lambda: sesion
         return cliente
 
     return _crear

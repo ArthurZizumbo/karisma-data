@@ -3,8 +3,10 @@ import { mount } from '@vue/test-utils'
 import { defineComponent } from 'vue'
 import { createMemoryHistory, createRouter, RouterLink } from 'vue-router'
 import { describe, expect, it } from 'vitest'
+import type { RolUsuario } from '~/types/sesion'
 import BarraLateral from '~/components/nav/BarraLateral.vue'
-import { MODULOS, RUTA_ASISTENTE, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
+import { useSesion } from '~/composables/useSesion'
+import { MODULOS, RUTA_ACCESO, RUTA_ASISTENTE, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
 import { type CodigoIdioma, crearI18nDePrueba, mensaje } from './i18nDePrueba'
 
 const Vacio = defineComponent({ template: '<div />' })
@@ -19,7 +21,14 @@ const Vacio = defineComponent({ template: '<div />' })
  * What prevents that is the :aria-current="undefined" fallthrough of the
  * component, and with the stub that line of defence went untested.
  */
-async function montarEn(ruta: string, idioma: CodigoIdioma = 'es'): Promise<VueWrapper> {
+async function montarEn(
+  ruta: string,
+  opciones: { rol?: RolUsuario | null, idioma?: CodigoIdioma } = {},
+): Promise<VueWrapper> {
+  const { rol = 'admin', idioma = 'es' } = opciones
+  const { sesion } = useSesion()
+  sesion.value = rol === null ? null : { usuario: 'demo', nombre: 'Perfil de demostracion', rol }
+
   const router = createRouter({
     history: createMemoryHistory(),
     routes: [RUTA_INDICE, ...RUTAS_CONTRATO].map(path => ({ path, component: Vacio })),
@@ -36,14 +45,107 @@ async function montarEn(ruta: string, idioma: CodigoIdioma = 'es'): Promise<VueW
   })
 }
 
-describe('BarraLateral: revelación progresiva', () => {
-  it('mantiene visibles los cuatro módulos de primer nivel en cualquier ruta', async () => {
-    for (const ruta of RUTAS_CONTRATO) {
-      const wrapper = await montarEn(ruta)
-      expect(wrapper.findAll('[data-modulo-item]')).toHaveLength(MODULOS.length)
-    }
+function idsVisibles(wrapper: VueWrapper): string[] {
+  return wrapper
+    .findAll('[data-modulo-item]')
+    .map(item => item.attributes('data-modulo-item') ?? '')
+}
+
+/**
+ * US-017 replaces the assertion this file used to open with.
+ *
+ * It said `findAll('[data-modulo-item]')).toHaveLength(MODULOS.length)` for
+ * every route of the contract, and it stopped being true BY DESIGN the moment
+ * the sidebar started hiding what a role may not open. The number is not
+ * adjusted so the old test passes: it is replaced by the role to modules table,
+ * which is four rows instead of one and which can actually fail.
+ */
+describe('BarraLateral: los modulos sin permiso no estan en el DOM', () => {
+  it.each([
+    ['operativo', 3],
+    ['analista', 3],
+    ['directivo', 3],
+    ['admin', 4],
+  ] as const)('muestra a %s exactamente %i modulos', async (rol, esperados) => {
+    const wrapper = await montarEn('/inicio', { rol })
+
+    expect(idsVisibles(wrapper)).toHaveLength(esperados)
   })
 
+  it('no deja rastro del modulo de administracion en un perfil operativo', async () => {
+    // The lax reading of "hide" is painting it grey. A disabled entry still
+    // advertises a door that answers 403 and still reaches a screen reader,
+    // so the criterion is absence from the DOM and not a visual state.
+    const wrapper = await montarEn('/inicio', { rol: 'operativo' })
+
+    expect(idsVisibles(wrapper)).not.toContain('4')
+    expect(wrapper.html()).not.toContain('/administracion')
+  })
+
+  it('se lo muestra entero a un administrador', async () => {
+    // The mirror image of the previous one: a filter that is too aggressive
+    // hides the module from the only profile that owns it, and the failure is
+    // silent because everything else keeps working.
+    const wrapper = await montarEn('/administracion', { rol: 'admin' })
+
+    expect(idsVisibles(wrapper)).toEqual(MODULOS.map(modulo => modulo.id))
+  })
+
+  it('no deshabilita nada: lo que no se puede abrir, no se pinta', async () => {
+    const wrapper = await montarEn('/exploracion', { rol: 'operativo' })
+
+    expect(wrapper.findAll('[aria-disabled]')).toHaveLength(0)
+    expect(wrapper.findAll('[disabled]')).toHaveLength(0)
+    expect(wrapper.findAll('[hidden]')).toHaveLength(0)
+  })
+
+  it.each([
+    ['operativo', 2],
+    ['analista', 4],
+    ['directivo', 4],
+    ['admin', 4],
+  ] as const)('filtra tambien el segundo nivel: %s ve %i ramas de exploracion', async (rol, esperadas) => {
+    // Filtering only the first level is the half implementation that hurts
+    // most: the module opens, and inside it the reader is offered Exports,
+    // which will answer 403.
+    const wrapper = await montarEn('/exploracion', { rol })
+
+    expect(wrapper.findAll('[data-nivel="2"] a')).toHaveLength(esperadas)
+  })
+})
+
+describe('BarraLateral: sin sesion no ofrece puertas que se cierran', () => {
+  it('sustituye los modulos por la explicacion y el enlace de entrada', async () => {
+    // '/guia' is public and uses this layout, so without this state the style
+    // guide would be captured for A4 with an empty sidebar and no explanation.
+    const wrapper = await montarEn('/guia', { rol: null })
+
+    expect(wrapper.findAll('[data-modulo-item]')).toHaveLength(0)
+    expect(wrapper.text()).toContain(mensaje('es', 'nav.session.anonymous'))
+    expect(wrapper.get('[data-sesion-anonima] a').attributes('href')).toBe(RUTA_ACCESO)
+  })
+
+  it('rotula ese estado para quien no ve la pantalla', async () => {
+    const wrapper = await montarEn('/guia', { rol: null, idioma: 'en' })
+
+    expect(wrapper.get('[data-sesion-anonima]').attributes('aria-label')).toBe(
+      mensaje('en', 'nav.session.ariaLabel'),
+    )
+  })
+
+  it('nombra el perfil activo cuando si hay sesion', async () => {
+    // The capture of each workspace has to say whose sidebar it is, or the
+    // four plates of the deliverable are indistinguishable from one another.
+    const wrapper = await montarEn('/inicio', { rol: 'directivo' })
+
+    expect(wrapper.get('[data-perfil-activo]').text()).toContain(
+      mensaje('es', 'authz.role.directivo'),
+    )
+    expect(wrapper.findAll('[data-sesion-anonima]')).toHaveLength(0)
+  })
+})
+
+describe('BarraLateral: revelación progresiva', () => {
   it.each(MODULOS.map(modulo => [modulo.ruta, modulo.id]))(
     'despliega en %s solo el segundo nivel del módulo %s',
     async (ruta, idEsperado) => {
@@ -145,6 +247,16 @@ describe('BarraLateral: estado activo derivado de la ruta', () => {
     const wrapper = await montarEn('/acceso')
     expect(wrapper.findAll('[aria-current="page"]')).toHaveLength(0)
   })
+
+  it('no marca nada cuando la ruta activa es la que el perfil no puede abrir', async () => {
+    // The blocked route keeps its address, so the sidebar is still rendered on
+    // it. Marking a module the reader cannot open as "current" would say the
+    // opposite of what the screen says.
+    const wrapper = await montarEn('/administracion', { rol: 'analista' })
+
+    expect(wrapper.findAll('[aria-current="page"]')).toHaveLength(0)
+    expect(wrapper.findAll('[data-nivel="2"]')).toHaveLength(0)
+  })
 })
 
 describe('BarraLateral: el árbol de A3 se traduce entero', () => {
@@ -152,7 +264,7 @@ describe('BarraLateral: el árbol de A3 se traduce entero', () => {
     // The sidebar is the densest surface of the prototype: four modules, sixteen
     // leaves and nine facet chips. A literal left in Spanish anywhere in that
     // tree survives every other test in the suite.
-    const wrapper = await montarEn('/exploracion', 'en')
+    const wrapper = await montarEn('/exploracion', { idioma: 'en' })
     const texto = wrapper.text()
 
     expect(texto).toContain(mensaje('en', 'nav.module.explore'))
@@ -163,7 +275,7 @@ describe('BarraLateral: el árbol de A3 se traduce entero', () => {
   })
 
   it('traduce los rótulos accesibles, no solo el texto visible', async () => {
-    const wrapper = await montarEn('/exploracion', 'en')
+    const wrapper = await montarEn('/exploracion', { idioma: 'en' })
     const rotulos = wrapper.findAll('nav').map(nav => nav.attributes('aria-label'))
 
     expect(rotulos).toContain(mensaje('en', 'nav.aria.main'))

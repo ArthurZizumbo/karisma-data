@@ -1,10 +1,29 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import EstadoSinPermiso from '~/components/comun/EstadoSinPermiso.vue'
 import CabeceraProducto from '~/components/comun/CabeceraProducto.vue'
 import BarraLateral from '~/components/nav/BarraLateral.vue'
 import FranjaAlcance from '~/components/nav/FranjaAlcance.vue'
+import { usePermisos } from '~/composables/usePermisos'
 
 const { t } = useI18n()
+const { bloqueo, rol } = usePermisos()
+
+/**
+ * The refusal is rendered here and not through `createError(403)`.
+ *
+ * `error.vue` is a global error screen with no sidebar: it would pull the
+ * reader out of the portal to tell them a permission is missing, and its
+ * "go back" action lands on the prototype index. Replacing the content of
+ * `<main>` keeps the scope band -which the smoke greps on every route- and
+ * keeps the navigation, which is the way out that is not a retry.
+ */
+const sinPermiso = computed(() =>
+  bloqueo.value === null || rol.value === null
+    ? null
+    : { scopeExigido: bloqueo.value.scopeExigido, rolActual: rol.value },
+)
 </script>
 
 <template>
@@ -32,7 +51,16 @@ const { t } = useI18n()
       <FranjaAlcance />
 
       <main id="contenido" class="flex-1 px-4 py-8 md:px-8">
-        <slot />
+        <!--
+          The page is not mounted while the route is blocked: no useFetch of the
+          refused screen ever fires against an endpoint that would answer 403.
+        -->
+        <EstadoSinPermiso
+          v-if="sinPermiso"
+          :scope-exigido="sinPermiso.scopeExigido"
+          :rol-actual="sinPermiso.rolActual"
+        />
+        <slot v-else />
       </main>
     </div>
   </div>

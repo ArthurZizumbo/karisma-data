@@ -101,6 +101,12 @@
         "permissions": "Permisos",
         "exportHistory": "Historial de exportaciones"
       }
+    },
+    "session": {
+      "anonymous": "Sin sesión iniciada. Los módulos aparecen según tu perfil.",
+      "signIn": "Entrar al portal",
+      "ariaLabel": "Estado de la sesión",
+      "profile": "Perfil {role}"
     }
   },
   "prototype": {
@@ -548,6 +554,24 @@
         "rule": "La fuente canónica se nombra siempre. Callar la discrepancia es lo que devuelve al lector al correo, que es exactamente el problema que este portal existe para quitar."
       },
       "rationale": "Esta lámina existe porque la revisión de diseño señaló que «Ver linaje» era un rótulo de botón sin nada especificado detrás. Un sistema que documenta cinco chips de estado y ninguna manera de defender una cifra no sirve al perfil cuyo trabajo es responder por ella."
+    }
+  },
+  "authz": {
+    "noPermission": {
+      "title": "No tienes permiso para ver esta pantalla",
+      "body": "Tu perfil no tiene permiso para ver esta información. Solicita el acceso al administrador del portal.",
+      "required": "Esta pantalla requiere el perfil {required}; el tuyo es {current}.",
+      "requestTo": "Solicítalo en Administración › Solicitudes y aprobaciones, que atiende la administración del portal.",
+      "exit": "Ir a mi espacio de trabajo"
+    },
+    "role": {
+      "operativo": "Operativo",
+      "analista": "Analista",
+      "directivo": "Directivo",
+      "admin": "Administrador"
+    },
+    "signedOut": {
+      "notice": "Los prototipos del portal piden sesión. Sin ella te devuelven a la pantalla de acceso; el índice y la guía de estilos quedan siempre abiertos."
     }
   }
 }

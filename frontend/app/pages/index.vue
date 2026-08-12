@@ -2,10 +2,21 @@
 import { useI18n } from 'vue-i18n'
 import CabeceraPantalla from '~/components/comun/CabeceraPantalla.vue'
 import BotonPrototipo from '~/components/nav/BotonPrototipo.vue'
+import { usePermisos } from '~/composables/usePermisos'
 import { ANILLO_FOCO } from '~/utils/foco'
-import { PROTOTIPOS, RUTA_GUIA, RUTA_INDICE } from '~/utils/navegacion'
+import { PROTOTIPOS, RUTA_ACCESO, RUTA_GUIA, RUTA_INDICE } from '~/utils/navegacion'
 
 const { t } = useI18n()
+
+/**
+ * The index is public and the seven prototypes are not.
+ *
+ * Without this line an evaluator opens the index, presses "1. Inicio", lands on
+ * the entry screen and reads the bounce as a broken link. Saying it before the
+ * click turns a surprise into a rule of the product, and it disappears the
+ * moment there is a session.
+ */
+const { rol } = usePermisos()
 </script>
 
 <template>
@@ -14,6 +25,21 @@ const { t } = useI18n()
       :titulo="t('screen.index.title')"
       :descripcion="t('screen.index.subtitle')"
     />
+
+    <p
+      v-if="rol === null"
+      data-aviso-sesion
+      class="flex max-w-(--medida-maxima) flex-wrap items-center gap-x-3 gap-y-1 border-l-2 border-aviso pl-5 text-cuerpo text-corriente-medio"
+    >
+      {{ t('authz.signedOut.notice') }}
+      <NuxtLink
+        :to="RUTA_ACCESO"
+        class="inline-flex items-center gap-1 text-etiqueta text-corriente-pleno underline underline-offset-4 hover:no-underline"
+        :class="ANILLO_FOCO"
+      >
+        {{ t('nav.session.signIn') }}
+      </NuxtLink>
+    </p>
 
     <ul class="grid gap-x-10 sm:grid-cols-2 xl:grid-cols-3">
       <li v-for="prototipo in PROTOTIPOS" :key="prototipo.numero">

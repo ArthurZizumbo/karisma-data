@@ -4,8 +4,11 @@ import { fileURLToPath } from 'node:url'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
+import EstadoSinPermiso from '~/components/comun/EstadoSinPermiso.vue'
 import FranjaAlcance from '~/components/nav/FranjaAlcance.vue'
-import { RUTA_GUIA, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
+import { RUTA_ACCESO, RUTA_GUIA, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
+import { SCOPE_POR_RUTA } from '~/utils/permisos.generated'
+import { ROLES } from '~/utils/sesion'
 import { crearI18nDePrueba } from './i18nDePrueba'
 
 /**
@@ -42,6 +45,11 @@ function rutasDelGuion(): string[] {
 
 function constanteDelGuion(nombre: string): string {
   return guion.match(new RegExp(`^${nombre}="?([^"\\n]+)"?$`, 'm'))?.[1] ?? ''
+}
+
+/** Same, for a constant whose value carries double quotes of its own. */
+function constanteEntrecomillada(nombre: string): string {
+  return guion.match(new RegExp(`^${nombre}='([^']+)'$`, 'm'))?.[1] ?? ''
 }
 
 describe('el smoke recorre exactamente las rutas publicas del portal', () => {
@@ -84,5 +92,62 @@ describe('el smoke busca una marca que la franja realmente imprime', () => {
     // it does not go through the frontend proxy: Compose and Cloud Run call it
     // directly.
     expect(guion).toContain('${BASE_API}/health')
+  })
+})
+
+describe('el smoke entra antes de recorrer y ejercita la guarda', () => {
+  it('acuna una sesion y recorre las diez rutas con ella', () => {
+    // Since US-017 seven of the ten routes answer 302 without a cookie. A walk
+    // that forgot the session would report seven broken routes and read like a
+    // broken portal instead of like a guard doing its job.
+    expect(guion).toContain('acunar_sesion "$ROL_RECORRIDO" "$GALLETAS_RECORRIDO"')
+    expect(guion).toContain('-b "$GALLETAS_RECORRIDO"')
+  })
+
+  it('recorre con el unico perfil que alcanza las diez rutas', () => {
+    // With any other role /administracion answers 403 and the walk fails on a
+    // route that is in fact working exactly as designed.
+    const rol = constanteDelGuion('ROL_RECORRIDO')
+    const inalcanzables = Object.entries(SCOPE_POR_RUTA).filter(
+      ([, scope]) => scope !== null && ROLES.indexOf(rol as never) < ROLES.indexOf(scope),
+    )
+
+    expect(ROLES).toContain(rol)
+    expect(inalcanzables).toEqual([])
+  })
+
+  it('comprueba que una ruta guardada rebota sin sesion', () => {
+    const ruta = constanteDelGuion('RUTA_GUARDADA')
+
+    expect(RUTAS_CONTRATO).toContain(ruta)
+    expect(Object.keys(SCOPE_POR_RUTA)).toContain(ruta)
+    expect(ruta).not.toBe(RUTA_ACCESO)
+    expect(guion).toContain('comprobar_guarda_sin_sesion')
+  })
+
+  it('elige para el caso negativo una ruta que el perfil de prueba no alcanza', () => {
+    // If somebody lowers the exigency of that route, the 403 the script waits
+    // for becomes a 200 and the check turns into a green that proves nothing.
+    const ruta = constanteDelGuion('RUTA_DE_MAYOR_RANGO')
+    const rol = constanteDelGuion('ROL_SIN_PERMISO')
+    const exigido = SCOPE_POR_RUTA[ruta] ?? null
+
+    expect(ROLES).toContain(rol)
+    expect(exigido).not.toBeNull()
+    expect(ROLES.indexOf(rol as never)).toBeLessThan(ROLES.indexOf(exigido as never))
+  })
+
+  it('busca en el cuerpo bloqueado una marca que el estado realmente imprime', () => {
+    // Same failure mode as the scope band: renamed in the component, the grep
+    // stops finding it and the defect shows up with the stack running instead
+    // of here.
+    const marca = constanteEntrecomillada('MARCA_SIN_PERMISO')
+    const html = mount(EstadoSinPermiso, {
+      props: { scopeExigido: 'admin' as const, rolActual: 'operativo' as const },
+      global: { plugins: [crearI18nDePrueba()], stubs: { Icon: true, NuxtLink: true } },
+    }).html()
+
+    expect(marca).not.toBe('')
+    expect(html).toContain(marca)
   })
 })

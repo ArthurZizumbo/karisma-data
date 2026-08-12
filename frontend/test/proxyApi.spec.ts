@@ -238,14 +238,33 @@ describe('el destino es configurable sin reconstruir la imagen', () => {
     expect(plantillaEntorno).toMatch(/^NUXT_API_BASE=/m)
   })
 
-  it('apunta la plantilla al servicio de Compose que realmente existe', () => {
+  it('apunta el contenedor al servicio de Compose que realmente existe', () => {
     // If somebody renames the Compose service, the proxy fails at runtime with
     // an ENOTFOUND that no build ever catches.
-    const destino = plantillaEntorno.match(/^NUXT_API_BASE=(\S+)$/m)?.[1] ?? ''
+    //
+    // The value is read from docker-compose.yml and NOT from .env.example, and
+    // that is the whole point of the case. The two ways of running the portal
+    // need DIFFERENT destinations: inside the Compose network the backend is
+    // "api", from the host it is "localhost". Compose settles it by declaring
+    // NUXT_API_BASE under "environment", which wins over "env_file", so the
+    // template is free to describe the host -where whoever edits it lives-.
+    // Asserting "api:8000" against the template demanded the value that breaks
+    // "pnpm dev": the screen paints and every call dies on a name that only
+    // resolves inside Docker. Corrected on 12-ago-2026; the assertion used to
+    // contradict the comment of the very file it was reading.
+    const destino = compose.match(/^ {6}NUXT_API_BASE: "(\S+)"$/m)?.[1] ?? ''
     const servicio = new URL(destino).hostname
 
     expect(destino).toBe('http://api:8000')
     expect(compose).toMatch(new RegExp(`^ {2}${servicio}:$`, 'm'))
+  })
+
+  it('deja la plantilla del host apuntando a donde el host puede llegar', () => {
+    // The other half of the same decision, and the one that actually breaks a
+    // developer's afternoon when it regresses.
+    const destino = plantillaEntorno.match(/^NUXT_API_BASE=(\S+)$/m)?.[1] ?? ''
+
+    expect(new URL(destino).hostname).toBe('localhost')
   })
 
   it('declara apiBase en la mitad privada de runtimeConfig', () => {

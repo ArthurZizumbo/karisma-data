@@ -19,8 +19,10 @@ import { aSesionUsuario, estadoDeFallo } from '~/utils/sesion'
  * visitor being rendered at that moment, which would leak one reader's session
  * into another reader's HTML.
  *
- * US-017 extends this composable with module visibility by scope and adds the
- * global route middleware. It does not rewrite what is here.
+ * Module visibility by scope is NOT here. US-017 put it in `usePermisos`,
+ * because identity and authorization are different concerns with different
+ * lifetimes; the only thing it changed in this file is the transport of
+ * `cargarSesion`, and it changed nothing of the public surface.
  */
 
 /** Key of the shared session state. */
@@ -118,7 +120,14 @@ export function useSesion(): ControlDeSesion {
   async function cargarSesion(): Promise<void> {
     cargando.value = true
     try {
-      sesion.value = aSesionUsuario(await $fetch('/api/auth/me'))
+      // `useRequestFetch()` and not `$fetch`: during server rendering the
+      // browser cookie does not travel on its own. A bare `$fetch` opens a new
+      // request with none of the incoming headers, the proxy finds no
+      // `karisma_sesion`, the backend answers 401 and the guard would bounce a
+      // reader with a perfectly valid session to the entry screen on every full
+      // reload. On the client it is `$fetch` itself.
+      const peticion = useRequestFetch()
+      sesion.value = aSesionUsuario(await peticion('/api/auth/me'))
     }
     catch {
       // A visitor with no cookie is not an error: it is the ordinary first

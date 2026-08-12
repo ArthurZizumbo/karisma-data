@@ -16,10 +16,11 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
+import { usePermisos } from '~/composables/usePermisos'
 import { ANILLO_FOCO } from '~/utils/foco'
 import {
   CLAVES_FACETAS_TRANSVERSALES,
-  MODULOS,
+  RUTA_ACCESO,
   RUTA_ASISTENTE,
   RUTA_INDICE,
   moduloActivo,
@@ -27,6 +28,16 @@ import {
 
 const route = useRoute()
 const { t } = useI18n()
+
+/**
+ * The sidebar does not know what a scope is.
+ *
+ * It receives the modules the reader may use, already filtered at both levels,
+ * and paints them. Hiding is real removal from the DOM and not a `disabled`
+ * attribute: a greyed out entry still advertises a door that answers 403, which
+ * is the reading the criterion of this User Story rules out explicitly.
+ */
+const { modulosVisibles, asistenteVisible, rol } = usePermisos()
 
 /** Icons are declared, never composed at runtime: the bundler scans literals. */
 const ICONO_MODULO: Readonly<Record<string, string>> = {
@@ -60,10 +71,43 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
       <span class="hidden md:inline">{{ t('brand.name') }}</span>
     </NuxtLink>
 
-    <nav :aria-label="t('nav.aria.main')">
+    <!--
+      Fifth unhappy state, and it comes for free: '/guia' is public and uses this
+      layout, so without it the style guide would be captured for A4 with an
+      empty sidebar and no explanation. Showing the four modules instead would
+      offer doors that close, which is the opposite of what this US is for.
+    -->
+    <nav
+      v-if="rol === null"
+      data-sesion-anonima
+      :aria-label="t('nav.session.ariaLabel')"
+      class="hidden flex-col gap-2 md:flex"
+    >
+      <p class="text-micro text-corriente-tenue">
+        {{ t('nav.session.anonymous') }}
+      </p>
+      <NuxtLink
+        :to="RUTA_ACCESO"
+        class="inline-flex min-h-9 w-fit items-center gap-2 border border-corriente-medio px-2 text-etiqueta text-corriente-pleno hover:bg-corriente-pleno hover:text-ground"
+        :class="ANILLO_FOCO"
+      >
+        <Icon name="lucide:log-in" class="size-4 shrink-0" aria-hidden="true" />
+        {{ t('nav.session.signIn') }}
+      </NuxtLink>
+    </nav>
+
+    <p
+      v-else
+      data-perfil-activo
+      class="hidden px-2 text-micro uppercase tracking-wide text-corriente-tenue md:block"
+    >
+      {{ t('nav.session.profile', { role: t(`authz.role.${rol}`) }) }}
+    </p>
+
+    <nav v-if="rol !== null" :aria-label="t('nav.aria.main')">
       <ul class="flex flex-col gap-0.5">
         <li
-          v-for="modulo in MODULOS"
+          v-for="modulo in modulosVisibles"
           :key="modulo.id"
           :data-modulo-item="modulo.id"
         >
@@ -127,7 +171,11 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
       </ul>
     </nav>
 
-    <nav :aria-label="t('nav.aria.crossCutting')" class="flex flex-col gap-1">
+    <nav
+      v-if="asistenteVisible"
+      :aria-label="t('nav.aria.crossCutting')"
+      class="flex flex-col gap-1"
+    >
       <NuxtLink
         :to="RUTA_ASISTENTE"
         :title="t('nav.assistant.label')"
@@ -149,6 +197,7 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
       single rule now, and they disappear on the icon strip.
     -->
     <section
+      v-if="rol !== null"
       class="mt-auto hidden flex-col gap-1 md:flex"
       aria-labelledby="facetas-transversales"
     >

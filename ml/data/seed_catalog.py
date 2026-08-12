@@ -562,7 +562,14 @@ def emit_sql(fields: Sequence[ResolvedField], notes: Sequence[NoteSpec]) -> str:
                 f"SELECT f.id, {sql_literal(note.note)},",
                 f"       {sql_literal(note.applicability)},",
                 f"       {sql_literal(note.applicability_terms)},",
-                f"       {sql_literal(note.author)}, DATE '{note.recorded_at}'",
+                # date.fromisoformat, and not the raw string: it is the only
+                # value of the emitter that does not pass through sql_literal,
+                # and a NoteSpec with a quote in recorded_at would emit runnable
+                # SQL into a 234 KB artifact that make db-seed applies with the
+                # migration DSN. Parsing it makes a malformed date fail here,
+                # loudly, instead of downstream and quietly.
+                f"       {sql_literal(note.author)}, "
+                f"{_date_literal(date.fromisoformat(note.recorded_at))}",
                 "  FROM catalog_field f",
                 "  JOIN catalog_source s ON s.id = f.source_id",
                 f" WHERE s.code = {sql_literal(note.source_code)}",

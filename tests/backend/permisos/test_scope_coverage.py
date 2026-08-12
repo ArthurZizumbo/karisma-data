@@ -18,10 +18,12 @@ from pathlib import Path
 from typing import Annotated, Final
 
 import pytest
-from fastapi import Depends, FastAPI, Security
+from fastapi import APIRouter, Depends, FastAPI, Security
 from fastapi.security import OAuth2PasswordBearer, SecurityScopes
+from starlette.applications import Starlette
 
 from app.core.permissions import (
+    API_PREFIX,
     PUBLIC_ROUTES,
     SCOPE_REGISTRY,
     PermissionRule,
@@ -267,6 +269,55 @@ def test_la_guardia_ignora_lo_que_no_cuelga_de_api() -> None:
     aplicacion = _aplicacion_con(None, ruta="/health")
 
     assert live_routes(aplicacion) == ()
+    assert _auditar(aplicacion) == ()
+
+
+def test_la_ruta_que_es_el_prefijo_exacto_no_se_escapa() -> None:
+    """``/api`` with no trailing slash is a route, and it was slipping through.
+
+    ``APIRouter(prefix="/api")`` with ``@router.get("")`` produces the path
+    ``/api`` exactly. A guard written as ``startswith("/api/")`` never sees it:
+    the endpoint gets served with no security dependency and the startup stays
+    quiet, which is the exact opposite of what this module exists for. Found by
+    the security audit of 12-ago-2026 over the diff of US-016 and US-008.
+    """
+    enrutador = APIRouter(prefix=API_PREFIX)
+    enrutador.add_api_route("", _endpoint_desnudo, methods=["GET"], name="raiz")
+    aplicacion = FastAPI()
+    aplicacion.include_router(enrutador)
+
+    assert live_routes(aplicacion) == (RouteKey("GET", API_PREFIX),)
+    assert _auditar(aplicacion) == (ViolationKind.SIN_SCOPES,)
+
+
+def test_un_mount_bajo_api_es_una_violacion_y_no_un_silencio() -> None:
+    """A sub application under /api cannot be governed, so it is reported.
+
+    A ``Mount`` has no operation in the schema and no dependency tree FastAPI
+    can enforce: nothing in this module can authorize it. Skipping it quietly
+    would leave a route serving under the governed prefix while the guard
+    swears the application is fully covered.
+    """
+    aplicacion = FastAPI()
+    aplicacion.mount(f"{API_PREFIX}/interno", Starlette())
+
+    violaciones = audit_scope_coverage(
+        aplicacion, registry=REGISTRO_SINTETICO, public=frozenset()
+    )
+
+    assert [violacion.kind for violacion in violaciones] == [ViolationKind.RUTA_AJENA]
+    assert violaciones[0].route == RouteKey("*", f"{API_PREFIX}/interno")
+
+
+def test_un_mount_fuera_de_api_no_molesta() -> None:
+    """The rule is about the governed prefix, not about mounts in general.
+
+    Static files or a metrics exporter mounted elsewhere are none of this
+    module's business, and a guard that cries wolf gets switched off.
+    """
+    aplicacion = FastAPI()
+    aplicacion.mount("/estaticos", Starlette())
+
     assert _auditar(aplicacion) == ()
 
 

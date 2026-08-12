@@ -86,6 +86,13 @@ def get_settings() -> Settings:
     Raises:
         pydantic.ValidationError: If ``DATABASE_URL``, ``JWT_SECRET_KEY`` or
             ``GEMINI_API_KEY`` is missing from the environment.
+
+    Note:
+        The message of that exception carries a truncated repr of the whole
+        dotenv mapping, so it can end in a fragment of a value the model does
+        not even use. Recorded as backlog entry 06 with its owner; fixing it
+        here would rewrite the five assertions US-001 wrote against the
+        exception type, which is not this User Story's write-set.
     """
     # The values come from the environment and from .env.local; mypy only sees
     # the dataclass-like signature synthesized from the field declarations and

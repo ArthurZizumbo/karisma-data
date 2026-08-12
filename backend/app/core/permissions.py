@@ -105,6 +105,7 @@ class ViolationKind(StrEnum):
     FUERA_DEL_REGISTRO = "fuera_del_registro"
     SCOPE_DIVERGENTE = "scope_divergente"
     RUTA_OCULTA = "ruta_oculta"
+    RUTA_AJENA = "ruta_ajena"
 
 
 @dataclass(frozen=True)
@@ -298,6 +299,22 @@ def audit_scope_coverage(
     declared = _declared_scopes(app)
     violations: list[ScopeViolation] = []
 
+    for key in _walk_foreign_api_routes(app):
+        if key in public:
+            continue
+        violations.append(
+            ScopeViolation(
+                kind=ViolationKind.RUTA_AJENA,
+                route=key,
+                detail=(
+                    "Bajo /api hay una ruta que no es APIRoute -un mount o una "
+                    "sub aplicacion-: no tiene operacion en el esquema ni arbol "
+                    "de dependencias que FastAPI pueda exigir, asi que esta "
+                    "politica no puede gobernarla. Montala fuera de /api"
+                ),
+            )
+        )
+
     for key in live_routes(app):
         if key in public:
             continue
@@ -423,15 +440,35 @@ def _matrix_row(key: RouteKey, rule: PermissionRule) -> str:
     return f"| `{key}` | {scopes} | {rule.rule} | {rule.us} | {rule.status} |"
 
 
+def _under_api(path: str | None) -> bool:
+    """Report whether a path belongs to the governed prefix.
+
+    The equality arm is not redundant. ``APIRouter(prefix="/api")`` with an
+    operation declared as ``@router.get("")`` produces the path ``/api``
+    exactly, with no trailing slash: a prefix test alone lets that endpoint be
+    served with no security dependency and with the startup guard silent, which
+    is the opposite of threat A-1 of ``docs/security.md``.
+
+    Args:
+        path: Path of the route, or None when the route does not expose one.
+
+    Returns:
+        ``True`` when the path is the prefix or hangs from it.
+    """
+    if path is None:
+        return False
+    return path == API_PREFIX or path.startswith(f"{API_PREFIX}/")
+
+
 def _walk_api_routes(app: FastAPI) -> Iterator[RouteKey]:
     """Yield one key per method of every mounted API route under ``/api``.
 
     ``app.routes`` is not a flat list of ``APIRoute`` any more: since FastAPI
     0.141 ``include_router`` stores a lazy branch, so the routes are flattened
     with ``iter_route_contexts``, the same helper the public ``get_openapi``
-    consumes. Only ``APIRoute`` is considered: the documentation endpoints and
-    anything mounted by Starlette are out of scope by construction, and so is
-    ``/health``, which does not hang from ``/api``.
+    consumes. Only ``APIRoute`` is considered here; anything else that lands
+    under the prefix is reported by ``_walk_foreign_api_routes`` instead of
+    being skipped in silence.
 
     Args:
         app: Application to inspect, already built.
@@ -442,11 +479,34 @@ def _walk_api_routes(app: FastAPI) -> Iterator[RouteKey]:
     for context in iter_route_contexts(app.routes):
         if not isinstance(context.original_route, APIRoute):
             continue
-        path = context.path
-        if path is None or not path.startswith(f"{API_PREFIX}/"):
+        if not _under_api(context.path):
             continue
         for method in context.methods or ():
-            yield RouteKey(method.upper(), path)
+            yield RouteKey(method.upper(), str(context.path))
+
+
+def _walk_foreign_api_routes(app: FastAPI) -> Iterator[RouteKey]:
+    """Yield one key per non ``APIRoute`` mounted under ``/api``.
+
+    A ``Mount`` -a sub application, static files, a WSGI adapter- has no
+    operation in the OpenAPI schema and no dependency tree FastAPI can enforce,
+    so nothing the rest of this module does can govern it. Skipping it quietly
+    would leave a route serving under the governed prefix while the guard
+    reports the application fully covered. The guard cannot authorize it, so it
+    refuses to let it through: the fix is to move the mount outside ``/api``.
+
+    Args:
+        app: Application to inspect, already built.
+
+    Yields:
+        One key per offending route, with ``*`` standing for every method.
+    """
+    for route in app.routes:
+        if isinstance(route, APIRoute):
+            continue
+        path = getattr(route, "path", None)
+        if _under_api(path):
+            yield RouteKey("*", str(path))
 
 
 def _declared_scopes(app: FastAPI) -> dict[RouteKey, tuple[str, ...] | None]:

@@ -21,6 +21,7 @@ is ever formatted into SQL.
 
 import re
 from collections.abc import Mapping, Sequence
+from hashlib import sha256
 from types import MappingProxyType
 from typing import Any, Final
 
@@ -324,9 +325,18 @@ async def search(
     )
     facet_counts = await _count_facets(session, where, params)
 
+    # The tsquery is NOT logged, and the omission is the point. build_tsquery
+    # does not lemmatise: it lowercases and splits, so the terms survive almost
+    # literally -an account number or an address typed into the box comes back
+    # out whole- and structlog.contextvars has the username bound by this point.
+    # That single line would correlate an identity with free text the user
+    # typed, which is the same rule that keeps raw prompts out of the traces.
+    # The hash keeps the only property the log needs: telling repeated searches
+    # apart without being able to read any of them.
     logger.info(
         "catalogo_busqueda",
-        tsquery=tsquery,
+        consulta_hash=sha256(raw_query.encode("utf-8")).hexdigest(),
+        terminos=tsquery.count("|") + 1,
         total=total,
         devueltos=len(rows),
         limit=limit,

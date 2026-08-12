@@ -229,6 +229,8 @@ Casos especiales, los dos únicos que hay:
 | A-8 | Fuga de información en la negativa | El 403 lleva solo el código; el 401 de credenciales no distingue usuario inexistente de contraseña errónea | `test_permission_matrix.py::test_403_no_revela_nada` |
 | A-9 | Documento que dice una política y código que aplica otra | El bloque de la matriz es generado y se compara línea a línea | `test_security_doc.py::test_el_bloque_del_documento_coincide_con_el_registro` |
 | A-10 | Ruta interna con `include_in_schema=False` que esquiva la auditoría | La guardia cruza dos inventarios y la clasifica `ruta_oculta` | `test_scope_coverage.py::test_detecta_ruta_oculta` |
+| A-11 | Ruta cuyo path es el prefijo exacto (`/api`, sin barra final) que la guardia no miraba | `_under_api` compara igualdad además de prefijo | `test_scope_coverage.py::test_la_ruta_que_es_el_prefijo_exacto_no_se_escapa` |
+| A-12 | `Mount` o sub aplicación bajo `/api`, que no tiene operación en el esquema ni árbol de dependencias que exigir | La guardia la clasifica `ruta_ajena` y el arranque falla: si no puede autorizarla, no la deja pasar | `test_scope_coverage.py::test_un_mount_bajo_api_es_una_violacion_y_no_un_silencio` |
 
 ## 9. Privacidad de los registros
 
@@ -236,9 +238,16 @@ Casos especiales, los dos únicos que hay:
 - **Tokens**: jamás. La negativa de autorización registra los scopes exigidos y los del token, nunca
   el token. La identidad llega por `structlog.contextvars`, enlazada al resolver la sesión.
 - **Prompts del agente**: solo `llm.prompt_hash` (SHA-256), nunca el texto.
+- **Búsquedas del catálogo**: solo `consulta_hash` (SHA-256) y el número de términos, nunca el
+  texto. La razón es concreta: `build_tsquery` no lematiza —baja a minúsculas y trocea—, así que un
+  número de cuenta o un correo tecleados en la caja de búsqueda salían casi literales al registro, y
+  con la identidad enlazada por `structlog.contextvars` esa línea correlacionaba persona con texto
+  libre. Es la misma regla que mantiene los prompts crudos fuera de las trazas.
 - **Eventos que sí se registran**: `autorizacion_denegada` (scopes exigidos y concedidos),
-  `scope_desconocido` (nombre mal escrito en la declaración de un endpoint) y
-  `cobertura_de_scopes_incompleta` (violaciones al arrancar).
+  `scope_desconocido` (nombre mal escrito en la declaración de un endpoint),
+  `cobertura_de_scopes_incompleta` (violaciones al arrancar), `catalogo_busqueda`
+  (`consulta_hash`, `terminos`, `total`, `devueltos`, `limit`, `offset`) y
+  `catalogo_busqueda_sin_terminos` (solo `limit` y `offset`).
 - Las respuestas de la API nunca serializan `hashed_password`: el contrato de salida es `UserOut`.
 
 ## 10. Fuera de alcance
@@ -261,7 +270,7 @@ Descartado con su razón, para que no se reabra sin decisión de equipo:
 | 1 | `admin` alcanza los resúmenes directivos por ser el rango más alto | Separación de funciones imperfecta: quien administra usuarios también lee el tablero ejecutivo | Equipo, si el modelo deja de ser un orden total |
 | 2 | `frontend/app/types/navegacion.ts` declara `'administrador'` donde el scope es `admin` | Hoy solo rotula el índice de prototipos; mañana es un `if` que nunca se cumple contra un token real | **US-017** |
 | 3 | La matriz solo interroga hoy las rutas vivas: tres de dieciséis filas | La política de las trece restantes está escrita y sin ejercitar hasta que su US llegue | Cada US dueña, al montar su router |
-| 4 | Verificación manual del 403 a través del proxy | Difiere a US-008, primera US que publica un endpoint con scope; en la suite ya está cubierta por la matriz parametrizada | US-008 |
+| 4 | Verificación manual del 403 a través del proxy | **Reasignada el 12-ago-2026.** US-008 publicó sus dos rutas con `scopes=()` —cualquier sesión válida—, así que no cerró esta deuda: hoy **ninguna ruta viva puede responder 403** y la rama `else` de la matriz parametrizada es inalcanzable contra la aplicación real. El mecanismo sí está ejercitado contra la aplicación sintética, que usa la dependencia de producción. La cierra la primera US que publique una ruta con scope no vacío | **US-009** (`POST /api/export`, `analista`) |
 | 5 | Sin auditoría persistente de quién consultó qué | Un incidente se reconstruye leyendo bitácoras efímeras | Fuera de alcance (sección 10) |
 
 ## 12. Bitácora

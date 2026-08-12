@@ -68,6 +68,11 @@ minversion = "9.0"
 # tests/backend/test_config.py acaba resolviendo al conftest equivocado.
 pythonpath = [".", ".."]
 addopts = "-ra --strict-markers --cov=backend/app --cov=ml --cov-report=term-missing --cov-fail-under=70"
+# Con --strict-markers un marcador sin declarar rompe la coleccion entera de la
+# suite, no solo el archivo que lo usa.
+markers = [
+    "integracion: requiere un PostgreSQL con las migraciones aplicadas; se omite salvo que KARISMA_TEST_DATABASE_URL este definida",
+]
 asyncio_mode = "strict"
 asyncio_default_fixture_loop_scope = "function"
 

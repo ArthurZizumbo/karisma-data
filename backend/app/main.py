@@ -5,7 +5,7 @@ import logging
 import structlog
 from fastapi import FastAPI
 
-from app.api import auth, health
+from app.api import auth, catalog, health
 from app.core.config import LOCAL_ENV, get_settings
 from app.core.permissions import assert_scope_coverage
 from app.services.auth_service import InvalidCredentialsError
@@ -68,6 +68,7 @@ def create_app() -> FastAPI:
     )
     application.include_router(health.router)
     application.include_router(auth.router)
+    application.include_router(catalog.router)
 
     # The demo access is not an endpoint with an "if" inside: it is a router
     # that is not mounted. Off, the route does not exist -404 and nothing in

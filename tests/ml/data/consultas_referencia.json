@@ -1,0 +1,28 @@
+{
+  "description": "Set congelado de 20 consultas de referencia del catalogo semantico (US-008, seccion 6.4 del plan). Salen de los verbatims de A1 y A2, no de leer el catalogo: por eso la metrica no es circular. Hit Rate@3 = proporcion de consultas cuya fuente esperada aparece entre los codigos de fuente de los tres primeros resultados. Gate: >= 0.8, es decir 16 de 20. Si una consulta falla, el unico arreglo permitido es anadir un sinonimo que una persona diria de verdad; ajustar la consulta para que pase esta prohibido.",
+  "frozen_on": "2026-08-12",
+  "hit_rate_at": 3,
+  "gate": 0.8,
+  "queries": [
+    {"id": 1, "query": "saldo vencido de la cartera", "expected_source": "creditos"},
+    {"id": 2, "query": "cuánto debe un cliente de su hipoteca", "expected_source": "creditos"},
+    {"id": 3, "query": "días de atraso", "expected_source": "creditos"},
+    {"id": 4, "query": "tasa que paga el crédito", "expected_source": "creditos"},
+    {"id": 5, "query": "cobertura de liquidez", "expected_source": "liquidez"},
+    {"id": 6, "query": "dinero disponible por bucket", "expected_source": "liquidez"},
+    {"id": 7, "query": "posición de tesorería a hoy", "expected_source": "tesoreria"},
+    {"id": 8, "query": "exposición con contrapartes de swaps", "expected_source": "derivados"},
+    {"id": 9, "query": "valor de mercado de los derivados", "expected_source": "derivados"},
+    {"id": 10, "query": "nocional en dólares", "expected_source": "derivados"},
+    {"id": 11, "query": "quién es el dueño del dato del cliente", "expected_source": "clientes"},
+    {"id": 12, "query": "rfc del cliente", "expected_source": "clientes"},
+    {"id": 13, "query": "valor de la garantía hipotecaria", "expected_source": "garantias"},
+    {"id": 14, "query": "pagos aplicados del mes", "expected_source": "pagos"},
+    {"id": 15, "query": "reservas preventivas", "expected_source": "provisiones"},
+    {"id": 16, "query": "estimación preventiva para riesgos crediticios", "expected_source": "provisiones"},
+    {"id": 17, "query": "cuenta contable del gasto", "expected_source": "contabilidad"},
+    {"id": 18, "query": "var de la mesa", "expected_source": "riesgo_mercado"},
+    {"id": 19, "query": "originación por canal digital", "expected_source": "canales"},
+    {"id": 20, "query": "índice de capitalización reportado", "expected_source": "regulatorio"}
+  ]
+}

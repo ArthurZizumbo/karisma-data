@@ -19,8 +19,8 @@ ENV_FRONTEND := frontend/.env.local
 
 .DEFAULT_GOAL := help
 
-.PHONY: help dev lint test data tokens db-new db-up db-rollback check verificar \
-        comprobar-env-backend comprobar-env-frontend
+.PHONY: help dev lint test data tokens db-new db-up db-rollback db-seed check \
+        verificar comprobar-env-backend comprobar-env-frontend
 
 # ---------------------------------------------------------------------------
 #  Ayuda
@@ -143,6 +143,21 @@ db-up: comprobar-env-backend ## Aplica las migraciones pendientes y regenera db/
 
 db-rollback: comprobar-env-backend ## Revierte la ultima migracion aplicada
 	@bash scripts/dbmate.sh rollback
+
+# El contenido del catalogo NO va en una migracion: una migracion aplicada
+# jamas se edita y una definicion de negocio se corrige varias veces. El
+# emisor de ml/ escribe db/seeds/catalog.sql -artefacto versionado, que es lo
+# que el revisor lee- y psql lo aplica dentro del servicio dbmate, que ya trae
+# el cliente y ya monta ./db en /db.
+#
+# Dos comandos y no uno: el primero reemite el artefacto -asi "make db-seed"
+# nunca aplica una version vieja del contenido- y el segundo lo aplica. La
+# logica de shell vive en scripts/seed_catalogo.sh por la misma razon que la de
+# dbmate.sh: con la cadena entre comillas dentro de la receta, el objetivo
+# funciona desde Git Bash y falla desde PowerShell sin decir por que.
+db-seed: comprobar-env-backend ## Regenera y aplica el seed del catalogo semantico
+	poetry -P backend run python -m ml.data.seed_catalog
+	@bash scripts/seed_catalogo.sh
 
 # ---------------------------------------------------------------------------
 #  Comprobaciones internas

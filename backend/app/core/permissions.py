@@ -176,13 +176,13 @@ SCOPE_REGISTRY: Final[Mapping[RouteKey, PermissionRule]] = MappingProxyType(
             scopes=(),
             rule="Catalogo para todos los autenticados",
             us="US-008",
-            status="planificado",
+            status="vigente",
         ),
         RouteKey("GET", "/api/catalog/{entry_id}"): PermissionRule(
             scopes=(),
             rule="Ficha de catalogo, mismo criterio",
             us="US-008",
-            status="planificado",
+            status="vigente",
         ),
         RouteKey("POST", "/api/query/records"): PermissionRule(
             scopes=(Scope.OPERATIVO,),

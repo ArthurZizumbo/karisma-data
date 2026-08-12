@@ -76,8 +76,8 @@ Bloque generado. **No editar a mano**: regenerar con el comando de la sección 1
 | `POST /api/auth/token` | *(publica)* | Emite el token; no puede exigirlo | US-015 | vigente |
 | `POST /api/auth/demo` | *(publica)* | Emite token sin credenciales, como /token; existe solo cuando DEMO_LOGIN_ENABLED es verdadero | US-015 | vigente |
 | `GET /api/auth/me` | *(ninguno)* | Cualquier sesion valida consulta su propio perfil | US-015 | vigente |
-| `GET /api/catalog/search` | *(ninguno)* | Catalogo para todos los autenticados | US-008 | planificado |
-| `GET /api/catalog/{entry_id}` | *(ninguno)* | Ficha de catalogo, mismo criterio | US-008 | planificado |
+| `GET /api/catalog/search` | *(ninguno)* | Catalogo para todos los autenticados | US-008 | vigente |
+| `GET /api/catalog/{entry_id}` | *(ninguno)* | Ficha de catalogo, mismo criterio | US-008 | vigente |
 | `POST /api/query/records` | `operativo` | Consulta puntual sobre un silo | US-011 | planificado |
 | `GET /api/metrics/series` | `analista` | Serie preagregada del tablero | US-025 | planificado |
 | `POST /api/metrics/aggregate` | `analista` | Agregaciones y cruces de la capa semantica | US-011 | planificado |

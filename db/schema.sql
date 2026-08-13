@@ -155,6 +155,81 @@ ALTER SEQUENCE public.catalog_field_id_seq OWNED BY public.catalog_field.id;
 
 
 --
+-- Name: catalog_lineage_step; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.catalog_lineage_step (
+    id bigint NOT NULL,
+    source_id bigint NOT NULL,
+    step_order smallint NOT NULL,
+    stage text NOT NULL,
+    system_code text NOT NULL,
+    system_name text NOT NULL,
+    transformation_code text NOT NULL,
+    transformation_detail text NOT NULL,
+    owner_area text NOT NULL,
+    owner_name text NOT NULL,
+    effective_from date NOT NULL,
+    effective_to date,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT catalog_lineage_step_stage_check CHECK ((stage = ANY (ARRAY['origen'::text, 'extraccion'::text, 'transformacion'::text, 'calidad'::text]))),
+    CONSTRAINT catalog_lineage_step_step_order_check CHECK (((step_order >= 1) AND (step_order <= 9))),
+    CONSTRAINT catalog_lineage_step_system_code_check CHECK ((system_code <> ''::text)),
+    CONSTRAINT catalog_lineage_step_system_name_check CHECK ((system_name <> ''::text)),
+    CONSTRAINT catalog_lineage_step_transformation_code_check CHECK ((transformation_code = ANY (ARRAY['origin_capture'::text, 'batch_extract'::text, 'stream_extract'::text, 'type_normalization'::text, 'currency_conversion'::text, 'deduplication'::text, 'business_rule'::text, 'reconciliation'::text, 'quality_rule'::text]))),
+    CONSTRAINT catalog_lineage_step_transformation_detail_check CHECK ((transformation_detail <> ''::text)),
+    CONSTRAINT catalog_lineage_step_validity_chk CHECK (((effective_to IS NULL) OR (effective_to >= effective_from)))
+);
+
+
+--
+-- Name: TABLE catalog_lineage_step; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.catalog_lineage_step IS 'Tramo aguas arriba del linaje, por fuente. El paso de presentacion se deriva de catalog_field y no se guarda aqui';
+
+
+--
+-- Name: COLUMN catalog_lineage_step.stage; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.catalog_lineage_step.stage IS 'presentacion no aparece en el CHECK a proposito: esa etapa se compone en el servicio';
+
+
+--
+-- Name: COLUMN catalog_lineage_step.transformation_code; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.catalog_lineage_step.transformation_code IS 'Codigo cerrado; la prosa visible vive en las claves i18n lineage.transformation.*';
+
+
+--
+-- Name: COLUMN catalog_lineage_step.transformation_detail; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.catalog_lineage_step.transformation_detail IS 'Dato no traducible interpolado en la plantilla: nombre de trabajo, de regla o de control';
+
+
+--
+-- Name: catalog_lineage_step_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.catalog_lineage_step_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: catalog_lineage_step_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.catalog_lineage_step_id_seq OWNED BY public.catalog_lineage_step.id;
+
+
+--
 -- Name: catalog_source; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -270,6 +345,13 @@ ALTER TABLE ONLY public.catalog_field ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: catalog_lineage_step id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.catalog_lineage_step ALTER COLUMN id SET DEFAULT nextval('public.catalog_lineage_step_id_seq'::regclass);
+
+
+--
 -- Name: catalog_source id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -321,6 +403,14 @@ ALTER TABLE ONLY public.catalog_field
 
 ALTER TABLE ONLY public.catalog_field
     ADD CONSTRAINT catalog_field_source_physical_key UNIQUE (source_id, physical_name);
+
+
+--
+-- Name: catalog_lineage_step catalog_lineage_step_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.catalog_lineage_step
+    ADD CONSTRAINT catalog_lineage_step_pkey PRIMARY KEY (id);
 
 
 --
@@ -385,6 +475,13 @@ CREATE INDEX catalog_field_source_id_idx ON public.catalog_field USING btree (so
 
 
 --
+-- Name: catalog_lineage_step_source_order_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX catalog_lineage_step_source_order_key ON public.catalog_lineage_step USING btree (source_id, step_order);
+
+
+--
 -- Name: catalog_tribal_note_field_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -397,6 +494,14 @@ CREATE INDEX catalog_tribal_note_field_id_idx ON public.catalog_tribal_note USIN
 
 ALTER TABLE ONLY public.catalog_field
     ADD CONSTRAINT catalog_field_source_id_fkey FOREIGN KEY (source_id) REFERENCES public.catalog_source(id) ON DELETE CASCADE;
+
+
+--
+-- Name: catalog_lineage_step catalog_lineage_step_source_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.catalog_lineage_step
+    ADD CONSTRAINT catalog_lineage_step_source_id_fkey FOREIGN KEY (source_id) REFERENCES public.catalog_source(id) ON DELETE CASCADE;
 
 
 --
@@ -421,4 +526,5 @@ ALTER TABLE ONLY public.catalog_tribal_note
 INSERT INTO public.schema_migrations (version) VALUES
     ('20260811005732'),
     ('20260811211250'),
-    ('20260812065546');
+    ('20260812065546'),
+    ('20260812121501');

@@ -187,13 +187,7 @@
       }
     },
     "governance": {
-      "description": "Contendrá el diccionario y los metadatos, el linaje y la calidad del dato, y el catálogo de fuentes.",
-      "capability": {
-        "dictionary": "Diccionario de datos y metadatos",
-        "lineage": "Overlay de linaje desde el sistema de origen",
-        "owner": "Propietario del dato y fecha de vigencia",
-        "quality": "Calidad del dato y anomalias detectadas"
-      }
+      "description": "Reúne el diccionario de campos con sus metadatos y el linaje de cada dato, desde el sistema donde nace hasta la cifra que se lee en pantalla."
     },
     "administration": {
       "description": "Contendrá usuarios, roles y permisos, las solicitudes y aprobaciones, la bitácora de accesos y las integraciones.",
@@ -853,6 +847,202 @@
       "change": "Variación mensual",
       "projectedRow": "Proyección",
       "gap": "sin mes previo"
+    }
+  },
+  "catalog": {
+    "facet": {
+      "group": {
+        "domain": "Dominio",
+        "dataType": "Tipo de dato",
+        "sensitivity": "Sensibilidad",
+        "refreshFrequency": "Frecuencia de actualización",
+        "certification": "Certificación",
+        "unit": "Unidad",
+        "aggregation": "Agregación"
+      },
+      "domain": {
+        "cartera": "Cartera",
+        "riesgo": "Riesgo",
+        "liquidez": "Liquidez",
+        "mercado": "Mercado",
+        "cliente": "Cliente",
+        "contable": "Contabilidad",
+        "operacion": "Operación",
+        "regulatorio": "Regulatorio"
+      },
+      "dataType": {
+        "entero": "Número entero",
+        "decimal": "Número decimal",
+        "texto": "Texto",
+        "fecha": "Fecha",
+        "booleano": "Booleano",
+        "categoria": "Categoría"
+      },
+      "sensitivity": {
+        "publica": "Pública",
+        "interna": "Interna",
+        "restringida": "Restringida"
+      },
+      "refreshFrequency": {
+        "intradia": "Intradía",
+        "diaria": "Diaria",
+        "semanal": "Semanal",
+        "mensual": "Mensual"
+      },
+      "certification": {
+        "certificado": "Certificado",
+        "en_revision": "En revisión",
+        "obsoleto": "Obsoleto"
+      },
+      "unit": {
+        "MXN": "Pesos mexicanos (MXN)",
+        "USD": "Dólares estadounidenses (USD)",
+        "porcentaje": "Porcentaje",
+        "dias": "Días",
+        "conteo": "Conteo"
+      },
+      "aggregation": {
+        "sum": "Suma",
+        "mean": "Media",
+        "count": "Conteo",
+        "max": "Máximo",
+        "min": "Mínimo"
+      }
+    }
+  },
+  "lineage": {
+    "dictionary": {
+      "title": "Diccionario de campos",
+      "hint": "Busca un campo por su nombre físico, por su nombre de negocio o por un sinónimo. Cada ficha abre el recorrido del dato desde el sistema donde nace.",
+      "searchLabel": "Buscar en el catálogo",
+      "searchPlaceholder": "saldo, límite, contraparte",
+      "searchAction": "Buscar",
+      "searchHint": "Escribe al menos dos caracteres.",
+      "domainsLabel": "Filtrar por dominio",
+      "domainAll": "Todos los dominios",
+      "results": "{count} campos encontrados",
+      "state": {
+        "initial": {
+          "title": "Empieza por una búsqueda",
+          "body": "El diccionario no consulta nada hasta que escribes un término, así que esta pantalla abre sin pedirle campos al servidor."
+        },
+        "loading": "Buscando campos en el catálogo.",
+        "empty": {
+          "title": "Ningún campo coincide",
+          "body": "La consulta es válida y el catálogo respondió sin errores, pero ningún campo coincide con ese término. Prueba con el nombre de negocio o quita el filtro de dominio."
+        },
+        "error": {
+          "title": "No se pudo consultar el catálogo",
+          "body": "El servidor no entregó los resultados. Puedes reintentar sin perder el término que escribiste.",
+          "retry": "Reintentar la búsqueda"
+        }
+      }
+    },
+    "card": {
+      "physicalName": "Nombre físico",
+      "businessName": "Nombre de negocio",
+      "definition": "Definición",
+      "source": "Fuente",
+      "validity": "Vigencia",
+      "openLineage": "Ver el linaje"
+    },
+    "panel": {
+      "title": "Linaje de {field}",
+      "closeLabel": "Cerrar",
+      "ownerLabel": "Propietario del campo",
+      "validityLabel": "Vigencia de la definición",
+      "sourceLabel": "Sistema de origen",
+      "journeyLabel": "Recorrido del dato",
+      "currentYes": "Vigente",
+      "currentNo": "Histórica",
+      "derivedNote": "El último paso no está guardado: se compone del propio campo del catálogo cada vez que se pide, para que el linaje y el diccionario no puedan decir cosas distintas.",
+      "state": {
+        "loading": "Cargando el recorrido del dato.",
+        "error": {
+          "title": "No se pudo cargar el linaje",
+          "body": "El servidor no entregó el recorrido de este campo. Puedes reintentar sin cerrar el panel.",
+          "retry": "Reintentar el linaje"
+        }
+      }
+    },
+    "stage": {
+      "origen": "Origen",
+      "extraccion": "Extracción",
+      "transformacion": "Transformación",
+      "calidad": "Calidad",
+      "presentacion": "Presentación"
+    },
+    "transformation": {
+      "origin_capture": "Captura en el sistema de origen: {detail}",
+      "batch_extract": "Extracción por lotes: {detail}",
+      "stream_extract": "Extracción continua: {detail}",
+      "type_normalization": "Normalización de tipos: {detail}",
+      "currency_conversion": "Conversión de divisa: {detail}",
+      "deduplication": "Eliminación de duplicados: {detail}",
+      "business_rule": "Regla de negocio: {detail}",
+      "reconciliation": "Conciliación: {detail}",
+      "quality_rule": "Regla de calidad: {detail}",
+      "field_publish": "Publicación del campo: {detail}"
+    },
+    "step": {
+      "ownerOf": "Responsable de este paso",
+      "effectiveFrom": "Vigente desde",
+      "effectiveTo": "Vigente hasta",
+      "openEnded": "Sin fecha de término",
+      "open": "Ver el detalle técnico",
+      "technicalDetail": "Detalle técnico",
+      "stored": "Guardado",
+      "derived": "Derivado"
+    },
+    "crossAccess": {
+      "title": "Bitácora de accesos",
+      "hint": "El registro de quién consultó cada dato se administra desde el módulo de administración del portal.",
+      "link": "Ir a Administración"
+    }
+  },
+  "sharedContext": {
+    "title": "Contexto del tablero",
+    "hint": "Esto es lo que acompañaría a tu pregunta si la hicieras ahora. Se arma en el tablero, no en esta pantalla.",
+    "static": {
+      "notice": "Alcance acordado para esta entrega: los filtros viajan al asistente como contexto; el agente no modifica el tablero."
+    },
+    "empty": {
+      "title": "Todavía no hay contexto que compartir",
+      "hint": "El contexto se arma en el tablero: al filtrar, mover la ventana o elegir una serie, esta pantalla lo muestra.",
+      "action": "Abrir el tablero"
+    },
+    "chip": {
+      "metric": "Métrica",
+      "grouping": "Agrupación",
+      "businessUnit": "Unidad de negocio",
+      "currency": "Divisa",
+      "maturityBucket": "Bucket de vencimiento",
+      "series": "Serie",
+      "dateRange": "Rango de fechas",
+      "window": "Ventana visible",
+      "density": "Densidad de lectura",
+      "level": "Nivel de detalle",
+      "visibleSeries": "Series visibles"
+    },
+    "value": {
+      "window": "del {start} % al {end} %",
+      "dateRange": "del {from} al {to}"
+    },
+    "details": {
+      "lastInteraction": "Última interacción y de dónde vino",
+      "origin": "Ficha de origen de la serie",
+      "payload": "JSON exacto que acompañaría la consulta",
+      "payloadHint": "Se toma tal cual de la vista actual y sus claves van ordenadas, para que la misma vista produzca siempre el mismo texto.",
+      "moment": "Momento",
+      "dimension": "Dimensión",
+      "value": "Valor",
+      "provenance": "Control usado"
+    },
+    "interaction": {
+      "grafica": "Gráfica",
+      "tabla": "Tabla de detalle",
+      "leyenda": "Leyenda",
+      "control": "Control del panel"
     }
   }
 }

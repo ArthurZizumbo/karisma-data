@@ -57,3 +57,84 @@ export const ANILLO_FOCO_INVERSO
  */
 export const ANILLO_FOCO_INTERNO
   = 'focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ground'
+
+/**
+ * Selector of what can receive focus inside an overlay (US-029).
+ *
+ * The list is short on purpose: it names the controls this product actually
+ * renders inside a panel. A longer copy of the canonical browser list would
+ * carry branches -`iframe`, `object`, `[contenteditable]`- that no template
+ * here produces and that therefore no test could ever exercise.
+ *
+ * `summary` is in it because the journey renders every hop as a `<details>`,
+ * and a trap that skipped the disclosure triangles would leave the reader
+ * unable to open a single step with the keyboard.
+ */
+export const SELECTOR_ENFOCABLE
+  = 'a[href], area[href], button, input, select, textarea, summary, [tabindex]'
+
+/**
+ * Whether a node found by the selector can really take focus.
+ *
+ * @param nodo - Candidate node.
+ * @returns True when the node is neither disabled, nor hidden, nor removed
+ *   from the tab order with a negative `tabindex`.
+ */
+function esAlcanzable(nodo: HTMLElement): boolean {
+  if (nodo.hasAttribute('disabled')) {
+    return false
+  }
+  // Self or ancestor: the panel hides whole blocks, not single controls.
+  if (nodo.closest('[hidden]') !== null) {
+    return false
+  }
+  const tabindex = nodo.getAttribute('tabindex')
+  // The heading of the panel carries tabindex="-1" so that focus can be moved
+  // onto it programmatically; including it in the cycle would trap Tab on the
+  // title and the reader would never reach a control.
+  return tabindex === null || Number.parseInt(tabindex, 10) >= 0
+}
+
+/**
+ * Focusable descendants of a container, in document order.
+ *
+ * Recomputed on every keystroke rather than cached when the overlay opens: the
+ * panel swaps its content between loading, ready and error, and a cached list
+ * would hand focus to a node that already left the document.
+ *
+ * @param contenedor - Element whose subtree is searched.
+ * @returns The focusable nodes, in the order the document declares them.
+ */
+export function enfocables(contenedor: HTMLElement): HTMLElement[] {
+  return [...contenedor.querySelectorAll<HTMLElement>(SELECTOR_ENFOCABLE)].filter(esAlcanzable)
+}
+
+/**
+ * Next node of a focus cycle, wrapping at both ends.
+ *
+ * @param lista - Focusable nodes in document order.
+ * @param actual - Node holding focus, or null when focus sits on the container.
+ * @param haciaAtras - True for Shift+Tab.
+ * @returns The node that must receive focus, or null when the list is empty.
+ */
+export function siguienteEnfocable(
+  lista: readonly HTMLElement[],
+  actual: Element | null,
+  haciaAtras: boolean,
+): HTMLElement | null {
+  if (lista.length === 0) {
+    return null
+  }
+
+  const indice = actual === null ? -1 : lista.indexOf(actual as HTMLElement)
+  if (indice === -1) {
+    // Focus is on the dialog or on its heading, which are outside the cycle.
+    // Tab enters at the first control and Shift+Tab at the last one.
+    return haciaAtras ? lista[lista.length - 1]! : lista[0]!
+  }
+
+  const paso = haciaAtras ? -1 : 1
+  // The modulo is the whole point: `indice + 1` alone breaks exactly at the
+  // last node, which is where focus escapes to the browser chrome.
+  return lista[(indice + paso + lista.length) % lista.length]!
+}

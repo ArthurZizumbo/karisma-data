@@ -113,6 +113,13 @@ beforeEach(() => {
     }
     return estados.get(clave)
   })
+  // `/gobierno` mounts the field dictionary since US-029, and its composables
+  // call `useFetch` during setup. The double keeps this suite about pages and
+  // layouts: the dictionary renders its designed initial state and asks for
+  // nothing, which is what the assertions below measure.
+  vi.stubGlobal('useFetch', () => ({
+    data: ref(null), status: ref('pending'), error: ref(null), refresh: async () => {},
+  }))
 
   return () => {
     vi.unstubAllGlobals()

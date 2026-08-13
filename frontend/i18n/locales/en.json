@@ -187,13 +187,7 @@
       }
     },
     "governance": {
-      "description": "Will hold the dictionary and metadata, data lineage and quality, and the source catalog.",
-      "capability": {
-        "dictionary": "Data dictionary and metadata",
-        "lineage": "Lineage overlay from the source system",
-        "owner": "Data owner and validity date",
-        "quality": "Data quality and detected anomalies"
-      }
+      "description": "Brings together the field dictionary with its metadata and the lineage of every figure, from the system where it is born to the number on screen."
     },
     "administration": {
       "description": "Will hold users, roles and permissions, requests and approvals, the access log and the integrations.",
@@ -853,6 +847,202 @@
       "change": "Monthly change",
       "projectedRow": "Projection",
       "gap": "no previous month"
+    }
+  },
+  "catalog": {
+    "facet": {
+      "group": {
+        "domain": "Domain",
+        "dataType": "Data type",
+        "sensitivity": "Sensitivity",
+        "refreshFrequency": "Refresh frequency",
+        "certification": "Certification",
+        "unit": "Unit",
+        "aggregation": "Aggregation"
+      },
+      "domain": {
+        "cartera": "Loan portfolio",
+        "riesgo": "Risk",
+        "liquidez": "Liquidity",
+        "mercado": "Market",
+        "cliente": "Customer",
+        "contable": "Accounting",
+        "operacion": "Operations",
+        "regulatorio": "Regulatory"
+      },
+      "dataType": {
+        "entero": "Integer",
+        "decimal": "Decimal",
+        "texto": "Text",
+        "fecha": "Date",
+        "booleano": "Boolean",
+        "categoria": "Category"
+      },
+      "sensitivity": {
+        "publica": "Public",
+        "interna": "Internal",
+        "restringida": "Restricted"
+      },
+      "refreshFrequency": {
+        "intradia": "Intraday",
+        "diaria": "Daily",
+        "semanal": "Weekly",
+        "mensual": "Monthly"
+      },
+      "certification": {
+        "certificado": "Certified",
+        "en_revision": "Under review",
+        "obsoleto": "Deprecated"
+      },
+      "unit": {
+        "MXN": "Mexican pesos (MXN)",
+        "USD": "US dollars (USD)",
+        "porcentaje": "Percentage",
+        "dias": "Days",
+        "conteo": "Count"
+      },
+      "aggregation": {
+        "sum": "Sum",
+        "mean": "Average",
+        "count": "Count",
+        "max": "Maximum",
+        "min": "Minimum"
+      }
+    }
+  },
+  "lineage": {
+    "dictionary": {
+      "title": "Field dictionary",
+      "hint": "Search a field by its physical name, by its business name or by a synonym. Every card opens the journey of the data from the system where it is born.",
+      "searchLabel": "Search the catalogue",
+      "searchPlaceholder": "balance, limit, counterparty",
+      "searchAction": "Search",
+      "searchHint": "Type at least two characters.",
+      "domainsLabel": "Filter by domain",
+      "domainAll": "Every domain",
+      "results": "{count} fields found",
+      "state": {
+        "initial": {
+          "title": "Start with a search",
+          "body": "The dictionary queries nothing until you type a term, so this screen opens without asking the server for a single field."
+        },
+        "loading": "Searching fields in the catalogue.",
+        "empty": {
+          "title": "No field matches",
+          "body": "The query is valid and the catalogue answered without errors, but no field matches that term. Try the business name or drop the domain filter."
+        },
+        "error": {
+          "title": "The catalogue could not be queried",
+          "body": "The server did not deliver the results. You can retry without losing the term you typed.",
+          "retry": "Retry the search"
+        }
+      }
+    },
+    "card": {
+      "physicalName": "Physical name",
+      "businessName": "Business name",
+      "definition": "Definition",
+      "source": "Source",
+      "validity": "Valid period",
+      "openLineage": "View the lineage"
+    },
+    "panel": {
+      "title": "Lineage of {field}",
+      "closeLabel": "Close",
+      "ownerLabel": "Owner of the field",
+      "validityLabel": "Validity of the definition",
+      "sourceLabel": "System of record",
+      "journeyLabel": "Journey of the data",
+      "currentYes": "In force",
+      "currentNo": "Superseded",
+      "derivedNote": "The last step is not stored: it is composed from the catalogue entry itself on every request, so the lineage and the dictionary cannot say different things.",
+      "state": {
+        "loading": "Loading the journey of the data.",
+        "error": {
+          "title": "The lineage could not be loaded",
+          "body": "The server did not deliver the journey of this field. You can retry without closing the panel.",
+          "retry": "Retry the lineage"
+        }
+      }
+    },
+    "stage": {
+      "origen": "Source system",
+      "extraccion": "Extraction",
+      "transformacion": "Transformation",
+      "calidad": "Quality control",
+      "presentacion": "Presentation"
+    },
+    "transformation": {
+      "origin_capture": "Captured in the system of record: {detail}",
+      "batch_extract": "Batch extraction: {detail}",
+      "stream_extract": "Streaming extraction: {detail}",
+      "type_normalization": "Type normalisation: {detail}",
+      "currency_conversion": "Currency conversion: {detail}",
+      "deduplication": "Duplicate removal: {detail}",
+      "business_rule": "Business rule: {detail}",
+      "reconciliation": "Reconciliation: {detail}",
+      "quality_rule": "Quality rule: {detail}",
+      "field_publish": "Field publication: {detail}"
+    },
+    "step": {
+      "ownerOf": "Accountable for this hop",
+      "effectiveFrom": "In force since",
+      "effectiveTo": "In force until",
+      "openEnded": "No end date",
+      "open": "Show the technical detail",
+      "technicalDetail": "Technical detail",
+      "stored": "Stored",
+      "derived": "Composed"
+    },
+    "crossAccess": {
+      "title": "Access log",
+      "hint": "The record of who queried each dataset is managed from the administration module of the portal.",
+      "link": "Go to Administration"
+    }
+  },
+  "sharedContext": {
+    "title": "Dashboard context",
+    "hint": "This is what would travel with your question if you asked it now. It is built on the dashboard, not on this screen.",
+    "static": {
+      "notice": "Agreed scope for this delivery: the filters travel to the assistant as context; the agent does not change the dashboard."
+    },
+    "empty": {
+      "title": "There is no context to share yet",
+      "hint": "The context is built on the dashboard: filter, move the window or pick a line and this screen shows it.",
+      "action": "Open the dashboard"
+    },
+    "chip": {
+      "metric": "Metric",
+      "grouping": "Grouping",
+      "businessUnit": "Business unit",
+      "currency": "Currency",
+      "maturityBucket": "Maturity bucket",
+      "series": "Line",
+      "dateRange": "Date range",
+      "window": "Visible window",
+      "density": "Reading density",
+      "level": "Disclosure level",
+      "visibleSeries": "Visible lines"
+    },
+    "value": {
+      "window": "from {start} % to {end} %",
+      "dateRange": "from {from} to {to}"
+    },
+    "details": {
+      "lastInteraction": "Last interaction and where it came from",
+      "origin": "Provenance of the loaded series",
+      "payload": "Exact JSON that would travel with the query",
+      "payloadHint": "Taken as is from the current view, with its keys sorted, so that the same view always produces the same text.",
+      "moment": "Timestamp",
+      "dimension": "Dimension",
+      "value": "Value",
+      "provenance": "Control used"
+    },
+    "interaction": {
+      "grafica": "Chart",
+      "tabla": "Detail table",
+      "leyenda": "Legend",
+      "control": "Panel control"
     }
   }
 }

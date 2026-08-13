@@ -5,7 +5,7 @@ import logging
 import structlog
 from fastapi import FastAPI
 
-from app.api import auth, catalog, health, metrics
+from app.api import auth, catalog, health, lineage, metrics
 from app.core.config import LOCAL_ENV, get_settings
 from app.core.permissions import assert_scope_coverage
 from app.services.auth_service import InvalidCredentialsError
@@ -69,6 +69,7 @@ def create_app() -> FastAPI:
     application.include_router(health.router)
     application.include_router(auth.router)
     application.include_router(catalog.router)
+    application.include_router(lineage.router)
     application.include_router(metrics.router)
 
     # The demo access is not an endpoint with an "if" inside: it is a router

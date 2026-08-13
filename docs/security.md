@@ -78,6 +78,7 @@ Bloque generado. **No editar a mano**: regenerar con el comando de la sección 1
 | `GET /api/auth/me` | *(ninguno)* | Cualquier sesion valida consulta su propio perfil | US-015 | vigente |
 | `GET /api/catalog/search` | *(ninguno)* | Catalogo para todos los autenticados | US-008 | vigente |
 | `GET /api/catalog/{entry_id}` | *(ninguno)* | Ficha de catalogo, mismo criterio | US-008 | vigente |
+| `GET /api/catalog/{entry_id}/lineage` | *(ninguno)* | Linaje de un campo del catalogo; el perfil operativo es quien mas lo necesita para confiar en la cifra | US-029 | vigente |
 | `POST /api/query/records` | `operativo` | Consulta puntual sobre un silo | US-011 | planificado |
 | `GET /api/metrics/series` | `analista` | Serie preagregada del tablero | US-025 | vigente |
 | `POST /api/metrics/aggregate` | `analista` | Agregaciones y cruces de la capa semantica | US-011 | planificado |
@@ -281,3 +282,4 @@ Descartado con su razón, para que no se reabra sin decisión de equipo:
 | 12-ago-2026 | Auditoría de seguridad sobre el diff de US-016 y US-008. Dos agujeros de la propia guardia corregidos: la ruta cuyo path es el prefijo exacto (`/api`, sin barra final) se escapaba del filtro, y un `Mount` bajo `/api` se saltaba en silencio; se añaden las amenazas A-11 y A-12 y la clase de violación `ruta_ajena`. El registro de búsquedas del catálogo pasa a `consulta_hash` SHA-256: `build_tsquery` no lematiza y el texto tecleado salía casi literal |
 | 12-ago-2026 | US-008 pone en `vigente` las dos rutas del catálogo, ambas con `scopes=()` |
 | 12-ago-2026 | US-025 pone en `vigente` `GET /api/metrics/series` con scope `analista`. Es la primera ruta viva con scope no vacío, así que **cierra la deuda 4**: el 403 queda comprobado contra la aplicación real por los dos caminos, el api directo y el proxy de Nitro |
+| 13-ago-2026 | US-029 añade `GET /api/catalog/{entry_id}/lineage` con `scopes=()` y estado `vigente`. Es la primera fila que nace con su ruta ya montada, no publicada por adelantado: el overlay de linaje lo necesita el mismo día. La rama 3.2 del mapa de A3 deja de declarar scope explícito y pasa a derivarlo de este endpoint |

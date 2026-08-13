@@ -185,6 +185,15 @@ SCOPE_REGISTRY: Final[Mapping[RouteKey, PermissionRule]] = MappingProxyType(
             us="US-008",
             status="vigente",
         ),
+        RouteKey("GET", "/api/catalog/{entry_id}/lineage"): PermissionRule(
+            scopes=(),
+            rule=(
+                "Linaje de un campo del catalogo; el perfil operativo es quien "
+                "mas lo necesita para confiar en la cifra"
+            ),
+            us="US-029",
+            status="vigente",
+        ),
         RouteKey("POST", "/api/query/records"): PermissionRule(
             scopes=(Scope.OPERATIVO,),
             rule="Consulta puntual sobre un silo",

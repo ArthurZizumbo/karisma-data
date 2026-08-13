@@ -62,6 +62,7 @@ MAPA_RAMA_ENDPOINTS: Final[Mapping[str, tuple[str, ...]]] = {
     "2.3": ("POST /api/export", "GET /api/export/{job_id}"),
     "2.4": ("GET /api/metrics/series", "POST /api/metrics/aggregate"),
     "3.1": ("GET /api/catalog/{entry_id}",),
+    "3.2": ("GET /api/catalog/{entry_id}/lineage",),
     "3.3": ("GET /api/catalog/search",),
     "4.1": (
         "GET /api/users",
@@ -74,17 +75,17 @@ MAPA_RAMA_ENDPOINTS: Final[Mapping[str, tuple[str, ...]]] = {
 
 #: A3 branch id -> (explicit scope, reason). Only for branches with no endpoint.
 #:
-#: Seven of the sixteen branches of the map call nothing yet. Without a rule the
-#: generator would have to guess, so each one declares its scope WITH its reason
-#: and the generator refuses a branch that declares both endpoints and a scope.
-#: Three of the seven carry a role written by hand -the administration ones- and
+#: Six of the sixteen branches of the map call nothing yet -3.2 left this table
+#: the day US-029 published the lineage endpoint. Without a rule the generator
+#: would have to guess, so each one declares its scope WITH its reason and the
+#: generator refuses a branch that declares both endpoints and a scope.
+#: Three of the six carry a role written by hand -the administration ones- and
 #: those three disappear on their own the day US-018 and US-019 declare their
-#: endpoints. The other four are ``None``, which is not a role.
+#: endpoints. The other three are ``None``, which is not a role.
 SCOPE_EXPLICITO: Final[Mapping[str, tuple[Scope | None, str]]] = {
     "1.2": (None, "Historial local del lector; no consulta al servidor"),
     "1.3": (None, "Favoritos del lector; misma razon que las busquedas recientes"),
     "1.4": (None, "Alertas propias; el endpoint llega con US-028"),
-    "3.2": (None, "Linaje del catalogo; hoy se pinta desde la ficha ya cargada"),
     "4.2": (Scope.ADMIN, "Solicitudes de acceso; sus endpoints llegan con US-019"),
     "4.3": (Scope.ADMIN, "Bitacora de accesos; sus endpoints llegan con US-019"),
     "4.4": (Scope.ADMIN, "Integraciones; sus endpoints llegan con US-019"),

@@ -93,7 +93,9 @@ export const ENDPOINTS_POR_RAMA: Readonly<Record<string, readonly string[]>> = O
   '3.1': [
     'GET /api/catalog/{entry_id}',
   ],
-  '3.2': [],
+  '3.2': [
+    'GET /api/catalog/{entry_id}/lineage',
+  ],
   '3.3': [
     'GET /api/catalog/search',
   ],

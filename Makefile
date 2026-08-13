@@ -170,9 +170,17 @@ db-rollback: comprobar-env-backend ## Revierte la ultima migracion aplicada
 # logica de shell vive en scripts/seed_catalogo.sh por la misma razon que la de
 # dbmate.sh: con la cadena entre comillas dentro de la receta, el objetivo
 # funciona desde Git Bash y falla desde PowerShell sin decir por que.
-db-seed: comprobar-env-backend ## Regenera y aplica el seed del catalogo semantico
+#
+# US-029: el seed dejo de ser uno solo. El recorrido lo calcula make -sort sobre
+# wildcard- y no un bucle dentro de la receta, que volveria a exigir un shell
+# POSIX y romperia desde PowerShell. El orden alfabetico es tambien el de
+# dependencia: catalog.sql crea las fuentes y catalog_lineage.sql cuelga de
+# ellas. Un seed nuevo entra sin tocar este objetivo.
+SEEDS := $(sort $(wildcard db/seeds/*.sql))
+
+db-seed: comprobar-env-backend ## Regenera y aplica los seeds de db/seeds/ en orden
 	poetry -P backend run python -m ml.data.seed_catalog
-	@bash scripts/seed_catalogo.sh
+	@bash scripts/seed_catalogo.sh $(SEEDS)
 
 # ---------------------------------------------------------------------------
 #  Comprobaciones internas

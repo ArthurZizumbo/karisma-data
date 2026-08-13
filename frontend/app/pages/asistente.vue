@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import CabeceraPantalla from '~/components/comun/CabeceraPantalla.vue'
 import EstadoPendiente from '~/components/comun/EstadoPendiente.vue'
+import ContextoPanelContextoTablero from '~/components/contexto/PanelContextoTablero.vue'
 import { useTituloDeRuta } from '~/composables/useTituloDeRuta'
 
 definePageMeta({ layout: 'portal' })
@@ -25,5 +26,6 @@ const CAPACIDADES = computed(() =>
   <section :data-ruta="ruta" class="flex flex-col gap-8">
     <CabeceraPantalla :titulo="titulo" :descripcion="t('screen.assistant.description')" />
     <EstadoPendiente :capacidades="CAPACIDADES" us="US-023" />
+    <ContextoPanelContextoTablero />
   </section>
 </template>

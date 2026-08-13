@@ -239,16 +239,33 @@ Casos especiales, los dos únicos que hay:
 - **Tokens**: jamás. La negativa de autorización registra los scopes exigidos y los del token, nunca
   el token. La identidad llega por `structlog.contextvars`, enlazada al resolver la sesión.
 - **Prompts del agente**: solo `llm.prompt_hash` (SHA-256), nunca el texto.
-- **Búsquedas del catálogo**: solo `consulta_hash` (SHA-256) y el número de términos, nunca el
-  texto. La razón es concreta: `build_tsquery` no lematiza —baja a minúsculas y trocea—, así que un
-  número de cuenta o un correo tecleados en la caja de búsqueda salían casi literales al registro, y
-  con la identidad enlazada por `structlog.contextvars` esa línea correlacionaba persona con texto
-  libre. Es la misma regla que mantiene los prompts crudos fuera de las trazas.
+- **Búsquedas del catálogo**: solo `consulta_hash` y el número de términos, nunca el texto. La razón
+  es concreta: `build_tsquery` no lematiza —baja a minúsculas y trocea—, así que un número de cuenta
+  o un correo tecleados en la caja de búsqueda salían casi literales al registro, y con la identidad
+  enlazada por `structlog.contextvars` esa línea correlacionaba persona con texto libre. Es la misma
+  regla que mantiene los prompts crudos fuera de las trazas.
+- **El hash de la búsqueda lleva sal, y por qué importa** (13-ago-2026): un SHA-256 desnudo de una
+  entrada de baja entropía es **confirmable**. SHA-256 es público y una caja de búsqueda tiene poco
+  espacio de valores, así que quien sospeche que se tecleó `4152313412341234` lo hashea él mismo y lo
+  busca en la bitácora; con la identidad enlazada, un acierto dice **quién** lo escribió y **cuándo**.
+  El digest usa ahora una sal de 32 bytes sacada de la entropía del sistema **al arrancar el
+  proceso**, que no se registra, no se devuelve y no se persiste. El precio, escrito para que nadie
+  lo lea después como un defecto: los digests **no son comparables entre reinicios ni entre
+  instancias**, y en Cloud Run con `scale-to-zero` dos búsquedas separadas por un arranque en frío
+  dan valores distintos para el mismo texto. Es el intercambio correcto: la correlación para la que
+  se lee el campo —las búsquedas repetidas de una persona dentro de una sesión— ocurre dentro de un
+  proceso, y la alternativa, una sal fija en configuración, es una credencial más que rotar y que, el
+  día que se filtra, devuelve el problema entero.
 - **Eventos que sí se registran**: `autorizacion_denegada` (scopes exigidos y concedidos),
   `scope_desconocido` (nombre mal escrito en la declaración de un endpoint),
   `cobertura_de_scopes_incompleta` (violaciones al arrancar), `catalogo_busqueda`
   (`consulta_hash`, `terminos`, `total`, `devueltos`, `limit`, `offset`) y
-  `catalogo_busqueda_sin_terminos` (solo `limit` y `offset`).
+  `catalogo_busqueda_sin_terminos` (solo `limit` y `offset`). De US-025: `serie_servida`
+  (`consulta_hash`, métrica y agrupación como enumeraciones cerradas, cardinalidades, bytes y
+  milisegundos), `serie_no_modificada` (la respuesta 304, sin cuerpo) y `metadato_ausente`. **Ninguno
+  lleva un valor de negocio, un filtro en claro ni un token**, y el `consulta_hash` de `serie_servida`
+  no necesita la sal del párrafo anterior: allí la consulta es vocabulario cerrado —métrica,
+  agrupación, densidad—, no texto que escriba una persona, así que no hay nada que confirmar.
 - Las respuestas de la API nunca serializan `hashed_password`: el contrato de salida es `UserOut`.
 
 ## 10. Fuera de alcance
@@ -264,12 +281,31 @@ Descartado con su razón, para que no se reabra sin decisión de equipo:
 | Permisos por objeto o por columna | La matriz es por ruta; un permiso por columna exige llevarlo a la capa semántica y al compilador | Una US que toque `ml/semantic/` |
 | Auditoría persistente de accesos | Hoy los eventos van a la bitácora estructurada, sin tabla ni retención | Una US con su tabla, su retención y su consulta |
 
+### 10.1 Una superficie de datos que el registro no ve
+
+`SCOPE_REGISTRY` gobierna rutas de la API. **No ve `frontend/public/`**, y ahí hay un archivo servido
+por Nitro sin sesión de ninguna clase:
+
+| Superficie | Quién la sirve | Qué contiene hoy | Dueño |
+|---|---|---|---|
+| `/datos/historicos-tablero.json` | Nitro, estático, **sin autenticación** | Tres métricas por 24 puntos mensuales, derivadas del Parquet sintético. Sin identificadores, sin nombres, sin desglose por entidad | US-026; revisión en S5 |
+
+**Hoy no es un defecto explotable** y se comprobó campo por campo: no hay nada ahí que exija sesión.
+Se declara porque la pantalla que lo consume **sí** exige `analista`, y porque la amenaza A-1 de la
+sección 8 promete que toda superficie de datos del portal está gobernada. Sin esta fila, quien lea
+este documento concluiría que no hay ninguna fuera del registro, y la hay.
+
+El escenario que la vuelve peligrosa es concreto: el día que ese histórico deje de ser sintético, o
+que alguien añada al mismo archivo una métrica de otra fuente, **nadie tendrá un sitio donde ese
+cambio se lea como una decisión de permisos**. La regla, mientras tanto: nada entra en
+`frontend/public/` que no pueda leer un anónimo.
+
 ## 11. Deuda aceptada
 
 | # | Deuda | Consecuencia | Dueño |
 |---|---|---|---|
 | 1 | `admin` alcanza los resúmenes directivos por ser el rango más alto | Separación de funciones imperfecta: quien administra usuarios también lee el tablero ejecutivo | Equipo, si el modelo deja de ser un orden total |
-| 2 | `frontend/app/types/navegacion.ts` declara `'administrador'` donde el scope es `admin` | Hoy solo rotula el índice de prototipos; mañana es un `if` que nunca se cumple contra un token real | **US-017** |
+| 2 | ~~`frontend/app/types/navegacion.ts` declara `'administrador'` donde el scope es `admin`~~ | **CERRADA el 12-ago-2026 por US-017.** Hoy es `export type RolSugerido = RolUsuario` y no queda un solo literal `'administrador'` en el código; verificado con `grep`. Se anota el cierre porque la auditoría del 13-ago encontró la fila todavía abierta: una US la cerró y el documento no se enteró, que es el mismo defecto —al revés— que el ciclo anterior corrigió en la deuda 4 | **US-017** (cerrada) |
 | 3 | La matriz solo interroga hoy las rutas vivas: **cuatro** de dieciséis filas | La política de las doce restantes está escrita y sin ejercitar hasta que su US llegue. La cuenta sube sola: cada US que monta su router cambia su fila a `vigente` y la matriz la interroga desde ese momento | Cada US dueña, al montar su router |
 | 4 | ~~Verificación manual del 403 a través del proxy~~ | **CERRADA el 12-ago-2026 por US-025.** Fue reasignada dos veces: US-008 publicó sus dos rutas con `scopes=()` —cualquier sesión válida— y no pudo cerrarla, así que quedó a la espera de la primera ruta con scope no vacío. Esa ruta es `GET /api/metrics/series` (`analista`). Desde hoy la rama `else` de la matriz parametrizada **sí se ejerce contra la aplicación real** —el caso `operativo` de esa fila devuelve 403 con `permisos_insuficientes`— y el rechazo está comprobado a mano por los dos caminos, el api directo y el proxy de Nitro. Evidencia: `docs/manual-test/us-025.md` §1 y la sección «autorizacion» de `scripts/smoke_serie.sh` | **US-025** (cerrada) |
 | 5 | Sin auditoría persistente de quién consultó qué | Un incidente se reconstruye leyendo bitácoras efímeras | Fuera de alcance (sección 10) |
@@ -283,3 +319,4 @@ Descartado con su razón, para que no se reabra sin decisión de equipo:
 | 12-ago-2026 | US-008 pone en `vigente` las dos rutas del catálogo, ambas con `scopes=()` |
 | 12-ago-2026 | US-025 pone en `vigente` `GET /api/metrics/series` con scope `analista`. Es la primera ruta viva con scope no vacío, así que **cierra la deuda 4**: el 403 queda comprobado contra la aplicación real por los dos caminos, el api directo y el proxy de Nitro |
 | 13-ago-2026 | US-029 añade `GET /api/catalog/{entry_id}/lineage` con `scopes=()` y estado `vigente`. Es la primera fila que nace con su ruta ya montada, no publicada por adelantado: el overlay de linaje lo necesita el mismo día. La rama 3.2 del mapa de A3 deja de declarar scope explícito y pasa a derivarlo de este endpoint |
+| 13-ago-2026 | Auditoría de seguridad sobre el diff de US-017, US-027, US-025 y US-026. Sin bloqueantes ni mayores. Se declara la superficie pública de la sección 10.1, se inventarían los tres eventos de US-025, se cierra la deuda 2 y el `consulta_hash` pasa a llevar sal por proceso. El detector de divergencia del mapa de permisos de la interfaz entra en `make check`, y la comprobación de procedencia del histórico en `make verificar`: las dos existían y no las corría nadie |

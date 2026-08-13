@@ -815,7 +815,7 @@
       "detail": "Campo {field} de la serie preagregada, {aggregation}."
     },
     "aggregation": {
-      "weightedMean": "media ponderada por número de posiciones",
+      "balanceWeightedMean": "media ponderada por saldo disponible",
       "dailyMean": "promedio diario del mes",
       "shareOfTotal": "participación sobre el total del mes"
     },

@@ -23,6 +23,12 @@ import { clavesDe, mensaje } from './i18nDePrueba'
  * Comparing them here is what turns "they cannot drift" into something a run of
  * `pnpm test` proves, without executing a line of Python.
  *
+ * A branch of the map that calls no endpoint has no row in that matrix, so its
+ * exigency is compared against the other declaration it comes from, the
+ * `SCOPE_EXPLICITO` table of the generator. Without that second comparison the
+ * six branches with no endpoint were only checked against the generated file
+ * itself, and self comparison passes whatever the file happens to say.
+ *
  * Nothing in this file mounts a component. What it measures is a declaration.
  */
 
@@ -32,24 +38,32 @@ import { clavesDe, mensaje } from './i18nDePrueba'
  * The path travels as a variable on purpose: with a literal, Vite rewrites the
  * `new URL(..., import.meta.url)` pattern into an asset reference and the URL
  * stops being a file one.
+ *
+ * @param relativa Path of the input, relative to this spec.
+ * @param origen Who writes it and how it is regenerated, for the error message.
  */
-function leerDelRepositorio(relativa: string): string {
+function leerDelRepositorio(relativa: string, origen: string): string {
   const ruta = fileURLToPath(new URL(relativa, import.meta.url))
   try {
     return readFileSync(ruta, 'utf8')
   }
   catch {
     // Explicit and not an `undefined` three assertions later: this suite has a
-    // hard dependency on a document US-016 owns, and a check that silently
-    // skips when its input is missing is not a barrier.
-    throw new Error(
-      `falta ${relativa}, que es el insumo de esta prueba. Lo escribe US-016 y `
-      + 'se regenera con render_permission_matrix()',
-    )
+    // hard dependency on files another User Story owns, and a check that
+    // silently skips when its input is missing is not a barrier.
+    throw new Error(`falta ${relativa}, que es el insumo de esta prueba. ${origen}`)
   }
 }
 
-const seguridad = leerDelRepositorio('../../docs/security.md')
+const seguridad = leerDelRepositorio(
+  '../../docs/security.md',
+  'Lo escribe US-016 y se regenera con render_permission_matrix()',
+)
+
+const generador = leerDelRepositorio(
+  '../../scripts/generar_permisos_ui.py',
+  'Es el emisor de permisos.generated.ts y se corre con make permisos-ui',
+)
 
 const MATRIZ_INICIO = '<!-- matriz-permisos:inicio -->'
 const MATRIZ_FIN = '<!-- matriz-permisos:fin -->'
@@ -82,6 +96,36 @@ function matrizPublicada(): Map<string, RolUsuario[]> {
 
 const MATRIZ = matrizPublicada()
 
+/**
+ * The `SCOPE_EXPLICITO` table of the generator, as branch id to declared role.
+ *
+ * Six branches of the A3 map call no endpoint yet, so the published matrix says
+ * nothing about them and the block above cannot reach them. Their exigency is
+ * typed by hand exactly once, in that table of the generator and with its
+ * reason next to it, which makes the generator their external source.
+ *
+ * `Scope.ADMIN` is read as the literal the enum emits; the branch equality of
+ * the first test proves the reading against `ROLES_EN_ORDEN`, so a role whose
+ * member name stops matching its value turns red here and not three files away.
+ */
+function scopesDeclaradosSinEndpoint(): Map<string, RolUsuario | null> {
+  const bloque = generador.match(/SCOPE_EXPLICITO[^{]*\{([\s\S]*?)\n\}/)?.[1] ?? ''
+  const declarados = new Map<string, RolUsuario | null>()
+
+  for (const fila of bloque.matchAll(/"([^"]+)":\s*\(\s*(None|Scope\.[A-Z_]+)\s*,/g)) {
+    const rama = fila[1] ?? ''
+    const literal = fila[2] ?? ''
+    declarados.set(
+      rama,
+      literal === 'None' ? null : (literal.replace('Scope.', '').toLowerCase() as RolUsuario),
+    )
+  }
+
+  return declarados
+}
+
+const DECLARADAS_SIN_ENDPOINT = scopesDeclaradosSinEndpoint()
+
 /** Highest of several scopes; null means "any valid session" and sits below all. */
 function mayor(scopes: (RolUsuario | null)[]): RolUsuario | null {
   const reales = scopes.filter((scope): scope is RolUsuario => scope !== null)
@@ -103,6 +147,9 @@ function menor(scopes: (RolUsuario | null)[]): RolUsuario | null {
 
 const RAMAS = MODULOS.flatMap(modulo => modulo.subrutas)
 const RUTAS_GUARDADAS = RUTAS_CONTRATO.filter(ruta => ruta !== RUTA_ACCESO)
+const RAMAS_SIN_ENDPOINT = Object.entries(ENDPOINTS_POR_RAMA)
+  .filter(([, endpoints]) => endpoints.length === 0)
+  .map(([rama]) => rama)
 
 describe('el mapa generado no puede divergir del documento de seguridad', () => {
   it('nombra solo endpoints que la matriz publicada declara', () => {
@@ -145,6 +192,36 @@ describe('el mapa generado no puede divergir del documento de seguridad', () => 
     expect(mensaje('es', 'authz.noPermission.body')).toBe(celdas[3])
     expect(mensaje('en', 'authz.noPermission.body')).toBe(celdas[4])
   })
+})
+
+describe('las ramas sin endpoint tampoco se resuelven contra si mismas', () => {
+  it('declara en el generador esas ramas, y solo esas, con roles del vocabulario', () => {
+    // Two drifts in one assertion. A branch that stops calling endpoints and
+    // nobody declares would keep an exigency that comes from nowhere; a branch
+    // declared in the generator that the emitted file says calls endpoints
+    // means the two files were regenerated from different states, which is the
+    // situation the generator refuses to produce and nothing was checking.
+    const roles = [...DECLARADAS_SIN_ENDPOINT.values()].filter(scope => scope !== null)
+
+    expect(RAMAS_SIN_ENDPOINT.length).toBeGreaterThan(0)
+    expect([...DECLARADAS_SIN_ENDPOINT.keys()].sort()).toEqual([...RAMAS_SIN_ENDPOINT].sort())
+    expect(roles.filter(rol => !ROLES_EN_ORDEN.includes(rol))).toEqual([])
+  })
+
+  it.each(RAMAS_SIN_ENDPOINT)(
+    'exige en la rama %s el rol que el generador declara con su motivo',
+    (rama) => {
+      // The failure this catches is invisible to every other test of the file:
+      // raising '1.2' to 'admin' keeps the module and the route unchanged -both
+      // are the minimum and both already hold a null sibling- so the suite stays
+      // green while the sidebar hides recent searches from three of four roles.
+      expect(
+        DECLARADAS_SIN_ENDPOINT.has(rama),
+        `la rama ${rama} no llama a ningun endpoint y el generador no la declara`,
+      ).toBe(true)
+      expect(SCOPE_POR_RAMA[rama] ?? null).toBe(DECLARADAS_SIN_ENDPOINT.get(rama))
+    },
+  )
 })
 
 describe('el mapa generado cubre el mapa de sitio entero', () => {

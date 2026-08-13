@@ -376,6 +376,11 @@ describe('el nivel 2 dice de donde sale la cifra', () => {
   it('nombra la columna fisica y la agregacion', async () => {
     // A figure with no lineage is the moment the journey map of A2 marks as
     // the one where the reader stops trusting the number.
+    //
+    // The expected copy is the balance weighted mean and no longer the one
+    // weighted by position count: `ratio_lcr` arrives from US-006 already
+    // weighted by balance, so that was the wrong weight and the sentence on
+    // screen described an aggregation the card did not perform.
     const { wrapper } = await montarTablero({ datos: HISTORICO })
     const i18n = crearI18nDePrueba('es')
     await abrirNivel(wrapper, 2)
@@ -383,7 +388,7 @@ describe('el nivel 2 dice de donde sale la cifra', () => {
     const procedencia = wrapper.get('[data-procedencia]').text()
 
     expect(procedencia).toContain('ratio_lcr')
-    expect(procedencia).toContain(i18n.global.t('forecast.aggregation.weightedMean'))
+    expect(procedencia).toContain(i18n.global.t('forecast.aggregation.balanceWeightedMean'))
   })
 
   it('da nombre y resumen accesibles a la grafica', async () => {

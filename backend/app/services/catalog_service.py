@@ -20,6 +20,7 @@ is ever formatted into SQL.
 """
 
 import re
+import secrets
 from collections.abc import Mapping, Sequence
 from hashlib import sha256
 from types import MappingProxyType
@@ -41,6 +42,26 @@ from app.models.catalog import (
 )
 
 logger = structlog.get_logger()
+
+# Salt of THIS process, drawn from the operating system entropy pool when the
+# module is imported. It is never logged, never returned and never persisted.
+#
+# Without it the record is confirmable, which is the property a bare digest
+# cannot lose: SHA-256 is public and a search box holds little entropy, so
+# anybody who suspects that "4152313412341234" was typed hashes it themselves
+# and greps the journal. With the username bound by ``structlog.contextvars``,
+# one match names who typed it and when. The salt turns that guess into
+# something unverifiable from outside the process.
+#
+# The price, written down so that nobody later reads it as a defect: the
+# digests are NOT comparable across restarts nor across instances. On Cloud Run
+# with scale-to-zero, two searches separated by a cold start hash the same text
+# differently, and two replicas never agree on a value. That is the correct
+# trade. The correlation the field is read for -the repeated searches of one
+# reader inside one session- happens within a single process, and the
+# alternative, a fixed salt kept in configuration, is one more credential to
+# rotate and to leak, and the day it leaks it hands the whole property back.
+_QUERY_SALT: Final[bytes] = secrets.token_bytes(32)
 
 # A pasted paragraph must not become a three hundred term tsquery.
 MAX_TERMS: Final[int] = 12
@@ -262,6 +283,24 @@ def build_tsquery(raw_query: str) -> str:
     return " | ".join(tokens)
 
 
+def query_fingerprint(raw_query: str) -> str:
+    """Return the per process fingerprint of a typed query.
+
+    Equal texts give equal fingerprints for as long as this process lives, and
+    that is the entire contract: it is what lets a reader's repeated searches be
+    told apart in the journal. Nothing else may be inferred from the value, and
+    in particular it must not be compared against a digest computed anywhere
+    else, because the salt of ``_QUERY_SALT`` is unique to this process.
+
+    Args:
+        raw_query: The text exactly as the user typed it.
+
+    Returns:
+        A hexadecimal digest, meaningless outside this process.
+    """
+    return sha256(_QUERY_SALT + raw_query.encode("utf-8")).hexdigest()
+
+
 async def search(
     session: AsyncSession,
     *,
@@ -331,11 +370,11 @@ async def search(
     # out whole- and structlog.contextvars has the username bound by this point.
     # That single line would correlate an identity with free text the user
     # typed, which is the same rule that keeps raw prompts out of the traces.
-    # The hash keeps the only property the log needs: telling repeated searches
-    # apart without being able to read any of them.
+    # The fingerprint keeps the only property the log needs: telling repeated
+    # searches apart without being able to read -or to confirm- any of them.
     logger.info(
         "catalogo_busqueda",
-        consulta_hash=sha256(raw_query.encode("utf-8")).hexdigest(),
+        consulta_hash=query_fingerprint(raw_query),
         terminos=tsquery.count("|") + 1,
         total=total,
         devueltos=len(rows),

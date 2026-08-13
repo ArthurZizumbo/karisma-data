@@ -84,20 +84,50 @@ test: ## pytest en tests/backend y vitest en frontend/
 # interesa el arbol, porque make check se corre ANTES de abrir un PR y la
 # pregunta es si lo que estas a punto de commitear lleva un secreto. El barrido
 # del historial es mas lento y solo tiene sentido en CI (US-004).
-check: lint ## lint mas secrets-scan. Obligatorio antes de abrir un PR
+#
+# El mapa de permisos entra en "check" y no solo en "verificar": es la unica
+# comprobacion que compara frontend/app/utils/permisos.generated.ts contra el
+# registro del backend, y una barrera que solo corre en el barrido del viernes
+# no impide que el PR del martes mezcle un mapa editado a mano. Las pruebas de
+# vitest cubren la mitad del defecto -que el mapa emitido no contradiga
+# docs/security.md ni la declaracion del generador-, pero no pueden ver si el
+# registro de Python cambio y nadie regenero: para eso hay que correr el
+# generador, y eso es Python.
+#
+# Nota de uso: el guion regenera y luego compara con "git diff". Si acabas de
+# correr "make permisos-ui", haz "git add" del archivo generado antes de
+# "make check"; sin indexar, la regeneracion legitima se ve igual que una
+# edicion a mano, que es exactamente lo que el guion existe para distinguir.
+check: lint ## lint, secrets-scan y mapa de permisos. Obligatorio antes de abrir un PR
 	@bash scripts/comprobar_requisitos.sh herramienta gitleaks
 	gitleaks dir . --config .gitleaks.toml --redact --no-banner --no-color
 	@echo ""
 	@echo "Comprobando que el escaneo detecta de verdad (CA-7b)..."
 	bash scripts/verificar_gitleaks.sh
+	@echo ""
+	bash scripts/verificar_permisos_ui.sh
 
-verificar: ## Comprueba pines, secretos, reproducibilidad, tokens, permisos y datos
+# El mapa de permisos sigue aqui ademas de en "check", y no es un descuido:
+# "verificar" ya repite verificar_gitleaks.sh, que tambien corre "check". La
+# convencion del archivo es que este objetivo sea el superconjunto -el barrido
+# completo antes de una entrega- y quitarle una comprobacion lo dejaria, por
+# primera vez, mas estrecho que el gate diario. El costo de la duplicacion es
+# una corrida mas del generador, segundos.
+#
+# verificar_historicos_tablero.sh se anade aqui y no a "check" porque necesita
+# data/aggregates/serie_tablero.parquet, que no se versiona: sin "make data"
+# no existe, y un gate obligatorio que falla en un clon limpio se termina
+# saltando. Este objetivo ya depende de esa misma condicion por
+# verificar_datos.sh. Va con bash y no con sh porque asi lo documentan
+# docs/manual-test/us-026.md y el handoff de US-026.
+verificar: ## Comprueba pines, secretos, reproducibilidad, tokens, permisos, datos e historicos
 	sh scripts/verificar_pines.sh
 	sh scripts/verificar_gitleaks.sh
 	sh scripts/verificar_reproducibilidad.sh
 	sh scripts/verificar_tokens_a4.sh
 	sh scripts/verificar_permisos_ui.sh
 	sh scripts/verificar_datos.sh
+	bash scripts/verificar_historicos_tablero.sh
 
 # ---------------------------------------------------------------------------
 #  Datos sinteticos

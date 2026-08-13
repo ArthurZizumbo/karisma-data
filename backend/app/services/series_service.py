@@ -258,6 +258,16 @@ def build_payload(params: SeriesParams, *, data_dir: Path) -> SeriesPayload:
     # The filters are the reader's question and never travel to the log as text.
     # What is recorded is the hash of the canonical query, which is enough to
     # tell repeated requests apart, plus the shape of the answer.
+    #
+    # This digest is deliberately unsalted, unlike the fingerprint of the
+    # catalog search. Nothing here is free text: SeriesParams is a closed
+    # vocabulary of enums, of identifiers bounded to the frozen grid and of
+    # dates, so the whole input space is enumerable by anyone and a salt would
+    # buy no secrecy at all -confirming a guess would reveal only which cell of
+    # a public grid somebody charted. What the salt would cost is real: the same
+    # query has to hash to the same value across restarts and across replicas
+    # for the bytes and the ms of these records to be comparable cold against
+    # warm.
     logger.info(
         "serie_servida",
         consulta_hash=sha256(params.cache_key().encode("utf-8")).hexdigest(),

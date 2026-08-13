@@ -17,12 +17,14 @@ from datetime import date
 from typing import TYPE_CHECKING, Any, Final, cast
 
 import pytest
+import structlog
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from app.core.database import get_session
 from app.core.scopes import Scope
 from app.models.catalog import ENTRY_NOT_FOUND
+from app.services import catalog_service
 
 if TYPE_CHECKING:
     from app.models.user import AppUser
@@ -526,3 +528,48 @@ def test_ficha_inexistente_devuelve_404_con_codigo(
 
     assert respuesta.status_code == 404
     assert respuesta.json() == {"detail": ENTRY_NOT_FOUND}
+
+
+def test_el_registro_de_la_busqueda_no_lleva_el_texto_ni_la_sal(
+    cliente_catalogo: TestClient,
+    cabeceras: dict[str, str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """What reaches the journal is the fingerprint, and never its ingredients.
+
+    Three ways of breaking this have already been written by somebody, here or
+    elsewhere in the industry: logging ``tsquery`` "because it is sanitised",
+    when it is the typed words almost verbatim; returning to the unsalted
+    digest, which anybody can recompute for a guessed card number; and printing
+    the salt while debugging, which reopens the first two at once. The module
+    logger is replaced by a double instead of reconfiguring structlog, because
+    ``create_app`` caches the bound logger on first use and a privacy assertion
+    that depends on the order of the suite is worse than none.
+
+    Args:
+        cliente_catalogo: Client with the session double injected.
+        cabeceras: Authorization header of a signed in caller.
+        monkeypatch: Used to swap the module level logger.
+    """
+    capturador = structlog.testing.CapturingLogger()
+    monkeypatch.setattr(catalog_service, "logger", capturador)
+    tecleado = "cuenta 4152313412341234"
+    sal = catalog_service._QUERY_SALT
+
+    respuesta = cliente_catalogo.get(
+        "/api/catalog/search", params={"q": tecleado}, headers=cabeceras
+    )
+    registrado = " ".join(repr(llamada) for llamada in capturador.calls)
+    busqueda = next(
+        llamada
+        for llamada in capturador.calls
+        if llamada.args and llamada.args[0] == "catalogo_busqueda"
+    )
+
+    assert respuesta.status_code == 200
+    assert "4152313412341234" not in registrado
+    assert sal.hex() not in registrado
+    assert repr(sal) not in registrado
+    assert busqueda.kwargs["consulta_hash"] == catalog_service.query_fingerprint(
+        tecleado
+    )

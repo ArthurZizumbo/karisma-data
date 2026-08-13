@@ -815,7 +815,7 @@
       "detail": "Field {field} of the preaggregated series, {aggregation}."
     },
     "aggregation": {
-      "weightedMean": "mean weighted by number of positions",
+      "balanceWeightedMean": "mean weighted by available balance",
       "dailyMean": "daily mean of the month",
       "shareOfTotal": "share of the monthly total"
     },

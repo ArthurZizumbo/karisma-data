@@ -74,21 +74,30 @@ GENERADO_POR = "scripts/verificar_historicos_tablero.sh --escribir"
 
 # id, source column, aggregation translation key, decimals
 METRICAS = (
-    ("cobertura-liquidez", "ratio_lcr", "forecast.aggregation.weightedMean", 6),
+    ("cobertura-liquidez", "ratio_lcr", "forecast.aggregation.balanceWeightedMean", 6),
     ("saldo-disponible", "saldo_disponible_mxn", "forecast.aggregation.dailyMean", 4),
     ("concentracion-divisa", "saldo_disponible_mxn", "forecast.aggregation.shareOfTotal", 6),
 )
 
 
 def derivar() -> pl.DataFrame:
-    """Monthly aggregation of the three metrics over the last complete months."""
+    """Monthly aggregation of the three metrics over the last complete months.
+
+    ``ratio_lcr`` is reweighted by balance and never by position count. It
+    arrives from US-006 as ``sum(ratio_lcr * mto_disp) / sum(mto_disp)``, a mean
+    already weighted by balance inside every cell, so the only reweighting that
+    composes with it is the one ``_aggregate_lines`` of the series service
+    applies. Any other weight produces a number that is simply wrong and that
+    looks entirely plausible on a card, and it makes the card disagree with the
+    series drawn right below it.
+    """
     return (
         pl.scan_parquet(RUTA_PARQUET)
         .with_columns(mes=pl.col("fecha").dt.truncate("1mo"))
         .group_by("mes")
         .agg(
-            cobertura_liquidez=(pl.col("ratio_lcr") * pl.col("n_posiciones")).sum()
-            / pl.col("n_posiciones").sum(),
+            cobertura_liquidez=(pl.col("ratio_lcr") * pl.col("saldo_disponible_mxn")).sum()
+            / pl.col("saldo_disponible_mxn").sum(),
             saldo_total=pl.col("saldo_disponible_mxn").sum(),
             saldo_extranjero=pl.col("saldo_disponible_mxn")
             .filter(pl.col("divisa") != "MXN")

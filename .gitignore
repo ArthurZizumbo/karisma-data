@@ -71,6 +71,12 @@ docs/entregables/figuras/journey_html/build/
 *_thumb.jpeg
 *_thumb.jpg
 
+# Laminas de concepto generadas a mano por el equipo mientras se disena una
+# semana. Son insumo de trabajo, no entregable: lo que llega al PDF vive en
+# docs/entregables/figuras/. Se ignoran para que no se cuelen en un commit
+# ajeno y para que "git status" no las muestre en cada revision.
+docs/semana_*/figuras/
+
 # ---------------------------------------------------------------------------
 #  Python (backend y ml)
 # ---------------------------------------------------------------------------

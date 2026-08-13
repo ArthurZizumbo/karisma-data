@@ -150,6 +150,14 @@ crash.*.log
 .claude/settings.local.json
 .playwright-mcp/
 .mcp.json
+.codex/
+.codex-*
+
+#  Intermedios locales de la Actividad 4
+docs/entregables/tmp/
+docs/entregables/figuras/a4/secuencias/
+docs/entregables/figuras/a4/componentes.png
+docs/entregables/figuras/a4/guia_estilo.png
 
 # ---------------------------------------------------------------------------
 #  Sistema operativo y editores

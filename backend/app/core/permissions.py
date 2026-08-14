@@ -289,13 +289,26 @@ SCOPE_REGISTRY: Final[Mapping[RouteKey, PermissionRule]] = MappingProxyType(
             us="US-018",
             status="vigente",
         ),
+        # La regla se parte en lo vigente y lo pendiente a proposito. La
+        # herencia del Bearer al agente es politica escrita de la seccion 6 de
+        # docs/security.md, no un control implementado: hoy no hay agente, no
+        # hay tools y el Protocol ProveedorDeTokens no tiene por donde recibir
+        # un JWT -``generar(peticion)`` recibe solo la pregunta-, asi que el
+        # llamante que resuelve api/chat.py es guardia de entrada y nada mas.
+        # Publicarlo como si ya ocurriera invita al sprint del proveedor Gemini
+        # a darlo por hecho, y el camino corto para que una tool alcance un
+        # endpoint gobernado pasa entonces a ser una credencial de servicio.
+        # Es el defecto de la fila de arriba con el signo cambiado: una matriz
+        # que declara mas control del que el codigo entrega miente igual que
+        # una que declara menos exposicion.
         RouteKey("POST", "/api/chat"): PermissionRule(
             scopes=(Scope.OPERATIVO,),
             rule=(
                 "Consulta puntual con otra piel: el asistente no puede costar "
-                "menos que el dato que responde. El agente propaga el Bearer "
-                "del usuario y cada tool cae en la fila del endpoint que "
-                "envuelve"
+                "menos que el dato que responde. Hoy gobierna solo la entrada: "
+                "el stream no llama a ninguna tool y no propaga el Bearer. La "
+                "herencia de la credencial al agente entra con el proveedor "
+                "Gemini y esta escrita en la seccion 6"
             ),
             us="US-023",
             status="vigente",

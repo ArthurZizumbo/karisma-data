@@ -91,7 +91,7 @@ Bloque generado. **No editar a mano**: regenerar con el comando de la sección 1
 | `POST /api/users` | `admin` | Alta de usuario. Fuera del alcance de S4 por el recorte 5 | US-018 | planificado |
 | `PATCH /api/users/{user_id}` | `admin` | Cambio de rol y reactivacion; un admin no se degrada ni se desactiva a si mismo | US-018 | vigente |
 | `DELETE /api/users/{user_id}` | `admin` | Borrado logico; un admin no se desactiva a si mismo | US-018 | vigente |
-| `POST /api/chat` | `operativo` | Consulta puntual con otra piel: el asistente no puede costar menos que el dato que responde. El agente propaga el Bearer del usuario y cada tool cae en la fila del endpoint que envuelve | US-023 | vigente |
+| `POST /api/chat` | `operativo` | Consulta puntual con otra piel: el asistente no puede costar menos que el dato que responde. Hoy gobierna solo la entrada: el stream no llama a ninguna tool y no propaga el Bearer. La herencia de la credencial al agente entra con el proveedor Gemini y esta escrita en la seccion 6 | US-023 | vigente |
 <!-- matriz-permisos:fin -->
 
 Cómo se lee:
@@ -169,20 +169,48 @@ backend directo. Si ese paso devolviera 200, la superficie de CSRF sería otra.
 
 ## 6. Herencia del Bearer al agente
 
-Regla escrita ahora, implementada por US-020, US-021 y US-023: **el agente jamás ve datos que el
-usuario no puede ver.**
+La regla es **el agente jamás ve datos que el usuario no puede ver**, y la sección se lee en dos
+mitades porque el portal está en dos mitades: la 6.1 es control que corre hoy; la 6.2 es política
+publicada por adelantado, con el mismo valor que una fila en estado `planificado`.
+
+La separación no es formal. Hasta el 14-ago-2026 esta sección presentaba la herencia del Bearer como
+implementada y la fila de `POST /api/chat` de la matriz repetía lo mismo. Quien construya el
+proveedor Gemini leyendo eso da el control por hecho, y el camino más corto para que una *tool*
+alcance un endpoint gobernado pasa entonces a ser una credencial de servicio dentro del proveedor:
+justo lo que la regla prohíbe. Es la amenaza A-9 con el signo cambiado —el documento prometía
+**más** control del que el código aplica—, así que se corrige aquí y en la regla que genera la
+tabla.
+
+### 6.1 Lo que gobierna hoy
 
 - `POST /api/chat` exige `operativo`, no una sesión cualquiera: el asistente es una consulta
   puntual con otra piel y no puede salir más barato que el dato que responde. Hoy los cuatro
   roles lo alcanzan; el día que entre un perfil de solo lectura por debajo de `operativo`, el
   catálogo seguirá abierto y el asistente no.
-- Cada *tool* del agente envuelve un endpoint gobernado de esta misma matriz y **propaga el Bearer
-  del usuario**. El permiso se evalúa en el endpoint envuelto, con la fila que le corresponde aquí.
-- El agente no tiene credencial propia ni ruta privilegiada. Si una consulta necesita `analista` y
-  quien pregunta es `operativo`, la *tool* recibe el 403 y el agente responde que no tiene acceso,
-  sin cifras.
-- Una *tool* que llamara a la capa semántica saltándose el endpoint quedaría fuera de la matriz: por
-  eso las *tools* viven en `ml/agent/tools/` envolviendo endpoints, y no consultando Polars.
+- **Ahí termina el control, y termina porque no hay nada más que gobernar.** El llamante que
+  `backend/app/api/chat.py` resuelve con `Security(get_current_user, scopes=[Scope.OPERATIVO])` es
+  guardia de entrada y no viaja a ninguna parte: se recibe como `_caller` y no se pasa al
+  transporte. `chat_stream.transmitir` toma la pregunta, el proveedor y el detector de desconexión,
+  y el `Protocol` `ProveedorDeTokens` declara un solo método, `generar(peticion)`, **sin parámetro
+  por donde entre un JWT**. El único proveedor de `_FABRICAS` es `guionizado`, que responde con un
+  guion en disco: no hay agente, no hay *tools* y no hay ningún endpoint gobernado detrás del
+  stream. Sin propagación no se pierde ningún permiso, porque no se alcanza ningún dato.
+
+### 6.2 Condiciones que el proveedor Gemini cumple antes de responder con cifras
+
+Ninguna de las cuatro está implementada. Son el contrato que la US del proveedor tiene que cerrar, y
+la razón por la que la firma de `generar` cambia: hoy no admite identidad.
+
+1. Cada *tool* envuelve un endpoint gobernado de esta misma matriz y **propaga el Bearer del
+   usuario**. El permiso se evalúa en el endpoint envuelto, con la fila que le corresponde aquí.
+2. El agente no tiene credencial propia ni ruta privilegiada. Si una consulta necesita `analista` y
+   quien pregunta es `operativo`, la *tool* recibe el 403 y el agente responde que no tiene acceso,
+   sin cifras.
+3. Una *tool* que llamara a la capa semántica saltándose el endpoint queda fuera de la matriz: por
+   eso las *tools* van en `ml/agent/tools/` envolviendo endpoints, y no consultando Polars.
+4. La fila de `POST /api/chat` no vuelve a declarar la herencia como vigente hasta que exista una
+   prueba que la ejerza: una *tool* llamada por un `operativo` contra un endpoint de `analista`
+   devuelve 403 y deja la respuesta sin números.
 
 ## 7. Cómo se añade un endpoint nuevo
 
@@ -325,3 +353,4 @@ cambio se lea como una decisión de permisos**. La regla, mientras tanto: nada e
 | 12-ago-2026 | US-025 pone en `vigente` `GET /api/metrics/series` con scope `analista`. Es la primera ruta viva con scope no vacío, así que **cierra la deuda 4**: el 403 queda comprobado contra la aplicación real por los dos caminos, el api directo y el proxy de Nitro |
 | 13-ago-2026 | US-029 añade `GET /api/catalog/{entry_id}/lineage` con `scopes=()` y estado `vigente`. Es la primera fila que nace con su ruta ya montada, no publicada por adelantado: el overlay de linaje lo necesita el mismo día. La rama 3.2 del mapa de A3 deja de declarar scope explícito y pasa a derivarlo de este endpoint |
 | 13-ago-2026 | Auditoría de seguridad sobre el diff de US-017, US-027, US-025 y US-026. Sin bloqueantes ni mayores. Se declara la superficie pública de la sección 10.1, se inventarían los tres eventos de US-025, se cierra la deuda 2 y el `consulta_hash` pasa a llevar sal por proceso. El detector de divergencia del mapa de permisos de la interfaz entra en `make check`, y la comprobación de procedencia del histórico en `make verificar`: las dos existían y no las corría nadie |
+| 14-ago-2026 | Auditoría de documentación sobre el diff de US-023, US-024 y US-028. La sección 6 y la regla de `POST /api/chat` declaraban implementada la herencia del Bearer al agente: no hay agente, no hay *tools* y el `Protocol` `ProveedorDeTokens` no tiene parámetro por donde recibir un JWT. La regla queda partida en lo vigente —la entrada exige `operativo`— y lo pendiente —la propagación, que entra con el proveedor Gemini—, y la sección 3 se regenera. El scope y el estado de la fila no cambian |

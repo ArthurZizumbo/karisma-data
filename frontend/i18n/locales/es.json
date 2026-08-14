@@ -235,7 +235,8 @@
       "cards": "Tarjetas",
       "icons": "Iconografía",
       "accessibility": "Contraste y accesibilidad",
-      "lineage": "Linaje del dato"
+      "lineage": "Linaje del dato",
+      "toolCall": "Tarjetas de tool call"
     },
     "palette": {
       "description": "Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie. El hexadecimal que se lee es el que el generador emitió: aquí no hay ninguno escrito a mano.",
@@ -1128,6 +1129,51 @@
         "transport": "Transporte de la respuesta"
       },
       "transportError": "La respuesta no pudo pedirse: fallo el transporte hacia el servidor."
+    },
+    "toolCall": {
+      "announce": "Consulta anunciada antes de tener el dato.",
+      "elapsed": "Duración {seconds} s",
+      "state": {
+        "announced": "Anunciada",
+        "running": "En ejecución",
+        "done": "Resuelta",
+        "failed": "Fallida",
+        "interrupted": "Detenida por ti"
+      },
+      "result": {
+        "figure": "Cifra devuelta",
+        "rows": "Filas devueltas por la consulta: {count}",
+        "expand": "Ver las {count} filas",
+        "collapse": "Ver solo las primeras filas"
+      },
+      "column": {
+        "metric": "Métrica",
+        "value": "Valor",
+        "close": "Cierre",
+        "coefficient": "Coeficiente"
+      },
+      "source": {
+        "cited": "Fuente del catálogo: {source}",
+        "missing": "Sin fuente del catálogo"
+      },
+      "error": {
+        "step": "Falló en: {step}",
+        "hint": "Una consulta que falló no devuelve ninguna cifra."
+      },
+      "detail": {
+        "title": "Detalle técnico",
+        "tool": "Herramienta: {tool}",
+        "field": "Campo del catálogo: {field}"
+      },
+      "tool": {
+        "consultar_metrica": "Consulta de métrica",
+        "agregar_serie": "Agregación de serie",
+        "consultar_catalogo": "Consulta del catálogo"
+      },
+      "gallery": {
+        "title": "Los cuatro estados de una tarjeta",
+        "caption": "Cada tarjeta es el componente real del asistente con muestras congeladas: la guía documenta el sistema que se entrega, no un dibujo de él."
+      }
     }
   },
   "export": {

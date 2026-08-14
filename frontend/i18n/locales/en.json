@@ -235,7 +235,8 @@
       "cards": "Cards",
       "icons": "Iconography",
       "accessibility": "Contrast and accessibility",
-      "lineage": "Data lineage"
+      "lineage": "Data lineage",
+      "toolCall": "Tool call cards"
     },
     "palette": {
       "description": "Four families of five steps, seven neutrals, four semantic tokens and six chart series colours. The hexadecimal you read is the one the generator emitted: not a single one is typed here.",
@@ -1128,6 +1129,51 @@
         "transport": "Response transport"
       },
       "transportError": "The answer could not be requested: the transport to the server failed."
+    },
+    "toolCall": {
+      "announce": "Query announced before the data is in.",
+      "elapsed": "Duration {seconds} s",
+      "state": {
+        "announced": "Announced",
+        "running": "Running",
+        "done": "Resolved",
+        "failed": "Failed",
+        "interrupted": "Stopped by you"
+      },
+      "result": {
+        "figure": "Returned figure",
+        "rows": "Rows returned by the query: {count}",
+        "expand": "Show all {count} rows",
+        "collapse": "Show only the first rows"
+      },
+      "column": {
+        "metric": "Metric",
+        "value": "Value",
+        "close": "Close",
+        "coefficient": "Coefficient"
+      },
+      "source": {
+        "cited": "Catalogue source: {source}",
+        "missing": "No catalogue source"
+      },
+      "error": {
+        "step": "Failed at: {step}",
+        "hint": "A query that failed returns no figure."
+      },
+      "detail": {
+        "title": "Technical detail",
+        "tool": "Tool: {tool}",
+        "field": "Catalogue field: {field}"
+      },
+      "tool": {
+        "consultar_metrica": "Metric query",
+        "agregar_serie": "Series aggregation",
+        "consultar_catalogo": "Catalogue lookup"
+      },
+      "gallery": {
+        "title": "The four states of a card",
+        "caption": "Every card is the real component of the assistant fed with frozen samples: the guide documents the system that ships, not a drawing of it."
+      }
     }
   },
   "export": {

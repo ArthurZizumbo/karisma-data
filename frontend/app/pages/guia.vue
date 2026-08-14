@@ -24,6 +24,7 @@ import LaminaLinaje from '~/components/guia/LaminaLinaje.vue'
 import LaminaPaleta from '~/components/guia/LaminaPaleta.vue'
 import LaminaTablas from '~/components/guia/LaminaTablas.vue'
 import LaminaTarjetas from '~/components/guia/LaminaTarjetas.vue'
+import LaminaTarjetasToolCall from '~/components/guia/LaminaTarjetasToolCall.vue'
 import LaminaTipografia from '~/components/guia/LaminaTipografia.vue'
 import NavegacionLaminas from '~/components/guia/NavegacionLaminas.vue'
 import { ANILLO_FOCO } from '~/utils/foco'
@@ -35,7 +36,7 @@ definePageMeta({ layout: 'portal' })
 const { t } = useI18n()
 const sistema = useSistemaDiseno()
 
-/** The eight plates, in the order the capture script walks them. */
+/** The ten plates, in the order the capture script walks them. */
 const LAMINAS = Object.freeze([
   { id: 'paleta', clave: 'guide.plate.palette' },
   { id: 'tipografia', clave: 'guide.plate.typography' },
@@ -46,6 +47,7 @@ const LAMINAS = Object.freeze([
   { id: 'iconos', clave: 'guide.plate.icons' },
   { id: 'linaje', clave: 'guide.plate.lineage' },
   { id: 'accesibilidad', clave: 'guide.plate.accessibility' },
+  { id: 'tarjetas-tool-call', clave: 'guide.plate.toolCall' },
 ])
 </script>
 
@@ -74,7 +76,7 @@ const LAMINAS = Object.freeze([
     <LaminaLinaje id="lamina-linaje" />
 
     <!--
-      Eighth plate. It documents the generator itself, so it stays in the page:
+      Ninth plate. It documents the generator itself, so it stays in the page:
       the measured matrix of the active mode, the dichromatic separation of the
       semantic marks, and the ceiling that makes shape and icon mandatory.
     -->
@@ -163,5 +165,7 @@ const LAMINAS = Object.freeze([
         {{ t('guide.accessibility.failures', { total: sistema.incumplimientos.length }, sistema.incumplimientos.length) }}
       </p>
     </section>
+
+    <LaminaTarjetasToolCall id="lamina-tarjetas-tool-call" />
   </section>
 </template>

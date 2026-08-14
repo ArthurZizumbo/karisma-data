@@ -14,7 +14,7 @@ dependencies = [
     # en "hasta que alguien corra poetry update". Polars vive en el grupo
     # principal porque el endpoint de la serie preagregada lo necesita dentro
     # de la imagen, que se construye con "poetry export --only main".
-    "polars (==1.43.2)",
+    "polars[xlsxwriter] (==1.43.2)",
     "pyjwt (>=2.11,<3.0)",
     "pwdlib[argon2] (>=0.3,<0.4)",
     "sqlmodel (>=0.0.28,<0.0.29)",

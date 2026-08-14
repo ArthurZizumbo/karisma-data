@@ -15,6 +15,7 @@ raises before the body is validated.
 
 import itertools
 import time
+import uuid
 from collections.abc import Callable, Iterator
 from typing import TYPE_CHECKING, Any, Final
 
@@ -32,7 +33,11 @@ from app.core.permissions import (
     live_routes,
 )
 from app.core.scopes import ErrorCode, Scope
-from app.services.user_service import get_user_repository
+from app.models.user import UserAdminOut
+from app.services.user_service import (
+    get_admin_user_repository,
+    get_user_repository,
+)
 
 from .conftest import RUTA_PUBLICA, SONDAS, ruta_de
 
@@ -337,6 +342,66 @@ def test_usuario_desactivado_es_401_aunque_su_rol_alcance(
     assert despues.json()["detail"] == ErrorCode.SESION_REVOCADA.value
 
 
+class _RepositorioAdminVacio:
+    """Administration repository double for the matrix, and nothing more.
+
+    Every seam a live route hangs from has to be doubled here or the route opens
+    a real connection: the matrix would then depend on a PostgreSQL being up,
+    which is the property US-002 established and this suite preserves. The rows
+    are irrelevant -what is interrogated is the status code the authorization
+    layer produces- so the double answers as an empty table.
+    """
+
+    async def list_page(
+        self, *, limit: int, offset: int
+    ) -> tuple[tuple[UserAdminOut, ...], int]:
+        """Return an empty page.
+
+        Args:
+            limit: Page size, ignored.
+            offset: Rows skipped, ignored.
+
+        Returns:
+            No rows and a total of zero.
+        """
+        return (), 0
+
+    async def get_by_id(self, user_id: uuid.UUID) -> None:
+        """Report that no row carries that identifier.
+
+        Args:
+            user_id: Primary key, ignored.
+
+        Returns:
+            ``None``.
+        """
+        return None
+
+    async def update_role(self, user_id: uuid.UUID, role: Scope) -> None:
+        """Report that the update matched no row.
+
+        Args:
+            user_id: Primary key, ignored.
+            role: Role, ignored.
+
+        Returns:
+            ``None``.
+        """
+        return None
+
+    async def set_disabled(self, user_id: uuid.UUID, disabled: bool) -> None:
+        """Report that the update matched no row.
+
+        Args:
+            user_id: Primary key, ignored.
+            disabled: Flag, ignored.
+
+        Returns:
+            ``None``.
+        """
+        return None
+
+
 @pytest.fixture
 def aplicacion_real(
     crear_aplicacion: Callable[..., FastAPI], repositorio_falso: FakeUserRepository
@@ -356,6 +421,7 @@ def aplicacion_real(
     """
     aplicacion = crear_aplicacion(demo=True)
     aplicacion.dependency_overrides[get_user_repository] = lambda: repositorio_falso
+    aplicacion.dependency_overrides[get_admin_user_repository] = _RepositorioAdminVacio
     return aplicacion
 
 

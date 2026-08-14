@@ -216,13 +216,42 @@ SCOPE_REGISTRY: Final[Mapping[RouteKey, PermissionRule]] = MappingProxyType(
             scopes=(Scope.ANALISTA,),
             rule="Exportacion en segundo plano",
             us="US-009",
-            status="planificado",
+            status="vigente",
+        ),
+        # Las dos filas siguientes nombran la excepcion de gobierno del admin.
+        # Decian "del propio llamante" y "estado y enlace firmado" mientras el
+        # servicio ya devolvia el registro completo del portal a un admin: una
+        # matriz normativa que declara menos exposicion de la que el codigo
+        # entrega es peor que no tenerla, porque quien audita lee esta tabla y
+        # no el servicio. Lo que el admin NO obtiene -el enlace, y por tanto el
+        # archivo- se dice aqui tambien, que es la mitad que hace legible la
+        # excepcion: leer metadatos no es leer datos.
+        RouteKey("GET", "/api/export"): PermissionRule(
+            scopes=(Scope.ANALISTA,),
+            rule=(
+                "Historial propio; admin lee el registro completo del portal, "
+                "siempre sin enlace"
+            ),
+            us="US-009",
+            status="vigente",
         ),
         RouteKey("GET", "/api/export/{job_id}"): PermissionRule(
             scopes=(Scope.ANALISTA,),
-            rule="Estado del trabajo y enlace firmado",
+            rule=(
+                "Estado del trabajo; enlace firmado solo para el dueno, admin "
+                "ve el metadato sin enlace"
+            ),
             us="US-009",
-            status="planificado",
+            status="vigente",
+        ),
+        RouteKey("GET", "/api/export/{job_id}/download"): PermissionRule(
+            scopes=(Scope.ANALISTA,),
+            rule=(
+                "Entrega del archivo tras validar firma, vencimiento y "
+                "propiedad; un trabajo ajeno responde 404 y no 403"
+            ),
+            us="US-009",
+            status="vigente",
         ),
         RouteKey("GET", "/api/summaries/executive"): PermissionRule(
             scopes=(Scope.DIRECTIVO,),
@@ -232,36 +261,44 @@ SCOPE_REGISTRY: Final[Mapping[RouteKey, PermissionRule]] = MappingProxyType(
         ),
         RouteKey("GET", "/api/users"): PermissionRule(
             scopes=(Scope.ADMIN,),
-            rule="Gestion de usuarios",
+            rule="Listado de usuarios del portal",
             us="US-018",
-            status="planificado",
+            status="vigente",
         ),
+        # Sigue planificado: el alta queda fuera de S4 por el recorte 5 del
+        # plan. Una entrada sin ruta viva no es violacion; una ruta viva sin
+        # entrada si lo es.
         RouteKey("POST", "/api/users"): PermissionRule(
             scopes=(Scope.ADMIN,),
-            rule="Alta de usuario",
+            rule="Alta de usuario. Fuera del alcance de S4 por el recorte 5",
             us="US-018",
             status="planificado",
         ),
         RouteKey("PATCH", "/api/users/{user_id}"): PermissionRule(
             scopes=(Scope.ADMIN,),
-            rule="Cambio de rol; un admin no se degrada a si mismo",
+            rule=(
+                "Cambio de rol y reactivacion; un admin no se degrada ni se "
+                "desactiva a si mismo"
+            ),
             us="US-018",
-            status="planificado",
+            status="vigente",
         ),
         RouteKey("DELETE", "/api/users/{user_id}"): PermissionRule(
             scopes=(Scope.ADMIN,),
             rule="Borrado logico; un admin no se desactiva a si mismo",
             us="US-018",
-            status="planificado",
+            status="vigente",
         ),
         RouteKey("POST", "/api/chat"): PermissionRule(
-            scopes=(),
+            scopes=(Scope.OPERATIVO,),
             rule=(
-                "El agente propaga el Bearer del usuario; cada tool cae en la "
-                "fila del endpoint que envuelve"
+                "Consulta puntual con otra piel: el asistente no puede costar "
+                "menos que el dato que responde. El agente propaga el Bearer "
+                "del usuario y cada tool cae en la fila del endpoint que "
+                "envuelve"
             ),
             us="US-023",
-            status="planificado",
+            status="vigente",
         ),
     }
 )

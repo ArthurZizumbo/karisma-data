@@ -169,13 +169,7 @@
       }
     },
     "exports": {
-      "description": "Will hold the background export to CSV and Excel together with the export history.",
-      "capability": {
-        "request": "Request returning an identifier immediately",
-        "progress": "Job status readable from any screen",
-        "link": "Signed link expiring in 24 hours",
-        "history": "Export history"
-      }
+      "description": "Background extraction to CSV: the request returns an identifier at once, the job can be followed from any screen and the file is downloaded through a signed link that expires in 24 hours."
     },
     "dashboards": {
       "description": "Will hold the executive dashboard, the risk indicators and the risk signals, inside the same exploration screen.",
@@ -190,21 +184,12 @@
       "description": "Brings together the field dictionary with its metadata and the lineage of every figure, from the system where it is born to the number on screen."
     },
     "administration": {
-      "description": "Will hold users, roles and permissions, requests and approvals, the access log and the integrations.",
+      "description": "Manage the portal users: review the list, change roles and disable access. Requests, the access log and integrations arrive after this delivery.",
       "capability": {
         "list": "User list with role and status",
         "role": "Role change",
         "disable": "Deactivation by soft delete",
         "audit": "Access log"
-      }
-    },
-    "assistant": {
-      "description": "Will hold the conversation with the agent, the card of every query it runs and the lineage detail of the answer.",
-      "capability": {
-        "stream": "Answer forming live, with a real Stop",
-        "toolcards": "Tool call cards in their four states",
-        "stop": "Cancellation leaving no dangling tasks",
-        "typedError": "Typed error naming the step that failed"
       }
     },
     "pending": {
@@ -1043,6 +1028,176 @@
       "tabla": "Detail table",
       "leyenda": "Legend",
       "control": "Panel control"
+    }
+  },
+  "admin": {
+    "users": {
+      "title": "Portal accounts",
+      "caption": "Every account with its role, its status and the date it was last changed by an administrator.",
+      "scopeNote": "The portal checks the administration role on every request, not only when this screen is drawn.",
+      "column": {
+        "user": "Person",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "disabled": "Disabled"
+      },
+      "modified": "Last change",
+      "self": {
+        "badge": "This is your account",
+        "note": "You cannot change your own role or disable your own account."
+      },
+      "filter": {
+        "label": "Filter by name, username or email",
+        "placeholder": "Type to narrow the list down",
+        "clear": "Clear the filter"
+      },
+      "action": {
+        "changeRole": "Change role",
+        "deactivate": "Disable",
+        "reactivate": "Re-enable",
+        "retry": "Try again"
+      },
+      "confirm": {
+        "cancel": "Cancel",
+        "role": {
+          "title": "Change the role of this account?",
+          "body": "{name} becomes {role} on their next request to the portal. The change can be undone from this same screen.",
+          "confirm": "Change the role"
+        },
+        "deactivate": {
+          "title": "Disable this account?",
+          "body": "{name} will stop accessing the portal on their next request. The account is not deleted: it stays disabled and can be re-enabled.",
+          "confirm": "Disable the account"
+        },
+        "reactivate": {
+          "title": "Re-enable this account?",
+          "body": "{name} will be able to enter the portal again with the role they already had.",
+          "confirm": "Re-enable the account"
+        }
+      },
+      "state": {
+        "loading": "Loading the portal accounts",
+        "empty": {
+          "title": "No results",
+          "body": "No user matches the filter. Clear it to see all {total} portal users."
+        },
+        "error": {
+          "title": "The account list could not be read",
+          "body": "The portal did not answer the last request. Try once more; if it fails again, tell whoever operates the system."
+        }
+      },
+      "conflict": {
+        "demoteSelf": "The portal does not allow an administrator to remove their own administrator role.",
+        "disableSelf": "The portal does not allow an administrator to disable their own account.",
+        "notFound": "Account {name} is no longer in the portal. Load the list again to see its real status."
+      }
+    }
+  },
+  "chat": {
+    "page": {
+      "title": "Conversational assistant",
+      "description": "Ask in plain language and follow, live, every query the assistant runs in order to answer you.",
+      "emptyState": "No answer on screen yet. Type a question about arrears, liquidity or derivatives to open the conversation.",
+      "waitingFirstToken": "The assistant is already answering. Waiting for the first fragment of the answer."
+    },
+    "demo": {
+      "scriptedNotice": "Demonstration with scripted answers: the transport, the cards and the cancellation are real; the content is written in advance and does not come from a language model.",
+      "aiNotice": "Answer written by a language model from the queries shown in the cards. Check every figure against its source before you use it."
+    },
+    "controls": {
+      "send": "Send question",
+      "stop": "Stop",
+      "inputLabel": "Your question for the assistant",
+      "inputPlaceholder": "For example: how are the arrears of the portfolio doing"
+    },
+    "stream": {
+      "status": {
+        "idle": "No generation in progress",
+        "generating": "Writing the answer",
+        "cancelled": "Generation stopped at your request"
+      },
+      "step": {
+        "dataRetrieval": "Data retrieval",
+        "permissionCheck": "Permission check",
+        "textGeneration": "Text generation",
+        "transport": "Response transport"
+      },
+      "toolCallFallback": "Query run with the {tool} tool",
+      "errorFallback": "The answer stopped because of a failure",
+      "transportError": "The answer could not be requested: the transport to the server failed."
+    }
+  },
+  "export": {
+    "form": {
+      "dataset": "Dataset",
+      "format": "Format",
+      "filters": "Filters",
+      "filtersHint": "Write column=value, separate several values with commas and several filters with semicolons, for example divisa=MXN,USD; unidad_negocio=banca. Leave it empty to export the whole dataset.",
+      "filtersInvalid": "The filter cannot be read. Every pair is written as column=value.",
+      "submit": "Request export",
+      "sending": "Sending the request"
+    },
+    "dataset": {
+      "creditos": "Credit",
+      "liquidez": "Liquidity",
+      "derivados": "Derivatives"
+    },
+    "format": {
+      "csv": "CSV",
+      "xlsx": "Excel workbook (XLSX)",
+      "xlsxRowLimit": "The Excel workbook takes up to 200,000 rows; past that cap the job ends as failed. CSV has no cap, and it is the only format that gets the million rows of Liquidity out."
+    },
+    "job": {
+      "state": {
+        "pendiente": "Queued",
+        "en_proceso": "Running",
+        "completado": "Completed",
+        "fallido": "Failed"
+      },
+      "rows": "Rows",
+      "size": "Size",
+      "requestedAt": "Requested",
+      "expiresAt": "Expires",
+      "stalled": "The portal stopped hearing from this job and no longer asks about it. Request the export again.",
+      "error": {
+        "missingSource": "The data source is not available on the server.",
+        "unknownColumn": "One of the filters names a column the dataset does not have.",
+        "formatUnavailable": "The file could not be written in the requested format. The Excel workbook takes up to 200,000 rows: if the dataset is larger, narrow the filters or ask for the export as CSV, which has no cap.",
+        "internalFailure": "The extraction failed because of an internal error of the portal."
+      }
+    },
+    "link": {
+      "download": "Download file",
+      "expiresIn": "The link expires {cuando}.",
+      "expired": "The link already expired. Request the export again to get a fresh one."
+    },
+    "history": {
+      "title": "Export history",
+      "empty": "You have not requested any export yet.",
+      "error": "The export history could not be read.",
+      "retry": "Try again"
+    },
+    "moment": {
+      "request": "Moment 1: request",
+      "progress": "Moment 2: job running",
+      "link": "Moment 3: signed link",
+      "pinned": "View pinned for capture",
+      "empty": "There is no real job at this point of the flow, and the screen does not invent one."
+    },
+    "demo": {
+      "notice": "Demonstration: the server stretches every job by {segundos} seconds so the intermediate state can be captured. The job, the file and the signed link are real."
+    },
+    "error": {
+      "signature": "The signature of the link was not minted by this portal.",
+      "expired": "The signed link already expired.",
+      "notFound": "There is no job with that identifier for your session.",
+      "unavailable": "The job registry is not answering. Try again in a moment.",
+      "generic": "The export operation could not be completed."
     }
   }
 }

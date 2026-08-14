@@ -171,6 +171,13 @@ export default defineNuxtConfig({
       // the door open; a deployment that closes it sets NUXT_PUBLIC_DEMO_ACCESO
       // to false so the interface stops advertising a door that answers 404.
       demoAcceso: process.env.NUXT_PUBLIC_DEMO_ACCESO !== 'false',
+      // Mirror of EXPORT_DEMO_DELAY_SECONDS on the backend, which stretches a
+      // real export so its in-progress state can be captured. The interface
+      // cannot read that setting -no endpoint publishes it- and deriving it
+      // from how long a job took would state a delay nobody configured, so the
+      // honesty notice is driven by this value instead. Zero, the default,
+      // hides the notice because there is nothing artificial to declare.
+      exportDemoDelay: Number(process.env.NUXT_PUBLIC_EXPORT_DEMO_DELAY ?? 0),
     },
   },
   compatibilityDate: '2026-08-10',

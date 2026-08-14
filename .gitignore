@@ -179,3 +179,13 @@ $RECYCLE.BIN/
 *.swp
 *.swo
 *~
+
+# US-023 - la evidencia de la cancelacion del chat es un ENTREGABLE de A4, no
+# un artefacto de ejecucion. La regla *.log de arriba pertenece al bloque de
+# LaTeX (.blg, .fdb_latexmk, .fls) y se la llevaba por delante, asi que el
+# informe habria citado un archivo que el repositorio nunca guardo.
+#
+# Solo se rescata cancelacion.log, que es la linea que el entregable cita.
+# servidor.log sigue ignorado a proposito: es la materia prima de la que sale,
+# se regenera con 'bash scripts/captura-cancelacion.sh' y no se versiona.
+!docs/evidencia/**/cancelacion.log

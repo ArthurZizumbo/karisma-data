@@ -169,13 +169,7 @@
       }
     },
     "exports": {
-      "description": "Contendrá la exportación a CSV y Excel en segundo plano junto con el historial de exportaciones.",
-      "capability": {
-        "request": "Solicitud que devuelve identificador de inmediato",
-        "progress": "Trabajo en curso consultable desde cualquier pantalla",
-        "link": "Enlace firmado con caducidad de 24 horas",
-        "history": "Historial de exportaciones"
-      }
+      "description": "Extracción en segundo plano a CSV: la solicitud devuelve un identificador al instante, el trabajo se sigue desde cualquier pantalla y el archivo se descarga con un enlace firmado que caduca en 24 horas."
     },
     "dashboards": {
       "description": "Contendrá el tablero ejecutivo, los indicadores de riesgo y las señales de riesgo, dentro de la misma pantalla de exploración.",
@@ -190,21 +184,12 @@
       "description": "Reúne el diccionario de campos con sus metadatos y el linaje de cada dato, desde el sistema donde nace hasta la cifra que se lee en pantalla."
     },
     "administration": {
-      "description": "Contendrá usuarios, roles y permisos, las solicitudes y aprobaciones, la bitácora de accesos y las integraciones.",
+      "description": "Administra los usuarios del portal: consulta la lista, cambia el rol y desactiva el acceso. Las solicitudes, la bitácora de accesos y las integraciones llegan después de esta entrega.",
       "capability": {
         "list": "Listado de usuarios con su rol y su estado",
         "role": "Cambio de rol",
         "disable": "Desactivacion por borrado logico",
         "audit": "Bitacora de accesos"
-      }
-    },
-    "assistant": {
-      "description": "Contendrá la conversación con el agente, las tarjetas de cada consulta que ejecuta y el detalle de linaje de la respuesta.",
-      "capability": {
-        "stream": "Respuesta que se forma en vivo, con Detener real",
-        "toolcards": "Tarjetas de llamada a herramienta en sus cuatro estados",
-        "stop": "Cancelacion que no deja tareas colgadas",
-        "typedError": "Error tipado que dice que paso fallo"
       }
     },
     "pending": {
@@ -1043,6 +1028,176 @@
       "tabla": "Tabla de detalle",
       "leyenda": "Leyenda",
       "control": "Control del panel"
+    }
+  },
+  "admin": {
+    "users": {
+      "title": "Usuarios del portal",
+      "caption": "Cada cuenta con su rol, su estado y la fecha de su última modificación administrativa.",
+      "scopeNote": "El portal comprueba el rol de administración en cada petición, no solo al pintar esta pantalla.",
+      "column": {
+        "user": "Persona",
+        "email": "Correo",
+        "role": "Rol",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "status": {
+        "active": "Activa",
+        "disabled": "Desactivada"
+      },
+      "modified": "Última modificación",
+      "self": {
+        "badge": "Es tu cuenta",
+        "note": "No puedes cambiar tu propio rol ni desactivar tu propia cuenta."
+      },
+      "filter": {
+        "label": "Filtrar por nombre, usuario o correo",
+        "placeholder": "Escribe para acotar la lista",
+        "clear": "Borrar el filtro"
+      },
+      "action": {
+        "changeRole": "Cambiar el rol",
+        "deactivate": "Desactivar",
+        "reactivate": "Reactivar",
+        "retry": "Reintentar"
+      },
+      "confirm": {
+        "cancel": "Cancelar",
+        "role": {
+          "title": "¿Cambiar el rol de esta cuenta?",
+          "body": "{name} pasará a {role} en su siguiente petición al portal. El cambio se puede deshacer desde esta misma pantalla.",
+          "confirm": "Cambiar el rol"
+        },
+        "deactivate": {
+          "title": "¿Desactivar esta cuenta?",
+          "body": "{name} dejará de entrar al portal en su siguiente petición. La cuenta no se borra: queda desactivada y se puede reactivar.",
+          "confirm": "Desactivar la cuenta"
+        },
+        "reactivate": {
+          "title": "¿Reactivar esta cuenta?",
+          "body": "{name} volverá a entrar al portal con el rol que ya tenía.",
+          "confirm": "Reactivar la cuenta"
+        }
+      },
+      "state": {
+        "loading": "Cargando las cuentas del portal",
+        "empty": {
+          "title": "Sin resultados",
+          "body": "Ningún usuario coincide con el filtro. Bórralo para ver los {total} usuarios del portal."
+        },
+        "error": {
+          "title": "No se pudo leer la lista de cuentas",
+          "body": "El portal no respondió a la última petición. Inténtalo otra vez; si vuelve a fallar, avisa a quien opera el sistema."
+        }
+      },
+      "conflict": {
+        "demoteSelf": "El portal no permite que un administrador se quite a sí mismo el rol de administrador.",
+        "disableSelf": "El portal no permite que un administrador desactive su propia cuenta.",
+        "notFound": "La cuenta {name} ya no está en el portal. Vuelve a cargar la lista para ver su estado real."
+      }
+    }
+  },
+  "chat": {
+    "page": {
+      "title": "Asistente conversacional",
+      "description": "Pregunta en lenguaje natural y sigue en vivo cada consulta que el asistente ejecuta para responderte.",
+      "emptyState": "Todavía no hay respuesta en pantalla. Escribe una pregunta sobre morosidad, liquidez o derivados para abrir la conversación.",
+      "waitingFirstToken": "El asistente ya está respondiendo. Esperando el primer fragmento de la respuesta."
+    },
+    "demo": {
+      "scriptedNotice": "Demostración con respuestas guionizadas: el transporte, las tarjetas y la cancelación son reales; el contenido está escrito de antemano y no proviene de un modelo de lenguaje.",
+      "aiNotice": "Respuesta redactada por un modelo de lenguaje a partir de las consultas que aparecen en las tarjetas. Contrasta cada cifra con su fuente antes de usarla."
+    },
+    "controls": {
+      "send": "Enviar pregunta",
+      "stop": "Detener",
+      "inputLabel": "Tu pregunta al asistente",
+      "inputPlaceholder": "Por ejemplo: cómo va la morosidad de la cartera"
+    },
+    "stream": {
+      "status": {
+        "idle": "Sin generación en curso",
+        "generating": "Generando la respuesta",
+        "cancelled": "Generación detenida a petición tuya"
+      },
+      "step": {
+        "dataRetrieval": "Recuperación de datos",
+        "permissionCheck": "Verificación de permiso",
+        "textGeneration": "Generación de texto",
+        "transport": "Transporte de la respuesta"
+      },
+      "toolCallFallback": "Consulta ejecutada con la herramienta {tool}",
+      "errorFallback": "La respuesta se interrumpió por un fallo",
+      "transportError": "La respuesta no pudo pedirse: fallo el transporte hacia el servidor."
+    }
+  },
+  "export": {
+    "form": {
+      "dataset": "Conjunto de datos",
+      "format": "Formato",
+      "filters": "Filtros",
+      "filtersHint": "Escribe columna=valor, separa varios valores con comas y varios filtros con punto y coma, por ejemplo divisa=MXN,USD; unidad_negocio=banca. Déjalo vacío para exportar el conjunto completo.",
+      "filtersInvalid": "No se entiende el filtro. Cada par se escribe columna=valor.",
+      "submit": "Solicitar exportación",
+      "sending": "Enviando la solicitud"
+    },
+    "dataset": {
+      "creditos": "Créditos",
+      "liquidez": "Liquidez",
+      "derivados": "Derivados"
+    },
+    "format": {
+      "csv": "CSV",
+      "xlsx": "Hoja de Excel (XLSX)",
+      "xlsxRowLimit": "La hoja de Excel admite hasta 200 000 filas; por encima de ese tope el trabajo termina fallido. El CSV no tiene tope y es el único formato que saca el millón de filas de Liquidez."
+    },
+    "job": {
+      "state": {
+        "pendiente": "En cola",
+        "en_proceso": "En proceso",
+        "completado": "Completado",
+        "fallido": "Fallido"
+      },
+      "rows": "Filas",
+      "size": "Tamaño",
+      "requestedAt": "Solicitado",
+      "expiresAt": "Caduca",
+      "stalled": "El portal dejó de recibir noticias de este trabajo y ya no pregunta por él. Vuelve a solicitar la exportación.",
+      "error": {
+        "missingSource": "El origen de datos no está disponible en el servidor.",
+        "unknownColumn": "Uno de los filtros nombra una columna que el conjunto no tiene.",
+        "formatUnavailable": "El archivo no pudo escribirse en el formato pedido. La hoja de Excel admite hasta 200 000 filas: si el conjunto es mayor, acota los filtros o pide la exportación en CSV, que no tiene tope.",
+        "internalFailure": "La extracción falló por un error interno del portal."
+      }
+    },
+    "link": {
+      "download": "Descargar archivo",
+      "expiresIn": "El enlace caduca {cuando}.",
+      "expired": "El enlace ya caducó. Solicita la exportación otra vez para obtener uno nuevo."
+    },
+    "history": {
+      "title": "Historial de exportaciones",
+      "empty": "Todavía no has solicitado ninguna exportación.",
+      "error": "No se pudo leer el historial de exportaciones.",
+      "retry": "Reintentar"
+    },
+    "moment": {
+      "request": "Momento 1: solicitud",
+      "progress": "Momento 2: trabajo en proceso",
+      "link": "Momento 3: enlace firmado",
+      "pinned": "Vista fijada para captura",
+      "empty": "No hay ningún trabajo real en este momento del flujo, y la pantalla no inventa uno."
+    },
+    "demo": {
+      "notice": "Demostración: el servidor estira {segundos} segundos la duración de cada trabajo para que el estado intermedio se pueda capturar. El trabajo, el archivo y el enlace firmado son reales."
+    },
+    "error": {
+      "signature": "La firma del enlace no es de este portal.",
+      "expired": "El enlace firmado ya caducó.",
+      "notFound": "No hay ningún trabajo con ese identificador para tu sesión.",
+      "unavailable": "El registro de trabajos no responde. Inténtalo de nuevo en un momento.",
+      "generic": "No se pudo completar la operación de exportación."
     }
   }
 }

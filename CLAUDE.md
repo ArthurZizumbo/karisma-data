@@ -9,7 +9,8 @@
 ## Cómo usar esta guía
 
 - **Raíz** ([`CLAUDE.md`](CLAUDE.md) y [`AGENTS.md`](AGENTS.md), espejos idénticos): normas transversales — aplican a todo el repo. Modificar uno exige sincronizar el otro.
-- **Guía de carpeta** (`<dir>/AGENTS.md`): sobreescribe la raíz en caso de conflicto dentro de su scope. Se cargan on-demand al entrar al directorio.
+- **Guía de carpeta** (`<dir>/AGENTS.md` y `<dir>/CLAUDE.md`, también espejos): sobreescribe la raíz en caso de conflicto dentro de su scope. Se cargan on-demand al entrar al directorio. Cada una trae **Estado** (qué existe hoy), **Convenciones** (líneas ✅/❌) y **No tocar** (archivos generados) — leerlas ahorra más que releer código.
+- **Decisiones fechadas** ([`docs/decisions/`](docs/decisions/)): el razonamiento de por qué una regla cambió vive ahí, no en esta guía. Aquí queda la regla.
 
 ## Doble pista y regla de oro
 
@@ -22,25 +23,30 @@
 
 ```bash
 make dev              # FastAPI + Nuxt 4 + PostgreSQL vía Docker Compose
-make check            # lint + secrets-scan (OBLIGATORIO antes de PR)
-make lint             # ruff + mypy + pnpm lint (eslint)
-make test             # pytest backend/ml + vitest/Vue Test Utils frontend
+make check            # lint + gitleaks + mapa de permisos (OBLIGATORIO antes de PR)
+make lint             # ruff + mypy + eslint + typecheck. Ya va dentro de check
+make test             # pytest tests/backend + tests/ml + vitest frontend
+make verificar        # barrido completo previo a entrega: pines, reproducibilidad, tokens, datos
 make data             # genera silos sintéticos (semilla fija) en data/silos/
+make tokens           # regenera los tokens de diseño (salida generada, no editar a mano)
+make permisos-ui      # regenera el mapa de permisos por rol (idem)
 make db-new SLUG=x    # dbmate new — nueva migración SQL
 make db-up            # dbmate up — aplicar migraciones
 make db-rollback      # dbmate rollback
 
-poetry add <pkg>      # deps Python (nunca pip ad-hoc)
-pnpm add <pkg>        # deps frontend (nunca npm/yarn)
+poetry -P backend add <pkg>     # deps Python. El proyecto Poetry vive en backend/, no en la raiz:
+                                # `poetry add` a secas falla. Nunca pip ad-hoc
+pnpm --dir frontend add <pkg>   # deps frontend (nunca npm/yarn)
 
-pytest tests/backend/test_auth.py::test_name -q   # un solo test
+# Un solo test (ruff, mypy y pytest exigen --config explicito: los tests viven en tests/)
+poetry -P backend run pytest -c backend/pyproject.toml tests/backend/test_auth.py::test_name -q
 ```
 
 ## Stack — Decisiones Irrevocables (NO cambiar sin equipo)
 
 | Capa | Elección | Nota clave |
 |------|----------|------------|
-| Frontend | Nuxt 4 (estructura `app/`) + pnpm/Corepack | `shallowRef` default en `useFetch`; componentes `Lazy*`; `routeRules` SWR en dashboard directivo |
+| Frontend | Nuxt 4 (estructura `app/`) + pnpm/Corepack | `shallowRef` default en `useFetch`; componentes `Lazy*`. **Sin `routeRules` SWR**: tras la guarda por rol, una página cacheada le daría a un rol el HTML de otro. Se cachea el dato, no la página ([`frontend/AGENTS.md`](frontend/AGENTS.md)) |
 | Visualización | Apache ECharts (`vue-echarts`) | ≥1 M puntos con agregación server-side Polars + `sampling`/`large`; degradación acordada: 500 K |
 | Estado / estilos | Pinia + TailwindCSS v4 | Estado compartido dashboard↔chat (patrón TwinBI) |
 | API | FastAPI async + Pydantic v2 + Poetry | Pydantic Settings estricto: sin `DATABASE_URL`/`GEMINI_API_KEY`/`JWT_SECRET_KEY` la app NO arranca |
@@ -58,13 +64,13 @@ pytest tests/backend/test_auth.py::test_name -q   # un solo test
 
 ## Reglas de código NON-NEGOTIABLE
 
-- **Idioma**: código (identificadores, comentarios, docstrings Google-style) en inglés; prosa visible al lector (docs `.md`, entregables) en español neutro. **Decisión del 10-ago-2026: la interfaz web es bilingüe español + inglés con i18n real** (`@nuxtjs/i18n`, `strategy: 'no_prefix'`, `defaultLocale: 'es'`, cookie `karisma_locale`); deroga la regla anterior de UI solo en español. Ninguna cadena visible se escribe en un componente: viven en `frontend/i18n/locales/{es,en}.json` con claves jerárquicas en inglés. Los entregables PDF del curso siguen siendo solo en español.
+- **Idioma**: código (identificadores, comentarios, docstrings Google-style) en inglés; prosa visible al lector (docs `.md`, entregables) en español neutro. **La interfaz web es bilingüe español + inglés con i18n real**: ninguna cadena visible se escribe en un componente — [ADR-001](docs/decisions/ADR-001-ui-bilingue-i18n-real.md), operativa en [`frontend/AGENTS.md`](frontend/AGENTS.md). Los entregables PDF del curso siguen siendo solo en español.
 - **Sin emojis** en código, comentarios, prints, commits ni logs.
-- **El estilo del portal y el del documento son sistemas SEPARADOS. Decisión del 11-ago-2026.** `docs/entregables/estilo/uxdoc.sty` es la hoja de estilo **del informe** y está **congelada**: A1, A2 y A3 ya se entregaron y compilan contra ella. El portal tiene su propia fuente de tokens en `design/sistema.py`, con dos modos y su matriz de contraste calculada por modo. **Prohibido derivar el aspecto del portal de `uxdoc.sty`**: era la causa de que la interfaz se viera a documento impreso, porque esa paleta está optimizada para tinta sobre papel y no para jerarquía en pantalla. Lo que sí viaja del portal al informe es **contenido, no formato**: el generador emite las láminas con la paleta real del portal para que la guía de estilos de A4 documente el producto, y esas láminas se maquetan con la tipografía y las reglas del informe. Una muestra de color del portal impresa en el informe es contenido; no convierte al informe en el portal ni al revés.
+- **El estilo del portal y el del informe son sistemas SEPARADOS.** `docs/entregables/estilo/uxdoc.sty` es la hoja de estilo **del informe** y está **congelada**: A1, A2 y A3 compilan contra ella. Prohibido derivar el aspecto del portal de esa paleta — está optimizada para tinta sobre papel. Del portal al informe viaja **contenido, no formato**. Razonamiento completo y una discrepancia abierta sobre cuál es la fuente real de los tokens: [ADR-002](docs/decisions/ADR-002-estilo-portal-separado-del-documento.md).
 - **Logging**: `structlog.get_logger()`, nunca `print()` en producción.
 - **Type hints** obligatorios en todo Python.
 - **DRY**: función usada 2+ veces → `backend/app/utils/`, `ml/utils/` o `frontend/app/composables/`.
-- **Tests solo sobre comportamiento que existe. PROHIBIDO** probar placeholders, andamiaje o funcionalidad no programada todavía. Un test cuya aserción no puede fallar, que mide algo distinto de lo que su nombre promete, o que fija el marcado de una pantalla que la siguiente US va a reescribir, es deuda: se borra en el primer cambio real y mientras tanto compra cobertura que no significa nada. La cobertura es un piso mínimo, nunca un objetivo: **un 100 % sobre andamiaje vale menos que un 70 % sobre lógica**. Antes de escribir un test, responder qué defecto concreto lo haría fallar; si no hay respuesta, no se escribe.
+- **Tests solo sobre comportamiento que existe. PROHIBIDO** probar placeholders o andamiaje. Antes de escribir un test, responder qué defecto concreto lo haría fallar; si no hay respuesta, no se escribe. La cobertura es piso, nunca objetivo: **un 100 % sobre andamiaje vale menos que un 70 % sobre lógica**. Detalle operativo en [`tests/AGENTS.md`](tests/AGENTS.md).
 - **SoC**: router recibe → service procesa → model persiste. Tools ADK en `ml/agent/tools/`, nunca en routers; sin lógica de negocio en routers ni componentes Vue.
 - **Seguridad por rol**: todo endpoint de datos con `Security(get_current_user, scopes=[...])`; matriz de permisos en `docs/security.md`; `/api/chat` propaga el Bearer del usuario a cada tool call (el agente jamás ve datos que el usuario no puede ver).
 - **Anti-alucinación**: toda cifra en respuestas del agente proviene de un tool call; sin tool call no se muestran números; se cita la fuente del catálogo.
@@ -77,8 +83,8 @@ pytest tests/backend/test_auth.py::test_name -q   # un solo test
 
 ## QA Gate antes de PR
 
-1. `make check` limpio (lint + secrets-scan).
-2. Tests cobertura ≥70 % backend, ≥50 % frontend.
+1. `make check` limpio (lint + gitleaks + mapa de permisos). **No hay CI todavía** — `.github/` es US-004, así que esto corre en tu máquina o no corre.
+2. `make test` en verde. Los umbrales están configurados, no son honor system: `--cov-fail-under=70` en `backend/pyproject.toml` y `thresholds: 50` en `frontend/vitest.config.ts`.
 3. Si tocó schema: migración dbmate incluida y `dbmate up` verificado (`schema.sql` actualizado).
 4. Si tocó permisos/auth: pruebas 401/403 parametrizadas por rol en verde.
 5. Si tocó chat/agente: cancelación verificada (sin tareas colgadas) y evento `tool_call` emitido antes del texto.
@@ -99,8 +105,13 @@ pytest tests/backend/test_auth.py::test_name -q   # un solo test
 | `frontend/` | [frontend/AGENTS.md](frontend/AGENTS.md) | Nuxt 4, ECharts, Pinia, chat streaming, patrones UX |
 | `db/` | [db/AGENTS.md](db/AGENTS.md) | dbmate, pgvector, seeds, schema.sql |
 | `ml/` | [ml/AGENTS.md](ml/AGENTS.md) | Generadores sintéticos, capa semántica, agente ADK, RAG |
-| `docs/` | — | Entregables del curso, papers, orquestación, security.md |
-| `infra/` | — | Terraform GCP (módulo mínimo MVP) |
+| `tests/` | [tests/AGENTS.md](tests/AGENTS.md) | pytest, vitest, mocks obligatorios, umbrales de cobertura |
+| `docs/` | [docs/AGENTS.md](docs/AGENTS.md) | Entregables del curso, papers, orquestación, artefactos por US |
+| `docs/decisions/` | — | ADR: decisiones fechadas y su razonamiento, fuera de esta guía |
+| `design/` | — | Sistema de tokens del portal (sin guía propia todavía) |
+| `scripts/` | — | Generadores y verificadores que corre el Makefile (sin guía propia) |
+
+`infra/` y `.github/` **no existen todavía**: Terraform está congelado (el puente es `gcloud run deploy`) y el pipeline es US-004, pendiente.
 
 ## Skills y plan
 

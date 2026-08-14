@@ -82,14 +82,16 @@ Bloque generado. **No editar a mano**: regenerar con el comando de la sección 1
 | `POST /api/query/records` | `operativo` | Consulta puntual sobre un silo | US-011 | planificado |
 | `GET /api/metrics/series` | `analista` | Serie preagregada del tablero | US-025 | vigente |
 | `POST /api/metrics/aggregate` | `analista` | Agregaciones y cruces de la capa semantica | US-011 | planificado |
-| `POST /api/export` | `analista` | Exportacion en segundo plano | US-009 | planificado |
-| `GET /api/export/{job_id}` | `analista` | Estado del trabajo y enlace firmado | US-009 | planificado |
+| `POST /api/export` | `analista` | Exportacion en segundo plano | US-009 | vigente |
+| `GET /api/export` | `analista` | Historial propio; admin lee el registro completo del portal, siempre sin enlace | US-009 | vigente |
+| `GET /api/export/{job_id}` | `analista` | Estado del trabajo; enlace firmado solo para el dueno, admin ve el metadato sin enlace | US-009 | vigente |
+| `GET /api/export/{job_id}/download` | `analista` | Entrega del archivo tras validar firma, vencimiento y propiedad; un trabajo ajeno responde 404 y no 403 | US-009 | vigente |
 | `GET /api/summaries/executive` | `directivo` | Resumenes directivos | US-026 | planificado |
-| `GET /api/users` | `admin` | Gestion de usuarios | US-018 | planificado |
-| `POST /api/users` | `admin` | Alta de usuario | US-018 | planificado |
-| `PATCH /api/users/{user_id}` | `admin` | Cambio de rol; un admin no se degrada a si mismo | US-018 | planificado |
-| `DELETE /api/users/{user_id}` | `admin` | Borrado logico; un admin no se desactiva a si mismo | US-018 | planificado |
-| `POST /api/chat` | *(ninguno)* | El agente propaga el Bearer del usuario; cada tool cae en la fila del endpoint que envuelve | US-023 | planificado |
+| `GET /api/users` | `admin` | Listado de usuarios del portal | US-018 | vigente |
+| `POST /api/users` | `admin` | Alta de usuario. Fuera del alcance de S4 por el recorte 5 | US-018 | planificado |
+| `PATCH /api/users/{user_id}` | `admin` | Cambio de rol y reactivacion; un admin no se degrada ni se desactiva a si mismo | US-018 | vigente |
+| `DELETE /api/users/{user_id}` | `admin` | Borrado logico; un admin no se desactiva a si mismo | US-018 | vigente |
+| `POST /api/chat` | `operativo` | Consulta puntual con otra piel: el asistente no puede costar menos que el dato que responde. El agente propaga el Bearer del usuario y cada tool cae en la fila del endpoint que envuelve | US-023 | vigente |
 <!-- matriz-permisos:fin -->
 
 Cómo se lee:
@@ -170,7 +172,10 @@ backend directo. Si ese paso devolviera 200, la superficie de CSRF sería otra.
 Regla escrita ahora, implementada por US-020, US-021 y US-023: **el agente jamás ve datos que el
 usuario no puede ver.**
 
-- `POST /api/chat` exige sesión válida y ningún rol concreto: el chat en sí no es el dato.
+- `POST /api/chat` exige `operativo`, no una sesión cualquiera: el asistente es una consulta
+  puntual con otra piel y no puede salir más barato que el dato que responde. Hoy los cuatro
+  roles lo alcanzan; el día que entre un perfil de solo lectura por debajo de `operativo`, el
+  catálogo seguirá abierto y el asistente no.
 - Cada *tool* del agente envuelve un endpoint gobernado de esta misma matriz y **propaga el Bearer
   del usuario**. El permiso se evalúa en el endpoint envuelto, con la fila que le corresponde aquí.
 - El agente no tiene credencial propia ni ruta privilegiada. Si una consulta necesita `analista` y

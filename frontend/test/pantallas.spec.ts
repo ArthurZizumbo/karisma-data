@@ -7,7 +7,7 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import Chasis from '~/app.vue'
-import { claveDeRuta, RUTA_ACCESO, RUTA_GUIA, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
+import { claveDeRuta, RUTA_ACCESO, RUTA_ASISTENTE, RUTA_GUIA, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
 import { type CodigoIdioma, crearI18nDePrueba, mensaje } from './i18nDePrueba'
 
 /**
@@ -38,7 +38,9 @@ import { type CodigoIdioma, crearI18nDePrueba, mensaje } from './i18nDePrueba'
 const modulosDePagina = import.meta.glob<{ default: Component }>('../app/pages/**/*.vue')
 
 /** Contract routes whose content is still a declared placeholder. */
-const RUTAS_CON_ANDAMIAJE = RUTAS_CONTRATO.filter(ruta => ruta !== RUTA_ACCESO)
+const RUTAS_CON_ANDAMIAJE = RUTAS_CONTRATO.filter(
+  ruta => ![RUTA_ACCESO, RUTA_ASISTENTE, '/exploracion/exportar'].includes(ruta),
+)
 
 const PREFIJO_PAGINAS = '../app/pages'
 

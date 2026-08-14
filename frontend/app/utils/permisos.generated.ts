@@ -54,7 +54,7 @@ export const SCOPE_POR_RUTA: Readonly<Record<string, RolUsuario | null>> = Objec
   '/administracion': 'admin',
   '/exploracion/exportar': 'analista',
   '/exploracion/tableros': 'analista',
-  '/asistente': null,
+  '/asistente': 'operativo',
 })
 
 /**

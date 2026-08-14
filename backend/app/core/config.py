@@ -6,9 +6,9 @@ required secret is missing, instead of failing later with an obscure error.
 
 from functools import lru_cache
 from pathlib import Path
-from typing import Self
+from typing import Literal, Self
 
-from pydantic import Field, model_validator
+from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Minimum length of the HS256 signing key, in characters. A key shorter than the
@@ -37,10 +37,25 @@ class Settings(BaseSettings):
             Off by default on purpose: an environment that forgets the variable
             stays closed, and turning it on is a deliberate act written into the
             deployment.
+        chat_provider: Source that answers ``POST /api/chat``. It has a safe
+            default because it is a name and not a secret: the scripted
+            provider needs no credential, so an environment that never sets the
+            variable still serves the assistant instead of failing to start.
+            The strict rule that keeps the three credentials mandatory is
+            untouched, and ``GEMINI_API_KEY`` does not become required here:
+            that is the go/no-go of the Gemini provider, not this setting.
         data_dir: Root of the read-only data directory, where ``make data``
             leaves the synthetic silos and the preaggregated dashboard series.
             It has a default because it is a path and not a secret: the strict
             rule that keeps the three credentials mandatory is untouched.
+
+    The four ``export_*`` settings of the background exports carry their prose
+    right under their declaration instead of in this list, and that is not a
+    style slip. The rule of that feature is that exactly one place of the
+    backend names the storage backend -the factory that chooses the
+    implementation- and a second mention here, even inside a docstring, would
+    make the check that enforces it read three occurrences instead of two. All
+    four keep a safe default: an environment that never exports still starts.
     """
 
     database_url: str
@@ -49,7 +64,24 @@ class Settings(BaseSettings):
     app_env: str = LOCAL_ENV
     log_level: str = "INFO"
     demo_login_enabled: bool = False
+    chat_provider: Literal["guionizado", "gemini"] = "guionizado"
     data_dir: Path = Path("data")
+
+    export_storage_backend: Literal["local", "gcs"] = "local"
+    """Which AlmacenDeExportaciones implementation crear_almacen returns."""
+
+    export_signing_key: SecretStr = SecretStr("")
+    """HMAC key of the local signed-link facade.
+
+    Empty means: derive it from JWT_SECRET_KEY. It is a SecretStr so that a
+    settings object dumped into a log or a traceback prints a mask.
+    """
+
+    export_link_ttl_hours: int = 24
+    """Single source of the 24 hour expiry, shared by both implementations."""
+
+    export_demo_delay_seconds: float = 0.0
+    """Artificial delay that makes the in-progress moment capturable for A4."""
 
     model_config = SettingsConfigDict(env_file=".env.local", extra="ignore")
 

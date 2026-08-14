@@ -1,102 +1,138 @@
 # Comandos — Portal Centralizado de Datos Financieros
 
-> Lista completa de comandos Make/Poetry/pnpm/dbmate/pytest del proyecto. Resumen ejecutivo en [`AGENTS.md`](../../AGENTS.md).
+> Lo que **corre hoy**. Resumen ejecutivo en [`AGENTS.md`](../../AGENTS.md). Lo que el plan promete
+> pero todavía no existe está al final, en su propia sección y marcado como tal: un agente que
+> invente la salida de un comando inexistente hace más daño que uno que declare `blocked`.
+
+`make help` imprime esta misma lista desde el Makefile. Si algo de aquí no coincide con `make help`,
+manda el Makefile.
 
 ## Desarrollo local
 
 ```bash
-make dev                    # docker-compose: FastAPI + Nuxt 4 + PostgreSQL 15 (pgvector)
-make stop
+make dev              # docker compose up --build: PostgreSQL 15 + FastAPI + Nuxt 4
+                      # exige .env.local en backend/ y frontend/ (lo comprueba antes de arrancar)
 
-# Servicios sueltos (fuera de compose, para debug rápido)
-poetry run uvicorn app.main:app --reload --port 8000       # backend solo (desde backend/)
-pnpm dev                                                   # Nuxt 4 dev server :3000 (desde frontend/)
+# Servicios sueltos, para depurar sin levantar el compose
+poetry -P backend run uvicorn app.main:app --reload --port 8000
+pnpm --dir frontend dev                                        # Nuxt dev server :3000
 ```
 
-## Bootstrap / scaffolding
+Para bajar el stack, `docker compose down` — no hay target `make stop`.
+
+## Dependencias
+
+**El proyecto Poetry vive en `backend/`, no en la raíz.** No hay `pyproject.toml` en la raíz, así
+que `poetry install` y `poetry add` a secas fallan: todo lleva `-P backend`, igual que en el
+Makefile. `backend/pyproject.toml` cubre backend **y** `ml/`.
 
 ```bash
-pnpm dlx nuxi init frontend         # scaffold Nuxt 4 (solo bootstrap inicial; estructura app/)
-corepack enable && corepack use pnpm@latest
-poetry install                      # deps backend/ml
-poetry add <pkg>                    # deps Python (NUNCA pip ad-hoc)
-poetry add --group dev <pkg>        # deps dev (pytest, ruff, mypy)
-pnpm add <pkg>                      # deps frontend (NUNCA npm/yarn)
+poetry -P backend install                   # deps de backend y ml
+poetry -P backend add <pkg>                 # deps Python (NUNCA pip ad-hoc)
+poetry -P backend add --group dev <pkg>     # deps dev (pytest, ruff, mypy)
+pnpm --dir frontend install
+pnpm --dir frontend add <pkg>               # deps frontend (NUNCA npm/yarn)
+corepack enable                             # pnpm vía Corepack
 ```
 
 ## Quality gates
 
 ```bash
-make check                  # lint + secrets-scan (OBLIGATORIO antes de PR)
-make lint                   # ruff check + ruff format --check + mypy + pnpm lint (eslint)
-make format                 # ruff format + prettier
-make secrets-scan           # gitleaks detect --no-banner --redact
+make lint             # ruff check + ruff format --check + mypy (backend, ml, scripts, tests)
+                      # + eslint + typecheck en frontend
+make check            # lint + gitleaks + autocomprobación del escaneo + mapa de permisos.
+                      # OBLIGATORIO antes de abrir un PR
+make verificar        # superconjunto: pines, secretos, reproducibilidad, tokens, permisos,
+                      # datos e históricos del tablero. Barrido previo a una entrega
 ```
 
-## Base de datos (dbmate)
+`make check` incluye `pnpm lint`: no hace falta correrlo aparte. **No existe** `make format` ni
+`make secrets-scan` sueltos; el formateo se corre con `poetry -P backend run ruff format` y el
+escaneo va dentro de `check`.
 
-```bash
-make db-new SLUG=create_catalog_tables    # dbmate new — nueva migración SQL en db/migrations/
-make db-up                                # dbmate up — aplica migraciones y regenera schema.sql
-make db-rollback                          # dbmate rollback — revierte la última migración
-make db-status                            # migraciones aplicadas vs. pendientes
-make db-seed                              # seeds: 7 usuarios, 200-400 entradas de catálogo, ~30 notas tribales
-
-# dbmate directo (equivalente, requiere DATABASE_URL en .env.local)
-dbmate new create_catalog_tables
-dbmate up
-dbmate rollback
-```
-
-Regla: migraciones SOLO vía dbmate (`db/migrations/*.sql` con `-- migrate:up/down`). Jamás `SQLModel.metadata.create_all()` en prod ni editar migraciones aplicadas.
-
-## Datos sintéticos
-
-```bash
-make data                   # ml/data/generators.py: silos Parquet con semilla fija en data/silos/
-                            # creditos 1-5M filas, liquidez ~1M, derivados ~500K, ~0.1% anomalías (data/README.md)
-```
+`make verificar` necesita `data/aggregates/serie_tablero.parquet`, que no se versiona: sin
+`make data` previo, falla. Por eso vive en `verificar` y no en `check`.
 
 ## Tests
 
 ```bash
-make test                   # pytest backend/ml (cobertura >=70 %) + vitest/Vue Test Utils (>=50 %)
-make test-backend           # solo pytest
-make test-frontend          # solo vitest
+make test             # pytest en tests/backend y tests/ml + vitest en frontend/
 
-# Un solo test / un solo archivo
-pytest tests/backend/test_auth.py::test_login_wrong_password -q
-poetry run pytest tests/backend/test_semantic_compiler.py -q
-pnpm vitest run tests/components/ToolCallCard.spec.ts
+# Una suite o un solo test
+poetry -P backend run pytest -c backend/pyproject.toml tests/backend -q
+poetry -P backend run pytest -c backend/pyproject.toml tests/backend/test_auth.py::test_name -q
+pnpm --dir frontend test
 ```
 
-## Agente y latencia (TTFT)
+No existen `make test-backend` ni `make test-frontend`: son las dos mitades de `make test`,
+arriba en su forma directa. Umbrales: backend >= 70 %, frontend >= 50 %. Reglas de qué se prueba
+y qué no, en [`tests/AGENTS.md`](../../tests/AGENTS.md).
+
+## Base de datos (dbmate)
 
 ```bash
-# Medición TTFT del chat SSE: tiempo hasta el primer evento `token` (meta p50 < 700 ms)
-poetry run python scripts/measure_ttft.py --n 20 --endpoint http://localhost:8000/api/chat
-# El script emite p50/p90/p99 leyendo el span OTel `llm.call` (atributo TTFT) o midiendo
-# curl -N + timestamp del primer `event: token`.
-
-# Verificación manual de streaming y cancelación
-curl -N -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
-  -d '{"message": "Saldo total de cartera vigente a ayer"}' \
-  http://localhost:8000/api/chat        # Ctrl+C debe cancelar la llamada LLM en ms
+make db-new SLUG=create_catalog   # nueva migración en db/migrations/
+make db-up                        # aplica pendientes y regenera db/schema.sql
+make db-rollback                  # revierte la última aplicada
+make db-seed                      # seed del catálogo + seeds de db/seeds/ en orden
 ```
 
-## Terraform / Deploy
+Los cuatro exigen `DATABASE_URL` en `backend/.env.local`. **No existe** `make db-status`; para el
+estado, `bash scripts/dbmate.sh status`.
+
+Regla: el esquema solo cambia por dbmate (`-- migrate:up` / `-- migrate:down`). Jamás
+`SQLModel.metadata.create_all()` en producción, jamás editar una migración ya aplicada. Detalle en
+[`db/AGENTS.md`](../../db/AGENTS.md).
+
+## Datos sintéticos
 
 ```bash
-make tf-init                # terraform init en infra/
-make tf-plan                # plan del módulo mínimo (2 Cloud Run, GCS, Secret Manager)
-make tf-apply               # aplicar (requiere aprobación del equipo)
+make data             # silos Parquet + serie preagregada del tablero, semilla fija 20260720
 ```
 
-CI/CD: push → lint + tests; merge a `main` → build, Artifact Registry, `dbmate up`, deploy Cloud Run (GitHub Actions, skill `portal-cicd`).
+Reproducible byte a byte. Lo que detecta un cambio de semilla es
+`scripts/verificar_datos.sh` — corre `make data` una segunda vez en un temporal y compara los
+Parquet byte a byte — más `tests/ml/test_generators.py`. **No** lo detecta
+`verificar_reproducibilidad.sh`, que pese al nombre comprueba otra cosa: que `poetry.lock` y
+`pnpm-lock.yaml` reproduzcan la instalación sin reescribirse. Anomalías inyectadas documentadas en
+[`data/README.md`](../../data/README.md).
 
-## FinOps
+## Artefactos generados
 
 ```bash
-make cost-audit             # gcloud billing: costos últimos 30 días vs. presupuesto $45 USD/mes
-make scale-to-zero-check    # verifica min_instances=0 en ambos Cloud Run
+make tokens           # tokens de diseño: @theme, paleta tipada, láminas y manifiesto
+make permisos-ui      # mapa de permisos que la interfaz usa para ocultar módulos por rol
 ```
+
+Las salidas de ambos son **generadas y no se editan a mano**. `make check` regenera el mapa de
+permisos y difea; `make verificar` hace lo mismo con los tokens. Editar la salida a mano abre una
+segunda política que puede discrepar de la del backend, y eso es justo lo que los verificadores
+existen para distinguir de una regeneración legítima. Si acabas de correr `make permisos-ui`, haz
+`git add` del archivo generado antes de `make check`.
+
+## Nube (sin target de Make — se corre a mano)
+
+```bash
+gcloud config get-value project    # confirmar ANTES de nada: debe decir tareas-computo-nube
+gcloud run deploy karisma-api --source backend  --region us-central1
+gcloud run deploy karisma-web --source frontend --region us-central1
+
+gcloud run services describe karisma-api --region us-central1 \
+  --format='value(status.url,status.latestReadyRevisionName)'
+
+# Migrar contra Cloud SQL: dbmate no habla el socket, hay que levantar el proxy
+cloud-sql-proxy tareas-computo-nube:us-central1:karisma-pg --port 5432 &
+DATABASE_URL="postgres://karisma_app:<pass>@127.0.0.1:5432/karisma?sslmode=disable" dbmate up
+```
+
+## Todavía no existe
+
+Lo siguiente aparece en el plan y en skills, pero **no hay target ni script**. No lo invoques y no
+cites su salida:
+
+| Comando | Estado real | US que lo traería |
+|---------|-------------|-------------------|
+| `make tf-init` · `tf-plan` · `tf-apply` | `infra/` no existe; Terraform está congelado y el puente es `gcloud run deploy` | US-003 |
+| `make cost-audit` · `make scale-to-zero-check` | sin script; la auditoría de costo se hace a mano con `gcloud billing` | US-032 |
+| `scripts/measure_ttft.py` | no existe; el TTFT se mide a mano con `curl -N` y marca de tiempo del primer `event: token` | US-034 |
+| CI/CD en `.github/workflows/` | `.github/` no existe todavía | US-004 |

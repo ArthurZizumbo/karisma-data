@@ -46,6 +46,7 @@ CREATE TABLE public.app_user (
     role text NOT NULL,
     disabled boolean DEFAULT false NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT app_user_role_check CHECK ((role = ANY (ARRAY['operativo'::text, 'analista'::text, 'directivo'::text, 'admin'::text])))
 );
 
@@ -69,6 +70,13 @@ COMMENT ON COLUMN public.app_user.hashed_password IS 'argon2id via pwdlib. Jamas
 --
 
 COMMENT ON COLUMN public.app_user.role IS 'Scope del JWT: operativo | analista | directivo | admin.';
+
+
+--
+-- Name: COLUMN app_user.updated_at; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.app_user.updated_at IS 'Ultima modificacion administrativa: cambio de rol, desactivacion o reactivacion. La fija el servicio, nunca un disparador.';
 
 
 --
@@ -329,6 +337,60 @@ ALTER SEQUENCE public.catalog_tribal_note_id_seq OWNED BY public.catalog_tribal_
 
 
 --
+-- Name: export_job; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.export_job (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    requested_by uuid NOT NULL,
+    dataset text NOT NULL,
+    export_format text NOT NULL,
+    filters jsonb DEFAULT '{}'::jsonb NOT NULL,
+    status text DEFAULT 'pendiente'::text NOT NULL,
+    row_count bigint,
+    byte_size bigint,
+    object_key text,
+    error_code text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    started_at timestamp with time zone,
+    finished_at timestamp with time zone,
+    expires_at timestamp with time zone,
+    CONSTRAINT export_job_completado_coherente CHECK (((status <> 'completado'::text) OR ((object_key IS NOT NULL) AND (expires_at IS NOT NULL) AND (finished_at IS NOT NULL)))),
+    CONSTRAINT export_job_export_format_check CHECK ((export_format = ANY (ARRAY['csv'::text, 'xlsx'::text]))),
+    CONSTRAINT export_job_fallido_coherente CHECK (((status <> 'fallido'::text) OR (error_code IS NOT NULL))),
+    CONSTRAINT export_job_status_check CHECK ((status = ANY (ARRAY['pendiente'::text, 'en_proceso'::text, 'completado'::text, 'fallido'::text])))
+);
+
+
+--
+-- Name: TABLE export_job; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.export_job IS 'Trabajos de exportacion en segundo plano. Nunca se borran: caducan.';
+
+
+--
+-- Name: COLUMN export_job.filters; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.export_job.filters IS 'Consulta estructurada validada por Pydantic. Nunca SQL ni Polars libre.';
+
+
+--
+-- Name: COLUMN export_job.object_key; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.export_job.object_key IS 'Clave opaca en el almacen. Jamas se serializa en una respuesta.';
+
+
+--
+-- Name: COLUMN export_job.expires_at; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.export_job.expires_at IS 'Instante en que el enlace firmado deja de servir. created_at + 24 h.';
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -446,6 +508,14 @@ ALTER TABLE ONLY public.catalog_tribal_note
 
 
 --
+-- Name: export_job export_job_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.export_job
+    ADD CONSTRAINT export_job_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -489,6 +559,27 @@ CREATE INDEX catalog_tribal_note_field_id_idx ON public.catalog_tribal_note USIN
 
 
 --
+-- Name: export_job_expires_at_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX export_job_expires_at_idx ON public.export_job USING btree (expires_at) WHERE (status = 'completado'::text);
+
+
+--
+-- Name: export_job_requested_by_created_at_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX export_job_requested_by_created_at_idx ON public.export_job USING btree (requested_by, created_at DESC);
+
+
+--
+-- Name: export_job_status_vivos_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX export_job_status_vivos_idx ON public.export_job USING btree (status) WHERE (status = ANY (ARRAY['pendiente'::text, 'en_proceso'::text]));
+
+
+--
 -- Name: catalog_field catalog_field_source_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -513,6 +604,14 @@ ALTER TABLE ONLY public.catalog_tribal_note
 
 
 --
+-- Name: export_job export_job_requested_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.export_job
+    ADD CONSTRAINT export_job_requested_by_fkey FOREIGN KEY (requested_by) REFERENCES public.app_user(id) ON DELETE RESTRICT;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -527,4 +626,6 @@ INSERT INTO public.schema_migrations (version) VALUES
     ('20260811005732'),
     ('20260811211250'),
     ('20260812065546'),
-    ('20260812121501');
+    ('20260812121501'),
+    ('20260813204211'),
+    ('20260813205114');

@@ -48,7 +48,20 @@ const sinPermiso = computed(() =>
       <!-- The sidebar already names the product, so the header does not. -->
       <CabeceraProducto :con-marca="false" />
 
-      <FranjaAlcance />
+      <!--
+        `max-w-none` is what turns the notice back into a band.
+
+        The design system caps prose at `--medida-maxima` (68ch) and
+        `FranjaAlcance` renders a `<p>`, so the scope notice came out 455 px
+        wide inside a 1208 px column: a card pinned to the top left corner
+        instead of a declaration governing the screen. The system rule opts out
+        of anything that already declares its own measure
+        -`p:not([class*='max-w'])`-, so the class both stops the rule from
+        matching and sets the value; neither depends on winning a specificity
+        tie. The band is a system declaration, not running prose: its single
+        sentence stays on one line and never sweeps the full column.
+      -->
+      <FranjaAlcance class="max-w-none" />
 
       <main id="contenido" class="flex-1 px-4 py-8 md:px-8">
         <!--

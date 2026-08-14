@@ -1,0 +1,147 @@
+% ============================================================================
+%  Actividad 4 · Alcance declarado del prototipo
+%
+%  Propiedad de US-UX-07. Responde al criterio 5 de la historia: la tabla de
+%  alcance de tres estados que sustituye a la tabla de paridad original.
+%
+%  Regla que gobierna este archivo: la primera tabla publica el valor que el
+%  codigo declara en PROTOTIPOS, no uno deseado. frontend/test/alcancePrototipos.spec.ts
+%  compara ambas cosas y falla si divergen.
+% ============================================================================
+
+% ============================================================================
+\uxsection{Alcance declarado de cada pantalla}
+
+Un prototipo de alta fidelidad se parece a un producto terminado, y ese parecido es justamente lo
+que obliga a declarar hasta dónde llega. Esta sección dice, pantalla por pantalla y actividad por
+actividad, qué está construido, qué está construido sin datos detrás y qué está solamente escrito.
+El criterio es el mismo que la Actividad 3 aplicó a su wireframe: no presentar diseño como producto
+en funcionamiento.
+
+El esquema tiene tres estados y solo tres:
+
+\begin{uxlist}
+  \lead{Navegable con datos de ejemplo}{La pantalla se recorre y muestra contenido proveniente de
+    los silos sintéticos o de la base del portal. Lo que se ve es el resultado de una consulta real
+    sobre datos reproducibles, no un texto tecleado en la plantilla.}
+  \lead{Navegable sin datos}{La pantalla se recorre, su composición es la definitiva y sus estados
+    están resueltos, pero el contenido que llenaría la caja todavía no proviene de una fuente. La
+    pantalla lo declara en su propio cuerpo y nombra la historia de usuario que lo entrega.}
+  \lead{En hoja de ruta}{La capacidad está descrita y no está construida. Aparece en este documento para
+    que nadie tenga que deducir su ausencia.}
+\end{uxlist}
+
+\subsection{Las siete pantallas}
+
+La tabla siguiente publica, para cada prototipo, el valor que el contrato de navegación declara en
+\texttt{frontend/app/utils/navegacion.ts}. No es una lectura de quien redacta: es el literal que la
+aplicación usa para pintar la insignia de alcance en el índice, y una prueba automática compara
+esta tabla contra ese literal en cada corrida.
+
+% tabla-alcance:inicio
+% Las siete filas de abajo las lee frontend/test/alcancePrototipos.spec.ts y las
+% compara contra PROTOTIPOS. El formato es contrato: la primera celda es la ruta
+% dentro de \texttt{} y la tercera es la etiqueta de alcance. No reordenar las
+% columnas sin ajustar la prueba.
+\begin{uxtabla}{|L{3.5cm}|L{2.6cm}|L{3.1cm}|Y|}{Alcance declarado de los siete prototipos}
+  \uxheadrow \thd{Ruta} & \thd{Pantalla} & \thd{Alcance} & \thd{Qué falta para el estado siguiente} \\
+  \texttt{/acceso} & Acceso & Navegable sin datos & El formulario de usuario y contraseña opera contra el emisor de credenciales; la puerta de demostración es la vía de la evaluación \\
+  \texttt{/inicio} & Inicio & Navegable sin datos & El buscador, las búsquedas recientes, las favoritas y las alertas componen desde marcadores rotulados como datos de ejemplo, no desde el catálogo \\
+  \texttt{/exploracion} & Exploración y extracción & Navegable sin datos & El catálogo temático y los filtros facetados los entrega US-008; la pantalla declara las cuatro capacidades y la historia que las trae \\
+  \texttt{/gobierno} & Gobierno del dato & Navegable sin datos & El diccionario de campos y el linaje se recorren; la procedencia todavía no se resuelve contra la base de catálogo \\
+  \texttt{/asistente} & Asistente conversacional & Navegable sin datos & El transporte, las tarjetas de llamada a herramienta y la cancelación son reales; el contenido proviene de un proveedor guionizado \\
+  \texttt{/administracion} & Administración & Navegable sin datos & El panel de personas usuarias se recorre; la edición completa queda degradada por acuerdo del sprint \\
+  \texttt{/exploracion/exportar} & Exportación & Navegable sin datos & El ciclo de vida del trabajo de exportación es real contra el api; el almacenamiento definitivo del archivo queda fuera de esta semana \\
+\end{uxtabla}
+% tabla-alcance:fin
+
+\subsection{Una divergencia declarada, no corregida}
+
+Las siete filas dicen \emph{navegable sin datos} y varias pantallas muestran más de lo que esa
+etiqueta promete: la de inicio compone cinco bloques con contenido visible, la de gobierno recorre
+un diccionario de campos y la de administración pinta un panel de personas usuarias. La etiqueta
+del código quedó fijada antes de que esas historias cerraran y nadie la reescribió durante el
+sprint, porque el contrato de navegación es un archivo que varias historias leen y ninguna tiene
+asignado en escritura esta semana.
+
+Se publica el valor del código y no el observado. El motivo es que esta tabla vale exactamente por
+su verificabilidad: si el documento calificado y la aplicación pueden divergir por una edición de
+última hora que nadie más está esperando, la tabla deja de ser evidencia y pasa a ser una opinión
+sobre el producto. La corrección de las etiquetas queda anotada como pendiente para la Actividad 5,
+donde el contrato de navegación sí tiene una historia dueña.
+
+% ============================================================================
+\section{Traducción del estado de las historias de usuario}
+
+La tabla anterior habla de pantallas y el equipo lleva su registro por historias de usuario, con un
+vocabulario más fino. Esta segunda tabla traduce ese registro al esquema de tres estados, de modo
+que ninguna historia quede sin declarar. La correspondencia es fija:
+
+\begin{uxtabla}{|L{6.2cm}|Y|}{Correspondencia entre el registro del equipo y el esquema publicado}
+  \uxheadrow \thd{Estado en el registro del sprint} & \thd{Estado publicado} \\
+  Cerrada & Navegable con datos de ejemplo \\
+  Cerrada degradada & Navegable con datos de ejemplo \\
+  Demostrada en prototipo, no productiva & Navegable sin datos \\
+  Roadmap declarado en el documento & En hoja de ruta \\
+  Congelada, sin cambio & En hoja de ruta \\
+  De la Actividad 5, no se toca & En hoja de ruta \\
+\end{uxtabla}
+
+El registro del sprint enuncia cuatro estados y enumera seis filas. Se publican las seis, que son
+las que el registro usa en la práctica; la discrepancia entre el enunciado y la enumeración queda
+anotada aquí y se resuelve en el registro, no en este documento.
+
+\begin{uxtablalarga}{|L{2.6cm}|L{3.6cm}|Y|}{Estado declarado de todas las historias de usuario al cierre del sprint}{\thd{Historia} & \thd{Estado publicado} & \thd{Precisión}}
+  US-001 & Navegable con datos de ejemplo & Entorno de desarrollo y contrato de navegación \\
+  US-002 & Navegable con datos de ejemplo & Cerrada sin integración continua \\
+  US-003 & Navegable con datos de ejemplo & Puente de despliegue, sin infraestructura como código \\
+  US-006 & Navegable con datos de ejemplo & Volúmenes de datos recortados respecto de lo planeado \\
+  US-008 & Navegable con datos de ejemplo & Búsqueda por palabra clave únicamente \\
+  US-009 & Navegable sin datos & Exportación demostrada en prototipo, no productiva \\
+  US-011 & En hoja de ruta & La versión mínima alimenta las pantallas; las diez consultas de referencia quedan fuera \\
+  US-012, US-013, US-014 & En hoja de ruta & Congeladas sin cambio \\
+  US-015 & Navegable con datos de ejemplo & Autenticación y credenciales \\
+  US-016, US-017 & Navegable con datos de ejemplo & Autorización por rol y visibilidad de módulos \\
+  US-018, US-019 & Navegable con datos de ejemplo & Administración de personas usuarias sin edición completa \\
+  US-020, US-021 & En hoja de ruta & Agente conversacional con modelo real. El proveedor del portal es guionizado \\
+  US-022 & En hoja de ruta & Congelada sin cambio \\
+  US-023 & Navegable sin datos & Transmisión y cancelación reales; contenido guionizado \\
+  US-024 & Navegable con datos de ejemplo & Error tipado en la transmisión, sin control de reintento \\
+  US-025 & Navegable con datos de ejemplo & Serie de alto volumen, con el tope acordado en el sprint \\
+  US-026, US-027 & Navegable con datos de ejemplo & Linaje y bitácora \\
+  US-028 & Navegable con datos de ejemplo & Tarjetas de visibilidad de llamada a herramienta \\
+  US-029 & Navegable con datos de ejemplo & Estado compartido entre tablero y asistente, en versión estática \\
+  US-030 a US-034 & En hoja de ruta & Pertenecen a la Actividad 5: observabilidad, tiempo al primer token, costo y paso a producción \\
+  US-035, US-036 & En hoja de ruta & Congeladas sin cambio \\
+  US-037 a US-041 & En hoja de ruta & Declaradas fuera del alcance del prototipo \\
+  US-004, US-005 & En hoja de ruta & Pertenecen a la Actividad 5 \\
+  US-UX-07, US-UX-09 & Navegable con datos de ejemplo & Esta actividad y su guía de estilos \\
+  US-UX-08 & En hoja de ruta & Pertenece a la Actividad 5 \\
+  Bloques de holgura & En hoja de ruta & Congelados desde la planeación \\
+\end{uxtablalarga}
+
+% ============================================================================
+\section{Las seis capacidades que la Actividad 2 prometió}
+
+El journey map de la Actividad 2 identificó oportunidades de diseño que el catálogo de historias no
+llegó a cubrir. Un evaluador puede contrastar aquellas promesas contra este prototipo, así que se
+declaran una por una. Ninguna está construida.
+
+\begin{uxtabla}{|L{5.0cm}|L{2.2cm}|Y|}{Capacidades prometidas en la Actividad 2 y su estado}
+  \uxheadrow \thd{Capacidad} & \thd{Estado} & \thd{Dónde aparecería} \\
+  Consultas guardadas & En hoja de ruta & Exploración y extracción, junto a la consulta con filtros \\
+  Marca de versión retirada con enlace a la vigente & En hoja de ruta & Gobierno del dato, como atributo del campo en el diccionario \\
+  Notificación dirigida por cambio de definición & En hoja de ruta & Inicio, en el bloque de alertas \\
+  Copiado con procedencia & En hoja de ruta & Transversal: acompañaría a toda cifra copiada desde una tabla \\
+  Comparación lado a lado de variables similares & En hoja de ruta & Exploración y extracción \\
+  Credenciales de interfaz de programación autogestionadas & En hoja de ruta & Administración, como faceta transversal \\
+\end{uxtabla}
+
+Dos de las seis son baratas y de alto peso narrativo, porque se apoyan en atributos que el catálogo
+ya modela: la marca de versión retirada y el copiado con procedencia. Quedan propuestas para la
+Actividad 5 con esa justificación. Las cuatro restantes exigen trabajo de producto que ninguna
+historia del catálogo cubre hoy.
+
+El silencio sobre estas seis capacidades sería el único desenlace sin recurso: quien lea la
+Actividad 2 y recorra este prototipo encontraría la diferencia por su cuenta y sin explicación. Por
+eso se declaran aquí, con nombre y con estado.

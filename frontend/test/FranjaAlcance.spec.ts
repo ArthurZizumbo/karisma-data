@@ -139,6 +139,27 @@ describe('la franja acompaña a todas las superficies del prototipo', () => {
     expect(wrapper.find('[data-selector-idioma]').exists()).toBe(true)
   })
 
+  it.each([
+    ['portal', Portal, {}],
+    ['acceso', Acceso, {}],
+    ['default', Default, {}],
+    ['error', PantallaDeError, { error: { statusCode: 404 } }],
+  ])('saca la franja del chasis %s de la medida de lectura', (_nombre, chasis, props) => {
+    // The defect this guards against is cheap to commit and expensive to find:
+    // `FranjaAlcance` renders a `<p>`, `main.css` caps every paragraph at
+    // `--medida-maxima` (68ch) and the notice came out 455 px wide inside a
+    // 1193 px column, reading as a stray card instead of a declaration
+    // governing the screen. Removing the class from a single surface leaves the
+    // whole suite green while it silently invalidates the before/after figures
+    // of `figuras/a4/`, which are evidence in a graded document.
+    //
+    // The class is asserted on the four mount points and not on the component,
+    // because the component cannot carry it: whoever mounts it decides.
+    const wrapper = montarConChasis(chasis as Component, props as Record<string, unknown>)
+
+    expect(wrapper.get('[data-franja-alcance]').classes()).toContain('max-w-none')
+  })
+
   it('incluye la franja en el estado de error transversal', () => {
     const wrapper = montarConChasis(PantallaDeError, {
       error: { statusCode: 404, statusMessage: 'Not Found' },

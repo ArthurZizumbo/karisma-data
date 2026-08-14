@@ -14,6 +14,8 @@ Las nueve rutas del contrato de navegación (`RUTAS_CONTRATO` en `app/utils/nave
 
 **La exportación tampoco es andamiaje** (US-009, 13-ago-2026). `/exploracion/exportar` renderiza **siempre desde estado real**: el store Pinia `exportaciones` sondea `GET /api/export/{job_id}` cada **3 000 ms** con **un único temporizador global**, que se apaga sin trabajos vivos, con `document.hidden` y a los 200 sondeos. El ciclo de vida lo arranca `app/plugins/exportaciones.client.ts` y **no un layout**: el criterio es que el estado sea consultable desde cualquier pantalla, y un `useFetch` en la página muere al navegar. La ruta acepta `?momento=solicitud|proceso|enlace`, que **no fabrica datos**: fija qué trabajo real queda expandido y desactiva el auto-avance; con historial vacío muestra el vacío explícito, nunca un enlace falso. `app/types/exportacion.ts` es espejo verificado de `backend/app/models/export.py`. El enlace firmado se usa **tal cual** —es ruta relativa y la reenvía el proxy de Nitro— y se retira solo en el instante que nombra `caduca_en`, con un disparo único por tarjeta que **se rearma**: `setTimeout` guarda su retraso en 32 bits y un plazo de más de ~24 días dispararía de inmediato.
 
+**La entrega de A4 dejó rastro aquí** (US-UX-07, 14-ago-2026). `@playwright/test` es dependencia de desarrollo y el navegador está descargado: lo usa `docs/entregables/capturas/capturas_a4.mjs`, un guion que vive fuera de `frontend/` y **lee `app/utils/navegacion.ts` parseándolo como texto** para derivar su plan de captura. Los tres layouts pasan `max-w-none` a `FranjaAlcance` por el motivo que explica la sección de convenciones. Y dos pruebas nuevas —`rutaRama.spec.ts` y `alcancePrototipos.spec.ts`— **leen archivos `.tex` de `docs/entregables/`** y los comparan contra el contrato de navegación: es la primera vez que la suite del frontend toma un entregable como insumo.
+
 También existen 16 composables, tres stores Pinia (`workspace`, compartido tablero↔chat; `sistemaDiseno`, modo de color; `exportaciones`, trabajos en segundo plano), un plugin de cliente, un middleware global y tres layouts. El JWT sale de la cookie solo dentro de `server/`.
 
 ## Estructura
@@ -22,7 +24,7 @@ También existen 16 composables, tres stores Pinia (`workspace`, compartido tabl
 frontend/
 ├── app/
 │   ├── pages/         # las nueve rutas del contrato
-│   ├── components/    # doce familias, entre ellas echarts/, serie/, tablero/ y exportacion/
+│   ├── components/    # trece familias, entre ellas echarts/, serie/, tablero/ y exportacion/
 │   ├── layouts/       # default, portal (nav por rol), acceso
 │   ├── composables/ · middleware/ · plugins/ · stores/ · types/
 │   ├── utils/         # puros + permisos.generated.ts + tokens.generated.ts
@@ -45,6 +47,10 @@ make dev          # (raíz) db + api + web con Docker Compose
 make lint/test    # (raíz) incluyen pnpm --dir frontend
 make tokens       # regenera main.css y tokens.generated.ts
 make permisos-ui  # regenera permisos.generated.ts
+
+# Capturas del entregable. El guion vive en docs/ y usa el navegador instalado aqui.
+pnpm exec playwright install chromium          # una vez por maquina
+node ../docs/entregables/capturas/capturas_a4.mjs   # CAPTURAS_FASE=antes|despues
 ```
 
 pnpm exclusivo; versión fijada en `packageManager`, Node 22 (`.nvmrc`).
@@ -62,6 +68,7 @@ pnpm exclusivo; versión fijada en `packageManager`, Node 22 (`.nvmrc`).
 - ✅ Componente pesado en forma `Lazy*`, con sufijo `.client` si toca canvas o `window`.
 - ✅ ECharts solo en `app/components/echarts/VChart.client.vue`: registro modular desde `echarts/core`, nunca el barril; alto volumen con `sampling: 'lttb'` y `large: true`.
 - ✅ Color, tipografía y espaciado desde los tokens `@theme`; sin valores mágicos inline.
+- ⚠️ **Un `<p>` hereda la medida de lectura.** `main.css` aplica `max-width: var(--medida-maxima)` —68ch— a `p:not([class*='max-w'])` y a `li`, con las excepciones de celda de tabla y navegación. Es correcto para prosa y equivocado para cualquier elemento a todo el ancho: una franja, un aviso de sistema o una barra compuesta como párrafo salen a 455 px dentro de una columna de 1193 y se leen como una tarjeta suelta. Se sale con `max-w-none`, que **desactiva la regla y fija el valor a la vez**, porque la propia regla se excluye con `:not([class*='max-w'])` y así no depende de ganar un empate de especificidad. Es lo que hacen los tres layouts con `FranjaAlcance`.
 
 ## No tocar
 
@@ -70,14 +77,17 @@ pnpm exclusivo; versión fijada en `packageManager`, Node 22 (`.nvmrc`).
 - `pnpm-lock.yaml` — cambia solo vía `pnpm add` / `pnpm install`.
 - `.nuxt/`, `.output/`, `node_modules/`, `coverage/` — generados; jamás commitear.
 - `RUTAS_CONTRATO` — renombrar una ruta rompe las pruebas de navegación y pantallas, `scripts/smoke_rutas.sh` y el mapa de permisos.
+- `PROTOTIPOS` — además de alimentar el índice, **lo parsea como texto un guion de fuera del frontend**, `docs/entregables/capturas/capturas_a4.mjs`, que deriva de ahí su plan de captura. Renombrar la constante, o cambiar la forma del literal a algo que no sea una lista de objetos planos, deja el guion sin plan y sin las figuras del entregable. El campo `alcance` lo publica el PDF de A4 y `test/alcancePrototipos.spec.ts` compara los dos: cambiar uno sin el otro pone la suite en rojo, que es lo que debe pasar.
 
 ## Tests
 
-En `frontend/test/`: 38 `*.spec.ts` y tres auxiliares — `configuracion.ts` (Pinia nueva por prueba), `i18nDePrueba.ts` (catálogos reales) y `marcoDePrueba.ts` (marcos binarios sintéticos).
+En `frontend/test/`: **42 `*.spec.ts`** y tres auxiliares — `configuracion.ts` (Pinia nueva por prueba), `i18nDePrueba.ts` (catálogos reales) y `marcoDePrueba.ts` (marcos binarios sintéticos).
 
 Vitest con `happy-dom` y Vue Test Utils; alias `~`/`@` hacia `app/`. Umbral en `vitest.config.ts`: 50 % de líneas, funciones, ramas y sentencias sobre `app/**` y `server/**`, sin `app/types/**` ni `tokens.generated.ts`, que no emiten runtime.
 
 Se prueba contrato y lógica: claves i18n paritarias, pines del manifiesto, permisos contra `docs/security.md`, funciones puras, composables y montaje de pantallas. Nada sobre el marcado de `EstadoPendiente`: la US que lo sustituya lo borra.
+
+**Dos pruebas leen entregables.** `rutaRama.spec.ts` y `alcancePrototipos.spec.ts` abren archivos `.tex` de `docs/entregables/contenido/` y los comparan contra `MODULOS` y `PROTOTIPOS`: el defecto que atajan es que el PDF calificado afirme una cobertura o un alcance que el código no tiene. Siguen el patrón de `permisos.spec.ts` —`leerDelRepositorio()` con la ruta en una variable, porque con un literal Vite reescribe `new URL(..., import.meta.url)` como referencia de recurso— y **acotan lo que leen con delimitadores de comentario LaTeX** (`% tabla-ruta-rama:inicio` / `:fin`). Si falta el archivo, la prueba **falla con el motivo**; no se salta: una prueba que se ausenta cuando falta su insumo no es una barrera.
 
 ## Skills
 

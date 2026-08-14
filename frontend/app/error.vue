@@ -43,7 +43,15 @@ function volverAlIndice(): void {
     -->
     <CabeceraProducto />
 
-    <FranjaAlcance />
+    <!--
+      `max-w-none` for the same reason as in the three layouts: `FranjaAlcance`
+      renders a `<p>` and the system caps prose at `--medida-maxima` (68ch),
+      which left the notice 455 px wide. This screen is not a layout, so it does
+      not inherit the fix and has to repeat it. The error state is one of the
+      four the prototype declares, and it is the one where a notice that reads
+      as a stray card is least affordable.
+    -->
+    <FranjaAlcance class="max-w-none" />
 
     <main class="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 px-6 py-12">
       <p class="text-sm text-corriente-tenue">

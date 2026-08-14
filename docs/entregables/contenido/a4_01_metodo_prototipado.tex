@@ -1,0 +1,123 @@
+% ============================================================================
+%  Actividad 4 · Metodo de prototipado
+%
+%  Propiedad de US-UX-07. Cubre el criterio 2 de la historia: sistema de diseno
+%  de fuente unica con derivacion en un solo sentido, y el protocolo de captura
+%  que hace reproducible la evidencia de la seccion siguiente.
+% ============================================================================
+
+% ============================================================================
+\uxsection{Método de prototipado}
+
+Prototipar en el entorno del producto cambia el método, no solo la herramienta. Esta sección
+describe el entorno, qué significa exactamente que las pantallas estén desplegadas, cómo se toman
+las capturas que sostienen la sección siguiente y cómo circula el sistema de diseño entre la
+aplicación y este documento.
+
+\subsection{El entorno de construcción}
+
+El prototipo es una aplicación web con tres piezas que corren juntas: una base de datos PostgreSQL,
+una interfaz de programación en FastAPI y un portal en Nuxt 4 que compone en el servidor. El portal
+es el único origen que el navegador ve; las llamadas a la interfaz de programación se resuelven a
+través de él, de modo que no hay una segunda dirección que configurar ni permisos de origen cruzado
+que negociar.
+
+Las tres piezas se levantan con un solo comando y el mismo comando las levanta igual en las tres
+máquinas del equipo. Esa reproducibilidad no es comodidad: es la condición para que las capturas de
+la sección siguiente puedan volver a tomarse, y para que la prueba de usabilidad de la Actividad 5
+corra sobre lo mismo que aquí se documenta.
+
+Los datos son \textbf{sintéticos y reproducibles}. Se generan con semilla fija, de manera que dos
+corridas producen el mismo conjunto, y las anomalías que contienen están inyectadas a propósito y
+documentadas. Ninguna cifra del prototipo proviene de una institución real, y la franja superior de
+todas las pantallas lo declara sin que haya que buscarlo.
+
+\subsection{Qué significa \enquote{desplegado} en esta entrega}
+
+La actividad pide prototipos desplegados y el término admite dos lecturas: una dirección pública en
+internet, o una aplicación que se recorre de principio a fin en el entorno del producto. Esta
+entrega cumple la segunda y explica por qué.
+
+La evidencia de este documento son capturas tomadas contra la aplicación en ejecución, a resolución
+fija, con un guion que cualquiera puede volver a correr. Anclar la evidencia a una dirección pública
+la haría depender de que esa dirección siga viva el día de la revisión, y una infraestructura que
+escala a cero puede estar apagada, tardar en despertar o haber agotado su presupuesto. Anclada a
+capturas reproducibles, la evidencia no depende de nada de eso: el guion, el conjunto de datos y la
+versión del código están en el repositorio, y las tres cosas juntas reconstruyen exactamente lo que
+se ve impreso.
+
+Esto no es una renuncia al despliegue, que existe como puente operativo del proyecto, sino una
+decisión sobre qué sostiene la evidencia del entregable. Lo que la rúbrica puede verificar es que
+las pantallas se recorren de verdad, y eso es lo que estas capturas muestran.
+
+\subsection{Protocolo de captura}
+
+Toda figura de la sección de prototipos se produjo con el mismo protocolo, escrito antes de la
+primera captura y archivado junto al guion ejecutable. Sus parámetros son fijos:
+
+\begin{uxlist}
+  \lead{Resolución}{1440 por 900 píxeles de composición, que es la resolución de trabajo del perfil
+    directivo descrito en la Actividad 1 y cabe en la caja de texto de este documento sin reducción
+    agresiva.}
+  \lead{Modo de color}{Claro. La guía de estilos declara el modo oscuro fuera de alcance para esta
+    versión, de modo que capturar en oscuro documentaría una paleta que el propio documento dice no
+    haber verificado.}
+  \lead{Idioma}{Español. La interfaz es bilingüe y la dirección no cambia con el idioma, así que la
+    correspondencia entre rutas y ramas del mapa se conserva en los dos.}
+  \lead{Sesión}{Una por pantalla, con el rol que el contrato de navegación sugiere para ella. La
+    sesión se abre desde la propia interfaz y no con una llamada suelta, que es también el camino
+    que recorre una persona.}
+  \lead{Momento del disparo}{Con la red inactiva y la franja de alcance ya presente. Una captura
+    tomada antes de que el contenido llegue mostraría un esqueleto y lo haría pasar por contenido.}
+\end{uxlist}
+
+El guion ejecutable deriva su plan de captura del propio contrato de navegación: lee las pantallas
+declaradas y produce una captura por cada una, con un nombre de archivo que se compone del número de
+la pantalla, su ruta y el estado capturado. Añadir una pantalla al contrato añade su captura sin
+tocar el guion, y quitarla la retira. Así el conjunto de figuras no puede quedar desfasado respecto
+del portal.
+
+El nombre del archivo es el que permite emparejar el antes y el después de la iteración documentada
+en la sección de pre-validación: las dos carpetas usan los mismos nombres y la pareja se detecta por
+igualdad, no por una lista escrita aparte.
+
+\subsection{El sistema de diseño corre en un solo sentido}
+
+El color, la tipografía y el espaciado del portal y de este documento salen de la misma fuente, y esa
+fuente tiene una sola dirección de propagación. La cadena es la siguiente:
+
+\begin{uxlist}
+  \lead{Origen}{Una definición única de los tokens del sistema, con los nombres de color, los roles
+    tipográficos, los pasos de espaciado, los radios y las sombras.}
+  \lead{Primer derivado}{Los tokens que la aplicación consume, emitidos por un generador. La hoja de
+    estilo del portal y su paleta tipada se generan; no se editan a mano.}
+  \lead{Segundo derivado}{Las láminas del sistema de diseño que este documento imprime, emitidas por
+    el mismo generador desde la misma definición.}
+  \lead{Salida}{La interfaz compone con esos tokens, el guion la captura y las capturas entran a
+    este documento.}
+\end{uxlist}
+
+\textbf{Nada fluye hacia atrás.} Ningún archivo generado se edita a mano y ningún valor de color se
+teclea en este documento: los hexadecimales que aparecen impresos en la guía de estilos provienen del
+generador, no del teclado. La verificación es mecánica: un guion del repositorio compara lo que hay
+en disco contra lo que el generador produce hoy, de modo que una edición manual aparece como
+divergencia en lugar de sobrevivir en silencio.
+
+Conviene precisar una frontera que el proyecto mantiene deliberadamente separada. La hoja de estilo
+con la que se compone este informe y el sistema de diseño del portal son \textbf{dos sistemas
+distintos}. El informe está optimizado para tinta sobre papel y el portal para una pantalla
+retroiluminada, y derivar el aspecto de uno del otro degradaría ambos. Del portal al informe viaja
+contenido --- las capturas, las cifras, los inventarios --- y no formato.
+
+\subsection{Herencia de la Actividad 3}
+
+Tres decisiones de la actividad anterior gobiernan este prototipo y no se reabrieron aquí.
+
+La primera es la arquitectura de cuatro categorías, que fija cuántas pantallas de primer nivel
+existen y cómo se llaman. La segunda es el resultado que refutó la hipótesis inicial: la tarea de
+consultar un indicador de riesgo obtuvo un solo acierto de ocho contra la ruta esperada en gobierno,
+y seis de los ocho evaluadores lo buscaron en exploración, de modo que los tableros se movieron a esa
+categoría. El prototipo los coloca donde el ejercicio los puso. La tercera es el etiquetado múltiple:
+las nueve tarjetas que tres o más evaluadores pidieron duplicar se resuelven como accesos cruzados
+desde el contexto que las reclamó, conservando una residencia única en el árbol para que la
+navegación siga siendo predecible.

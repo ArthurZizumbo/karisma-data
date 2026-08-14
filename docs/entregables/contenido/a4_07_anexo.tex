@@ -1,0 +1,98 @@
+% ============================================================================
+%  Actividad 4 · Anexo
+%
+%  Propiedad de US-UX-07. Reune el protocolo de captura, el inventario de
+%  figuras y la trazabilidad entre los criterios de la historia de usuario, las
+%  secciones de este documento y su evidencia.
+% ============================================================================
+
+% ============================================================================
+\uxsection{Anexo}
+
+\subsection{Protocolo de captura, en resumen}
+
+El guion completo, con sus precondiciones y su ruta manual alternativa, está archivado en el
+repositorio del proyecto junto al guion ejecutable que lo implementa. Lo que sigue es su resumen
+operativo, suficiente para reproducir cualquier figura de este documento.
+
+\begin{uxtabla}{|L{4.2cm}|Y|}{Parámetros del protocolo de captura}
+  \uxheadrow \thd{Parámetro} & \thd{Valor} \\
+  Resolución de composición & 1440 por 900 píxeles \\
+  Modo de color & Claro, fijado explícitamente antes de la primera captura \\
+  Idioma de la interfaz & Español \\
+  Sesión & Una por pantalla, con el rol que el contrato de navegación sugiere, abierta desde la propia interfaz \\
+  Momento del disparo & Con la red inactiva y la franja de alcance presente en la página \\
+  Nombre de archivo & Número de pantalla, ruta y estado, separados por guion bajo \\
+  Origen del plan & El contrato de navegación del portal, leído por el guion; no una lista escrita aparte \\
+\end{uxtabla}
+
+El nombre de archivo es el contrato que empareja el antes y el después: las dos carpetas usan los
+mismos nombres y la pareja se detecta por igualdad. Una captura del después con otro nombre no forma
+pareja con nada, y la iteración documentada deja de ser verificable.
+
+\subsection{Inventario de figuras}
+
+\begin{uxtablalarga}{|C{0.8cm}|L{5.7cm}|L{2.4cm}|Y|}{Inventario de las figuras de esta actividad}{\thd{\#} & \thd{Archivo} & \thd{Sesión} & \thd{Dónde se usa}}
+  0 & \texttt{0\_acceso\_normal.png} & sin sesión & Prototipo 0 \\
+  1 & \texttt{1\_inicio\_normal.png} & operativo & Prototipo 1 \\
+  2 & \texttt{2\_exploracion\_normal.png} & analista & Prototipo 2, y el par antes y después de la iteración \\
+  3 & \texttt{3\_gobierno\_normal.png} & analista & Prototipo 3 \\
+  4 & \texttt{4\_asistente\_normal.png} & directivo & Prototipo 4 \\
+  5 & \texttt{5\_administracion\_normal.png} & administración & Prototipo 5 \\
+  6 & \texttt{6\_exploracion-exportar\_normal.png} & analista & Prototipo 6 \\
+  4 & \texttt{4\_asistente\_resultado.png} & directivo & Prototipo 4, turno resuelto con su tarjeta de llamada a herramienta \\
+\end{uxtablalarga}
+
+Los siete nombres del estado normal existen dos veces, en la carpeta del antes y en la del después.
+Las figuras de la sección de prototipos usan las del después, que corresponden al estado entregado;
+la sección de pre-validación usa la pareja completa de la pantalla afectada por la iteración.
+
+La octava figura, el turno resuelto del asistente, existe solo en la carpeta del después y de manera
+deliberada: documenta un estado de la conversación y no una versión distinta de la pantalla, de modo
+que emparejarla con un antes sugeriría un cambio que no ocurrió.
+
+\subsection{Trazabilidad de los criterios de aceptación}
+
+\begin{uxtablalarga}{|L{1.6cm}|L{5.2cm}|Y|}{Dónde se atiende cada criterio y con qué evidencia}{\thd{Criterio} & \thd{Enunciado} & \thd{Sección y evidencia}}
+  1 & Siete prototipos navegables y desplegados & Sección de prototipos, siete figuras con pie numerado \\
+  2 & Sistema de diseño de fuente única, con derivación en un solo sentido & Sección de método, cadena de derivación; guía de estilos, láminas emitidas por el generador \\
+  3 & Cada ruta anclada a una rama del mapa & Sección de prototipos, tabla de veinte filas verificada por prueba automática \\
+  4 & Los cuatro estados no felices por pantalla & Sección de prototipos, matriz de veintiocho celdas y las diez reglas de comportamiento \\
+  5 & Tabla de alcance de tres estados & Sección de alcance, tabla por pantalla y tabla por historia de usuario \\
+  6 & Pre-validación con iteración documentada & Sección de pre-validación, registro de la iteración y par de figuras \\
+  7 & Nota de herramienta en la introducción & Introducción, cuatro propiedades de la rúbrica y objetivo de aprendizaje \\
+  8 & Entrega en tiempo con portada de los tres integrantes & Portada de este documento \\
+\end{uxtablalarga}
+
+\subsection{Verificaciones automáticas asociadas a este documento}
+
+Dos afirmaciones de este documento no dependen de que alguien las revise a mano: una prueba
+automática las compara contra el código del portal en cada corrida de la suite.
+
+\begin{uxtabla}{|L{5.4cm}|Y|}{Lo que una prueba automática verifica de este documento}
+  \uxheadrow \thd{Afirmación} & \thd{Defecto que la prueba impide} \\
+  La tabla de correspondencia publica las dieciséis ramas del mapa y las cuatro categorías & Que la tabla, escrita a mano, omita una rama y el documento afirme una cobertura que el contrato de navegación no tiene \\
+  El alcance publicado por pantalla coincide con el que el código declara & Que el código y el documento diverjan tras el congelamiento, y el entregable calificado describa un producto distinto del entregado \\
+\end{uxtabla}
+
+Las dos pruebas leen este documento como entrada. Es una dependencia deliberada: la alternativa
+---comparar el documento consigo mismo--- pasa siempre, diga lo que diga.
+
+\subsection{Límites de esta entrega}
+
+Se enuncian aquí para que no haya que deducirlos.
+
+\begin{uxlist}
+  \lead{Los evaluadores de la pre-validación son sintéticos}{Sus hallazgos orientan decisiones de
+    presentación y no cierran ninguna pregunta sobre las personas usuarias. La primera evidencia
+    humana llega con la prueba de usabilidad de la Actividad 5.}
+  \lead{La estabilidad visual durante la carga se declara, no se mide}{El entorno del proyecto no
+    incluye una herramienta que produzca esa métrica, y una cifra sin instrumento sería peor que
+    declarar el método de verificación.}
+  \lead{El contenido del asistente está guionizado}{El transporte, las tarjetas de llamada a
+    herramienta y la cancelación son reales. La conexión con un modelo de lenguaje queda declarada
+    en hoja de ruta y la pantalla lo dice en su propia franja.}
+  \lead{Las etiquetas de alcance del código quedaron fijadas antes del cierre}{Varias pantallas
+    muestran hoy más de lo que su etiqueta promete. Se publica el valor del código y la divergencia
+    se declara en la sección de alcance.}
+\end{uxlist}

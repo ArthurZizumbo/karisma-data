@@ -14,15 +14,21 @@
 \documentclass[11pt,letterpaper]{article}
 \usepackage{estilo/uxdoc}
 
+%% Laminas y metadatos de la guia de estilos, emitidos por generar_tokens_a4.py.
+%% Definen \versionguia, \fechaguia y las cuatro laminas que contenido/a4_03
+%% imprime. main_a4.tex ya los carga; este volumen los necesita por la misma
+%% razon, porque reutiliza ese mismo archivo de contenido sin copiarlo.
+\input{estilo/a4_tokens}
+
 \uxencabezado{Karisma Data · Documento del proyecto}
-\hypersetup{pdftitle={Karisma Data. Documento acumulado del proyecto - Actividades 1, 2 y 3}}
+\hypersetup{pdftitle={Karisma Data. Documento acumulado del proyecto - Actividades 1, 2, 3 y 4}}
 
 \setcounter{tocdepth}{2}
 \renewcommand{\contentsname}{Índice}
 
 \begin{document}
 
-\uxportada{Documento del proyecto}{Definición del producto, journey maps\\y arquitectura de información}{Actualizado al 9 de agosto de 2026}
+\uxportada{Documento del proyecto}{Definición del producto, journey maps, arquitectura\\de información y prototipo de alta fidelidad}{Actualizado al 16 de agosto de 2026}
 
 \tableofcontents
 \clearpage
@@ -41,7 +47,11 @@ uno de ellos en un journey map, con el que se identifican los puntos de fricció
 oportunidades de diseño que orientarán las actividades siguientes. La tercera parte sitúa el
 portal frente a sus competidores y alternativas, contrasta la estructura propuesta con el
 modelo mental de quien la usará mediante un ejercicio de card sorting, y traduce ese
-resultado en la arquitectura de información y el mapa de navegación del producto.
+resultado en la arquitectura de información y el mapa de navegación del producto. La cuarta
+parte convierte ese mapa en interfaz: siete pantallas de alta fidelidad construidas en el entorno
+del producto, con cada ruta anclada a una rama del mapa, los cuatro estados no felices declarados
+pantalla por pantalla, la guía de estilos del sistema de diseño que las compone y una tabla que
+publica hasta dónde llega cada una.
 
 Las entregas individuales de cada actividad, con el nombre de archivo que solicita el curso,
 se generan a partir de los mismos archivos de contenido que este volumen: no existe una
@@ -87,5 +97,24 @@ versión distinta del texto para cada salida.
 \input{contenido/a3_04_mapa}
 \input{contenido/a3_05_cierre}
 \input{contenido/a3_06_anexo}
+
+% ============================================================================
+\uxparte{IV}{Actividad 4. Prototipo de alta fidelidad y guía de estilos}
+  {Entregada el 16 de agosto de 2026. Convierte el mapa de navegación de la parte anterior en siete
+   pantallas construidas en el entorno del producto y recorribles de principio a fin, con cada ruta
+   anclada a una rama del mapa y los cuatro estados no felices declarados pantalla por pantalla;
+   documenta el sistema de diseño que las compone y publica, sin omitir ninguna, hasta dónde llega
+   cada pantalla y cada historia de usuario.}
+
+\input{contenido/a4_00_preliminares}
+\input{contenido/a4_01_metodo_prototipado}
+\input{contenido/a4_02_prototipos}
+\input{contenido/a4_03_guia_estilos}
+\input{contenido/a4_04_prevalidacion}
+\input{contenido/a4_05_alcance}
+\input{contenido/a4_06_cierre}
+
+\clearpage
+\input{contenido/a4_07_anexo}
 
 \end{document}

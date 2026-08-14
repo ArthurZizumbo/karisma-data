@@ -1,0 +1,269 @@
+% ============================================================================
+%  Actividad 4 · Los siete prototipos de alta fidelidad
+%
+%  Propiedad de US-UX-07. Responde a los criterios 1, 3 y 4 de la historia:
+%  las siete pantallas navegables, la tabla ruta a rama y la matriz de estados
+%  no felices.
+%
+%  Las figuras salen de figuras/a4/despues/, que es el estado entregado. El par
+%  antes y despues de la iteracion vive en a4_04_prevalidacion.tex.
+% ============================================================================
+
+% ============================================================================
+\uxsection{Los siete prototipos}
+
+El mapa de navegación de la Actividad 3 fijó cuatro categorías de primer nivel y dieciséis ramas.
+Esta sección muestra en qué se convirtieron: siete pantallas construidas en el mismo entorno con el
+que el portal opera, recorribles de principio a fin, con su sesión, su barra lateral y sus estados.
+Cada figura es una captura del portal en ejecución, tomada con el protocolo del anexo, y no una
+composición hecha para el documento.
+
+Las siete se numeran igual que en el índice del portal, porque ese índice deriva del mismo contrato
+de navegación que ordena esta sección. La rama 2.4, tableros e indicadores, se documenta dentro de
+la pantalla de exploración: es una zona de esa pantalla y no un prototipo aparte, de modo que
+contarla por separado inflaría el número sin añadir una interfaz.
+
+\subsection{Prototipo 0. Acceso}
+
+La pantalla de entrada enmarca a las demás sin ser una rama del mapa. Ofrece dos caminos: el
+formulario de usuario y contraseña, que opera contra el emisor de credenciales del portal, y los
+cuatro perfiles de demostración, cuya existencia se declara en la propia pantalla en lugar de
+esconderse. Cada perfil entra directo a su pantalla inicial, que es la primera aplicación visible
+del principio de espacios de trabajo por rol.
+
+\figuraux{figuras/a4/despues/0_acceso_normal.png}{Prototipo 0, acceso. Formulario de credenciales y
+puerta de demostración, esta última rotulada como habilitada únicamente en el prototipo. La franja
+superior declara el alcance en todas las pantallas del portal.}{fig:a4-acceso}
+
+\subsection{Prototipo 1. Inicio}
+
+Inicio resuelve las cinco subramas de la primera categoría en una sola pantalla, con una composición
+distinta por rol. Reúne el buscador unificado, las búsquedas recientes, las fuentes favoritas, las
+alertas y el perfil. Los bloques que muestran contenido lo rotulan como dato de ejemplo en su propio
+encabezado, de manera que ninguna cifra de la pantalla pueda leerse como una medición del negocio.
+
+\figuraux{figuras/a4/despues/1_inicio_normal.png}{Prototipo 1, inicio, con sesión de perfil
+operativo. Buscador unificado, búsquedas recientes, fuentes favoritas y alertas. Las etiquetas
+\enquote{datos de ejemplo} acompañan a cada bloque con contenido.}{fig:a4-inicio}
+
+\subsection{Prototipo 2. Exploración y extracción}
+
+Es la pantalla que todavía declara su contenido en lugar de mostrarlo, y lo hace de forma explícita:
+enumera las cuatro capacidades que alojará y nombra la historia de usuario que las entrega. La
+alternativa habitual, un título sobre una página vacía, se lee como una pantalla que falló al
+cargar, que es justamente la lectura que un entregable evaluado no puede permitirse. El estado
+diseñado convierte \enquote{inacabado} en \enquote{programado}, y es honesto en los dos casos.
+
+\figuraux{figuras/a4/despues/2_exploracion_normal.png}{Prototipo 2, exploración y extracción, con
+sesión de perfil analista. El estado pendiente declara las cuatro capacidades y la historia que las
+entrega, en lugar de dejar la caja vacía.}{fig:a4-exploracion}
+
+La barra lateral de esta captura muestra además las dos piezas que el mapa de la Actividad 3 exigía:
+el segundo nivel de la categoría activa y el bloque de facetas transversales, que da acceso cruzado
+a las nueve tarjetas que tres o más evaluadores pidieron duplicar durante el card sorting.
+
+\subsection{Prototipo 3. Gobierno del dato}
+
+Gobierno reúne el diccionario de campos, el linaje y el catálogo de fuentes. Es la pantalla que
+sostiene el principio \emph{Respaldado} de la Actividad 2: toda cifra que el portal muestra tiene
+que poder rastrearse hasta su definición y su origen, y esta es la pantalla donde ese rastro se
+consulta.
+
+\figuraux{figuras/a4/despues/3_gobierno_normal.png}{Prototipo 3, gobierno del dato, con sesión de
+perfil analista. Diccionario de campos y acceso al linaje, con las subramas de segundo nivel
+desplegadas en la barra lateral.}{fig:a4-gobierno}
+
+\subsection{Prototipo 4. Asistente conversacional}
+
+El asistente es transversal a las cuatro categorías y por eso no ocupa una rama del mapa. La
+pantalla transmite la respuesta en vivo, muestra las tarjetas de llamada a herramienta y ofrece un
+control de detención que aborta la petición de verdad, no solo la vista.
+
+El contenido de la respuesta proviene de un proveedor guionizado. El transporte, las tarjetas y la
+cancelación son reales; el texto está escrito de antemano. La pantalla lo declara en su propia
+franja y esa franja se conserva en la captura: recortarla presentaría un guion como respuesta viva.
+
+\figuraux{figuras/a4/despues/4_asistente_normal.png}{Prototipo 4, asistente conversacional, con
+sesión de perfil directivo, en su estado vacío. La franja de honestidad declara que las respuestas
+están guionizadas y que el transporte, las tarjetas y la cancelación sí son reales. El panel de la
+derecha muestra el contexto que el tablero comparte con esta pantalla.}{fig:a4-asistente}
+
+La tarjeta de llamada a herramienta es la pieza que sostiene el compromiso más fuerte del producto:
+\textbf{ninguna cifra se muestra sin que provenga de una consulta}, y la consulta se enseña. La
+figura siguiente recoge un turno completo, con la tarjeta resuelta, la tabla de resultados, el campo
+del catálogo del que sale la cifra y la respuesta que la cita en lugar de estimarla.
+
+\figuraux{figuras/a4/despues/4_asistente_resultado.png}{Prototipo 4, un turno resuelto. La tarjeta
+declara la consulta ejecutada y su duración, la tabla muestra la fila devuelta y el pie nombra el
+campo del catálogo del que proviene la cifra. La respuesta escrita repite esa procedencia.}{fig:a4-asistente-toolcall}
+
+Los cuatro estados de la tarjeta ---anuncio, ejecución, resultado y error--- se documentan como
+galería en la guía de estilos y no como una secuencia animada dentro de esta sección. Es la primera
+válvula prevista para el sprint y se activó por la decisión sobre el modelo de lenguaje: mientras el
+proveedor sea guionizado, una secuencia grabada mostraría un ritmo que no es el del sistema real.
+
+\subsection{Prototipo 5. Administración}
+
+Administración resuelve las cuatro subramas de la cuarta categoría en un solo nivel, que es la
+degradación acordada para este sprint. Reúne el panel de personas usuarias con sus roles, las
+solicitudes, la bitácora de accesos y las integraciones.
+
+\figuraux{figuras/a4/despues/5_administracion_normal.png}{Prototipo 5, administración, con sesión de
+perfil de administración. Panel de personas usuarias y sus roles, con la bitácora y las
+integraciones accesibles desde el segundo nivel.}{fig:a4-administracion}
+
+La bitácora de accesos merece una nota, porque su ubicación es un resultado del card sorting y no
+una preferencia: vive en administración por su función y se consulta desde gobierno del dato
+mediante un acceso cruzado. La prueba de árbol de la Actividad 3 registró titubeo en los ocho
+evaluadores ante la tarea de revisar quién autorizó un acceso, y dos de ellos la buscaron
+directamente en gobierno.
+
+\subsection{Prototipo 6. Exportación}
+
+La exportación es la subrama 2.3 y tiene pantalla propia porque su ciclo de vida es largo: se pide
+un trabajo, el trabajo corre en segundo plano y el resultado queda disponible durante una ventana
+acotada. La pantalla consulta el estado real del trabajo contra el api, con un temporizador único
+que se apaga cuando no hay trabajos vivos, y muestra el vacío explícito cuando el historial está
+vacío, en lugar de un enlace que no llevaría a ninguna parte.
+
+\figuraux{figuras/a4/despues/6_exploracion-exportar_normal.png}{Prototipo 6, exportación, con sesión
+de perfil analista. El historial de trabajos se compone desde el estado real del api y la franja de
+honestidad declara el retardo simulado de la demostración.}{fig:a4-exportacion}
+
+% ============================================================================
+\section{Cada ruta anclada a una rama del mapa}
+
+El criterio es simétrico y se verifica en las dos direcciones: ninguna rama del mapa de la Actividad
+3 queda sin ruta y ninguna ruta del portal queda sin rama. La tabla siguiente lo declara rama por
+rama, con el identificador que el contrato de navegación usa.
+
+La tabla no se redacta a mano contra el recuerdo del mapa: una prueba automática la lee y compara
+sus filas contra el contrato de navegación del portal, de modo que una rama omitida hace fallar la
+suite en lugar de llegar impresa a este documento.
+
+% tabla-ruta-rama:inicio
+% Las filas de abajo las lee frontend/test/rutaRama.spec.ts y las compara contra
+% MODULOS. El formato es contrato: la primera celda es el identificador de la
+% rama, tal como el contrato de navegacion lo declara. No reordenar las columnas
+% sin ajustar la prueba.
+\begin{uxtablalarga}{|L{1.1cm}|L{3.7cm}|L{3.8cm}|Y|}{Correspondencia entre las ramas del mapa de la Actividad 3 y las rutas del portal}{\thd{Rama} & \thd{Nombre en el mapa} & \thd{Ruta} & \thd{Cómo se ancla}}
+  1 & Inicio & \texttt{/inicio} & Categoría de primer nivel, con pantalla propia \\
+  1.1 & Buscador unificado & \texttt{/inicio} & Zona de la pantalla del módulo \\
+  1.2 & Búsquedas recientes & \texttt{/inicio} & Zona de la pantalla del módulo \\
+  1.3 & Favoritos & \texttt{/inicio} & Zona de la pantalla del módulo \\
+  1.4 & Mis alertas & \texttt{/inicio} & Zona de la pantalla del módulo, y faceta transversal con acceso cruzado \\
+  1.5 & Mi perfil & \texttt{/inicio} & Zona de la pantalla del módulo \\
+  2 & Exploración y extracción & \texttt{/exploracion} & Categoría de primer nivel, con pantalla propia \\
+  2.1 & Catálogo temático & \texttt{/exploracion} & Zona de la pantalla del módulo \\
+  2.2 & Consulta y filtros & \texttt{/exploracion} & Zona de la pantalla del módulo, y faceta transversal con acceso cruzado \\
+  2.3 & Exportaciones & \texttt{/exploracion/exportar} & Pantalla propia, por la duración de su ciclo de vida; además faceta transversal \\
+  2.4 & Tableros e indicadores & \texttt{/exploracion/tableros} & Zona de la pantalla de exploración, no prototipo aparte \\
+  3 & Gobierno del dato & \texttt{/gobierno} & Categoría de primer nivel, con pantalla propia \\
+  3.1 & Diccionario y metadatos & \texttt{/gobierno} & Zona de la pantalla del módulo \\
+  3.2 & Linaje y calidad & \texttt{/gobierno} & Zona de la pantalla del módulo, y faceta transversal con acceso cruzado \\
+  3.3 & Catálogo de fuentes & \texttt{/gobierno} & Zona de la pantalla del módulo, y faceta transversal con acceso cruzado \\
+  4 & Administración & \texttt{/administracion} & Categoría de primer nivel, con pantalla propia \\
+  4.1 & Usuarios, roles y permisos & \texttt{/administracion} & Zona de la pantalla del módulo, y faceta transversal con acceso cruzado \\
+  4.2 & Solicitudes y aprobaciones & \texttt{/administracion} & Zona de la pantalla del módulo \\
+  4.3 & Bitácora de accesos & \texttt{/administracion} & Zona de la pantalla del módulo, con acceso cruzado desde gobierno del dato \\
+  4.4 & Integraciones & \texttt{/administracion} & Zona de la pantalla del módulo, y faceta transversal con acceso cruzado \\
+\end{uxtablalarga}
+% tabla-ruta-rama:fin
+
+\subsection{Los huecos, declarados}
+
+Tres rutas del portal no corresponden a ninguna rama del mapa, y las tres lo son por decisión
+escrita en el propio contrato de navegación:
+
+\begin{uxlist}
+  \lead{El índice}{La portada del prototipo existe para la evaluación, no para el producto: reúne
+    los siete botones y la ruta del sistema de diseño. No es una rama porque no es una tarea.}
+  \lead{El asistente}{Es transversal a las cuatro categorías. Colocarlo en una de ellas
+    contradiría lo que hace, y crear una quinta categoría para él alteraría la arquitectura que la
+    Actividad 3 validó.}
+  \lead{La guía de estilos}{La rúbrica puntúa los prototipos en un apartado y la guía en otro, así
+    que contarla como octavo prototipo mezclaría los dos. Queda fuera del contrato de navegación y
+    fuera del índice numerado.}
+\end{uxlist}
+
+En dirección contraria, dos de las nueve facetas transversales no tienen una subrama que las declare
+como tal: vista previa y calidad de datos. Se resuelven como accesos cruzados desde la pantalla de
+exploración, que es donde los evaluadores las buscaron, y quedan declaradas aquí. La arquitectura de
+la Actividad 3 no se reescribe para que una tabla cuadre; la diferencia se documenta.
+
+% ============================================================================
+\section{Los cuatro estados no felices, pantalla por pantalla}
+
+Una pantalla que solo existe en su estado ideal no es un prototipo de alta fidelidad: es una
+ilustración. Los cuatro estados que esta sección recorre son los que deciden si la interfaz sostiene
+el uso real, y la matriz siguiente los declara para las siete pantallas, sin dejar celdas en blanco.
+
+Cada celda dice en qué situación está, con tres categorías posibles:
+
+\begin{uxlist}
+  \lead{(a) Construida en esta actividad}{El estado existe en el prototipo, se recorre y se
+    captura.}
+  \lead{(b) Construida por otra historia del sprint}{El estado existe en el prototipo y lo entregó
+    otra historia de usuario de esta misma semana. Esta actividad lo documenta y lo captura.}
+  \lead{(c) Especificada, sin código}{El estado está definido con su regla de comportamiento y no
+    está construido. Se declara aquí, con esa regla escrita.}
+\end{uxlist}
+
+\begin{uxtablalarga}{|L{3.6cm}|C{1.9cm}|C{2.4cm}|C{1.7cm}|C{2.0cm}|}{Matriz de estados no felices: siete pantallas por cuatro estados}{\thd{Pantalla} & \thd{Vacío} & \thd{Cargando} & \thd{Error} & \thd{Sin permiso}}
+  Acceso & (c) & (a) & (a) & (c) \\
+  Inicio & (a) & (c) & (c) & (b) \\
+  Exploración y extracción & (b) & (b) & (c) & (b) \\
+  Gobierno del dato & (b) & (b) & (c) & (b) \\
+  Asistente conversacional & (a) & (b) & (b) & (b) \\
+  Administración & (a) & (c) & (c) & (b) \\
+  Exportación & (a) & (c) & (c) & (b) \\
+\end{uxtablalarga}
+
+El recuento de la matriz es de \textbf{28 celdas}, ninguna vacía: \textbf{6} construidas en esta
+actividad, \textbf{12} construidas por otras historias del sprint y \textbf{10} especificadas sin
+código. La planeación de la semana había anticipado un reparto de 7, 11 y 10; la diferencia proviene
+de que aquella cuenta incluía una octava fila para los tableros, que son una zona de la pantalla de
+exploración y no un prototipo. Se publica el recuento sobre las siete pantallas, que es el que la
+matriz sostiene.
+
+\subsection{Cargando sin desplazamiento de maquetación}
+
+La segunda columna tiene una exigencia adicional y conviene enunciarla aparte: el estado de carga
+ocupa la misma caja que el contenido que lo sustituye. Un esqueleto más pequeño que su contenido
+produce un salto en el momento de la llegada, y ese salto es la causa habitual de que alguien pulse
+un control que ya no está donde estaba.
+
+La verificación es por inspección declarada, pantalla por pantalla, y no por una medición
+automatizada de estabilidad visual: el entorno del proyecto no incluye una herramienta que la
+produzca, y presentar una cifra sin instrumento sería peor que declarar el método. En las pantallas
+donde el estado de carga está construido, la caja del esqueleto se define con las mismas alturas de
+fila y el mismo número de columnas que la tabla o la lista que aparece después.
+
+\subsection{Las diez reglas de las celdas especificadas}
+
+Cada celda de la tercera categoría lleva su regla de comportamiento escrita. Sin ella, la celda solo
+declararía una ausencia; con ella, la historia que la construya no tiene que volver a decidir nada.
+
+\begin{uxtablalarga}{|L{3.6cm}|L{2.2cm}|Y|}{Reglas de comportamiento de los diez estados especificados}{\thd{Pantalla} & \thd{Estado} & \thd{Regla}}
+  Acceso & Vacío & No aplica contenido vacío: el formulario en reposo es su propio estado inicial, con los dos campos habilitados y el control de entrada disponible \\
+  Acceso & Sin permiso & No aplica: la pantalla es la puerta y no exige permiso. Una sesión vigente que llega aquí se redirige a su pantalla inicial en lugar de recibir un rechazo \\
+  Inicio & Cargando & Cada uno de los cinco bloques carga por separado, con un esqueleto de la altura de sus filas. La pantalla no espera al bloque más lento para pintar los demás \\
+  Inicio & Error & El bloque que falla muestra su propio aviso y conserva los otros cuatro. Un fallo del buscador no vacía las alertas \\
+  Exploración y extracción & Error & El error de búsqueda conserva el término escrito y ofrece reintentar. Vaciar el campo obligaría a teclear de nuevo lo que no falló \\
+  Gobierno del dato & Error & El campo cuyo linaje no se puede resolver se marca en su fila, sin ocultar el resto del diccionario \\
+  Administración & Cargando & La tabla de personas usuarias carga con filas de esqueleto del mismo alto que las definitivas \\
+  Administración & Error & El error de la tabla conserva los filtros aplicados y ofrece reintentar \\
+  Exportación & Cargando & El historial carga con tarjetas de esqueleto; el trabajo en curso conserva su propia barra de progreso, que no es un estado de carga sino contenido \\
+  Exportación & Error & Un trabajo fallido conserva su tarjeta con el motivo del fallo y la hora, en lugar de desaparecer del historial \\
+\end{uxtablalarga}
+
+\subsection{El estado sin permiso, construido una sola vez}
+
+La cuarta columna se resuelve con un único componente que se dibuja donde habría estado la pantalla,
+sin cambiar la dirección: así el enlace sigue siendo compartible y el botón de retroceso se comporta
+como se espera. La barra lateral y la franja de alcance permanecen alrededor, que es lo que le da a
+quien lo encuentra una salida que no consiste en insistir.
+
+Ese componente no ofrece un control de reintento, y la ausencia es deliberada: reintentar un rechazo
+no cambia el rol de nadie, y ofrecer el botón enseña a insistir contra una puerta que no va a
+abrirse. El único elemento accionable es un enlace a la pantalla que esa sesión sí puede abrir.

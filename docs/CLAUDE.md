@@ -6,7 +6,9 @@
 
 **Tres de cinco actividades entregadas y calificadas.** A1 (26-jul, 15/15, con la observación de maquetación ya corregida), A2 (2-ago) y A3 (9-ago). El PDF subido a Canvas está en `semana_1/`, `semana_2/` y `semana_3/` como `Entregable Actividad N_equipo_8.pdf`; su fuente vive en `entregables/contenido/a1_*.tex`, `a2_*.tex` y `a3_*.tex`. Material cerrado.
 
-**A4 en curso, entrega el 16-ago.** `entregables/main_a4.tex` declara los ocho `\input` en su orden final, envueltos en `\IfFileExists` para compilar a media semana; hoy solo existen `contenido/a4_03_guia_estilos.tex` y `contenido/a4_06_cierre.tex`. `semana_4/` aún no tiene PDF de entrega, solo `plan_excelencia.md` y figuras generadas.
+**A4 en curso, entrega el 16-ago.** `entregables/main_a4.tex` declara los ocho `\input` en su orden final, envueltos en `\IfFileExists` para compilar a media semana, y **los ocho existen** desde US-UX-07 (14-ago-2026): `a4_03_guia_estilos.tex` y `a4_06_cierre.tex` son de US-UX-09, los otros seis de US-UX-07. `semana_4/` **ya tiene su PDF de entrega** con el nombre que exige la actividad, junto a `plan_excelencia.md` y las figuras generadas. `main_completo.tex` incorpora la parte IV y carga `estilo/a4_tokens` en el preámbulo, porque reutiliza `a4_03` y sin esa línea faltan ocho secuencias de control.
+
+**Las capturas del prototipo son un artefacto nuevo** (US-UX-07). `entregables/capturas/` trae el protocolo escrito, `guion_a4.md`, y su ejecutable `capturas_a4.mjs`, que deriva el plan de captura de `PROTOTIPOS` parseando `frontend/app/utils/navegacion.ts` como texto. Salida en `figuras/a4/{antes,despues}/`, pareadas por nombre de archivo. Dos pruebas del frontend, `rutaRama.spec.ts` y `alcancePrototipos.spec.ts`, **leen `.tex` de `contenido/`** y los comparan contra el contrato de navegación: un `.tex` de esta carpeta puede poner la suite del frontend en rojo.
 
 **A5 (23-ago) no ha empezado**: no hay `semana_5/` ni `main_a5.tex`. **`us-resolved/` y `us-research/` no existen.** Las fases 1 y 2 del flujo prometen escribir ahí y nunca se produjo ninguno: lo que se investiga y se decide de una US vive en `us-handoff/` y `us-planning/`. No los busques.
 
@@ -46,6 +48,7 @@ De los 281 archivos, 175 están versionados; el resto son auxiliares de LaTeX, f
 - `estilo/uxdoc.sty` — congelada.
 - `estilo/a4_tokens.tex` y `datos/a4_tokens.json` — los genera `make tokens`; `make verificar` los rediff.
 - `figuras/*.png` — salen de `figuras/generar_figuras.py`, `generar_figuras_a2.py` y `generar_figuras_a3.py`: edita el script, no el PNG.
+- `figuras/a4/{antes,despues}/*.png` — **capturas, no diagramas**: las produce `capturas/capturas_a4.mjs` contra el portal vivo, y el protocolo que las hace reproducibles es `capturas/guion_a4.md`. Recapturar, jamás retocar. `antes/` es **irrecuperable**: documenta el estado previo a la iteración del CA-6 y no puede volver a tomarse.
 - `semana_4/figuras/` — generadas, ignoradas por git.
 - Auxiliares LaTeX (`.aux`, `.log`, `.fls`, `.fdb_latexmk`, `.toc`, `.out`, `.xdv`) y `main_a*.pdf` — ignorados, se regeneran.
 - `general/` y `papers/*.pdf` — material de terceros fuera del repositorio.

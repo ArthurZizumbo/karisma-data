@@ -693,3 +693,77 @@ dos `CONSTRAINT` y el tercer `INSERT INTO public.schema_migrations`.
 > contradicción con la propia tabla de archivos de este plan.
 - [ ] Commits Conventional con scope `feat(E3): ...`, **sin trailer `Co-Authored-By`**.
 - [ ] `docs/us-handoff/us-009-exportacion.md` actualizado de `planning` a `en curso` al abrir implementación.
+
+---
+
+## 12. P-2 — Contraste contra los `SKILL.md` (ejecutado el 13-ago-2026, tras implementar)
+
+Se leyeron los cinco `SKILL.md` que P-2 nombra y se contrastaron **contra lo entregado**, no contra
+lo planeado. Se listan solo las divergencias: lo que coincide no se anota. Cada una dice si es
+**override deliberado** (la implementación es mejor y se sostiene), **deuda con dueño** (hay que
+cerrarla, y quién) o **divergencia de la skill** (la skill está desactualizada respecto del
+repositorio).
+
+### 12.1 `portal-export-jobs`
+
+| # | Lo que impone la skill | Lo entregado | Veredicto |
+|---|---|---|---|
+| 1 | Estados `queued / running / done / failed` | `pendiente / en_proceso / completado / fallido` | **Override deliberado.** `app_user.role` ya usa vocabulario castellano dentro de un `CHECK`, y el `CHECK` de `export_job` es del mismo tipo. Mezclar los dos idiomas en la misma clase de restricción era peor que apartarse de la skill |
+| 2 | Trabajo ajeno → **403** | **404** | **Override deliberado y más seguro.** Un 403 confirma que el `job_id` existe y lo convierte en oráculo de enumeración. `portal-backend-api` repite el mismo criterio («dueño del job») y también queda superado |
+| 3 | «La consulta a exportar pasa por la capa semántica (`SemanticQuery`); jamás filtros libres» | `filtros` es un mapa cerrado `{columna: valor \| [valores]}` validado por Pydantic y compilado a `pl.col(columna).is_in([...])`; una columna desconocida termina el trabajo `fallido` con `columna_desconocida` | **Deuda con dueño: US-011.** No es incumplimiento por descuido: `ml/semantic/compiler.py` **no existe** y `POST /api/metrics/aggregate` sigue `planificado`. Lo entregado **no ejecuta código libre**, que es el peligro que la regla protege, pero tampoco es la capa semántica. **El día que US-011 aterrice, `filtros` debe migrar a `SemanticQuery`.** Es el hallazgo de más peso de P-2 |
+| 4 | Ruta en GCS `exports/{user}/{job_id}.{ext}` | `exports/{job_id}.{formato}` — **falta el segmento del usuario** | **Deuda con dueño: quien cree el bucket.** Consecuencia concreta: sin ese segmento no se puede escribir una regla IAM por prefijo de usuario. Hoy no duele porque `AlmacenGCS` no se ejecuta; corregirlo antes del primer despliegue con `EXPORT_STORAGE_BACKEND=gcs` cuesta una línea |
+| 5 | Auditoría con `duration_s` | `started_at` + `finished_at` | **Override deliberado.** La duración se deriva de los dos instantes sin perder información, y los instantes responden además «cuándo empezó», que un escalar no responde |
+| 6 | Prueba de no bloqueo con `GET /api/catalog/search` < 500 ms | La misma prueba con `GET /health` | **Divergencia con motivo, y sonda más débil.** La suite corre **sin PostgreSQL** y `catalog/search` exige base; `/health` es lo más fuerte que se puede afirmar sin ella, y es la sonda que fija el gate de `backend/AGENTS.md`. **Anotado**: cuando exista entorno de integración, añadir la sonda de catálogo, que sí atraviesa la base |
+| 7 | Lifecycle de 7 días del bucket (Terraform) | No existe | **Fuera de alcance declarado** (recorte #3 de S4), no un olvido |
+
+### 12.2 `portal-backend-api`
+
+- Su tabla canónica reserva **dos** rutas de export (`POST /api/export` y `GET /api/export/{job_id}`)
+  y esta US montó **cuatro**: el historial (`GET /api/export`) y la descarga
+  (`GET /api/export/{job_id}/download`) no están en la skill y sí en los criterios CA-5 y CA-6.
+  **La skill está desactualizada**; el registro de permisos ya refleja las cuatro.
+- Todo lo demás se cumple: `Security(...)` en los cuatro verbos, `response_model` Pydantic en los
+  cuatro, router→service→model sin lógica de negocio en el router, `structlog` sin `print`, y el
+  **422 con sugerencia difusa del catálogo** que la skill exige, resuelto con
+  `difflib.get_close_matches` y umbral `0.6`.
+- «Silo caído → 503 parcial tipificado»: se cumple en sus dos formas — `503 trabajos_no_disponibles`
+  cuando el registro no responde, y `origen_ausente` como estado del trabajo cuando el Parquet falta.
+
+### 12.3 `portal-db-migrations`
+
+Sin divergencias de fondo: `make db-new`, secciones `up`/`down`, `schema.sql` versionado tras
+`db-up`, `TIMESTAMPTZ DEFAULT now()`, FK con `ON DELETE` explícito. Una divergencia de forma: su
+tabla de «migraciones canónicas» sitúa `create_export_job` en tercer lugar y en el repositorio es la
+**quinta**. El orden real lo fija el calendario de sprints, no la skill.
+
+### 12.4 `portal-db-models`
+
+| # | Lo que impone la skill | Lo entregado | Veredicto |
+|---|---|---|---|
+| 1 | Patrón de tres clases `XBase → X(table=True) → XOut/XCreate/XUpdate` | `ExportJob` es tabla directa; los contratos son `SolicitudExportacion`, `TrabajoResumen` y `TrabajoDetalle` | **Override deliberado.** No hay campos compartidos que un `ExportJobBase` pudiera factorizar: el contrato **renombra casi todo** (`row_count`→`filas`, `byte_size`→`tamano_bytes`, `created_at`→`solicitado_en`) y **omite `object_key` a propósito**. Una clase base con cero campos comunes es andamiaje, y el proyecto prohíbe el andamiaje |
+| 2 | `export_job` añade `size_bytes` y `duration_s` | `byte_size` y los dos instantes | **Divergencia de nombre** en el primero (la columna sigue el orden sustantivo del resto de la tabla) y override en el segundo, por el motivo de 12.1 §5 |
+
+Se cumple lo esencial: los modelos **reflejan** lo que creó dbmate y no lo generan, nunca se llama a
+`SQLModel.metadata.create_all()`, hay campo de auditoría `created_at`, y los docstrings son
+Google-style en inglés.
+
+### 12.5 `portal-testing`
+
+- **Cumplido**: cobertura backend **98,18 %** sobre el denominador combinado (umbral 70 %) y frontend
+  **88,44 %** de líneas (umbral 50 %); matriz de permisos parametrizada por los cuatro roles con 401
+  sin token y 403 sin permiso; ninguna llamada real a Gemini.
+- **Divergencia de la skill**: su matriz de ejemplo escribe `("/api/export", "analista", 202)`, pero
+  `202` es del `POST`; el `GET /api/export` del historial responde **200**. La skill mezcla verbos en
+  una fila sin verbo.
+- **Deuda con dueño: US-004.** La skill exige **smoke tests post-deploy en el pipeline** (login,
+  catálogo, consulta semántica, chat con tool call, export). `.github/` no existe todavía, así que
+  esta US no puede cerrarlo; el paso de export de ese smoke queda especificado aquí: solicitar,
+  sondear hasta terminal, descargar y comprobar `Content-Disposition`.
+
+### 12.6 Lo que este contraste cambia
+
+Nada del código entregado: ninguna divergencia resultó ser un defecto. Deja **tres obligaciones con
+dueño escrito** —el `SemanticQuery` de US-011, el segmento de usuario en la clave de GCS antes del
+primer despliegue, y el smoke post-deploy de US-004— y **tres skills desactualizadas respecto del
+repositorio** (`portal-export-jobs` en estados y en el 403, `portal-backend-api` en el número de
+rutas de export, `portal-testing` en la fila sin verbo de su matriz).

@@ -7,7 +7,9 @@ The chain runs one way and starts here:
         -> frontend/app/utils/tokens.generated.ts  (typed palette for /guia)
 
 ``docs/entregables/estilo/uxdoc.sty`` is not in this chain and is never read or
-written: it styles the course report and is frozen.
+written: it styles the course report and is frozen. Its own emitter,
+``docs/entregables/generar_tokens_a4.py``, owns everything under
+``docs/entregables/`` and nothing else. One file, one emitter, both ways round.
 
 Nothing here holds a colour literal. Every hex comes from ``design.sistema``, so
 the rule that no colour is written by hand is a test and not a convention.
@@ -370,6 +372,23 @@ def _salidas() -> tuple[tuple[Path, str], ...]:
     return ((CSS, emitir_css()), (TS, emitir_ts()))
 
 
+def _bajo(ruta: Path, destino: Path | None) -> Path:
+    """Return where ``ruta`` is read or written on this run.
+
+    Args:
+        ruta: Canonical output path, always inside the repository.
+        destino: Root that replaces the repository, or ``None`` to work in
+            place. The relative path is kept, so a mirrored tree can be
+            compared directory against directory.
+
+    Returns:
+        The path this run works on.
+    """
+    if destino is None:
+        return ruta
+    return destino / ruta.relative_to(RAIZ)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Write every output, or check them when ``--verificar`` is passed."""
     parser = argparse.ArgumentParser(
@@ -380,18 +399,29 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="store_true",
         help="No escribe: devuelve 1 si alguna salida difiere de lo que hay en disco.",
     )
+    parser.add_argument(
+        "--destino",
+        type=Path,
+        default=None,
+        metavar="DIR",
+        help=(
+            "Escribe -o compara- bajo DIR conservando la ruta relativa, en vez "
+            "de sobre el arbol de trabajo."
+        ),
+    )
     args = parser.parse_args(argv)
 
     difiere = False
     for ruta, contenido in _salidas():
+        destino = _bajo(ruta, args.destino)
         if args.verificar:
-            actual = ruta.read_text(encoding="utf-8") if ruta.exists() else ""
+            actual = destino.read_text(encoding="utf-8") if destino.exists() else ""
             if actual != contenido:
                 print(f"difiere: {ruta.relative_to(RAIZ)}", file=sys.stderr)
                 difiere = True
         else:
-            ruta.parent.mkdir(parents=True, exist_ok=True)
-            ruta.write_text(contenido, encoding="utf-8")
+            destino.parent.mkdir(parents=True, exist_ok=True)
+            destino.write_text(contenido, encoding="utf-8")
             print(f"escrito: {ruta.relative_to(RAIZ)}")
 
     if args.verificar and not difiere:

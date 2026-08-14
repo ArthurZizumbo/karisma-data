@@ -134,16 +134,38 @@ verificar: ## Comprueba pines, secretos, reproducibilidad, tokens, permisos, dat
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
-#  Tokens de diseno - la guia de estilos de A4 y la aplicacion salen del mismo
-#  archivo. La cadena va en un solo sentido:
-#      docs/entregables/estilo/uxdoc.sty  ->  generar_tokens_a4.py  ->
-#      main.css + tokens.generated.ts + a4_tokens.tex + a4_tokens.json
-#  Las cuatro salidas son generadas: editarlas a mano hace divergir el
-#  prototipo del PDF del curso y "make verificar" lo detecta.
+#  Tokens de diseno - son DOS cadenas con DOS emisores, y por eso hay dos
+#  comandos. No se pueden fundir en uno: cada cadena tiene su fuente, su paleta
+#  y su version, y ninguna deriva de la otra.
+#
+#    1) El portal, para la pantalla:
+#       design/sistema.py  ->  design/emitir.py  ->
+#           frontend/app/assets/css/main.css        (@theme y los dos modos)
+#           frontend/app/utils/tokens.generated.ts  (paleta tipada de /guia)
+#
+#    2) El informe del curso, para el papel:
+#       docs/entregables/estilo/uxdoc.sty  ->  generar_tokens_a4.py  ->
+#           docs/entregables/estilo/a4_tokens.tex   (laminas de la guia)
+#           docs/entregables/datos/a4_tokens.json   (manifiesto)
+#
+#  El orden es el de la cadena de A4 leida de principio a fin: primero se emite
+#  la interfaz, despues se captura y la captura entra en el PDF. Los dos
+#  conjuntos de salidas son disjuntos -uno solo escribe bajo frontend/, el otro
+#  solo bajo docs/entregables/-, asi que el orden no cambia el resultado.
+#
+#  Hasta el 14-ago-2026 este objetivo corria solo el segundo emisor, que ademas
+#  escribia main.css y tokens.generated.ts: cada "make tokens" sustituia el
+#  sistema de diseno del portal por la paleta de impresion del informe, que es
+#  lo que la regla NON-NEGOTIABLE de AGENTS.md prohibe. Hoy cada archivo tiene
+#  un solo emisor y "make tokens" sobre un arbol limpio lo deja limpio.
+#
+#  Las cuatro salidas son generadas: editarlas a mano se pierde en la siguiente
+#  corrida y "make verificar" lo detecta sin escribir nada.
 # ---------------------------------------------------------------------------
 
-tokens: ## Regenera los tokens de diseno (@theme, paleta tipada, laminas y manifiesto)
+tokens: ## Regenera los tokens del portal y las laminas de la guia de estilos de A4
 	@bash scripts/comprobar_requisitos.sh herramienta poetry
+	poetry -P backend run python -m design.emitir
 	poetry -P backend run python docs/entregables/generar_tokens_a4.py
 
 # ---------------------------------------------------------------------------

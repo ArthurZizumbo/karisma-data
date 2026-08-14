@@ -65,7 +65,7 @@ pnpm exclusivo; versión fijada en `packageManager`, Node 22 (`.nvmrc`).
 
 ## No tocar
 
-- `app/assets/css/main.css` y `app/utils/tokens.generated.ts` — generados; `make tokens` los rehace, y `scripts/verificar_tokens_a4.sh` detecta la edición manual regenerando y comparando byte a byte contra el disco.
+- `app/assets/css/main.css` y `app/utils/tokens.generated.ts` — generados por `design/emitir.py` a partir de `design/sistema.py`, y solo por él. `make tokens` corre los dos emisores del repositorio, cada uno sobre sus propios archivos: el del informe, `docs/entregables/generar_tokens_a4.py`, ya no escribe aquí. `scripts/verificar_tokens_a4.sh` no regenera nada: compara lo que hay en disco contra lo que el emisor produce hoy, así que una edición a mano aparece como divergencia y el guion no la pisa.
 - `app/utils/permisos.generated.ts` — proyección de los scopes del backend; `make permisos-ui`. Tras regenerar, `git add` antes de `make check`: el guion compara con `git diff`, y sin indexar una regeneración legítima se ve igual que una edición a mano.
 - `pnpm-lock.yaml` — cambia solo vía `pnpm add` / `pnpm install`.
 - `.nuxt/`, `.output/`, `node_modules/`, `coverage/` — generados; jamás commitear.

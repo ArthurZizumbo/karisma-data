@@ -1,22 +1,29 @@
-"""Emit the Karisma Data design tokens from the single source of truth.
+"""Emit the style guide of the course report from its single source of truth.
 
 Reads every colour declaration of ``docs/entregables/estilo/uxdoc.sty`` and
-emits the Tailwind ``@theme`` block, the typed palette consumed by the ``/guia``
-route, the LaTeX plates of the style guide and a machine readable manifest.
+emits the LaTeX plates of the guide plus a machine readable manifest::
+
+    uxdoc.sty
+        -> docs/entregables/estilo/a4_tokens.tex   (plates of the guide)
+        -> docs/entregables/datos/a4_tokens.json   (manifest)
+
+Nothing under ``frontend/`` belongs here. The portal declares its own system in
+``design/sistema.py`` and publishes it through ``design/emitir.py``; deriving
+the screen from a palette measured for ink is forbidden by ADR-002. Until the
+14th of August 2026 this module also wrote ``main.css`` and
+``tokens.generated.ts``, so every ``make tokens`` swapped the design system of
+the portal for the palette of the report.
 
 This module holds no colour literal: every value comes from the stylesheet, so
 "no colour written by hand" is a check and not a convention. The regular
 expressions below parse the TeX declarations, which carry no leading hash mark
 either.
 
-The chain runs one way only::
-
-    uxdoc.sty -> @theme -> interfaz -> capturas -> PDF
-
 Usage::
 
-    make tokens                                   # write the four outputs
+    make tokens                                   # write both outputs
     python generar_tokens_a4.py --verificar       # walk without writing
+    python generar_tokens_a4.py --destino DIR     # mirror the tree under DIR
 """
 
 from __future__ import annotations
@@ -44,8 +51,6 @@ ALMOHADILLA: Final[str] = "#"
 
 RAIZ: Final[Path] = Path(__file__).resolve().parents[2]
 RUTA_FUENTE: Final[Path] = RAIZ / "docs" / "entregables" / "estilo" / "uxdoc.sty"
-RUTA_CSS: Final[Path] = RAIZ / "frontend" / "app" / "assets" / "css" / "main.css"
-RUTA_TS: Final[Path] = RAIZ / "frontend" / "app" / "utils" / "tokens.generated.ts"
 RUTA_TEX: Final[Path] = RAIZ / "docs" / "entregables" / "estilo" / "a4_tokens.tex"
 RUTA_JSON: Final[Path] = RAIZ / "docs" / "entregables" / "datos" / "a4_tokens.json"
 
@@ -817,21 +822,28 @@ def _cabecera(marca: str) -> list[str]:
 
 
 def emitir_theme_css(sistema: Sistema) -> str:
-    """Emit the Tailwind v4 ``@theme`` block consumed by the Nuxt application.
+    """Render the palette of the report as a Tailwind v4 ``@theme`` block.
+
+    Nothing writes this anywhere. ``frontend/app/assets/css/main.css`` belongs
+    to ``design/emitir.py``, and pointing this text back at it is the defect
+    that ``docs/us-backlog/11-make-tokens-destruye-los-tokens-del-portal.md``
+    describes. It stays because the contract tests read it to check that every
+    alias of US-001 takes its value from its step of the scale.
 
     Args:
         sistema: The design system.
 
     Returns:
-        Full content of ``frontend/app/assets/css/main.css``.
+        The palette of the report written as a ``@theme`` block.
     """
     lineas: list[str] = [
-        "/* app/assets/css/main.css - generado, no editar a mano */",
+        "/* Paleta del informe en forma de @theme - generado, no editar a mano */",
         "/*",
         *_cabecera(" *"),
         " *",
-        " * La derivacion va en un solo sentido: uxdoc.sty -> @theme -> interfaz",
-        " * -> capturas -> PDF. Nada fluye hacia atras.",
+        " * Esta hoja NO es la del portal: main.css sale de design/sistema.py y",
+        " * lo publica design/emitir.py. Aqui la derivacion va en un solo",
+        " * sentido, uxdoc.sty -> laminas -> PDF, y nada fluye hacia atras.",
         " */",
         '@import "tailwindcss";',
         "",
@@ -970,13 +982,17 @@ def _par_ts(par: ParContraste, sangria: str) -> list[str]:
 
 
 def emitir_tokens_ts(sistema: Sistema) -> str:
-    """Emit the typed palette consumed by the ``/guia`` route.
+    """Render the palette of the report as a typed TypeScript module.
+
+    Nothing writes this anywhere either: ``frontend/app/utils/tokens.generated.ts``
+    belongs to ``design/emitir.py``. It stays because the contract tests read it
+    to check that the version is the same in every rendering of the guide.
 
     Args:
         sistema: The design system.
 
     Returns:
-        Full content of ``frontend/app/utils/tokens.generated.ts``.
+        The palette of the report written as a typed module.
     """
     lineas: list[str] = [
         "/**",
@@ -1473,13 +1489,33 @@ def emitir_manifiesto_json(sistema: Sistema) -> str:
 
 
 def _salidas(sistema: Sistema) -> tuple[tuple[Path, str], ...]:
-    """Pair every output path with the content the system produces for it."""
+    """Pair every output path with the content the system produces for it.
+
+    Both outputs live under ``docs/entregables/``. This module owns those two
+    files and no others: the ones under ``frontend/`` have a single emitter,
+    ``design/emitir.py``.
+    """
     return (
-        (RUTA_CSS, emitir_theme_css(sistema)),
-        (RUTA_TS, emitir_tokens_ts(sistema)),
         (RUTA_TEX, emitir_laminas_tex(sistema)),
         (RUTA_JSON, emitir_manifiesto_json(sistema)),
     )
+
+
+def _bajo(ruta: Path, destino: Path | None) -> Path:
+    """Return where ``ruta`` is read or written on this run.
+
+    Args:
+        ruta: Canonical output path, always inside the repository.
+        destino: Root that replaces the repository, or ``None`` to work in
+            place. The relative path is kept, so a mirrored tree can be
+            compared directory against directory.
+
+    Returns:
+        The path this run works on.
+    """
+    if destino is None:
+        return ruta
+    return destino / ruta.relative_to(RAIZ)
 
 
 def _coincide(ruta: Path, contenido: str) -> bool:
@@ -1515,14 +1551,24 @@ def main(argv: Sequence[str] | None = None) -> int:
     """
     analizador = argparse.ArgumentParser(
         description=(
-            "Emite los tokens de diseno de Karisma Data desde uxdoc.sty: "
-            "@theme de Tailwind, paleta tipada, laminas LaTeX y manifiesto."
+            "Emite la guia de estilos del informe desde uxdoc.sty: laminas "
+            "LaTeX y manifiesto. Los tokens del portal salen de design/emitir.py."
         )
     )
     analizador.add_argument(
         "--verificar",
         action="store_true",
         help="recorre todo sin escribir y devuelve 1 si alguna salida difiere",
+    )
+    analizador.add_argument(
+        "--destino",
+        type=Path,
+        default=None,
+        metavar="DIR",
+        help=(
+            "escribe -o compara- bajo DIR conservando la ruta relativa, en vez "
+            "de sobre el arbol de trabajo"
+        ),
     )
     argumentos = analizador.parse_args(argv)
 
@@ -1532,7 +1578,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if argumentos.verificar:
         divergentes = [
-            ruta for ruta, contenido in salidas if not _coincide(ruta, contenido)
+            ruta
+            for ruta, contenido in salidas
+            if not _coincide(_bajo(ruta, argumentos.destino), contenido)
         ]
         for ruta in divergentes:
             LOG.error(
@@ -1551,8 +1599,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     for ruta, contenido in salidas:
-        ruta.parent.mkdir(parents=True, exist_ok=True)
-        ruta.write_bytes(contenido.encode("utf-8"))
+        escrita = _bajo(ruta, argumentos.destino)
+        escrita.parent.mkdir(parents=True, exist_ok=True)
+        escrita.write_bytes(contenido.encode("utf-8"))
         LOG.info("salida emitida", archivo=str(ruta.relative_to(RAIZ)))
     LOG.info(
         "tokens emitidos",

@@ -1,0 +1,248 @@
+/*
+ * Karisma Data - sistema de diseno del portal v2.0 - 2026-08-16
+ *
+ * GENERADO. No editar a mano: la siguiente corrida lo sobrescribe.
+ *
+ * Fuente:    design/sistema.py
+ * Emisor:    design/emitir.py
+ * Regenerar: make tokens
+ *
+ * El estilo del INFORME vive en docs/entregables/estilo/uxdoc.sty y es otro
+ * sistema: esta cadena no lo lee ni lo escribe.
+*/
+@import "tailwindcss";
+
+@theme {
+  /* Suelo y reticula */
+  --color-ground: #F4F6F9;
+  --color-ground-alt: #EAEEF4;
+  --color-grid: #DCE2EB;  /* no informa */
+
+  /* Corriente - el estado se lee por luminancia */
+  --color-corriente-apagado: #A8B2C1;  /* no informa */
+  --color-corriente-tenue: #5F6A7D;
+  --color-corriente-medio: #414B5B;
+  --color-corriente-pleno: #14171D;
+
+  /* Semanticos - color mas forma mas icono, nunca color solo */
+  --color-error: #8C1D18;
+  --color-aviso: #9A6200;
+  --color-ok: #1F6F43;
+  --color-info: #6D28D9;
+
+  /* Series categoricas - cada una con su marcador y su patron */
+  --color-serie-1: #1D4ED8;
+  --color-serie-2: #B45309;
+  --color-serie-3: #1F6F43;
+  --color-serie-4: #6D28D9;
+  --color-serie-5: #0E7490;
+  --color-serie-6: #9D174D;
+
+
+  /* Tipografia - el peso es un canal de jerarquia, no decoracion */
+  --font-display: "Lexend Deca", system-ui, sans-serif;
+  --font-sans: "Fira Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Cifra unica que domina una pantalla. */
+  --text-display: 40px;
+  --text-display--line-height: 44px;
+  --text-display--font-weight: 600;
+  --text-display--letter-spacing: -0.02em;
+  /* Titulo de pantalla, uno por vista. */
+  --text-titulo-1: 28px;
+  --text-titulo-1--line-height: 34px;
+  --text-titulo-1--font-weight: 600;
+  --text-titulo-1--letter-spacing: -0.015em;
+  /* Titulo de panel y de lamina. */
+  --text-titulo-2: 20px;
+  --text-titulo-2--line-height: 26px;
+  --text-titulo-2--font-weight: 600;
+  --text-titulo-2--letter-spacing: -0.01em;
+  /* Encabezado de grupo y de columna. */
+  --text-titulo-3: 15px;
+  --text-titulo-3--line-height: 20px;
+  --text-titulo-3--font-weight: 600;
+  /* Texto por omision de la interfaz densa. */
+  --text-cuerpo: 14px;
+  --text-cuerpo--line-height: 21px;
+  --text-cuerpo--font-weight: 400;
+  /* Parrafo largo: ayuda y respuesta del asistente. */
+  --text-cuerpo-amplio: 16px;
+  --text-cuerpo-amplio--line-height: 26px;
+  --text-cuerpo-amplio--font-weight: 400;
+  /* Etiqueta de campo y encabezado de tabla. */
+  --text-etiqueta: 12px;
+  --text-etiqueta--line-height: 16px;
+  --text-etiqueta--font-weight: 500;
+  --text-etiqueta--letter-spacing: 0.03em;
+  /* Cifra de tabla y de tarjeta, con cifras tabulares. */
+  --text-dato: 16px;
+  --text-dato--line-height: 22px;
+  --text-dato--font-weight: 500;
+  /* Nota al pie y leyenda de grafica. */
+  --text-micro: 11px;
+  --text-micro--line-height: 15px;
+  --text-micro--font-weight: 500;
+  --text-micro--letter-spacing: 0.02em;
+
+  --spacing: 4px;
+
+  --radius-sm: 2px;  /* Chip, insignia y celda. */
+  --radius-md: 4px;  /* Boton, campo y nodo del diagrama. */
+  --radius-lg: 6px;  /* Panel y dialogo. */
+  --radius-full: 999px;  /* Punto de estado y boton circular de icono. */
+
+  --shadow-menu: 0 4px 12px -2px rgb(10 10 12 / 0.12);  /* Menu abierto y sugerencia flotante. */
+  --shadow-dialogo: 0 16px 40px -12px rgb(10 10 12 / 0.22);  /* Dialogo y panel lateral. */
+
+  --breakpoint-sm: 768px;  /* La barra lateral se colapsa a una franja de iconos. IMPLEMENTADO, no declarado. */
+  --breakpoint-md: 1024px;  /* Vuelve la barra lateral con etiqueta. */
+  --breakpoint-lg: 1280px;  /* Aparece la segunda columna del tablero. */
+  --breakpoint-xl: 1440px;  /* Ancho de captura de las figuras del informe. */
+
+  --sidebar-width: 232px;  /* Ancho de la barra lateral desplegada. */
+  --sidebar-collapsed: 56px;  /* Ancho de la franja de iconos por debajo de 768 px. */
+  --header-height: 52px;  /* Alto de la cabecera fija. */
+  --grid-gap: 16px;  /* Canal entre columnas de la reticula de 12. */
+  --panel-padding: 24px;  /* Relleno interno de panel. El sistema anterior usaba 12 sobre 1137 de ancho. */
+  --table-row-height: 34px;  /* Alto de fila de tabla densa. */
+  --medida-maxima: 68ch;  /* Caracteres por linea maximos en prosa. Lo medido antes llegaba a 179. */
+}
+
+/* Modo oscuro. Por omision manda el sistema operativo; el lector puede
+   forzarlo con data-theme, y por eso la consulta se excluye a si misma
+   cuando ya hay una eleccion explicita de modo claro. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="claro"]) {
+    /* Suelo y reticula */
+    --color-ground: #0A0A0C;
+    --color-ground-alt: #131519;
+    --color-grid: #1C2028;  /* no informa */
+
+    /* Corriente - el estado se lee por luminancia */
+    --color-corriente-apagado: #4A5361;  /* no informa */
+    --color-corriente-tenue: #7A8698;
+    --color-corriente-medio: #B4C2D4;
+    --color-corriente-pleno: #E8F4FF;
+
+    /* Semanticos - color mas forma mas icono, nunca color solo */
+    --color-error: #FF5A36;
+    --color-aviso: #FFC233;
+    --color-ok: #4ADE80;
+    --color-info: #C4B5FD;
+
+    /* Series categoricas - cada una con su marcador y su patron */
+    --color-serie-1: #7DD3FC;
+    --color-serie-2: #FFC233;
+    --color-serie-3: #4ADE80;
+    --color-serie-4: #C4B5FD;
+    --color-serie-5: #67E8F9;
+    --color-serie-6: #F9A8D4;
+
+    --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+    --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
+  }
+}
+
+:root[data-theme="oscuro"] {
+    /* Suelo y reticula */
+    --color-ground: #0A0A0C;
+    --color-ground-alt: #131519;
+    --color-grid: #1C2028;  /* no informa */
+
+    /* Corriente - el estado se lee por luminancia */
+    --color-corriente-apagado: #4A5361;  /* no informa */
+    --color-corriente-tenue: #7A8698;
+    --color-corriente-medio: #B4C2D4;
+    --color-corriente-pleno: #E8F4FF;
+
+    /* Semanticos - color mas forma mas icono, nunca color solo */
+    --color-error: #FF5A36;
+    --color-aviso: #FFC233;
+    --color-ok: #4ADE80;
+    --color-info: #C4B5FD;
+
+    /* Series categoricas - cada una con su marcador y su patron */
+    --color-serie-1: #7DD3FC;
+    --color-serie-2: #FFC233;
+    --color-serie-3: #4ADE80;
+    --color-serie-4: #C4B5FD;
+    --color-serie-5: #67E8F9;
+    --color-serie-6: #F9A8D4;
+
+    --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+    --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
+}
+
+/*
+ * Desplazamiento al saltar a un ancla.
+ *
+ * La navegacion de laminas es pegajosa, asi que sin este margen el
+ * encabezado de destino quedaria justo debajo de ella y el lector
+ * aterrizaria en el parrafo, no en el titulo.
+ */
+[id^='lamina-'] {
+  scroll-margin-top: calc(var(--header-height) + var(--spacing) * 12);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*
+ * Medida de linea.
+ *
+ * El token --medida-maxima existia y 15 de 26 parrafos largos lo
+ * excedian, el peor a 205 caracteres: declarado y no aplicado, que es el
+ * mismo defecto que el punto de quiebre que nunca colapso. La regla vive
+ * en el sistema para que el siguiente parrafo no vuelva a escaparse.
+ *
+ * Se excluye lo que no es prosa: una celda de tabla, una etiqueta y un
+ * bloque de codigo se leen de un vistazo y limitarlos los romperia.
+ */
+p:not([class*='max-w']):not(td p):not(th p),
+li:not([class*='max-w']):not(nav li):not(ul[class*='grid'] li) {
+  max-width: var(--medida-maxima);
+}
+
+/*
+ * Objetivo tactil minimo en dispositivos de puntero grueso.
+ *
+ * Medido a 375 px sobre /guia: 58 controles por debajo de 44 px, todos
+ * por ALTURA y ninguno por ancho. Arreglarlo control a control habria
+ * dejado el siguiente fuera, asi que la regla vive en el sistema.
+ *
+ * La condicion es pointer: coarse y no un punto de quiebre de ancho: la
+ * regla trata de dedos, no de pantallas estrechas, y un raton a 375 px
+ * no necesita 44 px de alto.
+ */
+@media (pointer: coarse) {
+  button,
+  summary,
+  input,
+  select,
+  textarea,
+  [role="button"],
+  a:not(.prosa a) {
+    min-height: 44px;
+  }
+
+  /* Un enlace dentro de un parrafo sigue el flujo del texto. */
+  p a,
+  .sr-only {
+    min-height: revert;
+  }
+}
+
+/* Reglas que el sistema declara y que la interfaz debe cumplir:
+   - El estado se lee por luminancia. El color lo refuerza y nunca lo sustituye.
+   - No hay verde en la rampa de corriente: rojo contra verde separa dE=20.0 bajo protanopia, justo en el umbral.
+   - Todo semantico viaja con forma e icono. El color solo no distingue error de aviso: bajo protanopia separan dE=7.2 si se les deja solos.
+   - corriente-apagado y grid no informan nunca. Quedan por debajo de 3:1 a proposito, porque son filete y reticula, no limite de componente.
+   - El peso es un canal de jerarquia: 400 para texto corrido, 500 para etiquetas y cifras, 600 para titulares. Nueve roles con un solo peso no son nueve roles.
+   - La prosa no pasa de 68 caracteres por linea.
+   - La barra lateral colapsa de verdad por debajo de 768 px. El sistema anterior lo declaraba y no lo implementaba, y dejaba el contenido en 135 px.
+*/

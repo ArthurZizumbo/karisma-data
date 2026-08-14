@@ -1,0 +1,42 @@
+%% ============================================================================
+%%  Entregable Actividad 4 - Equipo 8
+%%  Guía de estilo y prototipos de alta fidelidad
+%%  TC4032 Experiencia del usuario y diseño de interfaces · MNA · ITESM
+%% ============================================================================
+\documentclass[11pt,letterpaper]{article}
+\usepackage{estilo/uxdoc}
+
+\uxencabezado{Actividad 4 · Karisma Data}
+\hypersetup{pdftitle={Actividad 4. Guía de estilo y prototipos de alta fidelidad}}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Índice}
+
+% Las evidencias de A4 deben permanecer junto al flujo o fundamento que
+% documentan. Esta variante no flotante evita que una captura anteceda a su
+% propio subtítulo cuando la página ya no tiene espacio suficiente.
+\newcommand{\figuraaiv}[4][\linewidth]{%
+  \par\medskip
+  \begin{minipage}{\linewidth}\centering
+    \includegraphics[width=#1]{#2}
+    \captionof{figure}{#3}\label{#4}
+  \end{minipage}%
+  \par\medskip}
+
+\begin{document}
+
+\uxportada{Actividad 4}{Guía de estilo y\\prototipos de alta fidelidad}{16 de agosto de 2026}
+
+\tableofcontents
+\clearpage
+
+\input{contenido/a4_00_preliminares}
+\input{contenido/a4_01_metodo_prototipado}
+\input{contenido/a4_02_prototipos}
+\input{contenido/a4_03_guia_estilos}
+\input{contenido/a4_04_prevalidacion}
+\input{contenido/a4_05_alcance}
+\input{contenido/a4_06_cierre}
+\input{contenido/a4_07_anexo}
+
+\end{document}

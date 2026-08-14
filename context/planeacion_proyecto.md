@@ -2221,7 +2221,7 @@ nuevo: US numerada, con criterios, estimación y sprint.
 
 **Criterios de Aceptación (alcance S4):**
 
-- Proyecto **`tareas-computo-nube`** (número 403109840468), facturación `014738-BE619E-7D4F64`,
+- Proyecto **`${GCP_PROJECT_ID}`** (número ${GCP_PROJECT_NUMBER}), facturación `${GCP_BILLING_ACCOUNT}`,
   región **`us-central1`**. El proyecto `karisma-data` existe sin facturación y **no se usa**.
 - **Dos servicios Cloud Run**: `karisma-api` y `karisma-web`, ambos con `min-instances 0`,
   `max-instances 3`, 512 MiB y concurrencia 80.

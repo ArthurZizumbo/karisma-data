@@ -47,6 +47,62 @@
 \definecolor{uxrow}{HTML}{EEF3FA}    % cebra de tabla
 \definecolor{uxgreen}{HTML}{166534}  % confirmación
 
+% ---------------------- Escala completa del sistema de diseno - A4 (US-UX-09) ---
+% Ampliacion ADITIVA de la paleta. Los once colores de arriba conservan nombre y
+% valor byte a byte porque main_a1, main_a2 y main_a3 ya estan entregados y
+% compilan contra ellos. Aqui se completan las cuatro familias a cinco tonos
+% (100/300/500/700/900), los siete neutros, los cuatro semanticos y la serie
+% categorica de seis, hasta los 37 nombres de color de la guia de estilos.
+%
+% Este archivo es la UNICA fuente de color del producto. El generador
+% docs/entregables/generar_tokens_a4.py lo lee y emite el bloque @theme de
+% Tailwind, la paleta tipada de la ruta /guia, las laminas de la guia y el
+% manifiesto. Ningun hexadecimal se escribe a mano en ningun otro archivo.
+%
+% Los seis nombres declarados con colorlet son reusos explicitos: apuntan al
+% color ancla en vez de copiar su valor, de modo que no pueden divergir de el.
+
+% Familia primaria - azul institucional (anclas: 500 uxblue, 700 uxnavy)
+\definecolor{uxprimary100}{HTML}{DBEAFE}   % relleno informativo
+\definecolor{uxprimary300}{HTML}{93C5FD}   % relleno de seleccion
+\definecolor{uxprimary900}{HTML}{0F2C46}   % fondo mas oscuro de la barra lateral
+
+% Familia secundaria - azul de grafica (anclas: 300 uxpale, 500 uxsky)
+\definecolor{uxsecondary100}{HTML}{E3EDF7}  % area bajo la curva
+\definecolor{uxsecondary700}{HTML}{1E5FA8}  % serie secundaria enfatizada
+\definecolor{uxsecondary900}{HTML}{14385F}  % eje y rejilla sobre fondo oscuro
+
+% Familia acento - ambar (ancla: 500 uxamber). El 700 y el 900 salen de la
+% matriz de contraste: el 500 no informa, solo decora.
+\definecolor{uxaccent100}{HTML}{FEEBD9}    % fondo de aviso
+\definecolor{uxaccent300}{HTML}{FDBA8C}    % filete y relleno de aviso
+\definecolor{uxaccent700}{HTML}{C2540A}    % ambar que informa (4.40:1)
+\definecolor{uxaccent900}{HTML}{7C3606}    % texto de aviso (7.58:1 sobre uxaccent100)
+
+% Familia complemento - verde de confirmacion (ancla: 700 uxgreen)
+\definecolor{uxsuccess100}{HTML}{DCFCE7}   % fondo de confirmacion
+\definecolor{uxsuccess300}{HTML}{86EFAC}   % filete de confirmacion
+\definecolor{uxsuccess500}{HTML}{16A34A}   % marca grafica de confirmacion
+\definecolor{uxsuccess900}{HTML}{0B3D1F}   % texto sobre fondo de confirmacion
+
+% Neutros - completan los cinco ya versionados
+\definecolor{uxinkstrong}{HTML}{0F172A}    % cifra de tarjeta KPI
+\colorlet{uxlinestrong}{uxmuted}           % borde de campo de formulario (4.55:1)
+
+% Semanticos - el rojo no existia en la marca; aviso e informativo reusan
+\definecolor{uxdanger}{HTML}{B91C1C}       % error
+\definecolor{uxdangerstrong}{HTML}{7F1D1D} % error enfatizado
+\colorlet{uxwarning}{uxaccent700}          % aviso que informa
+\colorlet{uxinfo}{uxblue}                  % informativo
+
+% Serie categorica de grafica - seis, todas con 3:1 o mas sobre uxsurface
+\colorlet{uxserie1}{uxblue}
+\colorlet{uxserie2}{uxaccent700}
+\colorlet{uxserie3}{uxgreen}
+\definecolor{uxserie4}{HTML}{7C3AED}       % violeta
+\definecolor{uxserie5}{HTML}{0E7490}       % cian
+\definecolor{uxserie6}{HTML}{9D174D}       % magenta
+
 % ------------------------------------------------------------ Tipografía ----
 \RequirePackage{fontspec}
 \RequirePackage[nomain,nosans]{lexend}  % solo declara las familias Lexend

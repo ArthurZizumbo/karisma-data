@@ -71,6 +71,12 @@ docs/entregables/figuras/journey_html/build/
 *_thumb.jpeg
 *_thumb.jpg
 
+# Laminas de concepto generadas a mano por el equipo mientras se disena una
+# semana. Son insumo de trabajo, no entregable: lo que llega al PDF vive en
+# docs/entregables/figuras/. Se ignoran para que no se cuelen en un commit
+# ajeno y para que "git status" no las muestre en cada revision.
+docs/semana_*/figuras/
+
 # ---------------------------------------------------------------------------
 #  Python (backend y ml)
 # ---------------------------------------------------------------------------
@@ -108,6 +114,13 @@ node_modules/
 #  no se versionan. El README que documenta el esquema y las anomalías sí.
 # ---------------------------------------------------------------------------
 data/silos/
+# El sidecar del agregado es .json: *.parquet no lo cubre y sin esta linea
+# serie_tablero_meta.json acabaria commiteado por accidente (US-006, R11).
+data/aggregates/
+# Salidas transitorias: .smoke la escribe "--scale smoke" y .verificacion la
+# corrida de control de scripts/verificar_datos.sh. Sus parquet ya estan
+# tapados; sus README y manifiestos, sin esta linea, no.
+data/.*/
 data/exports/
 *.parquet
 *.duckdb
@@ -174,3 +187,13 @@ $RECYCLE.BIN/
 *.swp
 *.swo
 *~
+
+# US-023 - la evidencia de la cancelacion del chat es un ENTREGABLE de A4, no
+# un artefacto de ejecucion. La regla *.log de arriba pertenece al bloque de
+# LaTeX (.blg, .fdb_latexmk, .fls) y se la llevaba por delante, asi que el
+# informe habria citado un archivo que el repositorio nunca guardo.
+#
+# Solo se rescata cancelacion.log, que es la linea que el entregable cita.
+# servidor.log sigue ignorado a proposito: es la materia prima de la que sale,
+# se regenera con 'bash scripts/captura-cancelacion.sh' y no se versiona.
+!docs/evidencia/**/cancelacion.log

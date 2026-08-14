@@ -1,0 +1,1261 @@
+{
+  "access": {
+    "title": "Entrar a Karisma Data",
+    "subtitle": "Usa tu usuario del portal. Cada perfil entra directo a su pantalla inicial.",
+    "fields": {
+      "username": "Usuario",
+      "password": "Contraseña",
+      "showPassword": "Mostrar la contraseña",
+      "hidePassword": "Ocultar la contraseña"
+    },
+    "actions": {
+      "enter": "Entrar",
+      "entering": "Entrando"
+    },
+    "errors": {
+      "usernameRequired": "Escribe tu usuario para continuar.",
+      "passwordRequired": "Escribe tu contraseña para continuar.",
+      "credentials": "Credenciales incorrectas",
+      "server": "No se pudo abrir la sesión. Vuelve a intentarlo en unos segundos.",
+      "demoDisabled": "El acceso de demostración está apagado en este entorno."
+    },
+    "expired": {
+      "title": "Tu sesión caducó",
+      "detail": "La sesión dura 30 minutos y la tuya terminó. Vuelve a entrar para continuar."
+    },
+    "demo": {
+      "title": "Entrar como perfil de demostración",
+      "label": "Acceso de demostración, habilitado únicamente en este prototipo",
+      "roles": {
+        "operativo": "Operativo",
+        "analista": "Analista",
+        "directivo": "Directivo",
+        "admin": "Administración"
+      }
+    }
+  },
+  "brand": {
+    "name": "Karisma Data"
+  },
+  "chrome": {
+    "environment": "Entorno: {environment}",
+    "skipToContent": "Saltar al contenido",
+    "mode": {
+      "aria": "Modo de color",
+      "claro": "Claro",
+      "oscuro": "Oscuro",
+      "sistema": "Como el sistema"
+    }
+  },
+  "language": {
+    "groupLabel": "Idioma de la interfaz",
+    "switchTo": "Ver la interfaz en {language}",
+    "current": "Interfaz en {language}"
+  },
+  "nav": {
+    "aria": {
+      "main": "Navegación principal",
+      "crossCutting": "Acceso transversal"
+    },
+    "module": {
+      "home": "Inicio",
+      "explore": "Exploración y extracción",
+      "governance": "Gobierno del dato",
+      "administration": "Administración"
+    },
+    "branch": {
+      "homeSearch": "Buscador unificado",
+      "homeRecent": "Búsquedas recientes",
+      "homeFavorites": "Favoritos",
+      "homeAlerts": "Mis alertas",
+      "homeProfile": "Mi perfil",
+      "exploreCatalog": "Catálogo temático",
+      "exploreQuery": "Consulta y filtros",
+      "exploreExports": "Exportaciones",
+      "exploreDashboards": "Tableros e indicadores",
+      "governanceDictionary": "Diccionario y metadatos",
+      "governanceLineage": "Linaje y calidad",
+      "governanceSources": "Catálogo de fuentes",
+      "administrationUsers": "Usuarios, roles y permisos",
+      "administrationRequests": "Solicitudes y aprobaciones",
+      "administrationAudit": "Bitácora de accesos",
+      "administrationIntegrations": "Integraciones"
+    },
+    "assistant": {
+      "label": "Asistente conversacional",
+      "note": "Transversal a las cuatro categorías."
+    },
+    "facets": {
+      "caption": "Facetas transversales",
+      "hint": "{facet}: se alcanza desde más de una rama del mapa",
+      "branchTitle": "{label}: faceta transversal, alcanzable desde más de una rama",
+      "branchAria": "{id} {label}, faceta transversal",
+      "items": {
+        "apiConsumption": "Consumo por API",
+        "dataQuality": "Calidad de datos",
+        "preview": "Vista previa",
+        "sourceCatalog": "Catálogo de fuentes",
+        "myAlerts": "Mis alertas",
+        "apiCredentials": "Credenciales API",
+        "loadMonitoring": "Monitoreo de cargas",
+        "permissions": "Permisos",
+        "exportHistory": "Historial de exportaciones"
+      }
+    },
+    "session": {
+      "anonymous": "Sin sesión iniciada. Los módulos aparecen según tu perfil.",
+      "signIn": "Entrar al portal",
+      "ariaLabel": "Estado de la sesión",
+      "profile": "Perfil {role}"
+    }
+  },
+  "prototype": {
+    "name": {
+      "access": "Acceso",
+      "export": "Exportación"
+    },
+    "branch": {
+      "access": "Pantalla de entrada; enmarca las demás sin ser rama del mapa",
+      "home": "1. Inicio",
+      "explore": "2. Exploración y extracción — 2.1 Catálogo temático, 2.2 Consulta y filtros",
+      "governance": "3. Gobierno del dato — 3.1 Diccionario y metadatos, 3.2 Linaje y calidad, 3.3 Catálogo de fuentes",
+      "assistant": "Transversal a las cuatro categorías",
+      "administration": "4. Administración — 4.1 a 4.4",
+      "export": "2.3 Exportaciones"
+    },
+    "scope": {
+      "withData": "Navegable con datos de ejemplo",
+      "withoutData": "Navegable sin datos",
+      "roadmap": "En hoja de ruta"
+    },
+    "profile": {
+      "operations": "Perfil operativo",
+      "analyst": "Perfil analista",
+      "executive": "Perfil directivo",
+      "administration": "Perfil de administración"
+    }
+  },
+  "scope": {
+    "notice": "Prototipo de alta fidelidad de Karisma Data con datos sintéticos. No está conectado a sistemas reales de ninguna institución.",
+    "ariaLabel": "Aviso de alcance del prototipo"
+  },
+  "session": {
+    "signOut": "Cerrar sesión"
+  },
+  "screen": {
+    "index": {
+      "title": "Prototipos de alta fidelidad",
+      "subtitle": "Siete pantallas del mapa de sitio de la Actividad 3. Cada botón declara su alcance y su perfil."
+    },
+    "access": {
+      "description": "Contendrá el formulario de entrada con usuario y contraseña, y llevará a cada perfil a su pantalla inicial."
+    },
+    "home": {
+      "description": "Reúne el buscador unificado, las búsquedas recientes, los favoritos, mis alertas y mi perfil, ordenados según el perfil con el que entraste.",
+      "capability": {
+        "search": "Buscador unificado",
+        "recent": "Busquedas recientes",
+        "favorites": "Favoritos",
+        "alerts": "Mis alertas"
+      }
+    },
+    "explore": {
+      "description": "Contendrá el catálogo temático y la consulta con filtros facetados sobre las fuentes del portal.",
+      "capability": {
+        "catalog": "Catalogo tematico de fuentes",
+        "facets": "Consulta con filtros facetados",
+        "metadata": "Panel de metadatos con propietario y vigencia",
+        "tribal": "Notas de conocimiento tribal"
+      }
+    },
+    "exports": {
+      "description": "Extracción en segundo plano a CSV: la solicitud devuelve un identificador al instante, el trabajo se sigue desde cualquier pantalla y el archivo se descarga con un enlace firmado que caduca en 24 horas."
+    },
+    "dashboards": {
+      "description": "Contendrá el tablero ejecutivo, los indicadores de riesgo y las señales de riesgo, dentro de la misma pantalla de exploración.",
+      "capability": {
+        "series": "Serie de 500 000 puntos preagregados",
+        "drill": "Drill-down de tres niveles en dos clics",
+        "table": "Alternativa en tabla de toda grafica",
+        "summary": "Resumen textual para lector de pantalla"
+      }
+    },
+    "governance": {
+      "description": "Reúne el diccionario de campos con sus metadatos y el linaje de cada dato, desde el sistema donde nace hasta la cifra que se lee en pantalla."
+    },
+    "administration": {
+      "description": "Administra los usuarios del portal: consulta la lista, cambia el rol y desactiva el acceso. Las solicitudes, la bitácora de accesos y las integraciones llegan después de esta entrega.",
+      "capability": {
+        "list": "Listado de usuarios con su rol y su estado",
+        "role": "Cambio de rol",
+        "disable": "Desactivacion por borrado logico",
+        "audit": "Bitacora de accesos"
+      }
+    },
+    "pending": {
+      "heading": "Contenido de {us}",
+      "note": "Cada nodo se enciende cuando su historia de usuario entra. Esta pantalla es navegable y su contenido esta declarado, no supuesto."
+    }
+  },
+  "error": {
+    "code": "Error {code}",
+    "title": "No se pudo mostrar esta pantalla",
+    "hint": "Puedes volver al índice de prototipos y entrar por otra pantalla. Si el error se repite, anótalo con la dirección que intentabas abrir.",
+    "action": {
+      "backToIndex": "Volver al índice de prototipos"
+    },
+    "cause": {
+      "forbidden": "Tu perfil no tiene permiso para abrir esta pantalla.",
+      "notFound": "La dirección solicitada no corresponde a ninguna pantalla del prototipo.",
+      "serverError": "El servidor no pudo construir la pantalla.",
+      "unknown": "La pantalla no pudo abrirse por un error inesperado."
+    }
+  },
+  "guide": {
+    "title": "Sistema de diseño vivo",
+    "subtitle": "Cada color, cada tamaño y cada razón de contraste de esta página sale del generador de tokens. Lo que se ve aquí es exactamente lo que se imprime en la guía de estilos de la Actividad 4.",
+    "version": "Versión {version} · {date}",
+    "source": "Fuente única: docs/entregables/estilo/uxdoc.sty. La derivación va en un solo sentido y nada fluye hacia atrás.",
+    "generatedProse": "Los nombres de token, los usos y las reglas de contraste se publican en español porque provienen de la fuente única del entregable, que es un documento en español. El resto de la interfaz sigue el idioma elegido.",
+    "entry": {
+      "heading": "Guía de estilos",
+      "description": "Paleta, tipografía, componentes e iconografía del portal, generados desde la misma fuente que el documento de la Actividad 4. No es un prototipo: es el sistema con el que están hechos los siete.",
+      "action": "Abrir la guía de estilos"
+    },
+    "index": {
+      "title": "Láminas de la guía",
+      "aria": "Índice de láminas"
+    },
+    "plate": {
+      "palette": "Paleta de color",
+      "typography": "Tipografía",
+      "buttons": "Botones",
+      "fields": "Campos, chips e insignias",
+      "tables": "Tablas",
+      "cards": "Tarjetas",
+      "icons": "Iconografía",
+      "accessibility": "Contraste y accesibilidad",
+      "lineage": "Linaje del dato",
+      "toolCall": "Tarjetas de tool call"
+    },
+    "palette": {
+      "description": "Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie. El hexadecimal que se lee es el que el generador emitió: aquí no hay ninguno escrito a mano.",
+      "total": "{total} tokens de color",
+      "group": {
+        "surface": "Suelo y retícula",
+        "current": "Corriente",
+        "semantic": "Semánticos",
+        "series": "Series de gráfica"
+      },
+      "anchor": "Ancla",
+      "anchorHint": "Color ya versionado en uxdoc.sty desde la Actividad 1",
+      "reuse": "Reúsa {token}",
+      "copy": "Copiar el valor de {token}",
+      "copied": "Copiado",
+      "unsupported": "Este navegador no da acceso al portapapeles: el valor queda escrito a la vista para copiarlo a mano.",
+      "title": "Paleta",
+      "count": "{count} tokens de color",
+      "noClipboard": "Este navegador no da acceso al portapapeles: selecciona el valor a mano.",
+      "decorative": "decorativo, no informa",
+      "why": "Por qué esta paleta"
+    },
+    "typography": {
+      "description": "Dos familias servidas desde el propio origen y nueve roles. El tipo de esta pantalla es el mismo que el del documento, así que el espécimen no puede mentir.",
+      "specimen": "El veloz murciélago hindú comía feliz cardillo y kiwi. 0123456789",
+      "weightNote": "Los nueve roles pesan 400: la jerarquía se construye con tamaño, color y espacio en blanco, nunca con negrita simulada.",
+      "family": {
+        "display": "Lexend Deca, para titulares",
+        "sans": "Fira Sans, para cuerpo y cifras"
+      },
+      "column": {
+        "role": "Rol",
+        "token": "Token de Tailwind",
+        "size": "Tamaño",
+        "lineHeight": "Interlínea",
+        "usage": "Uso"
+      }
+    },
+    "buttons": {
+      "description": "Tres variantes por cinco estados, más la acción destructiva y la de carga. Diecisiete celdas, porque una matriz con huecos es la forma más rápida de que dos pantallas discrepen.",
+      "frozenNote": "Los estados de puntero, foco y pulsado se muestran fijos: es la única manera de capturarlos en una lámina.",
+      "rule": "Una sola acción primaria por pantalla. El ámbar nunca es un botón: informa, no llama a la acción.",
+      "focusRing": "El anillo de foco es uno solo en todo el producto y esta lámina lo publica literal: el mismo que pintan los controles reales, sin la variante focus-visible cuando se congela.",
+      "variant": {
+        "filled": "Contenido",
+        "outline": "Contorno",
+        "text": "Texto",
+        "destructive": "Destructiva"
+      },
+      "state": {
+        "rest": "Reposo",
+        "hover": "Puntero encima",
+        "focus": "Con foco",
+        "active": "Pulsado",
+        "disabled": "Deshabilitado",
+        "loading": "En proceso"
+      },
+      "label": {
+        "filled": "Ejecutar consulta",
+        "outline": "Ver linaje",
+        "text": "Cancelar",
+        "destructive": "Eliminar exportación",
+        "loading": "Exportando"
+      }
+    },
+    "fields": {
+      "description": "Seis estados de campo, cinco chips de estado y las insignias de rol. El borde usa el neutro fuerte: es el cuarto hallazgo de la matriz y la razón de que la matriz exista.",
+      "borderNote": "El borde de campo da 4.55:1 sobre la superficie. El filete claro se queda en 1.42:1 y no puede delimitar un campo, solo separar bloques.",
+      "badgeNote": "La insignia de rol es la única excepción documentada a la escala de radios: usa el radio completo.",
+      "placeholder": "Escribe para filtrar",
+      "help": "Formato aceptado: clave contable de cuatro dígitos.",
+      "error": "El importe debe ser mayor que cero.",
+      "state": {
+        "rest": "Reposo",
+        "focus": "Con foco",
+        "filled": "Con valor",
+        "error": "Con error",
+        "disabled": "Deshabilitado",
+        "readonly": "Solo lectura"
+      },
+      "label": {
+        "account": "Cuenta contable",
+        "period": "Periodo",
+        "amount": "Importe máximo",
+        "source": "Fuente",
+        "code": "Clave de exportación",
+        "note": "Nota de conciliación"
+      },
+      "chips": "Chips de estado",
+      "chip": {
+        "neutral": "Sin clasificar",
+        "info": "En revisión",
+        "success": "Conciliado",
+        "warning": "Requiere atención",
+        "danger": "Rechazado"
+      },
+      "badges": "Insignias de rol"
+    },
+    "tables": {
+      "description": "Cabecera fija, fila alterna, cifras tabulares alineadas a la derecha y orden anunciado con aria-sort. Toda columna numérica de Karisma Data se ve así.",
+      "caption": "Exportaciones recientes por fuente, con cifras sintéticas de demostración",
+      "sort": "Ordenar por {column}",
+      "sortHint": "El encabezado ordenable anuncia su estado con aria-sort, no solo con una flecha: una flecha sola no llega al lector de pantalla.",
+      "column": {
+        "source": "Fuente",
+        "records": "Registros",
+        "amount": "Importe (MXN)",
+        "status": "Estado"
+      },
+      "row": {
+        "treasury": "Tesorería",
+        "credit": "Cartera de crédito",
+        "deposits": "Captación",
+        "markets": "Mercados",
+        "operations": "Operación"
+      },
+      "status": {
+        "ready": "Disponible",
+        "running": "En proceso",
+        "failed": "Fallida"
+      },
+      "empty": {
+        "title": "Sin resultados",
+        "body": "Ninguna fuente coincide con el filtro. Quita un filtro para ampliar la búsqueda."
+      }
+    },
+    "cards": {
+      "description": "La tarjeta de indicador con sus cuatro estados no felices y la tarjeta de consulta del asistente con sus cuatro momentos. Ninguna cifra aparece sin una consulta detrás.",
+      "kpi": {
+        "label": "Saldo consolidado",
+        "delta": "+2.4 % contra el cierre anterior",
+        "footnote": "Proyección simulada sobre datos sintéticos"
+      },
+      "statesTitle": "Los cuatro estados no felices",
+      "state": {
+        "loading": "Cargando",
+        "loadingBody": "El indicador se está calculando. La silueta ocupa el alto de la cifra para que la tarjeta no salte al llegar el dato.",
+        "empty": "Sin datos",
+        "emptyBody": "No hay movimientos en el periodo elegido. Amplía el rango de fechas.",
+        "error": "No se pudo calcular",
+        "errorBody": "La consulta al almacén no respondió. Reintentar conserva los filtros aplicados.",
+        "retry": "Reintentar",
+        "forbidden": "Sin permiso",
+        "forbiddenBody": "Tu perfil no alcanza esta fuente. El acceso se pide desde Administración.",
+        "request": "Solicitar acceso"
+      },
+      "toolCall": {
+        "title": "Tarjeta de consulta del asistente",
+        "note": "Los cuatro estados son visibles siempre: el asistente anuncia la consulta antes de ejecutarla, y una respuesta sin consulta detrás no lleva cifras.",
+        "query": "Saldo por fuente, cierre de julio de 2026",
+        "state": {
+          "announced": "Va a consultar",
+          "running": "Consultando",
+          "done": "Consulta terminada",
+          "error": "La consulta falló"
+        },
+        "body": {
+          "announced": "Consulta declarada antes de ejecutarse. Todavía se puede detener.",
+          "running": "Leyendo la capa semántica. Paso 3 de 5.",
+          "done": "5 filas leídas del catálogo de tesorería.",
+          "error": "La fuente no respondió. La respuesta no incluye cifras porque ninguna consulta las devolvió."
+        },
+        "stop": "Detener",
+        "retry": "Reintentar",
+        "lineage": "Ver linaje"
+      }
+    },
+    "icons": {
+      "description": "Inventario por función, no por forma. Cada icono se nombra por lo que hace en el portal y lleva su propio nombre accesible.",
+      "family": "Familia única Lucide. Ningún SVG dibujado a mano y ningún emoji como icono estructural.",
+      "sizes": "Tres tamaños: 16 px en celda de tabla, 20 px en botón y chip, 24 px en encabezado de tarjeta.",
+      "label": "{name}, {size} píxeles",
+      "group": {
+        "search": "Búsqueda y navegación",
+        "data": "Datos y análisis",
+        "governance": "Gobierno del dato",
+        "actions": "Acciones",
+        "system": "Estado y sistema"
+      },
+      "item": {
+        "search": "Buscar",
+        "filter": "Filtrar",
+        "recent": "Consulta reciente",
+        "favorite": "Favorito",
+        "alert": "Alerta",
+        "table": "Tabla de resultados",
+        "barChart": "Tablero de indicadores",
+        "lineChart": "Serie temporal",
+        "source": "Fuente de datos",
+        "preview": "Vista previa",
+        "dictionary": "Diccionario de datos",
+        "lineage": "Linaje del dato",
+        "quality": "Calidad verificada",
+        "users": "Usuarios y roles",
+        "credentials": "Credenciales de API",
+        "export": "Exportar",
+        "spreadsheet": "Hoja de cálculo",
+        "copy": "Copiar",
+        "delete": "Eliminar",
+        "drilldown": "Desplegar el detalle",
+        "assistant": "Asistente conversacional",
+        "success": "Correcto",
+        "attention": "Requiere atención",
+        "error": "Fallo",
+        "loading": "En proceso",
+        "noPermission": "Sin permiso",
+        "language": "Idioma de la interfaz"
+      }
+    },
+    "accessibility": {
+      "description": "La matriz de contraste no ilustra el sistema: lo corrige. Cuatro combinaciones que se daban por buenas no llegaban al mínimo, y las cuatro cambiaron de token.",
+      "findings": "Los cuatro defectos que encontró la matriz",
+      "finding": "Hallazgo {number}",
+      "measured": "Par medido",
+      "replacement": "Par que lo sustituye",
+      "rules": "Reglas derivadas de la matriz",
+      "matrix": "Matriz de contraste completa",
+      "matrixCount": "{total} pares medidos",
+      "verdictLegend": "El veredicto se imprime tal como lo emite el generador: AAA, AA, AA-grande (solo a partir de 18 px) y falla.",
+      "sample": "Texto de muestra",
+      "column": {
+        "token": "Token",
+        "ratio": "Contraste",
+        "verdict": "Veredicto"
+      },
+      "separations": "Separación de los semánticos bajo dicromacia",
+      "failures": "{total} token incumple la regla que declara | {total} tokens incumplen la regla que declaran",
+      "ceiling": {
+        "oscuro": "Peor separación entre dos marcas semánticas, simulando protanopia, deuteranopia y tritanopia. Por encima de 20 se distinguen por color; aun así todas llevan forma e icono.",
+        "claro": "Peor separación entre dos marcas semánticas bajo dicromacia simulada. Es un techo medido, no falta de esfuerzo: sobre fondo claro los cuatro semánticos deben superar 4.5:1, lo que los encierra por debajo de 0.16 de luminancia, y cuatro tonos no separan ahí dentro. Por eso el color nunca viaja solo: un lector con protanopia distingue error de aviso por el aspa y el triángulo."
+      }
+    },
+    "type": {
+      "title": "Tipografía",
+      "role": "Rol",
+      "size": "Tamaño e interlínea",
+      "weight": "Peso",
+      "why": "Por qué esta escala",
+      "rationale": "La escala anterior tenía nueve roles y un solo peso: la página medía 750 de 750 nodos de texto en peso 400, encabezados incluidos, y una relación título/cuerpo de 1.71. Con el tamaño como único canal y pasos de 1.2, ningún salto se leía como salto. Ahora el peso es un canal: 400 para texto corrido, 500 para etiquetas y cifras, 600 para titulares."
+    },
+    "mode": {
+      "claro": "modo claro",
+      "oscuro": "modo oscuro"
+    },
+    "lineage": {
+      "description": "Cada salto declara de dónde viene el dato, qué se le hizo, quién responde por él y hasta cuándo es válido. La cifra final no aparece sin su fuente.",
+      "owner": "Responsable",
+      "validity": "Vigencia",
+      "hop": {
+        "origen": {
+          "title": "Sistema de origen",
+          "system": "SIC-BANXICO · posición diaria",
+          "transform": "Sin transformar. Es el dato tal como lo publica la fuente.",
+          "owner": "Tesorería",
+          "validity": "31-jul-2026"
+        },
+        "ingesta": {
+          "title": "Ingesta",
+          "system": "karisma.silos.liquidez",
+          "transform": "Conversión de divisa al cierre y descarte de posiciones canceladas.",
+          "owner": "Plataforma de datos",
+          "validity": "31-jul-2026"
+        },
+        "transformacion": {
+          "title": "Capa semántica",
+          "system": "smq.saldo_consolidado",
+          "transform": "Suma por unidad de negocio, con las cuentas de orden excluidas.",
+          "owner": "Gobierno del dato",
+          "validity": "31-jul-2026"
+        },
+        "publicacion": {
+          "title": "Cifra publicada",
+          "system": "tablero.saldo_consolidado",
+          "transform": "Sin transformar. Es lo que la pantalla muestra.",
+          "owner": "Tesorería",
+          "validity": "31-jul-2026"
+        }
+      },
+      "figure": {
+        "label": "Saldo consolidado",
+        "source": "Fuente: SIC-BANXICO vía smq.saldo_consolidado"
+      },
+      "conflict": {
+        "title": "Cuando dos sistemas no coinciden",
+        "canonical": {
+          "system": "SIC-BANXICO",
+          "value": "12 405 780.40",
+          "verdict": "canónica"
+        },
+        "divergent": {
+          "system": "Cierre contable local",
+          "value": "12 405 612.05",
+          "verdict": "diverge en 168.35"
+        },
+        "rule": "La fuente canónica se nombra siempre. Callar la discrepancia es lo que devuelve al lector al correo, que es exactamente el problema que este portal existe para quitar."
+      },
+      "rationale": "Esta lámina existe porque la revisión de diseño señaló que «Ver linaje» era un rótulo de botón sin nada especificado detrás. Un sistema que documenta cinco chips de estado y ninguna manera de defender una cifra no sirve al perfil cuyo trabajo es responder por ella."
+    }
+  },
+  "authz": {
+    "noPermission": {
+      "title": "No tienes permiso para ver esta pantalla",
+      "body": "Tu perfil no tiene permiso para ver esta información. Solicita el acceso al administrador del portal.",
+      "required": "Esta pantalla requiere el perfil {required}; el tuyo es {current}.",
+      "requestTo": "Solicítalo en Administración › Solicitudes y aprobaciones, que atiende la administración del portal.",
+      "exit": "Ir a mi espacio de trabajo"
+    },
+    "role": {
+      "operativo": "Operativo",
+      "analista": "Analista",
+      "directivo": "Directivo",
+      "admin": "Administrador"
+    },
+    "signedOut": {
+      "notice": "Los prototipos del portal piden sesión. Sin ella te devuelven a la pantalla de acceso; el índice y la guía de estilos quedan siempre abiertos."
+    }
+  },
+  "workspace": {
+    "greeting": "Hola, {name}",
+    "loading": "Preparando tu espacio de trabajo",
+    "intro": {
+      "operativo": "Tu espacio abre con el buscador: localizar una cifra y comprobarla es lo primero que haces al entrar.",
+      "analista": "Tu espacio abre con el explorador y tus exportaciones: retomas el trabajo donde lo dejaste.",
+      "directivo": "Tu espacio abre con los indicadores del último corte y deja la búsqueda a una línea."
+    },
+    "sample": {
+      "badge": "Datos de ejemplo",
+      "hint": "Las listas y las cifras de esta pantalla son sintéticas: sirven para mostrar la disposición del espacio de trabajo, no para tomar decisiones."
+    },
+    "search": {
+      "label": "Buscar en el catálogo",
+      "placeholder": "Nombre de campo, tabla o concepto de negocio",
+      "action": "Buscar",
+      "hint": "Escribe un nombre físico como ratio_lcr o un concepto como cobertura de liquidez."
+    },
+    "recent": {
+      "title": "Búsquedas recientes",
+      "empty": "Todavía no has buscado nada. Lo que consultes aparecerá aquí."
+    },
+    "favorites": {
+      "title": "Fuentes favoritas",
+      "empty": "No has marcado ninguna fuente como favorita."
+    },
+    "alerts": {
+      "title": "Mis alertas",
+      "empty": "No hay señales pendientes de revisar."
+    },
+    "exports": {
+      "title": "Exportaciones recientes",
+      "empty": "No has generado ninguna extracción todavía."
+    },
+    "explorer": {
+      "title": "Consultas guardadas",
+      "empty": "No has guardado ninguna consulta.",
+      "action": "Abrir el explorador"
+    },
+    "indicators": {
+      "title": "Indicadores del último corte",
+      "asOf": "Corte al {date}",
+      "change": "{value} contra el mes anterior",
+      "open": "Ver en el tablero",
+      "unit": {
+        "percent": "por ciento",
+        "millionsMxn": "millones de pesos",
+        "days": "días"
+      }
+    },
+    "profile": {
+      "title": "Mi perfil",
+      "role": "Perfil",
+      "lastAccess": "Último acceso"
+    },
+    "severity": {
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Informativa"
+    },
+    "exportStatus": {
+      "ready": "Lista",
+      "running": "En proceso",
+      "expired": "Caducada"
+    },
+    "samples": {
+      "recent": {
+        "lcr": "Razón de cobertura de liquidez",
+        "capital": "Saldo de capital",
+        "mora": "Días de mora",
+        "nocional": "Nocional en dólares",
+        "disponible": "Monto disponible"
+      },
+      "favorite": {
+        "liquidez": "Liquidez y tesorería",
+        "creditos": "Cartera de crédito",
+        "derivados": "Derivados y coberturas",
+        "regulatorio": "Reportes regulatorios"
+      },
+      "alert": {
+        "lcrBajoUmbral": "La cobertura de liquidez bajó del umbral interno",
+        "cargaRetrasada": "La carga de cartera de ayer terminó con retraso",
+        "definicionActualizada": "Cambió la definición de días de mora en el diccionario"
+      },
+      "export": {
+        "carteraMensual": "Cartera mensual por producto",
+        "posicionesDerivados": "Posiciones de derivados",
+        "moraPorSucursal": "Mora por sucursal",
+        "liquidezDiaria": "Liquidez diaria"
+      },
+      "query": {
+        "moraMayor90": "Cartera con mora mayor a 90 días",
+        "lcrPorUnidad": "Cobertura de liquidez por unidad de negocio",
+        "exposicionContraparte": "Exposición por contraparte"
+      },
+      "indicator": {
+        "lcr": "Cobertura de liquidez",
+        "carteraVencida": "Cartera vencida",
+        "exposicionNeta": "Exposición neta en derivados"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Serie preagregada de liquidez",
+    "degradation": {
+      "notice": "Alcance acordado para esta entrega: 500 000 puntos preagregados en el servidor, no el millón de filas crudas."
+    },
+    "chart": {
+      "ariaLabel": "Gráfica de líneas de la serie preagregada. La descripción completa está en el resumen que sigue.",
+      "figcaption": "{metric} por {grouping}, de {from} a {to}. {lines} líneas y {points} puntos dibujados."
+    },
+    "metric": {
+      "label": "Métrica",
+      "balance": "Saldo disponible",
+      "lcrRatio": "Razón LCR",
+      "positions": "Número de posiciones"
+    },
+    "grouping": {
+      "label": "Agrupación",
+      "businessUnit": "Unidad de negocio",
+      "currency": "Divisa",
+      "maturity": "Bucket de vencimiento",
+      "series": "Serie individual"
+    },
+    "density": {
+      "label": "Densidad de lectura",
+      "summary": "Resumen",
+      "detail": "Detalle",
+      "full": "Carga completa",
+      "fullHint": "Dibuja las 250 líneas y los 500 000 puntos. Es la evidencia de rendimiento."
+    },
+    "zoom": {
+      "in": "Acercar",
+      "out": "Alejar",
+      "reset": "Ver todo el periodo",
+      "windowStart": "Inicio de la ventana",
+      "windowEnd": "Fin de la ventana"
+    },
+    "legend": {
+      "title": "Leyenda",
+      "muted": "Las demás líneas se dibujan en gris: por encima de seis colores la leyenda deja de ser legible.",
+      "toggleHint": "Activa o desactiva esta línea en la gráfica."
+    },
+    "drill": {
+      "hint": "Elige una línea para filtrar el tablero y el contexto del asistente.",
+      "clear": "Quitar filtros",
+      "focused": "Filtrado por {series}."
+    },
+    "table": {
+      "toggle": "Ver la tabla de detalle",
+      "hide": "Ocultar la tabla de detalle",
+      "caption": "Detalle numérico de {metric}, de {from} a {to}.",
+      "note": "Los valores viajan en coma flotante de 32 bits, con un error relativo máximo de 6e-8.",
+      "gap": "sin dato",
+      "column": {
+        "date": "Fecha",
+        "series": "Serie",
+        "value": "Valor",
+        "min": "Mínimo",
+        "max": "Máximo",
+        "mean": "Media",
+        "last": "Último",
+        "change": "Variación"
+      }
+    },
+    "summary": {
+      "text": "{metric} de {from} a {to}: {lines} líneas y {points} puntos. La línea más alta es {top}, con una variación de {change} en el periodo; su máximo fue {max} el {maxDate} y su mínimo {min} el {minDate}.",
+      "empty": "No hay ninguna serie que describir con los filtros actuales."
+    },
+    "state": {
+      "loading": "Cargando la serie preagregada.",
+      "emptyTitle": "Ningún dato con estos filtros",
+      "emptyBody": "La consulta es válida y el servidor respondió sin errores, pero ninguna serie cumple los filtros. Quita alguno para volver a ver datos.",
+      "error": {
+        "title": "No se pudo cargar la serie",
+        "body": "El servidor no entregó el marco de datos. Puedes reintentar sin perder los filtros.",
+        "retry": "Reintentar"
+      },
+      "seedMissing": {
+        "title": "Todavía no hay datos sembrados",
+        "body": "El agregado del tablero no está en el servidor. Se genera con la semilla fija del proyecto y no se versiona.",
+        "command": "Ejecuta make data en la raíz del repositorio y vuelve a cargar esta pantalla."
+      }
+    },
+    "source": {
+      "title": "Procedencia del dato",
+      "file": "Archivo de origen",
+      "rawRows": "Filas crudas antes de agregar",
+      "aggregatedRows": "Filas preagregadas",
+      "seed": "Semilla del generador",
+      "transformations": "Transformaciones aplicadas",
+      "precision": "Precisión del transporte",
+      "precisionValue": "Coma flotante de 32 bits para la gráfica y para la tabla, con un error relativo máximo de 6e-8.",
+      "calendar": "El eje temporal no descuenta días festivos: es una limitación declarada del generador sintético.",
+      "fxNote": "Nota del tipo de cambio"
+    },
+    "measure": {
+      "title": "Medición de fluidez",
+      "run": "Medir fluidez",
+      "running": "Midiendo la fluidez",
+      "copy": "Copiar el informe",
+      "copied": "Informe copiado al portapapeles",
+      "frames": "Cuadros medidos",
+      "p50": "Mediana del cuadro (p50)",
+      "p95": "Percentil 95 del cuadro",
+      "worst": "Peor cuadro",
+      "longFrames": "Cuadros por encima del umbral",
+      "script": "Guión de pan y zoom, versión {version}, {steps} pasos.",
+      "verdict": {
+        "pass": "Cumple el umbral acordado.",
+        "fail": "No cumple el umbral acordado."
+      }
+    }
+  },
+  "forecast": {
+    "section": {
+      "title": "Proyección del próximo mes",
+      "description": "Tres cifras proyectadas sobre la serie preagregada, cada una con el método que la produjo. Abre una tarjeta para ver la serie y el detalle por mes."
+    },
+    "sample": {
+      "badge": "Datos sintéticos"
+    },
+    "metric": {
+      "liquidityCoverage": "Cobertura de liquidez (LCR)",
+      "availableBalance": "Saldo disponible promedio diario",
+      "currencyConcentration": "Concentración en divisa extranjera"
+    },
+    "unit": {
+      "millionsMxn": "millones de MXN"
+    },
+    "method": {
+      "label": "Método",
+      "olsLinear": "Proyección lineal por mínimos cuadrados sobre {points} meses de datos sintéticos · horizonte de {horizon} mes · R² {r2}",
+      "disclaimer": "No hay aprendizaje automático detrás de esta cifra: es una recta ajustada a la historia sintética del prototipo."
+    },
+    "projection": {
+      "title": "Proyección para {month}",
+      "change": "frente a {month}"
+    },
+    "observed": {
+      "label": "Último mes observado: {month}"
+    },
+    "source": {
+      "label": "Origen del dato",
+      "detail": "Campo {field} de la serie preagregada, {aggregation}."
+    },
+    "aggregation": {
+      "balanceWeightedMean": "media ponderada por saldo disponible",
+      "dailyMean": "promedio diario del mes",
+      "shareOfTotal": "participación sobre el total del mes"
+    },
+    "action": {
+      "expand": "Ver la serie",
+      "collapse": "Ocultar la serie",
+      "detail": "Ver el detalle por mes",
+      "hideDetail": "Ocultar el detalle por mes",
+      "explore": "Abrir el campo en el explorador",
+      "retry": "Reintentar"
+    },
+    "state": {
+      "loading": "Calculando las proyecciones del tablero.",
+      "emptyTitle": "Sin historia suficiente para proyectar",
+      "emptyHint": "Se necesitan al menos {minimum} meses de historia. Abre el explorador para revisar la serie completa.",
+      "errorTitle": "No se pudo cargar el histórico",
+      "errorHint": "El archivo de historia mensual no llegó, así que ninguna tarjeta muestra cifra. Puedes reintentar sin salir de la pantalla."
+    },
+    "chart": {
+      "title": "Serie mensual de {metric} con su tramo proyectado",
+      "summary": "{metric}: {points} meses observados, de {from} a {to}. El mínimo fue {min} y el máximo {max}. El último observado es {last} y la proyección para {next} es {projected}, una variación de {change}.",
+      "legendObserved": "Observado, línea continua",
+      "legendProjected": "Proyectado, línea discontinua y marcador hueco"
+    },
+    "table": {
+      "caption": "Detalle mensual de {metric}, con la proyección en la última fila.",
+      "month": "Mes",
+      "value": "Valor",
+      "change": "Variación mensual",
+      "projectedRow": "Proyección",
+      "gap": "sin mes previo"
+    }
+  },
+  "catalog": {
+    "facet": {
+      "group": {
+        "domain": "Dominio",
+        "dataType": "Tipo de dato",
+        "sensitivity": "Sensibilidad",
+        "refreshFrequency": "Frecuencia de actualización",
+        "certification": "Certificación",
+        "unit": "Unidad",
+        "aggregation": "Agregación"
+      },
+      "domain": {
+        "cartera": "Cartera",
+        "riesgo": "Riesgo",
+        "liquidez": "Liquidez",
+        "mercado": "Mercado",
+        "cliente": "Cliente",
+        "contable": "Contabilidad",
+        "operacion": "Operación",
+        "regulatorio": "Regulatorio"
+      },
+      "dataType": {
+        "entero": "Número entero",
+        "decimal": "Número decimal",
+        "texto": "Texto",
+        "fecha": "Fecha",
+        "booleano": "Booleano",
+        "categoria": "Categoría"
+      },
+      "sensitivity": {
+        "publica": "Pública",
+        "interna": "Interna",
+        "restringida": "Restringida"
+      },
+      "refreshFrequency": {
+        "intradia": "Intradía",
+        "diaria": "Diaria",
+        "semanal": "Semanal",
+        "mensual": "Mensual"
+      },
+      "certification": {
+        "certificado": "Certificado",
+        "en_revision": "En revisión",
+        "obsoleto": "Obsoleto"
+      },
+      "unit": {
+        "MXN": "Pesos mexicanos (MXN)",
+        "USD": "Dólares estadounidenses (USD)",
+        "porcentaje": "Porcentaje",
+        "dias": "Días",
+        "conteo": "Conteo"
+      },
+      "aggregation": {
+        "sum": "Suma",
+        "mean": "Media",
+        "count": "Conteo",
+        "max": "Máximo",
+        "min": "Mínimo"
+      }
+    }
+  },
+  "lineage": {
+    "dictionary": {
+      "title": "Diccionario de campos",
+      "hint": "Busca un campo por su nombre físico, por su nombre de negocio o por un sinónimo. Cada ficha abre el recorrido del dato desde el sistema donde nace.",
+      "searchLabel": "Buscar en el catálogo",
+      "searchPlaceholder": "saldo, límite, contraparte",
+      "searchAction": "Buscar",
+      "searchHint": "Escribe al menos dos caracteres.",
+      "domainsLabel": "Filtrar por dominio",
+      "domainAll": "Todos los dominios",
+      "results": "{count} campos encontrados",
+      "state": {
+        "initial": {
+          "title": "Empieza por una búsqueda",
+          "body": "El diccionario no consulta nada hasta que escribes un término, así que esta pantalla abre sin pedirle campos al servidor."
+        },
+        "loading": "Buscando campos en el catálogo.",
+        "empty": {
+          "title": "Ningún campo coincide",
+          "body": "La consulta es válida y el catálogo respondió sin errores, pero ningún campo coincide con ese término. Prueba con el nombre de negocio o quita el filtro de dominio."
+        },
+        "error": {
+          "title": "No se pudo consultar el catálogo",
+          "body": "El servidor no entregó los resultados. Puedes reintentar sin perder el término que escribiste.",
+          "retry": "Reintentar la búsqueda"
+        }
+      }
+    },
+    "card": {
+      "physicalName": "Nombre físico",
+      "businessName": "Nombre de negocio",
+      "definition": "Definición",
+      "source": "Fuente",
+      "validity": "Vigencia",
+      "openLineage": "Ver el linaje"
+    },
+    "panel": {
+      "title": "Linaje de {field}",
+      "closeLabel": "Cerrar",
+      "ownerLabel": "Propietario del campo",
+      "validityLabel": "Vigencia de la definición",
+      "sourceLabel": "Sistema de origen",
+      "journeyLabel": "Recorrido del dato",
+      "currentYes": "Vigente",
+      "currentNo": "Histórica",
+      "derivedNote": "El último paso no está guardado: se compone del propio campo del catálogo cada vez que se pide, para que el linaje y el diccionario no puedan decir cosas distintas.",
+      "state": {
+        "loading": "Cargando el recorrido del dato.",
+        "error": {
+          "title": "No se pudo cargar el linaje",
+          "body": "El servidor no entregó el recorrido de este campo. Puedes reintentar sin cerrar el panel.",
+          "retry": "Reintentar el linaje"
+        }
+      }
+    },
+    "stage": {
+      "origen": "Origen",
+      "extraccion": "Extracción",
+      "transformacion": "Transformación",
+      "calidad": "Calidad",
+      "presentacion": "Presentación"
+    },
+    "transformation": {
+      "origin_capture": "Captura en el sistema de origen: {detail}",
+      "batch_extract": "Extracción por lotes: {detail}",
+      "stream_extract": "Extracción continua: {detail}",
+      "type_normalization": "Normalización de tipos: {detail}",
+      "currency_conversion": "Conversión de divisa: {detail}",
+      "deduplication": "Eliminación de duplicados: {detail}",
+      "business_rule": "Regla de negocio: {detail}",
+      "reconciliation": "Conciliación: {detail}",
+      "quality_rule": "Regla de calidad: {detail}",
+      "field_publish": "Publicación del campo: {detail}"
+    },
+    "step": {
+      "ownerOf": "Responsable de este paso",
+      "effectiveFrom": "Vigente desde",
+      "effectiveTo": "Vigente hasta",
+      "openEnded": "Sin fecha de término",
+      "open": "Ver el detalle técnico",
+      "technicalDetail": "Detalle técnico",
+      "stored": "Guardado",
+      "derived": "Derivado"
+    },
+    "crossAccess": {
+      "title": "Bitácora de accesos",
+      "hint": "El registro de quién consultó cada dato se administra desde el módulo de administración del portal.",
+      "link": "Ir a Administración"
+    }
+  },
+  "sharedContext": {
+    "title": "Contexto del tablero",
+    "hint": "Esto es lo que acompañaría a tu pregunta si la hicieras ahora. Se arma en el tablero, no en esta pantalla.",
+    "static": {
+      "notice": "Alcance acordado para esta entrega: los filtros viajan al asistente como contexto; el agente no modifica el tablero."
+    },
+    "empty": {
+      "title": "Todavía no hay contexto que compartir",
+      "hint": "El contexto se arma en el tablero: al filtrar, mover la ventana o elegir una serie, esta pantalla lo muestra.",
+      "action": "Abrir el tablero"
+    },
+    "chip": {
+      "metric": "Métrica",
+      "grouping": "Agrupación",
+      "businessUnit": "Unidad de negocio",
+      "currency": "Divisa",
+      "maturityBucket": "Bucket de vencimiento",
+      "series": "Serie",
+      "dateRange": "Rango de fechas",
+      "window": "Ventana visible",
+      "density": "Densidad de lectura",
+      "level": "Nivel de detalle",
+      "visibleSeries": "Series visibles"
+    },
+    "value": {
+      "window": "del {start} % al {end} %",
+      "dateRange": "del {from} al {to}"
+    },
+    "details": {
+      "lastInteraction": "Última interacción y de dónde vino",
+      "origin": "Ficha de origen de la serie",
+      "payload": "JSON exacto que acompañaría la consulta",
+      "payloadHint": "Se toma tal cual de la vista actual y sus claves van ordenadas, para que la misma vista produzca siempre el mismo texto.",
+      "moment": "Momento",
+      "dimension": "Dimensión",
+      "value": "Valor",
+      "provenance": "Control usado"
+    },
+    "interaction": {
+      "grafica": "Gráfica",
+      "tabla": "Tabla de detalle",
+      "leyenda": "Leyenda",
+      "control": "Control del panel"
+    }
+  },
+  "admin": {
+    "users": {
+      "title": "Usuarios del portal",
+      "caption": "Cada cuenta con su rol, su estado y la fecha de su última modificación administrativa.",
+      "scopeNote": "El portal comprueba el rol de administración en cada petición, no solo al pintar esta pantalla.",
+      "column": {
+        "user": "Persona",
+        "email": "Correo",
+        "role": "Rol",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "status": {
+        "active": "Activa",
+        "disabled": "Desactivada"
+      },
+      "modified": "Última modificación",
+      "self": {
+        "badge": "Es tu cuenta",
+        "note": "No puedes cambiar tu propio rol ni desactivar tu propia cuenta."
+      },
+      "filter": {
+        "label": "Filtrar por nombre, usuario o correo",
+        "placeholder": "Escribe para acotar la lista",
+        "clear": "Borrar el filtro"
+      },
+      "action": {
+        "changeRole": "Cambiar el rol",
+        "deactivate": "Desactivar",
+        "reactivate": "Reactivar",
+        "retry": "Reintentar"
+      },
+      "confirm": {
+        "cancel": "Cancelar",
+        "role": {
+          "title": "¿Cambiar el rol de esta cuenta?",
+          "body": "{name} pasará a {role} en su siguiente petición al portal. El cambio se puede deshacer desde esta misma pantalla.",
+          "confirm": "Cambiar el rol"
+        },
+        "deactivate": {
+          "title": "¿Desactivar esta cuenta?",
+          "body": "{name} dejará de entrar al portal en su siguiente petición. La cuenta no se borra: queda desactivada y se puede reactivar.",
+          "confirm": "Desactivar la cuenta"
+        },
+        "reactivate": {
+          "title": "¿Reactivar esta cuenta?",
+          "body": "{name} volverá a entrar al portal con el rol que ya tenía.",
+          "confirm": "Reactivar la cuenta"
+        }
+      },
+      "state": {
+        "loading": "Cargando las cuentas del portal",
+        "empty": {
+          "title": "Sin resultados",
+          "body": "Ningún usuario coincide con el filtro. Bórralo para ver los {total} usuarios del portal."
+        },
+        "error": {
+          "title": "No se pudo leer la lista de cuentas",
+          "body": "El portal no respondió a la última petición. Inténtalo otra vez; si vuelve a fallar, avisa a quien opera el sistema."
+        }
+      },
+      "conflict": {
+        "demoteSelf": "El portal no permite que un administrador se quite a sí mismo el rol de administrador.",
+        "disableSelf": "El portal no permite que un administrador desactive su propia cuenta.",
+        "notFound": "La cuenta {name} ya no está en el portal. Vuelve a cargar la lista para ver su estado real."
+      }
+    }
+  },
+  "chat": {
+    "page": {
+      "title": "Asistente conversacional",
+      "description": "Pregunta en lenguaje natural y sigue en vivo cada consulta que el asistente ejecuta para responderte.",
+      "emptyState": "Todavía no hay respuesta en pantalla. Escribe una pregunta sobre morosidad, liquidez o derivados para abrir la conversación.",
+      "waitingFirstToken": "El asistente ya está respondiendo. Esperando el primer fragmento de la respuesta."
+    },
+    "demo": {
+      "scriptedNotice": "Demostración con respuestas guionizadas: el transporte, las tarjetas y la cancelación son reales; el contenido está escrito de antemano y no proviene de un modelo de lenguaje.",
+      "aiNotice": "Respuesta redactada por un modelo de lenguaje a partir de las consultas que aparecen en las tarjetas. Contrasta cada cifra con su fuente antes de usarla."
+    },
+    "controls": {
+      "send": "Enviar pregunta",
+      "stop": "Detener",
+      "inputLabel": "Tu pregunta al asistente",
+      "inputPlaceholder": "Por ejemplo: cómo va la morosidad de la cartera"
+    },
+    "stream": {
+      "status": {
+        "idle": "Sin generación en curso",
+        "generating": "Generando la respuesta",
+        "cancelled": "Generación detenida a petición tuya"
+      },
+      "step": {
+        "dataRetrieval": "Recuperación de datos",
+        "permissionCheck": "Verificación de permiso",
+        "textGeneration": "Generación de texto",
+        "transport": "Transporte de la respuesta"
+      },
+      "transportError": "La respuesta no pudo pedirse: fallo el transporte hacia el servidor."
+    },
+    "error": {
+      "title": {
+        "recoverable": "No se pudo completar la respuesta",
+        "permission": "Tu nivel de acceso no alcanza"
+      },
+      "message": {
+        "recoverable": "El asistente se detuvo antes de terminar.",
+        "permission": "Esta consulta requiere nivel {nivel} o superior. Solicita el acceso al administrador del portal.",
+        "permissionGeneric": "Esta consulta requiere un nivel de acceso mayor que el tuyo. Solicita el acceso al administrador del portal."
+      },
+      "action": {
+        "resend": "Puedes volver a enviar tu pregunta."
+      }
+    },
+    "toolCall": {
+      "announce": "Consulta anunciada antes de tener el dato.",
+      "elapsed": "Duración {seconds} s",
+      "state": {
+        "announced": "Anunciada",
+        "running": "En ejecución",
+        "done": "Resuelta",
+        "failed": "Fallida",
+        "interrupted": "Detenida por ti"
+      },
+      "result": {
+        "figure": "Cifra devuelta",
+        "rows": "Filas devueltas por la consulta: {count}",
+        "expand": "Ver las {count} filas",
+        "collapse": "Ver solo las primeras filas"
+      },
+      "column": {
+        "metric": "Métrica",
+        "value": "Valor",
+        "close": "Cierre",
+        "coefficient": "Coeficiente"
+      },
+      "source": {
+        "cited": "Fuente del catálogo: {source}",
+        "missing": "Sin fuente del catálogo"
+      },
+      "error": {
+        "step": "Falló en: {step}",
+        "hint": "Una consulta que falló no devuelve ninguna cifra."
+      },
+      "detail": {
+        "title": "Detalle técnico",
+        "tool": "Herramienta: {tool}",
+        "field": "Campo del catálogo: {field}"
+      },
+      "tool": {
+        "consultar_metrica": "Consulta de métrica",
+        "agregar_serie": "Agregación de serie",
+        "consultar_catalogo": "Consulta del catálogo"
+      },
+      "gallery": {
+        "title": "Los cuatro estados de una tarjeta",
+        "caption": "Cada tarjeta es el componente real del asistente con muestras congeladas: la guía documenta el sistema que se entrega, no un dibujo de él."
+      }
+    }
+  },
+  "export": {
+    "form": {
+      "dataset": "Conjunto de datos",
+      "format": "Formato",
+      "filters": "Filtros",
+      "filtersHint": "Escribe columna=valor, separa varios valores con comas y varios filtros con punto y coma, por ejemplo divisa=MXN,USD; unidad_negocio=banca. Déjalo vacío para exportar el conjunto completo.",
+      "filtersInvalid": "No se entiende el filtro. Cada par se escribe columna=valor.",
+      "submit": "Solicitar exportación",
+      "sending": "Enviando la solicitud"
+    },
+    "dataset": {
+      "creditos": "Créditos",
+      "liquidez": "Liquidez",
+      "derivados": "Derivados"
+    },
+    "format": {
+      "csv": "CSV",
+      "xlsx": "Hoja de Excel (XLSX)",
+      "xlsxRowLimit": "La hoja de Excel admite hasta 200 000 filas; por encima de ese tope el trabajo termina fallido. El CSV no tiene tope y es el único formato que saca el millón de filas de Liquidez."
+    },
+    "job": {
+      "state": {
+        "pendiente": "En cola",
+        "en_proceso": "En proceso",
+        "completado": "Completado",
+        "fallido": "Fallido"
+      },
+      "rows": "Filas",
+      "size": "Tamaño",
+      "requestedAt": "Solicitado",
+      "expiresAt": "Caduca",
+      "stalled": "El portal dejó de recibir noticias de este trabajo y ya no pregunta por él. Vuelve a solicitar la exportación.",
+      "error": {
+        "missingSource": "El origen de datos no está disponible en el servidor.",
+        "unknownColumn": "Uno de los filtros nombra una columna que el conjunto no tiene.",
+        "formatUnavailable": "El archivo no pudo escribirse en el formato pedido. La hoja de Excel admite hasta 200 000 filas: si el conjunto es mayor, acota los filtros o pide la exportación en CSV, que no tiene tope.",
+        "internalFailure": "La extracción falló por un error interno del portal."
+      }
+    },
+    "link": {
+      "download": "Descargar archivo",
+      "expiresIn": "El enlace caduca {cuando}.",
+      "expired": "El enlace ya caducó. Solicita la exportación otra vez para obtener uno nuevo."
+    },
+    "history": {
+      "title": "Historial de exportaciones",
+      "empty": "Todavía no has solicitado ninguna exportación.",
+      "error": "No se pudo leer el historial de exportaciones.",
+      "retry": "Reintentar"
+    },
+    "moment": {
+      "request": "Momento 1: solicitud",
+      "progress": "Momento 2: trabajo en proceso",
+      "link": "Momento 3: enlace firmado",
+      "pinned": "Vista fijada para captura",
+      "empty": "No hay ningún trabajo real en este momento del flujo, y la pantalla no inventa uno."
+    },
+    "demo": {
+      "notice": "Demostración: el servidor estira {segundos} segundos la duración de cada trabajo para que el estado intermedio se pueda capturar. El trabajo, el archivo y el enlace firmado son reales."
+    },
+    "error": {
+      "signature": "La firma del enlace no es de este portal.",
+      "expired": "El enlace firmado ya caducó.",
+      "notFound": "No hay ningún trabajo con ese identificador para tu sesión.",
+      "unavailable": "El registro de trabajos no responde. Inténtalo de nuevo en un momento.",
+      "generic": "No se pudo completar la operación de exportación."
+    }
+  }
+}

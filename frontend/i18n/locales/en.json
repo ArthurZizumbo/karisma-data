@@ -1,0 +1,1261 @@
+{
+  "access": {
+    "title": "Sign in to Karisma Data",
+    "subtitle": "Use your portal account. Each profile lands straight on its own screen.",
+    "fields": {
+      "username": "Username",
+      "password": "Password",
+      "showPassword": "Show the password",
+      "hidePassword": "Hide the password"
+    },
+    "actions": {
+      "enter": "Sign in",
+      "entering": "Signing in"
+    },
+    "errors": {
+      "usernameRequired": "Type your username to continue.",
+      "passwordRequired": "Type your password to continue.",
+      "credentials": "Incorrect credentials",
+      "server": "The session could not be opened. Try again in a few seconds.",
+      "demoDisabled": "Demo access is switched off in this environment."
+    },
+    "expired": {
+      "title": "Your session expired",
+      "detail": "Sessions last 30 minutes and yours has ended. Sign in again to carry on."
+    },
+    "demo": {
+      "title": "Enter as a demonstration profile",
+      "label": "Demo access, enabled only in this prototype",
+      "roles": {
+        "operativo": "Operations",
+        "analista": "Analyst",
+        "directivo": "Executive",
+        "admin": "Administration"
+      }
+    }
+  },
+  "brand": {
+    "name": "Karisma Data"
+  },
+  "chrome": {
+    "environment": "Environment: {environment}",
+    "skipToContent": "Skip to content",
+    "mode": {
+      "aria": "Colour mode",
+      "claro": "Light",
+      "oscuro": "Dark",
+      "sistema": "Match system"
+    }
+  },
+  "language": {
+    "groupLabel": "Interface language",
+    "switchTo": "View the interface in {language}",
+    "current": "Interface in {language}"
+  },
+  "nav": {
+    "aria": {
+      "main": "Main navigation",
+      "crossCutting": "Cross-cutting access"
+    },
+    "module": {
+      "home": "Home",
+      "explore": "Explore and extract",
+      "governance": "Data governance",
+      "administration": "Administration"
+    },
+    "branch": {
+      "homeSearch": "Unified search",
+      "homeRecent": "Recent searches",
+      "homeFavorites": "Favorites",
+      "homeAlerts": "My alerts",
+      "homeProfile": "My profile",
+      "exploreCatalog": "Subject catalog",
+      "exploreQuery": "Query and filters",
+      "exploreExports": "Exports",
+      "exploreDashboards": "Dashboards and indicators",
+      "governanceDictionary": "Dictionary and metadata",
+      "governanceLineage": "Lineage and quality",
+      "governanceSources": "Source catalog",
+      "administrationUsers": "Users, roles and permissions",
+      "administrationRequests": "Requests and approvals",
+      "administrationAudit": "Access log",
+      "administrationIntegrations": "Integrations"
+    },
+    "assistant": {
+      "label": "Conversational assistant",
+      "note": "Cross-cutting to the four categories."
+    },
+    "facets": {
+      "caption": "Cross-cutting facets",
+      "hint": "{facet}: reachable from more than one branch of the map",
+      "branchTitle": "{label}: cross-cutting facet, reachable from more than one branch",
+      "branchAria": "{id} {label}, cross-cutting facet",
+      "items": {
+        "apiConsumption": "API consumption",
+        "dataQuality": "Data quality",
+        "preview": "Preview",
+        "sourceCatalog": "Source catalog",
+        "myAlerts": "My alerts",
+        "apiCredentials": "API credentials",
+        "loadMonitoring": "Load monitoring",
+        "permissions": "Permissions",
+        "exportHistory": "Export history"
+      }
+    },
+    "session": {
+      "anonymous": "Not signed in. Modules appear according to your profile.",
+      "signIn": "Sign in to the portal",
+      "ariaLabel": "Session status",
+      "profile": "{role} profile"
+    }
+  },
+  "prototype": {
+    "name": {
+      "access": "Sign in",
+      "export": "Export"
+    },
+    "branch": {
+      "access": "Entry screen; it frames the others without being a branch of the map",
+      "home": "1. Home",
+      "explore": "2. Explore and extract — 2.1 Subject catalog, 2.2 Query and filters",
+      "governance": "3. Data governance — 3.1 Dictionary and metadata, 3.2 Lineage and quality, 3.3 Source catalog",
+      "assistant": "Cross-cutting to the four categories",
+      "administration": "4. Administration — 4.1 to 4.4",
+      "export": "2.3 Exports"
+    },
+    "scope": {
+      "withData": "Navigable with sample data",
+      "withoutData": "Navigable without data",
+      "roadmap": "On the roadmap"
+    },
+    "profile": {
+      "operations": "Operations profile",
+      "analyst": "Analyst profile",
+      "executive": "Executive profile",
+      "administration": "Administration profile"
+    }
+  },
+  "scope": {
+    "notice": "High fidelity prototype of Karisma Data running on synthetic data. It is not connected to the real systems of any institution.",
+    "ariaLabel": "Prototype scope notice"
+  },
+  "session": {
+    "signOut": "Sign out"
+  },
+  "screen": {
+    "index": {
+      "title": "High fidelity prototypes",
+      "subtitle": "Seven screens of the Activity 3 site map. Every button states its scope and its profile."
+    },
+    "access": {
+      "description": "Will hold the sign-in form with user name and password, and will take each profile to its landing screen."
+    },
+    "home": {
+      "description": "Brings together the unified search, recent searches, favourites, my alerts and my profile, ordered by the profile you signed in with.",
+      "capability": {
+        "search": "Unified search",
+        "recent": "Recent searches",
+        "favorites": "Favourites",
+        "alerts": "My alerts"
+      }
+    },
+    "explore": {
+      "description": "Will hold the subject catalog and the faceted filter query over the sources of the portal.",
+      "capability": {
+        "catalog": "Thematic catalogue of sources",
+        "facets": "Query with faceted filters",
+        "metadata": "Metadata panel with owner and validity",
+        "tribal": "Tribal knowledge notes"
+      }
+    },
+    "exports": {
+      "description": "Background extraction to CSV: the request returns an identifier at once, the job can be followed from any screen and the file is downloaded through a signed link that expires in 24 hours."
+    },
+    "dashboards": {
+      "description": "Will hold the executive dashboard, the risk indicators and the risk signals, inside the same exploration screen.",
+      "capability": {
+        "series": "Series of 500,000 pre-aggregated points",
+        "drill": "Three-level drill-down in two clicks",
+        "table": "Table alternative for every chart",
+        "summary": "Text summary for screen readers"
+      }
+    },
+    "governance": {
+      "description": "Brings together the field dictionary with its metadata and the lineage of every figure, from the system where it is born to the number on screen."
+    },
+    "administration": {
+      "description": "Manage the portal users: review the list, change roles and disable access. Requests, the access log and integrations arrive after this delivery.",
+      "capability": {
+        "list": "User list with role and status",
+        "role": "Role change",
+        "disable": "Deactivation by soft delete",
+        "audit": "Access log"
+      }
+    },
+    "pending": {
+      "heading": "Delivered by {us}",
+      "note": "Each node lights up when its user story lands. This screen is navigable and its content is declared, not assumed."
+    }
+  },
+  "error": {
+    "code": "Error {code}",
+    "title": "This screen could not be shown",
+    "hint": "You can go back to the prototype index and enter through another screen. If the error repeats, write it down together with the address you were trying to open.",
+    "action": {
+      "backToIndex": "Back to the prototype index"
+    },
+    "cause": {
+      "forbidden": "Your profile is not allowed to open this screen.",
+      "notFound": "The requested address does not match any screen of the prototype.",
+      "serverError": "The server could not build the screen.",
+      "unknown": "The screen could not be opened because of an unexpected error."
+    }
+  },
+  "guide": {
+    "title": "Living design system",
+    "subtitle": "Every colour, every size and every contrast ratio on this page comes out of the token generator. What is shown here is exactly what gets printed in the Activity 4 style guide.",
+    "version": "Version {version} · {date}",
+    "source": "Single source: docs/entregables/estilo/uxdoc.sty. Derivation runs one way only and nothing flows back.",
+    "generatedProse": "Token names, usage notes and contrast rules are published in Spanish because they come from the single source of the deliverable, which is a Spanish document. The rest of the interface follows the chosen language.",
+    "entry": {
+      "heading": "Style guide",
+      "description": "Palette, typography, components and iconography of the portal, generated from the same source as the Activity 4 document. It is not a prototype: it is the system the seven of them are built with.",
+      "action": "Open the style guide"
+    },
+    "index": {
+      "title": "Plates of the guide",
+      "aria": "Plate index"
+    },
+    "plate": {
+      "palette": "Colour palette",
+      "typography": "Typography",
+      "buttons": "Buttons",
+      "fields": "Fields, chips and badges",
+      "tables": "Tables",
+      "cards": "Cards",
+      "icons": "Iconography",
+      "accessibility": "Contrast and accessibility",
+      "lineage": "Data lineage",
+      "toolCall": "Tool call cards"
+    },
+    "palette": {
+      "description": "Four families of five steps, seven neutrals, four semantic tokens and six chart series colours. The hexadecimal you read is the one the generator emitted: not a single one is typed here.",
+      "total": "{total} colour tokens",
+      "group": {
+        "surface": "Ground and grid",
+        "current": "Current",
+        "semantic": "Semantic",
+        "series": "Chart series"
+      },
+      "anchor": "Anchor",
+      "anchorHint": "Colour already versioned in uxdoc.sty since Activity 1",
+      "reuse": "Reuses {token}",
+      "copy": "Copy the value of {token}",
+      "copied": "Copied",
+      "unsupported": "This browser grants no clipboard access: the value stays written in plain sight so it can be copied by hand.",
+      "title": "Palette",
+      "count": "{count} colour tokens",
+      "noClipboard": "This browser gives no clipboard access: select the value by hand.",
+      "decorative": "decorative, does not inform",
+      "why": "Why this palette"
+    },
+    "typography": {
+      "description": "Two families served from this origin and nine roles. The type on this screen is the type of the document, so the specimen cannot lie.",
+      "specimen": "Pack my box with five dozen liquor jugs. 0123456789",
+      "weightNote": "All nine roles weigh 400: hierarchy is built with size, colour and white space, never with faux bold.",
+      "family": {
+        "display": "Lexend Deca, for headings",
+        "sans": "Fira Sans, for body copy and figures"
+      },
+      "column": {
+        "role": "Role",
+        "token": "Tailwind token",
+        "size": "Size",
+        "lineHeight": "Line height",
+        "usage": "Usage"
+      }
+    },
+    "buttons": {
+      "description": "Three variants by five states, plus the destructive action and the loading one. Seventeen cells, because a matrix with holes is the fastest way for two screens to disagree.",
+      "frozenNote": "Hover, focus and pressed states are shown frozen: it is the only way to capture them on a plate.",
+      "rule": "One primary action per screen and no more. Amber is never a button: it informs, it does not call to action.",
+      "focusRing": "The focus ring is one and the same across the product, and this plate publishes it literally: the very ring the real controls paint, minus the focus-visible variant when it is frozen.",
+      "variant": {
+        "filled": "Filled",
+        "outline": "Outline",
+        "text": "Text",
+        "destructive": "Destructive"
+      },
+      "state": {
+        "rest": "Rest",
+        "hover": "Hover",
+        "focus": "Focused",
+        "active": "Pressed",
+        "disabled": "Disabled",
+        "loading": "Working"
+      },
+      "label": {
+        "filled": "Run query",
+        "outline": "View lineage",
+        "text": "Cancel",
+        "destructive": "Delete export",
+        "loading": "Exporting"
+      }
+    },
+    "fields": {
+      "description": "Six field states, five status chips and the role badges. The border uses the strong neutral: it is the fourth finding of the matrix and the reason the matrix exists.",
+      "borderNote": "The field border reaches 4.55:1 over the surface. The light rule stays at 1.42:1 and cannot delimit a field, only separate blocks.",
+      "badgeNote": "The role badge is the only documented exception to the radius scale: it uses the full radius.",
+      "placeholder": "Type to filter",
+      "help": "Accepted format: four digit ledger key.",
+      "error": "The amount must be greater than zero.",
+      "state": {
+        "rest": "Rest",
+        "focus": "Focused",
+        "filled": "With a value",
+        "error": "With an error",
+        "disabled": "Disabled",
+        "readonly": "Read only"
+      },
+      "label": {
+        "account": "Ledger account",
+        "period": "Period",
+        "amount": "Maximum amount",
+        "source": "Source",
+        "code": "Export key",
+        "note": "Reconciliation note"
+      },
+      "chips": "Status chips",
+      "chip": {
+        "neutral": "Unclassified",
+        "info": "Under review",
+        "success": "Reconciled",
+        "warning": "Needs attention",
+        "danger": "Rejected"
+      },
+      "badges": "Role badges"
+    },
+    "tables": {
+      "description": "Fixed header, alternating rows, tabular figures aligned to the right and sort order announced through aria-sort. Every numeric column of Karisma Data looks like this.",
+      "caption": "Recent exports by source, with synthetic demo figures",
+      "sort": "Sort by {column}",
+      "sortHint": "A sortable header announces its state through aria-sort, not only with an arrow: an arrow on its own never reaches a screen reader.",
+      "column": {
+        "source": "Source",
+        "records": "Records",
+        "amount": "Amount (MXN)",
+        "status": "Status"
+      },
+      "row": {
+        "treasury": "Treasury",
+        "credit": "Loan portfolio",
+        "deposits": "Deposits",
+        "markets": "Markets",
+        "operations": "Operations"
+      },
+      "status": {
+        "ready": "Ready",
+        "running": "Running",
+        "failed": "Failed"
+      },
+      "empty": {
+        "title": "No results",
+        "body": "No source matches the filter. Drop one filter to widen the search."
+      }
+    },
+    "cards": {
+      "description": "The indicator card with its four unhappy states and the assistant tool call card with its four moments. No figure ever appears without a query behind it.",
+      "kpi": {
+        "label": "Consolidated balance",
+        "delta": "+2.4 % against the previous close",
+        "footnote": "Simulated projection over synthetic data"
+      },
+      "statesTitle": "The four unhappy states",
+      "state": {
+        "loading": "Loading",
+        "loadingBody": "The indicator is being computed. The skeleton keeps the height of the figure so the card does not jump when the value lands.",
+        "empty": "No data",
+        "emptyBody": "There are no movements in the chosen period. Widen the date range.",
+        "error": "Could not be computed",
+        "errorBody": "The warehouse query did not answer. Retrying keeps the filters already applied.",
+        "retry": "Retry",
+        "forbidden": "No permission",
+        "forbiddenBody": "Your profile does not reach this source. Access is requested from Administration.",
+        "request": "Request access"
+      },
+      "toolCall": {
+        "title": "Assistant tool call card",
+        "note": "The four states are always visible: the assistant announces the query before running it, and an answer with no query behind it carries no figures.",
+        "query": "Balance by source, July 2026 close",
+        "state": {
+          "announced": "About to query",
+          "running": "Querying",
+          "done": "Query finished",
+          "error": "The query failed"
+        },
+        "body": {
+          "announced": "Query declared before it runs. It can still be stopped.",
+          "running": "Reading the semantic layer. Step 3 of 5.",
+          "done": "5 rows read from the treasury catalogue.",
+          "error": "The source did not answer. The reply carries no figures because no query returned any."
+        },
+        "stop": "Stop",
+        "retry": "Retry",
+        "lineage": "View lineage"
+      }
+    },
+    "icons": {
+      "description": "An inventory by function, not by shape. Each icon is named after what it does in the portal and carries its own accessible name.",
+      "family": "A single Lucide family. No hand drawn SVG and no emoji used as a structural icon.",
+      "sizes": "Three sizes: 16 px in a table cell, 20 px in a button or a chip, 24 px in a card heading.",
+      "label": "{name}, {size} pixels",
+      "group": {
+        "search": "Search and navigation",
+        "data": "Data and analysis",
+        "governance": "Data governance",
+        "actions": "Actions",
+        "system": "State and system"
+      },
+      "item": {
+        "search": "Search",
+        "filter": "Filter",
+        "recent": "Recent query",
+        "favorite": "Favourite",
+        "alert": "Alert",
+        "table": "Result table",
+        "barChart": "Indicator dashboard",
+        "lineChart": "Time series",
+        "source": "Data source",
+        "preview": "Preview",
+        "dictionary": "Data dictionary",
+        "lineage": "Data lineage",
+        "quality": "Verified quality",
+        "users": "Users and roles",
+        "credentials": "API credentials",
+        "export": "Export",
+        "spreadsheet": "Spreadsheet",
+        "copy": "Copy",
+        "delete": "Delete",
+        "drilldown": "Drill down",
+        "assistant": "Conversational assistant",
+        "success": "Success",
+        "attention": "Needs attention",
+        "error": "Failure",
+        "loading": "Working",
+        "noPermission": "No permission",
+        "language": "Interface language"
+      }
+    },
+    "accessibility": {
+      "description": "The contrast matrix does not illustrate the system: it corrects it. Four combinations that were taken for granted fell below the minimum, and all four changed token.",
+      "findings": "The four defects the matrix found",
+      "finding": "Finding {number}",
+      "measured": "Measured pair",
+      "replacement": "Pair that replaces it",
+      "rules": "Rules derived from the matrix",
+      "matrix": "Full contrast matrix",
+      "matrixCount": "{total} measured pairs",
+      "verdictLegend": "The verdict is printed exactly as the generator emits it: AAA, AA, AA-grande, which means large text only from 18 px up, and falla, which means it fails.",
+      "sample": "Sample text",
+      "column": {
+        "token": "Token name",
+        "ratio": "Contrast",
+        "verdict": "Verdict"
+      },
+      "separations": "Semantic separation under dichromacy",
+      "failures": "{total} token breaks the rule it declares | {total} tokens break the rule they declare",
+      "ceiling": {
+        "oscuro": "Worst separation between two semantic marks, simulating protanopia, deuteranopia and tritanopia. Above 20 they are told apart by colour; even so, all of them carry a shape and an icon.",
+        "claro": "Worst separation between two semantic marks under simulated dichromacy. It is a measured ceiling, not a lack of effort: over a light ground all four semantics must clear 4.5:1, which caps them below 0.16 luminance, and four hues do not separate inside that band. That is why colour never travels alone: a reader with protanopia tells an error from a warning by the cross and the triangle."
+      }
+    },
+    "type": {
+      "title": "Typography",
+      "role": "Role",
+      "size": "Size and leading",
+      "weight": "Weight",
+      "why": "Why this scale",
+      "rationale": "The previous scale had nine roles and a single weight: the page measured 750 of 750 text nodes at weight 400, headings included, and a title to body ratio of 1.71. With size as the only channel and steps of 1.2, no jump read as a jump. Weight is a channel now: 400 for running text, 500 for labels and figures, 600 for headings."
+    },
+    "mode": {
+      "claro": "light mode",
+      "oscuro": "dark mode"
+    },
+    "lineage": {
+      "description": "Each hop states where the figure came from, what was done to it, who answers for it and how long it stays valid. The final figure never appears without its source.",
+      "owner": "Owner",
+      "validity": "Valid until",
+      "hop": {
+        "origen": {
+          "title": "Source system",
+          "system": "SIC-BANXICO · daily position",
+          "transform": "Untransformed. The figure as the source publishes it.",
+          "owner": "Treasury",
+          "validity": "31 Jul 2026"
+        },
+        "ingesta": {
+          "title": "Ingestion",
+          "system": "karisma.silos.liquidez",
+          "transform": "Currency conversion at close and cancelled positions dropped.",
+          "owner": "Data platform",
+          "validity": "31 Jul 2026"
+        },
+        "transformacion": {
+          "title": "Semantic layer",
+          "system": "smq.saldo_consolidado",
+          "transform": "Summed by business unit, memorandum accounts excluded.",
+          "owner": "Data governance",
+          "validity": "31 Jul 2026"
+        },
+        "publicacion": {
+          "title": "Published figure",
+          "system": "tablero.saldo_consolidado",
+          "transform": "Untransformed. This is what the screen shows.",
+          "owner": "Treasury",
+          "validity": "31 Jul 2026"
+        }
+      },
+      "figure": {
+        "label": "Consolidated balance",
+        "source": "Source: SIC-BANXICO via smq.saldo_consolidado"
+      },
+      "conflict": {
+        "title": "When two systems disagree",
+        "canonical": {
+          "system": "SIC-BANXICO",
+          "value": "12,405,780.40",
+          "verdict": "canonical"
+        },
+        "divergent": {
+          "system": "Local accounting close",
+          "value": "12,405,612.05",
+          "verdict": "differs by 168.35"
+        },
+        "rule": "The canonical source is always named. Staying silent about the discrepancy is what sends the reader back to email, which is exactly the problem this portal exists to remove."
+      },
+      "rationale": "This plate exists because the design review flagged that \"View lineage\" was a button label with nothing specified behind it. A system documenting five status chips and no way to defend a figure fails the profile whose job is to answer for it."
+    }
+  },
+  "authz": {
+    "noPermission": {
+      "title": "You do not have permission to view this screen",
+      "body": "Your profile does not have permission to view this information. Request access from the portal administrator.",
+      "required": "This screen requires the {required} profile; yours is {current}.",
+      "requestTo": "Request it under Administration › Requests and approvals, handled by the portal administration.",
+      "exit": "Go to my workspace"
+    },
+    "role": {
+      "operativo": "Operations",
+      "analista": "Analyst",
+      "directivo": "Executive",
+      "admin": "Administrator"
+    },
+    "signedOut": {
+      "notice": "The portal prototypes require a session. Without one they send you back to the entry screen; the index and the style guide stay open."
+    }
+  },
+  "workspace": {
+    "greeting": "Hello, {name}",
+    "loading": "Preparing your workspace",
+    "intro": {
+      "operativo": "Your workspace opens with the search box: finding a figure and checking it is the first thing you do.",
+      "analista": "Your workspace opens with the explorer and your exports, so you pick the work up where you left it.",
+      "directivo": "Your workspace opens with the indicators of the latest close and keeps the search to a single line."
+    },
+    "sample": {
+      "badge": "Sample data",
+      "hint": "The lists and figures on this screen are synthetic: they show how the workspace is laid out, and no decision should rest on them."
+    },
+    "search": {
+      "label": "Search the catalog",
+      "placeholder": "Field name, table or business concept",
+      "action": "Search",
+      "hint": "Type a physical name such as ratio_lcr, or a concept such as liquidity coverage."
+    },
+    "recent": {
+      "title": "Recent searches",
+      "empty": "You have not searched for anything yet. What you look up will show here."
+    },
+    "favorites": {
+      "title": "Favorite sources",
+      "empty": "You have not marked any source as a favorite."
+    },
+    "alerts": {
+      "title": "My alerts",
+      "empty": "There are no signals waiting for review."
+    },
+    "exports": {
+      "title": "Recent exports",
+      "empty": "You have not generated any extract yet."
+    },
+    "explorer": {
+      "title": "Saved queries",
+      "empty": "You have not saved any query.",
+      "action": "Open the explorer"
+    },
+    "indicators": {
+      "title": "Indicators of the latest close",
+      "asOf": "As of {date}",
+      "change": "{value} against the previous month",
+      "open": "Open in the dashboard",
+      "unit": {
+        "percent": "percent",
+        "millionsMxn": "million pesos",
+        "days": "days"
+      }
+    },
+    "profile": {
+      "title": "My profile",
+      "role": "Profile",
+      "lastAccess": "Last access"
+    },
+    "severity": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Informational"
+    },
+    "exportStatus": {
+      "ready": "Ready",
+      "running": "Running",
+      "expired": "Expired"
+    },
+    "samples": {
+      "recent": {
+        "lcr": "Liquidity coverage ratio",
+        "capital": "Principal balance",
+        "mora": "Days past due",
+        "nocional": "Notional in US dollars",
+        "disponible": "Available amount"
+      },
+      "favorite": {
+        "liquidez": "Liquidity and treasury",
+        "creditos": "Loan portfolio",
+        "derivados": "Derivatives and hedging",
+        "regulatorio": "Regulatory reporting"
+      },
+      "alert": {
+        "lcrBajoUmbral": "Liquidity coverage fell below the internal threshold",
+        "cargaRetrasada": "Yesterday portfolio load finished late",
+        "definicionActualizada": "The definition of days past due changed in the dictionary"
+      },
+      "export": {
+        "carteraMensual": "Monthly portfolio by product",
+        "posicionesDerivados": "Derivative positions",
+        "moraPorSucursal": "Past due by branch",
+        "liquidezDiaria": "Daily liquidity"
+      },
+      "query": {
+        "moraMayor90": "Portfolio more than 90 days past due",
+        "lcrPorUnidad": "Liquidity coverage by business unit",
+        "exposicionContraparte": "Exposure by counterparty"
+      },
+      "indicator": {
+        "lcr": "Liquidity coverage",
+        "carteraVencida": "Non-performing loans",
+        "exposicionNeta": "Net derivative exposure"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Preaggregated liquidity series",
+    "degradation": {
+      "notice": "Agreed scope for this delivery: 500,000 points preaggregated on the server, not the raw million rows."
+    },
+    "chart": {
+      "ariaLabel": "Line chart of the preaggregated series. The full description is in the summary below.",
+      "figcaption": "{metric} by {grouping}, from {from} to {to}. {lines} lines and {points} plotted points."
+    },
+    "metric": {
+      "label": "Metric",
+      "balance": "Available balance",
+      "lcrRatio": "LCR ratio",
+      "positions": "Position count"
+    },
+    "grouping": {
+      "label": "Grouping",
+      "businessUnit": "Business unit",
+      "currency": "Currency",
+      "maturity": "Maturity bucket",
+      "series": "Single series"
+    },
+    "density": {
+      "label": "Reading density",
+      "summary": "Summary",
+      "detail": "Detail",
+      "full": "Full load",
+      "fullHint": "Draws all 250 lines and 500,000 points. This is the performance evidence."
+    },
+    "zoom": {
+      "in": "Zoom in",
+      "out": "Zoom out",
+      "reset": "Show the whole period",
+      "windowStart": "Window start",
+      "windowEnd": "Window end"
+    },
+    "legend": {
+      "title": "Legend",
+      "muted": "Every other line is drawn in grey: beyond six colours a legend stops being readable.",
+      "toggleHint": "Switch this line on or off in the chart."
+    },
+    "drill": {
+      "hint": "Pick a line to filter the dashboard and the assistant context.",
+      "clear": "Clear filters",
+      "focused": "Filtered by {series}."
+    },
+    "table": {
+      "toggle": "Show the detail table",
+      "hide": "Hide the detail table",
+      "caption": "Numeric detail of {metric}, from {from} to {to}.",
+      "note": "Values travel as 32 bit floating point, with a maximum relative error of 6e-8.",
+      "gap": "no data",
+      "column": {
+        "date": "Date",
+        "series": "Series",
+        "value": "Value",
+        "min": "Minimum",
+        "max": "Maximum",
+        "mean": "Mean",
+        "last": "Last",
+        "change": "Change"
+      }
+    },
+    "summary": {
+      "text": "{metric} from {from} to {to}: {lines} lines and {points} points. The highest line is {top}, changing by {change} over the period; its maximum was {max} on {maxDate} and its minimum {min} on {minDate}.",
+      "empty": "There is no series to describe under the current filters."
+    },
+    "state": {
+      "loading": "Loading the preaggregated series.",
+      "emptyTitle": "No data under these filters",
+      "emptyBody": "The query is valid and the server answered without errors, but no series matches the filters. Drop one of them to see data again.",
+      "error": {
+        "title": "The series could not be loaded",
+        "body": "The server did not deliver the data frame. You can retry without losing your filters.",
+        "retry": "Retry"
+      },
+      "seedMissing": {
+        "title": "No data has been seeded yet",
+        "body": "The dashboard aggregate is not on the server. It is generated from the fixed project seed and is not versioned.",
+        "command": "Run make data at the repository root and load this screen again."
+      }
+    },
+    "source": {
+      "title": "Where the data comes from",
+      "file": "Source file",
+      "rawRows": "Raw rows before aggregation",
+      "aggregatedRows": "Preaggregated rows",
+      "seed": "Generator seed",
+      "transformations": "Transformations applied",
+      "precision": "Transport precision",
+      "precisionValue": "32 bit floating point for the chart and for the table, with a maximum relative error of 6e-8.",
+      "calendar": "The time axis does not skip public holidays: it is a declared limitation of the synthetic generator.",
+      "fxNote": "Exchange rate note"
+    },
+    "measure": {
+      "title": "Fluidity measurement",
+      "run": "Measure fluidity",
+      "running": "Measuring fluidity",
+      "copy": "Copy the report",
+      "copied": "Report copied to the clipboard",
+      "frames": "Frames measured",
+      "p50": "Median frame (p50)",
+      "p95": "95th percentile frame",
+      "worst": "Worst frame",
+      "longFrames": "Frames above the threshold",
+      "script": "Pan and zoom script, version {version}, {steps} steps.",
+      "verdict": {
+        "pass": "Meets the agreed threshold.",
+        "fail": "Does not meet the agreed threshold."
+      }
+    }
+  },
+  "forecast": {
+    "section": {
+      "title": "Next month projection",
+      "description": "Three figures projected over the preaggregated series, each one with the method that produced it. Open a card to see the series and the month by month detail."
+    },
+    "sample": {
+      "badge": "Synthetic data"
+    },
+    "metric": {
+      "liquidityCoverage": "Liquidity coverage ratio (LCR)",
+      "availableBalance": "Average daily available balance",
+      "currencyConcentration": "Foreign currency concentration"
+    },
+    "unit": {
+      "millionsMxn": "million MXN"
+    },
+    "method": {
+      "label": "Method",
+      "olsLinear": "Least squares linear projection over {points} months of synthetic data · {horizon} month horizon · R² {r2}",
+      "disclaimer": "There is no machine learning behind this figure: it is a straight line fitted to the synthetic history of the prototype."
+    },
+    "projection": {
+      "title": "Projection for {month}",
+      "change": "against {month}"
+    },
+    "observed": {
+      "label": "Last observed month: {month}"
+    },
+    "source": {
+      "label": "Where the figure comes from",
+      "detail": "Field {field} of the preaggregated series, {aggregation}."
+    },
+    "aggregation": {
+      "balanceWeightedMean": "mean weighted by available balance",
+      "dailyMean": "daily mean of the month",
+      "shareOfTotal": "share of the monthly total"
+    },
+    "action": {
+      "expand": "See the series",
+      "collapse": "Hide the series",
+      "detail": "See the month by month detail",
+      "hideDetail": "Hide the month by month detail",
+      "explore": "Open the field in the explorer",
+      "retry": "Try again"
+    },
+    "state": {
+      "loading": "Computing the dashboard projections.",
+      "emptyTitle": "Not enough history to project",
+      "emptyHint": "At least {minimum} months of history are needed. Open the explorer to review the full series.",
+      "errorTitle": "The history could not be loaded",
+      "errorHint": "The monthly history file did not arrive, so no card shows a figure. You can try again without leaving the screen."
+    },
+    "chart": {
+      "title": "Monthly series of {metric} with its projected segment",
+      "summary": "{metric}: {points} observed months, from {from} to {to}. The minimum was {min} and the maximum {max}. The last observed value is {last} and the projection for {next} is {projected}, a change of {change}.",
+      "legendObserved": "Observed, solid line",
+      "legendProjected": "Projected, dashed line and hollow marker"
+    },
+    "table": {
+      "caption": "Month by month detail of {metric}, with the projection in the last row.",
+      "month": "Month",
+      "value": "Value",
+      "change": "Monthly change",
+      "projectedRow": "Projection",
+      "gap": "no previous month"
+    }
+  },
+  "catalog": {
+    "facet": {
+      "group": {
+        "domain": "Domain",
+        "dataType": "Data type",
+        "sensitivity": "Sensitivity",
+        "refreshFrequency": "Refresh frequency",
+        "certification": "Certification",
+        "unit": "Unit",
+        "aggregation": "Aggregation"
+      },
+      "domain": {
+        "cartera": "Loan portfolio",
+        "riesgo": "Risk",
+        "liquidez": "Liquidity",
+        "mercado": "Market",
+        "cliente": "Customer",
+        "contable": "Accounting",
+        "operacion": "Operations",
+        "regulatorio": "Regulatory"
+      },
+      "dataType": {
+        "entero": "Integer",
+        "decimal": "Decimal",
+        "texto": "Text",
+        "fecha": "Date",
+        "booleano": "Boolean",
+        "categoria": "Category"
+      },
+      "sensitivity": {
+        "publica": "Public",
+        "interna": "Internal",
+        "restringida": "Restricted"
+      },
+      "refreshFrequency": {
+        "intradia": "Intraday",
+        "diaria": "Daily",
+        "semanal": "Weekly",
+        "mensual": "Monthly"
+      },
+      "certification": {
+        "certificado": "Certified",
+        "en_revision": "Under review",
+        "obsoleto": "Deprecated"
+      },
+      "unit": {
+        "MXN": "Mexican pesos (MXN)",
+        "USD": "US dollars (USD)",
+        "porcentaje": "Percentage",
+        "dias": "Days",
+        "conteo": "Count"
+      },
+      "aggregation": {
+        "sum": "Sum",
+        "mean": "Average",
+        "count": "Count",
+        "max": "Maximum",
+        "min": "Minimum"
+      }
+    }
+  },
+  "lineage": {
+    "dictionary": {
+      "title": "Field dictionary",
+      "hint": "Search a field by its physical name, by its business name or by a synonym. Every card opens the journey of the data from the system where it is born.",
+      "searchLabel": "Search the catalogue",
+      "searchPlaceholder": "balance, limit, counterparty",
+      "searchAction": "Search",
+      "searchHint": "Type at least two characters.",
+      "domainsLabel": "Filter by domain",
+      "domainAll": "Every domain",
+      "results": "{count} fields found",
+      "state": {
+        "initial": {
+          "title": "Start with a search",
+          "body": "The dictionary queries nothing until you type a term, so this screen opens without asking the server for a single field."
+        },
+        "loading": "Searching fields in the catalogue.",
+        "empty": {
+          "title": "No field matches",
+          "body": "The query is valid and the catalogue answered without errors, but no field matches that term. Try the business name or drop the domain filter."
+        },
+        "error": {
+          "title": "The catalogue could not be queried",
+          "body": "The server did not deliver the results. You can retry without losing the term you typed.",
+          "retry": "Retry the search"
+        }
+      }
+    },
+    "card": {
+      "physicalName": "Physical name",
+      "businessName": "Business name",
+      "definition": "Definition",
+      "source": "Source",
+      "validity": "Valid period",
+      "openLineage": "View the lineage"
+    },
+    "panel": {
+      "title": "Lineage of {field}",
+      "closeLabel": "Close",
+      "ownerLabel": "Owner of the field",
+      "validityLabel": "Validity of the definition",
+      "sourceLabel": "System of record",
+      "journeyLabel": "Journey of the data",
+      "currentYes": "In force",
+      "currentNo": "Superseded",
+      "derivedNote": "The last step is not stored: it is composed from the catalogue entry itself on every request, so the lineage and the dictionary cannot say different things.",
+      "state": {
+        "loading": "Loading the journey of the data.",
+        "error": {
+          "title": "The lineage could not be loaded",
+          "body": "The server did not deliver the journey of this field. You can retry without closing the panel.",
+          "retry": "Retry the lineage"
+        }
+      }
+    },
+    "stage": {
+      "origen": "Source system",
+      "extraccion": "Extraction",
+      "transformacion": "Transformation",
+      "calidad": "Quality control",
+      "presentacion": "Presentation"
+    },
+    "transformation": {
+      "origin_capture": "Captured in the system of record: {detail}",
+      "batch_extract": "Batch extraction: {detail}",
+      "stream_extract": "Streaming extraction: {detail}",
+      "type_normalization": "Type normalisation: {detail}",
+      "currency_conversion": "Currency conversion: {detail}",
+      "deduplication": "Duplicate removal: {detail}",
+      "business_rule": "Business rule: {detail}",
+      "reconciliation": "Reconciliation: {detail}",
+      "quality_rule": "Quality rule: {detail}",
+      "field_publish": "Field publication: {detail}"
+    },
+    "step": {
+      "ownerOf": "Accountable for this hop",
+      "effectiveFrom": "In force since",
+      "effectiveTo": "In force until",
+      "openEnded": "No end date",
+      "open": "Show the technical detail",
+      "technicalDetail": "Technical detail",
+      "stored": "Stored",
+      "derived": "Composed"
+    },
+    "crossAccess": {
+      "title": "Access log",
+      "hint": "The record of who queried each dataset is managed from the administration module of the portal.",
+      "link": "Go to Administration"
+    }
+  },
+  "sharedContext": {
+    "title": "Dashboard context",
+    "hint": "This is what would travel with your question if you asked it now. It is built on the dashboard, not on this screen.",
+    "static": {
+      "notice": "Agreed scope for this delivery: the filters travel to the assistant as context; the agent does not change the dashboard."
+    },
+    "empty": {
+      "title": "There is no context to share yet",
+      "hint": "The context is built on the dashboard: filter, move the window or pick a line and this screen shows it.",
+      "action": "Open the dashboard"
+    },
+    "chip": {
+      "metric": "Metric",
+      "grouping": "Grouping",
+      "businessUnit": "Business unit",
+      "currency": "Currency",
+      "maturityBucket": "Maturity bucket",
+      "series": "Line",
+      "dateRange": "Date range",
+      "window": "Visible window",
+      "density": "Reading density",
+      "level": "Disclosure level",
+      "visibleSeries": "Visible lines"
+    },
+    "value": {
+      "window": "from {start} % to {end} %",
+      "dateRange": "from {from} to {to}"
+    },
+    "details": {
+      "lastInteraction": "Last interaction and where it came from",
+      "origin": "Provenance of the loaded series",
+      "payload": "Exact JSON that would travel with the query",
+      "payloadHint": "Taken as is from the current view, with its keys sorted, so that the same view always produces the same text.",
+      "moment": "Timestamp",
+      "dimension": "Dimension",
+      "value": "Value",
+      "provenance": "Control used"
+    },
+    "interaction": {
+      "grafica": "Chart",
+      "tabla": "Detail table",
+      "leyenda": "Legend",
+      "control": "Panel control"
+    }
+  },
+  "admin": {
+    "users": {
+      "title": "Portal accounts",
+      "caption": "Every account with its role, its status and the date it was last changed by an administrator.",
+      "scopeNote": "The portal checks the administration role on every request, not only when this screen is drawn.",
+      "column": {
+        "user": "Person",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "disabled": "Disabled"
+      },
+      "modified": "Last change",
+      "self": {
+        "badge": "This is your account",
+        "note": "You cannot change your own role or disable your own account."
+      },
+      "filter": {
+        "label": "Filter by name, username or email",
+        "placeholder": "Type to narrow the list down",
+        "clear": "Clear the filter"
+      },
+      "action": {
+        "changeRole": "Change role",
+        "deactivate": "Disable",
+        "reactivate": "Re-enable",
+        "retry": "Try again"
+      },
+      "confirm": {
+        "cancel": "Cancel",
+        "role": {
+          "title": "Change the role of this account?",
+          "body": "{name} becomes {role} on their next request to the portal. The change can be undone from this same screen.",
+          "confirm": "Change the role"
+        },
+        "deactivate": {
+          "title": "Disable this account?",
+          "body": "{name} will stop accessing the portal on their next request. The account is not deleted: it stays disabled and can be re-enabled.",
+          "confirm": "Disable the account"
+        },
+        "reactivate": {
+          "title": "Re-enable this account?",
+          "body": "{name} will be able to enter the portal again with the role they already had.",
+          "confirm": "Re-enable the account"
+        }
+      },
+      "state": {
+        "loading": "Loading the portal accounts",
+        "empty": {
+          "title": "No results",
+          "body": "No user matches the filter. Clear it to see all {total} portal users."
+        },
+        "error": {
+          "title": "The account list could not be read",
+          "body": "The portal did not answer the last request. Try once more; if it fails again, tell whoever operates the system."
+        }
+      },
+      "conflict": {
+        "demoteSelf": "The portal does not allow an administrator to remove their own administrator role.",
+        "disableSelf": "The portal does not allow an administrator to disable their own account.",
+        "notFound": "Account {name} is no longer in the portal. Load the list again to see its real status."
+      }
+    }
+  },
+  "chat": {
+    "page": {
+      "title": "Conversational assistant",
+      "description": "Ask in plain language and follow, live, every query the assistant runs in order to answer you.",
+      "emptyState": "No answer on screen yet. Type a question about arrears, liquidity or derivatives to open the conversation.",
+      "waitingFirstToken": "The assistant is already answering. Waiting for the first fragment of the answer."
+    },
+    "demo": {
+      "scriptedNotice": "Demonstration with scripted answers: the transport, the cards and the cancellation are real; the content is written in advance and does not come from a language model.",
+      "aiNotice": "Answer written by a language model from the queries shown in the cards. Check every figure against its source before you use it."
+    },
+    "controls": {
+      "send": "Send question",
+      "stop": "Stop",
+      "inputLabel": "Your question for the assistant",
+      "inputPlaceholder": "For example: how are the arrears of the portfolio doing"
+    },
+    "stream": {
+      "status": {
+        "idle": "No generation in progress",
+        "generating": "Writing the answer",
+        "cancelled": "Generation stopped at your request"
+      },
+      "step": {
+        "dataRetrieval": "Data retrieval",
+        "permissionCheck": "Permission check",
+        "textGeneration": "Text generation",
+        "transport": "Response transport"
+      },
+      "transportError": "The answer could not be requested: the transport to the server failed."
+    },
+    "error": {
+      "title": {
+        "recoverable": "The answer could not be completed",
+        "permission": "Your access level is not high enough"
+      },
+      "message": {
+        "recoverable": "The assistant stopped before finishing.",
+        "permission": "This query requires the {nivel} level or higher. Request access from the portal administrator.",
+        "permissionGeneric": "This query requires a higher access level than yours. Request access from the portal administrator."
+      },
+      "action": {
+        "resend": "You can send your question again."
+      }
+    },
+    "toolCall": {
+      "announce": "Query announced before the data is in.",
+      "elapsed": "Duration {seconds} s",
+      "state": {
+        "announced": "Announced",
+        "running": "Running",
+        "done": "Resolved",
+        "failed": "Failed",
+        "interrupted": "Stopped by you"
+      },
+      "result": {
+        "figure": "Returned figure",
+        "rows": "Rows returned by the query: {count}",
+        "expand": "Show all {count} rows",
+        "collapse": "Show only the first rows"
+      },
+      "column": {
+        "metric": "Metric",
+        "value": "Value",
+        "close": "Close",
+        "coefficient": "Coefficient"
+      },
+      "source": {
+        "cited": "Catalogue source: {source}",
+        "missing": "No catalogue source"
+      },
+      "error": {
+        "step": "Failed at: {step}",
+        "hint": "A query that failed returns no figure."
+      },
+      "detail": {
+        "title": "Technical detail",
+        "tool": "Tool: {tool}",
+        "field": "Catalogue field: {field}"
+      },
+      "tool": {
+        "consultar_metrica": "Metric query",
+        "agregar_serie": "Series aggregation",
+        "consultar_catalogo": "Catalogue lookup"
+      },
+      "gallery": {
+        "title": "The four states of a card",
+        "caption": "Every card is the real component of the assistant fed with frozen samples: the guide documents the system that ships, not a drawing of it."
+      }
+    }
+  },
+  "export": {
+    "form": {
+      "dataset": "Dataset",
+      "format": "Format",
+      "filters": "Filters",
+      "filtersHint": "Write column=value, separate several values with commas and several filters with semicolons, for example divisa=MXN,USD; unidad_negocio=banca. Leave it empty to export the whole dataset.",
+      "filtersInvalid": "The filter cannot be read. Every pair is written as column=value.",
+      "submit": "Request export",
+      "sending": "Sending the request"
+    },
+    "dataset": {
+      "creditos": "Credit",
+      "liquidez": "Liquidity",
+      "derivados": "Derivatives"
+    },
+    "format": {
+      "csv": "CSV",
+      "xlsx": "Excel workbook (XLSX)",
+      "xlsxRowLimit": "The Excel workbook takes up to 200,000 rows; past that cap the job ends as failed. CSV has no cap, and it is the only format that gets the million rows of Liquidity out."
+    },
+    "job": {
+      "state": {
+        "pendiente": "Queued",
+        "en_proceso": "Running",
+        "completado": "Completed",
+        "fallido": "Failed"
+      },
+      "rows": "Rows",
+      "size": "Size",
+      "requestedAt": "Requested",
+      "expiresAt": "Expires",
+      "stalled": "The portal stopped hearing from this job and no longer asks about it. Request the export again.",
+      "error": {
+        "missingSource": "The data source is not available on the server.",
+        "unknownColumn": "One of the filters names a column the dataset does not have.",
+        "formatUnavailable": "The file could not be written in the requested format. The Excel workbook takes up to 200,000 rows: if the dataset is larger, narrow the filters or ask for the export as CSV, which has no cap.",
+        "internalFailure": "The extraction failed because of an internal error of the portal."
+      }
+    },
+    "link": {
+      "download": "Download file",
+      "expiresIn": "The link expires {cuando}.",
+      "expired": "The link already expired. Request the export again to get a fresh one."
+    },
+    "history": {
+      "title": "Export history",
+      "empty": "You have not requested any export yet.",
+      "error": "The export history could not be read.",
+      "retry": "Try again"
+    },
+    "moment": {
+      "request": "Moment 1: request",
+      "progress": "Moment 2: job running",
+      "link": "Moment 3: signed link",
+      "pinned": "View pinned for capture",
+      "empty": "There is no real job at this point of the flow, and the screen does not invent one."
+    },
+    "demo": {
+      "notice": "Demonstration: the server stretches every job by {segundos} seconds so the intermediate state can be captured. The job, the file and the signed link are real."
+    },
+    "error": {
+      "signature": "The signature of the link was not minted by this portal.",
+      "expired": "The signed link already expired.",
+      "notFound": "There is no job with that identifier for your session.",
+      "unavailable": "The job registry is not answering. Try again in a moment.",
+      "generic": "The export operation could not be completed."
+    }
+  }
+}

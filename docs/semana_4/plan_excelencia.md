@@ -966,13 +966,13 @@ desplegar la aplicación.
 
 | Parámetro | Valor |
 |---|---|
-| Proyecto | `tareas-computo-nube` (número 403109840468) |
-| Facturación | `014738-BE619E-7D4F64`, activa y verificada |
+| Proyecto | `${GCP_PROJECT_ID}` (número ${GCP_PROJECT_NUMBER}) |
+| Facturación | `${GCP_BILLING_ACCOUNT}`, activa y verificada |
 | Región | `us-central1` — la más económica y la que ya tiene configurada el cliente `gcloud` |
 | Cuenta | `artzizumbo@gmail.com` |
 
 Nota de registro: existe también un proyecto `karisma-data` sin facturación asociada. **No se
-usa.** El despliegue va en `tareas-computo-nube`, como el usuario indicó.
+usa.** El despliegue va en `${GCP_PROJECT_ID}`, como el usuario indicó.
 
 ### 9.2 Servicios habilitados
 
@@ -1029,7 +1029,7 @@ sobre `127.0.0.1:5432`, y `schema.sql` se versiona en el mismo commit.
 
 ```bash
 # --- Bootstrap, una sola vez ---------------------------------------------
-gcloud config set project tareas-computo-nube
+gcloud config set project ${GCP_PROJECT_ID}
 gcloud config set run/region us-central1
 
 gcloud services enable \
@@ -1050,12 +1050,12 @@ gcloud sql databases create karisma --instance=karisma-pg
 gcloud sql users create karisma_app --instance=karisma-pg --password="<generada>"
 
 # --- Migraciones, desde local --------------------------------------------
-cloud-sql-proxy tareas-computo-nube:us-central1:karisma-pg --port 5432 &
+cloud-sql-proxy ${GCP_PROJECT_ID}:us-central1:karisma-pg --port 5432 &
 DATABASE_URL="postgres://karisma_app:<pass>@127.0.0.1:5432/karisma?sslmode=disable" dbmate up
 
 # --- Despliegue -----------------------------------------------------------
 gcloud run deploy karisma-api --source backend \
-  --add-cloudsql-instances tareas-computo-nube:us-central1:karisma-pg \
+  --add-cloudsql-instances ${GCP_PROJECT_ID}:us-central1:karisma-pg \
   --set-secrets DATABASE_URL=karisma-db-url:latest,JWT_SECRET_KEY=karisma-jwt:latest \
   --min-instances 0 --max-instances 3 --memory 512Mi --cpu 1 --concurrency 80 \
   --no-allow-unauthenticated

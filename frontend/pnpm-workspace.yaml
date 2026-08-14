@@ -1,0 +1,26 @@
+# Ajustes de pnpm para karisma-web.
+#
+# Desde pnpm v11 los ajustes YA NO se leen del campo "pnpm" de package.json:
+# viven aqui, incluso en un proyecto de un solo paquete. Por eso ese campo se
+# elimino de package.json en US-002: un campo muerto que nadie borra es peor
+# que no tenerlo, porque el siguiente lector cree que rige.
+
+# Que hace pnpm cuando la version que corre no coincide con el campo
+# packageManager. "download" es el valor por omision y se escribe explicito
+# para que la decision quede donde se lee: pnpm descarga y ejecuta la version
+# declarada, sin necesidad de corepack en el host (Node 25 ya no lo distribuye).
+pmOnFail: download
+
+# El runtime de Node que descarga devEngines pesa decenas de MB y el valor por
+# omision de 60 s no alcanza en conexiones domesticas. Va aqui y no en .npmrc
+# porque desde v11 pnpm solo lee autenticacion y registro de .npmrc; el resto
+# de ajustes vive en este archivo, en camelCase.
+fetchTimeout: 600000
+fetchRetries: 5
+
+# Permiso de ejecucion de scripts de instalacion, uno por uno. Los dos son
+# compilaciones nativas de dependencias directas del proyecto, no scripts de
+# terceros arbitrarios, y sin ellas ni Vite ni ESLint resuelven modulos.
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true

@@ -1,0 +1,112 @@
+# ---------------------------------------------------------------------------
+#  Karisma Data - configuracion del escaneo de secretos (US-002, CA-7).
+#
+#  Extiende el conjunto de reglas por omision de gitleaks en lugar de sustituirlo:
+#  escribir reglas propias desde cero seria empezar por detras del estado del arte
+#  y quedarse ahi.
+#
+#  La lista de permitidos es el punto exacto donde un escaneo se vuelve teatro.
+#  Por eso son tres entradas, cada una con su motivo escrito, y por eso existe
+#  scripts/verificar_gitleaks.sh: inyecta un secreto de prueba y FALLA si el
+#  escaneo no lo detecta. La lista no puede crecer hasta volver inutil la barrera.
+# ---------------------------------------------------------------------------
+
+title = "Karisma Data"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = """
+Plantillas de entorno versionadas. Las tres variables obligatorias van con valor
+VACIO a proposito -DATABASE_URL=, JWT_SECRET_KEY=, GEMINI_API_KEY=-, de modo que
+no hay nada que filtrar; lo que si contienen son ejemplos de forma de URL con la
+palabra "contrasena" como marcador, que algunas reglas genericas leen como
+credencial. Los valores reales viven en .env.local, que .gitignore excluye.
+"""
+targets = ["path"]
+paths = ['''(^|/)\.env\.example$''']
+
+[[allowlists]]
+description = """
+Candados de dependencias. Los hashes de integridad -sha512 en pnpm-lock.yaml,
+sha256 en poetry.lock- son cadenas de entropia alta y por eso disparan las
+reglas genericas, pero no son secretos: son exactamente lo contrario, la prueba
+publica de que el artefacto descargado es el declarado. Se generan solos y no
+se editan a mano.
+"""
+targets = ["path"]
+paths = [
+    '''(^|/)pnpm-lock\.yaml$''',
+    '''(^|/)poetry\.lock$''',
+]
+
+[[allowlists]]
+description = """
+Artefactos generados o de terceros que no forman parte del codigo fuente:
+dependencias instaladas, cachés de herramientas y salidas de compilacion. Nada
+de esto se versiona -.gitignore ya lo excluye-, pero "gitleaks dir" recorre el
+arbol de trabajo, no el indice de git, y sin esta entrada tardaria minutos en
+escanear node_modules en cada "make check".
+"""
+targets = ["path"]
+paths = [
+    '''(^|/)node_modules/''',
+    '''(^|/)\.venv/''',
+    '''(^|/)\.nuxt/''',
+    '''(^|/)\.output/''',
+    '''(^|/)\.git/''',
+    '''(^|/)__pycache__/''',
+    '''(^|/)\.(pytest|ruff|mypy)_cache/''',
+]
+
+[[allowlists]]
+description = """
+Entorno local del desarrollador. .gitignore excluye .env.* (linea 127) y
+"git ls-files" confirma que ninguno esta versionado: los valores que viven ahi
+-la clave de firma de desarrollo, la de Gemini y, desde US-015,
+KARISMA_DEMO_PASSWORD- no pueden llegar a un commit. "gitleaks dir" recorre el
+arbol de trabajo y no el indice, asi que los leia igualmente y producia una
+alarma permanente sobre el unico archivo del repositorio que, por construccion,
+no puede filtrar nada. Una puerta que suena siempre se acaba ignorando, y ese
+es el modo real en que este escaneo dejaria de servir.
+
+La excepcion vale UNICAMENTE mientras git ignore el archivo. Es una condicion,
+no una promesa: scripts/verificar_gitleaks.sh la comprueba con "git check-ignore"
+en cada corrida y FALLA si algun dia .env.local deja de estar ignorado o
+aparece en el indice, que es justo el momento en que esta entrada pasaria de
+quitar ruido a ocultar una fuga.
+
+Lo que esta entrada NO cubre, y conviene que se lea aqui: los siete hashes
+argon2id que siembra db/migrations/*_create_app_user.sql se escanean enteros y
+no disparan nada -"gitleaks dir db" sale limpio-. No se pidio ni se necesita
+ninguna excepcion por ellos.
+"""
+targets = ["path"]
+paths = ['''(^|/)\.env\.local$''']
+
+# ---------------------------------------------------------------------------
+#  Identificadores de infraestructura de GCP.
+#
+#  No son credenciales -no dan acceso por si solos- y por eso ninguna regla del
+#  conjunto por omision los mira. Se vigilan igual porque son superficie de
+#  abuso de facturacion y de ingenieria social, y porque este repositorio es
+#  publico: la forma correcta de citarlos en codigo o documentacion es la
+#  variable de entorno, nunca el valor.
+#
+#      ${GCP_BILLING_ACCOUNT}   ${GCP_PROJECT_NUMBER}   ${GCP_PROJECT_ID}
+#
+#  Los valores viven en .env.local y en Secret Manager.
+# ---------------------------------------------------------------------------
+
+[[rules]]
+id = "gcp-billing-account"
+description = "Identificador de cuenta de facturacion de GCP"
+regex = '''\b[0-9A-F]{6}-[0-9A-F]{6}-[0-9A-F]{6}\b'''
+tags = ["gcp", "billing", "karisma"]
+
+[[rules]]
+id = "gcp-project-number"
+description = "Numero de proyecto de GCP citado en claro"
+regex = '''(?i)(?:project[_ -]?number|numero de proyecto|projectNumber|proyecto)\D{0,20}\b\d{12}\b'''
+tags = ["gcp", "karisma"]

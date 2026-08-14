@@ -1,20 +1,111 @@
+% ============================================================================
+%  Actividad 4 · Introduccion y nota de herramienta
+%
+%  Propiedad de US-UX-07. Cubre el apartado 2 de la rubrica y el criterio 7 de
+%  la historia: la nota que justifica construir en el stack del producto,
+%  anclada a las cuatro propiedades que la rubrica pide de un prototipo de alta
+%  fidelidad y al objetivo de aprendizaje OEA 2.2.
+% ============================================================================
+
+% ============================================================================
 \uxsection{Introducción}
 
-Esta actividad llevó la arquitectura de información de la Actividad 3 a una propuesta visual
-e interactiva de \textbf{Karisma Data}. Para hacerlo, el equipo consolidó en Figma una guía de
-estilo, un sistema de componentes y cinco flujos de alta fidelidad. El resultado reúne
-\textbf{30 pantallas}, \textbf{84 conexiones de interacción}, \textbf{12 conjuntos de
-componentes} y \textbf{75 variantes}; todos los flujos comparten la misma identidad porque
-pertenecen a un solo producto digital.
+Este documento presenta el \textbf{prototipo de alta fidelidad} de \textbf{Karisma Data}, el Portal
+Centralizado de Datos Financieros, y la \textbf{guía de estilos} del sistema de diseño con el que
+está construido. Es la cuarta entrega de una investigación acumulativa y la primera en la que el
+proyecto deja de describir un producto para mostrarlo funcionando.
 
-Conservar un lenguaje visual común responde al principio de consistencia: los prototipos se
-distinguen por la tarea, el perfil, los datos y la secuencia de acciones, no por utilizar
-paletas o estilos independientes (Allen y Chudley, 2012). Así, la fidelidad se concentró en la
-jerarquía de información, los estados de los controles, la legibilidad y la continuidad entre
-pantallas.
+\textbf{Continuidad de la serie.} La Actividad 1 delimitó el problema, la audiencia institucional y
+las ocho personas que representan los perfiles de uso. La Actividad 2 convirtió esas personas en
+escenarios y mapas de recorrido, y de ellos derivó cinco principios rectores. La Actividad 3 situó
+al portal frente a sus competidores, contrastó la estructura propuesta con el modelo mental de quien
+la usará mediante un ejercicio de card sorting de treinta y cinco tarjetas, y tradujo ese resultado
+en una arquitectura de información de cuatro categorías y dieciséis ramas. Esta actividad toma ese
+mapa como contrato y lo convierte en interfaz: cada ruta del prototipo se ancla a una rama de aquel
+mapa, y la correspondencia se publica completa.
 
-\textbf{Mapa de lectura.} La primera sección explica el método de prototipado y la herramienta
-utilizada. La segunda presenta los cinco recorridos, primero como secuencias completas y luego
-mediante una pantalla de detalle. La tercera documenta la guía de estilo y el sistema de
-componentes. Las secciones siguientes registran la verificación técnica, delimitan el alcance
-y reúnen las conclusiones, referencias e inventario de evidencias.
+\textbf{Qué se entrega.} Siete pantallas de alta fidelidad, construidas en el entorno del producto y
+recorribles de principio a fin; la correspondencia entre las dieciséis ramas del mapa y las rutas
+del portal; los cuatro estados no felices declarados pantalla por pantalla; una guía de estilos con
+sus secciones puntuadas; la tabla que declara hasta dónde llega cada pantalla; y una pre-validación
+sobre capturas reales del prototipo con al menos una iteración documentada.
+
+\textbf{Sobre la pre-validación.} Los ocho evaluadores que aparecen en la sección de pre-validación
+son \textbf{evaluadores prototipo}: perfiles sintéticos condicionados por las ocho personas de la
+Actividad 1, en continuidad con el método que sostuvo el card sorting de la Actividad 3. No son
+participantes humanos y sus respuestas no son datos de campo. La validación con personas reales
+ocurre en la prueba de usabilidad de la Actividad 5, cuando el objeto de evaluación ya es una
+interfaz operable y la medición resulta interpretable. Esta precisión abre la sección
+correspondiente y se repite ahí, porque confundir las dos cosas equivaldría a fabricar un resultado.
+
+% ============================================================================
+\section{Nota de herramienta}
+
+La rúbrica de esta actividad \textbf{recomienda} dos aplicaciones para elaborar los prototipos: una
+basada en web, Figma, y una de descarga e instalación, Lunacy. La recomendación aparece acompañada
+de tutoriales y de las políticas de privacidad de ambas. Ningún criterio de evaluación menciona
+herramienta alguna: los criterios evalúan prototipos y secciones de guía.
+
+Este equipo construyó los prototipos \textbf{en el entorno del producto} --- Nuxt 4 sobre FastAPI,
+con PostgreSQL detrás --- en lugar de dibujarlos en un archivo de diseño. La decisión no es una
+excepción al objetivo de la actividad sino una forma más estricta de cumplirlo, y conviene
+sostenerla contra lo que la propia rúbrica pide de un prototipo de alta fidelidad, propiedad por
+propiedad.
+
+\begin{uxtabla}{|L{5.4cm}|Y|}{Las cuatro propiedades que la rúbrica pide de un prototipo de alta fidelidad, frente a una interfaz operable}
+  \uxheadrow \thd{Lo que la rúbrica pide} & \thd{Cómo lo cumple una interfaz construida en el entorno del producto} \\
+  \enquote{Ofrecer una representación lo más fiel al producto final} & La representación no se aproxima al producto final: es el producto final. Mismo motor de composición, misma tipografía cargada por el navegador, mismos datos sintéticos y mismo sistema de tokens \\
+  \enquote{Permitir probar y evaluar interacciones y funcionalidades} & Las interacciones no se simulan entre lienzos: se ejecutan. Los filtros filtran, la serie de la gráfica hace acercamiento, la transmisión del asistente se cancela de verdad y la sesión cambia lo que cada rol ve \\
+  \enquote{Facilitar la obtención de comentarios detallados de los usuarios acerca de la estética visual} & Se obtienen los mismos comentarios sobre estética y además sobre comportamiento, densidad de información y respuesta a la espera, que un lienzo estático no puede provocar \\
+  \enquote{Ayudar a las personas interesadas a tener un mejor entendimiento del producto final} & No requiere que quien lo revisa imagine el resultado: se abre en un navegador y se recorre, con su sesión y sus permisos \\
+\end{uxtabla}
+
+El objetivo de aprendizaje evaluado, \textbf{OEA 2.2}, pide \enquote{elaborar prototipos alta
+fidelidad que representen la interfase de un producto o servicio digital}. No prescribe el medio. Un
+prototipo que \emph{es} la interfaz representa la interfaz de la manera más completa disponible.
+
+Nada se pierde con la sustitución. Este documento entrega todo lo que un archivo de diseño
+entregaría --- el sistema de tokens completo, el inventario de componentes con sus estados, la
+retícula y la matriz de contraste verificada por cálculo --- y añade lo que aquel archivo no puede
+entregar: pantallas que responden. Cada figura de la sección de prototipos es una captura de la
+aplicación en funcionamiento, tomada a resolución fija con un guion reproducible que se documenta en
+el anexo.
+
+% ============================================================================
+\section{Cómo se lee este documento}
+
+\begin{uxlist}
+  \lead{Sección 1. Método de prototipado}{Con qué se construyó, qué significa \enquote{desplegado}
+    en esta entrega y cómo se toman las capturas. Incluye la cadena que va del sistema de diseño a
+    la página impresa y por qué corre en un solo sentido.}
+  \lead{Sección 2. Los siete prototipos}{Las pantallas, una por una, con su figura. La
+    correspondencia entre las dieciséis ramas del mapa de la Actividad 3 y las rutas del portal, y
+    la matriz de los cuatro estados no felices.}
+  \lead{Sección 3. Guía de estilos}{Identidad, tipografía, paleta con su matriz de contraste,
+    componentes de interfaz e iconografía, cada uno con su propio subtítulo.}
+  \lead{Sección 4. Pre-validación e iteración}{El protocolo con los ocho evaluadores prototipo, las
+    dos tareas heredadas de la prueba de árbol de la Actividad 3, y el hallazgo que produjo un
+    cambio, con el antes y el después lado a lado.}
+  \lead{Sección 5. Alcance declarado}{Hasta dónde llega cada pantalla y cada historia de usuario, en
+    tres estados, sin dejar ninguna sin declarar.}
+  \lead{Sección 6. Cierre}{Qué se construyó en cifras, qué cambió por evidencia y qué se lleva la
+    Actividad 5.}
+  \lead{Anexo}{Guion de capturas, inventario de figuras y trazabilidad entre los criterios de la
+    historia de usuario, las secciones de este documento y su evidencia.}
+\end{uxlist}
+
+La tabla siguiente sirve de guía de lectura para la evaluación: indica dónde se atiende cada
+apartado de la rúbrica y con qué peso.
+
+\begin{uxtabla}{|L{6.4cm}|L{1.5cm}|Y|}{Trazabilidad entre los apartados de la rúbrica y el documento}
+  \uxheadrow \thd{Apartado de la rúbrica} & \thd{Peso} & \thd{Dónde se atiende} \\
+  Portada con los nombres de los integrantes & 2 \% & Portada \\
+  Introducción & 3 \% & Esta sección, con la nota de herramienta \\
+  Prototipos de alta fidelidad & 50 \% & Secciones 1 y 2, y la tabla de alcance de la sección 5 \\
+  Guía de estilos & 45 \% & Sección 3 y el cierre de la sección 6 \\
+\end{uxtabla}
+
+La rúbrica otorga diez puntos por prototipo con un tope de cincuenta, de modo que el tope se alcanza
+con cinco pantallas. Se entregan siete. El motivo es de gestión de riesgo y no de esfuerzo: con
+exactamente cinco, una pantalla juzgada de manera parcial baja el apartado completo; con siete, el
+margen absorbe dos juicios parciales sin perder el tope.

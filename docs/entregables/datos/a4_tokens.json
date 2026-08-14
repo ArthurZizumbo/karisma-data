@@ -1,0 +1,1074 @@
+{
+  "version": "v1.0",
+  "fecha": "2026-08-16",
+  "fuente": "docs/entregables/estilo/uxdoc.sty",
+  "generador": "docs/entregables/generar_tokens_a4.py",
+  "resumen": {
+    "familias": 4,
+    "tonos_por_familia": 5,
+    "neutros": 7,
+    "semanticos": 4,
+    "series": 6,
+    "tokens_de_color": 37,
+    "anclas": 11,
+    "alias_us001": 7,
+    "pares_de_contraste": 44,
+    "hallazgos": 4,
+    "roles_tipograficos": 9
+  },
+  "familias": [
+    {
+      "clave": "primary",
+      "etiqueta": "Primaria - azul institucional",
+      "tonos": [
+        {
+          "nombre": "primary-100",
+          "tono": 100,
+          "hex": "#DBEAFE",
+          "clase": "bg-primary-100",
+          "nombre_tex": "uxprimary100",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Relleno informativo y fondo de chip de estado."
+        },
+        {
+          "nombre": "primary-300",
+          "tono": 300,
+          "hex": "#93C5FD",
+          "clase": "bg-primary-300",
+          "nombre_tex": "uxprimary300",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Relleno de seleccion y de fila marcada."
+        },
+        {
+          "nombre": "primary-500",
+          "tono": 500,
+          "hex": "#2563EB",
+          "clase": "bg-primary-500",
+          "nombre_tex": "uxblue",
+          "es_ancla": true,
+          "reusa": null,
+          "uso": "Accion primaria, enlace y anillo de foco."
+        },
+        {
+          "nombre": "primary-700",
+          "tono": 700,
+          "hex": "#1F4D78",
+          "clase": "bg-primary-700",
+          "nombre_tex": "uxnavy",
+          "es_ancla": true,
+          "reusa": null,
+          "uso": "Barra lateral, cabecera de tabla y titulares."
+        },
+        {
+          "nombre": "primary-900",
+          "tono": 900,
+          "hex": "#0F2C46",
+          "clase": "bg-primary-900",
+          "nombre_tex": "uxprimary900",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Fondo mas oscuro de la barra lateral colapsada."
+        }
+      ]
+    },
+    {
+      "clave": "secondary",
+      "etiqueta": "Secundaria - azul de grafica",
+      "tonos": [
+        {
+          "nombre": "secondary-100",
+          "tono": 100,
+          "hex": "#E3EDF7",
+          "clase": "bg-secondary-100",
+          "nombre_tex": "uxsecondary100",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Area bajo la curva de la serie secundaria."
+        },
+        {
+          "nombre": "secondary-300",
+          "tono": 300,
+          "hex": "#B8CCE4",
+          "clase": "bg-secondary-300",
+          "nombre_tex": "uxpale",
+          "es_ancla": true,
+          "reusa": null,
+          "uso": "Relleno suave, borde de tarjeta y area de banda."
+        },
+        {
+          "nombre": "secondary-500",
+          "tono": 500,
+          "hex": "#3B82F6",
+          "clase": "bg-secondary-500",
+          "nombre_tex": "uxsky",
+          "es_ancla": true,
+          "reusa": null,
+          "uso": "Serie primaria de grafica y barra de progreso."
+        },
+        {
+          "nombre": "secondary-700",
+          "tono": 700,
+          "hex": "#1E5FA8",
+          "clase": "bg-secondary-700",
+          "nombre_tex": "uxsecondary700",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Serie secundaria enfatizada y eje activo."
+        },
+        {
+          "nombre": "secondary-900",
+          "tono": 900,
+          "hex": "#14385F",
+          "clase": "bg-secondary-900",
+          "nombre_tex": "uxsecondary900",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Rejilla y eje sobre grafica de fondo oscuro."
+        }
+      ]
+    },
+    {
+      "clave": "accent",
+      "etiqueta": "Acento - ambar de uso escaso",
+      "tonos": [
+        {
+          "nombre": "accent-100",
+          "tono": 100,
+          "hex": "#FEEBD9",
+          "clase": "bg-accent-100",
+          "nombre_tex": "uxaccent100",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Fondo del aviso de alcance y del banner de demo."
+        },
+        {
+          "nombre": "accent-300",
+          "tono": 300,
+          "hex": "#FDBA8C",
+          "clase": "bg-accent-300",
+          "nombre_tex": "uxaccent300",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Filete y relleno del aviso."
+        },
+        {
+          "nombre": "accent-500",
+          "tono": 500,
+          "hex": "#F97316",
+          "clase": "bg-accent-500",
+          "nombre_tex": "uxamber",
+          "es_ancla": true,
+          "reusa": null,
+          "uso": "Solo decorativo: filete de marca. No informa."
+        },
+        {
+          "nombre": "accent-700",
+          "tono": 700,
+          "hex": "#C2540A",
+          "clase": "bg-accent-700",
+          "nombre_tex": "uxaccent700",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Todo ambar que informa: icono, borde y marca."
+        },
+        {
+          "nombre": "accent-900",
+          "tono": 900,
+          "hex": "#7C3606",
+          "clase": "bg-accent-900",
+          "nombre_tex": "uxaccent900",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Texto de aviso sobre el acento 100."
+        }
+      ]
+    },
+    {
+      "clave": "success",
+      "etiqueta": "Complemento - verde de confirmacion",
+      "tonos": [
+        {
+          "nombre": "success-100",
+          "tono": 100,
+          "hex": "#DCFCE7",
+          "clase": "bg-success-100",
+          "nombre_tex": "uxsuccess100",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Fondo de la insignia de confirmacion."
+        },
+        {
+          "nombre": "success-300",
+          "tono": 300,
+          "hex": "#86EFAC",
+          "clase": "bg-success-300",
+          "nombre_tex": "uxsuccess300",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Filete de la insignia de confirmacion."
+        },
+        {
+          "nombre": "success-500",
+          "tono": 500,
+          "hex": "#16A34A",
+          "clase": "bg-success-500",
+          "nombre_tex": "uxsuccess500",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Marca grafica de confirmacion en tablero."
+        },
+        {
+          "nombre": "success-700",
+          "tono": 700,
+          "hex": "#166534",
+          "clase": "bg-success-700",
+          "nombre_tex": "uxgreen",
+          "es_ancla": true,
+          "reusa": null,
+          "uso": "Confirmacion en texto y estado correcto."
+        },
+        {
+          "nombre": "success-900",
+          "tono": 900,
+          "hex": "#0B3D1F",
+          "clase": "bg-success-900",
+          "nombre_tex": "uxsuccess900",
+          "es_ancla": false,
+          "reusa": null,
+          "uso": "Texto sobre el relleno de confirmacion."
+        }
+      ]
+    }
+  ],
+  "neutros": [
+    {
+      "nombre": "surface",
+      "tono": 100,
+      "hex": "#F8FAFC",
+      "clase": "bg-surface",
+      "nombre_tex": "uxsurface",
+      "es_ancla": true,
+      "reusa": null,
+      "uso": "Superficie de pagina y de tarjeta."
+    },
+    {
+      "nombre": "surface-alt",
+      "tono": 100,
+      "hex": "#EEF3FA",
+      "clase": "bg-surface-alt",
+      "nombre_tex": "uxrow",
+      "es_ancla": true,
+      "reusa": null,
+      "uso": "Fila alterna de tabla y cabecera de panel."
+    },
+    {
+      "nombre": "line",
+      "tono": 300,
+      "hex": "#CBD5E1",
+      "clase": "bg-line",
+      "nombre_tex": "uxline",
+      "es_ancla": true,
+      "reusa": null,
+      "uso": "Filete decorativo y separador que no informa."
+    },
+    {
+      "nombre": "line-strong",
+      "tono": 500,
+      "hex": "#64748B",
+      "clase": "bg-line-strong",
+      "nombre_tex": "uxmuted",
+      "es_ancla": true,
+      "reusa": "muted",
+      "uso": "Borde de campo de formulario y limite de componente que informa."
+    },
+    {
+      "nombre": "muted",
+      "tono": 500,
+      "hex": "#64748B",
+      "clase": "bg-muted",
+      "nombre_tex": "uxmuted",
+      "es_ancla": true,
+      "reusa": null,
+      "uso": "Texto secundario, solo a partir de 14 px."
+    },
+    {
+      "nombre": "ink",
+      "tono": 700,
+      "hex": "#1E293B",
+      "clase": "bg-ink",
+      "nombre_tex": "uxink",
+      "es_ancla": true,
+      "reusa": null,
+      "uso": "Texto de cuerpo y cifra de tabla."
+    },
+    {
+      "nombre": "ink-strong",
+      "tono": 900,
+      "hex": "#0F172A",
+      "clase": "bg-ink-strong",
+      "nombre_tex": "uxinkstrong",
+      "es_ancla": false,
+      "reusa": null,
+      "uso": "Cifra de tarjeta KPI y titulo de dialogo."
+    }
+  ],
+  "semanticos": [
+    {
+      "nombre": "danger",
+      "tono": 700,
+      "hex": "#B91C1C",
+      "clase": "bg-danger",
+      "nombre_tex": "uxdanger",
+      "es_ancla": false,
+      "reusa": null,
+      "uso": "Error, campo invalido y accion destructiva."
+    },
+    {
+      "nombre": "danger-strong",
+      "tono": 900,
+      "hex": "#7F1D1D",
+      "clase": "bg-danger-strong",
+      "nombre_tex": "uxdangerstrong",
+      "es_ancla": false,
+      "reusa": null,
+      "uso": "Error enfatizado y titulo destructivo."
+    },
+    {
+      "nombre": "warning",
+      "tono": 700,
+      "hex": "#C2540A",
+      "clase": "bg-warning",
+      "nombre_tex": "uxaccent700",
+      "es_ancla": false,
+      "reusa": "accent-700",
+      "uso": "Aviso que informa; reusa el acento 700."
+    },
+    {
+      "nombre": "info",
+      "tono": 500,
+      "hex": "#2563EB",
+      "clase": "bg-info",
+      "nombre_tex": "uxblue",
+      "es_ancla": true,
+      "reusa": "primary-500",
+      "uso": "Mensaje informativo; reusa la primaria 500."
+    }
+  ],
+  "series": [
+    {
+      "nombre": "serie-1",
+      "tono": 500,
+      "hex": "#2563EB",
+      "clase": "bg-serie-1",
+      "nombre_tex": "uxblue",
+      "es_ancla": true,
+      "reusa": "primary-500",
+      "uso": "Serie 1 de grafica categorica."
+    },
+    {
+      "nombre": "serie-2",
+      "tono": 700,
+      "hex": "#C2540A",
+      "clase": "bg-serie-2",
+      "nombre_tex": "uxaccent700",
+      "es_ancla": false,
+      "reusa": "accent-700",
+      "uso": "Serie 2 de grafica categorica."
+    },
+    {
+      "nombre": "serie-3",
+      "tono": 700,
+      "hex": "#166534",
+      "clase": "bg-serie-3",
+      "nombre_tex": "uxgreen",
+      "es_ancla": true,
+      "reusa": "success-700",
+      "uso": "Serie 3 de grafica categorica."
+    },
+    {
+      "nombre": "serie-4",
+      "tono": 500,
+      "hex": "#7C3AED",
+      "clase": "bg-serie-4",
+      "nombre_tex": "uxserie4",
+      "es_ancla": false,
+      "reusa": null,
+      "uso": "Serie 4 de grafica categorica."
+    },
+    {
+      "nombre": "serie-5",
+      "tono": 500,
+      "hex": "#0E7490",
+      "clase": "bg-serie-5",
+      "nombre_tex": "uxserie5",
+      "es_ancla": false,
+      "reusa": null,
+      "uso": "Serie 5 de grafica categorica."
+    },
+    {
+      "nombre": "serie-6",
+      "tono": 700,
+      "hex": "#9D174D",
+      "clase": "bg-serie-6",
+      "nombre_tex": "uxserie6",
+      "es_ancla": false,
+      "reusa": null,
+      "uso": "Serie 6 de grafica categorica."
+    }
+  ],
+  "alias_us001": [
+    {
+      "nombre": "primary",
+      "origen": "primary-500",
+      "hex": "#2563EB"
+    },
+    {
+      "nombre": "primary-dark",
+      "origen": "primary-700",
+      "hex": "#1F4D78"
+    },
+    {
+      "nombre": "secondary",
+      "origen": "secondary-500",
+      "hex": "#3B82F6"
+    },
+    {
+      "nombre": "secondary-soft",
+      "origen": "secondary-300",
+      "hex": "#B8CCE4"
+    },
+    {
+      "nombre": "accent",
+      "origen": "accent-500",
+      "hex": "#F97316"
+    },
+    {
+      "nombre": "accent-text",
+      "origen": "accent-900",
+      "hex": "#7C3606"
+    },
+    {
+      "nombre": "success",
+      "origen": "success-700",
+      "hex": "#166534"
+    }
+  ],
+  "contrastes": [
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 13.98,
+      "veredicto": "AAA",
+      "regla": "Texto de cuerpo sobre superficie: el par por omision."
+    },
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "surface-alt",
+      "fondo_hex": "#EEF3FA",
+      "ratio": 13.12,
+      "veredicto": "AAA",
+      "regla": "Texto de cuerpo sobre la fila alterna de la tabla."
+    },
+    {
+      "frente": "ink-strong",
+      "frente_hex": "#0F172A",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 17.06,
+      "veredicto": "AAA",
+      "regla": "Cifra de tarjeta KPI, el neutro mas oscuro."
+    },
+    {
+      "frente": "muted",
+      "frente_hex": "#64748B",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 4.55,
+      "veredicto": "AA",
+      "regla": "Texto secundario: solo a partir de 14 px, nunca una cifra."
+    },
+    {
+      "frente": "muted",
+      "frente_hex": "#64748B",
+      "fondo": "surface-alt",
+      "fondo_hex": "#EEF3FA",
+      "ratio": 4.27,
+      "veredicto": "AA-grande",
+      "regla": "Texto secundario dentro de la tabla, mismo limite."
+    },
+    {
+      "frente": "line",
+      "frente_hex": "#CBD5E1",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 1.42,
+      "veredicto": "falla",
+      "regla": "Filete decorativo. No sirve de borde de campo."
+    },
+    {
+      "frente": "line-strong",
+      "frente_hex": "#64748B",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 4.55,
+      "veredicto": "AA",
+      "regla": "Borde de campo de formulario y limite que informa."
+    },
+    {
+      "frente": "line-strong",
+      "frente_hex": "#64748B",
+      "fondo": "surface-alt",
+      "fondo_hex": "#EEF3FA",
+      "ratio": 4.27,
+      "veredicto": "AA-grande",
+      "regla": "Borde de campo dentro de una fila alterna."
+    },
+    {
+      "frente": "primary-700",
+      "frente_hex": "#1F4D78",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 8.39,
+      "veredicto": "AAA",
+      "regla": "Titular de seccion y encabezado de tabla."
+    },
+    {
+      "frente": "primary-500",
+      "frente_hex": "#2563EB",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 4.94,
+      "veredicto": "AA",
+      "regla": "Enlace y texto de accion primaria."
+    },
+    {
+      "frente": "primary-500",
+      "frente_hex": "#2563EB",
+      "fondo": "surface-alt",
+      "fondo_hex": "#EEF3FA",
+      "ratio": 4.64,
+      "veredicto": "AA",
+      "regla": "Enlace dentro de la tabla."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "primary-500",
+      "fondo_hex": "#2563EB",
+      "ratio": 4.94,
+      "veredicto": "AA",
+      "regla": "Texto del boton primario en reposo."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "primary-700",
+      "fondo_hex": "#1F4D78",
+      "ratio": 8.39,
+      "veredicto": "AAA",
+      "regla": "Texto de la barra lateral y de la cabecera."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "primary-900",
+      "fondo_hex": "#0F2C46",
+      "ratio": 13.66,
+      "veredicto": "AAA",
+      "regla": "Texto sobre el fondo mas oscuro de la barra."
+    },
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "primary-100",
+      "fondo_hex": "#DBEAFE",
+      "ratio": 11.99,
+      "veredicto": "AAA",
+      "regla": "Texto sobre el relleno informativo."
+    },
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "primary-300",
+      "fondo_hex": "#93C5FD",
+      "ratio": 8.11,
+      "veredicto": "AAA",
+      "regla": "Texto sobre el relleno de seleccion."
+    },
+    {
+      "frente": "secondary-500",
+      "frente_hex": "#3B82F6",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 3.52,
+      "veredicto": "AA-grande",
+      "regla": "Serie de grafica: cumple el 3:1, no el de texto."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "secondary-700",
+      "fondo_hex": "#1E5FA8",
+      "ratio": 6.16,
+      "veredicto": "AA",
+      "regla": "Texto sobre la serie secundaria enfatizada."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "secondary-900",
+      "fondo_hex": "#14385F",
+      "ratio": 11.4,
+      "veredicto": "AAA",
+      "regla": "Texto sobre la grafica de fondo oscuro."
+    },
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "secondary-300",
+      "fondo_hex": "#B8CCE4",
+      "ratio": 8.91,
+      "veredicto": "AAA",
+      "regla": "Texto sobre el relleno suave del area bajo la curva."
+    },
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "secondary-100",
+      "fondo_hex": "#E3EDF7",
+      "ratio": 12.35,
+      "veredicto": "AAA",
+      "regla": "Texto sobre el area bajo la curva mas clara."
+    },
+    {
+      "frente": "accent-500",
+      "frente_hex": "#F97316",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 2.68,
+      "veredicto": "falla",
+      "regla": "Hallazgo 3: el ambar 500 no informa, solo decora."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "accent-500",
+      "fondo_hex": "#F97316",
+      "ratio": 2.68,
+      "veredicto": "falla",
+      "regla": "Hallazgo 1: el ambar 500 no lleva texto claro."
+    },
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "accent-500",
+      "fondo_hex": "#F97316",
+      "ratio": 5.22,
+      "veredicto": "AA",
+      "regla": "Regla sustituta de 1: sobre ambar 500, texto de tinta."
+    },
+    {
+      "frente": "accent-700",
+      "frente_hex": "#C2540A",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 4.4,
+      "veredicto": "AA-grande",
+      "regla": "Regla sustituta de 3: el ambar que informa es el 700."
+    },
+    {
+      "frente": "accent-700",
+      "frente_hex": "#C2540A",
+      "fondo": "accent-100",
+      "fondo_hex": "#FEEBD9",
+      "ratio": 3.96,
+      "veredicto": "AA-grande",
+      "regla": "Hallazgo 2: el texto de aviso no puede ser el 700."
+    },
+    {
+      "frente": "accent-900",
+      "frente_hex": "#7C3606",
+      "fondo": "accent-100",
+      "fondo_hex": "#FEEBD9",
+      "ratio": 7.58,
+      "veredicto": "AAA",
+      "regla": "Regla sustituta de 2: el texto de aviso es el 900."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "accent-700",
+      "fondo_hex": "#C2540A",
+      "ratio": 4.4,
+      "veredicto": "AA-grande",
+      "regla": "Texto claro sobre relleno de aviso solido."
+    },
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "accent-300",
+      "fondo_hex": "#FDBA8C",
+      "ratio": 8.76,
+      "veredicto": "AAA",
+      "regla": "Texto sobre el filete de aviso."
+    },
+    {
+      "frente": "success-700",
+      "frente_hex": "#166534",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 6.81,
+      "veredicto": "AA",
+      "regla": "Confirmacion en texto."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "success-700",
+      "fondo_hex": "#166534",
+      "ratio": 6.81,
+      "veredicto": "AA",
+      "regla": "Texto de la insignia de confirmacion."
+    },
+    {
+      "frente": "success-500",
+      "frente_hex": "#16A34A",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 3.15,
+      "veredicto": "AA-grande",
+      "regla": "Marca grafica de confirmacion: 3:1 si, texto no."
+    },
+    {
+      "frente": "ink",
+      "frente_hex": "#1E293B",
+      "fondo": "success-100",
+      "fondo_hex": "#DCFCE7",
+      "ratio": 13.32,
+      "veredicto": "AAA",
+      "regla": "Texto sobre el relleno de confirmacion."
+    },
+    {
+      "frente": "danger",
+      "frente_hex": "#B91C1C",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 6.18,
+      "veredicto": "AA",
+      "regla": "Error en texto y borde de campo invalido."
+    },
+    {
+      "frente": "surface",
+      "frente_hex": "#F8FAFC",
+      "fondo": "danger",
+      "fondo_hex": "#B91C1C",
+      "ratio": 6.18,
+      "veredicto": "AA",
+      "regla": "Texto del boton destructivo."
+    },
+    {
+      "frente": "danger-strong",
+      "frente_hex": "#7F1D1D",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 9.58,
+      "veredicto": "AAA",
+      "regla": "Error enfatizado y titulo del dialogo destructivo."
+    },
+    {
+      "frente": "warning",
+      "frente_hex": "#C2540A",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 4.4,
+      "veredicto": "AA-grande",
+      "regla": "Aviso como elemento grafico sobre superficie."
+    },
+    {
+      "frente": "info",
+      "frente_hex": "#2563EB",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 4.94,
+      "veredicto": "AA",
+      "regla": "Mensaje informativo en texto sobre superficie."
+    },
+    {
+      "frente": "serie-1",
+      "frente_hex": "#2563EB",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 4.94,
+      "veredicto": "AA",
+      "regla": "Serie 1 sobre superficie de grafica."
+    },
+    {
+      "frente": "serie-2",
+      "frente_hex": "#C2540A",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 4.4,
+      "veredicto": "AA-grande",
+      "regla": "Serie 2 sobre superficie de grafica."
+    },
+    {
+      "frente": "serie-3",
+      "frente_hex": "#166534",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 6.81,
+      "veredicto": "AA",
+      "regla": "Serie 3 sobre superficie de grafica."
+    },
+    {
+      "frente": "serie-4",
+      "frente_hex": "#7C3AED",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 5.45,
+      "veredicto": "AA",
+      "regla": "Serie 4 sobre superficie de grafica."
+    },
+    {
+      "frente": "serie-5",
+      "frente_hex": "#0E7490",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 5.12,
+      "veredicto": "AA",
+      "regla": "Serie 5 sobre superficie de grafica."
+    },
+    {
+      "frente": "serie-6",
+      "frente_hex": "#9D174D",
+      "fondo": "surface",
+      "fondo_hex": "#F8FAFC",
+      "ratio": 7.54,
+      "veredicto": "AAA",
+      "regla": "Serie 6 sobre superficie de grafica."
+    }
+  ],
+  "hallazgos": [
+    {
+      "numero": 1,
+      "par": {
+        "frente": "surface",
+        "frente_hex": "#F8FAFC",
+        "fondo": "accent-500",
+        "fondo_hex": "#F97316",
+        "ratio": 2.68,
+        "veredicto": "falla",
+        "regla": "Hallazgo 1: el ambar 500 no lleva texto claro."
+      },
+      "sustituto": {
+        "frente": "ink",
+        "frente_hex": "#1E293B",
+        "fondo": "accent-500",
+        "fondo_hex": "#F97316",
+        "ratio": 5.22,
+        "veredicto": "AA",
+        "regla": "Regla sustituta de 1: sobre ambar 500, texto de tinta."
+      },
+      "diagnostico": "La prosa del plan citaba 2.6:1 para el blanco sobre el ambar 500. El calculo WCAG 2.x da 2.80:1 con blanco puro y 2.68:1 con la superficie del producto, que es el claro que la interfaz usa de verdad. Los dos fallan: el veredicto no cambia, el numero si."
+    },
+    {
+      "numero": 2,
+      "par": {
+        "frente": "accent-700",
+        "frente_hex": "#C2540A",
+        "fondo": "accent-100",
+        "fondo_hex": "#FEEBD9",
+        "ratio": 3.96,
+        "veredicto": "AA-grande",
+        "regla": "Hallazgo 2: el texto de aviso no puede ser el 700."
+      },
+      "sustituto": {
+        "frente": "accent-900",
+        "frente_hex": "#7C3606",
+        "fondo": "accent-100",
+        "fondo_hex": "#FEEBD9",
+        "ratio": 7.58,
+        "veredicto": "AAA",
+        "regla": "Regla sustituta de 2: el texto de aviso es el 900."
+      },
+      "diagnostico": "El texto de aviso en acento 700 sobre acento 100 se daba por bueno y queda por debajo del 4.5:1 de texto normal. El aviso pasa al acento 900, que sube a AAA sin cambiar el fondo ni el tamano de letra."
+    },
+    {
+      "numero": 3,
+      "par": {
+        "frente": "accent-500",
+        "frente_hex": "#F97316",
+        "fondo": "surface",
+        "fondo_hex": "#F8FAFC",
+        "ratio": 2.68,
+        "veredicto": "falla",
+        "regla": "Hallazgo 3: el ambar 500 no informa, solo decora."
+      },
+      "sustituto": {
+        "frente": "accent-700",
+        "frente_hex": "#C2540A",
+        "fondo": "surface",
+        "fondo_hex": "#F8FAFC",
+        "ratio": 4.4,
+        "veredicto": "AA-grande",
+        "regla": "Regla sustituta de 3: el ambar que informa es el 700."
+      },
+      "diagnostico": "El ambar 500 como elemento grafico informativo no llega al 3:1 que exige un limite de componente. Queda solo decorativo: todo ambar que informa usa el acento 700."
+    },
+    {
+      "numero": 4,
+      "par": {
+        "frente": "line",
+        "frente_hex": "#CBD5E1",
+        "fondo": "surface",
+        "fondo_hex": "#F8FAFC",
+        "ratio": 1.42,
+        "veredicto": "falla",
+        "regla": "Filete decorativo. No sirve de borde de campo."
+      },
+      "sustituto": {
+        "frente": "line-strong",
+        "frente_hex": "#64748B",
+        "fondo": "surface",
+        "fondo_hex": "#F8FAFC",
+        "ratio": 4.55,
+        "veredicto": "AA",
+        "regla": "Borde de campo de formulario y limite que informa."
+      },
+      "diagnostico": "El filete claro como borde de campo de formulario da 1.42:1, muy por debajo del 3:1 de limite de componente: el campo se veia como un rectangulo sin borde. El borde de campo usa el neutro fuerte y el filete claro queda para separadores decorativos."
+    }
+  ],
+  "reglas_derivadas": [
+    "El acento 500 no lleva texto claro encima: con la superficie del producto da 2.68:1 y con blanco puro 2.80:1. Si el ambar 500 lleva texto, el texto es tinta (5.22:1).",
+    "Todo ambar que informa usa el acento 700 (4.40:1 sobre superficie, por encima del 3:1 de elemento grafico). El acento 500 queda decorativo.",
+    "El texto de aviso es el acento 900 sobre el acento 100 (7.58:1, AAA). El acento 700 sobre el mismo fondo se queda en 3.96:1 y falla AA.",
+    "El borde de campo de formulario usa el neutro line-strong (4.55:1). El filete claro line (1.42:1) queda para separadores decorativos.",
+    "El neutro muted solo rotula texto de 14 px o mas (4.55:1, AA justo): ninguna cifra ni etiqueta menor va en muted."
+  ],
+  "tipografia": [
+    {
+      "clave": "display",
+      "etiqueta": "Display",
+      "clase": "text-display",
+      "tamano_px": 32,
+      "interlinea_px": 40,
+      "peso": 400,
+      "familia": "display",
+      "uso": "Cifra unica de portada de tablero y titulo de pantalla vacia."
+    },
+    {
+      "clave": "titulo-1",
+      "etiqueta": "Titulo 1",
+      "clase": "text-titulo-1",
+      "tamano_px": 24,
+      "interlinea_px": 32,
+      "peso": 400,
+      "familia": "display",
+      "uso": "Titulo de pantalla, uno solo por vista."
+    },
+    {
+      "clave": "titulo-2",
+      "etiqueta": "Titulo 2",
+      "clase": "text-titulo-2",
+      "tamano_px": 20,
+      "interlinea_px": 28,
+      "peso": 400,
+      "familia": "display",
+      "uso": "Titulo de tarjeta, de panel y de lamina."
+    },
+    {
+      "clave": "titulo-3",
+      "etiqueta": "Titulo 3",
+      "clase": "text-titulo-3",
+      "tamano_px": 16,
+      "interlinea_px": 22,
+      "peso": 400,
+      "familia": "display",
+      "uso": "Subtitulo y encabezado de grupo de campos."
+    },
+    {
+      "clave": "cuerpo",
+      "etiqueta": "Cuerpo",
+      "clase": "text-cuerpo",
+      "tamano_px": 14,
+      "interlinea_px": 20,
+      "peso": 400,
+      "familia": "sans",
+      "uso": "Texto por omision de la interfaz densa."
+    },
+    {
+      "clave": "cuerpo-amplio",
+      "etiqueta": "Cuerpo amplio",
+      "clase": "text-cuerpo-amplio",
+      "tamano_px": 16,
+      "interlinea_px": 26,
+      "peso": 400,
+      "familia": "sans",
+      "uso": "Parrafo largo: ayuda, respuesta del asistente y aviso de alcance."
+    },
+    {
+      "clave": "etiqueta",
+      "etiqueta": "Etiqueta",
+      "clase": "text-etiqueta",
+      "tamano_px": 12,
+      "interlinea_px": 16,
+      "peso": 400,
+      "familia": "sans",
+      "uso": "Etiqueta de campo, encabezado de columna y texto de chip."
+    },
+    {
+      "clave": "dato",
+      "etiqueta": "Dato",
+      "clase": "text-dato",
+      "tamano_px": 18,
+      "interlinea_px": 24,
+      "peso": 400,
+      "familia": "sans",
+      "uso": "Cifra de tarjeta KPI y celda numerica, con cifras tabulares."
+    },
+    {
+      "clave": "micro",
+      "etiqueta": "Micro",
+      "clase": "text-micro",
+      "tamano_px": 11,
+      "interlinea_px": 16,
+      "peso": 400,
+      "familia": "sans",
+      "uso": "Nota al pie, marca de tiempo y leyenda de grafica."
+    }
+  ],
+  "espaciado_px": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48,
+    64
+  ],
+  "radios_px": {
+    "sm": 4,
+    "md": 6,
+    "lg": 10,
+    "full": 999
+  },
+  "quiebres_px": {
+    "sm": 768,
+    "md": 1024,
+    "lg": 1280,
+    "xl": 1440
+  },
+  "densidad_px": {
+    "sidebar-width": 240,
+    "header-height": 56,
+    "grid-gap": 8,
+    "card-padding": 12,
+    "table-row-height": 36
+  }
+}

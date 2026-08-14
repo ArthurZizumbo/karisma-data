@@ -1,0 +1,1 @@
+{"stream_id": "27976d4222b6435382f1e40c72cbef2f", "motivo": "cancelado", "tokens_emitidos": 3, "duracion_ms": 375, "primer_token_ms": 312, "event": "chat.stream.cancelado", "rol": "operativo", "usuario": "lmendez", "level": "info", "timestamp": "2026-08-13T22:49:32.775675Z"}

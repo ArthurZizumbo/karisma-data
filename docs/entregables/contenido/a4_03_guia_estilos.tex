@@ -1,102 +1,472 @@
-\section{Guía de estilo}
+% ============================================================================
+%  Actividad 4 · Guía de estilos del producto digital — once secciones
+%
+%  Propiedad de US-UX-09. Las dos secciones puntuadas restantes (conclusiones
+%  y referencias) viven en a4_06_cierre.tex, de la misma historia.
+%
+%  Regla de este archivo: ningún hexadecimal se teclea. Todo color entra por
+%  \laminaPaleta, \laminaContraste, \laminaTipografia y \laminaReticula, que
+%  emite docs/entregables/generar_tokens_a4.py desde los 37 \definecolor de
+%  estilo/uxdoc.sty, o por nombre de color de esa misma hoja.
+%
+%  Versión de la guía: v1.0. La cadena impresa en el PDF NO se teclea aquí,
+%  sale de \versionguia y \fechaguia, que emite el generador. Esta línea de
+%  comentario existe porque scripts/verificar_tokens_a4.sh exige que el
+%  documento nombre la misma versión que el bloque @theme, la paleta tipada y
+%  el manifiesto; el verificador falla si las cuatro dejan de coincidir.
+% ============================================================================
 
-La guía concentra las decisiones que gobiernan la expresión visual y el comportamiento de
-Karisma Data. Su organización sigue la anatomía recomendada para una guía de producto digital
-y enlaza los fundamentos de la marca con componentes que pueden reutilizarse en toda la
-experiencia (Ramírez Mejía, 2023).
+\begin{uxdestacado}
+{\uxhead\fontsize{13.5}{16}\selectfont\color{uxnavy}Guía de estilos de Karisma Data · \versionguia\ · \fechaguia}\par
+\vspace{6pt}
+{\color{uxamber}\rule{60pt}{2.2pt}}\par
+\vspace{8pt}
+La arquitectura que la Actividad 3 validó ---cuatro categorías, dieciséis ramas y nueve facetas transversales--- llegó a esta actividad como contrato de navegación, y esta guía es la otra mitad del contrato: la que fija cómo se ve y cómo se comporta cada pieza que ocupa esas rutas. Las once secciones siguientes cubren identidad, tipografía, color, componentes, iconografía, imágenes, retícula, movimiento, accesibilidad, lenguaje y versionado.
 
-\subsection{Identidad de marca}
+\vspace{6pt}
+La guía se deriva de un solo archivo y en un solo sentido. Los 37 nombres de color viven en \texttt{estilo/uxdoc.sty}; el generador \texttt{generar\_tokens\_a4.py} los lee y emite cuatro salidas: el bloque \texttt{@theme} que la aplicación consume, la paleta tipada que la ruta \texttt{/guia} imprime, las láminas de este documento y un manifiesto legible por máquina. La consecuencia práctica es que la paleta que este PDF imprime y la que el navegador pinta no divergen: son el mismo dato leído dos veces. Una guía de estilos que no está enlazada al código envejece el día que se entrega, y esa es la razón de la cadena, no una comodidad de implementación.
 
-La marca comunica claridad, trazabilidad y confianza. El símbolo representa fuentes dispersas
-que convergen en un dato con autoridad; su uso conserva proporción, área de resguardo y
-contraste suficiente sobre la superficie elegida.
+\vspace{6pt}
+La segunda regla de alcance es igual de estricta: \textbf{esta guía no documenta ningún componente que el producto no renderice}. Las siete láminas vivas de la ruta \texttt{/guia} ---paleta, tipografía, botones, campos, tablas, tarjetas e iconos--- son la fuente de las secciones 3, 4 y 5. La anatomía sigue la del material de apoyo que la propia rúbrica nombra (Ramírez Mejía, 2023) y la amplía en las seis secciones que ese material no cubre.
+\end{uxdestacado}
 
-\figuraaiv{figuras/a4/guia_logotipo.png}{Directrices de uso del logotipo: versiones permitidas, área de protección, tamaño mínimo y usos incorrectos.}{fig:a4-logotipo}
+% ============================================================================
+\section{Identidad de la marca}
 
-\subsection{Paleta de colores}
+\textbf{Karisma Data · Portal Centralizado de Datos Financieros.} La marca nombra lo que el producto hace: reunir fuentes dispersas en un único dato con autoridad. El símbolo representa esa convergencia y el logotipo compuesto se arma con el símbolo más el nombre en Lexend Deca, de modo que el texto de la marca es siempre vectorial y nunca una imagen rasterizada dentro de otra imagen.
 
-El azul profundo estructura la navegación; el verde azulado concentra acciones y selección;
-el ámbar se reserva para atención; y los neutros sostienen tablas, metadatos y grandes
-volúmenes de información. Los colores semánticos acompañan texto o iconografía y no comunican
-un estado por sí solos.
+\subsection{Construcción del logotipo compuesto}
 
-\figuraaiv{figuras/a4/guia_paleta.png}{Paleta principal y estados interactivos de Karisma Data, con funciones y valores documentados.}{fig:a4-paleta}
+La construcción está fijada en la macro \texttt{\textbackslash uxportada} de \texttt{estilo/uxdoc.sty} y se aplica idéntica en las cuatro entregas del curso: símbolo a 2{,}0 cm de ancho, nombre debajo en Lexend Deca a 23 pt sobre el azul institucional, y descriptor \textit{Portal Centralizado de Datos Financieros} en cursiva sobre el neutro secundario. La portada de este documento es la aplicación de esa regla, no una composición aparte.
 
-\subsection{Tipografía}
+\subsection{Área de resguardo y tamaño mínimo}
 
-Lexend construye la jerarquía de titulares y Fira Sans mantiene legibles el contenido, las
-tablas y los controles. La escala tipográfica distingue títulos, encabezados, cuerpo,
-etiquetas y datos sin depender únicamente del peso de la fuente.
+\begin{uxtabla}{|L{4.0cm}|L{3.0cm}|Y|}{Reglas de resguardo y de tamaño mínimo de la marca}
+  \uxheadrow \thd{Regla} & \thd{Medida} & \thd{Motivo} \\
+  Área de resguardo & Una altura de símbolo por cada lado & Ningún elemento entra en esa banda: ni filete, ni texto, ni borde de tarjeta \\
+  Tamaño mínimo del símbolo solo & 16 px de alto & Por debajo, los trazos de convergencia se funden y el símbolo se lee como una mancha \\
+  Tamaño mínimo del compuesto & 96 px de ancho & Es el ancho al que el nombre sigue siendo legible junto al símbolo \\
+  Proporción & Bloqueada & El compuesto escala en un solo gesto; alto y ancho nunca se ajustan por separado \\
+\end{uxtabla}
 
-\figuraaiv{figuras/a4/guia_tipografia.png}{Aplicación de la jerarquía tipográfica en títulos, métricas, contenido, controles y etiquetas.}{fig:a4-tipografia}
+\subsection{Versiones permitidas}
 
-\subsection{Componentes de interfaz}
+Tres, y ninguna más. \textbf{Positiva} sobre la superficie clara del sistema, que es el uso por omisión. \textbf{Negativa} sobre la primaria 700 y sobre la primaria 900, que son los dos fondos oscuros del producto: la barra lateral usa exactamente esa combinación y la matriz de la sección 3 la respalda con 8{,}39:1 y 13{,}66:1. \textbf{Símbolo solo}, reservado al favicon y al avatar, donde no cabe el nombre.
 
-El archivo contiene 12 conjuntos y 75 variantes para acciones, búsqueda, estados,
-navegación, filas de datos, selección, procesos y retroalimentación. Cada familia declara
-variantes de uso y estados que evitan reconstruir controles pantalla por pantalla.
+\subsection{Usos incorrectos}
 
-\figuraaiv{figuras/a4/componente_botones.png}{Familia de botones con jerarquías y estados predeterminado, al pasar, presionado, foco, carga y deshabilitado.}{fig:a4-botones}
+\begin{uxtabla}{|L{5.2cm}|Y|}{Los cuatro usos incorrectos de la marca}
+  \uxheadrow \thd{Uso incorrecto} & \thd{Qué rompe} \\
+  Deformar la proporción & Cambia el peso relativo del símbolo frente al nombre y delata una composición manual \\
+  Recolorear fuera de la paleta & Rompe la única fuente de color: cualquier tono que no salga de \texttt{uxdoc.sty} es un color escrito a mano \\
+  Colocar sobre fotografía sin capa de contraste & El fondo variable impide garantizar la razón mínima, que es justo lo que la sección 3 verifica por cálculo \\
+  Añadir sombra, contorno o degradado & El sistema declara tres niveles de sombra y ninguno se aplica a la marca \\
+\end{uxtabla}
 
-\figuraaiv{figuras/a4/componente_busqueda.png}{Campo de búsqueda en sus estados principales, con texto de ayuda, acción de limpieza, error y foco visible.}{fig:a4-busqueda}
+\subsection{Atributos de marca}
 
-\figuraaiv{figuras/a4/componente_tabla.png}{Fila de tabla reutilizable aplicada a información financiera y sus estados de interacción.}{fig:a4-tabla}
+Cuatro, en orden de prioridad: \textbf{confiable · preciso · sobrio · rápido}. El orden es operativo y no decorativo: cuando dos opciones de diseño empatan, gana la que refuerza el primero. Es la regla que decidió que la cifra de una respuesta del asistente aparezca solo después de la tarjeta que la consultó, y que el ámbar de acento quedara reducido a un papel decorativo en cuanto el cálculo mostró que no alcanzaba el contraste de un elemento informativo.
 
-\figuraaiv{figuras/a4/componente_alertas.png}{Alertas informativas, de éxito, advertencia y error, con y sin acción de cierre.}{fig:a4-alertas}
+\subsection{Convivencia con la marca institucional}
 
-\subsection{Iconografía}
+Las dos marcas conviven en la portada de los entregables del curso ---el escudo del Tecnológico de Monterrey arriba y la marca del producto en el bloque central--- y no conviven en la interfaz. Dentro de la aplicación aparece únicamente la marca del producto, que es \enquote{Karisma Data} en los dos idiomas. La razón es de propiedad: el portal es un caso de estudio académico y la marca institucional acredita el trabajo, no el producto.
 
-Los iconos comparten familia, grosor y caja de alineación. Se emplean como apoyo del texto en
-acciones relevantes y conservan un área interactiva mínima de 44 por 44 píxeles.
+% ============================================================================
+\section{Tipografía}
 
-\figuraaiv{figuras/a4/guia_iconografia.png}{Reglas para iconos funcionales y recursos visuales con propósito dentro del producto.}{fig:a4-iconografia}
+Dos familias, servidas desde el propio origen por el módulo de fuentes de la aplicación y cargadas con \texttt{fontspec} en este documento. La misma pareja compone la interfaz y el PDF, así que el espécimen impreso más abajo es el tipo real del producto y no una aproximación.
 
-\subsection{Imágenes e ilustraciones}
+\subsection{Las dos familias y su justificación}
 
-La imagen cumple una función informativa o contextual y mantiene un tratamiento sobrio. Cada
-recurso requiere calidad suficiente, recorte intencional y una alternativa textual cuando
-aporta información al recorrido.
+\textbf{Titulares: Lexend Deca.} Elegida por su legibilidad en tamaños grandes y por un carácter corporativo sin rigidez. Se distribuye únicamente en peso Regular.
 
-\subsection{Diseño, cuadrícula y adaptación}
+\textbf{Cuerpo: Fira Sans.} Humanista, con altura de x generosa y buenas cifras. Rinde bien entre 12 y 14 px, que es la escala real de un producto denso de escritorio.
 
-La retícula, el espaciado y la alineación mantienen relaciones predecibles entre navegación,
-contenido y acciones. En escritorio, la composición parte de 12 columnas y se adapta a ocho o
-cuatro conforme disminuye el ancho disponible. La guía también documenta vistas de 1440 por
-1024 y 1024 por 1366 píxeles como referencias del comportamiento adaptativo.
+\subsection{Espécimen y escala de nueve roles}
 
-\figuraaiv{figuras/a4/guia_cuadricula.png}{Sistema de cuadrícula, espaciado base, elevación y vistas de referencia para el comportamiento adaptativo.}{fig:a4-cuadricula}
+\laminaTipografia
 
-\subsection{Microinteracciones y animaciones}
+\subsection{El peso 400 es una decisión del sistema}
 
-Las transiciones explican cambios de estado, confirman acciones y conservan continuidad. Su
-duración de referencia se mantiene entre 150 y 220 milisegundos, con una aceleración suave y
-un propósito claro. El movimiento es prescindible: cuando el sistema solicita movimiento
-reducido, se eliminan los desplazamientos y se conservan cambios instantáneos o fundidos
-breves.
+Los nueve roles llevan peso 400 y la jerarquía se construye con tamaño, color y espacio en blanco. No es una carencia: Lexend Deca solo se distribuye en Regular y la configuración de fuentes descarga esa única variante, de modo que un peso 600 en el bloque \texttt{@theme} produciría negrita simulada en la pantalla y negrita real en el PDF. Las capturas de la guía dejarían de coincidir con el documento, que es el defecto exacto que esta cadena existe para impedir. El rol \texttt{text-etiqueta} se distingue con espaciado entre letras en lugar de con peso.
 
-\subsection{Accesibilidad}
+\subsection{Cifras tabulares, obligatorias}
 
-Estas decisiones de movimiento se integran con la accesibilidad. El sistema utiliza contraste
-verificable, texto de al menos 12 píxeles en el prototipo, foco visible y objetivos
-interactivos de al menos 44 por 44 píxeles. Los mensajes combinan color, texto y forma; además,
-la navegación conserva un orden lógico mediante teclado y contempla alternativas textuales
-para las imágenes informativas.
+Toda columna numérica, todo importe y todo contador se componen con cifras tabulares, el valor \texttt{tabular-nums} de la propiedad que fija el ancho de los dígitos. Sin eso las columnas bailan al actualizarse y un portal financiero pierde credibilidad en el primer parpadeo. La regla alcanza al rol \texttt{text-dato}, que es el de la cifra de tarjeta KPI y el de la celda numérica.
 
-\subsection{Voz y tono}
+\subsection{La tensión 14/16 px, resuelta y no ignorada}
 
-La misma claridad se extiende a la redacción. La voz es directa, precisa y respetuosa: los
-controles usan verbos que describen la acción, los mensajes explican qué ocurrió y las
-confirmaciones reservan el énfasis para decisiones con consecuencias.
+La recomendación general de 16 px de cuerpo está pensada para lectura móvil; la ficha de estilo que corresponde a un producto de tablero denso fija entre 12 y 14 px. El sistema resuelve la tensión declarando las dos reglas: \texttt{text-cuerpo} a 14 px es el texto por omisión en escritorio, y los campos de formulario por debajo del quiebre de 768 px suben a 16 px para evitar el acercamiento automático de los navegadores móviles. El rol \texttt{text-cuerpo-amplio}, a 16 px con interlínea de 26 px, cubre la prosa larga: ayuda, respuesta del asistente y aviso de alcance.
 
-\figuraaiv{figuras/a4/guia_interaccion_accesibilidad_voz.png}{Criterios coordinados para microinteracciones, accesibilidad y voz y tono.}{fig:a4-interaccion-accesibilidad-voz}
+\subsection{Medida de línea}
 
-\subsection{Documentación y control de versiones}
+Entre 60 y 75 caracteres en todo bloque de prosa. Las tablas y los paneles quedan exentos por naturaleza: su medida la fija la retícula de la sección 7.
 
-La guía quedó identificada como versión 1.2, con fecha del 13 de agosto de 2026, mientras que
-la interfaz conserva la etiqueta v1.0 como versión del producto representado. Distinguir ambos
-números evita confundir la evolución del documento con la del prototipo. Cada actualización de
-la guía registra motivo, alcance y responsables de revisión, aprobación y publicación.
+% ============================================================================
+\section{Paleta de colores}
 
-\figuraaiv{figuras/a4/guia_versionado.png}{Registro vigente de la guía de estilo y responsabilidades para comunicar sus actualizaciones.}{fig:a4-versionado}
+Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie categórica: \textbf{37 nombres de color}, todos declarados en \texttt{estilo/uxdoc.sty}. Once de ellos son las anclas de la Actividad 1 y conservan su valor byte a byte, porque los documentos de A1, A2 y A3 ya compilan contra ellas; los veintiséis restantes se añadieron en un bloque propio, veinte con \texttt{\textbackslash definecolor} y seis con \texttt{\textbackslash colorlet}. Esos seis son reúsos explícitos ---el aviso apunta al acento 700, el informativo a la primaria 500, tres series a colores de marca--- y apuntar en vez de copiar es lo que impide que un token y su origen se separen con el tiempo.
 
-\clearpage
+\subsection{Paleta completa}
+
+\laminaPaleta
+
+\subsection{La regla que gobierna la paleta}
+
+\textbf{No hay negro puro ni blanco puro.} La superficie más clara del sistema es \texttt{surface} y el texto más oscuro es \texttt{ink-strong}. El sistema no declara un token de blanco, y esa ausencia tiene una consecuencia medible que la sección 3.4 documenta: la matriz calcula el contraste contra la superficie real del producto, no contra un blanco teórico que la interfaz nunca pinta.
+
+\subsection{Matriz de contraste verificada por cálculo}
+
+Las razones de contraste no se estimaron a ojo ni se copiaron de una tabla ajena: el generador las calcula para \textbf{44 pares} con la fórmula de WCAG 2.x ---luminancia relativa de cada color y cociente $(L_1+0{,}05)/(L_2+0{,}05)$--- y emite el veredicto contra los umbrales de la norma: 4{,}5:1 para texto normal, 3:1 para texto grande y para elementos gráficos, 7:1 para el nivel AAA (W3C, 2023). La lámina siguiente es esa matriz completa, con el veredicto de cada par, la tabla de los cuatro defectos que encontró y las cinco reglas que salieron de ella.
+
+\laminaContraste
+
+\subsection{Los cuatro defectos que la matriz corrigió}
+
+El cálculo no confirmó el sistema: lo corrigió en cuatro puntos, y los cuatro estaban escritos como reglas buenas en la planeación de la semana. Conviene decirlo con los números a la vista, porque es la evidencia de que la verificación por cálculo hizo trabajo real y no ceremonia.
+
+\begin{enumerate}[leftmargin=*,itemsep=5pt,topsep=6pt]
+\item \textbf{El número del ámbar estaba mal.} La planeación citaba 2{,}6:1 para el texto claro sobre el acento 500. El cálculo da \textbf{2{,}80:1} con blanco puro y \textbf{2{,}68:1} con la superficie que el producto usa de verdad. El veredicto no cambió ---los dos fallan---, pero un número equivocado impreso con el rótulo \enquote{verificado} es peor que ningún número. La regla sustituta es que, si el acento 500 lleva texto, ese texto es \texttt{ink}: 5{,}22:1, nivel AA.
+\item \textbf{El texto de aviso fallaba AA.} El acento 700 sobre el acento 100 se daba por bueno y da \textbf{3{,}96:1}, por debajo del 4{,}5:1 de texto normal. El texto de aviso pasó al \textbf{acento 900} sobre el mismo fondo: \textbf{7{,}58:1}, nivel AAA, sin cambiar el fondo ni el tamaño de letra.
+\item \textbf{El ámbar 500 no llega a elemento gráfico.} Sobre la superficie da \textbf{2{,}68:1} y el umbral de un límite de componente es 3:1. El acento 500 quedó \textbf{solo decorativo} ---filete y marca--- y todo ámbar que informa usa el acento 700, con \textbf{4{,}40:1}.
+\item \textbf{El borde de campo era invisible.} El filete claro \texttt{line} sobre la superficie da \textbf{1{,}42:1}: el campo de formulario se veía como un rectángulo sin borde. El borde de campo pasó al neutro \texttt{line-strong}, con \textbf{4{,}55:1}, y el filete claro quedó para separadores decorativos.
+\end{enumerate}
+
+Los cuatro se corrigieron \textbf{en los tokens y no en la prosa}, que es la diferencia entre documentar un defecto y arreglarlo. El efecto colateral se midió en vez de suponerse: el token \texttt{accent-text} cambió de acento 700 a acento 900 y su único consumidor de entonces ---la insignia del botón de prototipo sobre la superficie alterna--- pasó de 4{,}12:1, que falla AA, a \textbf{7{,}89:1}, nivel AAA, sin tocar una línea del componente.
+
+\subsection{Las cinco reglas derivadas}
+
+Las cinco reglas que cierran la lámina anterior no son recomendaciones: son la forma normativa de los cuatro hallazgos, y cada una tiene un token que la hace cumplir. Quien escribe una pantalla no elige entre \texttt{line} y \texttt{line-strong} por criterio propio; usa el token de borde de campo, que ya apunta al valor que pasa el umbral. Ese es el mecanismo que evita que una regla escrita se pierda entre la guía y el código.
+
+\subsection{Paleta categórica de series}
+
+Una gráfica con seis series en tonos del mismo azul es ilegible, así que la paleta de series es distinta de la de marca aunque reúse tres de sus colores. Las seis quedan por encima de 3:1 sobre la superficie ---la peor es 4{,}40:1--- y ninguna depende del color para distinguirse: cada serie lleva además marcador y patrón de línea propios.
+
+\begin{uxtabla}{|L{2.1cm}|L{3.0cm}|L{2.6cm}|Y|}{Paleta categórica de series: color, marcador y patrón de línea}
+  \uxheadrow \thd{Serie} & \thd{Marcador} & \thd{Línea} & \thd{Razón sobre la superficie} \\
+  \texttt{serie-1} & Círculo & Sólida & 4{,}94:1 \\
+  \texttt{serie-2} & Triángulo hacia arriba & Discontinua & 4{,}40:1 \\
+  \texttt{serie-3} & Cuadrado & Punteada & 6{,}81:1 \\
+  \texttt{serie-4} & Rombo & Guion y punto & 5{,}45:1 \\
+  \texttt{serie-5} & Triángulo hacia abajo & Sólida gruesa & 5{,}12:1 \\
+  \texttt{serie-6} & Cruz & Discontinua fina & 7{,}54:1 \\
+\end{uxtabla}
+
+\subsection{Los semánticos nunca son categorías}
+
+\texttt{danger}, \texttt{warning}, \texttt{info} y \texttt{success} comunican estado y no pertenencia a una categoría. Una serie de gráfica jamás se pinta con ellos, porque el lector leería un juicio donde solo hay una etiqueta. La regla inversa también aplica: un estado nunca se pinta con un color de serie.
+
+\subsection{Modo oscuro, fuera de alcance y declarado}
+
+El sistema entrega una sola paleta. Un modo oscuro mal contrastado resta más de lo que suma, y verificar dos paletas completas con la matriz de 44 pares no cabe en la semana. Queda registrado en la bitácora de la sección 11 como entrada abierta de la versión 1.1, con la condición de entrada explícita: se publica cuando su matriz de contraste esté calculada por el mismo generador y con el mismo umbral, no antes.
+
+% ============================================================================
+\section{Componentes gráficos de la interface}
+
+Los componentes de esta sección son los que la ruta \texttt{/guia} renderiza: botones, campos con sus chips e insignias, tablas y tarjetas. La ruta es el sistema de diseño vivo del producto, no una maqueta del sistema: cada lámina lee la paleta tipada que el generador emite, así que un cambio de token se ve en la lámina sin tocar el componente. El armazón de navegación ---barra lateral de 240 px con dos niveles, cabecera de 56 px y franja de alcance--- se documenta con las capturas de las siete pantallas, porque es donde se usa; aquí quedan sus medidas, en la sección 7.
+
+El sistema fija además una postura sobre la personalización: los valores por omisión los decide el perfil y no el usuario. El respaldo es empírico y ajeno al equipo: en un estudio con 20 diseñadores que juzgaron por pares 600 interfaces generadas, el acuerdo entre ellos fue de $\kappa = 0{,}25$ sobre dimensiones tan básicas como densidad de información y jerarquía (Peng et al., 2026). Con esa dispersión, dejar la apariencia a criterio individual produce tantas interfaces como usuarios; el sistema prefiere un valor por omisión defendible por rol.
+
+\subsection{Botones: matriz de 17 celdas}
+
+Tres variantes por cinco estados, más dos celdas adicionales: \textbf{15 + 2 = 17}, frente a las nueve del material de referencia. La lámina de botones de \texttt{/guia} las renderiza todas a la vez, de modo que una regresión de estado se ve sin recorrer la aplicación.
+
+\begin{uxtabla}{|L{1.7cm}|Y|Y|Y|Y|Y|}{Matriz de botones: tres variantes por cinco estados}
+  \uxheadrow \thd{Variante} & \thd{Normal} & \thd{Puntero encima} & \thd{Foco visible} & \thd{Activo} & \thd{Deshabilitado} \\
+  Contenido & Relleno primaria 500 y texto de superficie, 4{,}94:1 & Relleno primaria 700 & Anillo de 2 px separado 2 px del borde & Relleno primaria 900 & Relleno de filete y texto atenuado, sin puntero \\
+  Contorno & Borde \texttt{line-strong} y texto primaria 500 & Fondo de superficie alterna & Mismo anillo de 2 px & Fondo primaria 100 & Borde de filete y texto atenuado \\
+  Texto & Solo texto primaria 500 & Subrayado & Mismo anillo de 2 px & Texto primaria 700 & Texto atenuado \\
+\end{uxtabla}
+
+\begin{uxtabla}{|L{2.8cm}|Y|}{Las dos celdas adicionales de la matriz de botones}
+  \uxheadrow \thd{Celda} & \thd{Tratamiento} \\
+  Destructiva & Relleno semántico de error con texto de superficie, 6{,}18:1. Separada espacialmente del grupo de acciones normales y siempre con confirmación previa \\
+  En carga & Indicador de progreso a la izquierda del rótulo, botón inhabilitado y \texttt{aria-busy} mientras dura la operación. El rótulo no cambia de texto, para que el ancho del botón no salte \\
+\end{uxtabla}
+
+\textbf{Reglas de la lámina.} Altura de 32 px en densidad alta y de 40 px en densidad normal · área táctil mínima de 44 × 44 px aunque el botón se vea más pequeño · el rótulo nunca se parte en dos líneas · \textbf{una sola acción primaria por pantalla} · icono siempre a la izquierda del texto y alineado a la línea base.
+
+\subsection{Campos de formulario: seis estados}
+
+\begin{uxtabla}{|L{2.4cm}|Y|}{Los seis estados del campo de formulario}
+  \uxheadrow \thd{Estado} & \thd{Tratamiento} \\
+  Normal & Borde \texttt{line-strong} sobre superficie, 4{,}55:1, con etiqueta visible encima del campo \\
+  Con foco & Anillo de 2 px en primaria 500 y borde del mismo color; el anillo no sustituye al borde, se suma \\
+  Con valor & Igual que el normal, con el texto en \texttt{ink}; el marcador de posición desaparece y la etiqueta permanece \\
+  Error & Borde y texto de ayuda en el semántico de error, mensaje debajo del campo y anuncio con \texttt{role="alert"} \\
+  Deshabilitado & Fondo de superficie alterna, texto atenuado, sin puntero y fuera del orden de tabulación \\
+  Solo lectura & Sin borde de acción y con fondo de superficie alterna, pero \textbf{seleccionable y dentro del orden de tabulación}: se ve distinto del deshabilitado porque significa algo distinto \\
+\end{uxtabla}
+
+\textbf{Reglas de la lámina.} Etiqueta visible sobre el campo, nunca solo el marcador de posición · texto de ayuda persistente bajo los campos complejos · el error va debajo del campo que falló y no en un resumen al principio · la validación ocurre al salir del campo, no en cada tecla. El borde de \texttt{line-strong} no es una preferencia estética: es el hallazgo 4 de la sección 3.4 convertido en componente.
+
+\subsection{Chips e insignias}
+
+Cinco semánticas de chip ---neutro, informativo, éxito, aviso y error---, las cuatro insignias de rol ---operativo, analista, directivo y administrador--- y el chip de faceta transversal, que lleva su propio icono. \textbf{Todos llevan icono además de color}, por la regla de no depender del color que la sección 9 fija. El chip de aviso usa el acento 900 sobre el acento 100, que es la regla sustituta del hallazgo 2, y las insignias de rol usan el radio completo, que es la única excepción declarada de la escala de radios.
+
+\subsection{Tablas de datos}
+
+\begin{uxtabla}{|L{4.2cm}|Y|}{Reglas de la tabla de datos}
+  \uxheadrow \thd{Regla} & \thd{Detalle} \\
+  Cabecera fija & Permanece visible al desplazar el cuerpo de la tabla \\
+  Altura de fila & \texttt{--table-row-height}, 36 px, que es la densidad del producto \\
+  Fila alterna & Superficie alterna; el texto de cuerpo sobre ella mantiene 13{,}12:1 \\
+  Ordenamiento & \texttt{aria-sort} refleja el estado real de la columna, no solo el icono \\
+  Cifras & Alineadas a la derecha y con cifras tabulares \\
+  Acciones & Columna anclada a la derecha, fuera del área de lectura de datos \\
+  Volumen & Paginación o virtualización a partir de 50 filas \\
+\end{uxtabla}
+
+\subsection{Tarjetas: KPI y tarjeta de llamada a herramienta}
+
+La \textbf{tarjeta KPI} lleva rótulo, cifra grande en cifras tabulares, variación con signo, icono de dirección y micrográfica de tendencia. La variación nunca se comunica solo con color: lleva flecha y signo.
+
+La \textbf{tarjeta de llamada a herramienta} es la pieza que sostiene la regla anti-alucinación del producto ---toda cifra que aparece en una respuesta procede de una consulta visible y cita su fuente--- y la lámina de tarjetas la muestra en sus cuatro estados como galería. La decisión de hacer visible cada llamada tiene respaldo publicado: en un estudio con 13 personas que construyen y usan sistemas multiagente, la transparencia aparece definida de cinco maneras distintas ---reproducibilidad, depuración, delimitación, visualización y auditoría--- y las cinco exigen ver qué hizo el sistema, no solo qué respondió (Naik et al., 2026). El mismo argumento sostiene el estado compartido entre el tablero y el asistente, donde mantener una sola representación del estado analítico redujo la tasa de agotamiento de tiempo del 40{,}0 \% al 10{,}0 \% en el experimento controlado de TwinBI (Jang y Li, 2026).
+
+\begin{uxtabla}{|L{2.4cm}|L{4.4cm}|Y|}{Los cuatro estados de la tarjeta de llamada a herramienta}
+  \uxheadrow \thd{Estado} & \thd{Qué muestra} & \thd{Regla} \\
+  Anuncio & Nombre legible de la operación y qué fuente consulta & Aparece antes de tener el dato: el usuario sabe qué se está preguntando \\
+  Ejecución & Indicador de progreso y tiempo transcurrido & El tiempo es real y se actualiza; no hay animación que finja avance \\
+  Resultado & Cifra o mini tabla plegable con la cita de la fuente del catálogo & El resultado se muestra \textbf{antes} del texto generado \\
+  Error & Qué paso falló y qué hacer & Nombra la causa y ofrece la acción de reintento; no dice solo que hubo un error \\
+\end{uxtabla}
+
+\subsection{Anatomía compartida}
+
+Las siete láminas comparten forma: cada una expone un atributo de datos propio para que el guion de captura la recorte sin adivinar, y ninguna contiene lógica de negocio. Presentan lo que el generador emitió. Esa simetría es lo que permite que la guía se capture con un guion reproducible en lugar de con recortes a mano de distinto tamaño.
+
+% ============================================================================
+\section{Iconografía}
+
+\subsection{Una sola familia}
+
+\textbf{Lucide, para todo el producto.} No se mezclan familias y no se dibujan iconos a mano. La razón conviene escribirla porque no es obvia: mezclar familias produce grosores de trazo y radios de esquina inconsistentes que el ojo detecta aunque el lector no sepa nombrar por qué algo se ve poco cuidado. La familia se instala como paquete y los iconos viajan en el propio paquete de la aplicación, de modo que la interfaz no depende de un servicio externo para dibujarse.
+
+\subsection{Tokens de tamaño y grosor}
+
+Tres tamaños y ninguno intermedio: \textbf{16, 20 y 24 px}. Grosor de trazo de \textbf{1{,}5 px en los tres}, sin engrosar en el tamaño mayor. Alineación a la línea base del texto que acompañan, no al centro óptico de la caja.
+
+\subsection{Contorno y relleno}
+
+Contorno en toda la interfaz. El relleno queda reservado en exclusiva al \textbf{estado activo de la navegación}, que es la única distinción de forma que el producto se permite; en cualquier otro lugar, un icono relleno significaría algo que el sistema no define.
+
+\subsection{Área táctil y rótulo accesible}
+
+Área táctil de 44 × 44 px aunque el icono mida 16. \textbf{Rótulo accesible obligatorio en todo icono sin texto}, y el icono que acompaña a un texto se marca como decorativo para que el lector de pantalla no lo lea dos veces. Contraste mínimo de 3:1 contra su fondo, que es el mismo umbral con el que la sección 3 juzga cualquier elemento gráfico. \textbf{Nunca un emoji como icono estructural}: su forma cambia con el sistema operativo y su lectura en voz alta es impredecible.
+
+\subsection{Inventario por función}
+
+\begin{uxtabla}{|L{2.8cm}|Y|}{Inventario de iconos del producto, agrupado por función}
+  \uxheadrow \thd{Función} & \thd{Iconos} \\
+  Navegación & Los cuatro módulos del mapa de A3: inicio, exploración y extracción, gobierno del dato y administración \\
+  Acciones & Buscar, filtrar, exportar, compartir y copiar \\
+  Estado & Vigente, en revisión, retirado y error \\
+  Datos & Tabla, gráfica, linaje y fuente \\
+  Gobierno & Diccionario, calidad y carga \\
+  Administración & Usuario, rol, llave y bitácora \\
+  Asistente & Enviar, detener, herramienta y reintentar \\
+  Interfaz & Marcador de rama del árbol de navegación y selector de idioma, los dos ya en uso en la aplicación \\
+\end{uxtabla}
+
+\subsection{Cómo se declara el inventario}
+
+El inventario se declara \textbf{una sola vez}, como lista en la configuración del módulo de iconos, y la lámina lo recorre desde esa misma lista. El motivo es concreto y costó descubrirlo: el empaquetado automático detecta los nombres escritos literalmente en las plantillas, pero no los que se arman en tiempo de ejecución al concatenar el prefijo de la familia con el nombre del icono. Con la lista declarada, la lámina de iconografía dibuja los mismos iconos en desarrollo y en producción; sin ella, la versión construida muestra huecos donde el navegador esperaba un trazo.
+
+% ============================================================================
+\section{Imágenes e ilustraciones}
+
+\subsection{Regla de origen}
+
+\textbf{Los modelos de imagen se usan solo para fotografía y marca, nunca para diagramas con texto en español.} La regla costó descubrirla en la Actividad 1 y aquí queda como norma del sistema: las figuras con etiquetas se generan con código ---matplotlib para gráficas de datos, HTML y CSS para retículas, LaTeX para las láminas de esta guía--- y los retratos y escenas de contexto con modelo de imagen, con lista negativa explícita de texto, letras, números y logotipos.
+
+\subsection{Qué imágenes existen en la interfaz}
+
+Tres, y ninguna más: la marca, los avatares construidos a partir de las iniciales del usuario y los gráficos de datos. \textbf{No hay fotografía decorativa en el producto.} Una fotografía de archivo en un portal de datos financieros ocupa el lugar de un dato y no aporta ninguno.
+
+\subsection{Inventario de imágenes del documento}
+
+Las imágenes de la serie de entregables se mantienen versionadas en la carpeta \texttt{imagenes/} de los entregables y suman dieciséis archivos: los ocho retratos de las personas de la Actividad 1, las seis escenas de contexto de los escenarios de la Actividad 2 y los dos logotipos de la portada. Todas se insertan en el documento a través de macros de estilo, nunca con medidas escritas caso por caso.
+
+\subsection{Texto alternativo}
+
+Toda imagen significativa lleva texto alternativo; las decorativas se marcan como tales para que el lector de pantalla las omita. En el documento, cada figura lleva pie numerado, y en la interfaz cada gráfica cumple además la regla de la sección 9: alternativa en tabla y resumen textual.
+
+% ============================================================================
+\section{Retícula, espaciado y diseño adaptativo}
+
+\subsection{Retícula de doce columnas}
+
+Doce columnas con un canal de \texttt{--grid-gap} y márgenes de \texttt{--card-padding}. La barra lateral queda fuera de la retícula: ocupa su propio ancho fijo y el contenido empieza después.
+
+\subsection{Ritmo de espaciado, radios, sombras y quiebres}
+
+\laminaReticula
+
+\subsection{La única excepción de la escala de radios}
+
+\texttt{--radius-full} es la excepción declarada: se aplica a las insignias de rol, a los avatares y al punto de estado, y a nada más. Un radio completo en una tarjeta o en un campo rompería la lectura de la retícula, que descansa en esquinas de curvatura corta.
+
+\subsection{Tres niveles de sombra y ni uno más}
+
+Reposo, elevado y flotante. Mezclar sistemas de elevación es el error que más rápido delata una interfaz sin sistema: dos sombras parecidas pero distintas se leen como un descuido, no como una jerarquía. Los tres niveles se calculan sobre el mismo neutro oscuro con opacidades crecientes, de modo que la familia se mantiene.
+
+\subsection{Comportamiento adaptativo}
+
+El producto es de escritorio y la retícula lo asume. Por debajo de 1024 px la barra lateral colapsa a iconos; por debajo de 768 px las tablas pasan a tarjetas apiladas y los campos suben a 16 px. El quiebre de 1440 px es el ancho de captura de las figuras de esta actividad, elegido para que las capturas muestren el producto en su densidad de diseño.
+
+\subsection{Sin desplazamiento horizontal de página}
+
+Nunca. Una tabla ancha se desplaza \textbf{dentro de su propio contenedor}, con la cabecera fija y la columna de acciones anclada. El desplazamiento horizontal de la página entera esconde controles fuera del campo visual y rompe el orden de tabulación que la sección 9 exige.
+
+% ============================================================================
+\section{Microinteracciones y animaciones}
+
+\subsection{Duraciones y curvas}
+
+Entre \textbf{150 y 300 ms} para microinteracciones y hasta 400 ms para transiciones complejas; ninguna pasa de 500 ms. Curva \texttt{ease-out} al entrar y \texttt{ease-in} al salir, con la salida al 60--70 \% de la duración de la entrada, porque una salida lenta se percibe como lentitud del sistema y no como elegancia.
+
+\subsection{Solo se animan dos propiedades}
+
+\texttt{transform} y \texttt{opacity}. Nunca \texttt{width}, \texttt{height}, \texttt{top} ni \texttt{left}: obligan a recalcular la maquetación y producen saltos visibles justo cuando la interfaz quiere transmitir control.
+
+\subsection{Inventario de animaciones}
+
+El inventario es corto a propósito y cada entrada declara qué comunica. Una animación que no comunica nada se elimina.
+
+\begin{uxtabla}{|L{5.0cm}|L{2.4cm}|Y|}{Inventario de animaciones del producto}
+  \uxheadrow \thd{Animación} & \thd{Duración} & \thd{Qué comunica} \\
+  Despliegue del segundo nivel de la barra lateral & 200 ms & Que ese contenido pertenece al módulo abierto \\
+  Aparición de la tarjeta de llamada a herramienta & 180 ms & Que el sistema empezó a trabajar \\
+  Llegada de fragmento en el flujo de respuesta & Continua & Progreso real, no simulado \\
+  Apertura del panel de linaje & 240 ms & De dónde viene el panel y adónde vuelve al cerrarse \\
+  Cambio de nivel en el desglose & 220 ms & Que se está bajando dentro de la misma jerarquía \\
+  Aviso emergente & 150 ms al entrar y 100 ms al salir & Confirmación sin interrumpir la lectura \\
+\end{uxtabla}
+
+\subsection{Movimiento reducido}
+
+\texttt{prefers-reduced-motion} se respeta en las seis: las transiciones se reducen a un cambio de opacidad o desaparecen, y el flujo de respuesta pasa a mostrar el texto completo al terminar en lugar de fragmento a fragmento. La preferencia del sistema operativo gana siempre sobre la animación por omisión.
+
+% ============================================================================
+\section{Directrices de accesibilidad}
+
+\subsection{Contraste}
+
+4{,}5:1 en texto y 3:1 en elementos gráficos y de datos, \textbf{verificado por cálculo y publicado como matriz} en la sección 3, según los criterios 1.4.3 y 1.4.11 de WCAG 2.2 (W3C, 2023). El neutro \texttt{muted} queda restringido a texto de 14 px o más, porque su 4{,}55:1 pasa AA por un margen que no admite tamaños menores.
+
+\subsection{Foco visible}
+
+Anillo de 2 px en todo elemento interactivo, con separación de 2 px del borde para que se distinga sobre rellenos oscuros. \textbf{No se elimina nunca.} Los componentes del prototipo lo declaran con la variante \texttt{focus-visible}, de modo que aparece con teclado y no estorba con puntero.
+
+\subsection{Recorrido de teclado}
+
+Orden de tabulación igual al orden visual, sin saltos ni trampas de foco. La aplicación abre con un enlace de salto al contenido principal, presente en los dos idiomas del producto. Los elementos deshabilitados salen del recorrido; los de solo lectura permanecen en él.
+
+\subsection{Estructura y semántica}
+
+Jerarquía de encabezados secuencial, sin saltar niveles. La navegación principal y el acceso transversal llevan rótulo accesible propio, y el elemento activo del árbol es exactamente uno: la rama que comparte ruta con su módulo cede la marca al módulo, para que nunca haya dos elementos anunciados como actuales.
+
+\subsection{La información nunca depende solo del color}
+
+Se acompaña siempre de icono, forma, patrón o texto. La regla gobierna los chips, las insignias, la variación de la tarjeta KPI y las seis series de gráfica, que llevan marcador y patrón de línea propios además de color.
+
+\subsection{Gráficas}
+
+Toda gráfica lleva \textbf{alternativa en tabla} y \textbf{resumen textual}. Una gráfica sin alternativa es un dato que existe solo para quien puede verlo, y en un portal de gobierno del dato eso contradice el propósito del producto.
+
+\subsection{Formularios}
+
+El mensaje de error va debajo del campo que falló, se anuncia con \texttt{role="alert"} y el foco viaja al primer campo inválido. El mensaje dice causa y remedio, según la regla de la sección 10.
+
+\subsection{Escala y área táctil}
+
+El contenido se mantiene legible al 200 \% de escala de texto, sin truncamientos ni superposiciones. Área táctil mínima de 44 × 44 px en todo destino interactivo, incluidos los iconos de 16 px.
+
+\subsection{Idioma declarado}
+
+El documento declara su idioma en el elemento raíz y lo cambia con el idioma de la interfaz, de modo que el lector de pantalla usa la voz y las reglas de pronunciación correctas al pasar de español a inglés.
+
+% ============================================================================
+\section{Voz y tono}
+
+\subsection{Principios}
+
+Español neutro. \textbf{Sin emojis en ninguna cadena de la interfaz.} Segunda persona en las acciones: \enquote{Exportar}, no \enquote{Exportación}. Los mensajes de error dicen \textbf{causa y remedio}. Las cifras se acompañan siempre de su fuente. Las proyecciones llevan su etiqueta de método a la vista. No hay superlativos ni lenguaje comercial: es una herramienta de trabajo y el tono que la marca reclama es confiable, preciso y sobrio.
+
+\subsection{Se dice y no se dice}
+
+\begin{uxtabla}{|L{5.6cm}|Y|}{Ocho pares de la guía de redacción de la interfaz}
+  \uxheadrow \thd{Se dice} & \thd{No se dice} \\
+  Tu perfil no tiene permiso para abrir esta pantalla & Acceso denegado \\
+  La dirección solicitada no corresponde a ninguna pantalla del prototipo & Error 404 \\
+  El servidor no pudo construir la pantalla & Ha ocurrido un error inesperado \\
+  Exportar & Exportación de datos \\
+  Prototipo con datos sintéticos, no conectado a sistemas reales & Ambiente de demostración \\
+  Proyección lineal sobre datos sintéticos & Predicción \\
+  Consultando la base de liquidez & Procesando \\
+  Volver al índice de prototipos & Regresar \\
+\end{uxtabla}
+
+\subsection{El producto habla en dos lenguas}
+
+La interfaz es bilingüe español e inglés con internacionalización real: los dos catálogos declaran \textbf{79 claves cada uno}, con paridad exacta verificada por prueba automática, y el idioma viaja en una cookie propia sin cambiar ninguna dirección. El arranque es determinista en español y el cambio lo hace la persona, no el navegador. \textbf{El PDF de esta actividad es solo en español}: la decisión bilingüe alcanza a la aplicación, no a los entregables del curso.
+
+\subsection{Traducción de producto, no traducción literal}
+
+El inglés del producto se escribe como interfaz en inglés, no como calco del español. Los nombres propios no se traducen.
+
+\begin{uxtabla}{|L{5.2cm}|Y|}{Equivalencias de la interfaz en sus dos idiomas}
+  \uxheadrow \thd{Español} & \thd{Inglés} \\
+  Exploración y extracción & \textit{Explore and extract} \\
+  Gobierno del dato & \textit{Data governance} \\
+  Acceso & \textit{Sign in} \\
+  Bitácora de accesos & \textit{Access log} \\
+  Saltar al contenido & \textit{Skip to content} \\
+  Facetas transversales & \textit{Cross-cutting facets} \\
+  Karisma Data & Karisma Data \\
+\end{uxtabla}
+
+\subsection{El rótulo de idioma se escribe en su propio idioma}
+
+El selector nombra cada opción con su endónimo ---\enquote{Español} y \enquote{English}--- y marca cada botón con su atributo de idioma. La razón es de accesibilidad antes que de estilo: quien no puede leer la pantalla actual necesita reconocer la salida sin traducirla mentalmente.
+
+% ============================================================================
+\section{Documentación y control de versiones}
+
+\subsection{Versión vigente}
+
+\textbf{\versionguia\ · \fechaguia.} La cadena de versión aparece en tres sitios y coincide en los tres: la cabecera del bloque \texttt{@theme} de la aplicación, el manifiesto de tokens y esta sección del documento. Un guion de verificación compara las tres cadenas y falla si alguna se desvía, así que la versión impresa aquí es la que el producto ejecuta.
+
+\subsection{Dónde vive la guía}
+
+En dos lugares que no divergen porque salen del mismo generador: el bloque \texttt{@theme} de la hoja generada \texttt{main.css}, que la aplicación consume, y estas once secciones. Todo cambio entra \textbf{por modificación del generador}, nunca editando el CSS ni el documento por separado. Los dos archivos generados llevan cabecera de advertencia y una comprobación de idempotencia detecta cualquier edición a mano: el generador vuelve a emitir las cuatro salidas y compara contra el disco.
+
+\subsection{Bitácora de cambios}
+
+\begin{uxtabla}{|L{2.3cm}|L{1.3cm}|Y|Y|}{Bitácora de cambios de la guía de estilos}
+  \uxheadrow \thd{Fecha} & \thd{Versión} & \thd{Qué cambió} & \thd{Por qué} \\
+  26 de julio de 2026 & 0.1 & Se anclan once colores y dos familias tipográficas en la hoja de estilo del curso & La Actividad 1 necesitaba una identidad visual estable para el primer entregable \\
+  2 y 9 de agosto de 2026 & 0.1 & Sin cambio de valores & Las Actividades 2 y 3 compilan contra las mismas once anclas; la continuidad visual de la serie es el argumento \\
+  10 de agosto de 2026 & 0.9 & La hoja pasa de 11 a 37 nombres de color, de forma aditiva pura: veinte declaraciones nuevas y seis reúsos explícitos & La guía necesita familias completas, neutros, semánticos y serie categórica; renombrar o mover un valor invalidaría tres entregas cerradas \\
+  10 de agosto de 2026 & 0.9 & Un generador único emite el bloque \texttt{@theme}, la paleta tipada, las láminas del documento y el manifiesto & Elimina la posibilidad de que la aplicación y el PDF muestren colores distintos \\
+  10 de agosto de 2026 & 0.9 & Se calculan 44 pares de contraste y se corrigen los cuatro defectos de la sección 3.4 en los tokens & El cálculo refutó cuatro reglas que la planeación daba por buenas \\
+  10 de agosto de 2026 & 0.9 & La interfaz pasa a bilingüe español e inglés y el contrato de navegación deja de guardar palabras & Sin el cambio, el índice de prototipos habría quedado en español dentro de la interfaz en inglés \\
+  16 de agosto de 2026 & 1.0 & Publicación de la guía con la Actividad 4 & Primera versión completa: once secciones, siete láminas vivas y matriz de contraste publicada \\
+\end{uxtabla}
+
+Cada entrada la aprueba el Equipo 8 (Alexandro Mayoral, Jacqueline Sarmiento y Arthur Zizumbo) en la revisión de la entrega semanal, que es el único punto del calendario donde la guía cambia de versión.
+
+\subsection{Política de actualización}
+
+\begin{uxtabla}{|L{3.6cm}|Y|}{Política de actualización de la guía}
+  \uxheadrow \thd{Regla} & \thd{Contenido} \\
+  Vía única de cambio & Se edita la hoja de estilo o el generador, se vuelve a emitir y se compila el documento. Ninguna de las cuatro salidas se edita a mano \\
+  Verificación obligatoria & Idempotencia de las cuatro salidas, invariante de las once anclas, ausencia de color escrito a mano y coincidencia de la versión en los tres sitios \\
+  Compatibilidad & Ningún nombre de token se renombra ni cambia de valor dentro de una versión mayor; los nombres heredados se conservan como alias derivados de la escala \\
+  Numeración & La cifra menor sube cuando se añaden tokens o reglas sin romper nombres; la mayor, cuando un nombre cambia de significado \\
+  Cadencia & La guía se versiona con el producto, en la revisión de la entrega semanal \\
+\end{uxtabla}
+
+\subsection{Entradas abiertas de la versión 1.1}
+
+Tres, con su condición de entrada escrita: \textbf{modo oscuro}, que entra cuando su matriz de contraste está calculada por el mismo generador; \textbf{densidad compacta}, que entra cuando existe una segunda escala de altura de fila verificada sobre la tabla de datos; y las \textbf{correcciones que salgan de la prueba de usabilidad de la Actividad 5}, que entran con el número de participantes y la medición que las motiva. Ninguna de las tres se anticipa aquí con valores: una entrada de bitácora sin dato verificado es exactamente el tipo de afirmación que esta guía existe para impedir.

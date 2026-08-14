@@ -1,0 +1,123 @@
+[project]
+name = "karisma-api"
+version = "0.1.0"
+description = "API del Portal Centralizado de Datos Financieros (Karisma Data)"
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "Equipo 8 MNA ITESM" }]
+dependencies = [
+    "fastapi (>=0.141.1,<0.142.0)",
+    "uvicorn[standard] (>=0.52.1,<0.53.0)",
+    "pydantic-settings (>=2.15.0,<3.0.0)",
+    "structlog (>=26.1.0,<27.0.0)",
+    # Pin exacto y no rango: la reproducibilidad byte a byte de los Parquet de
+    # US-006 depende del escritor. Un caret convertiria "reproduce byte a byte"
+    # en "hasta que alguien corra poetry update". Polars vive en el grupo
+    # principal porque el endpoint de la serie preagregada lo necesita dentro
+    # de la imagen, que se construye con "poetry export --only main".
+    "polars[xlsxwriter] (==1.43.2)",
+    "pyjwt (>=2.11,<3.0)",
+    "pwdlib[argon2] (>=0.3,<0.4)",
+    "sqlmodel (>=0.0.28,<0.0.29)",
+    "psycopg[binary] (>=3.2,<4.0)",
+    "python-multipart (>=0.0.20,<0.0.21)",
+    "anyio (>=4.14.2,<5.0.0)",
+]
+
+[dependency-groups]
+# Insumos del generador de datos sinteticos (US-006). Grupo propio y no "dev"
+# porque no son herramientas de quien programa sino insumos de un artefacto
+# entregable, y porque "poetry export --only main" tiene que dejarlos fuera de
+# la imagen: el generador nunca corre dentro del contenedor api.
+data = [
+    "numpy (==2.5.2)",
+    "faker (==40.36.0)",
+]
+dev = [
+    "pytest (>=9.1.1,<10.0.0)",
+    "pytest-asyncio (>=1.4.0,<2.0.0)",
+    "httpx (>=0.28.1,<0.29.0)",
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "ruff (>=0.16.2,<0.17.0)",
+    "mypy (>=2.3.0,<3.0.0)",
+]
+
+[tool.poetry]
+package-mode = true
+packages = [{ include = "app" }]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# The test suite lives in tests/backend/ at the repository root, not inside
+# backend/. CLAUDE.md is the orchestrator and overrides the portal-cicd
+# template. Consequence: every tool below is invoked from the repository root
+# and must be pointed at this file explicitly, because none of them discovers
+# a configuration file that sits in a sibling directory of the target paths.
+#   pytest -c backend/pyproject.toml tests/backend
+#   ruff check --config backend/pyproject.toml backend/app tests/backend
+#   mypy --config-file backend/pyproject.toml backend/app
+[tool.pytest.ini_options]
+minversion = "9.0"
+# Las rutas de pythonpath se resuelven contra el rootdir, y "-c
+# backend/pyproject.toml" fija el rootdir en <repo>/backend: "." es backend/ y
+# ".." es la raiz del repositorio, que es por donde entra el paquete ml. La
+# alternativa -un tests/ml/conftest.py con su propio bootstrap de sys.path-
+# esta descartada: pytest calcula el nombre de modulo de un conftest.py por su
+# basename cuando el directorio no es paquete, asi que dos archivos con ese
+# nombre colisionan y el "from conftest import MINIMAL_ENV" de
+# tests/backend/test_config.py acaba resolviendo al conftest equivocado.
+pythonpath = [".", ".."]
+addopts = "-ra --strict-markers --cov=backend/app --cov=ml --cov-report=term-missing --cov-fail-under=70"
+# Con --strict-markers un marcador sin declarar rompe la coleccion entera de la
+# suite, no solo el archivo que lo usa.
+markers = [
+    "integracion: requiere un PostgreSQL con las migraciones aplicadas; se omite salvo que KARISMA_TEST_DATABASE_URL este definida",
+]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    # El guardian de ml/data/generators.py: su cuerpo es una linea de
+    # despacho hacia main(), que si esta cubierta por las pruebas.
+    'if __name__ == "__main__":',
+]
+
+# line-length stays at the ruff default (88) on purpose: tests/backend/ sits
+# outside this file's directory, so a config-less `ruff format --check` would
+# otherwise disagree with the project configuration on those files.
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+src = ["backend", "ml", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "S", "ANN", "D", "RUF"]
+
+# El paquete ml vive en la raiz del repositorio y no dentro de ninguna de las
+# entradas de src, asi que sin esta declaracion isort lo ordena como si fuera
+# una dependencia de terceros y "ruff check" y "ruff format" se contradicen.
+[tool.ruff.lint.isort]
+known-first-party = ["ml"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+# Tests assert (S101) and carry fake credentials on purpose (S105-S107).
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "S107"]
+"**/tests/**" = ["S101", "S105", "S106", "S107"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_configs = true
+warn_unreachable = true
+show_error_codes = true

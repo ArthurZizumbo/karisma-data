@@ -1,0 +1,205 @@
+%% ==========================================================================
+%%  Guia de estilos de Karisma Data v1.0 - 2026-08-16
+%%
+%%  GENERADO. No editar a mano: cualquier cambio se pierde en la siguiente
+%%  corrida y hace divergir la aplicacion del PDF del curso.
+%%
+%%  Fuente unica: docs/entregables/estilo/uxdoc.sty
+%%  Generador:    docs/entregables/generar_tokens_a4.py
+%%  Regenerar:    make tokens
+%%  Verificar:    python docs/entregables/generar_tokens_a4.py --verificar
+%%
+%%  Uso desde el documento:
+%%    \input{estilo/a4_tokens}
+%%    \laminaPaleta  \laminaContraste  \laminaTipografia  \laminaReticula
+%% ==========================================================================
+
+\newcommand{\versionguia}{v1.0}
+\newcommand{\fechaguia}{16 de agosto de 2026}
+
+% Lamina 1. Paleta completa: 37 tokens derivados de uxdoc.sty.
+\newcommand{\laminaPaleta}{%
+\begin{uxtablalarga}{@{}C{1.0cm} L{2.7cm} L{1.9cm} L{2.5cm} Y@{}}%
+{Paleta del sistema de dise\~no: 37 tokens de color emitidos desde \texttt{uxdoc.sty}}%
+{\thd{Color} & \thd{Token} & \thd{Hexadecimal} & \thd{Nombre en TeX} & \thd{Uso}}
+\multicolumn{5}{@{}l@{}}{\color{uxnavy}\small Primaria - azul institucional} \\
+{\color{uxprimary100}\rule{0.85cm}{0.30cm}} & \texttt{primary-100} & \texttt{\#DBEAFE} & \texttt{uxprimary100} & Relleno informativo y fondo de chip de estado. \\
+{\color{uxprimary300}\rule{0.85cm}{0.30cm}} & \texttt{primary-300} & \texttt{\#93C5FD} & \texttt{uxprimary300} & Relleno de seleccion y de fila marcada. \\
+{\color{uxblue}\rule{0.85cm}{0.30cm}} & \texttt{primary-500}* & \texttt{\#2563EB} & \texttt{uxblue} & Accion primaria, enlace y anillo de foco. \\
+{\color{uxnavy}\rule{0.85cm}{0.30cm}} & \texttt{primary-700}* & \texttt{\#1F4D78} & \texttt{uxnavy} & Barra lateral, cabecera de tabla y titulares. \\
+{\color{uxprimary900}\rule{0.85cm}{0.30cm}} & \texttt{primary-900} & \texttt{\#0F2C46} & \texttt{uxprimary900} & Fondo mas oscuro de la barra lateral colapsada. \\
+\multicolumn{5}{@{}l@{}}{\color{uxnavy}\small Secundaria - azul de grafica} \\
+{\color{uxsecondary100}\rule{0.85cm}{0.30cm}} & \texttt{secondary-100} & \texttt{\#E3EDF7} & \texttt{uxsecondary100} & Area bajo la curva de la serie secundaria. \\
+{\color{uxpale}\rule{0.85cm}{0.30cm}} & \texttt{secondary-300}* & \texttt{\#B8CCE4} & \texttt{uxpale} & Relleno suave, borde de tarjeta y area de banda. \\
+{\color{uxsky}\rule{0.85cm}{0.30cm}} & \texttt{secondary-500}* & \texttt{\#3B82F6} & \texttt{uxsky} & Serie primaria de grafica y barra de progreso. \\
+{\color{uxsecondary700}\rule{0.85cm}{0.30cm}} & \texttt{secondary-700} & \texttt{\#1E5FA8} & \texttt{uxsecondary700} & Serie secundaria enfatizada y eje activo. \\
+{\color{uxsecondary900}\rule{0.85cm}{0.30cm}} & \texttt{secondary-900} & \texttt{\#14385F} & \texttt{uxsecondary900} & Rejilla y eje sobre grafica de fondo oscuro. \\
+\multicolumn{5}{@{}l@{}}{\color{uxnavy}\small Acento - ambar de uso escaso} \\
+{\color{uxaccent100}\rule{0.85cm}{0.30cm}} & \texttt{accent-100} & \texttt{\#FEEBD9} & \texttt{uxaccent100} & Fondo del aviso de alcance y del banner de demo. \\
+{\color{uxaccent300}\rule{0.85cm}{0.30cm}} & \texttt{accent-300} & \texttt{\#FDBA8C} & \texttt{uxaccent300} & Filete y relleno del aviso. \\
+{\color{uxamber}\rule{0.85cm}{0.30cm}} & \texttt{accent-500}* & \texttt{\#F97316} & \texttt{uxamber} & Solo decorativo: filete de marca. No informa. \\
+{\color{uxaccent700}\rule{0.85cm}{0.30cm}} & \texttt{accent-700} & \texttt{\#C2540A} & \texttt{uxaccent700} & Todo ambar que informa: icono, borde y marca. \\
+{\color{uxaccent900}\rule{0.85cm}{0.30cm}} & \texttt{accent-900} & \texttt{\#7C3606} & \texttt{uxaccent900} & Texto de aviso sobre el acento 100. \\
+\multicolumn{5}{@{}l@{}}{\color{uxnavy}\small Complemento - verde de confirmacion} \\
+{\color{uxsuccess100}\rule{0.85cm}{0.30cm}} & \texttt{success-100} & \texttt{\#DCFCE7} & \texttt{uxsuccess100} & Fondo de la insignia de confirmacion. \\
+{\color{uxsuccess300}\rule{0.85cm}{0.30cm}} & \texttt{success-300} & \texttt{\#86EFAC} & \texttt{uxsuccess300} & Filete de la insignia de confirmacion. \\
+{\color{uxsuccess500}\rule{0.85cm}{0.30cm}} & \texttt{success-500} & \texttt{\#16A34A} & \texttt{uxsuccess500} & Marca grafica de confirmacion en tablero. \\
+{\color{uxgreen}\rule{0.85cm}{0.30cm}} & \texttt{success-700}* & \texttt{\#166534} & \texttt{uxgreen} & Confirmacion en texto y estado correcto. \\
+{\color{uxsuccess900}\rule{0.85cm}{0.30cm}} & \texttt{success-900} & \texttt{\#0B3D1F} & \texttt{uxsuccess900} & Texto sobre el relleno de confirmacion. \\
+\multicolumn{5}{@{}l@{}}{\color{uxnavy}\small Neutros} \\
+{\color{uxsurface}\rule{0.85cm}{0.30cm}} & \texttt{surface}* & \texttt{\#F8FAFC} & \texttt{uxsurface} & Superficie de pagina y de tarjeta. \\
+{\color{uxrow}\rule{0.85cm}{0.30cm}} & \texttt{surface-alt}* & \texttt{\#EEF3FA} & \texttt{uxrow} & Fila alterna de tabla y cabecera de panel. \\
+{\color{uxline}\rule{0.85cm}{0.30cm}} & \texttt{line}* & \texttt{\#CBD5E1} & \texttt{uxline} & Filete decorativo y separador que no informa. \\
+{\color{uxmuted}\rule{0.85cm}{0.30cm}} & \texttt{line-strong}* & \texttt{\#64748B} & \texttt{uxmuted} & Borde de campo de formulario y limite de componente que informa. Reusa muted. \\
+{\color{uxmuted}\rule{0.85cm}{0.30cm}} & \texttt{muted}* & \texttt{\#64748B} & \texttt{uxmuted} & Texto secundario, solo a partir de 14 px. \\
+{\color{uxink}\rule{0.85cm}{0.30cm}} & \texttt{ink}* & \texttt{\#1E293B} & \texttt{uxink} & Texto de cuerpo y cifra de tabla. \\
+{\color{uxinkstrong}\rule{0.85cm}{0.30cm}} & \texttt{ink-strong} & \texttt{\#0F172A} & \texttt{uxinkstrong} & Cifra de tarjeta KPI y titulo de dialogo. \\
+\multicolumn{5}{@{}l@{}}{\color{uxnavy}\small Semanticos} \\
+{\color{uxdanger}\rule{0.85cm}{0.30cm}} & \texttt{danger} & \texttt{\#B91C1C} & \texttt{uxdanger} & Error, campo invalido y accion destructiva. \\
+{\color{uxdangerstrong}\rule{0.85cm}{0.30cm}} & \texttt{danger-strong} & \texttt{\#7F1D1D} & \texttt{uxdangerstrong} & Error enfatizado y titulo destructivo. \\
+{\color{uxaccent700}\rule{0.85cm}{0.30cm}} & \texttt{warning} & \texttt{\#C2540A} & \texttt{uxaccent700} & Aviso que informa; reusa el acento 700. Reusa accent-700. \\
+{\color{uxblue}\rule{0.85cm}{0.30cm}} & \texttt{info}* & \texttt{\#2563EB} & \texttt{uxblue} & Mensaje informativo; reusa la primaria 500. Reusa primary-500. \\
+\multicolumn{5}{@{}l@{}}{\color{uxnavy}\small Serie categorica de grafica} \\
+{\color{uxblue}\rule{0.85cm}{0.30cm}} & \texttt{serie-1}* & \texttt{\#2563EB} & \texttt{uxblue} & Serie 1 de grafica categorica. Reusa primary-500. \\
+{\color{uxaccent700}\rule{0.85cm}{0.30cm}} & \texttt{serie-2} & \texttt{\#C2540A} & \texttt{uxaccent700} & Serie 2 de grafica categorica. Reusa accent-700. \\
+{\color{uxgreen}\rule{0.85cm}{0.30cm}} & \texttt{serie-3}* & \texttt{\#166534} & \texttt{uxgreen} & Serie 3 de grafica categorica. Reusa success-700. \\
+{\color{uxserie4}\rule{0.85cm}{0.30cm}} & \texttt{serie-4} & \texttt{\#7C3AED} & \texttt{uxserie4} & Serie 4 de grafica categorica. \\
+{\color{uxserie5}\rule{0.85cm}{0.30cm}} & \texttt{serie-5} & \texttt{\#0E7490} & \texttt{uxserie5} & Serie 5 de grafica categorica. \\
+{\color{uxserie6}\rule{0.85cm}{0.30cm}} & \texttt{serie-6} & \texttt{\#9D174D} & \texttt{uxserie6} & Serie 6 de grafica categorica. \\
+\end{uxtablalarga}
+\vspace{-6pt}{\footnotesize\color{uxmuted}Los tokens marcados con asterisco usan uno de los once colores anclados en la Actividad 1: su valor no cambia porque tres documentos entregados compilan contra ellos. Los tokens con la nota \enquote{reusa} apuntan al color ancla con \texttt{\textbackslash{}colorlet}, de modo que no pueden divergir de el.\par}%
+}
+
+% Lamina 2. Matriz de contraste calculada con la formula WCAG 2.x.
+\newcommand{\laminaContraste}{%
+\begin{uxtablalarga}{@{}L{2.5cm} L{2.5cm} C{1.4cm} C{1.7cm} Y@{}}%
+{Matriz de contraste: 44 pares calculados con la f\'ormula WCAG 2.x (luminancia relativa y $(L_1+0{,}05)/(L_2+0{,}05)$)}%
+{\thd{Frente} & \thd{Fondo} & \thd{Raz\'on} & \thd{Veredicto} & \thd{Regla}}
+\texttt{ink} & \texttt{surface} & 13.98:1 & \textcolor{uxgreen}{AAA} & Texto de cuerpo sobre superficie: el par por omision. \\
+\texttt{ink} & \texttt{surface-alt} & 13.12:1 & \textcolor{uxgreen}{AAA} & Texto de cuerpo sobre la fila alterna de la tabla. \\
+\texttt{ink-strong} & \texttt{surface} & 17.06:1 & \textcolor{uxgreen}{AAA} & Cifra de tarjeta KPI, el neutro mas oscuro. \\
+\texttt{muted} & \texttt{surface} & 4.55:1 & \textcolor{uxgreen}{AA} & Texto secundario: solo a partir de 14 px, nunca una cifra. \\
+\texttt{muted} & \texttt{surface-alt} & 4.27:1 & \textcolor{uxaccent700}{AA-grande} & Texto secundario dentro de la tabla, mismo limite. \\
+\texttt{line} & \texttt{surface} & 1.42:1 & \textcolor{uxdanger}{falla} & Filete decorativo. No sirve de borde de campo. \\
+\texttt{line-strong} & \texttt{surface} & 4.55:1 & \textcolor{uxgreen}{AA} & Borde de campo de formulario y limite que informa. \\
+\texttt{line-strong} & \texttt{surface-alt} & 4.27:1 & \textcolor{uxaccent700}{AA-grande} & Borde de campo dentro de una fila alterna. \\
+\texttt{primary-700} & \texttt{surface} & 8.39:1 & \textcolor{uxgreen}{AAA} & Titular de seccion y encabezado de tabla. \\
+\texttt{primary-500} & \texttt{surface} & 4.94:1 & \textcolor{uxgreen}{AA} & Enlace y texto de accion primaria. \\
+\texttt{primary-500} & \texttt{surface-alt} & 4.64:1 & \textcolor{uxgreen}{AA} & Enlace dentro de la tabla. \\
+\texttt{surface} & \texttt{primary-500} & 4.94:1 & \textcolor{uxgreen}{AA} & Texto del boton primario en reposo. \\
+\texttt{surface} & \texttt{primary-700} & 8.39:1 & \textcolor{uxgreen}{AAA} & Texto de la barra lateral y de la cabecera. \\
+\texttt{surface} & \texttt{primary-900} & 13.66:1 & \textcolor{uxgreen}{AAA} & Texto sobre el fondo mas oscuro de la barra. \\
+\texttt{ink} & \texttt{primary-100} & 11.99:1 & \textcolor{uxgreen}{AAA} & Texto sobre el relleno informativo. \\
+\texttt{ink} & \texttt{primary-300} & 8.11:1 & \textcolor{uxgreen}{AAA} & Texto sobre el relleno de seleccion. \\
+\texttt{secondary-500} & \texttt{surface} & 3.52:1 & \textcolor{uxaccent700}{AA-grande} & Serie de grafica: cumple el 3:1, no el de texto. \\
+\texttt{surface} & \texttt{secondary-700} & 6.16:1 & \textcolor{uxgreen}{AA} & Texto sobre la serie secundaria enfatizada. \\
+\texttt{surface} & \texttt{secondary-900} & 11.40:1 & \textcolor{uxgreen}{AAA} & Texto sobre la grafica de fondo oscuro. \\
+\texttt{ink} & \texttt{secondary-300} & 8.91:1 & \textcolor{uxgreen}{AAA} & Texto sobre el relleno suave del area bajo la curva. \\
+\texttt{ink} & \texttt{secondary-100} & 12.35:1 & \textcolor{uxgreen}{AAA} & Texto sobre el area bajo la curva mas clara. \\
+\texttt{accent-500} & \texttt{surface} & 2.68:1 & \textcolor{uxdanger}{falla} & Hallazgo 3: el ambar 500 no informa, solo decora. \\
+\texttt{surface} & \texttt{accent-500} & 2.68:1 & \textcolor{uxdanger}{falla} & Hallazgo 1: el ambar 500 no lleva texto claro. \\
+\texttt{ink} & \texttt{accent-500} & 5.22:1 & \textcolor{uxgreen}{AA} & Regla sustituta de 1: sobre ambar 500, texto de tinta. \\
+\texttt{accent-700} & \texttt{surface} & 4.40:1 & \textcolor{uxaccent700}{AA-grande} & Regla sustituta de 3: el ambar que informa es el 700. \\
+\texttt{accent-700} & \texttt{accent-100} & 3.96:1 & \textcolor{uxaccent700}{AA-grande} & Hallazgo 2: el texto de aviso no puede ser el 700. \\
+\texttt{accent-900} & \texttt{accent-100} & 7.58:1 & \textcolor{uxgreen}{AAA} & Regla sustituta de 2: el texto de aviso es el 900. \\
+\texttt{surface} & \texttt{accent-700} & 4.40:1 & \textcolor{uxaccent700}{AA-grande} & Texto claro sobre relleno de aviso solido. \\
+\texttt{ink} & \texttt{accent-300} & 8.76:1 & \textcolor{uxgreen}{AAA} & Texto sobre el filete de aviso. \\
+\texttt{success-700} & \texttt{surface} & 6.81:1 & \textcolor{uxgreen}{AA} & Confirmacion en texto. \\
+\texttt{surface} & \texttt{success-700} & 6.81:1 & \textcolor{uxgreen}{AA} & Texto de la insignia de confirmacion. \\
+\texttt{success-500} & \texttt{surface} & 3.15:1 & \textcolor{uxaccent700}{AA-grande} & Marca grafica de confirmacion: 3:1 si, texto no. \\
+\texttt{ink} & \texttt{success-100} & 13.32:1 & \textcolor{uxgreen}{AAA} & Texto sobre el relleno de confirmacion. \\
+\texttt{danger} & \texttt{surface} & 6.18:1 & \textcolor{uxgreen}{AA} & Error en texto y borde de campo invalido. \\
+\texttt{surface} & \texttt{danger} & 6.18:1 & \textcolor{uxgreen}{AA} & Texto del boton destructivo. \\
+\texttt{danger-strong} & \texttt{surface} & 9.58:1 & \textcolor{uxgreen}{AAA} & Error enfatizado y titulo del dialogo destructivo. \\
+\texttt{warning} & \texttt{surface} & 4.40:1 & \textcolor{uxaccent700}{AA-grande} & Aviso como elemento grafico sobre superficie. \\
+\texttt{info} & \texttt{surface} & 4.94:1 & \textcolor{uxgreen}{AA} & Mensaje informativo en texto sobre superficie. \\
+\texttt{serie-1} & \texttt{surface} & 4.94:1 & \textcolor{uxgreen}{AA} & Serie 1 sobre superficie de grafica. \\
+\texttt{serie-2} & \texttt{surface} & 4.40:1 & \textcolor{uxaccent700}{AA-grande} & Serie 2 sobre superficie de grafica. \\
+\texttt{serie-3} & \texttt{surface} & 6.81:1 & \textcolor{uxgreen}{AA} & Serie 3 sobre superficie de grafica. \\
+\texttt{serie-4} & \texttt{surface} & 5.45:1 & \textcolor{uxgreen}{AA} & Serie 4 sobre superficie de grafica. \\
+\texttt{serie-5} & \texttt{surface} & 5.12:1 & \textcolor{uxgreen}{AA} & Serie 5 sobre superficie de grafica. \\
+\texttt{serie-6} & \texttt{surface} & 7.54:1 & \textcolor{uxgreen}{AAA} & Serie 6 sobre superficie de grafica. \\
+\end{uxtablalarga}
+
+\begin{uxtablalarga}{@{}C{0.9cm} L{4.2cm} C{1.4cm} Z{1.2} Z{0.8}@{}}%
+{Los cuatro defectos que la matriz encontr\'o y la regla que los sustituye}%
+{\thd{\#} & \thd{Par medido} & \thd{Raz\'on} & \thd{Diagn\'ostico} & \thd{Regla sustituta}}
+1 & \texttt{surface} sobre \texttt{accent-500} & \textcolor{uxdanger}{2.68:1} & La prosa del plan citaba 2.6:1 para el blanco sobre el ambar 500. El calculo WCAG 2.x da 2.80:1 con blanco puro y 2.68:1 con la superficie del producto, que es el claro que la interfaz usa de verdad. Los dos fallan: el veredicto no cambia, el numero si. & \texttt{ink} sobre \texttt{accent-500}: 5.22:1 (AA) \\
+2 & \texttt{accent-700} sobre \texttt{accent-100} & \textcolor{uxdanger}{3.96:1} & El texto de aviso en acento 700 sobre acento 100 se daba por bueno y queda por debajo del 4.5:1 de texto normal. El aviso pasa al acento 900, que sube a AAA sin cambiar el fondo ni el tamano de letra. & \texttt{accent-900} sobre \texttt{accent-100}: 7.58:1 (AAA) \\
+3 & \texttt{accent-500} sobre \texttt{surface} & \textcolor{uxdanger}{2.68:1} & El ambar 500 como elemento grafico informativo no llega al 3:1 que exige un limite de componente. Queda solo decorativo: todo ambar que informa usa el acento 700. & \texttt{accent-700} sobre \texttt{surface}: 4.40:1 (AA-grande) \\
+4 & \texttt{line} sobre \texttt{surface} & \textcolor{uxdanger}{1.42:1} & El filete claro como borde de campo de formulario da 1.42:1, muy por debajo del 3:1 de limite de componente: el campo se veia como un rectangulo sin borde. El borde de campo usa el neutro fuerte y el filete claro queda para separadores decorativos. & \texttt{line-strong} sobre \texttt{surface}: 4.55:1 (AA) \\
+\end{uxtablalarga}
+
+{\color{uxnavy}\small Reglas derivadas de la matriz\par}
+\begin{enumerate}[leftmargin=*,itemsep=2pt,topsep=4pt]
+\item El acento 500 no lleva texto claro encima: con la superficie del producto da 2.68:1 y con blanco puro 2.80:1. Si el ambar 500 lleva texto, el texto es tinta (5.22:1).
+\item Todo ambar que informa usa el acento 700 (4.40:1 sobre superficie, por encima del 3:1 de elemento grafico). El acento 500 queda decorativo.
+\item El texto de aviso es el acento 900 sobre el acento 100 (7.58:1, AAA). El acento 700 sobre el mismo fondo se queda en 3.96:1 y falla AA.
+\item El borde de campo de formulario usa el neutro line-strong (4.55:1). El filete claro line (1.42:1) queda para separadores decorativos.
+\item El neutro muted solo rotula texto de 14 px o mas (4.55:1, AA justo): ninguna cifra ni etiqueta menor va en muted.
+\end{enumerate}
+}
+
+% Lamina 3. Especimen de los nueve roles, compuesto con las familias
+% reales del producto: fontspec ya las carga en uxdoc.sty.
+\newcommand{\laminaTipografia}{%
+\begingroup\setlength{\parskip}{4pt}%
+{\uxhead\fontsize{24.00}{30.00}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-display} - 32 px / 40 px (24.00 pt / 30.00 pt) - Lexend Deca 400 - Cifra unica de portada de tablero y titulo de pantalla vacia.\par}
+{\uxhead\fontsize{18.00}{24.00}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-titulo-1} - 24 px / 32 px (18.00 pt / 24.00 pt) - Lexend Deca 400 - Titulo de pantalla, uno solo por vista.\par}
+{\uxhead\fontsize{15.00}{21.00}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-titulo-2} - 20 px / 28 px (15.00 pt / 21.00 pt) - Lexend Deca 400 - Titulo de tarjeta, de panel y de lamina.\par}
+{\uxhead\fontsize{12.00}{16.50}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-titulo-3} - 16 px / 22 px (12.00 pt / 16.50 pt) - Lexend Deca 400 - Subtitulo y encabezado de grupo de campos.\par}
+{\sffamily\fontsize{10.50}{15.00}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-cuerpo} - 14 px / 20 px (10.50 pt / 15.00 pt) - Fira Sans 400 - Texto por omision de la interfaz densa.\par}
+{\sffamily\fontsize{12.00}{19.50}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-cuerpo-amplio} - 16 px / 26 px (12.00 pt / 19.50 pt) - Fira Sans 400 - Parrafo largo: ayuda, respuesta del asistente y aviso de alcance.\par}
+{\sffamily\fontsize{9.00}{12.00}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-etiqueta} - 12 px / 16 px (9.00 pt / 12.00 pt) - Fira Sans 400 - Etiqueta de campo, encabezado de columna y texto de chip.\par}
+{\sffamily\fontsize{13.50}{18.00}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-dato} - 18 px / 24 px (13.50 pt / 18.00 pt) - Fira Sans 400 - Cifra de tarjeta KPI y celda numerica, con cifras tabulares.\par}
+{\sffamily\fontsize{8.25}{12.00}\selectfont Karisma Data Aa Bb 0123456789\par}
+{\footnotesize\color{uxmuted}\texttt{text-micro} - 11 px / 16 px (8.25 pt / 12.00 pt) - Fira Sans 400 - Nota al pie, marca de tiempo y leyenda de grafica.\par}
+\endgroup
+\vspace{2pt}{\footnotesize\color{uxmuted}Los nueve roles usan el peso 400. La jerarqu\'ia se construye con tama\~no, color y espacio en blanco, no con peso: Lexend Deca se distribuye solo en Regular y el m\'odulo de fuentes descarga esa \'unica variante, as\'i que un peso mayor producir\'ia negrita simulada distinta en la pantalla y en el PDF.\par}%
+}
+
+% Lamina 4. Ritmo de 4 px, radios, sombras, quiebres y densidad.
+\newcommand{\laminaReticula}{%
+\begin{uxtablalarga}{@{}C{1.5cm} C{1.8cm} Y@{}}%
+{Ritmo de espaciado en base 4 del que Tailwind deriva los ocho pasos}%
+{\thd{Paso} & \thd{Medida} & \thd{Barra a escala}}
+\texttt{1} & 4 px & {\color{uxsky}\rule{3.00pt}{0.22cm}} \\
+\texttt{2} & 8 px & {\color{uxsky}\rule{6.00pt}{0.22cm}} \\
+\texttt{3} & 12 px & {\color{uxsky}\rule{9.00pt}{0.22cm}} \\
+\texttt{4} & 16 px & {\color{uxsky}\rule{12.00pt}{0.22cm}} \\
+\texttt{6} & 24 px & {\color{uxsky}\rule{18.00pt}{0.22cm}} \\
+\texttt{8} & 32 px & {\color{uxsky}\rule{24.00pt}{0.22cm}} \\
+\texttt{12} & 48 px & {\color{uxsky}\rule{36.00pt}{0.22cm}} \\
+\texttt{16} & 64 px & {\color{uxsky}\rule{48.00pt}{0.22cm}} \\
+\end{uxtablalarga}
+
+\begin{uxtablalarga}{@{}L{3.8cm} L{3.2cm} Y@{}}%
+{Radios, sombras, puntos de quiebre y medidas de densidad}%
+{\thd{Token} & \thd{Valor} & \thd{Uso}}
+\texttt{--radius-sm} & 4 px & Chip, insignia y campo de una linea. \\
+\texttt{--radius-md} & 6 px & Boton, campo de formulario y celda de tabla activa. \\
+\texttt{--radius-lg} & 10 px & Tarjeta, panel y dialogo. \\
+\texttt{--radius-full} & 999 px & Avatar, punto de estado y boton circular de icono. \\
+\texttt{--shadow-reposo} & \texttt{0 1px 2px 0} sobre \texttt{ink-strong} al 6\% & Tarjeta y tabla en reposo. \\
+\texttt{--shadow-elevado} & \texttt{0 2px 6px -1px} sobre \texttt{ink-strong} al 10\% & Tarjeta al pasar el puntero y menu abierto. \\
+\texttt{--shadow-flotante} & \texttt{0 8px 24px -6px} sobre \texttt{ink-strong} al 18\% & Dialogo, panel lateral y sugerencia flotante. \\
+\texttt{--breakpoint-sm} & 768 px & Tableta vertical: la barra lateral se colapsa a iconos. \\
+\texttt{--breakpoint-md} & 1024 px & Tableta horizontal: vuelve la barra lateral con etiqueta. \\
+\texttt{--breakpoint-lg} & 1280 px & Escritorio: aparece la segunda columna del tablero. \\
+\texttt{--breakpoint-xl} & 1440 px & Escritorio ancho: ancho de captura de las figuras de A4. \\
+\texttt{--sidebar-width} & 240 px & Ancho de la barra lateral desplegada. \\
+\texttt{--header-height} & 56 px & Alto de la cabecera fija. \\
+\texttt{--grid-gap} & 8 px & Canal entre columnas de la reticula de 12. \\
+\texttt{--card-padding} & 12 px & Relleno interno de tarjeta y de panel. \\
+\texttt{--table-row-height} & 36 px & Alto de fila de tabla densa. \\
+\end{uxtablalarga}
+\vspace{-6pt}{\footnotesize\color{uxmuted}La ret\'icula es de doce columnas con un canal de \texttt{--grid-gap} y m\'argenes de \texttt{--card-padding}. Toda medida de la interfaz es un m\'ultiplo de 4 px: no hay valores sueltos entre pasos.\par}%
+}

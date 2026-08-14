@@ -155,18 +155,36 @@ def test_los_valores_de_Scope_coinciden_con_el_CHECK() -> None:  # noqa: N802
     assert del_check == {scope.value for scope in Scope}
 
 
+def sql_de_la_tabla() -> str:
+    """Return every migration that mentions ``app_user``, concatenated.
+
+    The creating migration stopped being the whole story with US-018, which adds
+    ``updated_at`` by ``ALTER TABLE`` in a migration of its own. Reading only the
+    first one would report the mirror as broken every time the table grows,
+    which is the opposite of what the assertion below is for.
+
+    Returns:
+        The text of the migrations that touch the table, in version order.
+    """
+    textos = [
+        ruta.read_text(encoding="utf-8")
+        for ruta in sorted(MIGRATIONS_DIR.glob("*.sql"))
+    ]
+    return "\n".join(texto for texto in textos if "app_user" in texto)
+
+
 def test_la_tabla_declara_las_columnas_del_modelo() -> None:
-    """The columns the SQLModel mirror declares exist in the migration.
+    """The columns the SQLModel mirror declares exist in the migrations.
 
     The model never creates schema, so nothing but this assertion notices when
     the two drift apart.
     """
     from app.models.user import AppUser
 
-    sql = leer_sql().lower()
+    sql = sql_de_la_tabla().lower()
 
     for columna in AppUser.model_fields:
-        assert f"{columna} " in sql, f"la migracion no crea la columna {columna}"
+        assert f"{columna} " in sql, f"ninguna migracion crea la columna {columna}"
 
 
 def test_la_bajada_elimina_la_tabla() -> None:

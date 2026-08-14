@@ -1130,6 +1130,20 @@
       },
       "transportError": "La respuesta no pudo pedirse: fallo el transporte hacia el servidor."
     },
+    "error": {
+      "title": {
+        "recoverable": "No se pudo completar la respuesta",
+        "permission": "Tu nivel de acceso no alcanza"
+      },
+      "message": {
+        "recoverable": "El asistente se detuvo antes de terminar.",
+        "permission": "Esta consulta requiere nivel {nivel} o superior. Solicita el acceso al administrador del portal.",
+        "permissionGeneric": "Esta consulta requiere un nivel de acceso mayor que el tuyo. Solicita el acceso al administrador del portal."
+      },
+      "action": {
+        "resend": "Puedes volver a enviar tu pregunta."
+      }
+    },
     "toolCall": {
       "announce": "Consulta anunciada antes de tener el dato.",
       "elapsed": "Duración {seconds} s",

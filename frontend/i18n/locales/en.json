@@ -1130,6 +1130,20 @@
       },
       "transportError": "The answer could not be requested: the transport to the server failed."
     },
+    "error": {
+      "title": {
+        "recoverable": "The answer could not be completed",
+        "permission": "Your access level is not high enough"
+      },
+      "message": {
+        "recoverable": "The assistant stopped before finishing.",
+        "permission": "This query requires the {nivel} level or higher. Request access from the portal administrator.",
+        "permissionGeneric": "This query requires a higher access level than yours. Request access from the portal administrator."
+      },
+      "action": {
+        "resend": "You can send your question again."
+      }
+    },
     "toolCall": {
       "announce": "Query announced before the data is in.",
       "elapsed": "Duration {seconds} s",

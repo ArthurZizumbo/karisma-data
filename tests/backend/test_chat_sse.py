@@ -16,17 +16,21 @@ SSE only by its content type.
 import asyncio
 import json
 import re
-from collections.abc import Callable, Iterable
+import time
+from collections.abc import AsyncGenerator, Awaitable, Callable, Iterable
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Final
 
 import pytest
+from fastapi import Request
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
+from app.api import chat as api_chat
 from app.core.scopes import ErrorCode, Scope
 from app.models.chat import (
     MENSAJE_MAXIMO,
+    ChatErrorCode,
     EstadoTarjeta,
     EventoChat,
     EventoError,
@@ -35,10 +39,13 @@ from app.models.chat import (
     MotivoCierre,
     PasoDelStream,
     PeticionChat,
+    ResultadoTarjeta,
 )
 from app.services import chat_stream
-from app.services.proveedores import obtener_proveedor
+from app.services.proveedores import ProveedorDeTokens, obtener_proveedor
 from app.services.proveedores.guionizado import (
+    CLAVE_COLUMNA_METRICA,
+    CLAVE_COLUMNA_VALOR,
     CONVERSACIONES,
     PATRON_NUMERO,
     ProveedorGuionizado,
@@ -221,8 +228,15 @@ def test_cabeceras_de_stream(
     ) as respuesta:
         assert respuesta.status_code == 200
         assert respuesta.headers["content-type"].startswith("text/event-stream")
-        assert respuesta.headers["cache-control"] == "no-cache"
+        # `no-store` and not `no-cache`: the second one forces revalidation but
+        # still allows the body to be written to disk, and this body is the
+        # answer one role was allowed to see. The third assertion is written in
+        # the negative because `Connection` is hop-by-hop -ASGI already manages
+        # persistence- and an application that emits it hands a proxy a header
+        # it was supposed to consume, which is the shape of request smuggling.
+        assert respuesta.headers["cache-control"] == "no-store"
         assert respuesta.headers["x-accel-buffering"] == "no"
+        assert "connection" not in {nombre.lower() for nombre in respuesta.headers}
         respuesta.read()
 
 
@@ -589,26 +603,23 @@ def test_el_anuncio_no_finge_tiempo_transcurrido() -> None:
 # ---------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize("clave", CLAVES)
-def test_trazabilidad_de_cifras(clave: str) -> None:
-    """No figure is spoken before a card that returned it and cited a source.
+def _assert_trazabilidad(eventos: Iterable[EventoChat]) -> None:
+    """Assert that every figure spoken was returned by an earlier card.
 
-    Defect this catches, and it is the easiest one to introduce by hand:
-    somebody writes a sentence of the script with a number no tool ever
-    returned. That is the anti-hallucination rule of the project broken at the
-    exact place where nothing else would see it, and it would ship inside a
-    graded deliverable.
-
-    The check walks the emitted stream rather than the constants, so it also
-    fails when the figure exists in the script but arrives after the sentence
-    that quotes it.
+    The rule is walked over the emitted stream and not over the constants of
+    the script, so it also fails when the figure exists somewhere in the turn
+    but arrives after the sentence that quotes it.
 
     Args:
-        clave: Identifier of the conversation replayed.
+        eventos: Events of one conversation, in the order they were produced.
+
+    Raises:
+        AssertionError: If a card returns figures without citing its source, or
+            if a fragment of text names a literal no earlier card returned.
     """
     permitidas: set[str] = set()
 
-    for evento in _eventos_de(clave):
+    for evento in eventos:
         if isinstance(evento, EventoToolCall):
             resultado = evento.resultado
             if resultado is None:
@@ -621,21 +632,123 @@ def test_trazabilidad_de_cifras(clave: str) -> None:
                 permitidas |= numeros_de(texto)
         if isinstance(evento, EventoToken):
             huerfanas = numeros_de(evento.texto) - permitidas
-            assert not huerfanas, (
-                f"el guion de {clave} nombra {sorted(huerfanas)} sin tarjeta previa"
-            )
+            assert not huerfanas, f"cifras sin tarjeta previa: {sorted(huerfanas)}"
 
 
-def test_la_trazabilidad_puede_fallar() -> None:
-    """The traceability check rejects a sentence with an invented figure.
+def _guion_sintetico(cifra: str, frase: str) -> list[EventoChat]:
+    """Build the smallest legal answer: one card with a figure, one sentence.
 
-    Defect this catches: a check that passes over anything. Without this case
-    the previous test would keep the suite green even if ``numeros_de`` stopped
-    finding numbers, and the anti-hallucination rule would be enforced by a
-    function that had quietly become a no-op.
+    A synthetic script and not one of the four real ones, because what is
+    exercised here is the guard: a forgery has to be written somewhere, and
+    writing it into the script the demo replays would be the defect itself.
+
+    Args:
+        cifra: Figure the card returns, written as the script writes them.
+        frase: Sentence the answer speaks once the card has resolved.
+
+    Returns:
+        The two events, card first, as a provider would have produced them.
+    """
+    return [
+        EventoToolCall(
+            id="tc-1",
+            estado=EstadoTarjeta.RESULTADO,
+            herramienta="consultar_metrica",
+            etiqueta="chat.toolCall.tool.consultar_metrica",
+            fuente="catalogo.creditos.morosidad_cartera",
+            resultado=ResultadoTarjeta(
+                columnas=[CLAVE_COLUMNA_METRICA, CLAVE_COLUMNA_VALOR],
+                filas=[["Morosidad de la cartera hipotecaria", cifra]],
+                cifra=cifra,
+            ),
+        ),
+        EventoToken(texto=frase, indice=0),
+    ]
+
+
+@pytest.mark.parametrize("clave", CLAVES)
+def test_trazabilidad_de_cifras(clave: str) -> None:
+    """No figure is spoken before a card that returned it and cited a source.
+
+    Defect this catches, and it is the easiest one to introduce by hand:
+    somebody writes a sentence of the script with a number no tool ever
+    returned. That is the anti-hallucination rule of the project broken at the
+    exact place where nothing else would see it, and it would ship inside a
+    graded deliverable.
+
+    Args:
+        clave: Identifier of the conversation replayed.
+    """
+    _assert_trazabilidad(_eventos_de(clave))
+
+
+@pytest.mark.parametrize(
+    "frase",
+    [
+        "La morosidad es de 7.15 % este mes.",
+        "La morosidad cayo -3.42 % este mes.",
+    ],
+)
+def test_la_trazabilidad_rechaza_una_cifra_que_ninguna_tarjeta_devolvio(
+    frase: str,
+) -> None:
+    """The check turns red on a forged figure and stays green on the honest one.
+
+    Defect this catches: a guard that approves everything. The case above walks
+    four scripts that are correct by construction, so on its own it would stay
+    green even if the comparison had quietly become empty; the guard is
+    therefore run against synthetic answers, one per class of forgery.
+
+    Two forgeries. The invented figure is the obvious one. The inverted sign is
+    the cheap one -every digit still matches the card, and the sentence says
+    the opposite of the data- and it was not caught: the numeric pattern did
+    not read the sign, so ``-3.42`` and ``3.42`` were the same literal to it.
+
+    The honest answer is asserted first, in the same case, so the test cannot
+    pass by failing at everything.
+
+    Args:
+        frase: Sentence of the answer, forged in one of the two ways.
+    """
+    _assert_trazabilidad(_guion_sintetico("3.42 %", "La morosidad es de 3.42 %."))
+
+    with pytest.raises(AssertionError):
+        _assert_trazabilidad(_guion_sintetico("3.42 %", frase))
+
+
+def test_la_trazabilidad_rechaza_una_cifra_citada_antes_de_su_tarjeta() -> None:
+    """A figure quoted before its card resolves is not traceable either.
+
+    Defect this catches: a provider that speaks first and resolves its card
+    afterwards. Every literal of the answer would exist somewhere in the turn,
+    so a check written over the constants of the script would pass it, while
+    the reader would have read the figure before its source existed -which is
+    the difference between citing and claiming.
+    """
+    guion = _guion_sintetico("3.42 %", "La morosidad es de 3.42 % este mes.")
+
+    with pytest.raises(AssertionError):
+        _assert_trazabilidad(reversed(guion))
+
+
+def test_el_patron_numerico_lee_el_signo_y_el_separador_de_miles() -> None:
+    """A literal keeps its sign, its group separator and its decimal point.
+
+    Defect this catches: a pattern that reads ``1,240`` as two numbers, or one
+    blind to the sign. Neither would move the traceability of the four
+    conversations -both sides of that comparison call this same function, so a
+    pattern that splits a figure splits it in the card and in the sentence
+    alike- and the second one shipped: a sentence could invert the meaning of a
+    figure and still look sourced.
+
+    The dash of a date is not a sign, and that direction is asserted too: it is
+    what keeps ``2026-06`` traceable to the row that carries it instead of
+    demanding a ``-06`` no card ever returned.
     """
     assert numeros_de("la morosidad es de 3.42 %") == {"3.42"}
+    assert numeros_de("la morosidad cayo -3.42 %") == {"-3.42"}
     assert PATRON_NUMERO.findall("1,240 MXN M") == ["1,240"]
+    assert PATRON_NUMERO.findall("cierre de 2026-06") == ["2026", "06"]
     assert numeros_de("sin cifras") == frozenset()
 
 
@@ -678,6 +791,33 @@ def test_un_proveedor_desconocido_no_se_sustituye_en_silencio() -> None:
         obtener_proveedor("inventado")
 
 
+def test_la_aplicacion_no_arranca_si_el_proveedor_configurado_no_tiene_fabrica(
+    minimal_env: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A ``CHAT_PROVIDER`` the table cannot serve stops the startup, not a turn.
+
+    Defect this catches: settings that accept a name the factory table does not
+    declare. Before the guard, ``CHAT_PROVIDER=gemini`` built a healthy looking
+    application -``/health`` answered 200 and a Cloud Run revision passed its
+    health check- while every ``POST /api/chat`` died as a 500 with an opaque
+    body. A misconfiguration has to fail where the deployment sees it, once,
+    and not once per reader.
+
+    Args:
+        minimal_env: Environment the settings need, and the cache reset.
+        monkeypatch: Fixture used to name a provider that has no factory.
+    """
+    from app.core.config import get_settings
+    from app.main import create_app
+
+    monkeypatch.setenv("CHAT_PROVIDER", "gemini")
+    get_settings.cache_clear()
+
+    with pytest.raises(ValueError, match="desconocido"):
+        create_app()
+
+
 def test_no_hay_dependencia_de_gemini_antes_del_go_no_go() -> None:
     """No provider reaches the network, and no SDK of the model is imported.
 
@@ -690,6 +830,157 @@ def test_no_hay_dependencia_de_gemini_antes_del_go_no_go() -> None:
 
     for archivo in carpeta.glob("*.py"):
         assert not prohibidos.search(archivo.read_text(encoding="utf-8")), archivo.name
+
+
+# ---------------------------------------------------------------------------
+# The seam between the router and the transport
+# ---------------------------------------------------------------------------
+
+
+def test_el_router_entrega_el_detector_de_desconexion_de_esta_peticion(
+    cliente: TestClient,
+    token_de: Callable[..., str],
+    operativo: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The transport receives the disconnection detector of the live request.
+
+    Defect this catches, and it was measured: replacing
+    ``request.is_disconnected`` in the router with a callable that always
+    answers ``False`` leaves the whole backend suite green. The cancellation is
+    proved inside the transport -with an injected detector, because the ASGI
+    client never disconnects- and against uvicorn in the manual capture, so the
+    one link nothing asserted was the router handing over the real thing. A
+    stream carrying a detector that can never report a disconnection is a Stop
+    button that stops the browser and not the server, which is the opposite of
+    what this User Story claims.
+
+    Identity is asserted and not shape: the callable has to be the bound
+    ``Request.is_disconnected`` itself, and the request it is bound to has to
+    be the one that carried this header, so neither a stand-in coroutine nor a
+    detector belonging to another request would pass.
+
+    Args:
+        cliente: Client bound to the repository double.
+        token_de: Factory of signed tokens.
+        operativo: Login identifier of a seeded ``operativo``.
+        monkeypatch: Used to put a spy in place of the transport.
+    """
+    testigo = "us-023-costura"
+    capturado: dict[str, Any] = {}
+
+    async def _espia(
+        peticion: PeticionChat,
+        proveedor: ProveedorDeTokens,
+        esta_desconectado: Callable[[], Awaitable[bool]],
+        stream_id: str | None = None,
+    ) -> AsyncGenerator[str, None]:
+        # The spy owes the release the real transport owes. The router reserves
+        # the slot and hands the identifier down, so standing in for
+        # `transmitir` means standing in for its `finally` too; without this the
+        # reservation outlives the case and the guard of the cancellation suite
+        # reports the next test as the one that leaked.
+        try:
+            capturado["detector"] = esta_desconectado
+            capturado["stream_id"] = stream_id
+            yield "event: done\ndata: {}\n\n"
+        finally:
+            if stream_id is not None:
+                chat_stream.liberar(stream_id)
+
+    monkeypatch.setattr(chat_stream, "transmitir", _espia)
+
+    respuesta = cliente.post(
+        RUTA,
+        json={"mensaje": "morosidad de la cartera"},
+        headers={
+            **_cabecera(token_de(operativo, Scope.OPERATIVO.value)),
+            "X-Testigo": testigo,
+        },
+    )
+
+    assert respuesta.status_code == 200
+    detector: Any = capturado["detector"]
+    assert detector.__func__ is Request.is_disconnected
+    assert detector.__self__.headers["x-testigo"] == testigo
+    # The router reserves a slot before answering and hands the identifier down,
+    # so that the registry entry, the closing record and the `done` event all
+    # name the same stream. Defect this catches: a router that reserves and then
+    # lets `transmitir` mint its own identifier, which leaks the reserved slot
+    # -nothing ever releases it- and silently lowers the ceiling by one on every
+    # turn until the endpoint answers 429 to everybody.
+    assert isinstance(capturado["stream_id"], str)
+    assert capturado["stream_id"] != ""
+
+
+def test_el_router_entrega_el_proveedor_que_nombra_la_configuracion(
+    cliente: TestClient,
+    token_de: Callable[..., str],
+    operativo: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The transport answers with the provider the setting resolved, by identity.
+
+    Defect this catches: a router that builds a provider itself or resolves a
+    name of its own. ``CHAT_PROVIDER`` would be a setting the deployment writes
+    and nobody reads, and the go/no-go of Gemini -whose whole promise is that
+    changing provider costs one variable- would fail at the only link the seam
+    cannot cover from the inside. Nothing else asserts it: the neighbouring
+    case proves the resolver refuses an unknown name, which says nothing about
+    who calls it.
+
+    The configured value is ``gemini`` on purpose. It is legal in the
+    vocabulary of ``Settings`` and has no factory behind it, so the assertion
+    cannot pass by coinciding with the default the environment already carries;
+    the resolver is replaced by a spy, which is also what lets the request
+    answer while the configured name is one nothing could build.
+
+    Args:
+        cliente: Client bound to the repository double.
+        token_de: Factory of signed tokens.
+        operativo: Login identifier of a seeded ``operativo``.
+        monkeypatch: Used to put spies in place of the resolver and the
+            transport, and to write the setting.
+    """
+    from app.core.config import get_settings
+
+    centinela = ProveedorGuionizado(retardo_token_ms=0, retardo_herramienta_ms=0)
+    nombres: list[str] = []
+    capturado: dict[str, Any] = {}
+
+    def _resolver(nombre: str) -> ProveedorDeTokens:
+        nombres.append(nombre)
+        return centinela
+
+    async def _espia(
+        peticion: PeticionChat,
+        proveedor: ProveedorDeTokens,
+        esta_desconectado: Callable[[], Awaitable[bool]],
+        stream_id: str | None = None,
+    ) -> AsyncGenerator[str, None]:
+        # Same debt as the spy above: whoever receives a reserved identifier
+        # gives it back.
+        try:
+            capturado["proveedor"] = proveedor
+            yield "event: done\ndata: {}\n\n"
+        finally:
+            if stream_id is not None:
+                chat_stream.liberar(stream_id)
+
+    monkeypatch.setenv("CHAT_PROVIDER", "gemini")
+    get_settings.cache_clear()
+    monkeypatch.setattr(api_chat, "obtener_proveedor", _resolver)
+    monkeypatch.setattr(chat_stream, "transmitir", _espia)
+
+    respuesta = cliente.post(
+        RUTA,
+        json={"mensaje": "morosidad de la cartera"},
+        headers=_cabecera(token_de(operativo, Scope.OPERATIVO.value)),
+    )
+
+    assert respuesta.status_code == 200
+    assert nombres == ["gemini"]
+    assert capturado["proveedor"] is centinela
 
 
 # ---------------------------------------------------------------------------
@@ -783,29 +1074,32 @@ def test_chat_sin_reclamacion_de_scope_devuelve_401(
     assert respuesta.json()["detail"] == ErrorCode.CREDENCIALES_INVALIDAS.value
 
 
-def test_el_registro_de_scopes_cubre_el_chat(minimal_env: None) -> None:
-    """The application boots with every route under ``/api`` governed.
+def test_el_registro_de_scopes_gobierna_el_chat_como_operativo(
+    minimal_env: None,
+) -> None:
+    """The row that governs ``POST /api/chat`` demands ``operativo`` and is current.
 
-    Defect this catches: mounting the router without adding its row to
-    ``SCOPE_REGISTRY``. The guard runs inside ``create_app``, so the failure
-    would surface as a revision that never becomes healthy in Cloud Run instead
-    of as a red test here.
+    Defect this catches: relaxing the row -to no scope, or to a level every
+    session already reaches- while the router keeps its ``Security``
+    dependency. The map the interface generates is derived from this table, so
+    the assistant would be advertised to roles the endpoint refuses; and a row
+    left as ``planificado`` would publish a route that does answer.
+
+    What this case deliberately does **not** assert is that the coverage guard
+    approves the application. ``create_app`` calls ``assert_scope_coverage``
+    and raises, so comparing its audit against the empty tuple is a comparison
+    that can never be false. The guard is exercised against synthetic
+    applications in ``permisos/test_scope_coverage.py``, and a route mounted
+    without its row shows up here as every client fixture failing to build.
 
     Args:
         minimal_env: Declared so the environment is in place before ``app`` is
             imported.
     """
-    from app.core.permissions import (
-        SCOPE_REGISTRY,
-        PermissionRule,
-        RouteKey,
-        audit_scope_coverage,
-    )
-    from app.main import create_app
+    from app.core.permissions import SCOPE_REGISTRY, PermissionRule, RouteKey
 
     regla: PermissionRule = SCOPE_REGISTRY[RouteKey("POST", "/api/chat")]
 
-    assert audit_scope_coverage(create_app()) == ()
     assert regla.scopes == (Scope.OPERATIVO,)
     assert regla.status == "vigente"
 
@@ -845,6 +1139,46 @@ def test_seleccion_de_conversacion_es_determinista(mensaje: str, esperada: str) 
 
     assert seleccionar_conversacion(peticion) == esperada
     assert seleccionar_conversacion(peticion) == esperada
+
+
+@pytest.mark.parametrize(
+    ("mensaje", "esperada"),
+    [
+        ("Como va la morosidad este trimestre", "morosidad"),
+        ("Cual es el coeficiente de liquidez del trimestre", "liquidez"),
+        ("Dame la exposicion en derivados del trimestre", "derivados"),
+        ("Quiero informacion desagregada de derivados", "derivados"),
+        ("Que riesgo de contraparte tenemos en derivados", "derivados"),
+        ("Dame la exposicion agregada por contraparte del ultimo trimestre", "permiso"),
+        ("Muestrame la exposicion agregada por contrapartes", "permiso"),
+    ],
+)
+def test_el_fallo_de_permiso_solo_responde_a_una_agregacion_por_contraparte(
+    mensaje: str, esperada: str
+) -> None:
+    """Only a question that really asks for an aggregation by counterparty fails.
+
+    Defect this catches, and it was measured on the shipped script: the words
+    of C4 were ``contraparte``, ``agregada`` and ``trimestre``, any one of them
+    sufficed, they were compared as substrings and they were read first. So
+    "como va la morosidad este trimestre" -the kind of question the empty state
+    of the screen invites- was answered with a refusal for lack of permission,
+    and "desagregada" matched "agregada" inside a word that means the opposite.
+    The client sends the question and nothing else: there is no menu of
+    conversations, so those three words governed the whole demo.
+
+    The other direction is in the list because the fix has to keep C4
+    reachable. It is the only material US-024 has for its permission notice,
+    and a table tuned only to stop hijacking ordinary questions could leave the
+    conversation unreachable without a single assertion moving.
+
+    Args:
+        mensaje: Question as the reader typed it.
+        esperada: Conversation the provider must choose.
+    """
+    from app.services.proveedores.guionizado import seleccionar_conversacion
+
+    assert seleccionar_conversacion(PeticionChat(mensaje=mensaje)) == esperada
 
 
 def test_una_clave_desconocida_no_rompe_el_turno() -> None:
@@ -914,3 +1248,118 @@ def test_los_fragmentos_reconstruyen_el_texto() -> None:
     texto = "La morosidad es de 3.42 % en el cierre mas reciente."
 
     assert "".join(fragmentos_de(texto)) == texto
+
+
+def test_reservar_rechaza_cuando_el_registro_esta_lleno() -> None:
+    """The ceiling refuses a turn once every declared slot is taken.
+
+    Defect this catches: a ceiling that is written but never enforced -a
+    ``MAXIMO_DE_STREAMS`` read into a log line and nothing else-. Nothing else
+    exercises the refusal: the neighbouring cases all run under the ceiling, so
+    they would stay green with the ``raise`` deleted, and the endpoint would go
+    on accepting streams until the process ran out of descriptors. With
+    ``DEMO_LOGIN_ENABLED`` handing out tokens without credentials, that is one
+    loop away from anybody.
+
+    The reservations are made through ``reservar`` and not written into the
+    registry by hand, so the case also fails if reserving stops registering.
+    """
+    reservados = [chat_stream.reservar() for _ in range(chat_stream.MAXIMO_DE_STREAMS)]
+    try:
+        assert len(chat_stream.streams_activos()) == chat_stream.MAXIMO_DE_STREAMS
+
+        with pytest.raises(chat_stream.LimiteDeStreamsError):
+            chat_stream.reservar()
+
+        # The refusal must not have taken a slot on its way out: a ceiling that
+        # leaks one reservation per refusal lowers itself with every rejected
+        # request until it refuses everything forever.
+        assert len(chat_stream.streams_activos()) == chat_stream.MAXIMO_DE_STREAMS
+    finally:
+        for identificador in reservados:
+            chat_stream.liberar(identificador)
+
+    assert chat_stream.streams_activos() == {}
+
+
+def test_una_reserva_abandonada_no_baja_el_techo_para_siempre(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A slot older than its maximum life is reclaimed instead of held forever.
+
+    Defect this catches: a registry that only ever grows because the one path
+    that releases a slot is the ``finally`` of a generator somebody has to
+    iterate. A reader who opens a stream and drops the socket before the first
+    read leaves an entry nothing returns, and after
+    ``MAXIMO_DE_STREAMS`` of those the portal answers 429 to everybody with no
+    stream actually running.
+
+    The clock is moved and not slept through: the maximum life is five minutes
+    and a test that waited for it would be a test nobody runs.
+    """
+    # The clock is patched by its dotted path and not by reaching into
+    # `chat_stream.time`: `time` is an import of that module and not part of its
+    # public surface, so mypy strict refuses the attribute. The string form
+    # still replaces the very object the registry stamps its entries with, which
+    # is the whole point -patching a second import of `time` would freeze a
+    # clock nobody reads.
+    reloj = "app.services.chat_stream.time.monotonic"
+    ahora = time.monotonic()
+    monkeypatch.setattr(
+        reloj, lambda: ahora - chat_stream.VIDA_MAXIMA_DE_RESERVA_S - 1.0
+    )
+    viejos = [chat_stream.reservar() for _ in range(chat_stream.MAXIMO_DE_STREAMS)]
+
+    monkeypatch.setattr(reloj, lambda: ahora)
+    try:
+        # The registry is full of reservations that are all too old to still be
+        # running, so the next turn is served instead of refused.
+        nuevo = chat_stream.reservar()
+
+        assert nuevo not in viejos
+        assert set(chat_stream.streams_activos()) == {nuevo}
+    finally:
+        for identificador in [*viejos, *chat_stream.streams_activos()]:
+            chat_stream.liberar(identificador)
+
+    assert chat_stream.streams_activos() == {}
+
+
+def test_el_endpoint_responde_429_con_codigo_estable(
+    cliente: TestClient,
+    token_de: Callable[..., str],
+    operativo: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A refused turn answers 429 with a code, never with a sentence.
+
+    Defect this catches: a ceiling enforced in the service and swallowed in the
+    router -a 500 with a stack, or a 200 with an empty stream-. The bilingual
+    interface keys its copy on ``detail.codigo``; a Spanish sentence there is
+    untranslatable, and a 500 tells a client that the portal broke when what
+    happened is that it is busy.
+
+    ``reservar`` is replaced rather than the registry filled, so the case
+    measures what the router does with a refusal and stays independent of the
+    number the ceiling happens to carry.
+    """
+
+    def negar() -> str:
+        message = "lleno"
+        raise chat_stream.LimiteDeStreamsError(message)
+
+    monkeypatch.setattr(chat_stream, "reservar", negar)
+
+    respuesta = cliente.post(
+        RUTA,
+        json={"mensaje": "como va la morosidad"},
+        headers=_cabecera(token_de(operativo, Scope.OPERATIVO.value)),
+    )
+
+    assert respuesta.status_code == 429
+    detalle = respuesta.json()["detail"]
+    assert detalle["codigo"] == ChatErrorCode.LIMITE_DE_STREAMS.value
+    assert detalle["maximo"] == chat_stream.MAXIMO_DE_STREAMS
+    # The refusal names the ceiling and nothing else: no path, no identifier of
+    # somebody else's stream, no sentence in one language.
+    assert set(detalle) == {"codigo", "maximo"}

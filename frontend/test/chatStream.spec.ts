@@ -1,15 +1,15 @@
 import type { VueWrapper } from '@vue/test-utils'
 import type { ControlDeChat } from '~/composables/useChatStream'
-import type { EventoError, EventoToolCall } from '~/types/chat'
+import type { EventoToolCall, ItemHilo } from '~/types/chat'
 
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 import { flushPromises, mount } from '@vue/test-utils'
-import { defineComponent, h } from 'vue'
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { defineComponent, h, nextTick } from 'vue'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import HistorialConversacion from '~/components/chat/HistorialConversacion.vue'
 import {
   analizarTramos,
   CLAVE_FALLO_DE_TRANSPORTE,
@@ -17,10 +17,26 @@ import {
   useChatStream,
 } from '~/composables/useChatStream'
 import { usePermisos } from '~/composables/usePermisos'
-import Asistente from '~/pages/asistente.vue'
-import { CLAVE_AVISO_DEMO, CLAVE_ESTADO_CHAT, CLAVE_PASO, PROVEEDOR_DE_CHAT } from '~/types/chat'
-import { RUTA_ACCESO, RUTA_ASISTENTE, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
+import {
+  CLAVE_AVISO_DEMO,
+  CLAVE_ESTADO_CHAT,
+  CLAVE_PASO,
+  CLAVE_PERMISO_CON_NIVEL,
+  CLAVE_PERMISO_GENERICA,
+  PROVEEDOR_DE_CHAT,
+} from '~/types/chat'
+import { RUTA_ACCESO } from '~/utils/navegacion'
 import { MOTIVO_EXPIRADA } from '~/utils/sesion'
+import {
+  desmontarPaginas,
+  FALLO_DE_PERMISO,
+  FALLO_RECUPERABLE,
+  marco,
+  montarPagina,
+  preguntar,
+  servidorSSE,
+  tarjetaAnunciada,
+} from './dobles/chat'
 import { clavesDe, crearI18nDePrueba, mensaje } from './i18nDePrueba'
 
 /**
@@ -36,6 +52,11 @@ import { clavesDe, crearI18nDePrueba, mensaje } from './i18nDePrueba'
  * What is deliberately not measured: the look of the tool call card and of the
  * error notice. Both are provisional markup that US-028 and US-024 rewrite the
  * same day, and pinning them would buy coverage that gets deleted on Monday.
+ *
+ * That server, the framing helper, the two typed failures and the page harness
+ * are shared with the other chat suites in `dobles/chat.ts`. What stays here is
+ * what only this suite uses: the refusals, the switchboard and the readings of
+ * the thread.
  */
 
 /**
@@ -49,162 +70,181 @@ function rutaDelRepositorio(relativa: string): string {
   return fileURLToPath(new URL(relativa, import.meta.url))
 }
 
-/** One SSE frame, framed exactly as `chat_stream.formatear_evento` writes it. */
-function marco(nombre: string, datos: unknown): string {
-  return `event: ${nombre}\ndata: ${JSON.stringify(datos)}\n\n`
-}
-
-const ANUNCIO: EventoToolCall = {
-  id: 'c1',
-  estado: 'anuncio',
-  herramienta: 'consultar_metrica',
-  etiqueta: 'chat.toolCall.tool.consultar_metrica',
-  transcurrido_ms: null,
-  resultado: null,
-  fuente: null,
-  paso: null,
-}
+const ANUNCIO: EventoToolCall = tarjetaAnunciada('c1')
 
 const RESUELTA: EventoToolCall = {
   ...ANUNCIO,
   estado: 'resultado',
   transcurrido_ms: 260,
-  resultado: { columnas: ['metrica', 'valor'], filas: [['morosidad', '3.42 %']], cifra: '3.42 %' },
+  resultado: {
+    columnas: ['chat.toolCall.column.metric', 'chat.toolCall.column.value'],
+    filas: [['morosidad', '3.42 %']],
+    cifra: '3.42 %',
+  },
   fuente: 'catalogo.creditos.morosidad_cartera',
 }
 
-const SEGUNDA_TARJETA: EventoToolCall = {
-  ...ANUNCIO,
-  id: 'c2',
-  herramienta: 'agregar_serie',
-  etiqueta: 'chat.toolCall.tool.agregar_serie',
-}
-
-/**
- * The typed failure C4 of the script sends, field by field.
- *
- * Copied from `_C4_PERMISO` and not invented: it is the material US-024 writes
- * its notice against, so a client that mangled it would otherwise be measured
- * against something the server never sends.
- */
-const FALLO_DE_PERMISO: EventoError = {
-  paso: 'verificacion_de_permiso',
-  clase: 'permiso',
-  codigo: 'permisos_insuficientes',
-  mensaje_clave: 'chat.error.message.permission',
-  recuperable: false,
-}
+const SEGUNDA_TARJETA: EventoToolCall = tarjetaAnunciada('c2', 'agregar_serie')
 
 /** A request the endpoint refuses before any stream is opened. */
 function servidorQueRechaza(estadoHttp: number) {
   return vi.fn(() => Promise.resolve({ ok: false, status: estadoHttp, body: null }))
 }
 
-/** What one read of the body resolves with. */
-interface Trozo {
-  done: boolean
-  value?: Uint8Array
-}
-
 /**
- * A server that streams, so that cancelling it means something.
+ * A refusal that arrives with a body, which is what the endpoint really sends.
  *
- * A double that resolved the whole body at once would make every assertion
- * below pass over a client that never streamed and never aborted.
+ * FastAPI answers a 422, a 429 or a 500 with a JSON payload, so the response of
+ * a refused request carries a `ReadableStream` that nobody here is going to
+ * read. The double exposes whether it was released and whether the turn was
+ * aborted, because neither is visible from the screen.
  */
-function servidorSSE() {
-  const codificador = new TextEncoder()
-  const pendientes: Trozo[] = []
-  let esperando: ((trozo: Trozo) => void) | null = null
+function servidorQueRechazaConCuerpo(estadoHttp: number) {
+  let liberaciones = 0
   let senal: AbortSignal | null = null
-  let cancelaciones = 0
-
-  function empujar(trozo: Trozo): void {
-    if (esperando !== null) {
-      const entregarAhora = esperando
-      esperando = null
-      entregarAhora(trozo)
-      return
-    }
-    pendientes.push(trozo)
-  }
-
-  const lector = {
-    read: (): Promise<Trozo> =>
-      new Promise<Trozo>((resolver, rechazar) => {
-        const listo = pendientes.shift()
-        if (listo !== undefined) {
-          resolver(listo)
-          return
-        }
-        esperando = resolver
-        senal?.addEventListener(
-          'abort',
-          () => {
-            // What a real body does when its request is aborted: the read in
-            // flight rejects instead of hanging forever.
-            rechazar(Object.assign(new Error('peticion abortada'), { name: 'AbortError' }))
-          },
-          { once: true },
-        )
-      }),
-    cancel: async (): Promise<void> => {
-      cancelaciones += 1
-    },
-  }
 
   const fetchFalso = vi.fn((_ruta: string, opciones: RequestInit) => {
     senal = opciones.signal ?? null
-    return Promise.resolve({ ok: true, status: 200, body: { getReader: () => lector } })
+    return Promise.resolve({
+      ok: false,
+      status: estadoHttp,
+      body: {
+        cancel: async (): Promise<void> => {
+          liberaciones += 1
+        },
+      },
+    })
+  })
+
+  return { fetchFalso, liberaciones: () => liberaciones, senal: () => senal }
+}
+
+/**
+ * A request that stays in flight until the test decides how it ends.
+ *
+ * The slowest part of a turn is the wait for the headers, so it is also the
+ * likeliest moment for the reader to give up and ask again. A double that
+ * resolved on its own could not put the two turns in that order.
+ */
+function servidorQueTarda() {
+  let responder: ((respuesta: unknown) => void) | null = null
+  let senal: AbortSignal | null = null
+
+  const fetchFalso = vi.fn((_ruta: string, opciones: RequestInit) => {
+    senal = opciones.signal ?? null
+    return new Promise<unknown>((resolver) => {
+      responder = resolver
+    })
   })
 
   return {
     fetchFalso,
-    /** Delivers one chunk of the body, of any size and cut anywhere. */
-    entregar: (trozo: string) => empujar({ done: false, value: codificador.encode(trozo) }),
-    /** Ends the body the way a completed answer does. */
-    cerrar: () => empujar({ done: true }),
+    /** Answers the request that was in flight with a refusal. */
+    rechazarCon: (estadoHttp: number) => {
+      responder?.({ ok: false, status: estadoHttp, body: null })
+    },
     senal: () => senal,
-    cancelaciones: () => cancelaciones,
   }
 }
 
-let montado: VueWrapper | null = null
-
-async function montarPagina(idioma: 'es' | 'en' = 'es'): Promise<VueWrapper> {
-  vi.stubGlobal('definePageMeta', () => undefined)
-
-  const router = createRouter({
-    history: createMemoryHistory(),
-    routes: [RUTA_INDICE, ...RUTAS_CONTRATO].map(path => ({
-      path,
-      component: defineComponent({ template: '<div />' }),
-    })),
-  })
-  await router.push(RUTA_ASISTENTE)
-  await router.isReady()
-
-  const wrapper = mount(Asistente, {
-    global: {
-      plugins: [router, crearI18nDePrueba(idioma)],
-      stubs: { Icon: true },
-    },
-  })
-  montado = wrapper
-  return wrapper
+/** Anything that can answer one request, whatever it answers with. */
+interface Conexion {
+  fetchFalso: (ruta: string, opciones: RequestInit) => Promise<unknown>
 }
 
-/** Types a question and submits it, the way the reader does. */
-async function preguntar(wrapper: VueWrapper, texto: string): Promise<void> {
-  await wrapper.get('[data-prueba="pregunta"]').setValue(texto)
-  await wrapper.get('form').trigger('submit')
-  await flushPromises()
+/**
+ * Hands a different connection to each request, so two turns can overlap.
+ *
+ * A single double would answer the second question with the body of the first,
+ * and the whole point of these cases is what each turn does to the other one.
+ */
+function centralita(...conexiones: Conexion[]) {
+  let atendidas = 0
+
+  return vi.fn((ruta: string, opciones: RequestInit) => {
+    const conexion = conexiones[atendidas]
+    atendidas += 1
+    if (conexion === undefined) {
+      throw new Error(`la peticion ${atendidas} no tiene conexion preparada`)
+    }
+    return conexion.fetchFalso(ruta, opciones)
+  })
+}
+
+/**
+ * The composable inside a component, which is the only place it has a scope.
+ *
+ * Called from the top of a spec there is no scope to dispose, and disposal is
+ * half of what these cases measure.
+ */
+function montarComposable(): { control: ControlDeChat, anfitrion: VueWrapper } {
+  const capturado: { control?: ControlDeChat } = {}
+  const anfitrion = mount(
+    defineComponent({
+      setup() {
+        capturado.control = useChatStream()
+        return () => h('div')
+      },
+    }),
+  )
+
+  const control = capturado.control
+  if (control === undefined) {
+    throw new Error('el componente anfitrion no llamo al composable')
+  }
+  return { control, anfitrion }
+}
+
+/**
+ * The same composable wired to the real thread, which is what owns a clock.
+ *
+ * `montarPagina` drives this suite everywhere else and it is deliberately not
+ * used by the case below, for one reason: `asistente.vue` destructures four of
+ * the five refs and leaves `tarjetas` inside the composable, and the map is
+ * half of what the defect emptied. This host composes what the page composes
+ * -one `useChatStream`, one `HistorialConversacion` fed by its thread- so the
+ * 250 ms interval of the thread and the `onScopeDispose` of the composable are
+ * both live while the clock is advanced.
+ */
+function montarConversacion(): { control: ControlDeChat, anfitrion: VueWrapper } {
+  const capturado: { control?: ControlDeChat } = {}
+  const anfitrion = mount(
+    defineComponent({
+      setup() {
+        const control = useChatStream()
+        capturado.control = control
+        return () =>
+          h(HistorialConversacion, {
+            hilo: control.hilo.value,
+            motivoCierre: control.motivoCierre.value,
+          })
+      },
+    }),
+    { global: { plugins: [crearI18nDePrueba('es')], stubs: { Icon: true } } },
+  )
+
+  const control = capturado.control
+  if (control === undefined) {
+    throw new Error('el componente anfitrion no llamo al composable')
+  }
+  return { control, anfitrion }
+}
+
+/** The answer as the reader sees it: every text block of the thread, joined. */
+function textoDelHilo(hilo: readonly ItemHilo[]): string {
+  return hilo
+    .filter((item): item is Extract<ItemHilo, { tipo: 'texto' }> => item.tipo === 'texto')
+    .map(item => item.texto)
+    .join('')
 }
 
 afterEach(() => {
-  montado?.unmount()
-  montado = null
+  desmontarPaginas()
   vi.unstubAllGlobals()
+  // A case that installs fake timers and dies on an assertion would hand them
+  // to the next file, where the first `await` on a timer hangs until the run
+  // times out. It is a no-op when no case faked anything.
+  vi.useRealTimers()
 })
 
 describe('el parser de framing SSE', () => {
@@ -313,20 +353,7 @@ describe('la cancelacion llega al servidor', () => {
     // The composable is called from inside a component and not at the top of
     // the test on purpose: what is being measured is the disposal of its
     // scope, and outside one there is no scope to dispose.
-    const capturado: { control?: ControlDeChat } = {}
-    const anfitrion = mount(
-      defineComponent({
-        setup() {
-          capturado.control = useChatStream()
-          return () => h('div')
-        },
-      }),
-    )
-
-    const control = capturado.control
-    if (control === undefined) {
-      throw new Error('el componente anfitrion no llamo al composable')
-    }
+    const { control, anfitrion } = montarComposable()
 
     const turno = control.enviar('como va la morosidad')
     await flushPromises()
@@ -344,6 +371,269 @@ describe('la cancelacion llega al servidor', () => {
     await turno
 
     expect(control.estado.value).toBe('cancelado')
+  })
+})
+
+/** Cadence of the shared clock of `HistorialConversacion`, in milliseconds. */
+const PULSO_DEL_RELOJ_MS = 250
+
+/**
+ * How long the thread is left alone after the cut.
+ *
+ * The defect was seen between three and nine seconds after Detener; fifteen is
+ * that window with room on both sides, and it is fifty ticks of the clock the
+ * thread runs.
+ */
+const ESPERA_TRAS_EL_CORTE_MS = 15_000
+
+/**
+ * Advances the fake clock in ticks, flushing what each one queued.
+ *
+ * One jump of fifteen seconds fires every pending timer back to back with no
+ * render in between, and a callback that scheduled another one would be
+ * collapsed into the same instant. Stepping at the cadence of the clock the
+ * component actually runs makes the run look like the run in the browser.
+ *
+ * @param ms - Milliseconds of fake time to let pass.
+ */
+async function avanzar(ms: number): Promise<void> {
+  for (let transcurrido = 0; transcurrido < ms; transcurrido += PULSO_DEL_RELOJ_MS) {
+    vi.advanceTimersByTime(PULSO_DEL_RELOJ_MS)
+    // The microtask queue is drained separately: `advanceTimersByTime` runs the
+    // callbacks, and anything they awaited resolves only after this.
+    await flushPromises()
+  }
+}
+
+/** Everything the cancelled turn left behind, as content and not as counts. */
+function retratoDe(control: ControlDeChat, anfitrion: VueWrapper) {
+  return {
+    estado: control.estado.value,
+    motivoCierre: control.motivoCierre.value,
+    hilo: JSON.parse(JSON.stringify(control.hilo.value)) as unknown,
+    tarjetas: JSON.parse(JSON.stringify([...control.tarjetas.value])) as unknown,
+    items: anfitrion.findAll('[data-item]').map(nodo => nodo.attributes('data-item')),
+    // The rendered text carries the stopwatch of every card, so a clock that
+    // kept ticking after the cut shows up here and not only in a screenshot.
+    texto: anfitrion.text(),
+  }
+}
+
+describe('el hilo cancelado sobrevive al paso del tiempo', () => {
+  it('sigue igual quince segundos despues de Detener, con el reloj corriendo', async () => {
+    // The defect this catches was seen twice in a real browser on the build
+    // before the corrections, with a real clock: between three and nine seconds
+    // after pressing Detener the thread emptied itself, the screen went back to
+    // its empty state, and the cancellation notice disappeared along with the
+    // partial answer and its cards. No console error and no page reload.
+    //
+    // THE ROOT CAUSE IS NOT IDENTIFIED. It does not reproduce on the corrected
+    // build and it did not reproduce again in a clean session, so this case is
+    // a net and not the proof of a fix: whoever reads it in six months should
+    // know that it was written without a culprit, and that going red here means
+    // the culprit has been found rather than reintroduced.
+    //
+    // The gap it closes is structural and it is why nothing caught it. Every
+    // other case of this suite asserts on the state of the instant right after
+    // the cut and ends there; the clock is faked and nobody advances it. Any
+    // delayed write -a `setTimeout` that resets, a debounce that fires late, an
+    // interval that outlives its watch- lands in the seconds after the last
+    // assertion of every existing case.
+    //
+    // Comparison is by content and not by length, the way F-1 of
+    // `chatError.spec.ts` does it: a handler that replaced the thread with two
+    // empty placeholders would keep the count.
+    vi.useFakeTimers()
+
+    const servidor = servidorSSE()
+    vi.stubGlobal('fetch', servidor.fetchFalso)
+
+    const { control, anfitrion } = montarConversacion()
+    const turno = control.enviar('como va la morosidad')
+    await flushPromises()
+
+    servidor.entregar(
+      marco('tool_call', ANUNCIO)
+      + marco('tool_call', RESUELTA)
+      + marco('token', { texto: 'La morosidad ', indice: 0 })
+      + marco('tool_call', SEGUNDA_TARJETA),
+    )
+    await flushPromises()
+    await nextTick()
+
+    // The fixture has to be worth comparing: a resolved card, a fragment of the
+    // answer and a second card still in flight. Two empty states compared
+    // against each other is an assertion that cannot fail.
+    expect(control.hilo.value).toHaveLength(3)
+    expect([...control.tarjetas.value.keys()]).toEqual(['c1', 'c2'])
+    expect(textoDelHilo(control.hilo.value)).toBe('La morosidad ')
+
+    // And the clock the delayed write would have ridden on has to be running
+    // before the cut, or advancing time afterwards would prove nothing.
+    const cronometrosAntes = anfitrion.findAll('[data-prueba="transcurrido"]').map(n => n.text())
+    await avanzar(1000)
+
+    expect(anfitrion.findAll('[data-prueba="transcurrido"]').map(n => n.text()))
+      .not.toEqual(cronometrosAntes)
+
+    control.detener()
+    await flushPromises()
+    await turno
+    await nextTick()
+
+    const antes = retratoDe(control, anfitrion)
+
+    expect(antes.estado).toBe('cancelado')
+    expect(antes.motivoCierre).toBe('cancelado')
+    expect(antes.items).toEqual(['tarjeta', 'texto', 'tarjeta'])
+
+    await avanzar(ESPERA_TRAS_EL_CORTE_MS)
+
+    const despues = retratoDe(control, anfitrion)
+
+    // Named one by one before the whole portrait, so a failure says which half
+    // of the screen went away instead of printing two objects side by side.
+    expect(despues.hilo).toEqual(antes.hilo)
+    expect(despues.tarjetas).toEqual(antes.tarjetas)
+    expect(despues.motivoCierre).toBe('cancelado')
+    expect(despues.estado).toBe('cancelado')
+    expect(despues).toEqual(antes)
+
+    anfitrion.unmount()
+  })
+})
+
+describe('la identidad del turno', () => {
+  it('el turno cancelado no se lleva por delante la cancelacion del siguiente', async () => {
+    // The defect this catches: `controlador` as state of the composable and not
+    // of the turn. The abort rejects the read that was in flight, and the
+    // `catch` and the `finally` of the OLD turn run one microtask later -after
+    // a Reintentar has already opened the new one-. The old turn then writes
+    // `cancelado` over a stream that is generating and nulls the reference of
+    // somebody else's controller, so `detener()` returns on its first line and
+    // the button is not even rendered: an answer nobody can stop, against a
+    // model that keeps charging. `detener(); await nextTick(); enviar(...)` is
+    // exactly the shape of the Reintentar of US-024, and a microtask is not
+    // enough for the old turn to have finished unwinding.
+    const primera = servidorSSE()
+    const segunda = servidorSSE()
+    vi.stubGlobal('fetch', centralita(primera, segunda))
+
+    const { control, anfitrion } = montarComposable()
+
+    const viejo = control.enviar('como va la morosidad')
+    await flushPromises()
+    primera.entregar(marco('token', { texto: 'PRIMERA respuesta ', indice: 0 }))
+    await flushPromises()
+
+    control.detener()
+    await nextTick()
+
+    const nuevo = control.enviar('y la liquidez')
+    await flushPromises()
+    await viejo
+
+    expect(control.estado.value).toBe('generando')
+    expect(control.motivoCierre.value).toBeNull()
+
+    segunda.entregar(marco('token', { texto: 'La liquidez ', indice: 0 }))
+    await flushPromises()
+
+    expect(textoDelHilo(control.hilo.value)).toBe('La liquidez ')
+
+    // The whole point: the second turn is still stoppable, both by the button
+    // and by leaving the screen.
+    control.detener()
+
+    expect(segunda.senal()?.aborted).toBe(true)
+    expect(segunda.cancelaciones()).toBe(1)
+    expect(control.estado.value).toBe('cancelado')
+
+    await nuevo
+    anfitrion.unmount()
+  })
+
+  it('la respuesta de un turno cancelado no pinta su fallo sobre la pregunta siguiente', async () => {
+    // The defect this catches: the third write that happens after an `await`,
+    // the one nobody looks at because it is a `return` away from the `fetch`.
+    // Waiting for the headers is the slowest part of a turn, so it is also when
+    // the reader gives up and asks again -and when the abandoned request comes
+    // back as a 503 it publishes its failure over a stream that is generating:
+    // the new question turns red before its first token, with a code that
+    // belongs to a request nobody is waiting for.
+    const lenta = servidorQueTarda()
+    const segunda = servidorSSE()
+    vi.stubGlobal('fetch', centralita(lenta, segunda))
+
+    const { control, anfitrion } = montarComposable()
+
+    const viejo = control.enviar('como va la morosidad')
+    await flushPromises()
+
+    control.detener()
+    await nextTick()
+
+    const nuevo = control.enviar('y la liquidez')
+    await flushPromises()
+
+    // The refusal of the abandoned request lands with the new turn already open.
+    lenta.rechazarCon(503)
+    await flushPromises()
+    await viejo
+
+    expect(control.estado.value).toBe('generando')
+    expect(control.ultimoError.value).toBeNull()
+
+    segunda.entregar(marco('token', { texto: 'La liquidez ', indice: 0 }))
+    await flushPromises()
+
+    expect(textoDelHilo(control.hilo.value)).toBe('La liquidez ')
+
+    control.detener()
+    await nuevo
+    anfitrion.unmount()
+  })
+
+  it('el turno anterior no escribe en el hilo de la pregunta siguiente', async () => {
+    // The defect this catches: a reader with no identity either. `done` closes
+    // the turn on screen, but the body is not over -the server writes the frame
+    // and then closes the socket-, so the read of the previous turn is still in
+    // flight when the reader asks again. Without an identity that loop applies
+    // what it receives to a thread that now belongs to another question, and
+    // its body is never released: a sentence of the previous answer appears in
+    // the middle of the new one, which is worse than losing it.
+    const primera = servidorSSE()
+    const segunda = servidorSSE()
+    vi.stubGlobal('fetch', centralita(primera, segunda))
+
+    const { control, anfitrion } = montarComposable()
+
+    const viejo = control.enviar('como va la morosidad')
+    await flushPromises()
+    primera.entregar(
+      marco('token', { texto: 'La morosidad ', indice: 0 })
+      + marco('done', { motivo: 'completado', tokens_emitidos: 1, duracion_ms: 90 }),
+    )
+    await flushPromises()
+
+    expect(control.estado.value).toBe('inactivo')
+
+    const nuevo = control.enviar('y la liquidez')
+    await flushPromises()
+    segunda.entregar(marco('token', { texto: 'La liquidez ', indice: 0 }))
+
+    // The tail of the previous body, arriving after the new question opened.
+    primera.entregar(marco('token', { texto: 'cola del turno anterior', indice: 1 }))
+    await flushPromises()
+
+    expect(textoDelHilo(control.hilo.value)).toBe('La liquidez ')
+    // And the body of the retired turn is released instead of left open.
+    expect(primera.cancelaciones()).toBe(1)
+
+    await viejo
+    control.detener()
+    await nuevo
+    anfitrion.unmount()
   })
 })
 
@@ -438,6 +728,71 @@ describe('el turno que falla', () => {
     expect(hilo.value).toHaveLength(1)
   })
 
+  it('conserva el diagnostico del servidor cuando el cuerpo se corta detras', async () => {
+    // The defect this catches: closing a dropped body with a generic transport
+    // failure on top of a diagnosis that already arrived. The server said which
+    // silo did not answer and at which step, the socket died a frame later, and
+    // the screen ends up saying "the transport failed" -so US-024 draws its
+    // notice over a code the client invented and the reader is told to retry
+    // something that was already told to it in better words.
+    const servidor = servidorSSE()
+    vi.stubGlobal('fetch', servidor.fetchFalso)
+
+    const { estado, motivoCierre, ultimoError, enviar } = useChatStream()
+    const turno = enviar('exposicion agregada por contraparte')
+    await flushPromises()
+
+    servidor.entregar(marco('error', FALLO_RECUPERABLE))
+    servidor.cerrar()
+    await turno
+
+    expect(ultimoError.value).toEqual(FALLO_RECUPERABLE)
+    // The turn still ends: preserving the diagnosis is not leaving the screen
+    // generating forever, which is the other half of this branch.
+    expect(estado.value).toBe('fallido')
+    expect(motivoCierre.value).toBe('error')
+  })
+
+  it('convierte una red que no responde en un fallo recuperable de transporte', async () => {
+    // The defect this catches: mislabelling the most likely failure of the
+    // demonstration -backend down, proxy down, wifi gone-. Minted as `permiso`
+    // it would offer no Reintentar over the one failure retrying does fix;
+    // dropped, the rejection of `fetch` would escape `enviar` as an unhandled
+    // promise and the screen would stay generating with no notice at all.
+    vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new TypeError('Failed to fetch'))))
+
+    const { estado, motivoCierre, ultimoError, enviar } = useChatStream()
+    await enviar('como va la morosidad')
+
+    expect(ultimoError.value).toEqual({
+      paso: 'transporte',
+      clase: 'recuperable',
+      codigo: 'red_inalcanzable',
+      mensaje_clave: CLAVE_FALLO_DE_TRANSPORTE,
+      recuperable: true,
+    })
+    expect(estado.value).toBe('fallido')
+    expect(motivoCierre.value).toBe('error')
+  })
+
+  it('libera el cuerpo de una peticion rechazada y aborta su turno', async () => {
+    // The defect this catches: returning from the refusal without touching the
+    // response. A 422, a 429 or a 500 answers with a JSON body, and the branch
+    // that publishes the failure never calls `getReader()`, so nobody releases
+    // that stream and nobody aborts the controller of the turn: one leaked body
+    // per refused request, which is exactly what a burst of 429 produces.
+    const servidor = servidorQueRechazaConCuerpo(503)
+    vi.stubGlobal('fetch', servidor.fetchFalso)
+
+    const { estado, ultimoError, enviar } = useChatStream()
+    await enviar('como va la morosidad')
+
+    expect(ultimoError.value?.codigo).toBe('http_503')
+    expect(estado.value).toBe('fallido')
+    expect(servidor.liberaciones()).toBe(1)
+    expect(servidor.senal()?.aborted).toBe(true)
+  })
+
   it('convierte un 403 en un fallo de permiso que no invita a reintentar', async () => {
     // The defect this catches: leaving a refused request without a typed
     // failure, or minting it as recoverable. US-024 offers Reintentar on
@@ -453,7 +808,7 @@ describe('el turno que falla', () => {
       paso: 'verificacion_de_permiso',
       clase: 'permiso',
       codigo: 'http_403',
-      mensaje_clave: CLAVE_FALLO_DE_TRANSPORTE,
+      mensaje_clave: CLAVE_PERMISO_GENERICA,
       recuperable: false,
     })
   })
@@ -475,6 +830,29 @@ describe('el turno que falla', () => {
     expect(navegar).toHaveBeenCalledWith(`${RUTA_ACCESO}?motivo=${MOTIVO_EXPIRADA}`)
     expect(usePermisos().expirada.value).toBe(true)
     expect(ultimoError.value?.codigo).toBe('http_401')
+    expect(estado.value).toBe('fallido')
+  })
+
+  it('no repinta como fallo de red el error de permiso que ya publico', async () => {
+    // The defect this catches: a `catch` that covers everything after the
+    // `fetch`, including the navigation of the 401. A `navigateTo` that rejects
+    // -an aborted navigation, a guard that redirects elsewhere- turns a failure
+    // already published as `permiso`/`http_401` into a recoverable network one,
+    // and US-024 then offers a Reintentar that cannot work: the session was
+    // already emptied by `expirarSesion()`.
+    vi.stubGlobal('navigateTo', vi.fn(() => Promise.reject(new Error('navegacion abortada'))))
+    vi.stubGlobal('fetch', servidorQueRechaza(401))
+
+    const { estado, ultimoError, enviar } = useChatStream()
+    await enviar('como va la morosidad')
+
+    expect(ultimoError.value).toEqual({
+      paso: 'verificacion_de_permiso',
+      clase: 'permiso',
+      codigo: 'http_401',
+      mensaje_clave: CLAVE_PERMISO_GENERICA,
+      recuperable: false,
+    })
     expect(estado.value).toBe('fallido')
   })
 })
@@ -605,8 +983,9 @@ describe('la pantalla del asistente', () => {
       expect(visibles).toContain(mensaje(idioma, 'chat.controls.stop'))
       expect(visibles.filter(texto => fuente.includes(texto))).toEqual([])
 
-      wrapper.unmount()
-      montado = null
+      // Released here and not on teardown, because the next language mounts the
+      // same page and needs the `fetch` double this suite stubbed to survive.
+      desmontarPaginas()
     }
   })
 })
@@ -651,6 +1030,8 @@ describe('las claves que no pasan por t() tambien tienen que existir', () => {
     ...Object.values(CLAVE_ESTADO_CHAT).filter((clave): clave is string => clave !== null),
     ...Object.values(CLAVE_AVISO_DEMO),
     CLAVE_FALLO_DE_TRANSPORTE,
+    CLAVE_PERMISO_GENERICA,
+    CLAVE_PERMISO_CON_NIVEL,
   ]
 
   it.each(CLAVES_INDIRECTAS)('resuelve %s en los dos catalogos', (clave) => {
@@ -666,14 +1047,21 @@ describe('las claves que no pasan por t() tambien tienen que existir', () => {
     }
   })
 
-  it('separa la copia del fallo de transporte de la del fallback', () => {
-    // US-024 deletes `chat.stream.errorFallback` in the same commit in which it
-    // mounts `AvisoError`. A dropped connection or a refused request is not
-    // provisional and will keep happening after that, so if both pointed at the
-    // same leaf every network failure would lose its copy on somebody else's
-    // commit -and nothing here would have failed.
-    expect(CLAVE_FALLO_DE_TRANSPORTE).not.toBe('chat.stream.errorFallback')
-    expect(mensaje('es', CLAVE_FALLO_DE_TRANSPORTE))
-      .not.toBe(mensaje('es', 'chat.stream.errorFallback'))
+  it('no pinta un fallo de transporte cuando lo que hubo fue un rechazo', () => {
+    // The agreement this case used to guard is consumed: the two provisional
+    // fallback leaves are gone from both catalogues, and asserting that the
+    // constant is not the name of a leaf nobody declares any more is an
+    // assertion that cannot fail.
+    //
+    // What replaces it is the defect that is alive. A refusal and a dropped
+    // socket are different events with different copy, and the client fabricates
+    // the typed error for both. Point the refusal at the transport key and the
+    // notice heads itself "Tu nivel de acceso no alcanza" over a body that says
+    // the transport failed: two sentences that contradict each other, and the
+    // copy written for exactly this case unreachable. The families are asserted
+    // apart, so collapsing them back into one key goes red here.
+    expect(CLAVE_PERMISO_GENERICA).not.toBe(CLAVE_FALLO_DE_TRANSPORTE)
+    expect(CLAVE_PERMISO_GENERICA.startsWith('chat.error.')).toBe(true)
+    expect(CLAVE_FALLO_DE_TRANSPORTE.startsWith('chat.stream.')).toBe(true)
   })
 })

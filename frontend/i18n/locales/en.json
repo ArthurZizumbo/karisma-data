@@ -1127,8 +1127,6 @@
         "textGeneration": "Text generation",
         "transport": "Response transport"
       },
-      "toolCallFallback": "Query run with the {tool} tool",
-      "errorFallback": "The answer stopped because of a failure",
       "transportError": "The answer could not be requested: the transport to the server failed."
     }
   },

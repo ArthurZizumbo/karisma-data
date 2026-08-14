@@ -9,6 +9,7 @@ from app.api import auth, catalog, chat, export, health, lineage, metrics, users
 from app.core.config import LOCAL_ENV, get_settings
 from app.core.permissions import assert_scope_coverage
 from app.services.auth_service import InvalidCredentialsError
+from app.services.proveedores import verificar_proveedor_declarado
 
 logger = structlog.get_logger()
 
@@ -49,9 +50,15 @@ def create_app() -> FastAPI:
         pydantic.ValidationError: If a required environment variable is missing.
         ScopeCoverageError: If a route under ``/api`` is not governed by the
             permission policy.
+        ValueError: If ``CHAT_PROVIDER`` names a provider with no factory
+            behind it.
     """
     settings = get_settings()
     configure_logging(settings.log_level)
+
+    # A CHAT_PROVIDER without a factory stops the startup here instead of
+    # turning every POST /api/chat into a 500.
+    verificar_proveedor_declarado(settings.chat_provider)
 
     # The interactive docs are the full inventory of endpoints, request schemas
     # and, from US-015 on, the security scheme. They stay on locally because

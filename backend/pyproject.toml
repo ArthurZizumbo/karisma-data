@@ -20,6 +20,7 @@ dependencies = [
     "sqlmodel (>=0.0.28,<0.0.29)",
     "psycopg[binary] (>=3.2,<4.0)",
     "python-multipart (>=0.0.20,<0.0.21)",
+    "anyio (>=4.14.2,<5.0.0)",
 ]
 
 [dependency-groups]

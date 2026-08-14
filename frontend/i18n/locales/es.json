@@ -1127,8 +1127,6 @@
         "textGeneration": "Generación de texto",
         "transport": "Transporte de la respuesta"
       },
-      "toolCallFallback": "Consulta ejecutada con la herramienta {tool}",
-      "errorFallback": "La respuesta se interrumpió por un fallo",
       "transportError": "La respuesta no pudo pedirse: fallo el transporte hacia el servidor."
     }
   },

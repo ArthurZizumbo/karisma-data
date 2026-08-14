@@ -44,6 +44,13 @@ class Settings(BaseSettings):
             The strict rule that keeps the three credentials mandatory is
             untouched, and ``GEMINI_API_KEY`` does not become required here:
             that is the go/no-go of the Gemini provider, not this setting.
+            This ``Literal`` is the vocabulary the environment may write, and
+            it is **wider than what can be served**: ``gemini`` is accepted
+            here so that the day the go/no-go says GO nothing but the factory
+            table of ``services/proveedores`` changes. Which of these names has
+            a provider behind it is decided there, and ``create_app`` refuses
+            to start when the configured one has none -this module cannot ask,
+            because ``core/`` does not import from ``services/``.
         data_dir: Root of the read-only data directory, where ``make data``
             leaves the synthetic silos and the preaggregated dashboard series.
             It has a default because it is a path and not a secret: the strict

@@ -19,7 +19,7 @@ import unicodedata
 from collections.abc import AsyncIterator, Mapping
 from dataclasses import dataclass
 from types import MappingProxyType
-from typing import Final, Literal
+from typing import Final
 
 from app.models.chat import (
     EstadoTarjeta,
@@ -31,6 +31,7 @@ from app.models.chat import (
     PeticionChat,
     ResultadoTarjeta,
 )
+from app.utils.reloj import transcurrido_ms
 
 #: Pacing of the replay, in milliseconds.
 #:
@@ -50,37 +51,40 @@ RETARDO_HERRAMIENTA_MS: Final[int] = 260
 #: sentence, so both locales resolve the same card.
 PREFIJO_ETIQUETA: Final[str] = "chat.toolCall.tool."
 
-#: A numeric literal, as the anti-hallucination check counts them. The group
-#: separator is part of the literal (``1,240``) and so is the decimal point
-#: (``3.42``); a date like ``2026-06`` yields two literals, which is what makes
-#: a sentence that names the month traceable to the row that carries it.
-PATRON_NUMERO: Final[re.Pattern[str]] = re.compile(r"\d+(?:[.,]\d+)*")
+#: Headers of the mini-tables the script returns, as i18n keys.
+#:
+#: They used to be Spanish prose in the body of each conversation, and the card
+#: printed them verbatim: with the interface in English the whole card was
+#: translated except its table headers, which still read "Cierre" and
+#: "Coeficiente". Naming them here instead of inline also keeps one header from
+#: being spelled two ways across four conversations.
+CLAVE_COLUMNA_METRICA: Final[str] = "chat.toolCall.column.metric"
+CLAVE_COLUMNA_VALOR: Final[str] = "chat.toolCall.column.value"
+CLAVE_COLUMNA_CIERRE: Final[str] = "chat.toolCall.column.close"
+CLAVE_COLUMNA_COEFICIENTE: Final[str] = "chat.toolCall.column.coefficient"
+
+#: A numeric literal, as the anti-hallucination check counts them. The sign is
+#: part of the literal (``-3.42``), and so are the group separator (``1,240``)
+#: and the decimal point (``3.42``). The sign is read because inverting one is
+#: the cheapest hallucination anybody can type into a graded deliverable: a
+#: pattern blind to it takes ``-3.42`` for the ``3.42`` a card really returned
+#: and waves through a sentence that says the opposite of the data.
+#:
+#: A dash glued to a digit is a separator and not a sign, which is what the
+#: lookbehind rules out: a date like ``2026-06`` still yields the two literals
+#: ``2026`` and ``06``, both of them carried by the same cell, instead of an
+#: invented ``-06`` that no row could ever justify.
+PATRON_NUMERO: Final[re.Pattern[str]] = re.compile(r"(?<!\d)[+-]?\d+(?:[.,]\d+)*")
 
 #: One fragment of text: a word with the whitespace that follows it, so that
 #: concatenating every fragment of a block returns the block untouched.
 PATRON_FRAGMENTO: Final[re.Pattern[str]] = re.compile(r"\S+\s*")
 
-
-@dataclass(frozen=True)
-class FalloGuion:
-    """Typed failure a scripted tool call ends in.
-
-    The five fields are exactly the ones ``EventoError`` publishes, because the
-    script is where they are decided and US-024 writes its notice against them.
-
-    Attributes:
-        paso: Step of the stream that failed.
-        clase: Family of the failure.
-        codigo: Stable code, never a sentence.
-        mensaje_clave: i18n key of the copy the interface shows.
-        recuperable: Whether retrying the same turn can succeed.
-    """
-
-    paso: PasoDelStream
-    clase: Literal["recuperable", "permiso"]
-    codigo: str
-    mensaje_clave: str
-    recuperable: bool
+#: A whole word of the question, as the keyword table below compares them.
+#: Comparing by substring is what let "desagregada" match "agregada", a word
+#: that means the opposite, so the question is cut into words once and the
+#: table is read as a set.
+PATRON_PALABRA: Final[re.Pattern[str]] = re.compile(r"[a-z0-9]+")
 
 
 @dataclass(frozen=True)
@@ -90,6 +94,16 @@ class PasoGuion:
     A step is a card when it names a tool and a block of text when it does not.
     No constant of this module sets both, and the replay reads the tool first.
 
+    ``fallo`` stores the very ``EventoError`` the stream publishes and not a
+    copy of its fields. A parallel dataclass used to redeclare the five of them
+    and the replay copied them across one by one, so the day the contract grows
+    a sixth field the script would have kept publishing five with nothing red:
+    the mapping was the only place that had to learn about it, and a mapping
+    nobody exercises is not a contract. Holding the event itself makes the two
+    impossible to drift apart, and it moves the validation of the script to
+    import time -a scripted failure with a code or an i18n key outside its
+    pattern now refuses to load the module instead of reaching a reader.
+
     Attributes:
         herramienta: Technical name of the tool, or ``None`` for a text block.
         id: Identifier of the card, stable across its three states.
@@ -97,7 +111,9 @@ class PasoGuion:
             cannot be quoted by the answer, which is what the anti-hallucination
             check measures.
         resultado: Payload the tool returns when it succeeds.
-        fallo: Typed failure when the tool does not succeed.
+        fallo: Typed failure event the turn ends with, when the tool does not
+            succeed. It is scripted material and therefore read only: the
+            transport serializes it and no consumer of this module mutates it.
         texto: Block of prose of a text step, replayed fragment by fragment.
     """
 
@@ -105,7 +121,7 @@ class PasoGuion:
     id: str = ""
     fuente: str | None = None
     resultado: ResultadoTarjeta | None = None
-    fallo: FalloGuion | None = None
+    fallo: EventoError | None = None
     texto: str = ""
 
 
@@ -141,7 +157,9 @@ def numeros_de(texto: str) -> frozenset[str]:
         texto: Any string, a sentence of the answer or a cell of a result.
 
     Returns:
-        The literals found, written as they appear.
+        The literals found, written as they appear, sign included. The check
+        compares strings, so ``-3.42`` and ``3.42`` are two different figures
+        and only one of them has a card behind it.
     """
     return frozenset(PATRON_NUMERO.findall(texto))
 
@@ -152,7 +170,7 @@ _C1_MOROSIDAD: Final[tuple[PasoGuion, ...]] = (
         id="tc-1",
         fuente="catalogo.creditos.morosidad_cartera",
         resultado=ResultadoTarjeta(
-            columnas=["Métrica", "Valor"],
+            columnas=[CLAVE_COLUMNA_METRICA, CLAVE_COLUMNA_VALOR],
             filas=[["Morosidad de la cartera hipotecaria", "3.42 %"]],
             cifra="3.42 %",
         ),
@@ -173,7 +191,7 @@ _C2_LIQUIDEZ: Final[tuple[PasoGuion, ...]] = (
         id="tc-1",
         fuente="catalogo.liquidez.coeficiente_cobertura",
         resultado=ResultadoTarjeta(
-            columnas=["Métrica", "Valor"],
+            columnas=[CLAVE_COLUMNA_METRICA, CLAVE_COLUMNA_VALOR],
             filas=[["Coeficiente de cobertura de liquidez", 1.24]],
             cifra="1.24",
         ),
@@ -183,7 +201,7 @@ _C2_LIQUIDEZ: Final[tuple[PasoGuion, ...]] = (
         id="tc-2",
         fuente="catalogo.liquidez.coeficiente_cobertura",
         resultado=ResultadoTarjeta(
-            columnas=["Cierre", "Coeficiente"],
+            columnas=[CLAVE_COLUMNA_CIERRE, CLAVE_COLUMNA_COEFICIENTE],
             filas=[["2026-06", 1.28], ["2026-07", 1.31], ["2026-08", 1.24]],
         ),
     ),
@@ -202,7 +220,7 @@ _C3_DERIVADOS: Final[tuple[PasoGuion, ...]] = (
         id="tc-1",
         fuente="catalogo.derivados.exposicion_nocional",
         resultado=ResultadoTarjeta(
-            columnas=["Métrica", "Valor"],
+            columnas=[CLAVE_COLUMNA_METRICA, CLAVE_COLUMNA_VALOR],
             filas=[["Exposición nocional vigente", "1,240 MXN M"]],
             cifra="1,240 MXN M",
         ),
@@ -217,7 +235,7 @@ _C3_DERIVADOS: Final[tuple[PasoGuion, ...]] = (
         herramienta="consultar_catalogo",
         id="tc-2",
         fuente="catalogo.derivados.exposicion_nocional",
-        fallo=FalloGuion(
+        fallo=EventoError(
             paso=PasoDelStream.RECUPERACION_DE_DATOS,
             clase="recuperable",
             codigo="silo_no_disponible",
@@ -231,7 +249,7 @@ _C4_PERMISO: Final[tuple[PasoGuion, ...]] = (
     PasoGuion(
         herramienta="agregar_serie",
         id="tc-1",
-        fallo=FalloGuion(
+        fallo=EventoError(
             paso=PasoDelStream.VERIFICACION_DE_PERMISO,
             clase="permiso",
             codigo="permisos_insuficientes",
@@ -255,29 +273,62 @@ CONVERSACIONES: Final[Mapping[str, tuple[PasoGuion, ...]]] = MappingProxyType(
 #: card, one figure, one source- and the one the cancellation capture uses.
 CONVERSACION_POR_DEFECTO: Final[str] = "morosidad"
 
-#: Words that pick a conversation when the client sends no key.
+#: Words that pick a conversation when the client sends no key, written as a
+#: list of requirements per conversation: a question chooses an entry only
+#: when it satisfies every requirement, hitting each one with at least one of
+#: its synonyms.
 #:
-#: The order is part of the contract: the question of C4 also names an
-#: exposure, so its own words are looked up first. The sets are disjoint
-#: anyway, which is what keeps the choice deterministic however the mapping is
-#: iterated.
-PALABRAS_CLAVE: Final[Mapping[str, tuple[str, ...]]] = MappingProxyType(
+#: The conjunction exists because of C4. Its trigger used to be any one of
+#: ``contraparte``, ``agregada`` or ``trimestre``, compared by substring, and
+#: the interface sends the question and nothing else -there is no menu of
+#: conversations- so those three words were the whole demo. "Como va la
+#: morosidad este trimestre", which is what the empty state of the screen
+#: invites the reader to type, was answered with a refusal for lack of
+#: permission, and "informacion desagregada" matched "agregada" inside a word
+#: that means the opposite.
+#:
+#: The criterion that replaces it: a conversation that ends in a failure of
+#: authorization is chosen only when the question really asks for what the
+#: reader may not see -an aggregation **and** a counterparty-, and a period of
+#: time is nobody's trigger, because every financial question names one. C4
+#: stays reachable with the question of section 9.4 of the plan, which is the
+#: material US-024 writes its notice against.
+PALABRAS_CLAVE: Final[Mapping[str, tuple[frozenset[str], ...]]] = MappingProxyType(
     {
-        "permiso": ("contraparte", "agregada", "trimestre"),
-        "liquidez": ("liquidez", "coeficiente", "cobertura"),
-        "derivados": ("derivados", "nocional"),
-        "morosidad": ("morosidad", "cartera", "hipotecaria"),
+        "permiso": (
+            frozenset({"agregada", "agregado", "agregacion", "agregar"}),
+            frozenset({"contraparte", "contrapartes"}),
+        ),
+        "liquidez": (frozenset({"liquidez", "coeficiente", "cobertura"}),),
+        "derivados": (frozenset({"derivados", "nocional"}),),
+        "morosidad": (frozenset({"morosidad", "cartera", "hipotecaria"}),),
     }
+)
+
+#: Conversations in the order they are tried: the most demanding rule first,
+#: so a question naming an aggregation by counterparty **and** derivatives is
+#: read as the specific case instead of as whichever entry happened to be
+#: typed earlier. The order is derived from the table and is no longer a
+#: promise about how the table was written, which is what the previous version
+#: got wrong. The sort is stable, so entries demanding as much as each other
+#: keep the declared order and the choice stays deterministic.
+_ORDEN_DE_EVALUACION: Final[tuple[str, ...]] = tuple(
+    sorted(PALABRAS_CLAVE, key=lambda clave: -len(PALABRAS_CLAVE[clave]))
 )
 
 
 def seleccionar_conversacion(peticion: PeticionChat) -> str:
     """Choose which conversation answers a question, always the same way.
 
-    Three paths, all deterministic: the key the client sends, a keyword of the
-    question, and the minimum path as the fallback. A key that is not declared
-    is treated as no key at all instead of as an error, because the client of
-    the demo picks from a menu and a typo must not break the turn.
+    Three paths, all deterministic: the key the client sends, the keywords of
+    the question, and the minimum path as the fallback. A key that is not
+    declared is treated as no key at all instead of as an error, because a
+    typo in a query string must not break the turn.
+
+    The keyword path is the one that matters: the interface sends the question
+    and nothing else, so it is the only path an evaluator ever walks. It
+    compares whole words and demands every requirement of an entry, and both
+    rules answer measured behaviour rather than taste -see the table above.
 
     Args:
         peticion: Question of the reader, already validated.
@@ -289,9 +340,9 @@ def seleccionar_conversacion(peticion: PeticionChat) -> str:
     if clave is not None and clave in CONVERSACIONES:
         return clave
 
-    normalizado = _sin_acentos(peticion.mensaje.lower())
-    for candidata, palabras in PALABRAS_CLAVE.items():
-        if any(palabra in normalizado for palabra in palabras):
+    palabras = _palabras_de(peticion.mensaje)
+    for candidata in _ORDEN_DE_EVALUACION:
+        if all(palabras & requisito for requisito in PALABRAS_CLAVE[candidata]):
             return candidata
     return CONVERSACION_POR_DEFECTO
 
@@ -323,6 +374,9 @@ class ProveedorGuionizado:
 
         A card that fails ends the conversation: the typed error is the last
         event the provider produces, and the transport closes with ``done``.
+        That error is the very object the script declared, yielded as it is
+        rather than rebuilt field by field, so no field of the contract can
+        exist in the script and be dropped on the way to the wire.
 
         Args:
             peticion: Question of the reader, already validated.
@@ -358,7 +412,7 @@ class ProveedorGuionizado:
                 estado=EstadoTarjeta.EJECUCION,
                 herramienta=herramienta,
                 etiqueta=etiqueta,
-                transcurrido_ms=_transcurrido_ms(inicio),
+                transcurrido_ms=transcurrido_ms(inicio),
                 fuente=paso.fuente,
             )
 
@@ -370,7 +424,7 @@ class ProveedorGuionizado:
                     estado=EstadoTarjeta.RESULTADO,
                     herramienta=herramienta,
                     etiqueta=etiqueta,
-                    transcurrido_ms=_transcurrido_ms(inicio),
+                    transcurrido_ms=transcurrido_ms(inicio),
                     resultado=paso.resultado,
                     fuente=paso.fuente,
                 )
@@ -381,30 +435,26 @@ class ProveedorGuionizado:
                 estado=EstadoTarjeta.ERROR,
                 herramienta=herramienta,
                 etiqueta=etiqueta,
-                transcurrido_ms=_transcurrido_ms(inicio),
+                transcurrido_ms=transcurrido_ms(inicio),
                 fuente=paso.fuente,
                 paso=fallo.paso,
             )
-            yield EventoError(
-                paso=fallo.paso,
-                clase=fallo.clase,
-                codigo=fallo.codigo,
-                mensaje_clave=fallo.mensaje_clave,
-                recuperable=fallo.recuperable,
-            )
+            yield fallo
             return
 
 
-def _transcurrido_ms(inicio: float) -> int:
-    """Return the milliseconds elapsed since a monotonic instant.
+def _palabras_de(texto: str) -> frozenset[str]:
+    """Cut a question into the whole words the keyword table compares.
 
     Args:
-        inicio: Reading of ``time.monotonic`` taken when the card was announced.
+        texto: Question as the reader typed it, punctuation and accents
+            included.
 
     Returns:
-        The elapsed time, rounded down to the millisecond.
+        The words of the question, lower cased and stripped of diacritics, so
+        that the table can be read as a set instead of with substring tests.
     """
-    return int((time.monotonic() - inicio) * 1000)
+    return frozenset(PATRON_PALABRA.findall(_sin_acentos(texto.lower())))
 
 
 def _sin_acentos(texto: str) -> str:

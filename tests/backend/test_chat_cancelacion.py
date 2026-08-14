@@ -23,6 +23,7 @@ import logging
 from collections.abc import AsyncIterator, Iterator
 from typing import Any, Final
 
+import anyio
 import pytest
 import structlog
 from structlog.testing import capture_logs
@@ -58,6 +59,12 @@ TOTAL_DE_TOKENS: Final[int] = sum(
     for paso in CONVERSACIONES[CLAVE]
     if paso.herramienta is None
 )
+
+#: Seconds a parked turn would wait if nothing cancelled it. It is never spent:
+#: the cancellation is fired the instant the turn parks. It is a number and not
+#: an event that never fires so that a broken cancellation fails the case in
+#: seconds instead of hanging the suite.
+ESPERA_QUE_LA_CANCELACION_INTERRUMPE: Final[float] = 5.0
 
 
 class DetectorTrasNLlamadas:
@@ -130,6 +137,98 @@ class ProveedorEspia:
                 yield evento
         finally:
             self.cerrado = True
+
+
+class ProveedorQueLimpiaEsperando:
+    """Provider whose cleanup suspends, the way closing a connection does.
+
+    ``ProveedorEspia`` marks its flag with a plain assignment, and an
+    assignment survives any cancellation because it never suspends. A provider
+    that talks to a model closes a socket, and that awaits: this double is
+    therefore the only one in the module able to tell a cleanup that was
+    allowed to finish from one that died at its first await.
+
+    Attributes:
+        limpiezas: Cleanups that ran to the end, not merely started.
+    """
+
+    def __init__(self, eventos: int) -> None:
+        """Store how many fragments this provider is willing to produce.
+
+        Args:
+            eventos: Upper bound of fragments. It is bounded and not infinite
+                so that a transport which stops cancelling fails the case
+                instead of hanging the suite.
+        """
+        self._eventos = eventos
+        self.limpiezas = 0
+
+    def generar(self, peticion: PeticionChat) -> AsyncIterator[EventoChat]:
+        """Return the iterator of this answer.
+
+        Args:
+            peticion: Question of the reader, ignored by the double.
+
+        Returns:
+            The asynchronous iterator the transport consumes and closes.
+        """
+        return self._reproducir()
+
+    async def _reproducir(self) -> AsyncIterator[EventoChat]:
+        """Yield fragments, running an awaiting cleanup on the way out.
+
+        Yields:
+            One text fragment per turn of the loop.
+        """
+        try:
+            for indice in range(self._eventos):
+                yield EventoToken(texto=f"t{indice} ", indice=indice)
+        finally:
+            await asyncio.sleep(0)
+            self.limpiezas += 1
+
+
+class DetectorQueSeQueda:
+    """Detector that parks the turn on its Nth ask, to fix where the cut lands.
+
+    Where the cancellation is delivered decides what can still be saved, and
+    this double exists to make that place deterministic. ``is_disconnected()``
+    is a poll and not a wait -it awaits the receive channel inside a scope it
+    cancels itself- but it *is* an await, and an await inside the transport is
+    where an in-flight cancellation finds the turn with the provider still
+    suspended and therefore still closable. Parking here reproduces that
+    instant without racing the clock. Measured against uvicorn with real RST
+    cuts: with the cleanup unshielded, none of five turns finished it; with
+    the shield, all five did.
+
+    Attributes:
+        parado: Set once the turn is parked, so the test can cancel exactly
+            then instead of sleeping and hoping.
+    """
+
+    def __init__(self, parada: int) -> None:
+        """Store the ask on which the turn is parked.
+
+        Args:
+            parada: Ordinal of the call that no longer answers.
+        """
+        self._parada = parada
+        self._llamadas = 0
+        self.parado = asyncio.Event()
+
+    async def __call__(self) -> bool:
+        """Answer whether the client hung up, or stop answering altogether.
+
+        Returns:
+            ``False`` while the turn advances. From the configured call on it
+            never returns: the cancellation of the response arrives first.
+        """
+        self._llamadas += 1
+        if self._llamadas < self._parada:
+            return False
+        self.parado.set()
+        await asyncio.sleep(ESPERA_QUE_LA_CANCELACION_INTERRUMPE)
+        return False
 
 
 class ProveedorSinCierre:
@@ -249,6 +348,30 @@ async def _transmitir(
             detector if detector is not None else _nunca_desconectado,
         )
     ]
+
+
+async def _medir_cierre(espia: ProveedorEspia) -> bool:
+    """Consume a cancelled stream and read the cleanup **without leaving the loop**.
+
+    Where the reading is taken decides whether the two cases about ``aclose()``
+    measure anything at all. ``asyncio.run()`` calls
+    ``loop.shutdown_asyncgens()`` before closing the loop, and that finalizes
+    every asynchronous generator left suspended: a flag read after it comes
+    back ``True`` whether or not the transport ever closed the provider. Under
+    uvicorn the loop outlives the turn by the whole life of the process, so
+    that finalization does **not** happen when an answer ends -which is
+    precisely the moment these cases are about. Read from inside, the flag
+    reports the transport; read from outside, it reports the garbage
+    collector.
+
+    Args:
+        espia: Provider whose cleanup is being measured.
+
+    Returns:
+        Whether the provider ran its own cleanup by the time the stream ended.
+    """
+    await _transmitir(DetectorTrasNLlamadas(corte=2), espia)
+    return espia.cerrado
 
 
 @pytest.fixture(autouse=True)
@@ -465,7 +588,10 @@ def test_el_generador_del_proveedor_se_cierra() -> None:
     Defect this catches: forgetting ``aclose()``. The ``finally`` of the
     provider never runs, so today nothing visible happens and the day
     ``gemini.py`` lands the outgoing connection of every cancelled turn stays
-    open until the garbage collector decides otherwise.
+    open until the garbage collector decides otherwise. Verified by deleting
+    ``await _cerrar(eventos)`` from the transport; measured from outside the
+    loop, as this case was until the reading moved into ``_medir_cierre``, the
+    deletion left it green.
     """
     espia = ProveedorEspia(
         (
@@ -480,9 +606,9 @@ def test_el_generador_del_proveedor_se_cierra() -> None:
         )
     )
 
-    asyncio.run(_transmitir(DetectorTrasNLlamadas(corte=2), espia))
+    cerrado = asyncio.run(_medir_cierre(espia))
 
-    assert espia.cerrado is True
+    assert cerrado is True
 
 
 def test_abandonar_el_generador_tambien_lo_cierra() -> None:
@@ -495,19 +621,23 @@ def test_abandonar_el_generador_tambien_lo_cierra() -> None:
     Defect this catches: doing the cleanup after the loop instead of in a
     ``finally``. Every case above would stay green, because they all consume
     the generator to exhaustion, and the one path production actually uses
-    would leak the entry of every interrupted answer.
+    would leak the entry of every interrupted answer. Both readings are taken
+    before the loop closes, for the reason written down in ``_medir_cierre``:
+    outside it, ``shutdown_asyncgens()`` closes the provider itself and the
+    assertion passes with the transport doing nothing.
     """
     espia = ProveedorEspia((EventoToken(texto="hola", indice=0),))
 
-    async def _correr() -> None:
+    async def _correr() -> tuple[bool, bool]:
         generador = chat_stream.transmitir(_peticion(), espia, _nunca_desconectado)
         await anext(generador)
         await generador.aclose()
+        return espia.cerrado, chat_stream.streams_activos() == {}
 
-    asyncio.run(_correr())
+    cerrado, registro_vacio = asyncio.run(_correr())
 
-    assert chat_stream.streams_activos() == {}
-    assert espia.cerrado is True
+    assert cerrado is True
+    assert registro_vacio is True
 
 
 def test_un_proveedor_sin_aclose_no_rompe_el_cierre() -> None:
@@ -529,6 +659,63 @@ def test_un_proveedor_sin_aclose_no_rompe_el_cierre() -> None:
     assert [nombre for nombre, _ in leidos] == ["token", "done"]
     assert leidos[-1][1]["motivo"] == MotivoCierre.COMPLETADO.value
     assert chat_stream.streams_activos() == {}
+
+
+def test_el_cancel_scope_de_la_respuesta_cierra_el_turno_entero() -> None:
+    """The branch production takes: the cancel scope, not the disconnection probe.
+
+    Twenty real cancellations measured against uvicorn left through here and
+    zero through ``esta_desconectado``. Starlette runs the body of a
+    ``StreamingResponse`` inside an anyio task group and cancels its whole
+    scope when the socket dies, while the turn is parked asking the connection
+    whether the reader is still there; every other case of this module injects
+    the answer of that probe instead, which is the branch a deployed portal
+    almost never takes.
+
+    Defect this catches: a cleanup that is not shielded. anyio re-delivers the
+    cancellation at **every** await point while the scope stays cancelled, so
+    an unshielded ``finally`` dies at its first one. Two things are lost with
+    it and neither is visible from any other case: the provider never finishes
+    its own cleanup -one outgoing connection per cancelled turn the day
+    ``gemini.py`` lands behind the same Protocol- and the
+    ``chat.stream.cancelado`` record, which is the evidence this User Story
+    delivers, is never written at all.
+
+    Two measurements decided how this case is written. Removing the shield
+    turns it red on the cleanup and would turn it red again on the record; the
+    registry is the one assertion that survives, because the entry is dropped
+    before the first await. And cancelling with a plain ``task.cancel()``
+    instead of the cancel scope of the response leaves the unshielded
+    transport **green**: asyncio delivers its cancellation once, so a case
+    written that way would be one more decoration.
+    """
+    proveedor = ProveedorQueLimpiaEsperando(eventos=5)
+    detector = DetectorQueSeQueda(parada=3)
+
+    async def _consumir() -> None:
+        async for _ in chat_stream.transmitir(_peticion(), proveedor, detector):
+            pass
+
+    async def _correr() -> tuple[bool, int]:
+        async with anyio.create_task_group() as grupo:
+            grupo.start_soon(_consumir)
+            await detector.parado.wait()
+            grupo.cancel_scope.cancel()
+        # Both readings stay inside the loop, for the reason ``_medir_cierre``
+        # spells out: after ``asyncio.run`` the count would include the cleanup
+        # that ``shutdown_asyncgens`` forces on the abandoned provider.
+        return chat_stream.streams_activos() == {}, proveedor.limpiezas
+
+    with capture_logs() as registros:
+        registro_vacio, limpiezas = asyncio.run(_correr())
+
+    assert registro_vacio is True
+    assert limpiezas == 1
+
+    (cierre,) = [r for r in registros if r["event"] == chat_stream.EVENTO_CANCELADO]
+
+    assert cierre["motivo"] == MotivoCierre.CANCELADO.value
+    assert 0 < cierre["tokens_emitidos"] < TOTAL_DE_TOKENS
 
 
 # ---------------------------------------------------------------------------

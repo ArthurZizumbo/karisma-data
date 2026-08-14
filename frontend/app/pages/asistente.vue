@@ -14,21 +14,29 @@
  * key comes from the provider constant: the day the provider changes, the
  * sentence changes with it instead of being deleted.
  *
- * Two blocks are delimited with comments because they are provisional by
- * agreement, not by neglect: the textual history is replaced by
- * `HistorialConversacion` (US-028) and the error notice by `AvisoError`
- * (US-024), each of them an import plus one line inside its own block, so the
- * substitution is verifiable with `git diff -U0` and never a rewrite of the
- * page.
+ * The two provisional blocks this page used to delimit are gone: the thread is
+ * drawn by `HistorialConversacion` (US-028) and the turn level failure by
+ * `AvisoError` (US-024). What the page still owns of the second one is the
+ * access level, which the contract does not transport and only a screen can
+ * supply.
  */
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
+import type { RolUsuario } from '~/types/sesion'
+
+import AvisoError from '~/components/chat/AvisoError.vue'
+import HistorialConversacion from '~/components/chat/HistorialConversacion.vue'
 import CabeceraPantalla from '~/components/comun/CabeceraPantalla.vue'
 import ContextoPanelContextoTablero from '~/components/contexto/PanelContextoTablero.vue'
 import { useChatStream } from '~/composables/useChatStream'
-import { CLAVE_AVISO_DEMO, CLAVE_ESTADO_CHAT, CLAVE_PASO, PROVEEDOR_DE_CHAT } from '~/types/chat'
+import {
+  CLAVE_AVISO_DEMO,
+  CLAVE_ESTADO_CHAT,
+  CLAVE_PERMISO_CON_NIVEL,
+  PROVEEDOR_DE_CHAT,
+} from '~/types/chat'
 import { ANILLO_FOCO } from '~/utils/foco'
 
 definePageMeta({ layout: 'portal' })
@@ -39,7 +47,7 @@ const { t } = useI18n()
 // This one is implemented and titles itself with what it does.
 const route = useRoute()
 
-const { estado, hilo, ultimoError, enviar, detener } = useChatStream()
+const { estado, hilo, motivoCierre, ultimoError, enviar, detener } = useChatStream()
 
 /**
  * Lines of the skeleton drawn while the first fragment is on its way.
@@ -60,6 +68,36 @@ const claveDeEstado = computed(() => CLAVE_ESTADO_CHAT[estado.value])
 
 /** Key of the honesty band, decided by the provider behind the stream. */
 const claveDelAviso = CLAVE_AVISO_DEMO[PROVEEDOR_DE_CHAT]
+
+/**
+ * Access level the refusal of the script demands, named by the screen.
+ *
+ * The contract freezes five fields in the `error` event and none of them is
+ * this one: the backend never publishes what a caller would have needed in
+ * order to see the data, so the level is supplied here instead of travelling
+ * on the wire. With the scripted provider of S4 there is one refusal -C4, the
+ * aggregate by counterparty- and it is an `analista` one.
+ *
+ * Wiring one level for the whole screen is an accepted degradation, and it is
+ * accepted only where it is true. It applies to the refusal the script emits,
+ * whose copy has a `{nivel}` slot and would otherwise render an empty gap. It
+ * does NOT apply to a 403 minted from the transport: that path knows permission
+ * was missing and nothing else, so claiming `analista` there would be the
+ * screen inventing a requirement the server never stated.
+ */
+const NIVEL_DE_LA_CONSULTA: RolUsuario = 'analista'
+
+/**
+ * Level handed to the notice, or null when nobody can name one.
+ *
+ * The discriminator is the copy the failure carries, which is the only thing
+ * that says whether a level is expected: exactly one leaf of the family has the
+ * slot. Everything else -a refused request, a failure of another class- gets
+ * null and reads the generic sentence, which is what it is for.
+ */
+const nivelRequerido = computed<RolUsuario | null>(() =>
+  ultimoError.value?.mensaje_clave === CLAVE_PERMISO_CON_NIVEL ? NIVEL_DE_LA_CONSULTA : null,
+)
 
 const puedePreguntar = computed(() => pregunta.value.trim() !== '')
 
@@ -140,55 +178,19 @@ async function preguntar(): Promise<void> {
         />
       </div>
 
-      <!-- fallback US-023: lo sustituye US-028 -->
-      <article
-        v-for="item in hilo"
-        :key="item.id"
-        :data-item="item.tipo"
-        class="flex flex-col gap-1"
-      >
-        <template v-if="item.tipo === 'tarjeta'">
-          <p
-            :data-estado-tarjeta="item.tarjeta.estado"
-            class="border-l-2 border-info pl-3 text-etiqueta text-corriente-pleno"
-          >
-            {{ t('chat.stream.toolCallFallback', { tool: item.tarjeta.herramienta }) }}
-          </p>
-          <p
-            v-if="item.tarjeta.resultado?.cifra"
-            data-prueba="cifra"
-            class="pl-3 text-titulo-3 text-corriente-pleno"
-          >
-            {{ item.tarjeta.resultado.cifra }}
-          </p>
-          <p v-if="item.tarjeta.fuente" data-prueba="fuente" class="pl-3 text-micro text-corriente-medio">
-            {{ item.tarjeta.fuente }}
-          </p>
-        </template>
-        <p v-else class="max-w-(--medida-maxima) text-cuerpo text-corriente-pleno">
-          {{ item.texto }}
-        </p>
-      </article>
-      <!-- fin del fallback US-023: lo sustituye US-028 -->
+      <!-- Thread of the turn: tool call cards and text, in arrival order (US-028). -->
+      <HistorialConversacion :hilo="hilo" :motivo-cierre="motivoCierre" />
     </section>
 
-    <!-- fallback US-023: lo sustituye US-024 -->
-    <p
+    <AvisoError
       v-if="ultimoError !== null"
-      data-prueba="aviso-error"
-      role="alert"
-      class="flex flex-wrap items-center gap-2 border-l-2 border-error pl-3 text-cuerpo text-error"
-    >
-      <Icon name="lucide:circle-alert" class="size-4 shrink-0" aria-hidden="true" />
-      <span>{{ t('chat.stream.errorFallback') }}</span>
-      <span data-prueba="paso-fallido" class="text-etiqueta">
-        {{ t(CLAVE_PASO[ultimoError.paso]) }}
-      </span>
-      <span data-prueba="codigo-error" class="text-micro text-corriente-medio">
-        {{ ultimoError.codigo }}
-      </span>
-    </p>
-    <!-- fin del fallback US-023: lo sustituye US-024 -->
+      :paso="ultimoError.paso"
+      :clase="ultimoError.clase"
+      :codigo="ultimoError.codigo"
+      :mensaje-clave="ultimoError.mensaje_clave"
+      :recuperable="ultimoError.recuperable"
+      :nivel-requerido="nivelRequerido"
+    />
 
     <form class="flex flex-col gap-2" novalidate @submit.prevent="preguntar">
       <label for="chat-pregunta" class="text-etiqueta text-corriente-pleno">

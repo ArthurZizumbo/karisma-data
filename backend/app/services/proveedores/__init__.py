@@ -40,14 +40,14 @@ _FABRICAS: Final[Mapping[str, Callable[[], ProveedorDeTokens]]] = MappingProxyTy
 )
 
 
-def obtener_proveedor(nombre: str) -> ProveedorDeTokens:
-    """Resolve the configured provider by name.
+def _fabrica_de(nombre: str) -> Callable[[], ProveedorDeTokens]:
+    """Look up the factory of a provider, or refuse the name.
 
     Args:
         nombre: Value of the ``CHAT_PROVIDER`` setting.
 
     Returns:
-        A provider ready to answer one question.
+        The factory that builds that provider.
 
     Raises:
         ValueError: If the name is not declared. Failing here and not silently
@@ -60,4 +60,56 @@ def obtener_proveedor(nombre: str) -> ProveedorDeTokens:
         declarados = ", ".join(sorted(_FABRICAS))
         message = f"proveedor de chat desconocido: {nombre}; declarados: {declarados}"
         raise ValueError(message)
-    return fabrica()
+    return fabrica
+
+
+def verificar_proveedor_declarado(nombre: str) -> None:
+    """Fail at startup when the configured provider has no factory.
+
+    The setting declares the vocabulary the environment may write; this table
+    declares what can actually answer a question, and the two drift. Checked
+    only per request, that drift is an application that boots healthy, answers
+    ``/health`` with a 200 and turns **every** ``POST /api/chat`` into a 500
+    with no ``detail.codigo`` -the shape of failure the strict settings of this
+    project exist to make impossible. The check lives here and not in
+    ``core/config.py`` because the truth it reads is ``_FABRICAS``, and the
+    settings module must not import from ``services/``: the layering of this
+    backend goes ``api``/``main`` -> ``services`` -> ``core``, never back.
+
+    This closes the gap completely, and it is worth recording why rather than
+    leaving the reader to re-derive it. ``create_app`` is the only way an
+    application object comes into being -``app = create_app()`` runs at import
+    of ``app.main``- and this call sits in it before a single router is
+    mounted. So there is no process that serves ``/health`` with a
+    ``CHAT_PROVIDER`` this table cannot honour: the import fails, the container
+    never becomes ready, and the revision never takes traffic. Deriving the
+    ``Literal`` of the setting from this table would be the other way to get
+    there, and it is deliberately not taken: the setting is the vocabulary a
+    deployment may write and this table is what can answer today, and keeping
+    the first wider is what lets the Gemini go/no-go land as one new file plus
+    one new entry here.
+
+    Args:
+        nombre: Value of the ``CHAT_PROVIDER`` setting.
+
+    Raises:
+        ValueError: If the name has no factory behind it.
+    """
+    _fabrica_de(nombre)
+
+
+def obtener_proveedor(nombre: str) -> ProveedorDeTokens:
+    """Resolve the configured provider by name.
+
+    Args:
+        nombre: Value of the ``CHAT_PROVIDER`` setting.
+
+    Returns:
+        A provider ready to answer one question.
+
+    Raises:
+        ValueError: If the name is not declared, with the same message the
+            startup check writes. Reaching this is a defect: the application
+            refused to start with that name.
+    """
+    return _fabrica_de(nombre)()

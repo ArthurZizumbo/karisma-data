@@ -38,9 +38,22 @@ export const NOMBRES_DE_EVENTO: readonly NombreEvento[] = Object.freeze([
 
 /** Mini-table or single figure a tool call returned. */
 export interface ResultadoTarjeta {
-  /** Header of the mini-table, one entry per column. */
+  /**
+   * Header of the mini-table, one i18n key per column.
+   *
+   * Keys and not prose, like `etiqueta` and `mensajeClave` of this same
+   * contract: a header names what the column holds, so it is interface and it
+   * is translated. While it travelled as Spanish prose, `/guia` with the
+   * interface in English rendered a card that was English everywhere except
+   * these two headers.
+   */
   columnas: string[]
-  /** Rows of the mini-table, aligned with `columnas`. */
+  /**
+   * Rows of the mini-table, aligned with `columnas`.
+   *
+   * These stay data and are NOT translated: they come from the silo, and
+   * translating a value the provider returned would be inventing it.
+   */
   filas: Array<Array<string | number>>
   /** Scalar the card highlights, already formatted, or null when it is a table. */
   cifra: string | null
@@ -51,9 +64,9 @@ export interface ResultadoTarjeta {
  *
  * `herramienta` is the technical name (`consultar_metrica`); `etiqueta` is the
  * FULL i18n key of the readable name, always shaped
- * `chat.toolCall.tool.<herramienta>`, never a sentence. That subtree belongs to
- * US-028: until it lands, the card is painted with the textual fallback of
- * `chat.stream.toolCallFallback` and the technical name.
+ * `chat.toolCall.tool.<herramienta>`, never a sentence. The card of US-028
+ * resolves that key directly: the provisional copy this comment used to name
+ * was retired with the fallback block it belonged to.
  */
 export interface EventoToolCall {
   id: string
@@ -93,6 +106,27 @@ export interface EventoError {
   mensaje_clave: string
   recuperable: boolean
 }
+
+/**
+ * i18n key of the refusal that CAN name the level it demanded.
+ *
+ * It is the only copy of the family with a `{nivel}` slot, and the scripted
+ * provider is the only thing that emits it -the refusal of C4-. Whoever renders
+ * it has to supply that level, because the five frozen fields do not carry it,
+ * and that is what makes this constant the discriminator: the screen contributes
+ * a level exactly when the copy asks for one, and never by guessing.
+ */
+export const CLAVE_PERMISO_CON_NIVEL = 'chat.error.message.permission'
+
+/**
+ * i18n key of the refusal that CANNOT name the level it demanded.
+ *
+ * A rejection minted from an HTTP status knows that permission was missing and
+ * nothing else: 403 carries no level and contract v1 does not transport one. So
+ * this is the honest copy of that path, and it is also what the notice falls
+ * back to when a caller supplies no level, which is the same case said twice.
+ */
+export const CLAVE_PERMISO_GENERICA = 'chat.error.message.permissionGeneric'
 
 /** SSE event `done`: closes the stream exactly once. */
 export interface EventoDone {

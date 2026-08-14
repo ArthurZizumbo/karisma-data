@@ -113,7 +113,7 @@ existen para distinguir de una regeneración legítima. Si acabas de correr `mak
 ## Nube (sin target de Make — se corre a mano)
 
 ```bash
-gcloud config get-value project    # confirmar ANTES de nada: debe decir tareas-computo-nube
+gcloud config get-value project    # confirmar ANTES de nada: debe decir ${GCP_PROJECT_ID}
 gcloud run deploy karisma-api --source backend  --region us-central1
 gcloud run deploy karisma-web --source frontend --region us-central1
 
@@ -121,7 +121,7 @@ gcloud run services describe karisma-api --region us-central1 \
   --format='value(status.url,status.latestReadyRevisionName)'
 
 # Migrar contra Cloud SQL: dbmate no habla el socket, hay que levantar el proxy
-cloud-sql-proxy tareas-computo-nube:us-central1:karisma-pg --port 5432 &
+cloud-sql-proxy ${GCP_PROJECT_ID}:us-central1:karisma-pg --port 5432 &
 DATABASE_URL="postgres://karisma_app:<pass>@127.0.0.1:5432/karisma?sslmode=disable" dbmate up
 ```
 

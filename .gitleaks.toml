@@ -84,3 +84,29 @@ ninguna excepcion por ellos.
 """
 targets = ["path"]
 paths = ['''(^|/)\.env\.local$''']
+
+# ---------------------------------------------------------------------------
+#  Identificadores de infraestructura de GCP.
+#
+#  No son credenciales -no dan acceso por si solos- y por eso ninguna regla del
+#  conjunto por omision los mira. Se vigilan igual porque son superficie de
+#  abuso de facturacion y de ingenieria social, y porque este repositorio es
+#  publico: la forma correcta de citarlos en codigo o documentacion es la
+#  variable de entorno, nunca el valor.
+#
+#      ${GCP_BILLING_ACCOUNT}   ${GCP_PROJECT_NUMBER}   ${GCP_PROJECT_ID}
+#
+#  Los valores viven en .env.local y en Secret Manager.
+# ---------------------------------------------------------------------------
+
+[[rules]]
+id = "gcp-billing-account"
+description = "Identificador de cuenta de facturacion de GCP"
+regex = '''\b[0-9A-F]{6}-[0-9A-F]{6}-[0-9A-F]{6}\b'''
+tags = ["gcp", "billing", "karisma"]
+
+[[rules]]
+id = "gcp-project-number"
+description = "Numero de proyecto de GCP citado en claro"
+regex = '''(?i)(?:project[_ -]?number|numero de proyecto|projectNumber|proyecto)\D{0,20}\b\d{12}\b'''
+tags = ["gcp", "karisma"]

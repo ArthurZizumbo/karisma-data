@@ -115,7 +115,7 @@ export const PROTOTIPOS: readonly Prototipo[] = Object.freeze([
     claveNombre: 'prototype.name.access',
     ruta: RUTA_ACCESO,
     claveRama: 'prototype.branch.access',
-    alcance: 'navegable-sin-datos',
+    alcance: 'navegable-con-datos',
     rolSugerido: 'operativo',
   },
   {
@@ -123,7 +123,7 @@ export const PROTOTIPOS: readonly Prototipo[] = Object.freeze([
     claveNombre: 'nav.module.home',
     ruta: '/inicio',
     claveRama: 'prototype.branch.home',
-    alcance: 'navegable-sin-datos',
+    alcance: 'navegable-con-datos',
     rolSugerido: 'operativo',
   },
   {
@@ -131,7 +131,7 @@ export const PROTOTIPOS: readonly Prototipo[] = Object.freeze([
     claveNombre: 'nav.module.explore',
     ruta: '/exploracion',
     claveRama: 'prototype.branch.explore',
-    alcance: 'navegable-sin-datos',
+    alcance: 'navegable-con-datos',
     rolSugerido: 'analista',
   },
   {
@@ -139,7 +139,7 @@ export const PROTOTIPOS: readonly Prototipo[] = Object.freeze([
     claveNombre: 'nav.module.governance',
     ruta: '/gobierno',
     claveRama: 'prototype.branch.governance',
-    alcance: 'navegable-sin-datos',
+    alcance: 'navegable-con-datos',
     rolSugerido: 'analista',
   },
   {
@@ -155,7 +155,7 @@ export const PROTOTIPOS: readonly Prototipo[] = Object.freeze([
     claveNombre: 'nav.module.administration',
     ruta: '/administracion',
     claveRama: 'prototype.branch.administration',
-    alcance: 'navegable-sin-datos',
+    alcance: 'navegable-con-datos',
     rolSugerido: 'admin',
   },
   {
@@ -163,7 +163,7 @@ export const PROTOTIPOS: readonly Prototipo[] = Object.freeze([
     claveNombre: 'prototype.name.export',
     ruta: '/exploracion/exportar',
     claveRama: 'prototype.branch.export',
-    alcance: 'navegable-sin-datos',
+    alcance: 'navegable-con-datos',
     rolSugerido: 'analista',
   },
 ])

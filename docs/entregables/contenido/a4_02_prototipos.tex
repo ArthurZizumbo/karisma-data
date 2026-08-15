@@ -15,8 +15,9 @@
 El mapa de navegación de la Actividad 3 fijó cuatro categorías de primer nivel y dieciséis ramas.
 Esta sección muestra en qué se convirtieron: siete pantallas construidas en el mismo entorno con el
 que el portal opera, recorribles de principio a fin, con su sesión, su barra lateral y sus estados.
-Cada figura es una captura del portal en ejecución, tomada con el protocolo del anexo, y no una
-composición hecha para el documento.
+Cada captura de esta sección es una imagen del portal en ejecución, tomada con el protocolo del
+anexo, y no una composición hecha para el documento. La única lámina de esta sección que procede
+del archivo de diseño lo declara en su propio pie.
 
 Las siete se numeran igual que en el índice del portal, porque ese índice deriva del mismo contrato
 de navegación que ordena esta sección. La rama 2.4, tableros e indicadores, se documenta dentro de
@@ -48,19 +49,43 @@ operativo. Buscador unificado, búsquedas recientes, fuentes favoritas y alertas
 
 \subsection{Prototipo 2. Exploración y extracción}
 
-Es la pantalla que todavía declara su contenido en lugar de mostrarlo, y lo hace de forma explícita:
-enumera las cuatro capacidades que alojará y nombra la historia de usuario que las entrega. La
-alternativa habitual, un título sobre una página vacía, se lee como una pantalla que falló al
-cargar, que es justamente la lectura que un entregable evaluado no puede permitirse. El estado
-diseñado convierte \enquote{inacabado} en \enquote{programado}, y es honesto en los dos casos.
+Es la pantalla que la ronda de pre-validación señaló como la más pobre del conjunto, y la que cambió
+por ese señalamiento. Compone el catálogo temático en tres zonas: un buscador que consulta el
+catálogo del portal, una columna de conteos por dominio que filtra sin volver a pedir la página y
+una lista de resultados que declara cuántos campos muestra de cuántos coinciden. Ninguno de esos
+contenidos está tecleado en la plantilla: los tres salen de la misma consulta que sostiene el
+diccionario de campos de gobierno del dato.
+
+Los cuatro estados no felices están construidos dentro de la pantalla, y esa es la diferencia de
+fondo con la versión anterior. El vacío explica que la búsqueda no encontró coincidencias y sugiere
+qué hacer con el término; la carga dibuja cinco filas de esqueleto de la misma altura que las filas
+reales, de modo que la llegada del contenido no desplaza nada; el error conserva el término escrito
+y ofrece reintentar, porque vaciar el campo obligaría a teclear de nuevo lo que no falló.
+
+El cuarto merece una precisión, porque no es de la pantalla sino de la zona. La ruta de exploración
+no exige permiso alguno y la guarda del servidor nunca la bloquea, de modo que un estado de
+\emph{sin permiso} a nivel de pantalla sería código que no se alcanza nunca. Lo que sí está
+gobernado son sus dos continuaciones ---exportaciones y tableros, ambas del perfil de
+análisis---, y ahí es donde la pantalla las nombra, dice qué perfil piden y deja de ocultarlas.
+Ocultar una capacidad a quien no puede usarla le impide enterarse de que existe y de que puede
+pedirla, que es el defecto que la Actividad 2 registró en el recorrido de solicitud de acceso.
 
 \figuraux{figuras/a4/despues/2_exploracion_normal.png}{Prototipo 2, exploración y extracción, con
-sesión de perfil analista. El estado pendiente declara las cuatro capacidades y la historia que las
-entrega, en lugar de dejar la caja vacía.}{fig:a4-exploracion}
+sesión de perfil analista, en la captura de la primera pasada. La franja de alcance, la barra
+lateral con el segundo nivel de la categoría activa y el bloque de facetas transversales son las
+piezas que la pantalla conserva. El cuerpo central, que entonces declaraba las capacidades
+pendientes en lugar de mostrarlas, es lo que la segunda ronda de cambios sustituyó por el
+catálogo.}{fig:a4-exploracion}
 
-La barra lateral de esta captura muestra además las dos piezas que el mapa de la Actividad 3 exigía:
-el segundo nivel de la categoría activa y el bloque de facetas transversales, que da acceso cruzado
-a las nueve tarjetas que tres o más evaluadores pidieron duplicar durante el card sorting.
+La barra lateral de esta captura muestra las dos piezas que el mapa de la Actividad 3 exigía: el
+segundo nivel de la categoría activa y el bloque de facetas transversales, que da acceso cruzado a
+las nueve tarjetas que tres o más evaluadores pidieron duplicar durante el card sorting.
+
+\figuraux[0.86\linewidth]{figuras/a4/componente_busqueda.png}{Los cinco estados del campo de
+búsqueda, resueltos en el archivo de diseño: vacío, con valor, enfocado, con error y deshabilitado.
+Es la pieza que abre la pantalla de exploración y la que fija que la tecla de entrada ejecute la
+búsqueda. El buscador construido es un formulario que envía con esa tecla y que conserva el término
+escrito cuando la consulta falla.}{fig:a4-componente-busqueda}
 
 \subsection{Prototipo 3. Gobierno del dato}
 
@@ -212,19 +237,36 @@ Cada celda dice en qué situación está, con tres categorías posibles:
 \begin{uxtablalarga}{|L{3.6cm}|C{1.9cm}|C{2.4cm}|C{1.7cm}|C{2.0cm}|}{Matriz de estados no felices: siete pantallas por cuatro estados}{\thd{Pantalla} & \thd{Vacío} & \thd{Cargando} & \thd{Error} & \thd{Sin permiso}}
   Acceso & (c) & (a) & (a) & (c) \\
   Inicio & (a) & (c) & (c) & (b) \\
-  Exploración y extracción & (b) & (b) & (c) & (b) \\
+  Exploración y extracción & (a) & (a) & (a) & (a) \\
   Gobierno del dato & (b) & (b) & (c) & (b) \\
   Asistente conversacional & (a) & (b) & (b) & (b) \\
   Administración & (a) & (c) & (c) & (b) \\
   Exportación & (a) & (c) & (c) & (b) \\
 \end{uxtablalarga}
 
-El recuento de la matriz es de \textbf{28 celdas}, ninguna vacía: \textbf{6} construidas en esta
-actividad, \textbf{12} construidas por otras historias del sprint y \textbf{10} especificadas sin
-código. La planeación de la semana había anticipado un reparto de 7, 11 y 10; la diferencia proviene
-de que aquella cuenta incluía una octava fila para los tableros, que son una zona de la pantalla de
-exploración y no un prototipo. Se publica el recuento sobre las siete pantallas, que es el que la
-matriz sostiene.
+El recuento de la matriz es de \textbf{28 celdas}, ninguna vacía: \textbf{10} construidas en esta
+actividad, \textbf{9} construidas por otras historias del sprint y \textbf{9} especificadas sin
+código.
+
+La cuenta se movió durante la semana y conviene dejar por escrito de dónde a dónde. El primer
+reparto publicado sobre estas mismas siete filas fue 6, 12 y 10, y la diferencia está entera en la
+fila de exploración: la pantalla resolvía tres de sus cuatro estados con componentes de otras
+historias y tenía el cuarto solamente especificado, y hoy construye los cuatro dentro de sí misma.
+Cuatro celdas cambian de categoría y el total no se mueve, que es lo que tiene que pasar en una
+matriz de siete por cuatro.
+
+La previsión de la semana anticipaba 9, 12 y 7 para este momento, y no se cumplió por dos supuestos
+que la matriz refutó. El primero contaba tres celdas de exploración como especificadas sin código,
+cuando la matriz publicada ya resolvía tres de las cuatro con componentes compartidos. El segundo
+daba por hecho que el estado sin permiso se seguiría resolviendo fuera de la pantalla, y terminó
+construido dentro, sobre las continuaciones del módulo. Se publica el recuento que la matriz
+sostiene y no el previsto: una cifra de planeación que sobrevive al hecho que la contradice deja de
+ser una previsión y pasa a ser un adorno.
+
+Una nota anterior conserva su vigencia: la planeación había llegado a manejar un reparto de 7, 11 y
+10 sobre \emph{ocho} filas, porque incluía una para los tableros. Los tableros son una zona de la
+pantalla de exploración y no un prototipo aparte, así que la matriz se publica sobre siete
+pantallas, aquí y en todas las cuentas de este documento.
 
 \subsection{Cargando sin desplazamiento de maquetación}
 
@@ -239,17 +281,18 @@ produzca, y presentar una cifra sin instrumento sería peor que declarar el mét
 donde el estado de carga está construido, la caja del esqueleto se define con las mismas alturas de
 fila y el mismo número de columnas que la tabla o la lista que aparece después.
 
-\subsection{Las diez reglas de las celdas especificadas}
+\subsection{Las nueve reglas de las celdas especificadas}
 
 Cada celda de la tercera categoría lleva su regla de comportamiento escrita. Sin ella, la celda solo
 declararía una ausencia; con ella, la historia que la construya no tiene que volver a decidir nada.
+Eran diez y son nueve: la regla del error de exploración dejó esta tabla porque su estado se
+construyó, y la pantalla la aplica en lugar de anunciarla.
 
-\begin{uxtablalarga}{|L{3.6cm}|L{2.2cm}|Y|}{Reglas de comportamiento de los diez estados especificados}{\thd{Pantalla} & \thd{Estado} & \thd{Regla}}
+\begin{uxtablalarga}{|L{3.6cm}|L{2.2cm}|Y|}{Reglas de comportamiento de los nueve estados especificados}{\thd{Pantalla} & \thd{Estado} & \thd{Regla}}
   Acceso & Vacío & No aplica contenido vacío: el formulario en reposo es su propio estado inicial, con los dos campos habilitados y el control de entrada disponible \\
   Acceso & Sin permiso & No aplica: la pantalla es la puerta y no exige permiso. Una sesión vigente que llega aquí se redirige a su pantalla inicial en lugar de recibir un rechazo \\
   Inicio & Cargando & Cada uno de los cinco bloques carga por separado, con un esqueleto de la altura de sus filas. La pantalla no espera al bloque más lento para pintar los demás \\
   Inicio & Error & El bloque que falla muestra su propio aviso y conserva los otros cuatro. Un fallo del buscador no vacía las alertas \\
-  Exploración y extracción & Error & El error de búsqueda conserva el término escrito y ofrece reintentar. Vaciar el campo obligaría a teclear de nuevo lo que no falló \\
   Gobierno del dato & Error & El campo cuyo linaje no se puede resolver se marca en su fila, sin ocultar el resto del diccionario \\
   Administración & Cargando & La tabla de personas usuarias carga con filas de esqueleto del mismo alto que las definitivas \\
   Administración & Error & El error de la tabla conserva los filtros aplicados y ofrece reintentar \\
@@ -257,12 +300,19 @@ declararía una ausencia; con ella, la historia que la construya no tiene que vo
   Exportación & Error & Un trabajo fallido conserva su tarjeta con el motivo del fallo y la hora, en lugar de desaparecer del historial \\
 \end{uxtablalarga}
 
-\subsection{El estado sin permiso, construido una sola vez}
+\subsection{El estado sin permiso, con sus dos alcances}
 
 La cuarta columna se resuelve con un único componente que se dibuja donde habría estado la pantalla,
 sin cambiar la dirección: así el enlace sigue siendo compartible y el botón de retroceso se comporta
 como se espera. La barra lateral y la franja de alcance permanecen alrededor, que es lo que le da a
 quien lo encuentra una salida que no consiste en insistir.
+
+Ese alcance ---la pantalla entera--- cubre seis de las siete filas y no cubre la séptima, porque la
+ruta de exploración no exige permiso. Ahí el rechazo no es de la pantalla sino de dos de sus
+continuaciones, de modo que el estado se dibuja sobre ellas: se nombran, se declara el perfil que
+piden y se dejan visibles sin ser accionables. La regla común a los dos alcances es la misma y por
+eso se enuncia una sola vez: \textbf{lo que una sesión no puede abrir se nombra, no se esconde}, y
+lo que se nombra dice qué perfil hace falta.
 
 Ese componente no ofrece un control de reintento, y la ausencia es deliberada: reintentar un rechazo
 no cambia el rol de nadie, y ofrecer el botón enseña a insistir contra una puerta que no va a

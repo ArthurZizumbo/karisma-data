@@ -6,9 +6,9 @@
 
 Las nueve rutas del contrato de navegación (`RUTAS_CONTRATO` en `app/utils/navegacion.ts`, mapa de sitio de A3) montan, pero no todas tienen producto detrás.
 
-**Construidas**: `/` (índice público), `/acceso` (formulario y perfiles de demostración), `/inicio` (tres composiciones por rol en una sola ruta), `/exploracion/tableros` (serie ECharts sobre marco binario y tarjetas predictivas), `/gobierno` (diccionario de campos y linaje), `/guia` (láminas del sistema de diseño), `/asistente` (stream SSE real con Detener que aborta de verdad).
+**Construidas**: `/` (índice público), `/acceso` (formulario y perfiles de demostración), `/inicio` (tres composiciones por rol en una sola ruta), `/exploracion/tableros` (serie ECharts sobre marco binario y tarjetas predictivas), `/gobierno` (diccionario de campos y linaje), `/guia` (láminas del sistema de diseño), `/asistente` (stream SSE real con Detener que aborta de verdad), `/exploracion` (catalogo tematico sobre `useBusquedaCatalogo`, con sus cuatro estados no felices).
 
-**Pendientes**: `/exploracion` monta `comun/EstadoPendiente.vue`, que declara las capacidades futuras y la US que las entrega. Es la única pantalla de andamiaje que queda.
+**Ya no queda andamiaje** (US-ENTREGA-A4, 14-ago-2026). `/exploracion` era la última pantalla que montaba `comun/EstadoPendiente.vue` y ahora compone desde `useBusquedaCatalogo`. **El componente sigue en disco** y ya no lo usa nada de `app/`: solo lo nombran `exploracionCatalogo.spec.ts`, para comprobar su ausencia, y `modoYSistema.spec.ts`. Borrarlo es trabajo de quien lo necesite, no de esta guía.
 
 **El chat ya no es andamiaje** (US-023, 13-ago-2026). `composables/useChatStream.ts` habla con `/api/chat` por `fetch` + `ReadableStream` + `AbortController` —no `EventSource`, que no admite POST ni cabeceras ni aborto— y expone `analizarTramos` a propósito, para poder probar el parser de framing con marcos partidos por la mitad sin montar un componente. El contrato vive en `app/types/chat.ts` y es **espejo verificado** de `backend/app/models/chat.py`: cuatro eventos (`tool_call`, `token`, `error`, `done`) y tres vocabularios cerrados. `components/chat/` **sigue vacío**: la tarjeta de tool call es de US-028 y el aviso de error de US-024, y `asistente.vue` deja para ellas dos bloques de fallback delimitados con comentarios HTML. `/asistente` exige `operativo` desde que `POST /api/chat` dejó de admitir cualquier sesión.
 
@@ -16,7 +16,9 @@ Las nueve rutas del contrato de navegación (`RUTAS_CONTRATO` en `app/utils/nave
 
 **La entrega de A4 dejó rastro aquí** (US-UX-07, 14-ago-2026). `@playwright/test` es dependencia de desarrollo y el navegador está descargado: lo usa `docs/entregables/capturas/capturas_a4.mjs`, un guion que vive fuera de `frontend/` y **lee `app/utils/navegacion.ts` parseándolo como texto** para derivar su plan de captura. Los tres layouts pasan `max-w-none` a `FranjaAlcance` por el motivo que explica la sección de convenciones. Y dos pruebas nuevas —`rutaRama.spec.ts` y `alcancePrototipos.spec.ts`— **leen archivos `.tex` de `docs/entregables/`** y los comparan contra el contrato de navegación: es la primera vez que la suite del frontend toma un entregable como insumo.
 
-También existen 16 composables, tres stores Pinia (`workspace`, compartido tablero↔chat; `sistemaDiseno`, modo de color; `exportaciones`, trabajos en segundo plano), un plugin de cliente, un middleware global y tres layouts. El JWT sale de la cookie solo dentro de `server/`.
+**El sistema de diseño tiene dos ejes desde A4** (US-ENTREGA-A4, 14-ago-2026). Al **tema** (`corriente` de omisión, `institucional` opcional con su propia paleta y con Inter) y al **modo** (claro/oscuro) los emite `design/emitir.py` en el mismo CSS generado. El atributo que transportaba el modo se llamaba `data-theme` y **ahora es `data-modo`**; el tema entra como `data-tema` y el de omisión no lo emite, porque es el bloque `@theme` de la hoja. Los dos viajan en cookie —`karisma_modo` y `karisma_tema`— y `app.vue` los aplica antes del primer render, igual que el idioma. La cabecera monta cuatro conmutadores: rol, tema, modo e idioma. **El de rol solo existe con `DEMO_LOGIN_ENABLED`** y acuña sesión de verdad contra `POST /api/auth/demo`: nunca cambia el rol en el cliente, porque la guarda decide en el servidor. La misma bandera gobierna que la tarjeta del índice acuñe la sesión de su `rolSugerido`. El rebote sin sesión dejó de ser mudo: la guarda manda `?destino=<ruta>&motivo=sesion-requerida` y `utils/guarda.ts` **valida el destino contra `RUTAS_CONTRATO`**, porque una pantalla que confía en su propio query string está a un enlace de una redirección abierta.
+
+También existen 18 composables, tres stores Pinia (`workspace`, compartido tablero↔chat; `sistemaDiseno`, **tema y modo** de color; `exportaciones`, trabajos en segundo plano), un plugin de cliente, un middleware global y tres layouts. El JWT sale de la cookie solo dentro de `server/`.
 
 ## Estructura
 
@@ -24,7 +26,7 @@ También existen 16 composables, tres stores Pinia (`workspace`, compartido tabl
 frontend/
 ├── app/
 │   ├── pages/         # las nueve rutas del contrato
-│   ├── components/    # trece familias, entre ellas echarts/, serie/, tablero/ y exportacion/
+│   ├── components/    # catorce familias, entre ellas echarts/, serie/, tablero/, exportacion/ y exploracion/
 │   ├── layouts/       # default, portal (nav por rol), acceso
 │   ├── composables/ · middleware/ · plugins/ · stores/ · types/
 │   ├── utils/         # puros + permisos.generated.ts + tokens.generated.ts
@@ -59,6 +61,7 @@ pnpm exclusivo; versión fijada en `packageManager`, Node 22 (`.nvmrc`).
 
 - ❌ Escribir texto visible en template o script. Toda cadena va a `i18n/locales/es.json` **y** `en.json`, con clave jerárquica en inglés (`screen.home.description`), resuelta con `const { t } = useI18n()` de `vue-i18n`.
 - ❌ Editar `app/assets/css/main.css` a mano.
+- ❌ Escribir `data-theme`. El modo va en **`data-modo`** y el tema en **`data-tema`**: un atributo con nombre prestado garantiza que el siguiente eje no quepa. El tema de omisión **no emite `data-tema`**; solo el institucional lo declara.
 - ❌ `routeRules` con `swr` en el portal: tras la guarda global, una entrada cacheada daría a un `operativo` el HTML de un `analista`. Se cachea el dato, no la página.
 - `strategy: 'no_prefix'`: la URL no cambia con el idioma, y así `RUTAS_CONTRATO` sigue anclado al mapa de A3.
 - El idioma viaja en la cookie `karisma_locale`: la escribe `useIdioma()` y la aplica `app.vue` antes del primer render. `detectBrowserLanguage: false` fija el arranque en español.
@@ -81,11 +84,11 @@ pnpm exclusivo; versión fijada en `packageManager`, Node 22 (`.nvmrc`).
 
 ## Tests
 
-En `frontend/test/`: **42 `*.spec.ts`** y tres auxiliares — `configuracion.ts` (Pinia nueva por prueba), `i18nDePrueba.ts` (catálogos reales) y `marcoDePrueba.ts` (marcos binarios sintéticos).
+En `frontend/test/`: **45 `*.spec.ts`** y cuatro auxiliares — `configuracion.ts` (Pinia nueva por prueba), `i18nDePrueba.ts` (catálogos reales) y `marcoDePrueba.ts` (marcos binarios sintéticos) y el directorio `dobles/`.
 
 Vitest con `happy-dom` y Vue Test Utils; alias `~`/`@` hacia `app/`. Umbral en `vitest.config.ts`: 50 % de líneas, funciones, ramas y sentencias sobre `app/**` y `server/**`, sin `app/types/**` ni `tokens.generated.ts`, que no emiten runtime.
 
-Se prueba contrato y lógica: claves i18n paritarias, pines del manifiesto, permisos contra `docs/security.md`, funciones puras, composables y montaje de pantallas. Nada sobre el marcado de `EstadoPendiente`: la US que lo sustituya lo borra.
+Se prueba contrato y lógica: claves i18n paritarias, pines del manifiesto, permisos contra `docs/security.md`, funciones puras, composables y montaje de pantallas. Nada sobre el marcado de `EstadoPendiente`, que ya no monta ninguna pantalla.
 
 **Dos pruebas leen entregables.** `rutaRama.spec.ts` y `alcancePrototipos.spec.ts` abren archivos `.tex` de `docs/entregables/contenido/` y los comparan contra `MODULOS` y `PROTOTIPOS`: el defecto que atajan es que el PDF calificado afirme una cobertura o un alcance que el código no tiene. Siguen el patrón de `permisos.spec.ts` —`leerDelRepositorio()` con la ruta en una variable, porque con un literal Vite reescribe `new URL(..., import.meta.url)` como referencia de recurso— y **acotan lo que leen con delimitadores de comentario LaTeX** (`% tabla-ruta-rama:inicio` / `:fin`). Si falta el archivo, la prueba **falla con el motivo**; no se salta: una prueba que se ausenta cuando falta su insumo no es una barrera.
 

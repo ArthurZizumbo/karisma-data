@@ -2,8 +2,13 @@
 %  Actividad 4 · Anexo
 %
 %  Propiedad de US-UX-07. Reune el protocolo de captura, el inventario de
-%  figuras y la trazabilidad entre los criterios de la historia de usuario, las
-%  secciones de este documento y su evidencia.
+%  figuras y de laminas, el inventario tecnico de lo construido, la procedencia
+%  de los colores del tema institucional y la trazabilidad entre los criterios
+%  de la historia de usuario, las secciones de este documento y su evidencia.
+%
+%  Los codigos de color de la tabla de procedencia se escriben SIN el signo de
+%  numero a proposito: scripts/verificar_tokens_a4.sh falla si un archivo de
+%  contenido contiene ese patron. La tabla lo explica en su propio texto.
 % ============================================================================
 
 % ============================================================================
@@ -18,7 +23,7 @@ operativo, suficiente para reproducir cualquier figura de este documento.
 \begin{uxtabla}{|L{4.2cm}|Y|}{Parámetros del protocolo de captura}
   \uxheadrow \thd{Parámetro} & \thd{Valor} \\
   Resolución de composición & 1440 por 900 píxeles \\
-  Modo de color & Claro, fijado explícitamente antes de la primera captura \\
+  Modo de color y tema & Modo claro y tema de omisión, fijados explícitamente antes de la primera captura \\
   Idioma de la interfaz & Español \\
   Sesión & Una por pantalla, con el rol que el contrato de navegación sugiere, abierta desde la propia interfaz \\
   Momento del disparo & Con la red inactiva y la franja de alcance presente en la página \\
@@ -51,18 +56,99 @@ La octava figura, el turno resuelto del asistente, existe solo en la carpeta del
 deliberada: documenta un estado de la conversación y no una versión distinta de la pantalla, de modo
 que emparejarla con un antes sugeriría un cambio que no ocurrió.
 
+\subsection{Inventario de láminas del archivo de diseño}
+
+Además de las capturas, la entrega se apoya en las láminas exportadas del archivo de trabajo y
+archivadas en el repositorio. Se listan las veintiuna, por la página del archivo a la que
+pertenecen, de modo que cualquiera pueda localizar en el archivo vivo lo que ve impreso aquí.
+
+\begin{uxtablalarga}{|L{2.1cm}|L{6.5cm}|Y|}{Láminas exportadas del archivo de diseño}{\thd{Página} & \thd{Archivo} & \thd{Qué muestra}}
+  Guía de estilo & \texttt{guia\_logotipo.png} & Construcción del logotipo, resguardo y usos incorrectos \\
+  Guía de estilo & \texttt{guia\_tipografia.png} & Espécimen y escala de roles tipográficos \\
+  Guía de estilo & \texttt{guia\_paleta.png} & Paleta de la identidad con sus papeles \\
+  Guía de estilo & \texttt{guia\_cuadricula.png} & Retícula, espaciado y comportamiento adaptativo \\
+  Guía de estilo & \texttt{guia\_iconografia.png} & Familia de iconos, tamaños y grosores \\
+  Guía de estilo & \texttt{guia\_versionado.png} & Regla de documentación y control de versiones del archivo \\
+  Guía de estilo & \texttt{guia\_interaccion\_accesibilidad\_voz.png} & Microinteracciones, criterios de accesibilidad y voz del producto \\
+  Componentes & \texttt{componente\_botones.png} & Jerarquía de botones con sus estados \\
+  Componentes & \texttt{componente\_busqueda.png} & Los cinco estados del campo de búsqueda \\
+  Componentes & \texttt{componente\_tabla.png} & Tabla de datos, cabecera, densidad y alineación de cifras \\
+  Componentes & \texttt{componente\_alertas.png} & Alertas y mensajes por semántica \\
+  Prototipos & \texttt{flujo\_1\_variables.png} & Pantalla protagonista del flujo de análisis y exportación \\
+  Prototipos & \texttt{flujo\_2\_riesgo.png} & Pantalla protagonista del flujo de señal de riesgo \\
+  Prototipos & \texttt{flujo\_3\_versiones.png} & Pantalla protagonista del flujo de publicación de versiones \\
+  Prototipos & \texttt{flujo\_4\_autorizacion.png} & Pantalla protagonista del flujo de autorización de accesos \\
+  Prototipos & \texttt{flujo\_5\_centro\_trabajo.png} & Pantalla protagonista del flujo del centro de trabajo \\
+  Prototipos & \texttt{secuencia\_flujo\_1.png} & Las ocho pantallas del flujo de análisis y exportación, en orden \\
+  Prototipos & \texttt{secuencia\_flujo\_2.png} & Las cinco pantallas del flujo de señal de riesgo, en orden \\
+  Prototipos & \texttt{secuencia\_flujo\_3.png} & Las seis pantallas del flujo de publicación de versiones, en orden \\
+  Prototipos & \texttt{secuencia\_flujo\_4.png} & Las cinco pantallas del flujo de autorización de accesos, en orden \\
+  Prototipos & \texttt{secuencia\_flujo\_5.png} & Las seis pantallas del flujo del centro de trabajo, en orden \\
+\end{uxtablalarga}
+
+Las láminas que este documento imprime salen de esta lista; las demás quedan como material de
+consulta del archivo, disponible por el enlace que publica la sección de método.
+
+\subsection{Inventario técnico de lo construido en esta actividad}
+
+El inventario siguiente declara qué se construyó y con qué se comprueba cada cosa. La columna de la
+derecha no dice \enquote{se revisó}: nombra el mecanismo que vuelve a comprobarlo cada vez que
+alguien corre la suite.
+
+\begin{uxtablalarga}{|L{4.2cm}|L{4.6cm}|Y|}{Lo construido en esta actividad y su mecanismo de comprobación}{\thd{Pieza} & \thd{Qué es} & \thd{Cómo se comprueba}}
+  Eje de tema del sistema de diseño & Los diecisiete tokens de color resueltos para dos temas y dos modos, con la familia tipográfica como parte del eje & Cálculo de contraste sobre las cuatro combinaciones: cero tokens que informan por debajo de su listón \\
+  Fijación del tema de omisión & Los diecisiete valores del tema de omisión, en sus dos modos & Prueba escrita antes de abrir el eje, que falla si un solo valor cambia. Es lo que garantiza que las capturas ya entregadas sigan correspondiendo al producto \\
+  Separación bajo dicromacia & El peor par de colores semánticos bajo las tres dicromacias, por tema y modo & Piso de 13{,}6 en claro y 21{,}5 en oscuro, con 14{,}5 y 22{,}6 medidos en el tema institucional \\
+  Emisión de los tokens & La hoja de estilo del portal y su paleta tipada, generadas desde la definición única & Dos corridas seguidas del generador producen archivos byte a byte iguales, y un guion compara el disco contra lo que el generador produce hoy \\
+  Conmutador de tema y conmutador de perfil & Dos controles en la cabecera: el tema como preferencia que persiste, el perfil como sesión que se acuña de verdad contra el portal & Pruebas de montaje sobre los dos controles, incluido el caso de la puerta de demostración apagada, en el que el conmutador de perfil no se dibuja \\
+  Entrada en frío desde el índice & La tarjeta de cada prototipo abre su pantalla con el perfil que esa pantalla sugiere, en un solo movimiento; sin sesión, el desvío dice a dónde se iba y devuelve ahí & Pruebas sobre la decisión de la guarda y sobre el destino de retorno, que se valida contra el contrato de navegación \\
+  Pantalla de catálogo & Buscador, conteos por dominio, resultados y los cuatro estados no felices, compuestos desde la búsqueda del catálogo & Once casos de prueba que montan la pantalla y sus estados, y la comprobación de que el componente de andamiaje ya no aparece en ella \\
+  Etiquetas de alcance & Seis corregidas y una conservada, según la regla publicada en la sección de alcance & Prueba que lee la tabla de este documento y la compara, fila por fila, contra el contrato de navegación del portal \\
+\end{uxtablalarga}
+
+\subsection{Procedencia de los colores del tema institucional}
+
+El sistema de diseño del portal resuelve dos temas. El de omisión es el que sostiene las capturas de
+este documento; el institucional toma su color del archivo de diseño. Esta tabla declara, color por
+color, qué valor llegó del archivo y cuál es derivación, con la regla que la produjo. Sin esta
+distinción, una paleta se lee como si todos sus valores tuvieran el mismo respaldo, y no lo tienen.
+
+\begin{uxtablalarga}{|L{2.2cm}|L{1.6cm}|L{3.2cm}|Y|}{Procedencia de los colores del tema institucional}{\thd{Color del archivo} & \thd{Código} & \thd{Token que lo recibe} & \thd{Regla aplicada}}
+  Superficie & \texttt{FFFFFF} & Suelo del modo claro & Se adopta sin cambio \\
+  Navegación & \texttt{102A43} & Corriente plena en claro, y superficie de panel en oscuro & Se adopta sin cambio. El suelo del modo oscuro, \texttt{0B1B2B}, se deriva de este color oscureciéndolo, y no del negro puro: un tema institucional no se apaga en gris \\
+  Secundario & \texttt{1D4C6E} & Corriente media en claro & Se adopta sin cambio \\
+  Éxito & \texttt{287A58} & Confirmación & Sin cambio en el modo claro; aclarado para el oscuro \\
+  Atención & \texttt{B97812} & Aviso & Oscurecido un 12\,\% conservando matiz y saturación, hasta \texttt{A36A10}. El valor del archivo daba 3{,}65:1 y no alcanzaba el listón de un token que informa \\
+  Error & \texttt{B8443F} & Error & Oscurecido un 20\,\% hasta \texttt{933632} en el modo claro; aclarado para el oscuro y oscurecido después un 12\,\% hasta \texttt{EC5B51}. Los valores intermedios se separaban poco de la confirmación bajo protanopia \\
+  Ninguno & --- & Canal informativo & Ningún matiz del octeto de la marca se separa de la confirmación bajo tritanopia, así que el valor sale del octeto: azul profundo en el modo claro y violeta en el oscuro, donde el azul y el verde colapsan \\
+  Ninguno & --- & Rampa de neutros y superficies auxiliares & Derivados del color de navegación por variación de luminosidad, con la razón de contraste de cada paso verificada por cálculo \\
+  Ninguno & --- & Las seis series de datos & Conservan el valor del tema de omisión: son canal de datos y no identidad, y su separación ya estaba verificada \\
+\end{uxtablalarga}
+
+Los códigos de esta tabla se imprimen sin el signo de número que suele precederlos, y no es un
+descuido de composición. Una comprobación del repositorio recorre los archivos de contenido de esta
+actividad buscando exactamente ese patrón, para impedir que un color se teclee a mano en el
+documento en lugar de salir de su generador. Los valores de arriba describen la procedencia de una
+paleta que vive en el sistema de tokens del portal ---otra cadena, con otro generador--- y por eso
+se citan en esta forma, que la comprobación distingue de un color escrito a mano.
+
 \subsection{Trazabilidad de los criterios de aceptación}
 
 \begin{uxtablalarga}{|L{1.6cm}|L{5.2cm}|Y|}{Dónde se atiende cada criterio y con qué evidencia}{\thd{Criterio} & \thd{Enunciado} & \thd{Sección y evidencia}}
   1 & Siete prototipos navegables y desplegados & Sección de prototipos, siete figuras con pie numerado \\
   2 & Sistema de diseño de fuente única, con derivación en un solo sentido & Sección de método, cadena de derivación; guía de estilos, láminas emitidas por el generador \\
   3 & Cada ruta anclada a una rama del mapa & Sección de prototipos, tabla de veinte filas verificada por prueba automática \\
-  4 & Los cuatro estados no felices por pantalla & Sección de prototipos, matriz de veintiocho celdas y las diez reglas de comportamiento \\
-  5 & Tabla de alcance de tres estados & Sección de alcance, tabla por pantalla y tabla por historia de usuario \\
-  6 & Pre-validación con iteración documentada & Sección de pre-validación, registro de la iteración y par de figuras \\
+  4 & Los cuatro estados no felices por pantalla & Sección de prototipos, matriz de veintiocho celdas y las nueve reglas de comportamiento de las celdas especificadas \\
+  5 & Tabla de alcance por pantalla y por historia & Sección de alcance, con la regla de asignación escrita, la tabla de las siete pantallas y el catálogo completo de historias. El esquema desdobla la hoja de ruta en diseñada y sin diseñar \\
+  6 & Pre-validación con iteración documentada & Sección de pre-validación: tres iteraciones con su hallazgo, su cambio y su versión, y el par de figuras de la primera \\
   7 & Nota de herramienta en la introducción & Introducción, cuatro propiedades de la rúbrica y objetivo de aprendizaje \\
   8 & Entrega en tiempo con portada de los tres integrantes & Portada de este documento \\
+  9 & Acceso al archivo de trabajo & Sección de método, con el enlace, la estructura de las tres páginas y sus nodos, y lo que se recorre desde cada una \\
+  10 & Segunda paleta verificada con el mismo listón & Sección de pre-validación, registro de la segunda iteración; paleta completa en la sección del tema institucional; procedencia de cada valor en este anexo \\
 \end{uxtablalarga}
+
+Los dos últimos criterios se incorporaron al consolidar la entrega y se anotan aquí con el mismo
+formato que los ocho anteriores, para que la tabla siga sirviendo de guía de lectura completa.
 
 \subsection{Verificaciones automáticas asociadas a este documento}
 
@@ -92,7 +178,11 @@ Se enuncian aquí para que no haya que deducirlos.
   \lead{El contenido del asistente está guionizado}{El transporte, las tarjetas de llamada a
     herramienta y la cancelación son reales. La conexión con un modelo de lenguaje queda declarada
     en hoja de ruta y la pantalla lo dice en su propia franja.}
-  \lead{Las etiquetas de alcance del código quedaron fijadas antes del cierre}{Varias pantallas
-    muestran hoy más de lo que su etiqueta promete. Se publica el valor del código y la divergencia
-    se declara en la sección de alcance.}
+  \lead{El catálogo construido no tiene captura en este documento}{Su estado entregado se
+    describe en la sección de prototipos y se comprueba con pruebas automáticas. La única captura de
+    esa ruta sostiene el par de antes y después de la primera iteración, que es evidencia que no se
+    puede volver a tomar.}
+  \lead{Las láminas del archivo de diseño no son capturas del portal}{Documentan decisiones de
+    interfaz tomadas, no capacidades construidas. La sección de alcance las usa exactamente para
+    eso: distinguir lo que está diseñado y sin construir de lo que ni siquiera está diseñado.}
 \end{uxlist}

@@ -27,8 +27,10 @@ mapa, y la correspondencia se publica completa.
 \textbf{Qué se entrega.} Siete pantallas de alta fidelidad, construidas en el entorno del producto y
 recorribles de principio a fin; la correspondencia entre las dieciséis ramas del mapa y las rutas
 del portal; los cuatro estados no felices declarados pantalla por pantalla; una guía de estilos con
-sus secciones puntuadas; la tabla que declara hasta dónde llega cada pantalla; y una pre-validación
-sobre capturas reales del prototipo con al menos una iteración documentada.
+sus secciones puntuadas y sus dos temas verificados bajo el mismo listón de contraste en modo claro
+y en modo oscuro; cinco flujos de tarea completos en diseño de alta fidelidad; la tabla que declara
+hasta dónde llega cada pantalla; y una pre-validación sobre capturas reales del prototipo con tres
+iteraciones documentadas.
 
 \textbf{Sobre la pre-validación.} Los ocho evaluadores que aparecen en la sección de pre-validación
 son \textbf{evaluadores prototipo}: perfiles sintéticos condicionados por las ocho personas de la
@@ -46,11 +48,12 @@ basada en web, Figma, y una de descarga e instalación, Lunacy. La recomendació
 de tutoriales y de las políticas de privacidad de ambas. Ningún criterio de evaluación menciona
 herramienta alguna: los criterios evalúan prototipos y secciones de guía.
 
-Este equipo construyó los prototipos \textbf{en el entorno del producto} --- Nuxt 4 sobre FastAPI,
-con PostgreSQL detrás --- en lugar de dibujarlos en un archivo de diseño. La decisión no es una
-excepción al objetivo de la actividad sino una forma más estricta de cumplirlo, y conviene
-sostenerla contra lo que la propia rúbrica pide de un prototipo de alta fidelidad, propiedad por
-propiedad.
+Este equipo usó las dos: construyó las pantallas \textbf{en el entorno del producto} --- Nuxt 4 sobre
+FastAPI, con PostgreSQL detrás --- y resolvió en un \textbf{archivo de diseño} los cinco flujos de
+tarea, la identidad visual y el inventario de componentes con sus variantes. La sección 1 explica qué
+demuestra cada superficie y por qué ninguna sustituye a la otra. Lo que sigue sostiene la primera de
+las dos contra lo que la propia rúbrica pide de un prototipo de alta fidelidad, propiedad por
+propiedad, porque es la que la recomendación no contemplaba.
 
 \begin{uxtabla}{|L{5.4cm}|Y|}{Las cuatro propiedades que la rúbrica pide de un prototipo de alta fidelidad, frente a una interfaz operable}
   \uxheadrow \thd{Lo que la rúbrica pide} & \thd{Cómo lo cumple una interfaz construida en el entorno del producto} \\
@@ -64,12 +67,12 @@ El objetivo de aprendizaje evaluado, \textbf{OEA 2.2}, pide \enquote{elaborar pr
 fidelidad que representen la interfase de un producto o servicio digital}. No prescribe el medio. Un
 prototipo que \emph{es} la interfaz representa la interfaz de la manera más completa disponible.
 
-Nada se pierde con la sustitución. Este documento entrega todo lo que un archivo de diseño
-entregaría --- el sistema de tokens completo, el inventario de componentes con sus estados, la
-retícula y la matriz de contraste verificada por cálculo --- y añade lo que aquel archivo no puede
-entregar: pantallas que responden. Cada figura de la sección de prototipos es una captura de la
-aplicación en funcionamiento, tomada a resolución fija con un guion reproducible que se documenta en
-el anexo.
+Nada se pierde por construir en el entorno del producto. Este documento entrega el sistema de tokens
+completo, el inventario de componentes con sus estados, la retícula y la matriz de contraste
+verificada por cálculo, y añade lo que un lienzo no puede entregar: pantallas que responden. Cada
+figura de la sección de prototipos es una captura de la aplicación en funcionamiento, tomada a
+resolución fija con un guion reproducible que se documenta en el anexo; cada lámina de flujo lleva
+en su pie la palabra diseño, para que ninguna se lea como una captura de la aplicación.
 
 % ============================================================================
 \section{Cómo se lee este documento}
@@ -84,11 +87,16 @@ el anexo.
   \lead{Sección 3. Guía de estilos}{Identidad, tipografía, paleta con su matriz de contraste,
     componentes de interfaz e iconografía, cada uno con su propio subtítulo.}
   \lead{Sección 4. Pre-validación e iteración}{El protocolo con los ocho evaluadores prototipo, las
-    dos tareas heredadas de la prueba de árbol de la Actividad 3, y el hallazgo que produjo un
-    cambio, con el antes y el después lado a lado.}
+    dos tareas heredadas de la prueba de árbol de la Actividad 3, y los tres hallazgos que
+    produjeron un cambio, cada uno con su antes y su después.}
   \lead{Sección 5. Alcance declarado}{Hasta dónde llega cada pantalla y cada historia de usuario, en
-    tres estados, sin dejar ninguna sin declarar.}
-  \lead{Sección 6. Cierre}{Qué se construyó en cifras, qué cambió por evidencia y qué se lleva la
+    cuatro estados, sin dejar ninguna sin declarar.}
+  \lead{Sección 6. El tema institucional}{La segunda paleta con la procedencia de cada valor, su
+    familia tipográfica y su matriz de contraste en los dos modos, con los tres hallazgos que la
+    verificación produjo y lo que se corrigió por cada uno.}
+  \lead{Sección 7. Los cinco flujos de tarea}{Cada flujo con su persona, su objetivo, su número de
+    pantallas y su lámina, y la verificación técnica del archivo de diseño.}
+  \lead{Sección 8. Cierre}{Qué se construyó en cifras, qué cambió por evidencia y qué se lleva la
     Actividad 5.}
   \lead{Anexo}{Guion de capturas, inventario de figuras y trazabilidad entre los criterios de la
     historia de usuario, las secciones de este documento y su evidencia.}

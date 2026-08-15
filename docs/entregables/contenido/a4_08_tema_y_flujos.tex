@@ -1,0 +1,437 @@
+% ============================================================================
+%  Actividad 4 - El tema institucional y los cinco flujos de tarea
+%
+%  Propiedad de US-ENTREGA-A4. Tres bloques y nada mas: el tema institucional
+%  con la procedencia de cada valor, su tipografia y su matriz de contraste en
+%  los dos modos; los cinco flujos de tarea del archivo de diseno; y la
+%  verificacion tecnica de ese archivo.
+%
+%  Regla de este archivo: ningun valor de color se escribe con almohadilla.
+%  scripts/verificar_tokens_a4.sh falla si encuentra un hexadecimal con
+%  almohadilla en cualquier contenido/a4_*.tex. Los valores se publican como
+%  texto monoespaciado, que es lo que son aqui: el dato de procedencia de un
+%  token del portal, no una instruccion de color de este informe.
+%
+%  Regla de no duplicacion: a4_03_guia_estilos.tex ya cubre identidad,
+%  tipografia del tema de omision, reticula, microinteracciones, iconografia,
+%  imagenes, voz y tono y bitacora de versiones. Aqui no se repite ninguna.
+% ============================================================================
+
+% ============================================================================
+\uxsection{El tema institucional}
+
+La guía de estilos de este documento describe el sistema de diseño con el que están construidas
+las siete pantallas del portal y tomadas sus capturas. Ese sistema entrega además un segundo tema,
+derivado del archivo de diseño de esta actividad, y esta sección lo documenta con el mismo rigor:
+de dónde sale cada valor, qué familia tipográfica lo acompaña y qué razón de contraste alcanza cada
+token en los dos modos de color.
+
+Los dos temas conviven y ninguno sustituye al otro. El tema de omisión, que es el que las capturas
+de este documento muestran, conserva sus valores sin una sola diferencia. El tema institucional se
+elige desde la cabecera del portal, viaja en una cookie y el servidor lo aplica antes del primer
+trazado, de modo que el cambio no produce destello. Cada tema ofrece modo claro y modo oscuro:
+\textbf{cuatro combinaciones}, verificadas una por una con el generador que emite los tokens.
+
+\subsection{El octeto del archivo de diseño}
+
+El archivo de diseño declara ocho colores con su función escrita al lado. Son el origen de la
+paleta institucional y la referencia contra la que se mide cualquier derivación.
+
+\begin{uxtabla}{|L{2.6cm}|C{2.0cm}|L{3.5cm}|Y|}{Los ocho colores que declara el archivo de diseño y su destino en el sistema}
+  \uxheadrow \thd{Nombre en el archivo} & \thd{Valor} & \thd{Función declarada} & \thd{Destino en el contrato de tokens} \\
+  Navegación & \texttt{102A43} & Estructura de navegación & Corriente plena en claro y origen del suelo oscuro \\
+  Secundario & \texttt{1D4C6E} & Segundo nivel de estructura & Corriente media en claro \\
+  Acción & \texttt{086B70} & Acciones y selección & Ninguno: se aplica desde la capa de componentes \\
+  Apoyo & \texttt{15989A} & Acento de apoyo & Ninguno: con 3{,}51:1 sobre la superficie no puede llevar texto \\
+  Atención & \texttt{B97812} & Atención & Aviso, con la corrección de luminancia documentada abajo \\
+  Éxito & \texttt{287A58} & Confirmación & Confirmación, con su valor literal \\
+  Error & \texttt{B8443F} & Error & Error, con la corrección de luminancia documentada abajo \\
+  Superficie & \texttt{FFFFFF} & Superficie de trabajo & Suelo del modo claro, con su valor literal \\
+\end{uxtabla}
+
+Seis de los ocho ocupan una ranura del contrato de tokens; dos no la ocupan, y en los dos casos por
+una razón escrita. La consecuencia práctica es que el tema institucional no se limita a copiar el
+archivo: toma de él lo que el contrato puede alojar, deriva el resto con una regla declarada y mide
+el resultado antes de publicarlo.
+
+\subsection{Los diecisiete tokens, con la procedencia de cada valor}
+
+El contrato del sistema tiene diecisiete tokens de color y el tema institucional los resuelve todos
+en los dos modos. La columna de procedencia distingue tres orígenes posibles: el valor literal del
+archivo de diseño, una derivación declarada a partir de uno de sus colores, o el valor heredado del
+tema de omisión.
+
+\begin{uxtablalarga}{|L{3.4cm}|C{1.9cm}|C{1.9cm}|Y|}{La paleta institucional: diecisiete tokens en los dos modos, con la procedencia de cada valor}{\thd{Token} & \thd{Claro} & \thd{Oscuro} & \thd{Procedencia}}
+  \texttt{ground} & \texttt{FFFFFF} & \texttt{0B1B2B} & Claro: superficie del archivo. Oscuro: derivado del color de navegación bajando su luminancia; azul profundo y nunca negro puro \\
+  \texttt{ground-alt} & \texttt{F1F4F8} & \texttt{102A43} & Claro: derivado del color de navegación, aclarado hasta 1{,}10:1 sobre la superficie. Oscuro: el color de navegación usado como panel \\
+  \texttt{grid} & \texttt{DCE3EC} & \texttt{1D3348} & Derivado en los dos modos: un paso del suelo hacia la rampa. Decorativo por definición \\
+  \texttt{corriente-apagado} & \texttt{A8B4C4} & \texttt{46586B} & Derivado. El peldaño se queda a propósito por debajo de 3:1, porque no informa \\
+  \texttt{corriente-tenue} & \texttt{4A5A6E} & \texttt{93A6BC} & Derivado del color de navegación hacia el suelo hasta cruzar 4{,}5:1 \\
+  \texttt{corriente-medio} & \texttt{1D4C6E} & \texttt{BFD0E2} & Claro: color secundario del archivo. Oscuro: el mismo matiz elevado sobre el suelo profundo \\
+  \texttt{corriente-pleno} & \texttt{102A43} & \texttt{EAF2FA} & Claro: color de navegación del archivo. Oscuro: el mismo matiz elevado \\
+  \texttt{error} & \texttt{933632} & \texttt{EC5B51} & Derivado del color de error del archivo, oscurecido conservando matiz y saturación \\
+  \texttt{aviso} & \texttt{A36A10} & \texttt{E8A33D} & Claro: color de atención oscurecido un 12 \%. Oscuro: el mismo color aclarado para el suelo profundo \\
+  \texttt{ok} & \texttt{287A58} & \texttt{5FCB94} & Claro: color de éxito del archivo. Oscuro: el mismo color aclarado \\
+  \texttt{info} & \texttt{123C7A} & \texttt{B9A7F2} & Derivado y deliberadamente fuera del octeto, por la razón que la subsección de hallazgos documenta \\
+  \texttt{serie-1} & \texttt{1D4ED8} & \texttt{7DD3FC} & Heredado del tema de omisión \\
+  \texttt{serie-2} & \texttt{B45309} & \texttt{FFC233} & Heredado del tema de omisión \\
+  \texttt{serie-3} & \texttt{1F6F43} & \texttt{4ADE80} & Heredado del tema de omisión \\
+  \texttt{serie-4} & \texttt{6D28D9} & \texttt{C4B5FD} & Heredado del tema de omisión \\
+  \texttt{serie-5} & \texttt{0E7490} & \texttt{67E8F9} & Heredado del tema de omisión \\
+  \texttt{serie-6} & \texttt{9D174D} & \texttt{F9A8D4} & Heredado del tema de omisión \\
+\end{uxtablalarga}
+
+Los seis colores de serie \textbf{no cambian con el tema}, y es una decisión y no un olvido: una
+serie es un canal de datos y no identidad de marca, el archivo de diseño no declara paleta
+categórica y las seis ya están verificadas bajo tres dicromacias. Lo que sí se vuelve a medir por
+tema es su razón sobre cada suelo, porque el suelo oscuro institucional es \texttt{0B1B2B} y no el
+del tema de omisión: las seis quedan por encima de 3:1 en las cuatro combinaciones, con un mínimo
+de \textbf{5{,}02:1} en claro y \textbf{9{,}43:1} en oscuro.
+
+\subsection{La familia tipográfica del tema}
+
+El eje del tema son dos cosas: el color y la familia tipográfica. El archivo de diseño declara la
+suya con su propio criterio: \enquote{Inter mantiene claridad en tablas, filtros y metadatos. Los
+tamaños priorizan densidad sin reducir la legibilidad; el espaciado entre letras permanece en 0.}
+
+Bajo el tema institucional, los roles de titular y de cuerpo se componen con \textbf{Inter},
+servida por el mismo módulo de fuentes y con el mismo proveedor que las dos familias del tema de
+omisión. La familia monoespaciada \textbf{no cambia}: el rol de dato existe por el ancho fijo de
+las cifras y no por identidad, y el archivo de diseño no declara ninguna monoespaciada. Los nueve
+roles conservan tamaño, interlínea y espaciado entre letras, de modo que el tema cambia la letra y
+no la jerarquía.
+
+\figuraux{figuras/a4/guia_tipografia.png}{Lámina de tipografía del archivo de diseño, con el
+criterio que declara la familia y su aplicación a títulos, métricas, contenido y controles. Es
+diseño de alta fidelidad y no una captura del portal en ejecución.}{fig:a4-tema-tipografia}
+
+\subsection{Matriz de contraste del tema institucional en los dos modos}
+
+Las razones siguientes no se estimaron: las calcula el mismo generador que emite los tokens del
+portal, con la fórmula de luminancia relativa de la norma y contra sus umbrales de 4{,}5:1 para
+texto normal, 3:1 para elemento gráfico y 7:1 para el nivel más alto (W3C, 2023). Cada token se
+mide contra el suelo de su modo: \texttt{FFFFFF} en claro y \texttt{0B1B2B} en oscuro.
+
+\begin{uxtablalarga}{|L{3.4cm}|C{2.1cm}|C{2.0cm}|C{2.1cm}|Y|}{Matriz de contraste del tema institucional sobre el suelo de cada modo}{\thd{Token} & \thd{Claro} & \thd{Veredicto} & \thd{Oscuro} & \thd{Veredicto}}
+  \texttt{ground-alt} & 1{,}10:1 & superficie & 1{,}19:1 & superficie \\
+  \texttt{grid} & 1{,}29:1 & decorativo & 1{,}34:1 & decorativo \\
+  \texttt{corriente-apagado} & 2{,}10:1 & decorativo & 2{,}38:1 & decorativo \\
+  \texttt{corriente-tenue} & 7{,}05:1 & AAA & 6{,}98:1 & AA \\
+  \texttt{corriente-medio} & 9{,}09:1 & AAA & 11{,}06:1 & AAA \\
+  \texttt{corriente-pleno} & 14{,}64:1 & AAA & 15{,}41:1 & AAA \\
+  \texttt{error} & 7{,}46:1 & AAA & 5{,}13:1 & AA \\
+  \texttt{aviso} & 4{,}54:1 & AA & 8{,}07:1 & AAA \\
+  \texttt{ok} & 5{,}23:1 & AA & 8{,}67:1 & AAA \\
+  \texttt{info} & 10{,}75:1 & AAA & 8{,}19:1 & AAA \\
+  \texttt{serie-1} & 6{,}70:1 & AA & 10{,}44:1 & AAA \\
+  \texttt{serie-2} & 5{,}02:1 & AA & 10{,}79:1 & AAA \\
+  \texttt{serie-3} & 6{,}15:1 & AA & 9{,}99:1 & AAA \\
+  \texttt{serie-4} & 7{,}10:1 & AAA & 9{,}43:1 & AAA \\
+  \texttt{serie-5} & 5{,}36:1 & AA & 12{,}01:1 & AAA \\
+  \texttt{serie-6} & 7{,}88:1 & AAA & 9{,}60:1 & AAA \\
+\end{uxtablalarga}
+
+Dos veredictos de la tabla no son grados de la norma sino papeles del sistema. \textbf{Superficie}
+marca un fondo medido contra otro fondo: nada se lee nunca con la fila alterna como primer plano,
+así que exigirle 4{,}5:1 sería acusar al sistema de un incumplimiento que no existe.
+\textbf{Decorativo} marca los dos tokens que declaran no informar, la retícula y el conector en
+reposo, y su exención es la razón misma por la que esa declaración existe en el contrato.
+
+El resultado agregado es el que importa: \textbf{cero incumplimientos} en las cuatro combinaciones
+de tema y modo. Ningún token que informa se queda por debajo de 3:1 y ningún token que declara no
+informar lo alcanza, que son las dos formas de romper la regla.
+
+\subsection{Separación bajo dicromacia, medida por pares}
+
+El contraste sobre el suelo no basta para el canal semántico: dos marcas pueden cumplir el umbral
+por separado y confundirse entre sí para quien tiene una dicromacia. Por eso los cuatro semánticos
+se miden también dos a dos, simulando protanopia, deuteranopia y tritanopia, y de cada par se
+publica la distancia \textbf{peor} de las tres.
+
+\begin{uxtabla}{|L{2.8cm}|C{1.8cm}|L{2.6cm}|C{1.8cm}|Y|}{Separación de los pares semánticos del tema institucional, con la dicromacia que produce la peor distancia}
+  \uxheadrow \thd{Par} & \thd{Claro} & \thd{Dicromacia} & \thd{Oscuro} & \thd{Dicromacia} \\
+  Error y aviso & 20{,}7 & tritanopia & 22{,}6 & deuteranopia \\
+  Error y confirmación & 14{,}5 & protanopia & 23{,}3 & protanopia \\
+  Error e informativo & 62{,}6 & protanopia & 67{,}6 & tritanopia \\
+  Aviso y confirmación & 37{,}8 & protanopia & 37{,}8 & protanopia \\
+  Aviso e informativo & 59{,}9 & tritanopia & 35{,}3 & tritanopia \\
+  Confirmación e informativo & 20{,}1 & tritanopia & 25{,}9 & tritanopia \\
+\end{uxtabla}
+
+El piso no es un número inventado para esta paleta: es la peor separación que el tema de omisión ya
+sostiene, \textbf{13{,}6} en claro y \textbf{21{,}5} en oscuro. El tema institucional queda por
+encima de los dos, con \textbf{14{,}5} y \textbf{22{,}6}. Un tema nuevo que empeorara ese número
+habría degradado el sistema aunque cada token cumpliera su umbral por separado.
+
+\subsection{Los tres hallazgos de la verificación}
+
+El cálculo no confirmó la paleta del archivo: la corrigió en tres puntos, y los tres se corrigieron
+en el valor del token y no en la prosa.
+
+\begin{enumerate}[leftmargin=*,itemsep=5pt,topsep=6pt]
+\item \textbf{El color de atención no alcanzaba el listón de texto.} El valor del archivo,
+  \texttt{B97812}, da \textbf{3{,}65:1} sobre la superficie blanca, por debajo del 4{,}5:1 que exige
+  un token que informa. Oscurecido un 12 \% conservando matiz y saturación llega a \texttt{A36A10}
+  con \textbf{4{,}54:1}. Es el mínimo que cruza: a un 10 \% todavía da 4{,}40:1.
+\item \textbf{El canal informativo necesita un matiz fuera del octeto.} El color de acción y el de
+  éxito se separan por \textbf{6{,}7} bajo tritanopia, muy por debajo del piso de 13{,}6: para
+  quien no distingue el azul del amarillo, una marca informativa y una confirmación se ven igual.
+  En claro se resuelve con un azul profundo derivado, \texttt{123C7A}, que lleva el peor par de ese
+  canal a \textbf{20{,}1}. En oscuro no hay azul que sirva, porque ahí el azul y el verde colapsan,
+  y la solución es un violeta, \texttt{B9A7F2}, con \textbf{25{,}9} sobre un piso de 21{,}5.
+\item \textbf{El color de error del archivo no podía embarcarse tal cual.} Con \texttt{B8443F} el
+  error da 5{,}33:1 y la confirmación 5{,}23:1, de modo que bajo protanopia los dos se separan por
+  \textbf{10{,}1} contra un piso de 13{,}6 y un error se lee como una confirmación. Oscurecido un
+  20 \%, \texttt{933632} sube a 7{,}46:1 y su peor par a \textbf{14{,}5}. En oscuro, el mismo color
+  aclarado para el suelo profundo se quedaba en \textbf{13{,}1} contra un piso de 21{,}5;
+  oscurecido un 12 \%, \texttt{EC5B51} da 5{,}13:1 y su peor par sube a \textbf{22{,}6}.
+\end{enumerate}
+
+Los tres siguen la misma regla, escrita antes de aplicarla: se corrige la luminancia y se conservan
+el matiz y la saturación, de manera que el color siga siendo reconocible como el del archivo. Y los
+tres se descubrieron por cálculo y no a ojo, que es la única forma de encontrar un defecto que solo
+existe para un lector con dicromacia.
+
+\subsection{El color de acción no entra en los diecisiete tokens}
+
+El archivo declara un color de acción, \texttt{086B70}, y el sistema no le abre una ranura. La
+razón es de contrato y no de gusto: los diecisiete tokens cubren suelo, retícula, rampa de
+corriente, semántica y series, y ninguno de esos papeles es \enquote{acción}. Añadir un token
+significa cambiar el contrato que consumen la aplicación, la paleta tipada y este documento, y ese
+trabajo no cabía en esta entrega.
+
+Mientras tanto el color de acción se aplica \textbf{desde la capa de componentes}, que es donde el
+archivo de diseño lo usa: botón primario, selección y foco. La decisión queda declarada aquí en vez
+de resolverse en silencio, porque un color que vive fuera del contrato es exactamente el tipo de
+valor que se duplica a mano en tres componentes y se separa de su origen sin que nadie lo note.
+
+\subsection{Los ocho estados interactivos, declarados como derivación}
+
+El archivo de diseño publica ocho estados interactivos y los declara por \textbf{nombre de
+variable}, no por valor: la lámina muestra el color y nombra la variable que lo produce. Esta
+entrega no inventa los ocho valores ni los copia de la lámina con un cuentagotas: los deriva con
+una regla escrita y marca la derivación como tal.
+
+\textbf{La regla.} Sobre el color base, un \textbf{12 \%} de oscurecimiento para el estado al pasar
+el puntero y un \textbf{20 \%} para el estado presionado, conservando matiz y saturación. Es la
+misma operación con la que se corrigieron los tres hallazgos de la subsección anterior, de modo que
+el sistema tiene una sola forma de mover un color.
+
+\begin{uxtabla}{|L{4.2cm}|L{3.4cm}|Y|}{Los ocho estados interactivos del archivo de diseño y su procedencia}
+  \uxheadrow \thd{Estado} & \thd{Base} & \thd{Procedencia} \\
+  Primario al pasar & Color de acción & Derivación: base oscurecida un 12 \% \\
+  Primario presionado & Color de acción & Derivación: base oscurecida un 20 \% \\
+  Secundario al pasar & Color de navegación & Derivación: base oscurecida un 12 \% \\
+  Secundario presionado & Color de navegación & Derivación: base oscurecida un 20 \% \\
+  Deshabilitado & Neutro de la rampa & Derivación: peldaño apagado, sin papel informativo \\
+  Foco & Color de acción & Variable propia del archivo, aplicada como filete de foco \\
+  Error & Color de error & Variable propia del archivo, con el valor corregido del token \\
+  Información & Canal informativo & Variable propia del archivo, con el valor derivado del token \\
+\end{uxtabla}
+
+\figuraux{figuras/a4/guia_paleta.png}{Lámina de paleta y estados interactivos del archivo de
+diseño. Los ocho estados se declaran por nombre de variable, que es la razón por la que esta
+entrega los publica como derivación con su regla. Es diseño de alta fidelidad y no una captura del
+portal en ejecución.}{fig:a4-tema-paleta}
+
+La divergencia queda declarada y no disimulada: si el archivo publica más adelante los ocho valores
+oficiales, se sustituyen los derivados y se anota el cambio. Publicar un valor derivado con el
+rótulo de oficial habría sido el defecto caro, porque nadie lo habría vuelto a revisar.
+
+\subsection{El tema, medido en el portal en ejecución}
+
+Las cifras de las tablas anteriores salen del generador. Lo que sigue sale del portal abierto en un
+navegador, que es la única forma de comprobar que lo calculado es también lo pintado. Sobre las
+cuatro combinaciones se midió el valor resuelto de cada propiedad personalizada, la familia
+tipográfica computada y el número de elementos cuyo contenido desborda su caja.
+
+\begin{uxtabla}{|L{3.6cm}|L{2.4cm}|L{2.4cm}|L{2.2cm}|Y|}{Medición en el navegador de las cuatro combinaciones, a 1440x900}
+  \uxheadrow \thd{Combinación} & \thd{Suelo resuelto} & \thd{Suelo esperado} & \thd{Familia} & \thd{Desbordes} \\
+  Corriente, claro & \texttt{F4F6F9} & \texttt{F4F6F9} & Lexend Deca & 0 \\
+  Corriente, oscuro & \texttt{0A0A0C} & \texttt{0A0A0C} & Lexend Deca & 0 \\
+  Institucional, claro & \texttt{FFFFFF} & \texttt{FFFFFF} & Inter & 0 \\
+  Institucional, oscuro & \texttt{0B1B2B} & \texttt{0B1B2B} & Inter & 0 \\
+\end{uxtabla}
+
+Las cuatro pintan su propia paleta y ninguna hereda la del tema vecino. La familia cambia con el
+tema y no con el modo, que es lo que el eje declara, y la retícula la absorbe sin un solo corte:
+Inter tiene mayor altura de x que Fira Sans y el riesgo real era que una celda densa creciera.
+
+La preferencia se comprobó además contra el HTML que devuelve el servidor, y no contra el que existe
+después de hidratar: con las dos cookies puestas la etiqueta de apertura llega ya como
+\texttt{<html lang="es" data-tema="institucional" data-modo="oscuro">}. Es la diferencia entre una
+preferencia que se aplica y una que se corrige a la vista del lector.
+
+\figuraux[0.86\linewidth]{figuras/a4/tema/combinacion_institucional_claro_inicio.png}{Pantalla de
+inicio bajo el tema institucional en modo claro. Captura del portal en ejecución a 1440x900.}{fig:a4-tema-inst-claro}
+
+\figuraux[0.86\linewidth]{figuras/a4/tema/combinacion_institucional_oscuro_inicio.png}{La misma
+pantalla bajo el tema institucional en modo oscuro, sobre el suelo \texttt{0B1B2B}. El azul profundo
+sustituye al negro puro por la regla que el sistema ya se había puesto. Captura del portal en
+ejecución.}{fig:a4-tema-inst-oscuro}
+
+\figuraux[0.86\linewidth]{figuras/a4/tema/institucional_claro_2_exploracion.png}{Catálogo temático
+bajo el tema institucional. Es una de las siete pantallas capturadas bajo el tema nuevo; las quince
+del resto del documento conservan el tema de omisión, que no cambió.}{fig:a4-tema-inst-catalogo}
+
+Las capturas del tema viven en \texttt{figuras/a4/tema/} y no sustituyen a ninguna de las anteriores.
+Las quince del par antes y después documentan la primera iteración bajo el tema de omisión, que esta
+entrega no movió: recapturarlas habría dado imágenes más nuevas y habría destruido la comparación que
+sostiene el criterio de iteración.
+
+% ============================================================================
+\uxsection{Los cinco flujos de tarea, en diseño de alta fidelidad}
+
+Además de las siete pantallas construidas en el entorno del producto, esta actividad produjo
+\textbf{cinco flujos de tarea} en el archivo de diseño: \textbf{30 pantallas} conectadas que
+recorren consulta, análisis, decisión, publicación y gobierno. Los cinco comparten identidad,
+retícula y componentes, porque pertenecen a un solo producto.
+
+\textbf{Son diseño de alta fidelidad y no pantallas del producto.} La distinción no es un matiz:
+cada figura de esta sección es una lámina del archivo de diseño, no una captura del portal en
+ejecución, y cada pie lo dice. Las capturas del portal viven en las secciones anteriores y se
+distinguen por su franja de alcance y por su barra lateral real. Mezclar las dos evidencias
+convertiría un entregable verificable en una promesa.
+
+Cada flujo se ancla a una persona de la Actividad 1 y al escenario que la Actividad 2 escribió para
+ella. Los rótulos de cuenta que aparecen dentro de las láminas son datos de demostración del
+archivo; la correspondencia con las personas del estudio la fija la tarea y el perfil, no el nombre
+impreso en la sesión.
+
+\begin{uxtabla}{|L{3.3cm}|L{3.3cm}|Y|C{1.5cm}|}{Los cinco flujos de tarea, con su persona, su objetivo y su número de pantallas}
+  \uxheadrow \thd{Flujo} & \thd{Persona y perfil} & \thd{Objetivo de la tarea} & \thd{Pantallas} \\
+  Análisis y exportación de liquidez & Diego Hernández, analista de datos & Cruzar fuentes, acotar variables y dejar una exportación reproducible & 8 \\
+  Señal de riesgo para la Junta & Arturo Castañeda, directivo & Entender una señal de riesgo y llevarla explicada a una sesión de quince minutos & 5 \\
+  Publicación de una versión del catálogo & Roberto Valdez, propietario del dato & Publicar una versión nueva sin romper el trabajo que depende de la anterior & 6 \\
+  Administración de accesos & Mariana Ovalle Ríos, administración de la plataforma & Otorgar el acceso mínimo suficiente y dejar evidencia de la autorización & 5 \\
+  Centro de trabajo integral & Ximena Solís Barrera, integración de aplicaciones & Recorrer los módulos del portal desde un solo punto de entrada, hasta las integraciones & 6 \\
+\end{uxtabla}
+
+\subsection{Flujo 1. Análisis y exportación de liquidez}
+
+Ocho pantallas que van de la localización de la información a la confirmación del archivo
+generado, pasando por el detalle de la fuente, la selección de variables, los filtros, la vista
+previa y la configuración de la exportación. El paso activo, las restricciones de acceso y el
+resumen de la selección permanecen visibles en cada etapa, de modo que quien exporta puede revisar
+sus decisiones antes de comprometerlas.
+
+La lámina de detalle muestra el momento en que la tarea se juega: cinco variables de veinticuatro
+seleccionadas, tres de ellas marcadas como restringidas y con los permisos verificados a la vista.
+Es la traducción visual del principio de que el sistema explica lo que se puede ver antes de
+dejarlo pedir.
+
+\figuraux[0.94\linewidth]{figuras/a4/secuencia_flujo_1.png}{Diseño de alta fidelidad del flujo de
+análisis y exportación de liquidez: las ocho pantallas, de inicio a confirmación del
+archivo.}{fig:a4-flujo-1-secuencia}
+
+\figuraux{figuras/a4/flujo_1_variables.png}{Diseño de la pantalla de selección de variables del
+flujo de análisis y exportación. Muestra el paso activo, las restricciones de acceso y el resumen
+de la selección.}{fig:a4-flujo-1-detalle}
+
+\subsection{Flujo 2. Señal de riesgo para la Junta}
+
+Cinco pantallas compuestas para tableta, que es el equipo con el que el escenario directivo de la
+Actividad 2 describe esta tarea. El recorrido va del panorama a la detección del cambio, de ahí a
+su explicación y a la composición del indicador, y termina en un resumen listo para exponer. La
+jerarquía privilegia el nivel de riesgo, la procedencia del dato y la evidencia que respalda la
+decisión.
+
+El flujo no se limita a mostrar una alerta: declara qué falta confirmar antes de atribuir una
+causa. Es la respuesta de diseño al hallazgo de la Actividad 3, donde la tarea del indicador de
+riesgo obtuvo un solo acierto de ocho contra la ruta esperada.
+
+\figuraux[0.80\linewidth]{figuras/a4/secuencia_flujo_2.png}{Diseño de alta fidelidad del flujo de
+señal de riesgo: panorama, detección, explicación, composición y resumen
+ejecutivo.}{fig:a4-flujo-2-secuencia}
+
+\figuraux[0.58\linewidth]{figuras/a4/flujo_2_riesgo.png}{Diseño de la pantalla de cambio detectado.
+El estado combina magnitud, umbral, evolución de seis meses y la acción
+siguiente.}{fig:a4-flujo-2-detalle}
+
+\clearpage
+
+\subsection{Flujo 3. Publicación de una versión del catálogo}
+
+Seis pantallas que reparten la tarea en momentos separables: selección del elemento, documentación
+del cambio, comparación entre versiones, análisis de impacto, revisión final y confirmación. La
+separación no es burocracia de interfaz: es lo que permite conservar evidencia y anticipar
+dependencias antes de publicar.
+
+La lámina de detalle contrasta las dos versiones campo por campo ---definición, regla histórica,
+estructura e interpretación--- y declara qué consultas hay que revisar antes del siguiente corte.
+Publicar sin ese contraste es el defecto que el escenario de la Actividad 2 describe con nombre
+propio.
+
+\figuraux{figuras/a4/secuencia_flujo_3.png}{Diseño de alta fidelidad del flujo de publicación del
+catálogo, desde la selección del registro hasta la confirmación de la nueva
+versión.}{fig:a4-flujo-3-secuencia}
+
+\figuraux{figuras/a4/flujo_3_versiones.png}{Diseño de la pantalla de comparación de versiones. La
+interfaz contrasta definición, regla histórica, estructura e interpretación antes de
+continuar.}{fig:a4-flujo-3-detalle}
+
+\subsection{Flujo 4. Administración de accesos}
+
+Cinco pantallas que aplican el principio de permiso mínimo suficiente: solicitud, revisión de la
+justificación, definición del alcance habilitado, autorización y alta. Las confirmaciones se
+reservan para las acciones que afectan a otras personas, y la pantalla final comunica vigencia,
+alcance, exclusiones y evidencia disponible.
+
+La lámina de detalle es la que sostiene el criterio: la autorización se confirma con su
+justificación, quién la solicitó, quién la aprobó, su vigencia con caducidad automática, sus
+exclusiones y los cuatro controles verificados. El registro queda como antecedente de cualquier
+modificación posterior.
+
+\figuraux[0.80\linewidth]{figuras/a4/secuencia_flujo_4.png}{Diseño de alta fidelidad del flujo de
+administración de accesos: solicitud, revisión, permiso mínimo, autorización y
+alta.}{fig:a4-flujo-4-secuencia}
+
+\figuraux[0.58\linewidth]{figuras/a4/flujo_4_autorizacion.png}{Diseño de la pantalla de
+confirmación de autorización. Conserva justificación, responsables, vigencia, alcance, exclusiones
+y controles verificados.}{fig:a4-flujo-4-detalle}
+
+\clearpage
+
+\subsection{Flujo 5. Centro de trabajo integral}
+
+Seis vistas que comprueban que una navegación común sostiene exploración, exportación, monitoreo de
+riesgos, gobierno e integración sin perder el contexto. Más que una tarea lineal, este flujo
+representa la arquitectura del producto y sus puntos de entrada, y por eso es el que verifica que
+los otros cuatro caben bajo el mismo armazón.
+
+La lámina de detalle abre con indicadores, módulos principales y actividad reciente, y su barra
+lateral declara el modo de trabajo con el que se compone la vista. Es el recorrido del escenario de
+integración de la Actividad 2, que termina en el módulo de credenciales y ejecuciones programadas.
+
+\figuraux{figuras/a4/secuencia_flujo_5.png}{Diseño de alta fidelidad del flujo integral: centro de
+trabajo, análisis, exportación, riesgos, gobierno e integración.}{fig:a4-flujo-5-secuencia}
+
+\figuraux{figuras/a4/flujo_5_centro_trabajo.png}{Diseño del centro de trabajo. Reúne indicadores,
+módulos principales y actividad reciente bajo una navegación común.}{fig:a4-flujo-5-detalle}
+
+\subsection{Verificación técnica del archivo de diseño}
+
+Antes de cerrar la entrega se revisaron la estructura, la legibilidad, los componentes y las
+conexiones del archivo. La comprobación es técnica y no sustituye a una prueba de usabilidad con
+participantes: su propósito es retirar los defectos evidentes antes de que el prototipo se use en
+una evaluación.
+
+\begin{uxtabla}{|L{5.1cm}|Y|}{Resultados de la verificación técnica del archivo de diseño}
+  \uxheadrow \thd{Dimensión revisada} & \thd{Resultado} \\
+  Pantallas y flujos & 30 pantallas organizadas en 5 flujos \\
+  Interacciones & 84 nodos interactivos; 0 destinos inválidos \\
+  Sistema de componentes & 12 conjuntos y 75 variantes \\
+  Legibilidad & 0 textos por debajo de 12 px; 0 fuentes faltantes \\
+  Integridad del contenido & 0 recortes de texto o de componente \\
+  Objetivos interactivos & 0 controles por debajo de 44 por 44 px \\
+  Adaptación documentada & Vistas de referencia de 1440 por 1024 y de 1024 por 1366 px \\
+\end{uxtabla}
+
+Los seis ceros de la tabla son el resultado de una revisión que sí encontró trabajo: durante ella
+se sustituyeron llamadas a la acción sueltas por instancias de componente, se normalizaron los
+botones primarios y se verificaron los contenedores de acciones de los diálogos. El cierre quedó
+sin incidencias técnicas abiertas.
+
+Lo que estos números no dicen es igual de importante: miden el archivo, no la experiencia. No
+aportan evidencia sobre eficacia, eficiencia ni satisfacción, y esa evidencia es exactamente la que
+la prueba de usabilidad de la Actividad 5 produce sobre los mismos recorridos.

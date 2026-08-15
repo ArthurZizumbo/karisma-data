@@ -156,9 +156,13 @@ Una gráfica con seis series en tonos del mismo azul es ilegible, así que la pa
 
 \texttt{danger}, \texttt{warning}, \texttt{info} y \texttt{success} comunican estado y no pertenencia a una categoría. Una serie de gráfica jamás se pinta con ellos, porque el lector leería un juicio donde solo hay una etiqueta. La regla inversa también aplica: un estado nunca se pinta con un color de serie.
 
-\subsection{Modo oscuro, fuera de alcance y declarado}
+\subsection{Modo oscuro, verificado y declarado}
 
-El sistema entrega una sola paleta. Un modo oscuro mal contrastado resta más de lo que suma, y verificar dos paletas completas con la matriz de 44 pares no cabe en la semana. Queda registrado en la bitácora de la sección 11 como entrada abierta de la versión 1.1, con la condición de entrada explícita: se publica cuando su matriz de contraste esté calculada por el mismo generador y con el mismo umbral, no antes.
+El sistema ya no entrega una sola paleta. Entrega \textbf{dos temas} ---el de omisión, con el que están tomadas las capturas de este documento, y el institucional, derivado del archivo de diseño--- y cada uno con su modo claro y su modo oscuro. La condición de entrada que esta misma subsección fijó ---que la matriz se calcule con el mismo generador que emite el bloque \texttt{@theme} y contra el mismo umbral--- está cumplida, y lo que sigue son sus números. La paleta completa del segundo tema, con la procedencia de cada valor, se publica en la sección \enquote{El tema institucional} de este documento.
+
+Sobre esos cuatro suelos ---ninguno negro puro, por la regla de la sección 3.2: casi negro en el tema de omisión y azul profundo en el institucional--- la matriz devuelve \textbf{cero incumplimientos} en las cuatro combinaciones de tema y modo: ningún token que informa se queda por debajo de su listón y ninguno de los que declaran no informar lo alcanza. La separación de los pares semánticos se mide también por combinación, simulando protanopia, deuteranopia y tritanopia, y el peor par queda en \textbf{13{,}6} y \textbf{21{,}5} para el tema de omisión y en \textbf{14{,}5} y \textbf{22{,}6} para el institucional, en claro y en oscuro. Las seis series conservan su valor en los dos temas y se vuelven a medir sobre cada suelo: las veinticuatro mediciones quedan por encima de 3:1, con un mínimo de \textbf{4{,}64:1}.
+
+Dos precisiones para que el alcance quede escrito y no supuesto. La primera: el modo oscuro alcanza a los tokens que la aplicación consume, y las capturas de este documento se toman en modo claro porque el par de evidencia de la iteración documentada se empareja por nombre de archivo y recapturar en otro modo lo rompería. La segunda: la bitácora de la sección 11 conserva esta entrada con su condición escrita, y lo que aquí se publica es la evidencia de que la condición se cumplió ---una matriz calculada--- y no la afirmación de que se cumplirá.
 
 % ============================================================================
 \section{Componentes gráficos de la interface}

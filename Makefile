@@ -63,13 +63,20 @@ dev: comprobar-env-backend comprobar-env-frontend ## Levanta db, api y web con D
 # escribe credenciales en el esquema no puede quedarse fuera de la puerta de
 # calidad. Los .sh del mismo directorio no los toca ninguna de las dos: ruff y
 # mypy solo miran archivos .py.
-lint: ## ruff y mypy en backend/, eslint y typecheck en frontend/
+#
+# design/ entra desde US-ENTREGA-A4 por el mismo motivo. Es la fuente unica de
+# los 17 tokens de color y de su emisor, y hasta esta US se lintaba solo si
+# alguien lo invocaba a mano: la carpeta de la que sale main.css y
+# tokens.generated.ts estaba fuera de la puerta. Va en la invocacion de mypy que
+# lleva ml y tests/ml, no en la de backend/app, porque design/ no es un paquete
+# del backend y tests/ml es quien lo prueba.
+lint: ## ruff y mypy en backend/, design/ y ml/, eslint y typecheck en frontend/
 	@bash scripts/comprobar_requisitos.sh herramienta poetry
 	@bash scripts/comprobar_requisitos.sh herramienta pnpm
-	poetry -P backend run ruff check --config backend/pyproject.toml backend ml scripts tests
-	poetry -P backend run ruff format --check --config backend/pyproject.toml backend ml scripts tests
+	poetry -P backend run ruff check --config backend/pyproject.toml backend design ml scripts tests
+	poetry -P backend run ruff format --check --config backend/pyproject.toml backend design ml scripts tests
 	poetry -P backend run mypy --config-file backend/pyproject.toml --exclude '^tests/ml/' backend/app scripts tests
-	poetry -P backend run mypy --config-file backend/pyproject.toml ml tests/ml
+	poetry -P backend run mypy --config-file backend/pyproject.toml design ml tests/ml
 	pnpm --dir frontend lint
 	pnpm --dir frontend typecheck
 

@@ -1,4 +1,4 @@
-"""WCAG contrast and dichromacy simulation over the portal's palette.
+"""WCAG contrast and dichromacy simulation over the portal's palettes.
 
 Every number the guide prints and the report reproduces is computed here. None
 of them is typed by hand, which is what makes "verified" mean something: the
@@ -14,6 +14,13 @@ Two families of check:
     question contrast alone cannot: whether two marks that both pass on their
     own are still distinguishable *from each other* by a reader who does not see
     one of the three cone responses.
+
+Every entry point takes a theme as well as a mode, and the ground is resolved
+per combination rather than assumed. That is not bookkeeping: the institutional
+dark ground is a deep blue where the default one is almost black, so a ratio
+measured on one of them says nothing about the other, and an optional theme
+that quietly failed the bar the portal publishes would be worse than no second
+theme at all.
 """
 
 from __future__ import annotations
@@ -22,7 +29,7 @@ import itertools
 from dataclasses import dataclass
 from typing import Final, Literal
 
-from design.sistema import SEMANTICOS, Modo, Token, tokens_de_color
+from design.sistema import SEMANTICOS, Modo, Tema, Token, tokens_de_color
 
 Veredicto = Literal["AAA", "AA", "AA-grande", "grafico", "superficie", "falla"]
 Dicromacia = Literal["protanopia", "deuteranopia", "tritanopia"]
@@ -51,6 +58,7 @@ class Par:
 
     frente: str
     fondo: str
+    tema: Tema
     modo: Modo
     ratio: float
     veredicto: Veredicto
@@ -62,6 +70,7 @@ class Separacion:
 
     uno: str
     otro: str
+    tema: Tema
     modo: Modo
     dicromacia: Dicromacia
     distancia: float
@@ -147,19 +156,27 @@ def distancia(uno: str, otro: str, dicromacia: Dicromacia) -> float:
     return float(sum((x - y) ** 2 for x, y in zip(a, b, strict=True)) ** 0.5)
 
 
-def _suelo(modo: Modo) -> str:
-    """Return the page ground for ``modo``."""
-    return next(t for t in tokens_de_color() if t.nombre == "ground").valor(modo)
+def _suelo(tema: Tema, modo: Modo) -> str:
+    """Return the page ground for ``tema`` in ``modo``.
+
+    Args:
+        tema: Theme whose ground is wanted.
+        modo: Light or dark.
+
+    Returns:
+        The hex value every ratio of that combination is measured against.
+    """
+    return next(t for t in tokens_de_color() if t.nombre == "ground").valor(tema, modo)
 
 
-def matriz(modo: Modo) -> tuple[Par, ...]:
-    """Return every token measured against the ground of ``modo``."""
-    fondo = _suelo(modo)
+def matriz(tema: Tema, modo: Modo) -> tuple[Par, ...]:
+    """Return every token measured against the ground of ``tema`` and ``modo``."""
+    fondo = _suelo(tema, modo)
     pares: list[Par] = []
     for token in tokens_de_color():
         if token.nombre == "ground":
             continue
-        ratio = razon(token.valor(modo), fondo)
+        ratio = razon(token.valor(tema, modo), fondo)
         grado = veredicto(ratio)
         if token.nombre == "ground-alt":
             # A background measured against the background is not a contrast
@@ -169,47 +186,60 @@ def matriz(modo: Modo) -> tuple[Par, ...]:
             grado = "superficie"
         elif not token.informa:
             grado = "grafico"
-        pares.append(Par(token.nombre, "ground", modo, round(ratio, 2), grado))
+        pares.append(Par(token.nombre, "ground", tema, modo, round(ratio, 2), grado))
     return tuple(pares)
 
 
-def separaciones(modo: Modo) -> tuple[Separacion, ...]:
+def separaciones(tema: Tema, modo: Modo) -> tuple[Separacion, ...]:
     """Return the worst dichromatic separation for each semantic pair."""
     salida: list[Separacion] = []
     for uno, otro in itertools.combinations(SEMANTICOS, 2):
         peor: Separacion | None = None
         for dicromacia in _PROYECCION:
-            d = distancia(uno.valor(modo), otro.valor(modo), dicromacia)
+            d = distancia(uno.valor(tema, modo), otro.valor(tema, modo), dicromacia)
             if peor is None or d < peor.distancia:
                 peor = Separacion(
-                    uno.nombre, otro.nombre, modo, dicromacia, round(d, 1)
+                    uno.nombre, otro.nombre, tema, modo, dicromacia, round(d, 1)
                 )
         if peor is not None:
             salida.append(peor)
     return tuple(salida)
 
 
-def incumplimientos(modo: Modo) -> tuple[str, ...]:
-    """Return every rule the palette breaks in ``modo``, as prose.
+def peor_separacion(tema: Tema, modo: Modo) -> float:
+    """Return the worst semantic separation of one theme and mode."""
+    return min(s.distancia for s in separaciones(tema, modo))
 
-    An empty result is the only acceptable one, and it is what the test asserts.
-    A token that declares it does not inform is exempt from the component
-    boundary: that exemption is the whole reason the flag exists.
+
+def incumplimientos(tema: Tema, modo: Modo) -> tuple[str, ...]:
+    """Return every rule the palette breaks in ``tema`` and ``modo``, as prose.
+
+    An empty result is the only acceptable one, and it is what the test asserts
+    for the four combinations. A token that declares it does not inform is
+    exempt from the component boundary: that exemption is the whole reason the
+    flag exists.
+
+    Args:
+        tema: Theme to audit.
+        modo: Light or dark.
+
+    Returns:
+        One Spanish sentence per infringement, empty when there is none.
     """
     fallos: list[str] = []
-    fondo = _suelo(modo)
+    fondo = _suelo(tema, modo)
     for token in tokens_de_color():
         if token.nombre in {"ground", "ground-alt"}:
             continue
-        ratio = razon(token.valor(modo), fondo)
+        ratio = razon(token.valor(tema, modo), fondo)
         if token.informa and ratio < 3.0:
             fallos.append(
-                f"{token.nombre} informa y solo alcanza {ratio:.2f}:1 en {modo}"
+                f"{token.nombre} informa y solo alcanza {ratio:.2f}:1 en {tema} {modo}"
             )
         if not token.informa and ratio >= 3.0:
             fallos.append(
                 f"{token.nombre} declara que no informa y alcanza "
-                f"{ratio:.2f}:1 en {modo}"
+                f"{ratio:.2f}:1 en {tema} {modo}"
             )
     return tuple(fallos)
 

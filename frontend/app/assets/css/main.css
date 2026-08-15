@@ -17,12 +17,18 @@
   --color-ground: #F4F6F9;
   --color-ground-alt: #EAEEF4;
   --color-grid: #DCE2EB;  /* no informa */
+  --color-reticula: #DCE2EB;  /* no informa */
 
   /* Corriente - el estado se lee por luminancia */
   --color-corriente-apagado: #A8B2C1;  /* no informa */
   --color-corriente-tenue: #5F6A7D;
   --color-corriente-medio: #414B5B;
   --color-corriente-pleno: #14171D;
+
+  /* Accion y seleccion - el color con el que el tema actua */
+  --color-accion: #14171D;
+  --color-accion-apoyo: #414B5B;
+  --color-seleccion: #E7EAF0;  /* no informa */
 
   /* Semanticos - color mas forma mas icono, nunca color solo */
   --color-error: #8C1D18;
@@ -110,21 +116,36 @@
   --medida-maxima: 68ch;  /* Caracteres por linea maximos en prosa. Lo medido antes llegaba a 179. */
 }
 
-/* Modo oscuro. Por omision manda el sistema operativo; el lector puede
-   forzarlo con data-theme, y por eso la consulta se excluye a si misma
-   cuando ya hay una eleccion explicita de modo claro. */
+/*
+ * Los dos ejes de la superficie, y por que se llaman asi.
+ *
+ * El MODO viaja en data-modo y el TEMA en data-tema. Por omision el
+ * modo lo decide el sistema operativo; el lector puede forzarlo, y
+ * por eso la consulta se excluye a si misma cuando ya hay una
+ * eleccion explicita de modo claro.
+ *
+ * El orden importa: los bloques de tema van DESPUES de los de modo,
+ * y el par tema mas modo va el ultimo, porque una regla con dos
+ * atributos gana por especificidad y debe poder ganar.
+ */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="claro"]) {
+  :root:not([data-modo="claro"]) {
     /* Suelo y reticula */
     --color-ground: #0A0A0C;
     --color-ground-alt: #131519;
     --color-grid: #1C2028;  /* no informa */
+    --color-reticula: #1C2028;  /* no informa */
 
     /* Corriente - el estado se lee por luminancia */
     --color-corriente-apagado: #4A5361;  /* no informa */
     --color-corriente-tenue: #7A8698;
     --color-corriente-medio: #B4C2D4;
     --color-corriente-pleno: #E8F4FF;
+
+    /* Accion y seleccion - el color con el que el tema actua */
+    --color-accion: #E8F4FF;
+    --color-accion-apoyo: #B4C2D4;
+    --color-seleccion: #181B22;  /* no informa */
 
     /* Semanticos - color mas forma mas icono, nunca color solo */
     --color-error: #FF5A36;
@@ -143,19 +164,65 @@
     --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
     --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
   }
+
+  :root[data-tema="institucional"]:not([data-modo="claro"]) {
+    /* Suelo y reticula */
+    --color-ground: #0B1B2B;
+    --color-ground-alt: #102A43;
+    --color-grid: #1D3348;  /* no informa */
+    --color-reticula: #0B1B2B;  /* no informa */
+
+    /* Corriente - el estado se lee por luminancia */
+    --color-corriente-apagado: #46586B;  /* no informa */
+    --color-corriente-tenue: #93A6BC;
+    --color-corriente-medio: #BFD0E2;
+    --color-corriente-pleno: #EAF2FA;
+
+    /* Accion y seleccion - el color con el que el tema actua */
+    --color-accion: #3FB3B5;
+    --color-accion-apoyo: #5FD0D2;
+    --color-seleccion: #123443;  /* no informa */
+
+    /* Semanticos - color mas forma mas icono, nunca color solo */
+    --color-error: #EC5B51;
+    --color-aviso: #E8A33D;
+    --color-ok: #5FCB94;
+    --color-info: #B9A7F2;
+
+    /* Series categoricas - cada una con su marcador y su patron */
+    --color-serie-1: #7DD3FC;
+    --color-serie-2: #FFC233;
+    --color-serie-3: #4ADE80;
+    --color-serie-4: #C4B5FD;
+    --color-serie-5: #67E8F9;
+    --color-serie-6: #F9A8D4;
+
+    /* Tipografia del tema */
+    --font-display: "Inter", system-ui, sans-serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+
+    --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+    --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
+  }
 }
 
-:root[data-theme="oscuro"] {
+:root[data-modo="oscuro"] {
     /* Suelo y reticula */
     --color-ground: #0A0A0C;
     --color-ground-alt: #131519;
     --color-grid: #1C2028;  /* no informa */
+    --color-reticula: #1C2028;  /* no informa */
 
     /* Corriente - el estado se lee por luminancia */
     --color-corriente-apagado: #4A5361;  /* no informa */
     --color-corriente-tenue: #7A8698;
     --color-corriente-medio: #B4C2D4;
     --color-corriente-pleno: #E8F4FF;
+
+    /* Accion y seleccion - el color con el que el tema actua */
+    --color-accion: #E8F4FF;
+    --color-accion-apoyo: #B4C2D4;
+    --color-seleccion: #181B22;  /* no informa */
 
     /* Semanticos - color mas forma mas icono, nunca color solo */
     --color-error: #FF5A36;
@@ -170,6 +237,84 @@
     --color-serie-4: #C4B5FD;
     --color-serie-5: #67E8F9;
     --color-serie-6: #F9A8D4;
+
+    --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+    --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
+}
+
+:root[data-tema="institucional"] {
+    /* Suelo y reticula */
+    --color-ground: #FFFFFF;
+    --color-ground-alt: #F1F4F8;
+    --color-grid: #DCE3EC;  /* no informa */
+    --color-reticula: #FFFFFF;  /* no informa */
+
+    /* Corriente - el estado se lee por luminancia */
+    --color-corriente-apagado: #A8B4C4;  /* no informa */
+    --color-corriente-tenue: #4A5A6E;
+    --color-corriente-medio: #1D4C6E;
+    --color-corriente-pleno: #102A43;
+
+    /* Accion y seleccion - el color con el que el tema actua */
+    --color-accion: #086B70;
+    --color-accion-apoyo: #15989A;
+    --color-seleccion: #E6F2F1;  /* no informa */
+
+    /* Semanticos - color mas forma mas icono, nunca color solo */
+    --color-error: #933632;
+    --color-aviso: #A36A10;
+    --color-ok: #287A58;
+    --color-info: #17395B;
+
+    /* Series categoricas - cada una con su marcador y su patron */
+    --color-serie-1: #1D4ED8;
+    --color-serie-2: #B45309;
+    --color-serie-3: #1F6F43;
+    --color-serie-4: #6D28D9;
+    --color-serie-5: #0E7490;
+    --color-serie-6: #9D174D;
+
+    /* Tipografia del tema */
+    --font-display: "Inter", system-ui, sans-serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+
+}
+
+:root[data-tema="institucional"][data-modo="oscuro"] {
+    /* Suelo y reticula */
+    --color-ground: #0B1B2B;
+    --color-ground-alt: #102A43;
+    --color-grid: #1D3348;  /* no informa */
+    --color-reticula: #0B1B2B;  /* no informa */
+
+    /* Corriente - el estado se lee por luminancia */
+    --color-corriente-apagado: #46586B;  /* no informa */
+    --color-corriente-tenue: #93A6BC;
+    --color-corriente-medio: #BFD0E2;
+    --color-corriente-pleno: #EAF2FA;
+
+    /* Accion y seleccion - el color con el que el tema actua */
+    --color-accion: #3FB3B5;
+    --color-accion-apoyo: #5FD0D2;
+    --color-seleccion: #123443;  /* no informa */
+
+    /* Semanticos - color mas forma mas icono, nunca color solo */
+    --color-error: #EC5B51;
+    --color-aviso: #E8A33D;
+    --color-ok: #5FCB94;
+    --color-info: #B9A7F2;
+
+    /* Series categoricas - cada una con su marcador y su patron */
+    --color-serie-1: #7DD3FC;
+    --color-serie-2: #FFC233;
+    --color-serie-3: #4ADE80;
+    --color-serie-4: #C4B5FD;
+    --color-serie-5: #67E8F9;
+    --color-serie-6: #F9A8D4;
+
+    /* Tipografia del tema */
+    --font-display: "Inter", system-ui, sans-serif;
+    --font-sans: "Inter", system-ui, sans-serif;
 
     --shadow-menu: 0 4px 12px -2px rgb(0 0 0 / 0.5);
     --shadow-dialogo: 0 16px 40px -12px rgb(0 0 0 / 0.7);
@@ -245,4 +390,6 @@ li:not([class*='max-w']):not(nav li):not(ul[class*='grid'] li) {
    - El peso es un canal de jerarquia: 400 para texto corrido, 500 para etiquetas y cifras, 600 para titulares. Nueve roles con un solo peso no son nueve roles.
    - La prosa no pasa de 68 caracteres por linea.
    - La barra lateral colapsa de verdad por debajo de 768 px. El sistema anterior lo declaraba y no lo implementaba, y dejaba el contenido en 135 px.
+   - El tema cambia color Y familia tipografica, y los dos temas cumplen el mismo liston en los dos modos. Un tema opcional que rebajara el umbral seria una excepcion, no un tema.
+   - La paleta de series no cambia con el tema: es canal de datos, no identidad. Lo que si se vuelve a medir es su razon sobre el suelo de cada tema.
 */

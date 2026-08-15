@@ -3,8 +3,8 @@
 The chain runs one way and starts here:
 
     design/sistema.py
-        -> frontend/app/assets/css/main.css        (@theme plus both modes)
-        -> frontend/app/utils/tokens.generated.ts  (typed palette for /guia)
+        -> frontend/app/assets/css/main.css        (@theme plus modes and themes)
+        -> frontend/app/utils/tokens.generated.ts  (typed palettes for /guia)
 
 ``docs/entregables/estilo/uxdoc.sty`` is not in this chain and is never read or
 written: it styles the course report and is frozen. Its own emitter,
@@ -13,6 +13,14 @@ written: it styles the course report and is frozen. Its own emitter,
 
 Nothing here holds a colour literal. Every hex comes from ``design.sistema``, so
 the rule that no colour is written by hand is a test and not a convention.
+
+**Two axes, two attributes, and the order between them is load bearing.** The
+mode travels in ``data-modo`` and the theme in ``data-tema``. Until this
+version the mode travelled in ``data-theme``, a name that says theme and
+carries mode: introducing a real theme while that name stayed occupied would
+have guaranteed the confusion, so the attribute was renamed. The blocks are
+emitted mode first, theme second and the theme-and-mode pair last, because a
+rule with two attributes wins on specificity and has to be able to win.
 """
 
 from __future__ import annotations
@@ -23,12 +31,13 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Final
 
-from design.contraste import matriz, separaciones
+from design.contraste import matriz, peor_separacion, separaciones
 from design.sistema import (
+    ACCION,
     CORRIENTE,
     DENSIDAD,
     ESPACIADO_BASE_PX,
-    FAMILIAS,
+    FAMILIAS_POR_TEMA,
     FECHA,
     QUIEBRES,
     RADIOS,
@@ -37,9 +46,12 @@ from design.sistema import (
     SERIES,
     SOMBRAS,
     SUPERFICIE,
+    TEMA_OMISION,
+    TEMAS,
     TIPOGRAFIA,
     VERSION,
     Modo,
+    Tema,
     Token,
     tokens_de_color,
 )
@@ -71,12 +83,13 @@ def _cabecera(marca_comentario: str) -> list[str]:
     ]
 
 
-def _bloque_color(modo: Modo, sangria: str) -> list[str]:
-    """Return every colour custom property for ``modo``."""
+def _bloque_color(tema: Tema, modo: Modo, sangria: str) -> list[str]:
+    """Return every colour custom property for ``tema`` in ``modo``."""
     lineas: list[str] = []
     grupos: tuple[tuple[str, tuple[Token, ...]], ...] = (
         ("Suelo y reticula", SUPERFICIE),
         ("Corriente - el estado se lee por luminancia", CORRIENTE),
+        ("Accion y seleccion - el color con el que el tema actua", ACCION),
         ("Semanticos - color mas forma mas icono, nunca color solo", SEMANTICOS),
         ("Series categoricas - cada una con su marcador y su patron", SERIES),
     )
@@ -85,20 +98,45 @@ def _bloque_color(modo: Modo, sangria: str) -> list[str]:
         for token in grupo:
             nota = "" if token.informa else "  /* no informa */"
             lineas.append(
-                f"{sangria}--color-{token.nombre}: {token.valor(modo)};{nota}"
+                f"{sangria}--color-{token.nombre}: {token.valor(tema, modo)};{nota}"
             )
         lineas.append("")
     return lineas
 
 
+def _bloque_familias(tema: Tema, sangria: str) -> list[str]:
+    """Return the type families ``tema`` changes with respect to the default.
+
+    A theme that shipped the same stack as the default one would emit nothing,
+    which is the honest outcome: the axis is colour *and* family, and only the
+    roles that actually move are overridden.
+
+    Args:
+        tema: Theme being emitted.
+        sangria: Indentation of the enclosing block.
+
+    Returns:
+        One declaration per family that differs, empty when none does.
+    """
+    omision = FAMILIAS_POR_TEMA[TEMA_OMISION]
+    lineas: list[str] = []
+    for familia, pila in FAMILIAS_POR_TEMA[tema].items():
+        if pila != omision[familia]:
+            lineas.append(f"{sangria}--font-{familia}: {pila};")
+    if lineas:
+        lineas.insert(0, f"{sangria}/* Tipografia del tema */")
+        lineas.append("")
+    return lineas
+
+
 def emitir_css() -> str:
-    """Return the full stylesheet: the theme plus both mode overrides."""
+    """Return the full stylesheet: the theme block plus modes and themes."""
     out = _cabecera("css")
     out += ['@import "tailwindcss";', "", "@theme {"]
-    out += _bloque_color("claro", "  ")
+    out += _bloque_color(TEMA_OMISION, "claro", "  ")
     out.append("")
     out.append("  /* Tipografia - el peso es un canal de jerarquia, no decoracion */")
-    for familia, pila in FAMILIAS.items():
+    for familia, pila in FAMILIAS_POR_TEMA[TEMA_OMISION].items():
         out.append(f"  --font-{familia}: {pila};")
     out.append("")
     for rol in TIPOGRAFIA:
@@ -126,27 +164,51 @@ def emitir_css() -> str:
     out.append("}")
     out.append("")
 
-    oscuro = _bloque_color("oscuro", "    ")
     sombras_oscuras = [f"    --shadow-{n}: {o};" for n, _c, o, _u in SOMBRAS]
+    opcionales = tuple(t for t in TEMAS if t != TEMA_OMISION)
 
-    out.append(
-        "/* Modo oscuro. Por omision manda el sistema operativo; el lector puede"
-    )
-    out.append(
-        "   forzarlo con data-theme, y por eso la consulta se excluye a si misma"
-    )
-    out.append("   cuando ya hay una eleccion explicita de modo claro. */")
+    out.append("/*")
+    out.append(" * Los dos ejes de la superficie, y por que se llaman asi.")
+    out.append(" *")
+    out.append(" * El MODO viaja en data-modo y el TEMA en data-tema. Por omision el")
+    out.append(" * modo lo decide el sistema operativo; el lector puede forzarlo, y")
+    out.append(" * por eso la consulta se excluye a si misma cuando ya hay una")
+    out.append(" * eleccion explicita de modo claro.")
+    out.append(" *")
+    out.append(" * El orden importa: los bloques de tema van DESPUES de los de modo,")
+    out.append(" * y el par tema mas modo va el ultimo, porque una regla con dos")
+    out.append(" * atributos gana por especificidad y debe poder ganar.")
+    out.append(" */")
     out.append("@media (prefers-color-scheme: dark) {")
-    out.append('  :root:not([data-theme="claro"]) {')
-    out += oscuro
+    out.append('  :root:not([data-modo="claro"]) {')
+    out += _bloque_color(TEMA_OMISION, "oscuro", "    ")
     out += sombras_oscuras
     out.append("  }")
+    for tema in opcionales:
+        out.append("")
+        out.append(f'  :root[data-tema="{tema}"]:not([data-modo="claro"]) {{')
+        out += _bloque_color(tema, "oscuro", "    ")
+        out += _bloque_familias(tema, "    ")
+        out += sombras_oscuras
+        out.append("  }")
     out.append("}")
     out.append("")
-    out.append(':root[data-theme="oscuro"] {')
-    out += oscuro
+    out.append(':root[data-modo="oscuro"] {')
+    out += _bloque_color(TEMA_OMISION, "oscuro", "    ")
     out += sombras_oscuras
     out.append("}")
+    for tema in opcionales:
+        out.append("")
+        out.append(f':root[data-tema="{tema}"] {{')
+        out += _bloque_color(tema, "claro", "    ")
+        out += _bloque_familias(tema, "    ")
+        out.append("}")
+        out.append("")
+        out.append(f':root[data-tema="{tema}"][data-modo="oscuro"] {{')
+        out += _bloque_color(tema, "oscuro", "    ")
+        out += _bloque_familias(tema, "    ")
+        out += sombras_oscuras
+        out.append("}")
     out.append("")
     out.append("/*")
     out.append(" * Desplazamiento al saltar a un ancla.")
@@ -232,16 +294,25 @@ def emitir_css() -> str:
 
 def _ts_token(token: Token, sangria: str) -> list[str]:
     """Return one typed token literal."""
-    return [
+    lineas = [
         f"{sangria}{{",
         f"{sangria}  nombre: '{token.nombre}',",
-        f"{sangria}  claro: '{token.valor('claro')}',",
-        f"{sangria}  oscuro: '{token.valor('oscuro')}',",
+        f"{sangria}  claro: '{token.valor(TEMA_OMISION, 'claro')}',",
+        f"{sangria}  oscuro: '{token.valor(TEMA_OMISION, 'oscuro')}',",
         f"{sangria}  clase: 'bg-{token.nombre}',",
         f"{sangria}  informa: {'true' if token.informa else 'false'},",
         f"{sangria}  uso: {_cadena(token.uso)},",
-        f"{sangria}}},",
+        f"{sangria}  temas: {{",
     ]
+    for tema in TEMAS:
+        paleta = token.paleta(tema)
+        lineas.append(
+            f"{sangria}    {tema}: {{ claro: '{paleta.claro}', "
+            f"oscuro: '{paleta.oscuro}' }},"
+        )
+    lineas.append(f"{sangria}  }},")
+    lineas.append(f"{sangria}}},")
+    return lineas
 
 
 def _cadena(texto: str) -> str:
@@ -250,17 +321,29 @@ def _cadena(texto: str) -> str:
 
 
 def emitir_ts() -> str:
-    """Return the typed palette the guide reads instead of typing hex values."""
+    """Return the typed palettes the guide reads instead of typing hex values."""
     out = _cabecera("ts")
     out += [
         "",
+        "export type TemaSistema = " + " | ".join(f"'{tema}'" for tema in TEMAS),
+        "",
+        "export type ModoSistema = 'claro' | 'oscuro'",
+        "",
+        "export interface PaletaTema {",
+        "  readonly claro: string",
+        "  readonly oscuro: string",
+        "}",
+        "",
         "export interface TokenColor {",
         "  readonly nombre: string",
+        "  /** Valor del TEMA DE OMISION, que es el que sostiene las capturas. */",
         "  readonly claro: string",
         "  readonly oscuro: string",
         "  readonly clase: string",
         "  readonly informa: boolean",
         "  readonly uso: string",
+        "  /** El mismo token en cada tema, para la lamina comparativa. */",
+        "  readonly temas: Readonly<Record<TemaSistema, PaletaTema>>",
         "}",
         "",
         "export interface RolTipografico {",
@@ -275,10 +358,31 @@ def emitir_ts() -> str:
         f"export const VERSION_SISTEMA = '{VERSION}'",
         f"export const FECHA_SISTEMA = '{FECHA}'",
         "",
+        "export const TEMAS: readonly TemaSistema[] = ["
+        + ", ".join(f"'{tema}'" for tema in TEMAS)
+        + "]",
+        f"export const TEMA_OMISION: TemaSistema = '{TEMA_OMISION}'",
+        "",
+        "/**",
+        " * La familia tipografica es parte del eje del tema, no un interruptor",
+        " * aparte: el tema de omision conserva Lexend Deca y Fira Sans y el",
+        " * institucional usa Inter, que es lo que declara el archivo de diseno.",
+        " */",
+        "export const FAMILIAS_POR_TEMA: Readonly<",
+        "  Record<TemaSistema, Readonly<Record<string, string>>>",
+        "> = {",
     ]
+    for tema in TEMAS:
+        out.append(f"  {tema}: {{")
+        for familia, pila in FAMILIAS_POR_TEMA[tema].items():
+            out.append(f"    {familia}: {_cadena(pila)},")
+        out.append("  },")
+    out.append("}")
+    out.append("")
     for nombre, grupo in (
         ("SUPERFICIE", SUPERFICIE),
         ("CORRIENTE", CORRIENTE),
+        ("ACCION", ACCION),
         ("SEMANTICOS", SEMANTICOS),
         ("SERIES", SERIES),
     ):
@@ -309,7 +413,8 @@ def emitir_ts() -> str:
     out += [
         "export interface ParContraste {",
         "  readonly token: string",
-        "  readonly modo: 'claro' | 'oscuro'",
+        "  readonly tema: TemaSistema",
+        "  readonly modo: ModoSistema",
         "  readonly ratio: number",
         "  readonly veredicto: string",
         "}",
@@ -317,32 +422,56 @@ def emitir_ts() -> str:
         "export interface SeparacionSemantica {",
         "  readonly uno: string",
         "  readonly otro: string",
-        "  readonly modo: 'claro' | 'oscuro'",
+        "  readonly tema: TemaSistema",
+        "  readonly modo: ModoSistema",
         "  readonly dicromacia: string",
         "  readonly distancia: number",
         "}",
         "",
-        "export const CONTRASTES: readonly ParContraste[] = [",
+        "/**",
+        " * La matriz completa: cada token sobre el suelo de SU tema y su modo.",
+        " *",
+        " * El suelo no es el mismo en los dos temas, ni siquiera dentro del",
+        " * mismo modo, asi que una razon medida en uno no dice nada del otro.",
+        " */",
+        "export const CONTRASTES_POR_TEMA: readonly ParContraste[] = [",
     ]
-    for modo in MODOS:
-        for par in matriz(modo):
-            out.append(
-                f"  {{ token: '{par.frente}', modo: '{modo}', "
-                f"ratio: {par.ratio}, veredicto: '{par.veredicto}' }},"
-            )
+    for tema in TEMAS:
+        for modo in MODOS:
+            for par in matriz(tema, modo):
+                out.append(
+                    f"  {{ token: '{par.frente}', tema: '{tema}', modo: '{modo}', "
+                    f"ratio: {par.ratio}, veredicto: '{par.veredicto}' }},"
+                )
     out.append("]")
     out.append("")
-    out.append("export const SEPARACIONES: readonly SeparacionSemantica[] = [")
-    for modo in MODOS:
-        for s in separaciones(modo):
-            out.append(
-                f"  {{ uno: '{s.uno}', otro: '{s.otro}', modo: '{modo}', "
-                f"dicromacia: '{s.dicromacia}', distancia: {s.distancia} }},"
-            )
+    out.append("/** La matriz del tema de omision, que es la que publica el PDF. */")
+    out.append(
+        "export const CONTRASTES: readonly ParContraste[] = CONTRASTES_POR_TEMA.filter("
+    )
+    out.append(f"  (par) => par.tema === '{TEMA_OMISION}',")
+    out.append(")")
+    out.append("")
+    out.append("export const SEPARACIONES_POR_TEMA: readonly SeparacionSemantica[] = [")
+    for tema in TEMAS:
+        for modo in MODOS:
+            for s in separaciones(tema, modo):
+                out.append(
+                    f"  {{ uno: '{s.uno}', otro: '{s.otro}', tema: '{tema}', "
+                    f"modo: '{modo}', dicromacia: '{s.dicromacia}', "
+                    f"distancia: {s.distancia} }},"
+                )
     out.append("]")
+    out.append("")
+    out.append(
+        "export const SEPARACIONES: readonly SeparacionSemantica[] = "
+        "SEPARACIONES_POR_TEMA.filter("
+    )
+    out.append(f"  (s) => s.tema === '{TEMA_OMISION}',")
+    out.append(")")
     out.append("")
     out.append("/**")
-    out.append(" * Peor separacion semantica por modo, DERIVADA del calculo.")
+    out.append(" * Peor separacion semantica por tema y modo, DERIVADA del calculo.")
     out.append(" *")
     out.append(" * Estuvo escrita a mano y se desincronizo del computo: declaraba 13.4")
     out.append(
@@ -352,15 +481,23 @@ def emitir_ts() -> str:
         " * existe para impedir. Una prueba lo detecto y ahora no puede repetirse."
     )
     out.append(" */")
-    out.append("export const PEOR_SEPARACION = {")
-    for modo in MODOS:
-        peor = min(s.distancia for s in separaciones(modo))
-        out.append(f"  {modo}: {peor},")
+    out.append("export const PEOR_SEPARACION_POR_TEMA = {")
+    for tema in TEMAS:
+        out.append(f"  {tema}: {{")
+        for modo in MODOS:
+            out.append(f"    {modo}: {peor_separacion(tema, modo)},")
+        out.append("  },")
     out.append("} as const")
+    out.append("")
+    out.append("/** La del tema de omision, que es la que el informe reproduce. */")
+    out.append(
+        f"export const PEOR_SEPARACION = PEOR_SEPARACION_POR_TEMA.{TEMA_OMISION}"
+    )
     out.append("")
     out.append("export const TOKENS: readonly TokenColor[] = [")
     out.append("  ...SUPERFICIE,")
     out.append("  ...CORRIENTE,")
+    out.append("  ...ACCION,")
     out.append("  ...SEMANTICOS,")
     out.append("  ...SERIES,")
     out.append("]")
@@ -425,7 +562,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"escrito: {ruta.relative_to(RAIZ)}")
 
     if args.verificar and not difiere:
-        print(f"tokens verificados: {len(tokens_de_color())} colores, 2 modos")
+        print(
+            f"tokens verificados: {len(tokens_de_color())} colores, "
+            f"{len(TEMAS)} temas, {len(MODOS)} modos"
+        )
     return 1 if difiere else 0
 
 

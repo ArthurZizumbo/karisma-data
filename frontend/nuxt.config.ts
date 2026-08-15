@@ -58,17 +58,28 @@ export default defineNuxtConfig({
   },
 
   /**
-   * The two families declared in the @theme block of main.css were tokens with
-   * nothing behind them: no @font-face, no link tag, so every screen fell back
-   * to the system sans-serif and the A4 screenshots would not match the PDF.
+   * The families declared in main.css were tokens with nothing behind them: no
+   * @font-face, no link tag, so every screen fell back to the system sans-serif
+   * and the A4 screenshots would not match the PDF.
+   *
    * The module downloads them at build time and serves them from this origin,
    * which also keeps the Playwright captures deterministic: a remote font
    * introduces a flash of unstyled text that changes between runs.
+   *
+   * Inter is the third because the theme axis is colour AND type family: it is
+   * what design/sistema.py serves under `data-tema="institucional"`, and a
+   * theme whose face never downloaded would render in the other theme's letter.
    */
   fonts: {
     families: [
       { name: 'Lexend Deca', provider: 'google' },
       { name: 'Fira Sans', provider: 'google' },
+      { name: 'Inter', provider: 'google' },
+      // IBM Plex Mono la declara FAMILIAS_POR_TEMA para el rol `dato` en los dos
+      // temas: es el ancho fijo de las cifras y no cambia con la identidad. Se
+      // lista aqui por lo mismo que las otras tres, para no depender de que la
+      // deteccion automatica del modulo la encuentre en el CSS generado.
+      { name: 'IBM Plex Mono', provider: 'google' },
     ],
   },
 

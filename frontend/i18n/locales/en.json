@@ -52,6 +52,38 @@
     "switchTo": "View the interface in {language}",
     "current": "Interface in {language}"
   },
+  "theme": {
+    "groupLabel": "Visual theme",
+    "current": "{theme} theme, in use",
+    "switchTo": "View the portal in the {theme} theme",
+    "names": {
+      "corriente": "Current diagram",
+      "institucional": "Institutional blue"
+    }
+  },
+  "roleSwitch": {
+    "groupLabel": "Demonstration profile",
+    "current": "Signed in as {profile}",
+    "enterAs": "Open a demonstration session as {profile}",
+    "failed": "That profile could not be opened. Try again.",
+    "credentials": {
+      "heading": "Enter with a username and password"
+    },
+    "opens": {
+      "operativo": "Opens the operations home, with the search of the shift",
+      "analista": "Opens the analyst home, with exploration and exports",
+      "directivo": "Opens the executive home, with the indicators and their projections",
+      "admin": "Opens the administration of users, roles and permissions"
+    },
+    "index": {
+      "notice": "Each card opens its screen with a demonstration session of the profile beside it. The profile can be changed from the header at any time, and with it what every screen shows."
+    },
+    "bounce": {
+      "notice": "{screen} requires an open session. Pick a profile and you land right there.",
+      "noticeGeneric": "That screen requires an open session. Pick a profile to enter.",
+      "diverted": "You signed in as {current} and {screen} requires the {required} profile. Your session is already open."
+    }
+  },
   "nav": {
     "aria": {
       "main": "Main navigation",
@@ -160,7 +192,7 @@
       }
     },
     "explore": {
-      "description": "Will hold the subject catalog and the faceted filter query over the sources of the portal.",
+      "description": "Thematic catalog of the portal fields: keyword search over the seeded sources, with the match count of every domain.",
       "capability": {
         "catalog": "Thematic catalogue of sources",
         "facets": "Query with faceted filters",
@@ -244,6 +276,7 @@
       "group": {
         "surface": "Ground and grid",
         "current": "Current",
+        "action": "Action and selection",
         "semantic": "Semantic",
         "series": "Chart series"
       },
@@ -893,6 +926,50 @@
         "count": "Count",
         "max": "Maximum",
         "min": "Minimum"
+      }
+    },
+    "explore": {
+      "search": {
+        "label": "Search the catalog",
+        "placeholder": "balance, limit, counterparty",
+        "action": "Search",
+        "busy": "Searching",
+        "hint": "Type at least {min} characters. The query leaves when the form is submitted, not on every keystroke."
+      },
+      "domains": {
+        "title": "Domains",
+        "all": "All domains",
+        "hint": "The counts cover every match, not the fields on screen.",
+        "empty": "Domains appear as soon as a search returns fields."
+      },
+      "results": {
+        "title": "Catalog fields",
+        "shown": "Showing {shown} of {total} matching fields.",
+        "capped": "The catalog returns up to {limit} fields per search. Narrow by domain or sharpen the term to reach the rest.",
+        "source": "Source",
+        "owner": "Steward"
+      },
+      "state": {
+        "initial": {
+          "title": "Start with a search",
+          "body": "The catalog asks the server for nothing until you type a term, so this screen opens without requesting any field."
+        },
+        "loading": "Searching the catalog for fields.",
+        "empty": {
+          "title": "No field matches the search",
+          "body": "The search reached the catalog and found no field carrying that term, not even among the registered synonyms.",
+          "advice": "Try the business name instead of the physical one, or clear the domain filter to search the whole catalog."
+        },
+        "error": {
+          "title": "The search could not be completed",
+          "body": "The term you typed is still in the box: retry without typing it again.",
+          "retry": "Retry the search"
+        }
+      },
+      "actions": {
+        "title": "Take the result to",
+        "hint": "The catalog is the entrance of the module; these screens carry on the work with the fields you found.",
+        "locked": "These next steps require the {profile} profile; the catalog above does not."
       }
     }
   },

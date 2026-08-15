@@ -2,6 +2,8 @@
 import { useI18n } from 'vue-i18n'
 import SelectorIdioma from '~/components/comun/SelectorIdioma.vue'
 import SelectorModo from '~/components/comun/SelectorModo.vue'
+import SelectorRol from '~/components/comun/SelectorRol.vue'
+import SelectorTema from '~/components/comun/SelectorTema.vue'
 import { ANILLO_FOCO } from '~/utils/foco'
 import { RUTA_INDICE } from '~/utils/navegacion'
 
@@ -18,6 +20,11 @@ import { RUTA_INDICE } from '~/utils/navegacion'
  *
  * The environment chip is ink and not the muted neutral: over `surface-alt`
  * the muted neutral measures 4.27:1, below the 4.5:1 that normal text needs.
+ *
+ * The four controls follow the order in which they are asked for: who is
+ * signed in first, then what the portal looks like -theme, mode- and last the
+ * language, which is the one nobody changes twice. That order is also the tab
+ * order, because the group is a row of buttons and nothing reorders it.
  */
 withDefaults(defineProps<{
   /** The portal names the product in its sidebar, so its header omits it. */
@@ -45,6 +52,8 @@ const entorno = useRuntimeConfig().public.entorno
     </NuxtLink>
 
     <div class="flex items-center gap-2">
+      <SelectorRol />
+      <SelectorTema />
       <SelectorModo />
       <SelectorIdioma />
       <span

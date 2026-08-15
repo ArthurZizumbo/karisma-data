@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import CabeceraPantalla from '~/components/comun/CabeceraPantalla.vue'
 import BotonPrototipo from '~/components/nav/BotonPrototipo.vue'
 import { usePermisos } from '~/composables/usePermisos'
+import { useRolDemo } from '~/composables/useRolDemo'
 import { ANILLO_FOCO } from '~/utils/foco'
 import { PROTOTIPOS, RUTA_ACCESO, RUTA_GUIA, RUTA_INDICE } from '~/utils/navegacion'
 
@@ -17,6 +18,16 @@ const { t } = useI18n()
  * moment there is a session.
  */
 const { rol } = usePermisos()
+
+/**
+ * With the demonstration door open the rule is a different one.
+ *
+ * Each card opens its screen with the profile it names, so nothing bounces and
+ * the sentence about entering first would be false. What the reader needs to
+ * know instead is that the profile is what changes what a screen shows, and
+ * that it is changed from the header at any time.
+ */
+const { disponible: demoDisponible } = useRolDemo()
 </script>
 
 <template>
@@ -27,7 +38,15 @@ const { rol } = usePermisos()
     />
 
     <p
-      v-if="rol === null"
+      v-if="demoDisponible"
+      data-orientacion
+      class="flex max-w-(--medida-maxima) flex-wrap items-center gap-x-3 gap-y-1 border-l-2 border-info pl-5 text-cuerpo text-corriente-medio"
+    >
+      {{ t('roleSwitch.index.notice') }}
+    </p>
+
+    <p
+      v-else-if="rol === null"
       data-aviso-sesion
       class="flex max-w-(--medida-maxima) flex-wrap items-center gap-x-3 gap-y-1 border-l-2 border-aviso pl-5 text-cuerpo text-corriente-medio"
     >

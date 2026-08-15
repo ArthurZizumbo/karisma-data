@@ -1,6 +1,6 @@
 import { usePermisos } from '~/composables/usePermisos'
 import { useSesion } from '~/composables/useSesion'
-import { decidirGuarda, esRutaPublica } from '~/utils/guarda'
+import { decidirGuarda, esRutaPublica, PARAMETRO_DESTINO } from '~/utils/guarda'
 
 /**
  * Global session guard. The only global middleware of the project.
@@ -69,10 +69,18 @@ export default defineNuxtRouteMiddleware(async (to) => {
       olvidarExpiracion()
 
       // On the server this is a real 302, so the browser never receives the
-      // HTML of a route it may not open.
+      // HTML of a route it may not open. The requested route travels with it:
+      // a bounce that forgets where the reader was going can only return them
+      // to a generic landing screen, which is how a prototype gets read as one
+      // that does not open.
       return navigateTo({
         path: decision.destino,
-        query: decision.motivo === undefined ? {} : { motivo: decision.motivo },
+        query: {
+          ...(decision.rutaPedida === undefined
+            ? {}
+            : { [PARAMETRO_DESTINO]: decision.rutaPedida }),
+          motivo: decision.motivo,
+        },
       })
 
     case 'sin-permiso': {

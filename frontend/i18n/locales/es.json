@@ -52,6 +52,38 @@
     "switchTo": "Ver la interfaz en {language}",
     "current": "Interfaz en {language}"
   },
+  "theme": {
+    "groupLabel": "Tema visual",
+    "current": "Tema {theme}, en uso",
+    "switchTo": "Ver el portal con el tema {theme}",
+    "names": {
+      "corriente": "Diagrama de corriente",
+      "institucional": "Azul institucional"
+    }
+  },
+  "roleSwitch": {
+    "groupLabel": "Perfil de demostración",
+    "current": "Sesión abierta como {profile}",
+    "enterAs": "Abrir sesión de demostración como {profile}",
+    "failed": "No se pudo abrir la sesión de ese perfil. Inténtalo de nuevo.",
+    "credentials": {
+      "heading": "Entrar con usuario y contraseña"
+    },
+    "opens": {
+      "operativo": "Abre el inicio operativo, con el buscador del turno",
+      "analista": "Abre el inicio del analista, con exploración y exportaciones",
+      "directivo": "Abre el inicio directivo, con los indicadores y sus proyecciones",
+      "admin": "Abre la administración de usuarios, roles y permisos"
+    },
+    "index": {
+      "notice": "Cada tarjeta abre su pantalla con una sesión de demostración del perfil que la acompaña. El perfil se cambia cuando quieras desde la cabecera, y con él cambia lo que cada pantalla muestra."
+    },
+    "bounce": {
+      "notice": "{screen} pide una sesión abierta. Elige un perfil y te devolvemos ahí mismo.",
+      "noticeGeneric": "Esa pantalla pide una sesión abierta. Elige un perfil para entrar.",
+      "diverted": "Entraste como {current} y {screen} pide el perfil {required}. Tu sesión ya está abierta."
+    }
+  },
   "nav": {
     "aria": {
       "main": "Navegación principal",
@@ -160,7 +192,7 @@
       }
     },
     "explore": {
-      "description": "Contendrá el catálogo temático y la consulta con filtros facetados sobre las fuentes del portal.",
+      "description": "Catálogo temático de los campos del portal: búsqueda por palabra clave sobre las fuentes sembradas, con el conteo de coincidencias por dominio.",
       "capability": {
         "catalog": "Catalogo tematico de fuentes",
         "facets": "Consulta con filtros facetados",
@@ -244,6 +276,7 @@
       "group": {
         "surface": "Suelo y retícula",
         "current": "Corriente",
+        "action": "Acción y selección",
         "semantic": "Semánticos",
         "series": "Series de gráfica"
       },
@@ -893,6 +926,50 @@
         "count": "Conteo",
         "max": "Máximo",
         "min": "Mínimo"
+      }
+    },
+    "explore": {
+      "search": {
+        "label": "Buscar en el catálogo",
+        "placeholder": "saldo, límite, contraparte",
+        "action": "Buscar",
+        "busy": "Buscando",
+        "hint": "Escribe al menos {min} caracteres. La consulta sale al enviar el formulario, no con cada tecla."
+      },
+      "domains": {
+        "title": "Dominios",
+        "all": "Todos los dominios",
+        "hint": "Los conteos son del total de coincidencias, no de los campos visibles.",
+        "empty": "Los dominios aparecen en cuanto una búsqueda devuelve campos."
+      },
+      "results": {
+        "title": "Campos del catálogo",
+        "shown": "Se muestran {shown} de {total} campos que coinciden.",
+        "capped": "El catálogo entrega hasta {limit} campos por búsqueda. Acota por dominio o afina el término para alcanzar el resto.",
+        "source": "Fuente",
+        "owner": "Responsable"
+      },
+      "state": {
+        "initial": {
+          "title": "Empieza por una búsqueda",
+          "body": "El catálogo no consulta nada hasta que escribes un término, así que esta pantalla abre sin pedirle campos al servidor."
+        },
+        "loading": "Buscando campos en el catálogo.",
+        "empty": {
+          "title": "Ningún campo coincide con la búsqueda",
+          "body": "La búsqueda llegó al catálogo y no encontró ningún campo con ese término, ni siquiera entre los sinónimos registrados.",
+          "advice": "Prueba con el nombre de negocio en lugar del nombre físico, o quita el filtro de dominio para buscar en todo el catálogo."
+        },
+        "error": {
+          "title": "La búsqueda no se pudo completar",
+          "body": "El término que escribiste sigue en el buscador: reintenta sin volver a teclearlo.",
+          "retry": "Reintentar la búsqueda"
+        }
+      },
+      "actions": {
+        "title": "Llevar el resultado a",
+        "hint": "El catálogo es la entrada del módulo; estas pantallas continúan el trabajo con los campos que encontraste.",
+        "locked": "Estas continuaciones piden el perfil {profile}; el catálogo de arriba no lo pide."
       }
     }
   },

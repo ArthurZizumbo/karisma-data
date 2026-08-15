@@ -1,6 +1,6 @@
 import type { ContextoGuarda, DecisionGuarda } from '~/types/guarda'
 import type { RolUsuario } from '~/types/sesion'
-import { RUTA_ACCESO, RUTA_GUIA, RUTA_INDICE } from '~/utils/navegacion'
+import { RUTA_ACCESO, RUTA_GUIA, RUTA_INDICE, RUTAS_CONTRATO } from '~/utils/navegacion'
 import { ROLES_EN_ORDEN } from '~/utils/permisos.generated'
 import { MOTIVO_EXPIRADA } from '~/utils/sesion'
 
@@ -65,6 +65,47 @@ export function esRutaPublica(ruta: string): boolean {
 }
 
 /**
+ * Query parameter that carries the route the reader was trying to open.
+ *
+ * Declared here because the guard writes it and the entry screen reads it: two
+ * literals would let the bounce send a name the screen does not recognise, and
+ * the reader would be returned to their landing screen instead of to what they
+ * asked for.
+ */
+export const PARAMETRO_DESTINO = 'destino'
+
+/**
+ * Query value that asks the entry screen to explain that a session is needed.
+ *
+ * It is not the same as an expiry and it is not decoration: without it the
+ * bounce is mute, and an evaluator who opens a prototype from the index reads
+ * the entry screen as a broken link rather than as a door.
+ */
+export const MOTIVO_SESION_REQUERIDA = 'sesion-requerida'
+
+/**
+ * Validates a route that arrived through the query string.
+ *
+ * The allowlist is `RUTAS_CONTRATO` itself, so nothing outside the A3 map can
+ * be returned to: accepting an arbitrary value here would be an open redirect
+ * driven by a link anybody can write. The entry screen is rejected too, because
+ * returning to it after entering is a loop.
+ *
+ * @param valor - Raw query value, which may be absent or repeated.
+ * @returns The bare contract route, or null when it is not one.
+ */
+export function destinoDeRetorno(valor: unknown): string | null {
+  if (typeof valor !== 'string' || valor === '') {
+    return null
+  }
+  const ruta = normalizar(valor)
+  if (ruta === RUTA_ACCESO || !RUTAS_CONTRATO.includes(ruta)) {
+    return null
+  }
+  return ruta
+}
+
+/**
  * Reports whether a role covers the scope a route demands.
  *
  * Exported because the middleware is not the only caller: `usePermisos()`
@@ -91,9 +132,9 @@ export function rolAlcanza(rol: RolUsuario | null, scope: RolUsuario | null): bo
  *
  * The five rules apply in this order and admit no exception: a public route is
  * allowed; an absent session redirects to the entry screen, telling an expiry
- * from a first visit; a session that covers the scope is allowed; and a session
- * that does not produces the designed "no permission" state in place, without
- * changing the URL.
+ * from a first visit and carrying the route that was asked for; a session that
+ * covers the scope is allowed; and a session that does not produces the
+ * designed "no permission" state in place, without changing the URL.
  *
  * @param contexto - Route, resolved session and the scope the route demands.
  * @returns Allow, redirect to the entry screen, or render the "no permission"
@@ -105,9 +146,16 @@ export function decidirGuarda(contexto: ContextoGuarda): DecisionGuarda {
   }
 
   if (contexto.sesion === null) {
-    return contexto.habiaSesion
-      ? { tipo: 'redirigir', destino: RUTA_ACCESO, motivo: MOTIVO_EXPIRADA }
-      : { tipo: 'redirigir', destino: RUTA_ACCESO }
+    // The requested route travels back with the bounce so the entry screen can
+    // return the reader to it. It is validated here and not there: a screen
+    // that trusts its own query string is one link away from an open redirect.
+    const rutaPedida = destinoDeRetorno(contexto.ruta)
+    return {
+      tipo: 'redirigir',
+      destino: RUTA_ACCESO,
+      motivo: contexto.habiaSesion ? MOTIVO_EXPIRADA : MOTIVO_SESION_REQUERIDA,
+      ...(rutaPedida === null ? {} : { rutaPedida }),
+    }
   }
 
   // Destructured so that the last branch narrows to a real role instead of

@@ -35,12 +35,18 @@ describe('índice de prototipos en /', () => {
     }
   })
 
-  it('declara los siete botones como navegables sin datos al cerrar US-001', () => {
+  // The defect: the index paints `data-alcance` from a literal of its own instead
+  // of reading `PROTOTIPOS`, so a scope corrected in the contract keeps being
+  // advertised with its old value on the one surface an evaluator lands on first.
+  // The previous form of this test pinned the seven US-001 values instead, which
+  // turned a contract check into a snapshot of a moment: it went red when US
+  // ENTREGA-A4 corrected six scopes in `navegacion.ts`, with nothing broken.
+  it('publica en cada botón el alcance que declara el contrato', () => {
     const alcances = montarIndice()
       .findAll('[data-prototipo]')
       .map(boton => boton.attributes('data-alcance'))
 
-    expect(alcances).toEqual(Array.from({ length: 7 }, () => 'navegable-sin-datos'))
+    expect(alcances).toEqual(PROTOTIPOS.map(prototipo => prototipo.alcance))
   })
 
   it('enlaza cada botón a una ruta del contrato', () => {

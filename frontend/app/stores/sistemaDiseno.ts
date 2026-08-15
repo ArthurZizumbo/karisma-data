@@ -3,9 +3,10 @@
  *
  * The tokens themselves are build-time constants emitted by `design/emitir.py`,
  * so putting them behind a store would normally be indirection with no gain.
- * What justifies it is the mode: every token has a value per mode, the active
- * mode is shared runtime state, and resolving one without the other is what
- * makes a component import two things and get them out of step.
+ * What justifies it is the mode and the theme: every token has a value per
+ * theme and per mode, the two are shared runtime state, and resolving one
+ * without the others is what makes a component import three things and get
+ * them out of step.
  *
  * Components read tokens from here and never from the generated module, so a
  * rename in the emitter reaches one file instead of every consumer.
@@ -13,16 +14,19 @@
 import { defineStore } from 'pinia'
 import { computed, onScopeDispose, ref } from 'vue'
 import { useModo } from '~/composables/useModo'
+import { useTema, type TemaPortal } from '~/composables/useTema'
 import {
-  CONTRASTES,
+  ACCION,
+  CONTRASTES_POR_TEMA,
   CORRIENTE,
   FECHA_SISTEMA,
-  PEOR_SEPARACION,
+  PEOR_SEPARACION_POR_TEMA,
   REGLAS,
   SEMANTICOS,
-  SEPARACIONES,
+  SEPARACIONES_POR_TEMA,
   SERIES,
   SUPERFICIE,
+  TEMAS,
   TIPOGRAFIA,
   TOKENS,
   VERSION_SISTEMA,
@@ -55,9 +59,19 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
 
   const { modo, eleccion, elegir } = useModo(preferenciaDelSistema)
 
+  /**
+   * Visual theme on screen.
+   *
+   * It is resolved here and not in each component for the same reason the mode
+   * is: the two axes decide the value of every token together, and a component
+   * that read one of them from the store and the other from a composable would
+   * paint a colour that belongs to neither combination.
+   */
+  const { tema, fijarTema } = useTema()
+
   /** Resolve one token to the hex the reader is actually seeing. */
   function valor(token: TokenColor): string {
-    return modo.value === 'oscuro' ? token.oscuro : token.claro
+    return token.temas[tema.value][modo.value]
   }
 
   /** Look a token up by name; throws rather than returning a silent fallback. */
@@ -69,14 +83,20 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
     return encontrado
   }
 
-  /** The contrast matrix of the mode on screen, not of both at once. */
+  /**
+   * The contrast matrix of the combination on screen, not of the four at once.
+   *
+   * The ground is not the same in both themes, so a ratio measured in one says
+   * nothing about the other: filtering by mode alone would publish the number
+   * of a combination the reader is not looking at.
+   */
   const contrastes = computed<readonly ParContraste[]>(() =>
-    CONTRASTES.filter((par) => par.modo === modo.value),
+    CONTRASTES_POR_TEMA.filter((par) => par.tema === tema.value && par.modo === modo.value),
   )
 
-  /** Dichromatic separation of every semantic pair, for the active mode. */
+  /** Dichromatic separation of every semantic pair, for the active combination. */
   const separaciones = computed<readonly SeparacionSemantica[]>(() =>
-    SEPARACIONES.filter((s) => s.modo === modo.value),
+    SEPARACIONES_POR_TEMA.filter((s) => s.tema === tema.value && s.modo === modo.value),
   )
 
   /**
@@ -87,7 +107,9 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
    * four hues do not separate inside that band. It is why shape and icon are
    * mandatory rather than decorative.
    */
-  const peorSeparacion = computed<number>(() => PEOR_SEPARACION[modo.value])
+  const peorSeparacion = computed<number>(
+    () => PEOR_SEPARACION_POR_TEMA[tema.value][modo.value],
+  )
 
   /** Every token that fails its own declared rule. Empty is the only pass. */
   const incumplimientos = computed<readonly ParContraste[]>(() =>
@@ -98,6 +120,9 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
     modo,
     eleccion,
     elegir,
+    tema,
+    fijarTema,
+    temas: TEMAS as readonly TemaPortal[],
     valor,
     porNombre,
     contrastes,
@@ -108,6 +133,12 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
     fecha: FECHA_SISTEMA,
     superficie: SUPERFICIE as readonly TokenColor[],
     corriente: CORRIENTE as readonly TokenColor[],
+    // The group the emitter opened for the institutional identity. Exposed
+    // beside the other four and never folded into them: a consumer that walks
+    // the groups has to reach every token of TOKENS, and the palette plate
+    // proved what happens otherwise -it announced twenty-one and painted
+    // eighteen, with action and selection invisible in the graded style guide.
+    accion: ACCION as readonly TokenColor[],
     semanticos: SEMANTICOS as readonly TokenColor[],
     series: SERIES as readonly TokenColor[],
     tokens: TOKENS as readonly TokenColor[],

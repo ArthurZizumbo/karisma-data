@@ -4,10 +4,18 @@
 %  Propiedad de US-UX-09. Las dos secciones puntuadas restantes (conclusiones
 %  y referencias) viven en a4_06_cierre.tex, de la misma historia.
 %
-%  Regla de este archivo: ningún hexadecimal se teclea. Todo color entra por
-%  \laminaPaleta, \laminaContraste, \laminaTipografia y \laminaReticula, que
-%  emite docs/entregables/generar_tokens_a4.py desde los 37 \definecolor de
+%  Regla de este archivo: ningún hexadecimal se teclea como instrucción de
+%  color. Todo color del informe entra por \laminaPaleta, \laminaContraste,
+%  \laminaTipografia y \laminaReticula, que emite
+%  docs/entregables/generar_tokens_a4.py desde los 37 \definecolor de
 %  estilo/uxdoc.sty, o por nombre de color de esa misma hoja.
+%
+%  Segunda regla, heredada del bloque del tema institucional que este archivo
+%  absorbió: ningún valor de color se escribe con almohadilla.
+%  scripts/verificar_tokens_a4.sh falla si encuentra un hexadecimal con
+%  almohadilla en cualquier contenido/a4_*.tex. Los valores del sistema de
+%  tokens del portal se publican como texto monoespaciado, que es lo que son
+%  aquí: el dato de procedencia de un token, no una instrucción de color.
 %
 %  Versión de la guía: v1.0. La cadena impresa en el PDF NO se teclea aquí,
 %  sale de \versionguia y \fechaguia, que emite el generador. Esta línea de
@@ -21,19 +29,19 @@
 \vspace{6pt}
 {\color{uxamber}\rule{60pt}{2.2pt}}\par
 \vspace{8pt}
-La arquitectura que la Actividad 3 validó ---cuatro categorías, dieciséis ramas y nueve facetas transversales--- llegó a esta actividad como contrato de navegación, y esta guía es la otra mitad del contrato: la que fija cómo se ve y cómo se comporta cada pieza que ocupa esas rutas. Las once secciones siguientes cubren identidad, tipografía, color, componentes, iconografía, imágenes, retícula, movimiento, accesibilidad, lenguaje y versionado.
+La arquitectura que la Actividad 3 validó ---cuatro categorías, dieciséis ramas y nueve facetas transversales--- llegó a esta actividad como contrato de navegación, y esta guía es la otra mitad del contrato: la que fija cómo se ve y cómo se comporta cada pieza que ocupa esas rutas. Las once secciones siguientes cubren identidad ---la del informe y la del portal---, tipografía, el sistema de tokens con sus dos temas y sus dos modos, componentes, iconografía, imágenes, retícula, movimiento, accesibilidad, lenguaje y versionado.
 
 \vspace{6pt}
 La guía se deriva de un solo archivo y en un solo sentido. Los 37 nombres de color viven en \texttt{estilo/uxdoc.sty}; el generador \texttt{generar\_tokens\_a4.py} los lee y emite cuatro salidas: el bloque \texttt{@theme} que la aplicación consume, la paleta tipada que la ruta \texttt{/guia} imprime, las láminas de este documento y un manifiesto legible por máquina. La consecuencia práctica es que la paleta que este PDF imprime y la que el navegador pinta no divergen: son el mismo dato leído dos veces. Una guía de estilos que no está enlazada al código envejece el día que se entrega, y esa es la razón de la cadena, no una comodidad de implementación.
 
 \vspace{6pt}
-La segunda regla de alcance es igual de estricta: \textbf{esta guía no documenta ningún componente que el producto no renderice}. Las siete láminas vivas de la ruta \texttt{/guia} ---paleta, tipografía, botones, campos, tablas, tarjetas e iconos--- son la fuente de las secciones 3, 4 y 5. La anatomía sigue la del material de apoyo que la propia rúbrica nombra (Ramírez Mejía, 2023) y la amplía en las seis secciones que ese material no cubre.
+La segunda regla de alcance es igual de estricta: \textbf{esta guía no documenta ningún componente que el producto no renderice}. Las \textbf{once} láminas vivas de la ruta \texttt{/guia} ---paleta, tipografía, botones, campos, tablas, tarjetas, chasis, iconos, linaje, accesibilidad y tarjetas de llamada a herramienta--- son la fuente de las secciones 3, 4 y 5. La lámina de chasis pertenece al eje de tema y publica los cuatro tokens de la barra lateral, los tres estados de certificación y la superficie contenida en sus cinco canales. La anatomía sigue la del material de apoyo del curso (Ramírez Mejía, 2023) y la amplía en las seis secciones que ese material no cubre.
 \end{uxdestacado}
 
 % ============================================================================
 \section{Identidad de la marca}
 
-\textbf{Karisma Data · Portal Centralizado de Datos Financieros.} La marca nombra lo que el producto hace: reunir fuentes dispersas en un único dato con autoridad. El símbolo representa esa convergencia y el logotipo compuesto se arma con el símbolo más el nombre en Lexend Deca, de modo que el texto de la marca es siempre vectorial y nunca una imagen rasterizada dentro de otra imagen.
+\textbf{Karisma Data · Portal Centralizado de Datos Financieros.} La marca nombra lo que el producto hace: reunir fuentes dispersas en un único dato con autoridad. El símbolo representa esa convergencia y el logotipo compuesto se arma con el símbolo más el nombre en Lexend Deca, de modo que el texto de la marca es siempre vectorial y nunca una imagen rasterizada dentro de otra imagen. La sección documenta los \textbf{dos sistemas de marca} que el proyecto mantiene: el del informe impreso, con su construcción de portada, y el del portal, con su geometría medida sobre la página normativa del archivo de diseño.
 
 \subsection{Construcción del logotipo compuesto}
 
@@ -66,6 +74,81 @@ Tres, y ninguna más. \textbf{Positiva} sobre la superficie clara del sistema, q
 \subsection{Atributos de marca}
 
 Cuatro, en orden de prioridad: \textbf{confiable · preciso · sobrio · rápido}. El orden es operativo y no decorativo: cuando dos opciones de diseño empatan, gana la que refuerza el primero. Es la regla que decidió que la cifra de una respuesta del asistente aparezca solo después de la tarjeta que la consultó, y que el ámbar de acento quedara reducido a un papel decorativo en cuanto el cálculo mostró que no alcanzaba el contraste de un elemento informativo.
+
+\subsection{La marca del portal, medida sobre la página normativa}
+
+La marca \textbf{del portal} se rige por la página normativa del archivo de diseño, titulada
+\enquote{Uso del logotipo}: un símbolo en forma de \textbf{K sobre una teja de esquinas
+redondeadas}, con tres variantes y sus reglas de aplicación. Se dibuja como gráfico vectorial en el
+propio portal y no se genera como imagen, por las reglas de esa misma página: prohíben deformar y
+recolorear, y un archivo de mapa de bits producido aparte sería una reinterpretación con vida
+propia. Al dibujarla, la geometría no se estimó a ojo: se midió sobre la lámina exportada a 600
+puntos por pulgada y se expresó en proporción del lado de la teja, que es lo que permite escalarla
+sin volver a decidir nada.
+
+La teja mide \textbf{112 píxeles de diseño} y es cuadrada. Todo lo demás va en porcentaje de ese
+lado.
+
+\begin{uxtabla}{|L{4.4cm}|L{3.6cm}|Y|}{Geometría del símbolo, medida sobre la página normativa del archivo}
+  \uxheadrow \thd{Elemento} & \thd{Proporción del lado} & \thd{Nota} \\
+  Radio de la teja & 6{,}01 \% & Esquina redondeada del contenedor \\
+  Radio de las barras & 2{,}47 \% & La barra ámbar usa un radio ligeramente menor \\
+  Ancho de columna & 14{,}06 \% & Las tres columnas son iguales \\
+  Canal entre columnas & 7{,}40 \% & Derivado, e idéntico en los dos huecos \\
+  Posición de las columnas & 17{,}81 \%, 39{,}27 \% y 60{,}73 \% & Asta, brazo alto y brazo corto \\
+  Borde superior & 19{,}64 \% & Único para las tres \\
+  Alturas & 60{,}73 \%, 39{,}27 \% y 23{,}18 \% & Descendentes, de izquierda a derecha \\
+  Barra de base & 35{,}52 \% por 14{,}16 \% & Situada en 39{,}27 \% y 66{,}21 \% \\
+\end{uxtabla}
+
+Dos cifras de la barra de base \textbf{no} son la medición cruda. Su borde derecho y su línea de
+base salían dos píxeles ---a 600 puntos por pulgada--- de los de la tercera columna y del asta, y
+eso es el suavizado del trazado y no una decisión de diseño, así que se igualaron. El margen
+vertical queda simétrico: 19{,}64 \% arriba y 19{,}63 \% abajo.
+
+\subsection{Las tres reglas de la página normativa y las tres variantes de la marca}
+
+\begin{uxtabla}{|L{3.6cm}|L{3.8cm}|Y|}{Las reglas de aplicación de la marca y cómo se implementan}
+  \uxheadrow \thd{Regla del archivo} & \thd{Enunciado} & \thd{Cómo la cumple el portal} \\
+  Área de protección & Espacio libre mínimo alrededor del símbolo equivalente a media altura de la K & Reserva de 16 píxeles junto al símbolo de 32, que es exactamente esa mitad \\
+  Tamaño mínimo & Símbolo digital de 32 píxeles; marca completa de 120 píxeles de ancho & El símbolo se dibuja a 32 píxeles, que es a la vez su tamaño y su piso; el nombre solo aparece cuando la marca completa alcanza sus 120 píxeles de ancho, es decir a partir de 768 píxeles de pantalla \\
+  Usos incorrectos & No deformar, rotar, recolorear, separar elementos ni añadir efectos & La proporción viaja en el propio lienzo del gráfico vectorial y los cuatro colores de la marca están fijados con su valor, no con un token del tema \\
+\end{uxtabla}
+
+La última implementación merece explicación, porque es la única excepción a la regla de que todo
+color del portal sale de un token: \textbf{la marca no se repinta con el tema}. El color de acción
+es verde azulado bajo el tema institucional y tinta bajo el de omisión, así que pintar la teja con
+ese token habría cambiado la marca al cambiar de tema, que es exactamente lo que la página normativa
+prohíbe. Una prueba automática vigila la excepción al revés: falla si el dibujo de la marca llega a
+contener una referencia a una variable de color del sistema.
+
+\begin{uxtabla}{|L{3.4cm}|L{3.4cm}|L{3.4cm}|Y|}{Las tres variantes de la marca y sus colores medidos}
+  \uxheadrow \thd{Variante} & \thd{Teja} & \thd{Barras claras} & \thd{Barra de base} \\
+  Principal & \texttt{086B70} (Acción) & \texttt{FFFFFF} (Superficie) & \texttt{B97812} (Atención) \\
+  Inverso & \texttt{086B70} & \texttt{FFFFFF} & \texttt{B97812} \\
+  Monocromático & \texttt{102A43} (Navegación) & \texttt{FFFFFF} & \texttt{FFFFFF} \\
+\end{uxtabla}
+
+Principal e inverso son \textbf{el mismo dibujo}: se midieron las tres tejas por separado y sus
+histogramas coinciden. Lo que cambia en la lámina es el fondo de la tarjeta sobre la que se
+presentan, no el relleno del símbolo. Para que la variante no fuera decorativa, gobierna además el
+color del nombre en la marca completa: hereda la tinta de quien la monta en la principal, blanco en
+la inversa y azul profundo en la monocromática.
+
+Nótese que el ámbar de la marca es el valor literal del archivo, \texttt{B97812}, y no el token
+\texttt{aviso}, que es ese mismo ámbar oscurecido un 12 \%. La diferencia no es una incoherencia:
+un color de identidad y un color que informa se rigen por reglas distintas, y el listón de 4{,}5:1
+aplica al segundo. El ámbar de la marca ocupa aquí un área gráfica de tres píxeles de alto dentro de
+un símbolo, no una etiqueta que alguien tenga que leer.
+
+\subsection{La marca del informe y la marca del portal}
+
+Las cinco subsecciones de apertura gobiernan la marca \textbf{de este informe}: la construcción de
+la portada, su área de resguardo y sus tamaños mínimos, que son medidas de tinta sobre papel. Las
+dos anteriores gobiernan la marca \textbf{del portal}, cuyas reglas salen de la página normativa
+del archivo de diseño. Los dos sistemas están separados a propósito y sus cifras no coinciden ---32
+y 120 píxeles en pantalla, 16 y 96 sobre papel---, porque un mínimo legible en pantalla y uno
+legible impreso no son el mismo número. Del portal al informe viaja contenido, nunca formato.
 
 \subsection{Convivencia con la marca institucional}
 
@@ -103,9 +186,16 @@ La recomendación general de 16 px de cuerpo está pensada para lectura móvil; 
 Entre 60 y 75 caracteres en todo bloque de prosa. Las tablas y los paneles quedan exentos por naturaleza: su medida la fija la retícula de la sección 7.
 
 % ============================================================================
-\section{Paleta de colores}
+\section{Especificación del sistema de tokens y paleta institucional}
 
 Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie categórica: \textbf{37 nombres de color}, todos declarados en \texttt{estilo/uxdoc.sty}. Once de ellos son las anclas de la Actividad 1 y conservan su valor byte a byte, porque los documentos de A1, A2 y A3 ya compilan contra ellas; los veintiséis restantes se añadieron en un bloque propio, veinte con \texttt{\textbackslash definecolor} y seis con \texttt{\textbackslash colorlet}. Esos seis son reúsos explícitos ---el aviso apunta al acento 700, el informativo a la primaria 500, tres series a colores de marca--- y apuntar en vez de copiar es lo que impide que un token y su origen se separen con el tiempo.
+
+El capítulo especifica además los \textbf{dos temas} y los \textbf{dos modos} que el sistema
+entrega: la paleta de omisión, con su matriz de cuarenta y cuatro pares, y la institucional, con la
+procedencia de cada uno de sus veintiocho tokens, su matriz de contraste en los dos modos, su
+separación bajo dicromacia y su medición sobre el portal en ejecución. Las dos se emiten con el
+mismo generador y se juzgan contra el mismo umbral, que es lo que permite publicarlas en una sola
+especificación en lugar de en dos.
 
 \subsection{Paleta completa}
 
@@ -113,7 +203,7 @@ Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores
 
 \subsection{La regla que gobierna la paleta}
 
-\textbf{No hay negro puro ni blanco puro.} La superficie más clara del sistema es \texttt{surface} y el texto más oscuro es \texttt{ink-strong}. El sistema no declara un token de blanco, y esa ausencia tiene una consecuencia medible que la sección 3.4 documenta: la matriz calcula el contraste contra la superficie real del producto, no contra un blanco teórico que la interfaz nunca pinta.
+\textbf{Ningún suelo es negro puro, y una sola superficie es blanco puro.} El suelo del sistema es \texttt{ground} y la tinta más oscura es \texttt{corriente-pleno}. En el tema de omisión valen \texttt{F4F6F9} y \texttt{14171D}; en el institucional, \texttt{FFFFFF} y \texttt{102A43}. Los cuatro suelos y las cuatro tintas se mantienen dentro del canal ---ninguno toca el negro--- con \textbf{una excepción que el sistema declara en lugar de esconder}: el suelo claro del tema institucional \emph{sí} es blanco puro. No es un descuido ni una concesión: \emph{Superficie} del archivo de identidad es blanco puro, y este tema existe para llevar ese archivo, no para corregirlo. El tema de omisión conserva su \texttt{F4F6F9} y sigue siendo la superficie que la regla describe, de modo que el producto nunca queda sin un suelo conforme. La consecuencia es medible y la sección 3.4 la documenta: la matriz calcula el contraste contra el suelo \textbf{real de cada tema} y no contra un blanco supuesto, que es la razón por la que las razones de un tema no se pueden leer como las del otro.
 
 \subsection{Matriz de contraste verificada por cálculo}
 
@@ -156,9 +246,405 @@ Una gráfica con seis series en tonos del mismo azul es ilegible, así que la pa
 
 \texttt{danger}, \texttt{warning}, \texttt{info} y \texttt{success} comunican estado y no pertenencia a una categoría. Una serie de gráfica jamás se pinta con ellos, porque el lector leería un juicio donde solo hay una etiqueta. La regla inversa también aplica: un estado nunca se pinta con un color de serie.
 
-\subsection{Modo oscuro, fuera de alcance y declarado}
+\subsection{Los dos temas y los dos modos}
 
-El sistema entrega una sola paleta. Un modo oscuro mal contrastado resta más de lo que suma, y verificar dos paletas completas con la matriz de 44 pares no cabe en la semana. Queda registrado en la bitácora de la sección 11 como entrada abierta de la versión 1.1, con la condición de entrada explícita: se publica cuando su matriz de contraste esté calculada por el mismo generador y con el mismo umbral, no antes.
+El sistema de diseño del portal declara \textbf{dos temas} y \textbf{dos modos} como capacidades
+nativas de su arquitectura, no como una capa añadida sobre una paleta única. El eje de tema declara
+exactamente dos cosas ---color y familia tipográfica--- y el eje de modo declara el suelo sobre el
+que ese color se lee. Las \textbf{cuatro combinaciones} que resultan están verificadas una por una
+con el generador que emite los tokens del portal y medidas después en el navegador. Ninguno de
+los cuatro suelos es negro puro, por la regla de la subsección 3.2: casi negro en el tema de
+omisión y azul profundo en el institucional.
+
+\textbf{El tema institucional es el tema central del producto.} Su color procede del archivo de
+diseño de esta actividad, lleva la identidad de Karisma Data y es el que compone las capturas de la
+sección de prototipos. Se elige desde la cabecera del portal, viaja en una cookie y el servidor lo
+aplica antes del primer trazado, de modo que el cambio no produce destello.
+
+\textbf{El tema de omisión es una alternativa deliberada y no un residuo.} Es una rampa de alto
+contraste sobre neutros, con la cuadrícula modular pintada, y existe porque hay condiciones de uso
+en las que un tema de identidad no es la mejor lectura del mismo sistema:
+
+\begin{uxlist}
+  \lead{Lectura prolongada de datos densos}{Una jornada de trabajo sobre tablas de treinta y cuatro
+    píxeles de fila se sostiene mejor con una rampa neutra: el color queda entonces reservado al
+    canal semántico y a las series, y no compite con ellos desde el chasis.}
+  \lead{Pantallas de baja calidad y luz ambiente alta}{Un equipo con gama reducida o un puesto junto
+    a una ventana aplanan las diferencias de matiz antes que las de luminancia. La rampa de alto
+    contraste separa por luminancia, que es la dimensión que sobrevive a las dos condiciones.}
+  \lead{Sensibilidad al contraste cromático}{Para quien encuentra fatigante una superficie
+    saturada, un tema que separa por luminancia y no por matiz reduce la carga sin retirar
+    información: los dos temas cumplen los mismos listones y publican los mismos estados.}
+\end{uxlist}
+
+El producto ofrece por tanto \textbf{dos lecturas del mismo sistema} y ninguna de las dos es un
+accidente. Lo que ninguna de las dos puede hacer es cambiar la estructura: el eje de tema mueve
+color y familia tipográfica, y nada más. El tema de omisión conserva además sus valores sin una sola
+diferencia, y esa inmovilidad está fijada por una prueba que compara cada uno de ellos contra su
+literal.
+
+\subsection{El octeto del archivo de diseño, con su destino}
+
+El archivo de diseño declara ocho colores con su función escrita al lado. Los ocho ocupan una
+ranura del contrato de tokens; ninguno se queda fuera.
+
+\begin{uxtabla}{|L{2.4cm}|C{1.8cm}|L{3.6cm}|Y|}{Los ocho colores que declara el archivo de diseño y su destino en el contrato de tokens}
+  \uxheadrow \thd{Nombre en el archivo} & \thd{Valor} & \thd{Función declarada} & \thd{Destino en el contrato de tokens} \\
+  Navegación & \texttt{102A43} & Estructura de navegación & \texttt{corriente-pleno} en claro, \texttt{ground-alt} en oscuro y suelo de la barra lateral en los dos modos \\
+  Secundario & \texttt{1D4C6E} & Segundo nivel de estructura & \texttt{corriente-medio} en claro y base del canal informativo \\
+  Acción & \texttt{086B70} & Acciones y selección & \texttt{accion} y bloque del módulo en curso de la barra lateral \\
+  Apoyo & \texttt{15989A} & Acento de apoyo & \texttt{accion-apoyo}: realce, subrayado en curso y filete de foco \\
+  Atención & \texttt{B97812} & Atención & \texttt{aviso}, con la divergencia de luminancia declarada abajo \\
+  Éxito & \texttt{287A58} & Confirmación & \texttt{ok}, con su valor literal \\
+  Error & \texttt{B8443F} & Error & \texttt{error}, con la divergencia de luminancia declarada abajo \\
+  Superficie & \texttt{FFFFFF} & Superficie de trabajo & \texttt{ground} del modo claro, con su valor literal \\
+\end{uxtabla}
+
+Cinco de los ocho entran con su valor literal, uno ---Navegación--- ocupa tres ranuras distintas
+según el modo y el papel, y dos entran corregidos en luminancia por una razón medida. Ese reparto es
+la diferencia entre adoptar una paleta y verificarla: el tema institucional toma del archivo todo lo
+que el contrato puede alojar, deriva el resto con una regla escrita y mide el resultado antes de
+publicarlo.
+
+Los códigos de color de este capítulo se imprimen sin el signo de número que suele precederlos, y no
+es un descuido de composición. Una comprobación del repositorio recorre los archivos de contenido de
+esta actividad buscando exactamente ese patrón, para impedir que un color se teclee a mano en el
+documento en lugar de salir de su generador. Los valores citados aquí describen la procedencia de
+una paleta que vive en el sistema de tokens del portal ---otra cadena, con otro generador--- y por
+eso aparecen en esta forma, que la comprobación distingue de un color escrito a mano.
+
+\subsection{El chasis, y qué cambia con el tema}
+
+El portal monta \textbf{un solo chasis} para los dos temas: barra lateral con etiquetas de texto,
+cabecera fina y franja de alcance, en las diez rutas. Dos chasis habrían sido dos productos y
+habrían duplicado cada estado no feliz. Lo que cambia con el tema es el color de esas piezas, y
+cambia porque son tokens y no condiciones escritas dentro de un componente.
+
+\begin{uxtabla}{|L{3.2cm}|L{5.0cm}|Y|}{Lo que el tema cambia en el chasis, y lo que deja intacto}
+  \uxheadrow \thd{Pieza} & \thd{Tema de omisión} & \thd{Tema institucional} \\
+  Fondo del chasis & Retícula modular visible & Sin retícula: el token se pinta de su propio suelo \\
+  Barra lateral & Suelo alterno; el módulo en curso se distingue por luminancia y peso & Azul profundo \texttt{102A43}; el módulo en curso es un bloque relleno de acción \\
+  Acción primaria & Corriente plena, \texttt{14171D} & Verde azulado \texttt{086B70} \\
+  Selección & Tinte neutro & Tinte de acción, \texttt{E6F2F1} \\
+  Tarjeta contenida & Filete de un pelo, sin radio & Filete más radio y barra de canal a la izquierda \\
+  Familia tipográfica & Lexend Deca en titulares y Fira Sans en cuerpo & Inter en los dos roles \\
+\end{uxtabla}
+
+\textbf{Lo que no cambia con el tema}: la estructura, el orden de tabulación, los estados no
+felices, la franja de alcance, la densidad de las tablas y las seis series de datos. Un tema que
+cambiara la estructura sería otro producto, y el eje del sistema declara exactamente dos cosas
+---color y familia tipográfica--- para que nadie pueda meter una tercera sin decirlo.
+
+\subsection{Los veintiocho tokens, con la procedencia de cada valor}
+
+El contrato del sistema declara veintiocho tokens de color y el tema institucional los resuelve todos
+en los dos modos. Se reparten en cuatro bloques: los diecisiete de la rampa base y el canal
+semántico, los tres de acción, apoyo y selección, los cuatro del chasis y los tres de certificación.
+La columna de procedencia distingue tres orígenes: el valor literal del archivo de diseño, una
+derivación declarada a partir de uno de sus colores, o el valor heredado del tema de omisión.
+
+\begin{uxtablalarga}{|L{4.6cm}|C{1.7cm}|C{1.7cm}|Y|}{La paleta institucional: veintiocho tokens en los dos modos, con la procedencia de cada valor}{\thd{Token} & \thd{Claro} & \thd{Oscuro} & \thd{Procedencia}}
+  \texttt{ground} & \texttt{FFFFFF} & \texttt{0B1B2B} & Claro: superficie del archivo. Oscuro: derivado del color de navegación bajando su luminancia; azul profundo y nunca negro puro \\
+  \texttt{ground-alt} & \texttt{F1F4F8} & \texttt{102A43} & Claro: derivado del color de navegación, aclarado hasta 1{,}10:1 sobre la superficie. Oscuro: el color de navegación usado como panel \\
+  \texttt{grid} & \texttt{DCE3EC} & \texttt{1D3348} & Derivado en los dos modos: un paso del suelo hacia la rampa. Decorativo por definición \\
+  \texttt{reticula} & \texttt{FFFFFF} & \texttt{0B1B2B} & Su propio suelo: bajo este tema la cuadrícula modular no se pinta, y se declara con un color real en lugar de una palabra clave que el cálculo no sabría medir \\
+  \texttt{corriente-apagado} & \texttt{A8B4C4} & \texttt{46586B} & Derivado. El peldaño se queda a propósito por debajo de 3:1, porque no informa \\
+  \texttt{corriente-tenue} & \texttt{4A5A6E} & \texttt{93A6BC} & Derivado del color de navegación hacia el suelo hasta cruzar 4{,}5:1 \\
+  \texttt{corriente-medio} & \texttt{1D4C6E} & \texttt{BFD0E2} & Claro: color secundario del archivo. Oscuro: el mismo matiz elevado sobre el suelo profundo \\
+  \texttt{corriente-pleno} & \texttt{102A43} & \texttt{EAF2FA} & Claro: color de navegación del archivo. Oscuro: el mismo matiz elevado \\
+  \texttt{accion} & \texttt{086B70} & \texttt{3FB3B5} & Claro: color de acción del archivo, con su valor literal. Oscuro: elevado sobre el suelo profundo hasta cruzar el listón que necesita el rótulo de un botón \\
+  \texttt{accion-apoyo} & \texttt{15989A} & \texttt{5FD0D2} & Claro: color de apoyo del archivo, con su valor literal. Oscuro: el mismo matiz elevado \\
+  \texttt{seleccion} & \texttt{E6F2F1} & \texttt{123443} & Tinte del suelo hacia la acción. Es superficie y nunca lleva texto propio \\
+  \texttt{barra-lateral} & \texttt{102A43} & \texttt{102A43} & Color de navegación en los dos modos: el archivo le da a ese azul exactamente un trabajo, y la barra es la navegación \\
+  \texttt{barra-lateral-activo} & \texttt{086B70} & \texttt{3FB3B5} & El color de acción, relleno: el módulo en pantalla es la selección de la barra \\
+  \texttt{barra-lateral-texto} & \texttt{BFD0E2} & \texttt{BFD0E2} & Derivado: el peldaño claro de la rampa institucional, medido sobre la barra y no sobre el suelo de la página \\
+  \texttt{barra-lateral-activo-texto} & \texttt{FFFFFF} & \texttt{0B1B2B} & Sobre el bloque relleno: superficie en claro y suelo profundo en oscuro, porque el bloque se eleva con el modo \\
+  \texttt{error} & \texttt{933632} & \texttt{EC5B51} & Derivado del color de error del archivo, oscurecido conservando matiz y saturación \\
+  \texttt{aviso} & \texttt{A36A10} & \texttt{E8A33D} & Claro: color de atención oscurecido un 12 \%. Oscuro: el mismo color aclarado para el suelo profundo \\
+  \texttt{ok} & \texttt{287A58} & \texttt{5FCB94} & Claro: color de éxito del archivo, con su valor literal. Oscuro: el mismo color aclarado \\
+  \texttt{info} & \texttt{17395B} & \texttt{B9A7F2} & Claro: color secundario oscurecido hasta cruzar 4{,}5:1. Oscuro: violeta declarado fuera del octeto, por la razón que la subsección de divergencias documenta \\
+  \texttt{certificacion-certificado} & \texttt{287A58} & \texttt{5FCB94} & Toma prestado el canal de confirmación entero, valor e icono \\
+  \texttt{certificacion-en-revision} & \texttt{A36A10} & \texttt{E8A33D} & Toma prestado el canal de aviso entero \\
+  \texttt{certificacion-obsoleto} & \texttt{933632} & \texttt{EC5B51} & Toma prestado el canal de error entero \\
+  \texttt{serie-1} & \texttt{1D4ED8} & \texttt{7DD3FC} & Heredado del tema de omisión \\
+  \texttt{serie-2} & \texttt{B45309} & \texttt{FFC233} & Heredado del tema de omisión \\
+  \texttt{serie-3} & \texttt{1F6F43} & \texttt{4ADE80} & Heredado del tema de omisión \\
+  \texttt{serie-4} & \texttt{6D28D9} & \texttt{C4B5FD} & Heredado del tema de omisión \\
+  \texttt{serie-5} & \texttt{0E7490} & \texttt{67E8F9} & Heredado del tema de omisión \\
+  \texttt{serie-6} & \texttt{9D174D} & \texttt{F9A8D4} & Heredado del tema de omisión \\
+\end{uxtablalarga}
+
+Los seis colores de serie \textbf{no cambian con el tema}, y es una decisión y no un olvido: una
+serie es un canal de datos y no identidad de marca, el archivo de diseño no declara paleta
+categórica y las seis ya están verificadas bajo tres dicromacias. Lo que sí se vuelve a medir por
+tema es su razón sobre cada suelo, porque el suelo oscuro institucional es \texttt{0B1B2B} y no el
+del tema de omisión: las seis quedan por encima de 3:1 en las cuatro combinaciones, con un mínimo
+de \textbf{5{,}02:1} en claro y \textbf{9{,}43:1} en oscuro. Contando los dos temas, las
+\textbf{veinticuatro} mediciones quedan por encima del umbral, con un mínimo de \textbf{4{,}64:1}.
+
+\subsection{Los tres estados de certificación del catálogo}
+
+Una familia merece nombre propio, porque su regla es de sentido y no de color: las tres etiquetas de
+certificación significan cosas opuestas para quien decide si usa un campo, de modo que cada estado
+toma prestado un \textbf{canal semántico entero} ---valor, icono y clase---. Así \enquote{tres
+estados, tres canales} es estructural y no una coincidencia entre tres códigos que hoy difieren.
+
+\begin{uxtabla}{|L{3.0cm}|L{3.2cm}|L{2.6cm}|Y|}{Los tres estados de certificación del catálogo}
+  \uxheadrow \thd{Estado} & \thd{Icono} & \thd{Canal} & \thd{Qué le dice a quien consulta} \\
+  Certificado & Marca de verificación & Confirmación & El campo se puede usar \\
+  En revisión & Reloj & Aviso & Se puede usar con reserva \\
+  Obsoleto & Círculo tachado & Error & \textbf{No se debe usar} \\
+\end{uxtabla}
+
+El icono viaja con el color en la definición del token y no se vuelve a elegir en el componente, que
+es la regla que impide que dos estados opuestos compartan forma. La consecuencia medible es que las
+tres distancias de esta familia son un subconjunto de las seis del canal semántico, de modo que el
+piso publicado en la subsección de dicromacia las cubre sin excepción.
+
+\subsection{La familia tipográfica del tema}
+
+El eje del tema son dos cosas: el color y la familia tipográfica. El archivo de diseño declara la
+suya con su propio criterio: \enquote{Inter mantiene claridad en tablas, filtros y metadatos. Los
+tamaños priorizan densidad sin reducir la legibilidad; el espaciado entre letras permanece en 0.}
+
+Bajo el tema institucional, los roles de titular y de cuerpo se componen con \textbf{Inter},
+servida por el mismo módulo de fuentes y con el mismo proveedor que las dos familias del tema de
+omisión, que reparte \textbf{Lexend Deca} en titulares y \textbf{Fira Sans} en cuerpo. La familia
+monoespaciada \textbf{no cambia}: el rol de dato existe por el ancho fijo de las cifras y no por
+identidad, y el archivo de diseño no declara ninguna monoespaciada. Los nueve roles conservan
+tamaño, interlínea y espaciado entre letras, de modo que el tema cambia la letra y no la jerarquía.
+
+\figuraux{figuras/a4/guia_tipografia.png}{Lámina de tipografía del archivo de diseño, con el
+criterio que declara la familia y su aplicación a títulos, métricas, contenido y controles. Es
+diseño de alta fidelidad y no una captura del portal en ejecución.}{fig:a4-tema-tipografia}
+
+\subsection{Matriz de contraste del tema institucional, sobre lo que se lee encima}
+
+El cálculo es el de la subsección 3.3 ---la fórmula de luminancia relativa de la norma contra sus
+umbrales de 4{,}5:1 para texto normal, 3:1 para elemento gráfico y 7:1 para el nivel más alto (W3C,
+2023)--- aplicado ahora a los veintiocho tokens del tema institucional. Lo que cambia es el
+referente: cada token se mide contra \textbf{lo que de verdad se lee encima}, y no siempre es el
+suelo de la página. Las etiquetas de la barra lateral se miden sobre la barra, porque bajo este
+tema la barra es azul profundo mientras la página es blanca, y una razón tomada sobre la página
+sería un número que el lector no ve nunca.
+
+\begin{uxtablalarga}{|L{5.0cm}|C{1.7cm}|C{1.8cm}|C{1.7cm}|Y|}{Matriz de contraste del tema institucional, cada token sobre lo que se lee encima}{\thd{Token} & \thd{Claro} & \thd{Veredicto} & \thd{Oscuro} & \thd{Veredicto}}
+  \texttt{ground-alt} & 1{,}10:1 & superficie & 1{,}19:1 & superficie \\
+  \texttt{grid} & 1{,}29:1 & decorativo & 1{,}34:1 & decorativo \\
+  \texttt{reticula} & 1{,}00:1 & decorativo & 1{,}00:1 & decorativo \\
+  \texttt{corriente-apagado} & 2{,}10:1 & decorativo & 2{,}38:1 & decorativo \\
+  \texttt{corriente-tenue} & 7{,}05:1 & AAA & 6{,}98:1 & AA \\
+  \texttt{corriente-medio} & 9{,}09:1 & AAA & 11{,}06:1 & AAA \\
+  \texttt{corriente-pleno} & 14{,}64:1 & AAA & 15{,}41:1 & AAA \\
+  \texttt{accion} & 6{,}27:1 & AA & 6{,}90:1 & AA \\
+  \texttt{accion-apoyo} & 3{,}51:1 & AA texto grande & 9{,}49:1 & AAA \\
+  \texttt{seleccion} & 1{,}15:1 & decorativo & 1{,}33:1 & decorativo \\
+  \texttt{barra-lateral} & 14{,}64:1 & superficie & 1{,}19:1 & superficie \\
+  \texttt{barra-lateral-activo} & 6{,}27:1 & superficie & 6{,}90:1 & superficie \\
+  \texttt{barra-lateral-texto} \textit{(sobre la barra)} & 9{,}30:1 & AAA & 9{,}30:1 & AAA \\
+  \texttt{barra-lateral-activo-texto} \textit{(sobre su bloque)} & 6{,}27:1 & AA & 6{,}90:1 & AA \\
+  \texttt{error} & 7{,}46:1 & AAA & 5{,}13:1 & AA \\
+  \texttt{aviso} & 4{,}54:1 & AA & 8{,}07:1 & AAA \\
+  \texttt{ok} & 5{,}23:1 & AA & 8{,}67:1 & AAA \\
+  \texttt{info} & 11{,}85:1 & AAA & 8{,}19:1 & AAA \\
+  \texttt{certificacion-certificado} & 5{,}23:1 & AA & 8{,}67:1 & AAA \\
+  \texttt{certificacion-en-revision} & 4{,}54:1 & AA & 8{,}07:1 & AAA \\
+  \texttt{certificacion-obsoleto} & 7{,}46:1 & AAA & 5{,}13:1 & AA \\
+  \texttt{serie-1} & 6{,}70:1 & AA & 10{,}44:1 & AAA \\
+  \texttt{serie-2} & 5{,}02:1 & AA & 10{,}79:1 & AAA \\
+  \texttt{serie-3} & 6{,}15:1 & AA & 9{,}99:1 & AAA \\
+  \texttt{serie-4} & 7{,}10:1 & AAA & 9{,}43:1 & AAA \\
+  \texttt{serie-5} & 5{,}36:1 & AA & 12{,}01:1 & AAA \\
+  \texttt{serie-6} & 7{,}88:1 & AAA & 9{,}60:1 & AAA \\
+\end{uxtablalarga}
+
+Tres veredictos de la tabla no son grados de la norma sino papeles del sistema.
+\textbf{Superficie} marca un fondo medido contra otro fondo: nada se lee nunca con la fila alterna
+ni con la barra lateral como primer plano, así que exigirles 4{,}5:1 sería acusar al sistema de un
+incumplimiento que no existe. \textbf{Decorativo} marca los cuatro tokens que declaran no informar
+---retícula, filete, conector en reposo y superficie elegida---, y su exención es la razón misma por
+la que esa declaración existe en el contrato. \textbf{AA texto grande} marca el único token que
+cumple 3:1 y no 4{,}5:1: el verde azulado de apoyo, que el archivo reserva para realce, subrayado y
+filete de foco, y que por eso nunca lleva prosa a tamaño de cuerpo.
+
+El resultado agregado es el que importa: \textbf{cero incumplimientos} en las cuatro combinaciones
+de tema y modo, sobre los veintiocho tokens. El mínimo real de toda la matriz es \textbf{4{,}54:1},
+el del canal de aviso bajo el tema institucional en claro. Ningún token que informa se queda por
+debajo de su listón y ningún token que declara no informar lo alcanza, que son las dos formas de
+romper la regla.
+
+\subsection{Separación bajo dicromacia, medida por pares}
+
+El contraste sobre el suelo no basta para el canal semántico: dos marcas pueden cumplir el umbral
+por separado y confundirse entre sí para quien tiene una dicromacia. Por eso los cuatro semánticos
+se miden también dos a dos, simulando protanopia, deuteranopia y tritanopia, y de cada par se
+publica la distancia \textbf{peor} de las tres.
+
+\begin{uxtabla}{|L{3.2cm}|C{1.7cm}|L{2.6cm}|C{1.7cm}|Y|}{Separación de los pares semánticos del tema institucional, con la dicromacia que produce la peor distancia}
+  \uxheadrow \thd{Par} & \thd{Claro} & \thd{Dicromacia} & \thd{Oscuro} & \thd{Dicromacia} \\
+  Error y aviso & 20{,}7 & tritanopia & 22{,}6 & deuteranopia \\
+  Error y confirmación & 14{,}5 & protanopia & 23{,}3 & protanopia \\
+  Error e informativo & 45{,}4 & protanopia & 67{,}6 & tritanopia \\
+  Aviso y confirmación & 37{,}8 & protanopia & 37{,}8 & protanopia \\
+  Aviso e informativo & 54{,}3 & tritanopia & 35{,}3 & tritanopia \\
+  Confirmación e informativo & 22{,}8 & tritanopia & 25{,}9 & tritanopia \\
+\end{uxtabla}
+
+El piso no es un número inventado para esta paleta: es la peor separación que el tema de omisión ya
+sostiene, \textbf{13{,}6} en claro y \textbf{21{,}5} en oscuro. El tema institucional queda por
+encima de los dos, con \textbf{14{,}5} y \textbf{22{,}6}. Un tema nuevo que empeorara ese número
+habría degradado el sistema aunque cada token cumpliera su umbral por separado.
+
+Los tres estados de certificación se miden como familia aparte, porque la distancia solo es una
+exigencia \emph{dentro} de una familia: un estado del catálogo nunca comparte superficie con un
+mensaje de error del formulario. Sus tres distancias son \textbf{14{,}5} en claro y \textbf{22{,}6}
+en oscuro, idénticas a las del canal semántico por la razón estructural ya dicha ---toman prestados
+esos mismos canales--- y por encima del mismo piso.
+
+\subsection{Las dos correcciones de luminancia sobre el octeto}
+
+Dos colores del octeto entran al contrato con la luminancia corregida, y la corrección vive en el
+valor del token y no en la prosa. La norma del sistema es que \textbf{ningún valor derivado se
+publica con el rótulo de literal}: un color corregido que se presenta como oficial es el defecto
+caro, porque nadie lo vuelve a revisar.
+
+\begin{enumerate}[leftmargin=*,itemsep=5pt,topsep=6pt]
+\item \textbf{El ámbar de atención no alcanza el listón de texto con su valor literal.} El valor del archivo,
+  \texttt{B97812}, da \textbf{3{,}65:1} sobre la superficie blanca, por debajo del 4{,}5:1 que exige
+  un token que informa. Oscurecido un \textbf{12 \%} conservando matiz y saturación llega a
+  \texttt{A36A10} con \textbf{4{,}54:1}. Es el mínimo que cruza: a un 10 \% todavía da 4{,}40:1.
+  Publicar el valor del archivo exigiría un tercer nivel de contrato ---uno para componente y texto
+  grande--- y esa decisión de sistema queda declarada como pendiente, no resuelta a escondidas.
+\item \textbf{El rojo de error no se embarca con su valor literal.} Con \texttt{B8443F} el error da
+  5{,}33:1 y la confirmación 5{,}23:1, de modo que bajo protanopia los dos se separan por
+  \textbf{10{,}1} contra un piso de 13{,}6: un error se leería como una confirmación. Oscurecido un
+  \textbf{20 \%}, \texttt{933632} sube a 7{,}46:1 y su peor par a \textbf{14{,}5}. En oscuro, el
+  mismo color aclarado para el suelo profundo se queda en \textbf{13{,}1} contra un piso de
+  21{,}5; oscurecido un 12 \%, \texttt{EC5B51} da 5{,}13:1 y su peor par sube a \textbf{22{,}6}.
+\end{enumerate}
+
+Hay además una derivación que no es una corrección del archivo sino una ausencia suya: el
+\textbf{canal informativo}. En modo claro sale del octeto, del color secundario \texttt{1D4C6E}
+oscurecido hasta cruzar 4{,}5:1, y su distancia a la confirmación queda en 22{,}8. En modo oscuro
+ningún azul sirve, porque sobre un suelo profundo el azul y el verde convergen: el par informativo y
+confirmación cae a 10{,}4 bajo tritanopia contra un piso de 21{,}5. El violeta \texttt{B9A7F2} es el
+matiz más cercano que sobrevive, con 25{,}9, y se declara como salida del octeto en lugar de
+presentarse como uno de sus colores.
+
+Las tres derivaciones siguen la misma regla, escrita antes de aplicarla: se corrige la luminancia y
+se conservan el matiz y la saturación, de manera que el color siga siendo reconocible como el del
+archivo. Y las tres se descubrieron por cálculo y no a ojo, que es la única forma de encontrar un
+defecto que solo existe para un lector con dicromacia.
+
+\subsection{Los ocho estados interactivos, declarados como derivación}
+
+El archivo de diseño publica ocho estados interactivos y los declara por \textbf{nombre de
+variable}, no por valor: la lámina muestra el color y nombra la variable que lo produce. Esta
+entrega no inventa los ocho valores ni los copia de la lámina con un cuentagotas: los deriva con
+una regla escrita y marca la derivación como tal.
+
+\textbf{La regla.} Sobre el color base, un \textbf{12 \%} de oscurecimiento para el estado al pasar
+el puntero y un \textbf{20 \%} para el estado presionado, conservando matiz y saturación. Es la
+misma operación con la que se corrigieron las divergencias de la subsección anterior, de modo que
+el sistema tiene una sola forma de mover un color.
+
+\begin{uxtabla}{|L{4.2cm}|L{3.4cm}|Y|}{Los ocho estados interactivos del archivo de diseño y su procedencia}
+  \uxheadrow \thd{Estado} & \thd{Base} & \thd{Procedencia} \\
+  Primario al pasar & \texttt{accion} & Derivación: base oscurecida un 12 \% \\
+  Primario presionado & \texttt{accion} & Derivación: base oscurecida un 20 \% \\
+  Secundario al pasar & \texttt{corriente-pleno} & Derivación: base oscurecida un 12 \% \\
+  Secundario presionado & \texttt{corriente-pleno} & Derivación: base oscurecida un 20 \% \\
+  Deshabilitado & \texttt{corriente-apagado} & Derivación: peldaño apagado, sin papel informativo \\
+  Foco & \texttt{accion-apoyo} & Variable propia del archivo, aplicada como filete de foco \\
+  Error & \texttt{error} & Variable propia del archivo, con el valor corregido del token \\
+  Información & \texttt{info} & Variable propia del archivo, con el valor derivado del token \\
+\end{uxtabla}
+
+\figuraux{figuras/a4/guia_paleta.png}{Lámina de paleta y estados interactivos del archivo de
+diseño. Los ocho estados se declaran por nombre de variable, que es la razón por la que esta
+entrega los publica como derivación con su regla. Es diseño de alta fidelidad y no una captura del
+portal en ejecución.}{fig:a4-tema-paleta}
+
+Las cuatro primeras filas no dicen \enquote{color de acción} en abstracto: dicen el nombre del token
+que las produce, porque ese color tiene ranura propia en el contrato. La norma es que \textbf{un
+estado interactivo se deriva de un token y nunca de un valor escrito en la capa de componentes}, que
+es la vía por la que un color se duplica a mano en tres sitios y se separa de su origen sin que nadie
+lo note.
+
+\subsection{El tema, medido en el portal en ejecución}
+
+Las cifras de las tablas anteriores salen del generador. Lo que sigue sale del portal abierto en un
+navegador sin cabeza, que es la única forma de comprobar que lo calculado es también lo pintado.
+Sobre las cuatro combinaciones se leyó el valor resuelto de cada propiedad personalizada en la raíz
+del documento, la familia tipográfica computada del cuerpo y del titular, y el número de elementos
+cuyo contenido desborda su caja.
+
+\begin{uxtabla}{|L{3.0cm}|C{1.9cm}|C{1.9cm}|C{2.0cm}|C{1.9cm}|Y|}{Medición en el navegador de las cuatro combinaciones, a 1440 por 900 píxeles}
+  \uxheadrow \thd{Combinación} & \thd{Suelo} & \thd{Barra lateral} & \thd{Acción} & \thd{Familia} & \thd{Desbordes} \\
+  Omisión, claro & \texttt{F4F6F9} & \texttt{EAEEF4} & \texttt{14171D} & Fira Sans & 0 \\
+  Omisión, oscuro & \texttt{0A0A0C} & \texttt{131519} & \texttt{E8F4FF} & Fira Sans & 0 \\
+  Institucional, claro & \texttt{FFFFFF} & \texttt{102A43} & \texttt{086B70} & Inter & 0 \\
+  Institucional, oscuro & \texttt{0B1B2B} & \texttt{102A43} & \texttt{3FB3B5} & Inter & 0 \\
+\end{uxtabla}
+
+Las cuatro pintan su propia paleta y ninguna hereda la del tema vecino. Los cuatro valores de la
+columna del suelo y los cuatro de la columna de acción coinciden exactamente con los que la tabla de
+procedencia declara, que es la comprobación que importa: entre la definición y el píxel hay un
+generador, una hoja de estilo y un servidor, y cualquiera de los tres podría haber perdido un valor
+en el camino. La familia cambia con el tema y no con el modo, que es lo que el eje declara, y la
+retícula la absorbe sin un solo corte: Inter tiene mayor altura de x que Fira Sans y el riesgo real
+era que una celda densa creciera.
+
+En la misma corrida se midió el \textbf{desplazamiento horizontal} en las diez rutas del chasis, a
+390, 768, 1280 y 1440 píxeles de ancho, y en las cuatro combinaciones de tema y modo: \textbf{160
+mediciones con cero exceso}. La sección de validación publica esa medición con su línea base y su
+regla.
+
+La preferencia se comprobó además contra el HTML que devuelve el servidor, y no contra el que existe
+después de hidratar: con las dos cookies puestas la etiqueta de apertura llega ya como
+\texttt{<html lang=es data-tema=institucional data-modo=oscuro>}, con sus tres valores entre
+comillas. Es la diferencia entre una
+preferencia que se aplica y una que se corrige a la vista del lector. El tema de omisión no escribe
+ese atributo, y tampoco es un descuido: ese tema \emph{es} el bloque base de la hoja generada y no
+una anulación de nada, de modo que la ausencia del atributo es su forma correcta de declararse.
+
+\subsection{El eje de tema y modo, sobre una misma pantalla}
+
+Las cuatro imágenes siguientes recorren el eje completo ---dos temas por dos modos--- sobre
+\textbf{la misma pantalla, la misma sesión y el mismo contenido}, que es la única disposición en la
+que lo comparado es el sistema consigo mismo. Se tomaron en una sola pasada guionizada contra el
+portal en ejecución, a 1440 por 900 píxeles y en español. El guion comprueba antes de disparar que
+la raíz del documento declara el tema y el modo que la imagen dice mostrar, de modo que una cookie
+ignorada produce un fallo y no una captura plausible. Las capturas del tema institucional pantalla
+por pantalla se publican en la sección de prototipos.
+
+Las cuatro comparten contenido, estructura y orden de tabulación. Lo único que cambia entre ellas es
+el par tema y modo, que es exactamente lo que el eje declara: si algo más cambiara, el eje estaría
+haciendo un trabajo que no le corresponde. Las dos primeras y las dos últimas son además la
+comparación que sostiene la razón de ser de cada tema: la misma información, separada por luminancia
+en un caso y por identidad cromática en el otro.
+
+\figuraux[0.78\linewidth]{figuras/a4/tema/combinacion_corriente_claro_inicio.png}{Espacio de trabajo
+operativo bajo el \textbf{tema de omisión en modo claro}. La cuadrícula modular está pintada y el
+módulo en curso de la barra lateral se distingue por luminancia y peso, sin bloque relleno. Captura
+del portal en ejecución.}{fig:a4-tema-corriente-claro}
+
+\figuraux[0.78\linewidth]{figuras/a4/tema/combinacion_corriente_oscuro_inicio.png}{La misma pantalla
+bajo el \textbf{tema de omisión en modo oscuro}, sobre el suelo \texttt{0A0A0C}. Cambia el modo y no
+el tema: la retícula sigue pintada y la familia sigue siendo Fira Sans. Captura del portal en
+ejecución.}{fig:a4-tema-corriente-oscuro}
+
+\figuraux[0.78\linewidth]{figuras/a4/tema/combinacion_institucional_claro_inicio.png}{La misma
+pantalla bajo el \textbf{tema institucional en modo claro}. La barra lateral pasa al azul profundo
+del archivo, el módulo en curso es un bloque relleno de verde azulado y la retícula desaparece.
+Captura del portal en ejecución.}{fig:a4-tema-inst-claro}
+
+\figuraux[0.78\linewidth]{figuras/a4/tema/combinacion_institucional_oscuro_inicio.png}{La misma
+pantalla bajo el \textbf{tema institucional en modo oscuro}, sobre el suelo \texttt{0B1B2B}. El azul
+profundo sustituye al negro puro por la regla que el sistema ya se había puesto. Captura del portal
+en ejecución.}{fig:a4-tema-inst-oscuro}
+
+\clearpage
 
 % ============================================================================
 \section{Componentes gráficos de la interface}
@@ -233,7 +719,7 @@ La \textbf{tarjeta de llamada a herramienta} es la pieza que sostiene la regla a
 
 \subsection{Anatomía compartida}
 
-Las siete láminas comparten forma: cada una expone un atributo de datos propio para que el guion de captura la recorte sin adivinar, y ninguna contiene lógica de negocio. Presentan lo que el generador emitió. Esa simetría es lo que permite que la guía se capture con un guion reproducible en lugar de con recortes a mano de distinto tamaño.
+Las once láminas comparten forma: cada una expone un atributo de datos propio para que el guion de captura la recorte sin adivinar, y ninguna contiene lógica de negocio. Presentan lo que el generador emitió. Esa simetría es lo que permite que la guía se capture con un guion reproducible en lugar de con recortes a mano de distinto tamaño.
 
 % ============================================================================
 \section{Iconografía}
@@ -451,7 +937,7 @@ En dos lugares que no divergen porque salen del mismo generador: el bloque \text
   10 de agosto de 2026 & 0.9 & Un generador único emite el bloque \texttt{@theme}, la paleta tipada, las láminas del documento y el manifiesto & Elimina la posibilidad de que la aplicación y el PDF muestren colores distintos \\
   10 de agosto de 2026 & 0.9 & Se calculan 44 pares de contraste y se corrigen los cuatro defectos de la sección 3.4 en los tokens & El cálculo refutó cuatro reglas que la planeación daba por buenas \\
   10 de agosto de 2026 & 0.9 & La interfaz pasa a bilingüe español e inglés y el contrato de navegación deja de guardar palabras & Sin el cambio, el índice de prototipos habría quedado en español dentro de la interfaz en inglés \\
-  16 de agosto de 2026 & 1.0 & Publicación de la guía con la Actividad 4 & Primera versión completa: once secciones, siete láminas vivas y matriz de contraste publicada \\
+  16 de agosto de 2026 & 1.0 & Publicación de la guía con la Actividad 4 & Primera versión completa: once secciones, once láminas vivas y matriz de contraste publicada \\
 \end{uxtabla}
 
 Cada entrada la aprueba el Equipo 8 (Alexandro Mayoral, Jacqueline Sarmiento y Arthur Zizumbo) en la revisión de la entrega semanal, que es el único punto del calendario donde la guía cambia de versión.
@@ -469,4 +955,4 @@ Cada entrada la aprueba el Equipo 8 (Alexandro Mayoral, Jacqueline Sarmiento y A
 
 \subsection{Entradas abiertas de la versión 1.1}
 
-Tres, con su condición de entrada escrita: \textbf{modo oscuro}, que entra cuando su matriz de contraste está calculada por el mismo generador; \textbf{densidad compacta}, que entra cuando existe una segunda escala de altura de fila verificada sobre la tabla de datos; y las \textbf{correcciones que salgan de la prueba de usabilidad de la Actividad 5}, que entran con el número de participantes y la medición que las motiva. Ninguna de las tres se anticipa aquí con valores: una entrada de bitácora sin dato verificado es exactamente el tipo de afirmación que esta guía existe para impedir.
+Dos, con su condición de entrada escrita: \textbf{densidad compacta}, que entra cuando existe una segunda escala de altura de fila verificada sobre la tabla de datos; y las \textbf{correcciones que salgan de la prueba de usabilidad de la Actividad 5}, que entran con el número de participantes y la medición que las motiva. Ninguna de las dos se anticipa aquí con valores: una entrada de bitácora sin dato verificado es exactamente el tipo de afirmación que esta guía existe para impedir.

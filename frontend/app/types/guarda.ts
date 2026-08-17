@@ -9,8 +9,15 @@ import type { RolUsuario, SesionUsuario } from '~/types/sesion'
  * inputs and expected values rather than a set of doubles.
  */
 
-/** Why the guard is sending the reader back to the entry screen. */
-export type MotivoDeSalida = 'expirada'
+/**
+ * Why the guard is sending the reader back to the entry screen.
+ *
+ * The bounce is never mute. `expirada` is a session that ended and `sesion-requerida`
+ * is a first visit to a screen that needs one: told apart, the first reader is
+ * explained and the second one is invited, and neither reads the redirect as a
+ * broken link.
+ */
+export type MotivoDeSalida = 'expirada' | 'sesion-requerida'
 
 /**
  * What the guard decided for one navigation.
@@ -21,7 +28,20 @@ export type MotivoDeSalida = 'expirada'
  */
 export type DecisionGuarda
   = | { readonly tipo: 'permitir' }
-    | { readonly tipo: 'redirigir', readonly destino: string, readonly motivo?: MotivoDeSalida }
+    | {
+        readonly tipo: 'redirigir'
+        /** Screen the reader is sent to, which is always the entry one. */
+        readonly destino: string
+        readonly motivo: MotivoDeSalida
+        /**
+         * Route that was asked for, so the entry screen can give it back.
+         *
+         * Absent when the requested path is not a route of the contract: it
+         * travels through the query string, and anything accepted there that
+         * the contract does not list is an open redirect.
+         */
+        readonly rutaPedida?: string
+      }
     | { readonly tipo: 'sin-permiso', readonly scopeExigido: RolUsuario }
 
 /** Everything the decision depends on. No Nuxt, no router, no network. */

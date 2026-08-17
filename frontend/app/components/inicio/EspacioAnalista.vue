@@ -52,7 +52,7 @@ const { t } = useI18n()
           <NuxtLink
             :to="RUTA_EXPLORACION"
             data-accion-explorador
-            class="inline-flex w-fit items-center gap-1.5 text-etiqueta text-corriente-pleno hover:underline"
+            class="inline-flex min-h-11 w-fit items-center gap-1.5 text-etiqueta text-corriente-pleno hover:underline"
             :class="ANILLO_FOCO"
           >
             <Icon name="lucide:list-filter" class="size-3.5 shrink-0" aria-hidden="true" />

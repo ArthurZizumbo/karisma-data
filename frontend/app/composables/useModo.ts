@@ -54,12 +54,12 @@ export function useModo(preferenciaDelSistema: Ref<Modo>) {
    *
    * Following the system emits no attribute at all, because `undefined` makes
    * useHead omit it. The stylesheet's media query excludes only an explicit
-   * light choice, so a stale `data-theme` would pin the mode and ignore the
+   * light choice, so a stale `data-modo` would pin the mode and ignore the
    * operating system.
    */
   useHead({
     htmlAttrs: {
-      'data-theme': computed(() =>
+      'data-modo': computed(() =>
         eleccion.value === 'sistema' ? undefined : eleccion.value,
       ),
     },

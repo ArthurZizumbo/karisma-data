@@ -44,8 +44,14 @@ const idTitulo = useId()
  *
  * A literal and not a composed string: Tailwind reads these sources with a text
  * scanner, and a class assembled at run time produces no CSS rule at all.
+ *
+ * `min-w-0` is the row's half of the overflow fix. Its three `shrink-0`
+ * children -the physical name, the badge and the date- plus a label that is
+ * `truncate`, and therefore `white-space: nowrap`, give the row a min-content
+ * width equal to the whole sentence. Without this the row refuses to shrink and
+ * pushes the block, the grid track and the page past the viewport.
  */
-const FILA = 'flex min-h-11 items-center gap-3 border-b border-grid px-1 last:border-b-0'
+const FILA = 'flex min-h-11 min-w-0 items-center gap-3 border-b border-grid px-1 last:border-b-0'
 
 const estado = computed<EstadoBloque>(() => {
   if (props.cargando === true) {
@@ -73,7 +79,7 @@ const CLASE_INSIGNIA: Readonly<Record<TonoInsignia, string>> = {
     :data-origen="conMuestras ? 'ejemplo' : undefined"
     :aria-labelledby="idTitulo"
     :aria-busy="estado === 'cargando' ? 'true' : undefined"
-    class="flex flex-col gap-2"
+    class="flex min-w-0 flex-col gap-2"
   >
     <div class="flex flex-wrap items-baseline justify-between gap-2">
       <h2 :id="idTitulo" class="text-titulo-3 text-corriente-pleno">
@@ -100,9 +106,16 @@ const CLASE_INSIGNIA: Readonly<Record<TonoInsignia, string>> = {
 
     <ul v-else class="flex flex-col">
       <li v-for="elemento in elementos" :key="elemento.id" :data-elemento="elemento.id" :class="FILA">
+        <!--
+          `self-stretch` is what makes the whole row height the target. Centred,
+          the anchor was as tall as its own line -21 px of the 44 the row
+          already reserves- and the reader had to hit the words. `min-h-11` on
+          top of it because the rule of the row eats a pixel: stretched alone
+          the anchor measured 43, one short of the target this system declares.
+        -->
         <NuxtLink
           :to="elemento.destino"
-          class="flex min-w-0 flex-1 items-center gap-2 text-cuerpo text-corriente-pleno hover:underline"
+          class="flex min-h-11 min-w-0 flex-1 items-center gap-2 self-stretch text-cuerpo text-corriente-pleno hover:underline"
           :class="ANILLO_FOCO"
         >
           <span class="truncate">{{ t(elemento.claveEtiqueta) }}</span>

@@ -1,10 +1,14 @@
 % ============================================================================
 %  Actividad 4 · Cierre — conclusiones generales y referencias
 %
-%  Propiedad de US-UX-09. Son las secciones puntuadas 6 y 7 de las siete que
-%  la rúbrica evalúa en el apartado de guía de estilos. Se escriben en pasado
-%  y con cifras: la banda alta premia lo que se hizo, no lo que se piensa
-%  hacer.
+%  Propiedad de US-UX-09. Son las dos secciones de cierre del documento:
+%  conclusiones generales y referencias. Se escriben con cifras y sobre lo que
+%  el sistema entrega, nunca sobre lo que se piensa hacer.
+%
+%  La compactacion del 16-ago-2026 trajo aqui la tabla del inventario tecnico
+%  de lo construido, que estaba en el anexo: sus datos cuantitativos pertenecen
+%  a "Que se construyo, en cifras" y el anexo se queda con el protocolo
+%  ejecutable y la trazabilidad.
 % ============================================================================
 
 % ============================================================================
@@ -16,7 +20,23 @@ La Actividad 3 cerró con una arquitectura validada y una refutación: la tarea 
 
 El sistema de diseño quedó reducido a una sola fuente. Los \textbf{37 nombres de color} viven en la hoja de estilo del curso ---once anclas de la Actividad 1 que conservaron su valor byte a byte, veinte declaraciones nuevas y seis reúsos explícitos--- y un generador único emitió cuatro salidas a partir de ellos: el bloque de tokens que la aplicación consume, la paleta tipada que la ruta del sistema vivo imprime, las cuatro láminas de este documento y un manifiesto legible por máquina. Sobre esa base se documentaron \textbf{9 roles tipográficos}, ocho pasos de espaciado, cuatro radios, tres niveles de sombra, cuatro puntos de quiebre y cinco medidas de densidad.
 
-La guía se entregó en \textbf{trece secciones} con subtítulo propio ---once de contenido visual y las dos de este cierre--- y el inventario de componentes se publicó con su recuento a la vista: \textbf{17 celdas} de botón, seis estados de campo, cinco semánticas de chip, cuatro insignias de rol y los cuatro estados de la tarjeta de llamada a herramienta, repartidos en \textbf{siete láminas} de la ruta viva del sistema de diseño.
+La guía se entregó en \textbf{trece secciones} con subtítulo propio ---once de contenido visual y las dos de este cierre--- y el inventario de componentes se publicó con su recuento a la vista: \textbf{17 celdas} de botón, seis estados de campo, cinco semánticas de chip, cuatro insignias de rol y los cuatro estados de la tarjeta de llamada a herramienta, repartidos en \textbf{once láminas} de la ruta viva del sistema de diseño.
+
+El recuento no se queda en las cifras. La tabla siguiente declara qué quedó construido y con qué se comprueba cada pieza: la columna de la derecha no dice \enquote{se revisó}, nombra el mecanismo que vuelve a comprobarlo cada vez que alguien corre la suite.
+
+\begin{uxtablalarga}{|L{4.2cm}|L{4.6cm}|Y|}{Lo construido en esta actividad y su mecanismo de comprobación}{\thd{Pieza} & \thd{Qué es} & \thd{Cómo se comprueba}}
+  Eje de tema del sistema de diseño & Los \textbf{veintiocho} tokens de color resueltos para dos temas y dos modos, con la familia tipográfica como parte del eje. Se reparten en cuatro bloques: diecisiete de la rampa base y el canal semántico, tres de acción, apoyo y selección, cuatro del chasis y tres de certificación & Cálculo de contraste sobre las cuatro combinaciones: cero tokens que informan por debajo de su listón, con mínimo real de 4{,}54:1 \\
+  Fijación del tema de omisión & Los veintiocho valores del tema de omisión en sus dos modos & Prueba que compara cada valor contra su literal y falla si uno solo se mueve. Es lo que garantiza que la alternativa de alto contraste no derive al evolucionar el tema institucional \\
+  Separación bajo dicromacia & El peor par de colores semánticos bajo las tres dicromacias, por tema y modo & Piso de 13{,}6 en claro y 21{,}5 en oscuro, con 14{,}5 y 22{,}6 medidos en el tema institucional \\
+  Emisión de los tokens & La hoja de estilo del portal y su paleta tipada, generadas desde la definición única & Dos corridas seguidas del generador producen archivos byte a byte iguales, y un guion compara el disco contra lo que el generador produce hoy \\
+  Cabecera de seis controles & Marca, buscador, apariencia, perfil e idioma. Tema y modo se funden en un solo control de apariencia, porque son el mismo eje del sistema; el perfil acuña sesión de verdad contra el portal & Pruebas de montaje que cuentan los controles en reposo, exigen rótulo visible y altura mínima de 44 píxeles a cada uno, y fallan si un panel se ancla por el borde inicial en vez del final \\
+  Entrada en frío desde el índice & La tarjeta de cada prototipo abre su pantalla con el perfil que esa pantalla sugiere, en un solo movimiento; sin sesión, el desvío dice a dónde se iba y devuelve ahí & Pruebas sobre la decisión de la guarda y sobre el destino de retorno, que se valida contra el contrato de navegación \\
+  Pantalla de catálogo & Buscador, conteos por dominio, tabla densa de seis columnas y los cuatro estados no felices, compuestos desde la búsqueda del catálogo. Cada fila abre el linaje con el mismo panel que monta gobierno del dato, y el término vive en la dirección & Pruebas que montan la pantalla y sus cuatro estados, la apertura en frío desde la dirección, el paso de la fila al linaje, la salida a gobierno y el anuncio de orden de cada columna \\
+  Chasis único de las diez rutas & Barra lateral con etiqueta de texto, cabecera, salto al contenido y franja de alcance, en las ocho rutas del contrato más el índice y la guía & Prueba que recorre las diez rutas y exige las mismas piezas en cada una, que la retícula salga de su propio token y que ninguna entrada de la barra quede sin enlace \\
+  Marca vectorial del portal & Símbolo dibujado con la geometría medida sobre la página normativa del archivo, en tres variantes & Prueba que falla si el dibujo llega a contener una referencia a una variable de color del tema, que es la forma en que la marca se repintaría al cambiar de tema \\
+  Estados de certificación & Tres estados, tres canales y tres iconos, declarados junto al color y no elegidos en el componente & Prueba que comprueba los tres canales, el cruce de ortografía entre la base y el token, su uso en la tabla y su publicación en la lámina normativa \\
+  Etiquetas de alcance & Seis pantallas navegables con datos de ejemplo y una navegable sin datos, según la regla publicada en la sección de alcance & Prueba que lee la tabla de este documento y la compara, fila por fila, contra el contrato de navegación del portal \\
+\end{uxtablalarga}
 
 \subsection{Qué cambió por evidencia y no por gusto}
 
@@ -39,18 +59,17 @@ La tercera fue de idioma. La interfaz pasó a ser bilingüe español e inglés c
 
 \begin{uxtabla}{|L{4.4cm}|Y|}{Lo que la guía dejó fuera de la versión 1.0}
   \uxheadrow \thd{Fuera de alcance} & \thd{Motivo declarado} \\
-  Modo oscuro & Verificar una segunda paleta completa con la misma matriz de 44 pares no cabía en la semana, y un modo oscuro mal contrastado resta más de lo que suma \\
-  Densidad compacta & Exige una segunda escala de altura de fila verificada sobre la tabla de datos; sin esa verificación sería un token sin respaldo \\
+  Segunda escala de densidad & Exige una segunda altura de fila verificada sobre la tabla de datos; sin esa verificación sería un token sin respaldo. La escala vigente es la de 34 píxeles que el catálogo aplica \\
   Pesos tipográficos por encima de 400 & Una de las dos familias se distribuye solo en Regular: un peso mayor produciría negrita simulada en pantalla y negrita real en el PDF, y las capturas dejarían de coincidir con el documento \\
-  La ruta del sistema de diseño como prototipo & La rúbrica puntúa los prototipos en un apartado y la guía en otro; contarla como pantalla habría mezclado los dos. Quedó fuera del contrato de navegación, que conserva sus ocho rutas y sus siete prototipos \\
+  La ruta del sistema de diseño como prototipo & Un prototipo y una guía de estilos son dos artefactos con criterios distintos; contarla como pantalla habría mezclado los dos. Quedó fuera del contrato de navegación, que conserva sus ocho rutas y sus siete prototipos \\
   Componentes no renderizados & La guía no documentó ninguna pieza que el producto no dibuje. Es la regla que impide que un documento describa un sistema que la aplicación no tiene \\
 \end{uxtabla}
 
-\subsection{Qué aprendió el equipo al convertir arquitectura en pantallas}
+\subsection{Los dos criterios de trabajo que deja esta actividad}
 
-Que una guía de estilos es un artefacto ejecutable o no es nada. Mientras la paleta vivió en una tabla escrita a mano, dos de sus reglas eran falsas y nadie lo notó; en cuanto pasó por un cálculo reproducible, cuatro se cayeron el mismo día. La lección se puede formular como criterio de trabajo: \textbf{toda afirmación del sistema de diseño que pueda calcularse, se calcula}, y la que no pueda calcularse se escribe con su condición de entrada para que alguien pueda refutarla después.
+El primero es de verificabilidad: \textbf{toda afirmación del sistema de diseño que pueda calcularse, se calcula}, y la que no pueda calcularse se escribe con su condición de entrada para que alguien pueda refutarla después. Una guía de estilos enlazada a un cálculo reproducible es un artefacto ejecutable; una tabla escrita a mano es una declaración de intenciones que envejece el día que se publica.
 
-La segunda lección fue de dirección. La cadena que va de la hoja de estilo al PDF corre en un solo sentido, y esa restricción ---que al principio parecía burocracia--- fue lo que hizo baratos los cuatro arreglos: cambiar un token corrigió a la vez la aplicación, las láminas y el documento. En el sentido contrario, cada corrección habría costado tres ediciones y habría dejado dos oportunidades de divergencia.
+El segundo es de dirección. La cadena que va de la hoja de estilo al PDF corre en un solo sentido, y esa restricción es lo que abarata cada corrección: cambiar un token corrige a la vez la aplicación, las láminas y el documento. En el sentido contrario, cada corrección costaría tres ediciones y dejaría dos oportunidades de divergencia.
 
 \subsection{Qué se lleva la Actividad 5}
 
@@ -59,7 +78,7 @@ La Actividad 5 recibe un encargo acotado y ya escrito. Primero, la \textbf{prueb
 % ============================================================================
 \section{Referencias bibliográficas}
 
-Las referencias siguen el formato APA 7 con sangría francesa. Se citan las fuentes que sostienen decisiones concretas del documento y no un inventario de lecturas: el material de apoyo que la propia rúbrica nombra, la norma de accesibilidad contra la que se calculó la matriz de contraste, los artículos de 2026 que respaldan la transparencia de las llamadas a herramienta, los valores por omisión por perfil y el estado compartido entre tablero y asistente, y las obras de método que la serie de entregables viene usando desde la Actividad 1. El origen generativo del sistema visual ---la ficha de estilo de tablero denso que el equipo adoptó en la Actividad 1--- queda declarado en la cabecera de la hoja de estilo y en el archivo de instrucciones de \texttt{docs/entregables/}; por tratarse de una herramienta interna del equipo y no de una publicación, se documenta ahí y no como entrada bibliográfica.
+Las referencias siguen el formato APA 7 con sangría francesa. Se citan las fuentes que sostienen decisiones concretas del documento y no un inventario de lecturas: el material de apoyo del curso, la norma de accesibilidad contra la que se calculó la matriz de contraste, los artículos de 2026 que respaldan la transparencia de las llamadas a herramienta, los valores por omisión por perfil y el estado compartido entre tablero y asistente, y las obras de método que la serie de entregables viene usando desde la Actividad 1. El origen generativo del sistema visual ---la ficha de estilo de tablero denso que el equipo adoptó en la Actividad 1--- queda declarado en la cabecera de la hoja de estilo y en el archivo de instrucciones de \texttt{docs/entregables/}; por tratarse de una herramienta interna del equipo y no de una publicación, se documenta ahí y no como entrada bibliográfica.
 
 \begin{uxreferencias}
 Allen, J., y Chudley, J. (2012). \textit{Smashing UX design: Foundations for designing online

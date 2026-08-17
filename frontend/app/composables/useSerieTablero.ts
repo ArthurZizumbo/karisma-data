@@ -36,6 +36,18 @@ export interface SerieTablero {
   /** Decoded frame. The shallowRef of useFetch, never deeply reactive. */
   marco: Ref<MarcoSerie | null>
   estado: ComputedRef<EstadoTablero>
+  /**
+   * A new frame is in flight while a previous one is still painted.
+   *
+   * It is NOT the same as `estado === 'cargando'`, and the difference is the
+   * whole point: `estado` reports the first load, when there is nothing on
+   * screen yet. Every later filter change keeps the old frame in `data` -that
+   * is what stops the panel from flashing- so `estado` stays `listo` and the
+   * screen has no way to say the numbers being read are the previous ones.
+   * Measured in the browser: changing the metric fires the request and the
+   * panel shows nothing at all until the new frame lands.
+   */
+  revalidando: ComputedRef<boolean>
   /** Typed backend code when the state is 'sin-datos' or 'error'. */
   codigo: ComputedRef<string | null>
   recargar: () => Promise<void>
@@ -119,6 +131,18 @@ export function useSerieTablero(): SerieTablero {
 
   const codigo = computed<string | null>(() => codigoDelFallo(error.value))
 
+  /**
+   * Refetch with a frame already on screen.
+   *
+   * `data.value !== null` is what tells it from the first load, and it is why
+   * the panel dims instead of unmounting: rebuilding the chart on every filter
+   * change would throw away the reader's zoom window and flash a skeleton over
+   * a figure that is about to look almost the same.
+   */
+  const revalidando = computed<boolean>(
+    () => status.value === 'pending' && data.value !== null,
+  )
+
   const estado = computed<EstadoTablero>(() => {
     if (error.value !== null && error.value !== undefined) {
       return codigo.value === 'datos_no_sembrados' ? 'sin-datos' : 'error'
@@ -155,6 +179,7 @@ export function useSerieTablero(): SerieTablero {
   return {
     marco: data,
     estado,
+    revalidando,
     codigo,
     recargar: async () => {
       await refresh()

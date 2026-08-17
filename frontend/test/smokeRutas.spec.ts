@@ -37,9 +37,18 @@ function leerDelRepositorio(relativa: string): string {
 
 const guion = leerDelRepositorio('../../scripts/smoke_rutas.sh')
 
-/** Routes declared in the `RUTAS=( ... )` array of the shell script. */
+/**
+ * Routes declared in the `RUTAS=( ... )` array of the shell script.
+ *
+ * The line break is matched as `\r?\n` and the closing paren is anchored with
+ * `\s*$`: the script is checked out with CRLF on any machine whose git has
+ * `core.autocrlf` on, and a pattern that only accepts LF reads an empty array
+ * there. Silently: `?.[1] ?? ''` turns the miss into zero routes, so the two
+ * assertions below fail with "expected 10 to be +0" and point at the contract
+ * instead of at the line ending that actually broke.
+ */
 function rutasDelGuion(): string[] {
-  const bloque = guion.match(/^RUTAS=\(\n([\s\S]*?)^\)$/m)?.[1] ?? ''
+  const bloque = guion.match(/^RUTAS=\(\r?\n([\s\S]*?)^\)\s*$/m)?.[1] ?? ''
   return [...bloque.matchAll(/^\s*"([^"]+)"\s*$/gm)].map(coincidencia => coincidencia[1]!)
 }
 

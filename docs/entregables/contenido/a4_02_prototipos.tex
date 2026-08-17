@@ -5,24 +5,33 @@
 %  las siete pantallas navegables, la tabla ruta a rama y la matriz de estados
 %  no felices.
 %
-%  Las figuras salen de figuras/a4/despues/, que es el estado entregado. El par
-%  antes y despues de la iteracion vive en a4_04_prevalidacion.tex.
+%  Las figuras de esta seccion salen de figuras/a4/tema/ y publican el estado
+%  entregado del portal bajo el tema institucional en modo claro. El par de
+%  medicion de la franja de alcance vive en a4_04_prevalidacion.tex.
 % ============================================================================
 
 % ============================================================================
 \uxsection{Los siete prototipos}
 
 El mapa de navegación de la Actividad 3 fijó cuatro categorías de primer nivel y dieciséis ramas.
-Esta sección muestra en qué se convirtieron: siete pantallas construidas en el mismo entorno con el
-que el portal opera, recorribles de principio a fin, con su sesión, su barra lateral y sus estados.
-Cada figura es una captura del portal en ejecución, tomada con el protocolo del anexo, y no una
-composición hecha para el documento.
+Esta sección especifica en qué se convirtieron: siete pantallas construidas en el mismo entorno con
+el que el portal opera, recorribles de principio a fin, con su sesión, su barra lateral y sus
+estados. Cada captura de esta sección es una imagen del portal en ejecución, tomada con el
+protocolo del anexo bajo el tema institucional en modo claro, y no una composición hecha para el
+documento. La única lámina de esta sección que procede del archivo de diseño lo declara en su
+propio pie.
 
 Las siete se numeran igual que en el índice del portal, porque ese índice deriva del mismo contrato
 de navegación que ordena esta sección. La rama 2.4, tableros e indicadores, se documenta dentro de
 la pantalla de exploración: es una zona de esa pantalla y no un prototipo aparte, de modo que
 contarla por separado inflaría el número sin añadir una interfaz.
 
+%  Cada prototipo abre pagina. Las capturas del portal en ejecucion ocupan
+%  cerca de media caja de texto, de modo que sin el salto el flotante no cabe
+%  junto a su texto y aterriza una pagina mas tarde, al lado del titular del
+%  prototipo siguiente. El salto ademas flushea el flotante pendiente, que es
+%  lo que impedia que dos titulares compartieran pagina sin ninguna figura.
+\clearpage
 \subsection{Prototipo 0. Acceso}
 
 La pantalla de entrada enmarca a las demás sin ser una rama del mapa. Ofrece dos caminos: el
@@ -31,10 +40,20 @@ cuatro perfiles de demostración, cuya existencia se declara en la propia pantal
 esconderse. Cada perfil entra directo a su pantalla inicial, que es la primera aplicación visible
 del principio de espacios de trabajo por rol.
 
-\figuraux{figuras/a4/despues/0_acceso_normal.png}{Prototipo 0, acceso. Formulario de credenciales y
-puerta de demostración, esta última rotulada como habilitada únicamente en el prototipo. La franja
-superior declara el alcance en todas las pantallas del portal.}{fig:a4-acceso}
+Los cuatro perfiles de demostración ocupan una superficie de canal de acción y el formulario de
+credenciales queda plegado tras su propia revelación, que se abre cuando la guarda avisa de sesión
+caducada ---que es cuando esa explicación hace falta--- y que es la única vía visible si la puerta
+de demostración está apagada. \textbf{El énfasis visual sigue al camino que el prototipo
+recomienda}: el color de precaución queda reservado para el rótulo que declara que el acceso de
+demostración está habilitado únicamente aquí, y no para el bloque que lo ofrece.
 
+\figuraux{figuras/a4/tema/institucional_claro_0_acceso.png}{Prototipo 0, acceso. Los cuatro perfiles
+de demostración ocupan la superficie de canal de acción y el formulario de credenciales queda
+plegado tras su propia revelación. La cabecera publica marca, buscador, apariencia, sesión e idioma,
+y la franja superior declara el alcance en todas las pantallas del portal. Captura del portal en
+ejecución.}{fig:a4-acceso}
+
+\clearpage
 \subsection{Prototipo 1. Inicio}
 
 Inicio resuelve las cinco subramas de la primera categoría en una sola pantalla, con una composición
@@ -42,26 +61,77 @@ distinta por rol. Reúne el buscador unificado, las búsquedas recientes, las fu
 alertas y el perfil. Los bloques que muestran contenido lo rotulan como dato de ejemplo en su propio
 encabezado, de manera que ninguna cifra de la pantalla pueda leerse como una medición del negocio.
 
-\figuraux{figuras/a4/despues/1_inicio_normal.png}{Prototipo 1, inicio, con sesión de perfil
-operativo. Buscador unificado, búsquedas recientes, fuentes favoritas y alertas. Las etiquetas
-\enquote{datos de ejemplo} acompañan a cada bloque con contenido.}{fig:a4-inicio}
+\figuraux{figuras/a4/tema/institucional_claro_1_inicio.png}{Prototipo 1, inicio, con sesión de perfil
+operativo. La barra lateral publica la categoría activa como bloque relleno y despliega bajo ella
+sus cinco subramas; el cuerpo reúne el buscador unificado, las búsquedas recientes, las fuentes
+favoritas, las alertas y el perfil. Las etiquetas \enquote{datos de ejemplo} acompañan a cada bloque
+con contenido. Captura del portal en ejecución.}{fig:a4-inicio}
 
+La composición directiva de esta misma pantalla publica \textbf{cuatro tarjetas de indicador}
+---cobertura de liquidez, cartera vencida, exposición y días de mora---, cada una con su etiqueta,
+su cifra en tipografía monoespaciada y su marca de tiempo. Las cuatro llevan el mismo canal de color
+y no uno por signo: la subida de la cobertura es buena noticia y la de la cartera vencida es mala,
+de modo que pintarlas las dos de verde sería la tarjeta emitiendo un juicio que no le corresponde.
+Ninguna de las tres composiciones de esta pantalla produce desplazamiento horizontal en los cuatro
+anchos verificados, y la sección de validación publica esa medición.
+
+\clearpage
 \subsection{Prototipo 2. Exploración y extracción}
 
-Es la pantalla que todavía declara su contenido en lugar de mostrarlo, y lo hace de forma explícita:
-enumera las cuatro capacidades que alojará y nombra la historia de usuario que las entrega. La
-alternativa habitual, un título sobre una página vacía, se lee como una pantalla que falló al
-cargar, que es justamente la lectura que un entregable evaluado no puede permitirse. El estado
-diseñado convierte \enquote{inacabado} en \enquote{programado}, y es honesto en los dos casos.
+Es la pantalla de descubrimiento del portal y la que sostiene su promesa central: encontrar el campo
+antes de pedir el dato. Compone el catálogo temático en tres zonas: un buscador que consulta el
+catálogo del portal, una columna de conteos por dominio que filtra sin volver a pedir la página y
+una tabla de resultados que declara cuántos campos muestra de cuántos coinciden. Ninguno de esos
+contenidos está tecleado en la plantilla: los tres salen de la misma consulta que sostiene el
+diccionario de campos de gobierno del dato.
 
-\figuraux{figuras/a4/despues/2_exploracion_normal.png}{Prototipo 2, exploración y extracción, con
-sesión de perfil analista. El estado pendiente declara las cuatro capacidades y la historia que las
-entrega, en lugar de dejar la caja vacía.}{fig:a4-exploracion}
+El resultado se publica en una \textbf{tabla densa de seis columnas} ---nombre físico, nombre de
+negocio, dominio, fuente, responsable y certificación--- con fila de \textbf{34 píxeles}, que es la
+densidad que el sistema de diseño declara. Cada columna anuncia su orden a un lector de pantalla y
+el orden se computa sobre el valor crudo y nunca sobre el texto impreso. Tres reglas más gobiernan
+la pantalla: el nombre físico de cada fila es el botón que \textbf{abre el linaje} del campo ---con
+el mismo panel que monta gobierno del dato, para que no haya dos respuestas a la misma pregunta---,
+el resultado lleva una salida explícita a la ficha completa en gobierno, y el término de búsqueda
+\textbf{vive en la dirección}, de modo que un enlace compartido abre la pantalla ya filtrada y el
+botón de retroceso no la vacía. Los tres estados de certificación se distinguen por color \emph{y}
+por icono, porque cada uno toma prestado un canal semántico entero y el icono viaja con el color en
+la definición del token.
 
-La barra lateral de esta captura muestra además las dos piezas que el mapa de la Actividad 3 exigía:
-el segundo nivel de la categoría activa y el bloque de facetas transversales, que da acceso cruzado
-a las nueve tarjetas que tres o más evaluadores pidieron duplicar durante el card sorting.
+Los cuatro estados no felices están construidos dentro de la pantalla. El vacío explica que la
+búsqueda no encontró coincidencias y sugiere qué hacer con el término; la carga dibuja cinco filas
+de esqueleto de la misma altura que las filas reales, de modo que la llegada del contenido no
+desplaza nada; el error conserva el término escrito y ofrece reintentar, porque vaciar el campo
+obligaría a teclear de nuevo lo que no falló.
 
+El cuarto merece una precisión, porque no es de la pantalla sino de la zona. La ruta de exploración
+no exige permiso alguno y la guarda del servidor nunca la bloquea, de modo que un estado de
+\emph{sin permiso} a nivel de pantalla sería código que no se alcanza nunca. Lo que sí está
+gobernado son sus dos continuaciones ---exportaciones y tableros, ambas del perfil de
+análisis---, y ahí es donde la pantalla las nombra, dice qué perfil piden y deja de ocultarlas.
+Ocultar una capacidad a quien no puede usarla le impide enterarse de que existe y de que puede
+pedirla, que es el defecto que la Actividad 2 registró en el recorrido de solicitud de acceso.
+
+\figuraux{figuras/a4/tema/institucional_claro_2_exploracion.png}{Prototipo 2, exploración y
+extracción, con sesión de perfil analista, abierto en frío desde la dirección
+\texttt{/exploracion?q=saldo}. La barra lateral publica el segundo nivel de la categoría activa; la
+columna de dominios acota sobre el total de coincidencias y la tabla densa publica sus seis columnas
+con el orden anunciado y los tres estados de certificación distinguidos por color e icono. Captura
+del portal en ejecución.}{fig:a4-exploracion}
+
+La barra lateral publica el segundo nivel de la categoría activa y \textbf{únicamente destinos
+alcanzables}: cada entrada de la lista lleva a una ruta del contrato de navegación. Los nueve
+accesos cruzados que el card sorting de la Actividad 3 reclamó ---las facetas transversales--- se
+declaran con su rama y su ruta en la tabla de correspondencia de la sección siguiente, que es su
+sitio: la trazabilidad al mapa es material de este documento y no copia que el producto tenga que
+recitar.
+
+\figuraux[0.86\linewidth]{figuras/a4/componente_busqueda.png}{Los cinco estados del campo de
+búsqueda, resueltos en el archivo de diseño: vacío, con valor, enfocado, con error y deshabilitado.
+Es la pieza que abre la pantalla de exploración y la que fija que la tecla de entrada ejecute la
+búsqueda. El buscador construido es un formulario que envía con esa tecla y que conserva el término
+escrito cuando la consulta falla.}{fig:a4-componente-busqueda}
+
+\clearpage
 \subsection{Prototipo 3. Gobierno del dato}
 
 Gobierno reúne el diccionario de campos, el linaje y el catálogo de fuentes. Es la pantalla que
@@ -69,10 +139,19 @@ sostiene el principio \emph{Respaldado} de la Actividad 2: toda cifra que el por
 que poder rastrearse hasta su definición y su origen, y esta es la pantalla donde ese rastro se
 consulta.
 
-\figuraux{figuras/a4/despues/3_gobierno_normal.png}{Prototipo 3, gobierno del dato, con sesión de
-perfil analista. Diccionario de campos y acceso al linaje, con las subramas de segundo nivel
-desplegadas en la barra lateral.}{fig:a4-gobierno}
+La copia de la pantalla declara qué resuelve frente a la de exploración, y las dos declaraciones son
+complementarias y no intercambiables: exploración sirve para \emph{encontrar} una cifra y gobierno
+para \emph{defenderla} ---quién responde por cada campo, desde qué vigencia, con qué certificación y
+por qué sistemas pasó---. El diccionario no consulta nada hasta que se escribe un término, de modo
+que la pantalla abre sin pedir campos al servidor.
 
+\figuraux{figuras/a4/tema/institucional_claro_3_gobierno.png}{Prototipo 3, gobierno del dato, con
+sesión de perfil analista. La barra lateral despliega las tres subramas de la categoría
+---diccionario y metadatos, linaje y calidad, catálogo de fuentes--- y el acceso cruzado a la
+bitácora de accesos declara el módulo que la administra y la ruta por la que se solicita. Captura
+del portal en ejecución.}{fig:a4-gobierno}
+
+\clearpage
 \subsection{Prototipo 4. Asistente conversacional}
 
 El asistente es transversal a las cuatro categorías y por eso no ocupa una rama del mapa. La
@@ -83,34 +162,51 @@ El contenido de la respuesta proviene de un proveedor guionizado. El transporte,
 cancelación son reales; el texto está escrito de antemano. La pantalla lo declara en su propia
 franja y esa franja se conserva en la captura: recortarla presentaría un guion como respuesta viva.
 
-\figuraux{figuras/a4/despues/4_asistente_normal.png}{Prototipo 4, asistente conversacional, con
-sesión de perfil directivo, en su estado vacío. La franja de honestidad declara que las respuestas
-están guionizadas y que el transporte, las tarjetas y la cancelación sí son reales. El panel de la
-derecha muestra el contexto que el tablero comparte con esta pantalla.}{fig:a4-asistente}
+\figuraux{figuras/a4/tema/institucional_claro_5_asistente.png}{Prototipo 4, asistente conversacional,
+con sesión de perfil directivo, en su estado vacío. La franja de honestidad declara que las
+respuestas están guionizadas y que el transporte, las tarjetas y la cancelación sí son reales. Bajo
+el formulario, el bloque de contexto del tablero declara que no hay contexto que compartir y ofrece
+la salida a la pantalla donde ese contexto se arma. Captura del portal en
+ejecución.}{fig:a4-asistente}
 
 La tarjeta de llamada a herramienta es la pieza que sostiene el compromiso más fuerte del producto:
 \textbf{ninguna cifra se muestra sin que provenga de una consulta}, y la consulta se enseña. La
 figura siguiente recoge un turno completo, con la tarjeta resuelta, la tabla de resultados, el campo
 del catálogo del que sale la cifra y la respuesta que la cita en lugar de estimarla.
 
-\figuraux{figuras/a4/despues/4_asistente_resultado.png}{Prototipo 4, un turno resuelto. La tarjeta
-declara la consulta ejecutada y su duración, la tabla muestra la fila devuelta y el pie nombra el
-campo del catálogo del que proviene la cifra. La respuesta escrita repite esa procedencia.}{fig:a4-asistente-toolcall}
+\figuraux{figuras/a4/tema/institucional_claro_7_asistente_resultado.png}{Prototipo 4, un turno
+resuelto, con sesión de perfil operativo. La tarjeta declara la consulta ejecutada y su duración
+---0{,}3 segundos---, publica la cifra devuelta, la tabla muestra la métrica con su valor y el pie
+nombra el campo del catálogo del que proviene. La respuesta escrita repite esa procedencia y declara
+que la cifra no es una estimación del asistente. Captura del portal en
+ejecución.}{fig:a4-asistente-toolcall}
 
 Los cuatro estados de la tarjeta ---anuncio, ejecución, resultado y error--- se documentan como
-galería en la guía de estilos y no como una secuencia animada dentro de esta sección. Es la primera
-válvula prevista para el sprint y se activó por la decisión sobre el modelo de lenguaje: mientras el
-proveedor sea guionizado, una secuencia grabada mostraría un ritmo que no es el del sistema real.
+galería en la guía de estilos y no como una secuencia animada dentro de esta sección: con un
+proveedor guionizado, una secuencia grabada mostraría un ritmo que no es el del sistema real.
 
+\clearpage
 \subsection{Prototipo 5. Administración}
 
 Administración resuelve las cuatro subramas de la cuarta categoría en un solo nivel, que es la
-degradación acordada para este sprint. Reúne el panel de personas usuarias con sus roles, las
-solicitudes, la bitácora de accesos y las integraciones.
+degradación acordada para este sprint. La barra lateral publica las cuatro ---usuarios, roles y
+permisos; solicitudes y aprobaciones; bitácora de accesos; integraciones--- y la pantalla construye
+la primera: el panel de personas usuarias con su rol, su estado y la fecha de su última modificación
+administrativa. Las otras tres se nombran en la propia pantalla, con lo que quien administra sabe
+que existen, y la tabla de alcance declara su estado.
 
-\figuraux{figuras/a4/despues/5_administracion_normal.png}{Prototipo 5, administración, con sesión de
-perfil de administración. Panel de personas usuarias y sus roles, con la bitácora y las
-integraciones accesibles desde el segundo nivel.}{fig:a4-administracion}
+\figuraux{figuras/a4/tema/institucional_claro_4_administracion.png}{Prototipo 5, administración, con
+sesión de perfil de administración. La tabla de personas usuarias publica persona, correo, rol,
+estado, última modificación y acciones; anuncia su orden columna por columna y sustituye la acción
+de desactivar por una marca cuando la fila es la cuenta de la sesión. Captura del portal en
+ejecución.}{fig:a4-administracion}
+
+La tabla de personas usuarias monta el mismo componente de tabla que el catálogo, de modo que
+anuncia su orden columna por columna y ordena el estado por su valor booleano y la fecha por su
+instante, no por el texto que imprime. Conserva a propósito el orden que recibe del portal mientras
+nadie lo cambie: una cuenta recién creada sigue donde la puso la interfaz de programación, y un
+orden de omisión la habría movido en silencio. El portal comprueba el rol de administración en cada
+petición y no solo al pintar la pantalla, y la propia pantalla lo declara.
 
 La bitácora de accesos merece una nota, porque su ubicación es un resultado del card sorting y no
 una preferencia: vive en administración por su función y se consulta desde gobierno del dato
@@ -118,17 +214,37 @@ mediante un acceso cruzado. La prueba de árbol de la Actividad 3 registró titu
 evaluadores ante la tarea de revisar quién autorizó un acceso, y dos de ellos la buscaron
 directamente en gobierno.
 
+\clearpage
 \subsection{Prototipo 6. Exportación}
 
 La exportación es la subrama 2.3 y tiene pantalla propia porque su ciclo de vida es largo: se pide
 un trabajo, el trabajo corre en segundo plano y el resultado queda disponible durante una ventana
-acotada. La pantalla consulta el estado real del trabajo contra el api, con un temporizador único
-que se apaga cuando no hay trabajos vivos, y muestra el vacío explícito cuando el historial está
-vacío, en lugar de un enlace que no llevaría a ninguna parte.
+acotada. La pantalla reúne el formulario de solicitud ---conjunto de datos, formato y filtros--- y
+el historial, que consulta el estado real del trabajo contra el api con un temporizador único que se
+apaga cuando no hay trabajos vivos y que muestra el vacío explícito cuando el historial está vacío,
+en lugar de un enlace que no llevaría a ninguna parte.
 
-\figuraux{figuras/a4/despues/6_exploracion-exportar_normal.png}{Prototipo 6, exportación, con sesión
-de perfil analista. El historial de trabajos se compone desde el estado real del api y la franja de
-honestidad declara el retardo simulado de la demostración.}{fig:a4-exportacion}
+\figuraux{figuras/a4/tema/institucional_claro_6_exportacion.png}{Prototipo 6, exportación, con sesión
+de perfil analista. El formulario declara junto al control que lo impone el tope de doscientas mil
+filas de la hoja de cálculo, el historial se compone desde el estado real del trabajo contra la
+interfaz de programación y la franja de honestidad declara el retardo de ocho segundos que la
+demostración añade a cada trabajo. Captura del portal en ejecución.}{fig:a4-exportacion}
+
+\clearpage
+\subsection{El chasis común de las diez rutas}
+
+Las siete pantallas anteriores, más el índice del prototipo y la ruta de la guía de estilos, se
+enmarcan con \textbf{el mismo chasis}: barra lateral con etiquetas de texto, cabecera fina, salto
+al contenido como primera parada del orden de tabulación y franja de alcance. Son \textbf{diez
+rutas} y ninguna queda fuera; las dos que no llevan navegación ---la entrada y el índice---
+heredan todo lo demás, porque \enquote{mismo chasis} no significa \enquote{misma navegación}.
+
+La cabecera publica \textbf{seis controles con rótulo visible}: marca, buscador, apariencia, perfil
+y los dos del idioma. Los dos grupos que derramarían sus opciones sobre la fila ---tema y modo,
+cinco botones; perfil, cuatro--- son revelaciones que se abren sobre su propio disparador y se
+anclan al borde final de ese disparador, de modo que ninguna se sale del lienzo en el ancho más
+estrecho. Tema y modo se resuelven en un solo control de apariencia porque son el mismo eje del
+sistema de diseño.
 
 % ============================================================================
 \section{Cada ruta anclada a una rama del mapa}
@@ -181,7 +297,7 @@ escrita en el propio contrato de navegación:
   \lead{El asistente}{Es transversal a las cuatro categorías. Colocarlo en una de ellas
     contradiría lo que hace, y crear una quinta categoría para él alteraría la arquitectura que la
     Actividad 3 validó.}
-  \lead{La guía de estilos}{La rúbrica puntúa los prototipos en un apartado y la guía en otro, así
+  \lead{La guía de estilos}{Los prototipos y la guía son dos artefactos distintos, así
     que contarla como octavo prototipo mezclaría los dos. Queda fuera del contrato de navegación y
     fuera del índice numerado.}
 \end{uxlist}
@@ -191,12 +307,18 @@ como tal: vista previa y calidad de datos. Se resuelven como accesos cruzados de
 exploración, que es donde los evaluadores las buscaron, y quedan declaradas aquí. La arquitectura de
 la Actividad 3 no se reescribe para que una tabla cuadre; la diferencia se documenta.
 
+Las nueve facetas transversales se declaran \textbf{en esta tabla} y no como menú de la barra
+lateral del portal. La regla del chasis es que la barra lateral publica únicamente destinos
+alcanzables: cada faceta sigue anclada a su rama canónica y sigue alcanzable desde la pantalla que
+la aloja, y la trazabilidad al mapa se resuelve aquí, que es donde un evaluador la busca.
+
 % ============================================================================
-\section{Los cuatro estados no felices, pantalla por pantalla}
+\section{Especificación de los estados no felices, pantalla por pantalla}
 
 Una pantalla que solo existe en su estado ideal no es un prototipo de alta fidelidad: es una
-ilustración. Los cuatro estados que esta sección recorre son los que deciden si la interfaz sostiene
-el uso real, y la matriz siguiente los declara para las siete pantallas, sin dejar celdas en blanco.
+ilustración. Los cuatro estados que esta sección especifica son los que deciden si la interfaz
+sostiene el uso real, y la matriz siguiente los declara para las siete pantallas, sin dejar celdas
+en blanco.
 
 Cada celda dice en qué situación está, con tres categorías posibles:
 
@@ -212,19 +334,21 @@ Cada celda dice en qué situación está, con tres categorías posibles:
 \begin{uxtablalarga}{|L{3.6cm}|C{1.9cm}|C{2.4cm}|C{1.7cm}|C{2.0cm}|}{Matriz de estados no felices: siete pantallas por cuatro estados}{\thd{Pantalla} & \thd{Vacío} & \thd{Cargando} & \thd{Error} & \thd{Sin permiso}}
   Acceso & (c) & (a) & (a) & (c) \\
   Inicio & (a) & (c) & (c) & (b) \\
-  Exploración y extracción & (b) & (b) & (c) & (b) \\
+  Exploración y extracción & (a) & (a) & (a) & (a) \\
   Gobierno del dato & (b) & (b) & (c) & (b) \\
   Asistente conversacional & (a) & (b) & (b) & (b) \\
   Administración & (a) & (c) & (c) & (b) \\
   Exportación & (a) & (c) & (c) & (b) \\
 \end{uxtablalarga}
 
-El recuento de la matriz es de \textbf{28 celdas}, ninguna vacía: \textbf{6} construidas en esta
-actividad, \textbf{12} construidas por otras historias del sprint y \textbf{10} especificadas sin
-código. La planeación de la semana había anticipado un reparto de 7, 11 y 10; la diferencia proviene
-de que aquella cuenta incluía una octava fila para los tableros, que son una zona de la pantalla de
-exploración y no un prototipo. Se publica el recuento sobre las siete pantallas, que es el que la
-matriz sostiene.
+El recuento de la matriz es de \textbf{28 celdas}, ninguna vacía: \textbf{10} construidas en esta
+actividad, \textbf{9} construidas por otras historias del sprint y \textbf{9} especificadas sin
+código.
+
+La matriz se publica sobre \textbf{siete filas} y no ocho, y el denominador es el mismo aquí y en
+todas las cuentas de este documento: los tableros e indicadores son una zona de la pantalla de
+exploración y no un prototipo aparte, de modo que darles fila propia contaría dos veces la misma
+interfaz.
 
 \subsection{Cargando sin desplazamiento de maquetación}
 
@@ -239,17 +363,16 @@ produzca, y presentar una cifra sin instrumento sería peor que declarar el mét
 donde el estado de carga está construido, la caja del esqueleto se define con las mismas alturas de
 fila y el mismo número de columnas que la tabla o la lista que aparece después.
 
-\subsection{Las diez reglas de las celdas especificadas}
+\subsection{Las nueve reglas de las celdas especificadas}
 
 Cada celda de la tercera categoría lleva su regla de comportamiento escrita. Sin ella, la celda solo
 declararía una ausencia; con ella, la historia que la construya no tiene que volver a decidir nada.
 
-\begin{uxtablalarga}{|L{3.6cm}|L{2.2cm}|Y|}{Reglas de comportamiento de los diez estados especificados}{\thd{Pantalla} & \thd{Estado} & \thd{Regla}}
+\begin{uxtablalarga}{|L{3.6cm}|L{2.2cm}|Y|}{Reglas de comportamiento de los nueve estados especificados}{\thd{Pantalla} & \thd{Estado} & \thd{Regla}}
   Acceso & Vacío & No aplica contenido vacío: el formulario en reposo es su propio estado inicial, con los dos campos habilitados y el control de entrada disponible \\
   Acceso & Sin permiso & No aplica: la pantalla es la puerta y no exige permiso. Una sesión vigente que llega aquí se redirige a su pantalla inicial en lugar de recibir un rechazo \\
   Inicio & Cargando & Cada uno de los cinco bloques carga por separado, con un esqueleto de la altura de sus filas. La pantalla no espera al bloque más lento para pintar los demás \\
   Inicio & Error & El bloque que falla muestra su propio aviso y conserva los otros cuatro. Un fallo del buscador no vacía las alertas \\
-  Exploración y extracción & Error & El error de búsqueda conserva el término escrito y ofrece reintentar. Vaciar el campo obligaría a teclear de nuevo lo que no falló \\
   Gobierno del dato & Error & El campo cuyo linaje no se puede resolver se marca en su fila, sin ocultar el resto del diccionario \\
   Administración & Cargando & La tabla de personas usuarias carga con filas de esqueleto del mismo alto que las definitivas \\
   Administración & Error & El error de la tabla conserva los filtros aplicados y ofrece reintentar \\
@@ -257,12 +380,19 @@ declararía una ausencia; con ella, la historia que la construya no tiene que vo
   Exportación & Error & Un trabajo fallido conserva su tarjeta con el motivo del fallo y la hora, en lugar de desaparecer del historial \\
 \end{uxtablalarga}
 
-\subsection{El estado sin permiso, construido una sola vez}
+\subsection{El estado sin permiso, con sus dos alcances}
 
 La cuarta columna se resuelve con un único componente que se dibuja donde habría estado la pantalla,
 sin cambiar la dirección: así el enlace sigue siendo compartible y el botón de retroceso se comporta
 como se espera. La barra lateral y la franja de alcance permanecen alrededor, que es lo que le da a
 quien lo encuentra una salida que no consiste en insistir.
+
+Ese alcance ---la pantalla entera--- cubre seis de las siete filas y no cubre la séptima, porque la
+ruta de exploración no exige permiso. Ahí el rechazo no es de la pantalla sino de dos de sus
+continuaciones, de modo que el estado se dibuja sobre ellas: se nombran, se declara el perfil que
+piden y se dejan visibles sin ser accionables. La regla común a los dos alcances es la misma y por
+eso se enuncia una sola vez: \textbf{lo que una sesión no puede abrir se nombra, no se esconde}, y
+lo que se nombra dice qué perfil hace falta.
 
 Ese componente no ofrece un control de reintento, y la ausencia es deliberada: reintentar un rechazo
 no cambia el rol de nadie, y ofrecer el botón enseña a insistir contra una puerta que no va a

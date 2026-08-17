@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
 
-import { clavesDe } from './i18nDePrueba'
+import { type CodigoIdioma, clavesDe, mensaje } from './i18nDePrueba'
 
 /**
  * US-UX-09 — the two contracts that cross a wave boundary.
@@ -220,5 +220,85 @@ describe('ninguna plantilla pide una cadena que los catálogos no tengan', () =>
 
     expect(usadas.size).toBeGreaterThan(100)
     expect(ausentes.map(([clave, archivo]) => `${archivo}: ${clave}`)).toEqual([])
+  })
+})
+
+describe('la copia del producto no publica la numeracion del mapa', () => {
+  /**
+   * Values the reader can see, minus the plates of the style guide.
+   *
+   * The exemption is by subtree and it is argued: `guide.*` publishes measured
+   * numbers -a 4.55:1 contrast ratio, a +2.4 % delta, a figure of twelve
+   * million with two decimals- and there a number IS the content. Everywhere
+   * else a number with a dot in the middle can only be a branch identifier of
+   * the A3 site map, which is a section of an academic deliverable and not a
+   * name of this product.
+   *
+   * @param idioma - Catalogue to read from.
+   * @returns Every visible key and value outside the guide.
+   */
+  function copiaDeProducto(idioma: CodigoIdioma): [string, string][] {
+    return clavesDe(idioma)
+      .filter(clave => !clave.startsWith('guide.'))
+      .map(clave => [clave, mensaje(idioma, clave)])
+  }
+
+  /** True when a sentence carries the numbering of the site map. */
+  function citaElMapa(valor: string): boolean {
+    // `2.2`, `4.1 a 4.4` -the metric of CA-18- and a value that opens with the
+    // number of a first level category, as `1. Inicio` did.
+    return /[0-9]\.[0-9]/.test(valor) || /^[0-9]+\.\s/.test(valor)
+  }
+
+  it.each(['es', 'en'] as const)('no numera ninguna descripcion de producto en %s', (idioma) => {
+    // The defect, shipped and measured: the index published "4. Administración
+    // — 4.1 a 4.4" as the description of a screen, and a screen reader read the
+    // accessible name of two branches as "2.2 Consulta y filtros, faceta
+    // transversal". The trace to the map is not lost: it lives in a4_02, which
+    // is the deliverable that owns it.
+    const copia = copiaDeProducto(idioma)
+    const numeradas = copia.filter(([, valor]) => citaElMapa(valor))
+
+    expect(copia.length).toBeGreaterThan(400)
+    expect(numeradas.map(([clave, valor]) => `${clave}: ${valor}`)).toEqual([])
+  })
+
+  it('mide de verdad: la guia si publica cifras con punto y queda fuera', () => {
+    // Without this the assertion above would also pass over a filter that
+    // excluded everything, which is how a scan like this rots without a sound.
+    const conCifras = clavesDe('es')
+      .filter(clave => clave.startsWith('guide.'))
+      .filter(clave => citaElMapa(mensaje('es', clave)))
+
+    expect(conCifras.length).toBeGreaterThan(0)
+  })
+})
+
+describe('el catalogo y el gobierno del dato no abren con la misma pantalla', () => {
+  /**
+   * The four sentences each screen opens with, key by key.
+   *
+   * The pairing is what is under test: `/exploracion` answers "which field do
+   * I need" and `/gobierno` answers "where does this figure come from and who
+   * answers for it", and the design review found both opening with the same
+   * label, the same placeholder and almost the same empty state, which made
+   * the second read as a duplicate of the first.
+   */
+  const APERTURAS: readonly [string, string][] = [
+    ['screen.explore.description', 'screen.governance.description'],
+    ['catalog.explore.search.label', 'lineage.dictionary.searchLabel'],
+    ['catalog.explore.search.placeholder', 'lineage.dictionary.searchPlaceholder'],
+    ['catalog.explore.state.initial.title', 'lineage.dictionary.state.initial.title'],
+    ['catalog.explore.state.initial.body', 'lineage.dictionary.state.initial.body'],
+  ]
+
+  it.each(['es', 'en'] as const)('cada pantalla declara en %s lo que resuelve', (idioma) => {
+    // Two screens with the same opening copy are one screen rendered twice, and
+    // the site map would be claiming a module that the product does not have.
+    const repetidas = APERTURAS.filter(
+      ([catalogo, gobierno]) => mensaje(idioma, catalogo) === mensaje(idioma, gobierno),
+    )
+
+    expect(repetidas.map(([catalogo]) => catalogo)).toEqual([])
   })
 })

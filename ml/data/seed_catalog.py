@@ -117,14 +117,14 @@ VALIDITY_YEARS: Final[tuple[int, ...]] = (1, 2, 3)
 STEWARDS: Final[tuple[str, ...]] = (
     "Adriana Cortes",
     "Daniel Ocampo",
-    "Hugo Beltran",
-    "Ivan Zepeda",
+    "Hugo Beltrán",
+    "Iván Zepeda",
     "Jorge Nieto",
-    "Marcela Rios",
-    "Paola Iniguez",
+    "Marcela Ríos",
+    "Paola Íñiguez",
     "Renata Fuentes",
     "Ricardo Salas",
-    "Sofia Aranda",
+    "Sofía Aranda",
 )
 
 _WORD: Final[re.Pattern[str]] = re.compile(r"[0-9a-z_]+")

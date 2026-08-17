@@ -4,6 +4,10 @@
 %  Propiedad de US-UX-07. Cubre el criterio 2 de la historia: sistema de diseno
 %  de fuente unica con derivacion en un solo sentido, y el protocolo de captura
 %  que hace reproducible la evidencia de la seccion siguiente.
+%
+%  Incluye ademas el acceso al archivo de trabajo: el enlace, la estructura de
+%  sus tres paginas con sus nodos y lo que se recorre desde ahi. El enlace se
+%  publica una sola vez en todo el documento y es este.
 % ============================================================================
 
 % ============================================================================
@@ -47,8 +51,60 @@ versión del código están en el repositorio, y las tres cosas juntas reconstru
 se ve impreso.
 
 Esto no es una renuncia al despliegue, que existe como puente operativo del proyecto, sino una
-decisión sobre qué sostiene la evidencia del entregable. Lo que la rúbrica puede verificar es que
+decisión sobre qué sostiene la evidencia del entregable. Lo que un lector externo puede verificar es que
 las pantallas se recorren de verdad, y eso es lo que estas capturas muestran.
+
+\subsection{Las dos superficies del prototipo}
+
+El prototipo se recorre en dos superficies y las dos describen el mismo portal. La primera es la
+\textbf{aplicación en ejecución}, con su sesión, sus permisos y sus datos sintéticos; es la que
+demuestra comportamiento, es decir qué responde, qué tarda y qué alcanza a ver cada rol. La segunda
+es el \textbf{archivo de diseño}, donde viven los cinco flujos de tarea completos, la identidad
+visual y el inventario de componentes con sus variantes; es la que demuestra intención sobre
+recorridos largos que atraviesan varias pantallas.
+
+Ninguna de las dos sustituye a la otra y la entrega no elige entre ellas. Una capacidad que existe
+en el archivo de diseño y no en la aplicación es una decisión de interfaz tomada y no construida, y
+este documento la declara como tal en la sección de alcance, con su lámina. A la inversa, un
+comportamiento que solo existe en la aplicación ---la cancelación real de una respuesta, el cambio
+de rol que reconfigura la barra lateral--- no se puede representar en un lienzo, y por eso se
+documenta con capturas.
+
+Las dos superficies comparten sistema visual y la dirección del préstamo está declarada: los colores
+de la identidad institucional se definen en el archivo de diseño y entran al sistema de tokens del
+portal, donde se verifican con el mismo cálculo de contraste que el resto de la paleta. La sección
+del tema institucional publica el origen de cada valor, y el anexo lo repite en forma de tabla.
+
+\subsection{Acceso al archivo de trabajo}
+
+El archivo de diseño es
+\href{https://www.figma.com/design/4RA9Q606HpPNveRruoHr7t/Karisma-Data---Actividad-4--Dev?node-id=0-1}{Karisma
+Data --- Actividad 4 --- Dev}, una copia de trabajo que conservó intacta la versión de origen y
+concentró en ella los ajustes de esta actividad. Se abre en el navegador, sin instalar nada, y
+admite el modo de presentación que recorre las pantallas de un flujo en el orden en que fueron
+enlazadas.
+
+El archivo está organizado en \textbf{tres páginas}, y esa separación es la que permite revisar los
+fundamentos y las piezas reutilizables sin perder de vista las pantallas donde se aplican.
+
+\begin{uxtabla}{|L{2.9cm}|L{1.5cm}|Y|}{Estructura del archivo de trabajo, con el nodo de cada página}
+  \uxheadrow \thd{Página} & \thd{Nodo} & \thd{Qué contiene y qué se recorre desde ahí} \\
+  Guía de estilo & 0:1 & Identidad, color, tipografía, retícula, iconografía, versionado y las reglas de interacción, accesibilidad y voz. Se recorre como referencia: cada lámina enuncia su regla y muestra su aplicación \\
+  Componentes & 5:29 & Doce conjuntos con sus variantes y propiedades, entre ellos botones, campos de búsqueda, tablas y alertas. Se recorre abriendo un conjunto y alternando sus variantes, que es como se revisan los estados de una pieza sin salir de ella \\
+  Prototipos & 5:30 & Cinco flujos de tarea y treinta pantallas enlazadas entre sí. Se recorren de principio a fin en modo de presentación, uno por objetivo: análisis y exportación, señal de riesgo, publicación de versiones, autorización de accesos y centro de trabajo \\
+\end{uxtabla}
+
+Lo que un evaluador puede hacer desde ahí, sin credenciales del proyecto y sin levantar nada, es
+recorrer los cinco flujos completos por su cuenta, abrir cualquier pantalla intermedia, revisar los
+estados de cada componente y comprobar que las reglas de la guía de estilos se aplican en las
+pantallas y no solo se enuncian. El recuento técnico del archivo ---pantallas, conexiones, conjuntos
+y variantes--- se publica en la sección de los cinco flujos de tarea.
+
+El enlace es la vía principal y no la única. El repositorio del proyecto conserva \textbf{tres
+exportaciones en PDF} del archivo completo, archivadas junto al resto del material de la entrega, de
+modo que la evidencia no depende de que un servicio externo siga disponible el día de la revisión.
+Es el mismo criterio que gobierna las capturas: lo que sostiene la evaluación tiene que poder
+reconstruirse desde el repositorio.
 
 \subsection{Protocolo de captura}
 
@@ -59,9 +115,12 @@ primera captura y archivado junto al guion ejecutable. Sus parámetros son fijos
   \lead{Resolución}{1440 por 900 píxeles de composición, que es la resolución de trabajo del perfil
     directivo descrito en la Actividad 1 y cabe en la caja de texto de este documento sin reducción
     agresiva.}
-  \lead{Modo de color}{Claro. La guía de estilos declara el modo oscuro fuera de alcance para esta
-    versión, de modo que capturar en oscuro documentaría una paleta que el propio documento dice no
-    haber verificado.}
+  \lead{Modo de color y tema}{\textbf{Tema institucional en modo claro} para el inventario de
+    pantallas de la sección de prototipos, que es el tema central del producto. El par que mide la
+    franja de alcance se toma bajo el tema de omisión, y la lámina del eje recorre las cuatro
+    combinaciones sobre una misma pantalla. El tema y el modo se fijan por cookie antes de cada
+    disparo y se comprueban en la raíz del documento: una cookie ignorada produce un fallo y no una
+    captura plausible.}
   \lead{Idioma}{Español. La interfaz es bilingüe y la dirección no cambia con el idioma, así que la
     correspondencia entre rutas y ramas del mapa se conserva en los dos.}
   \lead{Sesión}{Una por pantalla, con el rol que el contrato de navegación sugiere para ella. La
@@ -77,9 +136,9 @@ la pantalla, su ruta y el estado capturado. Añadir una pantalla al contrato añ
 tocar el guion, y quitarla la retira. Así el conjunto de figuras no puede quedar desfasado respecto
 del portal.
 
-El nombre del archivo es el que permite emparejar el antes y el después de la iteración documentada
-en la sección de pre-validación: las dos carpetas usan los mismos nombres y la pareja se detecta por
-igualdad, no por una lista escrita aparte.
+El nombre del archivo es el que empareja las dos capturas que miden la franja de alcance en la
+sección de validación: las dos carpetas usan los mismos nombres y la pareja se detecta por igualdad,
+no por una lista escrita aparte.
 
 \subsection{El sistema de diseño corre en un solo sentido}
 

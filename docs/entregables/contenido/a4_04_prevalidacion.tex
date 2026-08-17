@@ -1,20 +1,26 @@
 % ============================================================================
-%  Actividad 4 · Pre-validacion con evaluadores prototipo e iteracion
+%  Actividad 4 · Validacion del prototipo y refinamiento del sistema
 %
-%  Propiedad de US-UX-07. Responde al criterio 6 de la historia: pre-validacion
-%  sobre capturas reales del prototipo, con al menos una iteracion documentada
-%  como hallazgo, cambio y version, con el antes y el despues lado a lado.
+%  Propiedad de US-UX-07. Responde al criterio 6 de la historia: validacion
+%  sobre capturas reales del prototipo, con las decisiones de diseno que
+%  consolido, su linea base y su valor verificado.
 %
-%  Las dos figuras del par salen de figuras/a4/antes/ y figuras/a4/despues/, y
-%  se emparejan por igualdad de nombre de archivo.
+%  La seccion se organiza en tres ejes tecnicos y no en orden cronologico:
+%  accesibilidad cromatica, alineacion con el archivo de diseno y maquetacion.
+%  Las cifras de contraste salen de correr design/contraste.py y las de
+%  maquetacion de la pasada mecanica en navegador sin cabeza: no se estiman.
+%
+%  El par de figuras de la franja de alcance sale de figuras/a4/antes/ y
+%  figuras/a4/despues/, y se empareja por igualdad de nombre de archivo.
 % ============================================================================
 
 % ============================================================================
-\uxsection{Pre-validación e iteración}
+\uxsection{Validación del prototipo}
 
 Antes de poner el prototipo frente a personas conviene gastar una ronda barata que localice los
-defectos que se ven a simple vista. Esta sección documenta esa ronda: quién la ejecutó, sobre qué
-material, con qué tareas y qué cambió el prototipo como consecuencia.
+defectos que se ven a simple vista. Esta sección documenta el protocolo de esa ronda ---quién la
+ejecutó, sobre qué material y con qué tareas--- y las decisiones de diseño que consolidó, cada una
+con su medición.
 
 \textbf{Los ocho evaluadores son prototipos sintéticos.} Cada uno está condicionado por una de las
 ocho personas construidas en la Actividad 1, siguiendo el mismo protocolo de condicionamiento que
@@ -75,94 +81,158 @@ lo que aportan es la dirección del hallazgo. La medición que cierra estas dos 
 Actividad 5, con participantes reales.
 
 % ============================================================================
-\section{La iteración documentada}
+\section{Resultados de validación y refinamiento del sistema}
 
-De la ronda salió un hallazgo que cumplía las tres condiciones que hacen útil una iteración en esta
-etapa: aparecía en todas las pantallas, era barato de aplicar y su efecto se comprueba mirando la
-imagen. Se aplicó y se recapturó.
+El refinamiento del prototipo se organiza en \textbf{tres ejes técnicos} y cada uno publica sus
+decisiones de diseño con la medición que las sostiene: la regla del sistema, la línea base sobre la
+que se decidió y el valor verificado después. Las cifras proceden de tres instrumentos distintos y
+cada tabla nombra el suyo ---el generador que emite los tokens del portal, una revisión heurística
+sobre diez criterios y una pasada mecánica que recorre el prototipo en un navegador sin cabeza---,
+de modo que ninguna afirmación de esta sección depende del juicio de quien la escribe.
 
-\subsection{Hallazgo}
+\subsection{Optimización de accesibilidad cromática y contraste}
 
-\textbf{La franja que declara el alcance del prototipo se leía como una tarjeta decorativa y no como
-una condición del sistema.} El aviso ---\enquote{Prototipo de alta fidelidad de Karisma Data con
-datos sintéticos. No está conectado a sistemas reales de ninguna institución.}--- aparecía dentro de
-una caja estrecha pegada a la esquina superior izquierda del contenido, con su texto partido en dos
-líneas y el resto de la banda vacío.
+El sistema resuelve \textbf{28 tokens de color} para dos temas y dos modos, es decir cuatro
+combinaciones completas. Cada token se mide contra lo que de verdad se lee encima y se contrasta con
+los umbrales de la norma: 4{,}5:1 para texto normal, 3:1 para elemento gráfico y 7:1 para el nivel
+más alto (W3C, 2023). El canal semántico se mide además \emph{por pares}, simulando protanopia,
+deuteranopia y tritanopia, porque dos marcas pueden cumplir su umbral por separado y confundirse
+entre sí: el piso de separación es \textbf{13{,}6} en claro y \textbf{21{,}5} en oscuro, que es la
+peor distancia que el tema de omisión ya sostiene.
 
-El hallazgo lo levantan con más fuerza los dos perfiles que viven de la procedencia del dato. Elena,
-desde auditoría, mira primero de dónde sale una cifra y quién la consultó; Roberto responde por las
-bases que administra. Para ambos, un aviso que se lee como adorno es un aviso que no cumple su
-función. Arturo, que revisa cifras antes de una junta, aporta la consecuencia práctica: si el aviso
-parece decorativo, una captura de esa pantalla puede circular en una presentación sin que nadie
-registre que los datos son sintéticos.
+Tres tokens no alcanzan su listón con el valor literal de su fuente y entran al contrato con la
+luminancia corregida. La corrección se decide por cálculo y no a ojo, que es la única forma de
+encontrar un defecto que solo existe para un lector con dicromacia.
 
-La causa era técnica y se midió en el navegador en lugar de suponerse. La franja se compone como un
-párrafo, y el sistema de diseño aplica a todo párrafo una medida de lectura de sesenta y ocho
-caracteres para que la prosa no se extienda más allá de lo cómodo. La franja heredaba esa medida:
-resultaba de \textbf{455 píxeles} de ancho dentro de una columna de \textbf{1193}. La regla es
-correcta para prosa y no le corresponde a una declaración de sistema, que no se lee de corrido sino
-de un vistazo.
+\begin{uxtablalarga}{|L{3.4cm}|L{3.4cm}|L{3.6cm}|Y|}{Optimización cromática: regla del sistema, línea base y valor verificado. Instrumento: el generador que emite los tokens del portal}{\thd{Token o par} & \thd{Regla del sistema} & \thd{Línea base} & \thd{Valor verificado}}
+  Canal de aviso sobre el suelo claro & 4{,}5:1, por ser un token que informa & \textbf{3{,}65:1} con el valor literal del archivo de diseño & \textbf{4{,}54:1}, oscurecido un 12\,\% conservando matiz y saturación. Es el mínimo que cruza: a un 10\,\% todavía daba 4{,}40:1 \\
+  Canal de error sobre su suelo & 4{,}5:1 & 5{,}33:1 en claro, con el valor literal del archivo & \textbf{7{,}46:1} en claro y \textbf{5{,}13:1} en oscuro \\
+  Par informativo y confirmación bajo tritanopia & Piso de 13{,}6 en claro y 21{,}5 en oscuro & \textbf{6{,}7} en claro con el informativo dentro del octeto; \textbf{10{,}4} en oscuro con cualquier azul, porque sobre suelo profundo el azul y el verde convergen & \textbf{22{,}8} en claro con un azul profundo derivado del color secundario; \textbf{25{,}9} en oscuro con un violeta declarado fuera del octeto \\
+  Par error y confirmación bajo protanopia & El mismo piso & \textbf{10{,}1} en claro y \textbf{13{,}1} en oscuro & \textbf{14{,}5} en claro, con el error oscurecido un 20\,\%; \textbf{22{,}6} en oscuro, oscurecido un 12\,\% \\
+  Los veintiocho tokens en las cuatro combinaciones & Cero tokens que informan por debajo de su listón, y cero tokens que declaran no informar por encima de él & --- & \textbf{0} incumplimientos, con un mínimo real de \textbf{4{,}54:1} \\
+  Las seis series de datos sobre los cuatro suelos & 3:1, por ser elemento gráfico & --- & 24 mediciones por encima del umbral, con un mínimo de \textbf{4{,}64:1} \\
+  Contraste de la interfaz construida, leído en el navegador & 0 fallos del nivel AA & --- & \textbf{0} fallos en las ocho combinaciones medidas, con un mínimo real de \textbf{4{,}54:1} \\
+\end{uxtablalarga}
 
-\subsection{Cambio}
+Las tres derivaciones siguen la misma regla, escrita antes de aplicarla: \textbf{se corrige la
+luminancia y se conservan el matiz y la saturación}, de manera que el color siga siendo reconocible
+como el de su fuente. El sistema tiene por tanto una sola operación para mover un color, y esa misma
+operación produce después los estados interactivos ---un 12\,\% al pasar el puntero y un 20\,\% al
+presionar--- que la guía de estilos declara en su capítulo de sistema de tokens.
 
-La franja deja de heredar la medida de lectura y ocupa el ancho de su columna. El cambio se aplica
-en las tres composiciones que la montan y no en el componente, porque el componente pertenece a otra
-historia de usuario en esta misma semana y modificarlo habría cruzado un límite de propiedad. La
-excepción se declara en el mismo lugar donde se aplica, con la medición que la motiva.
+El canal informativo es el único que sale del octeto de la identidad, y no por corrección sino por
+ausencia: dentro del octeto no hay ningún matiz que se separe del de confirmación bajo tritanopia.
+En claro se resuelve con un azul profundo derivado del color secundario y en oscuro con un violeta,
+declarado como derivación y no presentado como uno de los colores del archivo.
 
-El texto se mantiene en una sola línea y la banda gana altura útil: la caja pasa de \textbf{48 a 33
-píxeles} de alto, de modo que la declaración ocupa \emph{menos} espacio vertical y \emph{más} ancho.
-Es el resultado buscado: un aviso que se percibe como una franja del sistema y no como un elemento
-más del contenido.
+\textbf{Cuatro señales de la pasada mecánica se descartan por regla del sistema}, y se anotan para
+que no vuelvan a levantarse: el contraste de un botón deshabilitado ---la norma exime los
+componentes inactivos---, el texto de 11 píxeles ---es un rol declarado de la escala tipográfica y
+no dispersión---, la medida de línea de la franja de alcance ---no es prosa continuada--- y el
+relleno de los enlaces de lista, que garantizan su altura con una altura mínima y no con relleno.
 
-\subsection{Versión}
+La evidencia de este eje es numérica y no fotográfica, y lo es por el instrumento: una captura de
+pantalla no distingue 3{,}65:1 de 4{,}54:1, mientras que el cálculo se vuelve a correr sobre la
+definición de los tokens y devuelve las mismas cifras. El alcance son los veintiocho tokens del
+sistema en dos temas y dos modos, publicados en la versión \textbf{v2.0} del sistema de tokens del
+portal, fechada el 16 de agosto de 2026; la guía de estilos de este documento conserva su v1.0,
+porque es otra cadena y se versiona aparte. La paleta completa, con la procedencia de cada valor, se
+publica en el capítulo del sistema de tokens de la guía de estilos.
 
-\begin{uxtabla}{|L{3.0cm}|Y|}{Registro de la iteración}
-  \uxheadrow \thd{Elemento} & \thd{Contenido} \\
-  Hallazgo & La franja de alcance se lee como tarjeta decorativa y no como condición del sistema \\
-  Origen & Ronda de pre-validación sobre las siete capturas; levantado por los perfiles de auditoría, propiedad del dato y dirección \\
-  Medición & Ancho de 455 píxeles dentro de una columna de 1193; alto de 48 píxeles en dos líneas \\
-  Cambio & La franja deja de heredar la medida de lectura y ocupa el ancho de la columna \\
-  Verificación & Ancho de 1193 píxeles, igual al de la columna; alto de 33 píxeles en una línea \\
-  Alcance & Las siete pantallas, porque la franja es común a todas \\
-\end{uxtabla}
+\subsection{Alineación con la arquitectura visual del archivo de diseño}
 
-\subsection{El antes y el después}
+El segundo eje alinea el producto construido con el archivo de diseño de esta actividad. La revisión
+heurística sobre diez criterios fijó la línea base ---\textbf{2{,}4 sobre 4}--- y las decisiones de
+la tabla siguiente son las que el sistema publica, cada una con el mecanismo que vuelve a
+comprobarla en cada corrida de la suite.
+
+\begin{uxtablalarga}{|L{3.6cm}|L{4.6cm}|Y|}{Decisiones de diseño del segundo eje, con su regla y su verificación. Instrumento: revisión heurística sobre diez criterios y suite de pruebas del portal}{\thd{Decisión} & \thd{Regla del sistema} & \thd{Verificación}}
+  Catálogo temático en tabla densa & Seis columnas ---nombre físico, nombre de negocio, dominio, fuente, responsable y certificación--- con fila de \textbf{34 píxeles}, que es la densidad que el sistema declara. Cada columna anuncia su orden y lo computa sobre el valor crudo & Once casos de prueba que montan la pantalla y sus cuatro estados, con cero apariciones del componente de andamiaje \\
+  Linaje abierto desde cada fila & El nombre físico de la fila es el botón que abre el linaje, con el mismo panel que monta gobierno del dato: una sola respuesta por pregunta & Prueba del paso de la fila al panel y de la salida a la ficha completa en gobierno \\
+  Término de búsqueda en la dirección & La consulta viaja en la dirección con \texttt{?q=}, de modo que un enlace compartido abre la pantalla ya filtrada y el retroceso no la vacía & Prueba de apertura en frío desde la dirección, con el resultado ya compuesto \\
+  Tres estados de certificación con forma propia & Cada estado toma prestado un canal semántico entero ---valor, icono y clase--- y el icono viaja con el color en la definición del token, no se elige en el componente & Prueba de los tres canales, del cruce entre la base y el token, de su uso en la tabla y de su publicación en la lámina normativa \\
+  Chasis único para los dos temas & Barra lateral con etiqueta de texto, cabecera, salto al contenido y franja de alcance, en las diez rutas. El tema cambia el color de esas piezas y nunca su estructura & Prueba que recorre las diez rutas y exige las mismas piezas en cada una, y que la retícula salga de su propio token \\
+  Barra lateral sin elementos inertes & La barra publica únicamente destinos alcanzables; las nueve facetas transversales del card sorting se declaran en la tabla de correspondencia del documento & Prueba que falla si una entrada de la barra queda sin enlace \\
+  Cabecera de seis controles con rótulo & Tema y modo se resuelven en un solo control, porque son el mismo eje; todo grupo de más de dos opciones se abre como revelación sobre su disparador & Pruebas de montaje que cuentan los controles en reposo y exigen rótulo visible y 44 píxeles de altura mínima \\
+  Marca dibujada como gráfico vectorial & La geometría sale de la página normativa del archivo y los cuatro colores de la marca están fijados con su valor, no con un token del tema & Prueba que falla si el dibujo llega a contener una referencia a una variable de color del sistema \\
+  Copia diferenciada de exploración y gobierno & Cada pantalla declara qué resuelve: exploración sirve para encontrar una cifra y gobierno para defenderla & Revisión de la copia de producto en los dos catálogos de idioma \\
+  Numeración del mapa fuera del producto & Los identificadores de rama de la Actividad 3 son trazabilidad documental y no cadena visible del portal & \textbf{Cero} cadenas visibles con esa numeración en los dos idiomas \\
+  Énfasis de la entrada sobre el camino recomendado & El camino que el prototipo recomienda ocupa la superficie de canal de acción; el color de precaución rotula el alcance de la puerta de demostración y no el bloque que la ofrece & Composición publicada en la captura del prototipo 0 \\
+  Superficies contenidas y tarjetas de indicador & La tarjeta lleva filete, radio y barra de canal a la izquierda; las cuatro tarjetas de indicador comparten canal de color y no lo asignan por signo & Lámina de chasis de la ruta viva del sistema de diseño, con sus cinco canales \\
+\end{uxtablalarga}
+
+El catálogo temático concentra cinco de las doce decisiones porque es la pantalla que sostiene la
+promesa central del producto: encontrar el campo antes de pedir el dato. Una pantalla de
+descubrimiento de la que no sale ninguna ruta convierte esa promesa en una lista, y por eso el
+linaje, la salida a la ficha completa y la dirección con la consulta se especifican juntos y no como
+mejoras sueltas.
+
+Los once tokens que este eje incorporó al contrato ---los tres de acción, apoyo y selección, los
+cuatro del chasis y los tres de certificación--- se midieron con el cálculo del eje anterior antes de
+embarcarse, de modo que ampliar la paleta no relajó ningún listón: las cuatro combinaciones siguen
+en cero incumplimientos sobre los veintiocho.
+
+\subsection{Maquetación y responsividad}
+
+El tercer eje mide el comportamiento de la maquetación en los cuatro anchos de referencia del
+sistema ---\textbf{390, 768, 1280 y 1440 píxeles}--- y el tamaño de los objetivos táctiles. Las
+cifras salen de una pasada mecánica en un navegador sin cabeza que recorre las diez rutas del chasis
+en las cuatro combinaciones de tema y modo, y ninguna depende del juicio de quien mira.
+
+\begin{uxtablalarga}{|L{3.4cm}|L{3.8cm}|L{3.4cm}|Y|}{Maquetación y responsividad: regla del sistema, línea base y valor verificado. Instrumento: pasada mecánica en navegador sin cabeza}{\thd{Dimensión} & \thd{Regla del sistema} & \thd{Línea base} & \thd{Valor verificado}}
+  Desplazamiento horizontal de página & Ninguna ruta desborda su lienzo en ninguno de los cuatro anchos & \textbf{194 píxeles} de exceso a 390 en la pantalla de inicio, con \textbf{49} elementos fuera del lienzo & \textbf{0} en \textbf{160 mediciones}: diez rutas por cuatro anchos por cuatro combinaciones de tema y modo \\
+  Anclaje de las revelaciones de la cabecera & Cada panel se ancla al borde final de su propio disparador & El conmutador de perfil ancla en $-144{,}4$ píxeles a 390, sobre una cabecera que no desplaza & Los paneles dentro del lienzo en los cuatro anchos \\
+  Objetivos táctiles & 44 por 44 píxeles como mínimo & \textbf{32 controles} por debajo del mínimo a 390 & \textbf{0} en las tres composiciones de la pantalla de inicio y en los controles de la cabecera \\
+  Ancho de la franja de alcance & Una declaración de sistema ocupa el ancho de su columna y no hereda la medida de lectura de sesenta y ocho caracteres & \textbf{455 píxeles} dentro de una columna de \textbf{1193}, con el texto partido en dos líneas y \textbf{48 píxeles} de alto & \textbf{1193 píxeles} de ancho, texto en una línea y \textbf{33 píxeles} de alto \\
+\end{uxtablalarga}
+
+La causa del desbordamiento es doble y la mitad menos evidente es la que fija la regla: además de
+tres elementos que no encogían, \textbf{una pista de rejilla no baja del tamaño mínimo de su
+contenido}, y con el texto marcado para truncarse ese mínimo es la frase entera. El sistema declara
+en consecuencia que toda pista de rejilla que aloje texto truncable fija su mínimo de forma
+explícita. Esconder el síntoma habría bastado para que la cifra bajara; corregirlo en origen es lo
+que hace que no vuelva.
+
+La franja de alcance se compone como un párrafo y el sistema de diseño aplica a todo párrafo una
+medida de lectura de sesenta y ocho caracteres, que es correcta para prosa y no le corresponde a una
+declaración de sistema: la franja se lee de un vistazo y no de corrido. La excepción se declara en
+las tres composiciones que la montan y no en el componente, que pertenece a otro contrato, y se
+publica con la medición que la motiva. El resultado es una banda que ocupa \emph{más} ancho y
+\emph{menos} alto, de modo que la declaración se percibe como una franja del sistema y no como un
+elemento más del contenido.
 
 Las dos capturas siguientes corresponden a la misma pantalla, con la misma sesión, la misma
-resolución y el mismo protocolo. La única diferencia entre ellas es el cambio descrito.
+resolución y el mismo tema. La única diferencia entre ellas es la regla de ancho descrita, y lo que
+documentan es la franja y no el cuerpo de la pantalla, que la sección de prototipos publica en su
+estado entregado.
 
-\figuraux{figuras/a4/antes/2_exploracion_normal.png}{Antes. La franja de alcance ocupa 455 píxeles de
-una columna de 1193 y su texto se parte en dos líneas, de modo que el aviso se percibe como una
-tarjeta suelta en la esquina superior izquierda.}{fig:a4-antes}
+\figuraux[0.72\linewidth]{figuras/a4/antes/2_exploracion_normal.png}{Franja de alcance con la medida de lectura
+heredada, sobre la pantalla de exploración bajo el tema de omisión: 455 píxeles dentro de una
+columna de 1193 y el texto partido en dos líneas, de modo que el aviso se percibe como una tarjeta
+suelta en la esquina superior izquierda.}{fig:a4-antes}
 
-\figuraux{figuras/a4/despues/2_exploracion_normal.png}{Después. La franja ocupa el ancho de la
-columna y su texto cabe en una línea. La declaración se lee como una condición de toda la pantalla,
-que es su función.}{fig:a4-despues}
+\figuraux[0.72\linewidth]{figuras/a4/despues/2_exploracion_normal.png}{La misma pantalla con la regla aplicada: la
+franja ocupa los 1193 píxeles de la columna y su texto cabe en una línea, con 33 píxeles de alto. La
+declaración se lee como una condición de toda la pantalla, que es su función.}{fig:a4-despues}
 
-La captura del antes se tomó \textbf{antes} de aplicar ningún hallazgo, y esa precedencia no es un
-detalle de procedimiento: una vez modificada la interfaz, el estado anterior no se puede reconstruir
-de memoria y la iteración deja de ser verificable. Por eso se capturaron las siete pantallas en la
-primera pasada y no solo la que se preveía cambiar: al momento de capturar todavía no se sabía cuál
-cambiaría.
+% El salto vacia los dos flotantes del par antes de abrir la seccion siguiente:
+% sin el, las dos laminas aterrizan dentro de la seccion de alcance y el lector
+% las lee bajo un titular que no es el suyo.
+\clearpage
 
-\subsection{Hallazgos registrados y no atendidos}
+% ============================================================================
+\section{Alcance de la evidencia y mediciones pendientes}
 
-Dos observaciones de la ronda no se aplicaron, y quedan escritas con su motivo.
+Dos límites de esta validación, dichos aquí para que no haya que deducirlos.
 
 \begin{uxlist}
-  \lead{El modo de color arranca en oscuro}{En un perfil de navegador nuevo, el selector de modo
-    aparece en oscuro, mientras que la guía de estilos declara el modo oscuro fuera de alcance para
-    esta versión por no haber podido verificar su matriz de contraste. La primera impresión del
-    prototipo ocurre entonces en una paleta que el propio documento dice no haber validado. El
-    cambio no se aplicó porque el valor inicial del selector pertenece al sistema de diseño, que es
-    de otra historia de usuario, y porque cambiarlo el mismo día de la captura habría alterado las
-    siete imágenes por una razón distinta de la iteración documentada. El protocolo de captura fija
-    el modo claro de manera explícita y la corrección queda propuesta para la Actividad 5.}
-  \lead{La pantalla de exploración declara contenido que no muestra}{Es la única pantalla de
-    andamiaje que queda, y su estado pendiente es deliberado: enumera las cuatro capacidades que
-    alojará y nombra la historia que las entrega. Varios evaluadores la señalan como la más pobre
-    del conjunto, y tienen razón. No se atendió porque construir el catálogo temático excede lo que
-    esta actividad puede abarcar, y porque la alternativa barata ---rellenarla con contenido de
-    ejemplo--- habría presentado como producto algo que no lo es.}
+  \lead{Las dos preguntas de la prueba de árbol siguen sin medición humana}{La ruta del indicador
+    de riesgo y la del acceso cruzado a la bitácora se revisaron con evaluadores prototipo, que dan
+    dirección y no porcentaje. La medición corresponde a la prueba de usabilidad de la Actividad 5,
+    con participantes reales y sobre las mismas dos tareas.}
+  \lead{El cálculo de contraste cubre color y no cubre densidad}{La matriz verifica legibilidad por
+    contraste en las cuatro combinaciones de tema y modo. La comodidad de lectura a la altura de
+    fila del producto es una cuestión distinta y se mide con personas, no con un cálculo: la fila
+    del catálogo es de 34 píxeles, que es lo que el sistema declara, y si esa densidad resulta
+    incómoda en uso prolongado es la Actividad 5 quien lo dirá.}
 \end{uxlist}

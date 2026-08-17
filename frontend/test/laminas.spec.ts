@@ -40,6 +40,22 @@ describe('la lámina de paleta imprime lo que el generador emitió', () => {
     expect(impresos.every(hex => emitidos.has(hex))).toBe(true)
   })
 
+  // The plate walks the groups the store exposes and announces
+  // `sistema.tokens.length` beside the heading, so a group left out of `GRUPOS`
+  // makes the sheet the rubric grades as the living style guide document less
+  // than the product uses -and it is exactly where somebody copies a colour
+  // from-. It has shipped twice: with `accion` and `seleccion` one release
+  // earlier, and again with the four chassis tokens and the three certification
+  // states of this one, when the plate announced twenty-eight and painted
+  // twenty-one. Adding a group to the emitter without adding its line here is
+  // the whole defect.
+  it('pinta una muestra por cada token que su propio recuento anuncia', () => {
+    const sistema = useSistemaDiseno()
+    const wrapper = montar(LaminaPaleta)
+
+    expect(wrapper.findAll('[data-token]')).toHaveLength(sistema.tokens.length)
+  })
+
   it('marca como decorativo todo token que declara que no informa', () => {
     // The exemption is the reason the flag exists: a reader has to know that a
     // 1.21:1 rule is deliberate and not an oversight.

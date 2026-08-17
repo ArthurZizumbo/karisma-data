@@ -11,12 +11,24 @@
  * number of rows, same cell metrics. A spinner of its own height is what makes
  * the page jump the moment the answer lands, and the criterion forbids it by
  * name.
+ *
+ * The rows travel through the `fila` slot of `TablaDatos` because an account is
+ * not a list of six values: it carries a role selector, a destructive zone and
+ * cells that only exist for some accounts. What the shared table brings here is
+ * the header, the announced order and the row geometry -the three things the
+ * seven hand written tables of this repository each had a different answer for.
+ *
+ * The order opens EMPTY, in the sequence the server returned. An administrator
+ * looking for the account they just created finds it where the API put it, and
+ * a default order would have quietly moved it.
  */
 import type { AccionUsuario, EstadoPanel, UsuarioAdmin } from '~/types/usuarios'
 import { computed, useId } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdministracionFilaUsuario from '~/components/administracion/FilaUsuario.vue'
+import ComunTablaDatos from '~/components/comun/TablaDatos.vue'
 import { ANILLO_FOCO } from '~/utils/foco'
+import { definirColumnas } from '~/utils/tablaDatos'
 
 const props = defineProps<{
   /** Rows that pass the filter, which are the ones the table draws. */
@@ -46,8 +58,53 @@ const { t } = useI18n()
 
 const idFiltro = useId()
 
-/** The six columns, in the order the header declares them. */
-const COLUMNAS = Object.freeze(['user', 'email', 'role', 'status'] as const)
+/**
+ * The six columns, in the order the header declares them.
+ *
+ * Every one of them sorts on the value the server sent and not on what the row
+ * prints: the status column sorts on the boolean and the modified one on the
+ * ISO instant, so `1 de agosto` does not land above `12 de julio` because that
+ * is what a string comparison says. The last column holds actions and sorting
+ * it would be sorting the buttons.
+ */
+const columnas = computed(() => definirColumnas<UsuarioAdmin>([
+  {
+    id: 'user',
+    accessorFn: usuario => usuario.full_name,
+    header: t('admin.users.column.user'),
+    sortFn: 'alphanumeric',
+  },
+  {
+    id: 'email',
+    accessorFn: usuario => usuario.email,
+    header: t('admin.users.column.email'),
+    sortFn: 'alphanumeric',
+  },
+  {
+    id: 'role',
+    accessorFn: usuario => t(`authz.role.${usuario.role}`),
+    header: t('admin.users.column.role'),
+    sortFn: 'alphanumeric',
+  },
+  {
+    id: 'status',
+    accessorFn: usuario => (usuario.disabled ? 1 : 0),
+    header: t('admin.users.column.status'),
+    sortFn: 'basic',
+  },
+  {
+    id: 'modified',
+    accessorFn: usuario => usuario.updated_at,
+    header: t('admin.users.modified'),
+    sortFn: 'text',
+  },
+  {
+    id: 'actions',
+    header: t('admin.users.column.actions'),
+    enableSorting: false,
+    meta: { clase: 'border-l border-grid' },
+  },
+]))
 
 /**
  * Rows the skeleton draws.
@@ -89,7 +146,7 @@ const hayTabla = computed(() => props.estado === 'listo' || props.estado === 'ca
         type="search"
         autocomplete="off"
         :placeholder="t('admin.users.filter.placeholder')"
-        class="min-h-9 w-full max-w-96 rounded-md border border-corriente-medio bg-ground px-3 text-cuerpo text-corriente-pleno"
+        class="min-h-11 w-full max-w-96 rounded-md border border-corriente-medio bg-ground px-3 text-cuerpo text-corriente-pleno"
         :class="ANILLO_FOCO"
       >
     </div>
@@ -98,59 +155,40 @@ const hayTabla = computed(() => props.estado === 'listo' || props.estado === 'ca
       {{ t('admin.users.state.loading') }}
     </p>
 
-    <div v-if="hayTabla" class="overflow-x-auto border border-grid">
-      <table class="w-full border-collapse text-left" :aria-busy="estado === 'cargando'">
-        <caption class="sr-only">{{ t('admin.users.caption') }}</caption>
-        <thead>
-          <tr class="bg-ground-alt">
-            <th
-              v-for="columna in COLUMNAS"
-              :key="columna"
-              scope="col"
-              class="h-(--table-row-height) px-3 text-etiqueta text-corriente-pleno"
-            >
-              {{ t(`admin.users.column.${columna}`) }}
-            </th>
-            <th scope="col" class="h-(--table-row-height) px-3 text-etiqueta text-corriente-pleno">
-              {{ t('admin.users.modified') }}
-            </th>
-            <th
-              scope="col"
-              class="h-(--table-row-height) border-l border-grid pl-(--grid-gap) pr-3 text-etiqueta text-corriente-pleno"
-            >
-              {{ t('admin.users.column.actions') }}
-            </th>
-          </tr>
-        </thead>
+    <ComunTablaDatos
+      v-if="hayTabla"
+      :columnas="columnas"
+      :filas="usuarios"
+      :titulo="t('admin.users.caption')"
+      titulo-oculto
+      :cargando="estado === 'cargando'"
+      :id-fila="(usuario: UsuarioAdmin) => usuario.username"
+    >
+      <template #esqueleto>
+        <tr
+          v-for="fila in filasEsqueleto"
+          :key="fila"
+          data-fila-esqueleto
+          class="border-t border-grid even:bg-ground-alt"
+        >
+          <td class="h-(--table-row-height) px-3 py-2">
+            <span class="block h-3 w-40 animate-pulse rounded-sm bg-grid" />
+            <span class="mt-1 block h-2 w-24 animate-pulse rounded-sm bg-grid" />
+          </td>
+          <td v-for="celda in 5" :key="celda" class="h-(--table-row-height) px-3 py-2">
+            <span class="block h-3 w-24 animate-pulse rounded-sm bg-grid" />
+          </td>
+        </tr>
+      </template>
 
-        <tbody v-if="estado === 'cargando'" aria-hidden="true">
-          <tr
-            v-for="fila in filasEsqueleto"
-            :key="fila"
-            data-fila-esqueleto
-            class="border-t border-grid even:bg-ground-alt"
-          >
-            <td class="h-(--table-row-height) px-3 py-2">
-              <span class="block h-3 w-40 animate-pulse rounded-sm bg-grid" />
-              <span class="mt-1 block h-2 w-24 animate-pulse rounded-sm bg-grid" />
-            </td>
-            <td v-for="celda in 5" :key="celda" class="h-(--table-row-height) px-3 py-2">
-              <span class="block h-3 w-24 animate-pulse rounded-sm bg-grid" />
-            </td>
-          </tr>
-        </tbody>
-
-        <tbody v-else>
-          <AdministracionFilaUsuario
-            v-for="usuario in usuarios"
-            :key="usuario.id"
-            :usuario="usuario"
-            :propia="usuario.username === usernamePropio"
-            @solicitar="emit('solicitar', $event)"
-          />
-        </tbody>
-      </table>
-    </div>
+      <template #fila="{ fila: usuario }">
+        <AdministracionFilaUsuario
+          :usuario="usuario"
+          :propia="usuario.username === usernamePropio"
+          @solicitar="emit('solicitar', $event)"
+        />
+      </template>
+    </ComunTablaDatos>
 
     <div
       v-else-if="estado === 'vacio'"

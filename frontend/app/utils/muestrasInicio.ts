@@ -190,11 +190,21 @@ export const CONSULTAS_GUARDADAS: readonly ElementoLista[] = Object.freeze([
 ])
 
 /**
- * The three present-day figures of the executive composition.
+ * The four present-day figures of the executive composition.
  *
  * Value today, change against the previous month and cut-off date. No
  * projection: the forecast cards carry a method label and live in the
  * dashboard, and a figure that mixes the two cannot be read honestly.
+ *
+ * Four and not three because the acceptance criterion asks for at least four
+ * indicator cards on the home screen, and because three cards on a four column
+ * grid leave a hole where a reader looks for a fourth figure.
+ *
+ * The fourth one reuses the label the catalogue already publishes for days past
+ * due. The key sits under `samples.recent` for filing reasons and the catalogue
+ * is a flat dictionary of sentences: there is no second Spanish spelling of
+ * "días de mora", and inventing one would put two wordings for one concept on
+ * the same screen -the reader searched for it yesterday and tracks it today.
  */
 export const INDICADORES: readonly Indicador[] = Object.freeze([
   {
@@ -221,6 +231,15 @@ export const INDICADORES: readonly Indicador[] = Object.freeze([
     valor: 1284.5,
     unidad: 'millones-mxn',
     variacion: 64.2,
+    fecha: CORTE_DE_INDICADORES,
+    destino: '/exploracion/tableros',
+  },
+  {
+    id: 'diasMora',
+    claveEtiqueta: 'workspace.samples.indicator.diasMora',
+    valor: 38.6,
+    unidad: 'dias',
+    variacion: -1.4,
     fecha: CORTE_DE_INDICADORES,
     destino: '/exploracion/tableros',
   },

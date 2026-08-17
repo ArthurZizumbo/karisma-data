@@ -3,7 +3,15 @@ import type { BloqueoDeRuta } from '~/types/guarda'
 import type { RolUsuario, SesionUsuario } from '~/types/sesion'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { usePermisos } from '~/composables/usePermisos'
-import { decidirGuarda, esRutaPublica, rolAlcanza, RUTAS_PUBLICAS } from '~/utils/guarda'
+import {
+  decidirGuarda,
+  destinoDeRetorno,
+  esRutaPublica,
+  MOTIVO_SESION_REQUERIDA,
+  PARAMETRO_DESTINO,
+  rolAlcanza,
+  RUTAS_PUBLICAS,
+} from '~/utils/guarda'
 import {
   RUTA_ACCESO,
   RUTA_ASISTENTE,
@@ -42,7 +50,12 @@ describe('decidirGuarda: sin sesion no se entra al producto', () => {
       scopeExigido: null,
     })
 
-    expect(decision).toEqual({ tipo: 'redirigir', destino: RUTA_ACCESO })
+    expect(decision).toEqual({
+      tipo: 'redirigir',
+      destino: RUTA_ACCESO,
+      motivo: MOTIVO_SESION_REQUERIDA,
+      rutaPedida: ruta,
+    })
   })
 
   it.each([RUTA_INDICE, RUTA_ACCESO, RUTA_GUIA])('deja pasar la ruta publica %s', (ruta) => {
@@ -89,10 +102,18 @@ describe('decidirGuarda: la expiracion se distingue de la primera visita', () =>
         habiaSesion: true,
         scopeExigido: null,
       }),
-    ).toEqual({ tipo: 'redirigir', destino: RUTA_ACCESO, motivo: MOTIVO_EXPIRADA })
+    ).toEqual({
+      tipo: 'redirigir',
+      destino: RUTA_ACCESO,
+      motivo: MOTIVO_EXPIRADA,
+      rutaPedida: '/exploracion',
+    })
   })
 
   it('no le dice a un visitante nuevo que su sesion expiro', () => {
+    // The bounce is never mute, but the two reasons are not interchangeable:
+    // telling a first visitor that their session expired accuses them of
+    // losing something they never had.
     const decision = decidirGuarda({
       ruta: '/exploracion',
       sesion: null,
@@ -100,7 +121,7 @@ describe('decidirGuarda: la expiracion se distingue de la primera visita', () =>
       scopeExigido: null,
     })
 
-    expect(decision).not.toHaveProperty('motivo')
+    expect(decision).toHaveProperty('motivo', MOTIVO_SESION_REQUERIDA)
   })
 
   it('manda el rebote a una direccion sin prefijo de idioma', () => {
@@ -263,7 +284,9 @@ describe('auth.global: el pegamento entre la decision y su efecto', () => {
     await correr('/inicio')
 
     expect(sesion.value).toBeNull()
-    expect(redirecciones).toEqual([{ path: RUTA_ACCESO, query: {} }])
+    expect(redirecciones).toEqual([
+      { path: RUTA_ACCESO, query: { destino: '/inicio', motivo: MOTIVO_SESION_REQUERIDA } },
+    ])
   })
 
   it('explica la expiracion despues de que un 401 cerrara la sesion', async () => {
@@ -275,7 +298,7 @@ describe('auth.global: el pegamento entre la decision y su efecto', () => {
     await correr('/inicio')
 
     expect(redirecciones).toEqual([
-      { path: RUTA_ACCESO, query: { motivo: MOTIVO_EXPIRADA } },
+      { path: RUTA_ACCESO, query: { destino: '/inicio', motivo: MOTIVO_EXPIRADA } },
     ])
   })
 
@@ -289,8 +312,8 @@ describe('auth.global: el pegamento entre la decision y su efecto', () => {
     await correr('/gobierno')
 
     expect(redirecciones).toEqual([
-      { path: RUTA_ACCESO, query: { motivo: MOTIVO_EXPIRADA } },
-      { path: RUTA_ACCESO, query: {} },
+      { path: RUTA_ACCESO, query: { destino: '/inicio', motivo: MOTIVO_EXPIRADA } },
+      { path: RUTA_ACCESO, query: { destino: '/gobierno', motivo: MOTIVO_SESION_REQUERIDA } },
     ])
   })
 
@@ -334,6 +357,88 @@ describe('auth.global: el pegamento entre la decision y su efecto', () => {
 
     sesion.value = null
     await correr(RUTA_ASISTENTE)
-    expect(redirecciones).toEqual([{ path: RUTA_ACCESO, query: {} }])
+    expect(redirecciones).toEqual([
+      { path: RUTA_ACCESO, query: { destino: RUTA_ASISTENTE, motivo: MOTIVO_SESION_REQUERIDA } },
+    ])
+  })
+})
+
+describe('el rebote dice adonde iba y por que, sin abrir una redireccion', () => {
+  it('devuelve la ruta pedida junto al motivo de primera visita', () => {
+    // The defect: the bounce is mute. An evaluator opens `/gobierno` from the
+    // index, lands on a bare entry form and reads the prototype as one that
+    // does not open, which is the single most expensive misreading of A4.
+    const decision = decidirGuarda({
+      ruta: '/gobierno',
+      sesion: null,
+      habiaSesion: false,
+      scopeExigido: null,
+    })
+
+    expect(decision).toEqual({
+      tipo: 'redirigir',
+      destino: RUTA_ACCESO,
+      motivo: MOTIVO_SESION_REQUERIDA,
+      rutaPedida: '/gobierno',
+    })
+  })
+
+  it('normaliza la ruta pedida antes de devolverla', () => {
+    // Query and hash belong to the navigation, not to the contract route, and
+    // carrying them into the query string of the bounce would nest one URL
+    // inside another.
+    const decision = decidirGuarda({
+      ruta: '/gobierno?q=saldo#linaje',
+      sesion: null,
+      habiaSesion: false,
+      scopeExigido: null,
+    })
+
+    expect(decision).toHaveProperty('rutaPedida', '/gobierno')
+  })
+
+  it('no devuelve nada cuando la ruta pedida no es del contrato', () => {
+    const decision = decidirGuarda({
+      ruta: '/pantalla-que-no-existe',
+      sesion: null,
+      habiaSesion: false,
+      scopeExigido: null,
+    })
+
+    expect(decision).not.toHaveProperty('rutaPedida')
+  })
+
+  it.each([
+    'https://evil.example/robo',
+    '//evil.example',
+    '/pantalla-que-no-existe',
+    RUTA_ACCESO,
+    RUTA_INDICE,
+    '',
+    ' /gobierno',
+  ])('rechaza %s como destino de retorno', (valor) => {
+    // The allowlist is RUTAS_CONTRATO itself. Anything else accepted here is an
+    // open redirect driven by a query string that any link can write, and the
+    // entry screen is rejected on top of that because returning to it loops.
+    expect(destinoDeRetorno(valor)).toBeNull()
+  })
+
+  it('rechaza un destino que no es una cadena', () => {
+    // Vue Router hands repeated parameters as an array, and `?destino=/a&destino=/b`
+    // is exactly how a crafted link would try to smuggle one past a check
+    // written for strings.
+    expect(destinoDeRetorno(['/gobierno'])).toBeNull()
+    expect(destinoDeRetorno(undefined)).toBeNull()
+    expect(destinoDeRetorno(null)).toBeNull()
+  })
+
+  it.each(RUTAS_DE_PRODUCTO)('acepta %s, que si esta en el contrato', (ruta) => {
+    expect(destinoDeRetorno(ruta)).toBe(ruta)
+  })
+
+  it('publica el nombre del parametro que la pantalla de acceso lee', () => {
+    // Two literals -one written by the guard, one read by the screen- is how a
+    // bounce ends up carrying a destination nobody picks up.
+    expect(PARAMETRO_DESTINO).toBe('destino')
   })
 })

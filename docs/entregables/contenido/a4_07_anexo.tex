@@ -1,9 +1,17 @@
 % ============================================================================
 %  Actividad 4 · Anexo
 %
-%  Propiedad de US-UX-07. Reune el protocolo de captura, el inventario de
-%  figuras y la trazabilidad entre los criterios de la historia de usuario, las
-%  secciones de este documento y su evidencia.
+%  Propiedad de US-UX-07. Queda con el protocolo ejecutable y la trazabilidad:
+%  parametros de captura, inventario de figuras y de laminas, trazabilidad entre
+%  los criterios de la historia de usuario y las secciones de este documento, y
+%  lo que una prueba automatica verifica del propio documento.
+%
+%  La compactacion del 16-ago-2026 retiro dos subsecciones. El inventario
+%  tecnico de lo construido paso a las conclusiones, seccion "Que se construyo,
+%  en cifras", porque es material de cierre y no de anexo. La procedencia de los
+%  colores del tema institucional se retiro por duplicada: la tabla del octeto
+%  del capitulo de sistema de tokens ya declara, color por color, que llega del
+%  archivo de diseno y que es derivacion.
 % ============================================================================
 
 % ============================================================================
@@ -18,50 +26,100 @@ operativo, suficiente para reproducir cualquier figura de este documento.
 \begin{uxtabla}{|L{4.2cm}|Y|}{Parámetros del protocolo de captura}
   \uxheadrow \thd{Parámetro} & \thd{Valor} \\
   Resolución de composición & 1440 por 900 píxeles \\
-  Modo de color & Claro, fijado explícitamente antes de la primera captura \\
+  Modo de color y tema & Fijados explícitamente por cookie antes de cada captura, y comprobados en la raíz del documento antes de disparar: una cookie ignorada produce un fallo y no una imagen plausible \\
   Idioma de la interfaz & Español \\
   Sesión & Una por pantalla, con el rol que el contrato de navegación sugiere, abierta desde la propia interfaz \\
   Momento del disparo & Con la red inactiva y la franja de alcance presente en la página \\
   Nombre de archivo & Número de pantalla, ruta y estado, separados por guion bajo \\
   Origen del plan & El contrato de navegación del portal, leído por el guion; no una lista escrita aparte \\
+  Guiones & Dos: el del par de medición de la franja de alcance, y el del tema, que importa del primero el plan de captura y le añade el eje de tema y modo \\
 \end{uxtabla}
 
-El nombre de archivo es el contrato que empareja el antes y el después: las dos carpetas usan los
-mismos nombres y la pareja se detecta por igualdad. Una captura del después con otro nombre no forma
-pareja con nada, y la iteración documentada deja de ser verificable.
+El nombre de archivo es el contrato que empareja las dos capturas del par de medición: las dos
+carpetas usan los mismos nombres y la pareja se detecta por igualdad. Una captura con otro nombre no
+forma pareja con nada, y la medición deja de ser verificable.
 
 \subsection{Inventario de figuras}
 
-\begin{uxtablalarga}{|C{0.8cm}|L{5.7cm}|L{2.4cm}|Y|}{Inventario de las figuras de esta actividad}{\thd{\#} & \thd{Archivo} & \thd{Sesión} & \thd{Dónde se usa}}
-  0 & \texttt{0\_acceso\_normal.png} & sin sesión & Prototipo 0 \\
-  1 & \texttt{1\_inicio\_normal.png} & operativo & Prototipo 1 \\
-  2 & \texttt{2\_exploracion\_normal.png} & analista & Prototipo 2, y el par antes y después de la iteración \\
-  3 & \texttt{3\_gobierno\_normal.png} & analista & Prototipo 3 \\
-  4 & \texttt{4\_asistente\_normal.png} & directivo & Prototipo 4 \\
-  5 & \texttt{5\_administracion\_normal.png} & administración & Prototipo 5 \\
-  6 & \texttt{6\_exploracion-exportar\_normal.png} & analista & Prototipo 6 \\
-  4 & \texttt{4\_asistente\_resultado.png} & directivo & Prototipo 4, turno resuelto con su tarjeta de llamada a herramienta \\
+Las ocho capturas de pantalla de la sección de prototipos viven en \texttt{figuras/a4/tema/}, llevan el prefijo
+\texttt{institucional\_claro\_} y la extensión \texttt{.png}, y se tomaron en una sola pasada
+guionizada bajo el tema institucional en modo claro.
+
+\begin{uxtablalarga}{|L{3.6cm}|L{4.2cm}|Y|}{Inventario de las capturas de pantalla de la sección de prototipos}{\thd{Nombre} & \thd{Ruta y sesión} & \thd{Qué documenta}}
+  \texttt{0\_acceso} & \texttt{/acceso}, sin sesión & Perfiles de demostración en superficie de canal de acción y credenciales plegadas tras su revelación \\
+  \texttt{1\_inicio} & \texttt{/inicio}, operativo & Espacio de trabajo con sus cinco bloques y sus etiquetas de dato de ejemplo \\
+  \texttt{2\_exploracion} & \texttt{/exploracion?q=saldo}, analista & Tabla densa de seis columnas, linaje por fila y los tres estados de certificación \\
+  \texttt{3\_gobierno} & \texttt{/gobierno}, analista & Diccionario de campos y acceso cruzado a la bitácora, con la copia diferenciada de la de exploración \\
+  \texttt{4\_administracion} & \texttt{/administracion}, administración & Tabla de personas usuarias con su orden anunciado \\
+  \texttt{5\_asistente} & \texttt{/asistente}, directivo & Asistente en su estado vacío, con la franja de honestidad y el contexto del tablero \\
+  \texttt{6\_exportacion} & \texttt{/exploracion/exportar}, analista & Formulario de solicitud e historial de trabajos de exportación \\
+  \texttt{7\_asistente\_resultado} & \texttt{/asistente}, operativo & Turno resuelto: tarjeta de llamada a herramienta, cifra devuelta, fila de resultado y fuente del catálogo citada \\
 \end{uxtablalarga}
 
-Los siete nombres del estado normal existen dos veces, en la carpeta del antes y en la del después.
-Las figuras de la sección de prototipos usan las del después, que corresponden al estado entregado;
-la sección de pre-validación usa la pareja completa de la pantalla afectada por la iteración.
+El par que mide la franja de alcance vive aparte, en \texttt{figuras/a4/antes/} y
+\texttt{figuras/a4/despues/}, sobre la pantalla de exploración con sesión de analista y bajo el tema
+de omisión. Las dos carpetas usan el mismo nombre de archivo,
+\texttt{2\_exploracion\_normal.png}, que es lo que empareja la medición.
 
-La octava figura, el turno resuelto del asistente, existe solo en la carpeta del después y de manera
-deliberada: documenta un estado de la conversación y no una versión distinta de la pantalla, de modo
-que emparejarla con un antes sugeriría un cambio que no ocurrió.
+\begin{uxtabla}{|L{5.6cm}|Y|}{Las cuatro combinaciones de tema y modo, todas sobre \texttt{/inicio} con sesión operativa. Llevan el prefijo \texttt{combinacion\_} y la extensión \texttt{.png}}
+  \uxheadrow \thd{Nombre} & \thd{Qué documenta} \\
+  \texttt{corriente\_claro\_inicio} & Tema de omisión en claro: retícula pintada y activo por luminancia \\
+  \texttt{corriente\_oscuro\_inicio} & Tema de omisión en oscuro, sobre el suelo casi negro \\
+  \texttt{institucional\_claro\_inicio} & Tema institucional en claro: barra azul profundo y activo relleno \\
+  \texttt{institucional\_oscuro\_inicio} & Tema institucional en oscuro, sobre suelo azul profundo \\
+\end{uxtabla}
+
+El guion del tema comprueba en cada corrida que sus nombres cubren exactamente las siete rutas que
+el contrato de navegación declara, de modo que añadir una pantalla al contrato añade su captura y
+retirarla la retira, sin editar el guion.
+
+\subsection{Inventario de láminas del archivo de diseño}
+
+Además de las capturas, la entrega se apoya en las láminas exportadas del archivo de trabajo y
+archivadas en el repositorio. Se listan las veintiuna, por la página del archivo a la que
+pertenecen, de modo que cualquiera pueda localizar en el archivo vivo lo que ve impreso aquí.
+
+\begin{uxtablalarga}{|L{2.1cm}|L{6.5cm}|Y|}{Láminas exportadas del archivo de diseño}{\thd{Página} & \thd{Archivo} & \thd{Qué muestra}}
+  Guía de estilo & \texttt{guia\_logotipo.png} & Construcción del logotipo, resguardo y usos incorrectos \\
+  Guía de estilo & \texttt{guia\_tipografia.png} & Espécimen y escala de roles tipográficos \\
+  Guía de estilo & \texttt{guia\_paleta.png} & Paleta de la identidad con sus papeles \\
+  Guía de estilo & \texttt{guia\_cuadricula.png} & Retícula, espaciado y comportamiento adaptativo \\
+  Guía de estilo & \texttt{guia\_iconografia.png} & Familia de iconos, tamaños y grosores \\
+  Guía de estilo & \texttt{guia\_versionado.png} & Regla de documentación y control de versiones del archivo \\
+  Guía de estilo & \texttt{guia\_interaccion\_accesibilidad\_voz.png} & Microinteracciones, criterios de accesibilidad y voz del producto \\
+  Componentes & \texttt{componente\_botones.png} & Jerarquía de botones con sus estados \\
+  Componentes & \texttt{componente\_busqueda.png} & Los cinco estados del campo de búsqueda \\
+  Componentes & \texttt{componente\_tabla.png} & Tabla de datos, cabecera, densidad y alineación de cifras \\
+  Componentes & \texttt{componente\_alertas.png} & Alertas y mensajes por semántica \\
+  Prototipos & \texttt{flujo\_1\_variables.png} & Pantalla protagonista del flujo de análisis y exportación \\
+  Prototipos & \texttt{flujo\_2\_riesgo.png} & Pantalla protagonista del flujo de señal de riesgo \\
+  Prototipos & \texttt{flujo\_3\_versiones.png} & Pantalla protagonista del flujo de publicación de versiones \\
+  Prototipos & \texttt{flujo\_4\_autorizacion.png} & Pantalla protagonista del flujo de autorización de accesos \\
+  Prototipos & \texttt{flujo\_5\_centro\_trabajo.png} & Pantalla protagonista del flujo del centro de trabajo \\
+  Prototipos & \texttt{secuencia\_flujo\_1.png} & Las ocho pantallas del flujo de análisis y exportación, en orden \\
+  Prototipos & \texttt{secuencia\_flujo\_2.png} & Las cinco pantallas del flujo de señal de riesgo, en orden \\
+  Prototipos & \texttt{secuencia\_flujo\_3.png} & Las seis pantallas del flujo de publicación de versiones, en orden \\
+  Prototipos & \texttt{secuencia\_flujo\_4.png} & Las cinco pantallas del flujo de autorización de accesos, en orden \\
+  Prototipos & \texttt{secuencia\_flujo\_5.png} & Las seis pantallas del flujo del centro de trabajo, en orden \\
+\end{uxtablalarga}
+
+Las láminas que este documento imprime salen de esta lista; las demás quedan como material de
+consulta del archivo, disponible por el enlace que publica la sección de método.
 
 \subsection{Trazabilidad de los criterios de aceptación}
 
 \begin{uxtablalarga}{|L{1.6cm}|L{5.2cm}|Y|}{Dónde se atiende cada criterio y con qué evidencia}{\thd{Criterio} & \thd{Enunciado} & \thd{Sección y evidencia}}
-  1 & Siete prototipos navegables y desplegados & Sección de prototipos, siete figuras con pie numerado \\
+  1 & Siete prototipos navegables y desplegados & Sección de prototipos, ocho capturas con pie numerado: una por prototipo más el turno resuelto del asistente \\
   2 & Sistema de diseño de fuente única, con derivación en un solo sentido & Sección de método, cadena de derivación; guía de estilos, láminas emitidas por el generador \\
   3 & Cada ruta anclada a una rama del mapa & Sección de prototipos, tabla de veinte filas verificada por prueba automática \\
-  4 & Los cuatro estados no felices por pantalla & Sección de prototipos, matriz de veintiocho celdas y las diez reglas de comportamiento \\
-  5 & Tabla de alcance de tres estados & Sección de alcance, tabla por pantalla y tabla por historia de usuario \\
-  6 & Pre-validación con iteración documentada & Sección de pre-validación, registro de la iteración y par de figuras \\
-  7 & Nota de herramienta en la introducción & Introducción, cuatro propiedades de la rúbrica y objetivo de aprendizaje \\
+  4 & Los cuatro estados no felices por pantalla & Sección de prototipos, matriz de veintiocho celdas y las nueve reglas de comportamiento de las celdas especificadas \\
+  5 & Tabla de alcance por pantalla y por historia & Sección de alcance, con la regla de asignación escrita, la tabla de las siete pantallas y el catálogo completo de historias. El esquema desdobla la hoja de ruta en diseñada y sin diseñar \\
+  6 & Pre-validación con iteración documentada & Sección de validación: el protocolo con los ocho evaluadores prototipo y los \textbf{tres ejes de refinamiento} ---cromático, de alineación con el archivo de diseño y de maquetación---, cada decisión con su regla, su línea base y su valor verificado, más el par de figuras que mide la franja de alcance \\
+  7 & Justificación del medio en la introducción & Introducción y las cuatro propiedades de un prototipo de alta fidelidad \\
   8 & Entrega en tiempo con portada de los tres integrantes & Portada de este documento \\
+  9 & Acceso al archivo de trabajo & Sección de método, con el enlace, la estructura de las tres páginas y sus nodos, y lo que se recorre desde cada una \\
+  10 & Segunda paleta verificada con el mismo listón & Sección de validación, primer eje, con su tabla de regla, línea base y valor verificado; paleta completa de veintiocho tokens, con la procedencia de cada valor, en el capítulo \enquote{Especificación del sistema de tokens y paleta institucional} de la guía de estilos \\
+  11 & Logotipo del portal con sus reglas de aplicación & Sección \enquote{Identidad de la marca}, bloque de la marca del portal: la geometría medida sobre la lámina, las tres variantes con sus colores y las tres reglas de aplicación transcritas \\
 \end{uxtablalarga}
 
 \subsection{Verificaciones automáticas asociadas a este documento}
@@ -83,7 +141,7 @@ Las dos pruebas leen este documento como entrada. Es una dependencia deliberada:
 Se enuncian aquí para que no haya que deducirlos.
 
 \begin{uxlist}
-  \lead{Los evaluadores de la pre-validación son sintéticos}{Sus hallazgos orientan decisiones de
+  \lead{Los evaluadores de la validación son sintéticos}{Sus hallazgos orientan decisiones de
     presentación y no cierran ninguna pregunta sobre las personas usuarias. La primera evidencia
     humana llega con la prueba de usabilidad de la Actividad 5.}
   \lead{La estabilidad visual durante la carga se declara, no se mide}{El entorno del proyecto no
@@ -92,7 +150,11 @@ Se enuncian aquí para que no haya que deducirlos.
   \lead{El contenido del asistente está guionizado}{El transporte, las tarjetas de llamada a
     herramienta y la cancelación son reales. La conexión con un modelo de lenguaje queda declarada
     en hoja de ruta y la pantalla lo dice en su propia franja.}
-  \lead{Las etiquetas de alcance del código quedaron fijadas antes del cierre}{Varias pantallas
-    muestran hoy más de lo que su etiqueta promete. Se publica el valor del código y la divergencia
-    se declara en la sección de alcance.}
+  \lead{La densidad de la tabla de datos se declara y no se mide con personas}{La fila del catálogo
+    es de 34 píxeles, que es lo que el sistema declara, y su contraste está verificado. La comodidad
+    de lectura a esa densidad es una cuestión distinta y la mide la prueba de usabilidad de la
+    Actividad 5.}
+  \lead{Las láminas del archivo de diseño no son capturas del portal}{Documentan decisiones de
+    interfaz tomadas, no capacidades construidas. La sección de alcance las usa exactamente para
+    eso: distinguir lo que está diseñado y sin construir de lo que ni siquiera está diseñado.}
 \end{uxlist}

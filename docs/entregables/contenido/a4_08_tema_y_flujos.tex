@@ -1,0 +1,191 @@
+% ============================================================================
+%  Actividad 4 - Los cinco flujos de tarea del archivo de diseno
+%
+%  Dos bloques: los cinco flujos de tarea en diseno de alta fidelidad, cada uno
+%  con su persona, su objetivo, su numero de pantallas y sus laminas; y la
+%  verificacion tecnica del archivo que los contiene.
+%
+%  El nombre del archivo y su \input en main_a4.tex y main_completo.tex se
+%  conservan: solo cambio su alcance. La especificacion del sistema de tokens
+%  ---paleta institucional, matrices de contraste, dicromacia y eje de tema y
+%  modo--- y la normativa de marca del portal viven ahora en
+%  a4_03_guia_estilos.tex, fundidas con la guia de estilos para que ninguna de
+%  las dos se documente dos veces.
+%
+%  Regla de este archivo: cada pie de figura lleva la palabra diseno. Las
+%  laminas de esta seccion salen del archivo de diseno y no del portal en
+%  ejecucion; mezclarlas con las capturas convertiria evidencia en promesa.
+%
+%  Los \clearpage no son decorativos: abren pagina antes de cada flujo para que
+%  ningun bloque visual se parta ni comparta pagina con el titular siguiente.
+% ============================================================================
+
+\clearpage
+
+% ============================================================================
+\section{Los cinco flujos de tarea, en diseño de alta fidelidad}
+
+Además de las siete pantallas construidas en el entorno del producto, esta actividad produjo
+\textbf{cinco flujos de tarea} en el archivo de diseño: \textbf{30 pantallas} conectadas que
+recorren consulta, análisis, decisión, publicación y gobierno. Los cinco comparten identidad,
+retícula y componentes, porque pertenecen a un solo producto.
+
+\textbf{Son diseño de alta fidelidad y no pantallas del producto.} La distinción no es un matiz:
+cada figura de esta sección es una lámina del archivo de diseño, no una captura del portal en
+ejecución, y cada pie lo dice. Las capturas del portal viven en las secciones anteriores y se
+distinguen por su franja de alcance y por su barra lateral real. Mezclar las dos evidencias
+convertiría un entregable verificable en una promesa.
+
+Cada flujo se ancla a una persona de la Actividad 1 y al escenario que la Actividad 2 escribió para
+ella. Los rótulos de cuenta que aparecen dentro de las láminas son datos de demostración del
+archivo; la correspondencia con las personas del estudio la fija la tarea y el perfil, no el nombre
+impreso en la sesión.
+
+\begin{uxtabla}{|L{3.3cm}|L{3.3cm}|Y|C{1.5cm}|}{Los cinco flujos de tarea, con su persona, su objetivo y su número de pantallas}
+  \uxheadrow \thd{Flujo} & \thd{Persona y perfil} & \thd{Objetivo de la tarea} & \thd{Pantallas} \\
+  Análisis y exportación de liquidez & Diego Hernández, analista de datos & Cruzar fuentes, acotar variables y dejar una exportación reproducible & 8 \\
+  Señal de riesgo para la Junta & Arturo Castañeda, directivo & Entender una señal de riesgo y llevarla explicada a una sesión de quince minutos & 5 \\
+  Publicación de una versión del catálogo & Roberto Valdez, propietario del dato & Publicar una versión nueva sin romper el trabajo que depende de la anterior & 6 \\
+  Administración de accesos & Mariana Ovalle Ríos, administración de la plataforma & Otorgar el acceso mínimo suficiente y dejar evidencia de la autorización & 5 \\
+  Centro de trabajo integral & Ximena Solís Barrera, integración de aplicaciones & Recorrer los módulos del portal desde un solo punto de entrada, hasta las integraciones & 6 \\
+\end{uxtabla}
+
+% Cada flujo abre pagina. La revision de la entrega anterior senalo que al
+% evaluador le molesta un bloque visual partido entre paginas, y aqui estaba el
+% caso: tres paginas cargaban dos titulos de flujo a la vez y la lamina de un
+% flujo aterrizaba despues del titulo del siguiente. El salto flushea ademas los
+% flotantes pendientes del flujo anterior, que es lo que producia la deriva.
+\clearpage
+\subsection{Flujo 1. Análisis y exportación de liquidez}
+
+Ocho pantallas que van de la localización de la información a la confirmación del archivo
+generado, pasando por el detalle de la fuente, la selección de variables, los filtros, la vista
+previa y la configuración de la exportación. El paso activo, las restricciones de acceso y el
+resumen de la selección permanecen visibles en cada etapa, de modo que quien exporta puede revisar
+sus decisiones antes de comprometerlas.
+
+La lámina de detalle muestra el momento en que la tarea se juega: cinco variables de veinticuatro
+seleccionadas, tres de ellas marcadas como restringidas y con los permisos verificados a la vista.
+Es la traducción visual del principio de que el sistema explica lo que se puede ver antes de
+dejarlo pedir.
+
+\figuraux[0.94\linewidth]{figuras/a4/secuencia_flujo_1.png}{Diseño de alta fidelidad del flujo de
+análisis y exportación de liquidez: las ocho pantallas, de inicio a confirmación del
+archivo.}{fig:a4-flujo-1-secuencia}
+
+\figuraux{figuras/a4/flujo_1_variables.png}{Diseño de la pantalla de selección de variables del
+flujo de análisis y exportación. Muestra el paso activo, las restricciones de acceso y el resumen
+de la selección.}{fig:a4-flujo-1-detalle}
+
+\clearpage
+\subsection{Flujo 2. Señal de riesgo para la Junta}
+
+Cinco pantallas compuestas para tableta, que es el equipo con el que el escenario directivo de la
+Actividad 2 describe esta tarea. El recorrido va del panorama a la detección del cambio, de ahí a
+su explicación y a la composición del indicador, y termina en un resumen listo para exponer. La
+jerarquía privilegia el nivel de riesgo, la procedencia del dato y la evidencia que respalda la
+decisión.
+
+El flujo no se limita a mostrar una alerta: declara qué falta confirmar antes de atribuir una
+causa. Es la respuesta de diseño al hallazgo de la Actividad 3, donde la tarea del indicador de
+riesgo obtuvo un solo acierto de ocho contra la ruta esperada.
+
+\figuraux[0.80\linewidth]{figuras/a4/secuencia_flujo_2.png}{Diseño de alta fidelidad del flujo de
+señal de riesgo: panorama, detección, explicación, composición y resumen
+ejecutivo.}{fig:a4-flujo-2-secuencia}
+
+\figuraux[0.58\linewidth]{figuras/a4/flujo_2_riesgo.png}{Diseño de la pantalla de cambio detectado.
+El estado combina magnitud, umbral, evolución de seis meses y la acción
+siguiente.}{fig:a4-flujo-2-detalle}
+
+\clearpage
+
+\clearpage
+\subsection{Flujo 3. Publicación de una versión del catálogo}
+
+Seis pantallas que reparten la tarea en momentos separables: selección del elemento, documentación
+del cambio, comparación entre versiones, análisis de impacto, revisión final y confirmación. La
+separación no es burocracia de interfaz: es lo que permite conservar evidencia y anticipar
+dependencias antes de publicar.
+
+La lámina de detalle contrasta las dos versiones campo por campo ---definición, regla histórica,
+estructura e interpretación--- y declara qué consultas hay que revisar antes del siguiente corte.
+Publicar sin ese contraste es el defecto que el escenario de la Actividad 2 describe con nombre
+propio.
+
+\figuraux{figuras/a4/secuencia_flujo_3.png}{Diseño de alta fidelidad del flujo de publicación del
+catálogo, desde la selección del registro hasta la confirmación de la nueva
+versión.}{fig:a4-flujo-3-secuencia}
+
+\figuraux{figuras/a4/flujo_3_versiones.png}{Diseño de la pantalla de comparación de versiones. La
+interfaz contrasta definición, regla histórica, estructura e interpretación antes de
+continuar.}{fig:a4-flujo-3-detalle}
+
+\clearpage
+\subsection{Flujo 4. Administración de accesos}
+
+Cinco pantallas que aplican el principio de permiso mínimo suficiente: solicitud, revisión de la
+justificación, definición del alcance habilitado, autorización y alta. Las confirmaciones se
+reservan para las acciones que afectan a otras personas, y la pantalla final comunica vigencia,
+alcance, exclusiones y evidencia disponible.
+
+La lámina de detalle es la que sostiene el criterio: la autorización se confirma con su
+justificación, quién la solicitó, quién la aprobó, su vigencia con caducidad automática, sus
+exclusiones y los cuatro controles verificados. El registro queda como antecedente de cualquier
+modificación posterior.
+
+\figuraux[0.80\linewidth]{figuras/a4/secuencia_flujo_4.png}{Diseño de alta fidelidad del flujo de
+administración de accesos: solicitud, revisión, permiso mínimo, autorización y
+alta.}{fig:a4-flujo-4-secuencia}
+
+\figuraux[0.58\linewidth]{figuras/a4/flujo_4_autorizacion.png}{Diseño de la pantalla de
+confirmación de autorización. Conserva justificación, responsables, vigencia, alcance, exclusiones
+y controles verificados.}{fig:a4-flujo-4-detalle}
+
+\clearpage
+
+\clearpage
+\subsection{Flujo 5. Centro de trabajo integral}
+
+Seis vistas que comprueban que una navegación común sostiene exploración, exportación, monitoreo de
+riesgos, gobierno e integración sin perder el contexto. Más que una tarea lineal, este flujo
+representa la arquitectura del producto y sus puntos de entrada, y por eso es el que verifica que
+los otros cuatro caben bajo el mismo armazón.
+
+La lámina de detalle abre con indicadores, módulos principales y actividad reciente, y su barra
+lateral declara el modo de trabajo con el que se compone la vista. Es el recorrido del escenario de
+integración de la Actividad 2, que termina en el módulo de credenciales y ejecuciones programadas.
+
+\figuraux{figuras/a4/secuencia_flujo_5.png}{Diseño de alta fidelidad del flujo integral: centro de
+trabajo, análisis, exportación, riesgos, gobierno e integración.}{fig:a4-flujo-5-secuencia}
+
+\figuraux{figuras/a4/flujo_5_centro_trabajo.png}{Diseño del centro de trabajo. Reúne indicadores,
+módulos principales y actividad reciente bajo una navegación común.}{fig:a4-flujo-5-detalle}
+
+\clearpage
+\subsection{Verificación técnica del archivo de diseño}
+
+Antes de cerrar la entrega se revisaron la estructura, la legibilidad, los componentes y las
+conexiones del archivo. La comprobación es técnica y no sustituye a una prueba de usabilidad con
+participantes: su propósito es retirar los defectos evidentes antes de que el prototipo se use en
+una evaluación.
+
+\begin{uxtabla}{|L{5.1cm}|Y|}{Resultados de la verificación técnica del archivo de diseño}
+  \uxheadrow \thd{Dimensión revisada} & \thd{Resultado} \\
+  Pantallas y flujos & 30 pantallas organizadas en 5 flujos \\
+  Interacciones & 84 nodos interactivos; 0 destinos inválidos \\
+  Sistema de componentes & 12 conjuntos y 75 variantes \\
+  Legibilidad & 0 textos por debajo de 12 px; 0 fuentes faltantes \\
+  Integridad del contenido & 0 recortes de texto o de componente \\
+  Objetivos interactivos & 0 controles por debajo de 44 por 44 px \\
+  Adaptación documentada & Vistas de referencia de 1440 por 1024 y de 1024 por 1366 px \\
+  Marca aplicada & La de la página normativa del archivo, en sus tres variantes, con la geometría medida que publica la sección de identidad de la marca \\
+\end{uxtabla}
+
+Los seis ceros de la tabla son el resultado de una revisión que sí encontró trabajo: durante ella
+se sustituyeron llamadas a la acción sueltas por instancias de componente, se normalizaron los
+botones primarios y se verificaron los contenedores de acciones de los diálogos.
+
+Lo que estos números no dicen es igual de importante: miden el archivo, no la experiencia. No
+aportan evidencia sobre eficacia, eficiencia ni satisfacción, y esa evidencia es exactamente la que
+la prueba de usabilidad de la Actividad 5 produce sobre los mismos recorridos.

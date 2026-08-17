@@ -194,11 +194,24 @@ describe('las muestras no dependen del reloj', () => {
     }
   })
 
-  it('sirve las tres tarjetas de indicador y las cinco busquedas que el alcance pide', () => {
-    // The scope names the counts: three indicator cards for the executive and
-    // five recent searches for the operative reader. A collection trimmed while
-    // refactoring changes the shape of the captured figure.
-    expect(INDICADORES).toHaveLength(3)
+  it('sirve las cuatro tarjetas de indicador y las cinco busquedas que el alcance pide', () => {
+    // The criterion names the floor: at least four indicator cards for the
+    // executive, and five recent searches for the operative reader. A
+    // collection trimmed while refactoring changes the shape of the captured
+    // figure and drops the screen below the criterion.
+    expect(INDICADORES.length).toBeGreaterThanOrEqual(4)
     expect(BUSQUEDAS_RECIENTES).toHaveLength(5)
+  })
+
+  it('cada indicador declara su unidad, su corte y su salida', () => {
+    // The card receives sentences, so a figure without a unit or without a
+    // cut-off would render a card with a blank line where the reader looks for
+    // the provenance of the number -and the composition would still mount.
+    for (const indicador of INDICADORES) {
+      expect(indicador.claveEtiqueta, indicador.id).toMatch(/^workspace\./)
+      expect(Number.isFinite(indicador.valor), indicador.id).toBe(true)
+      expect(Number.isNaN(Date.parse(indicador.fecha)), indicador.id).toBe(false)
+      expect(indicador.destino, indicador.id).not.toBe('')
+    }
   })
 })

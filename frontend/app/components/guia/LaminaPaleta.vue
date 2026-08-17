@@ -22,10 +22,22 @@ const { t } = useI18n()
 const sistema = useSistemaDiseno()
 const { copy, copied, isSupported } = useClipboard()
 
+/**
+ * The seven groups, in the order the emitter lays them out in `TOKENS`.
+ *
+ * Every group the store exposes is listed here and the order matches the
+ * source, because this plate is what the A4 rubric grades as the living style
+ * guide: a group left out makes the heading count tokens the page never paints,
+ * which is the defect `laminas.spec.ts` caught when `accion` arrived -and again
+ * when the sidebar and the certification states arrived with it-.
+ */
 const GRUPOS: readonly { clave: string, tokens: readonly TokenColor[] }[] = [
   { clave: 'surface', tokens: sistema.superficie },
   { clave: 'current', tokens: sistema.corriente },
+  { clave: 'action', tokens: sistema.accion },
   { clave: 'semantic', tokens: sistema.semanticos },
+  { clave: 'sidebar', tokens: sistema.barraLateral },
+  { clave: 'certification', tokens: sistema.certificacion },
   { clave: 'series', tokens: sistema.series },
 ]
 

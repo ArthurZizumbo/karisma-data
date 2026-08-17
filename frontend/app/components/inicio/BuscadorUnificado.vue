@@ -80,7 +80,7 @@ function buscar(): void {
     data-bloque="buscador"
     :data-enfasis="enfasis"
     :aria-labelledby="idTitulo"
-    class="flex flex-col gap-2"
+    class="flex min-w-0 flex-col gap-2"
     :class="esDominante ? 'border border-grid bg-ground-alt p-(--panel-padding)' : ''"
   >
     <h2 :id="idTitulo" :class="claseTitulo">

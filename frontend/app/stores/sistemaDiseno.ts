@@ -3,9 +3,10 @@
  *
  * The tokens themselves are build-time constants emitted by `design/emitir.py`,
  * so putting them behind a store would normally be indirection with no gain.
- * What justifies it is the mode: every token has a value per mode, the active
- * mode is shared runtime state, and resolving one without the other is what
- * makes a component import two things and get them out of step.
+ * What justifies it is the mode and the theme: every token has a value per
+ * theme and per mode, the two are shared runtime state, and resolving one
+ * without the others is what makes a component import three things and get
+ * them out of step.
  *
  * Components read tokens from here and never from the generated module, so a
  * rename in the emitter reaches one file instead of every consumer.
@@ -13,19 +14,28 @@
 import { defineStore } from 'pinia'
 import { computed, onScopeDispose, ref } from 'vue'
 import { useModo } from '~/composables/useModo'
+import { useTema, type TemaPortal } from '~/composables/useTema'
 import {
-  CONTRASTES,
+  ACCION,
+  BARRA_LATERAL,
+  CERTIFICACION,
+  CONTRASTES_POR_TEMA,
   CORRIENTE,
+  ESTADOS_CERTIFICACION,
   FECHA_SISTEMA,
-  PEOR_SEPARACION,
+  PEOR_SEPARACION_CERTIFICACION,
+  PEOR_SEPARACION_POR_TEMA,
   REGLAS,
   SEMANTICOS,
-  SEPARACIONES,
+  SEPARACIONES_CERTIFICACION_POR_TEMA,
+  SEPARACIONES_POR_TEMA,
   SERIES,
   SUPERFICIE,
+  TEMAS,
   TIPOGRAFIA,
   TOKENS,
   VERSION_SISTEMA,
+  type EstadoCertificacion,
   type ParContraste,
   type RolTipografico,
   type SeparacionSemantica,
@@ -55,9 +65,19 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
 
   const { modo, eleccion, elegir } = useModo(preferenciaDelSistema)
 
+  /**
+   * Visual theme on screen.
+   *
+   * It is resolved here and not in each component for the same reason the mode
+   * is: the two axes decide the value of every token together, and a component
+   * that read one of them from the store and the other from a composable would
+   * paint a colour that belongs to neither combination.
+   */
+  const { tema, fijarTema } = useTema()
+
   /** Resolve one token to the hex the reader is actually seeing. */
   function valor(token: TokenColor): string {
-    return modo.value === 'oscuro' ? token.oscuro : token.claro
+    return token.temas[tema.value][modo.value]
   }
 
   /** Look a token up by name; throws rather than returning a silent fallback. */
@@ -69,14 +89,20 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
     return encontrado
   }
 
-  /** The contrast matrix of the mode on screen, not of both at once. */
+  /**
+   * The contrast matrix of the combination on screen, not of the four at once.
+   *
+   * The ground is not the same in both themes, so a ratio measured in one says
+   * nothing about the other: filtering by mode alone would publish the number
+   * of a combination the reader is not looking at.
+   */
   const contrastes = computed<readonly ParContraste[]>(() =>
-    CONTRASTES.filter((par) => par.modo === modo.value),
+    CONTRASTES_POR_TEMA.filter((par) => par.tema === tema.value && par.modo === modo.value),
   )
 
-  /** Dichromatic separation of every semantic pair, for the active mode. */
+  /** Dichromatic separation of every semantic pair, for the active combination. */
   const separaciones = computed<readonly SeparacionSemantica[]>(() =>
-    SEPARACIONES.filter((s) => s.modo === modo.value),
+    SEPARACIONES_POR_TEMA.filter((s) => s.tema === tema.value && s.modo === modo.value),
   )
 
   /**
@@ -87,7 +113,31 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
    * four hues do not separate inside that band. It is why shape and icon are
    * mandatory rather than decorative.
    */
-  const peorSeparacion = computed<number>(() => PEOR_SEPARACION[modo.value])
+  const peorSeparacion = computed<number>(
+    () => PEOR_SEPARACION_POR_TEMA[tema.value][modo.value],
+  )
+
+  /**
+   * Dichromatic separation of the three certification states.
+   *
+   * It travels apart from `separaciones` because the two answer different
+   * questions: that one measures the four semantic marks against each other,
+   * this one measures whether `en-revision` and `obsoleto` -which meant the
+   * same thing on screen until this release- can still be told apart by a
+   * reader who loses a channel. Folding them into one list would also move the
+   * published worst pair of the palette, which the graded report already
+   * prints.
+   */
+  const separacionesCertificacion = computed<readonly SeparacionSemantica[]>(() =>
+    SEPARACIONES_CERTIFICACION_POR_TEMA.filter(
+      (s) => s.tema === tema.value && s.modo === modo.value,
+    ),
+  )
+
+  /** Worst separation of the certification family in the active combination. */
+  const peorSeparacionCertificacion = computed<number>(
+    () => PEOR_SEPARACION_CERTIFICACION[tema.value][modo.value],
+  )
 
   /** Every token that fails its own declared rule. Empty is the only pass. */
   const incumplimientos = computed<readonly ParContraste[]>(() =>
@@ -98,17 +148,38 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
     modo,
     eleccion,
     elegir,
+    tema,
+    fijarTema,
+    temas: TEMAS as readonly TemaPortal[],
     valor,
     porNombre,
     contrastes,
     separaciones,
+    separacionesCertificacion,
     peorSeparacion,
+    peorSeparacionCertificacion,
     incumplimientos,
     version: VERSION_SISTEMA,
     fecha: FECHA_SISTEMA,
     superficie: SUPERFICIE as readonly TokenColor[],
     corriente: CORRIENTE as readonly TokenColor[],
+    // The group the emitter opened for the institutional identity. Exposed
+    // beside the other four and never folded into them: a consumer that walks
+    // the groups has to reach every token of TOKENS, and the palette plate
+    // proved what happens otherwise -it announced twenty-one and painted
+    // eighteen, with action and selection invisible in the graded style guide.
+    accion: ACCION as readonly TokenColor[],
     semanticos: SEMANTICOS as readonly TokenColor[],
+    // The two groups the A4 excellence pass opened. They are exposed here for
+    // the same reason as the rest: the plate that walks the groups has to
+    // reach every token of TOKENS, and the palette plate already proved what
+    // happens otherwise -it announced twenty-one and painted eighteen-.
+    barraLateral: BARRA_LATERAL as readonly TokenColor[],
+    certificacion: CERTIFICACION as readonly TokenColor[],
+    // Colour and shape together: whoever paints a certification state must not
+    // be the one choosing its icon, which is how `en revision` and `obsoleto`
+    // ended up sharing a triangle.
+    estadosCertificacion: ESTADOS_CERTIFICACION as readonly EstadoCertificacion[],
     series: SERIES as readonly TokenColor[],
     tokens: TOKENS as readonly TokenColor[],
     tipografia: TIPOGRAFIA as readonly RolTipografico[],

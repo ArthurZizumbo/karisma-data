@@ -69,7 +69,7 @@ const { t, locale } = useI18n()
 const ruta = useRoute()
 const workspace = useWorkspaceStore()
 const sistema = useSistemaDiseno()
-const { marco, estado, recargar } = useSerieTablero()
+const { marco, estado, revalidando, recargar } = useSerieTablero()
 const resumen = useResumenSerie(marco)
 const { midiendo, informe, medir: ejecutarGuion } = useMedidorFluidez()
 
@@ -346,13 +346,36 @@ async function medir(): Promise<void> {
     />
 
     <template v-if="estado === 'listo' && marco !== null && opcion !== null">
-      <figure class="flex flex-col gap-2">
+      <!--
+        Refiltering is announced without unmounting the chart. `estado` only
+        reports the first load -a later filter change keeps the previous frame
+        painted- so without this the reader changed the metric and the screen
+        said nothing at all while the request was in flight, which is the defect
+        measured in the browser. A skeleton here would be worse than silence: it
+        would drop the ECharts instance, lose the zoom window and flash a grey
+        box over a figure that is about to look almost the same.
+      -->
+      <figure
+        class="relative flex flex-col gap-2"
+        :aria-busy="revalidando ? 'true' : undefined"
+      >
+        <div
+          v-if="revalidando"
+          data-revalidando
+          class="pointer-events-none absolute inset-x-0 top-0 z-10 h-0.5 overflow-hidden rounded-full bg-grid"
+        >
+          <span class="block h-full w-full animate-pulse rounded-full bg-accion motion-reduce:animate-none" />
+        </div>
+        <p v-if="revalidando" role="status" class="sr-only">
+          {{ t('dashboard.state.refreshing') }}
+        </p>
         <LazyVChart
           ref="grafica"
           :opcion="opcion"
           :alto="ALTO_GRAFICA"
           :etiqueta="t('dashboard.chart.ariaLabel')"
           :describe-por="ID_RESUMEN"
+          :class="revalidando ? 'opacity-60 transition-opacity' : 'transition-opacity'"
           @serie="seleccionarLinea($event, 'grafica')"
           @ventana="alCambiarVentana"
         />

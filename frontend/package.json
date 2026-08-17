@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^1.0.1",
+    "@tanstack/vue-table": "^9.1.2",
     "@vueuse/core": "^14.4.0",
     "echarts": "^6.1.0",
     "nuxt": "^4.5.2",

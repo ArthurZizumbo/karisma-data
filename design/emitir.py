@@ -34,11 +34,14 @@ from typing import Final
 from design.contraste import matriz, peor_separacion, separaciones
 from design.sistema import (
     ACCION,
+    BARRA_LATERAL,
+    CERTIFICACION,
     CORRIENTE,
     DENSIDAD,
     ESPACIADO_BASE_PX,
     FAMILIAS_POR_TEMA,
     FECHA,
+    PREFIJO_CERTIFICACION,
     QUIEBRES,
     RADIOS,
     REGLAS,
@@ -58,6 +61,35 @@ from design.sistema import (
 
 #: Both modes ship, and every measurement is computed once per mode.
 MODOS: Final[tuple[Modo, ...]] = ("claro", "oscuro")
+
+#: Every colour group, with the name the typed module exports and the heading
+#: the stylesheet prints, in the order ``tokens_de_color`` walks them.
+#:
+#: One list feeds both outputs. Two lists would drift the day a group is added,
+#: and the drift would be silent in the worst possible way: the sheet would
+#: declare a custom property the typed module never mentions, or the guide
+#: would print a swatch for a colour no rule paints.
+GRUPOS: Final[tuple[tuple[str, str, tuple[Token, ...]], ...]] = (
+    ("SUPERFICIE", "Suelo y reticula", SUPERFICIE),
+    ("CORRIENTE", "Corriente - el estado se lee por luminancia", CORRIENTE),
+    ("ACCION", "Accion y seleccion - el color con el que el tema actua", ACCION),
+    (
+        "BARRA_LATERAL",
+        "Chasis - un solo armazon, y el tema le cambia el suelo",
+        BARRA_LATERAL,
+    ),
+    (
+        "SEMANTICOS",
+        "Semanticos - color mas forma mas icono, nunca color solo",
+        SEMANTICOS,
+    ),
+    (
+        "CERTIFICACION",
+        "Certificacion - tres estados, tres canales, tres iconos",
+        CERTIFICACION,
+    ),
+    ("SERIES", "Series categoricas - cada una con su marcador y su patron", SERIES),
+)
 
 RAIZ: Final[Path] = Path(__file__).resolve().parents[1]
 CSS: Final[Path] = RAIZ / "frontend" / "app" / "assets" / "css" / "main.css"
@@ -83,22 +115,37 @@ def _cabecera(marca_comentario: str) -> list[str]:
     ]
 
 
+def _nota(token: Token) -> str:
+    """Return the trailing comment one declaration carries, empty when none.
+
+    The icon is published beside the colour instead of being chosen again by
+    whoever paints it. That is not documentation: the catalogue picked its icon
+    with a ternary on the state code, and two states that mean opposite things
+    ended up with the same triangle and the same amber.
+
+    Args:
+        token: Token being declared.
+
+    Returns:
+        A CSS comment, already spaced, or an empty string.
+    """
+    notas: list[str] = []
+    if not token.informa:
+        notas.append("no informa")
+    if token.icono != "":
+        notas.append(f"icono {token.icono}")
+    return f"  /* {', '.join(notas)} */" if notas else ""
+
+
 def _bloque_color(tema: Tema, modo: Modo, sangria: str) -> list[str]:
     """Return every colour custom property for ``tema`` in ``modo``."""
     lineas: list[str] = []
-    grupos: tuple[tuple[str, tuple[Token, ...]], ...] = (
-        ("Suelo y reticula", SUPERFICIE),
-        ("Corriente - el estado se lee por luminancia", CORRIENTE),
-        ("Accion y seleccion - el color con el que el tema actua", ACCION),
-        ("Semanticos - color mas forma mas icono, nunca color solo", SEMANTICOS),
-        ("Series categoricas - cada una con su marcador y su patron", SERIES),
-    )
-    for titulo, grupo in grupos:
+    for _, titulo, grupo in GRUPOS:
         lineas.append(f"{sangria}/* {titulo} */")
         for token in grupo:
-            nota = "" if token.informa else "  /* no informa */"
             lineas.append(
-                f"{sangria}--color-{token.nombre}: {token.valor(tema, modo)};{nota}"
+                f"{sangria}--color-{token.nombre}: {token.valor(tema, modo)};"
+                f"{_nota(token)}"
             )
         lineas.append("")
     return lineas
@@ -302,8 +349,10 @@ def _ts_token(token: Token, sangria: str) -> list[str]:
         f"{sangria}  clase: 'bg-{token.nombre}',",
         f"{sangria}  informa: {'true' if token.informa else 'false'},",
         f"{sangria}  uso: {_cadena(token.uso)},",
-        f"{sangria}  temas: {{",
     ]
+    if token.icono != "":
+        lineas.append(f"{sangria}  icono: '{token.icono}',")
+    lineas.append(f"{sangria}  temas: {{")
     for tema in TEMAS:
         paleta = token.paleta(tema)
         lineas.append(
@@ -342,6 +391,8 @@ def emitir_ts() -> str:
         "  readonly clase: string",
         "  readonly informa: boolean",
         "  readonly uso: string",
+        "  /** Icono que viaja con el color cuando el token es un estado. */",
+        "  readonly icono?: string",
         "  /** El mismo token en cada tema, para la lamina comparativa. */",
         "  readonly temas: Readonly<Record<TemaSistema, PaletaTema>>",
         "}",
@@ -379,18 +430,40 @@ def emitir_ts() -> str:
         out.append("  },")
     out.append("}")
     out.append("")
-    for nombre, grupo in (
-        ("SUPERFICIE", SUPERFICIE),
-        ("CORRIENTE", CORRIENTE),
-        ("ACCION", ACCION),
-        ("SEMANTICOS", SEMANTICOS),
-        ("SERIES", SERIES),
-    ):
+    for nombre, _, grupo in GRUPOS:
         out.append(f"export const {nombre}: readonly TokenColor[] = [")
         for token in grupo:
             out += _ts_token(token, "  ")
         out.append("]")
         out.append("")
+    out += [
+        "export interface EstadoCertificacion {",
+        "  /** Codigo que guarda el catalogo, sin el prefijo del token. */",
+        "  readonly codigo: string",
+        "  readonly token: string",
+        "  readonly icono: string",
+        "  readonly clase: string",
+        "}",
+        "",
+        "/**",
+        " * Los tres estados de certificacion, resueltos aqui y en ningun otro",
+        " * sitio.",
+        " *",
+        " * El catalogo elegia el icono con una ternaria sobre el codigo, asi que",
+        " * `en revision` y `obsoleto` compartian color Y forma y significan lo",
+        " * contrario. Quien pinte un estado lee de aqui: con la tabla completa la",
+        " * ternaria no tiene donde volver.",
+        " */",
+        "export const ESTADOS_CERTIFICACION: readonly EstadoCertificacion[] = [",
+    ]
+    for token in CERTIFICACION:
+        codigo = token.nombre.removeprefix(PREFIJO_CERTIFICACION)
+        out.append(
+            f"  {{ codigo: '{codigo}', token: '{token.nombre}', "
+            f"icono: '{token.icono}', clase: 'text-{token.nombre}' }},"
+        )
+    out.append("]")
+    out.append("")
     out.append("export const TIPOGRAFIA: readonly RolTipografico[] = [")
     for rol in TIPOGRAFIA:
         out += [
@@ -413,6 +486,8 @@ def emitir_ts() -> str:
     out += [
         "export interface ParContraste {",
         "  readonly token: string",
+        "  /** Token sobre el que se midio: casi siempre el suelo de la pagina. */",
+        "  readonly fondo: string",
         "  readonly tema: TemaSistema",
         "  readonly modo: ModoSistema",
         "  readonly ratio: number",
@@ -422,6 +497,8 @@ def emitir_ts() -> str:
         "export interface SeparacionSemantica {",
         "  readonly uno: string",
         "  readonly otro: string",
+        "  /** Familia dentro de la que la distancia es exigible. */",
+        "  readonly familia: string",
         "  readonly tema: TemaSistema",
         "  readonly modo: ModoSistema",
         "  readonly dicromacia: string",
@@ -440,7 +517,8 @@ def emitir_ts() -> str:
         for modo in MODOS:
             for par in matriz(tema, modo):
                 out.append(
-                    f"  {{ token: '{par.frente}', tema: '{tema}', modo: '{modo}', "
+                    f"  {{ token: '{par.frente}', fondo: '{par.fondo}', "
+                    f"tema: '{tema}', modo: '{modo}', "
                     f"ratio: {par.ratio}, veredicto: '{par.veredicto}' }},"
                 )
     out.append("]")
@@ -452,17 +530,41 @@ def emitir_ts() -> str:
     out.append(f"  (par) => par.tema === '{TEMA_OMISION}',")
     out.append(")")
     out.append("")
-    out.append("export const SEPARACIONES_POR_TEMA: readonly SeparacionSemantica[] = [")
-    for tema in TEMAS:
-        for modo in MODOS:
-            for s in separaciones(tema, modo):
-                out.append(
-                    f"  {{ uno: '{s.uno}', otro: '{s.otro}', tema: '{tema}', "
-                    f"modo: '{modo}', dicromacia: '{s.dicromacia}', "
-                    f"distancia: {s.distancia} }},"
-                )
-    out.append("]")
-    out.append("")
+    for constante, familia, encabezado in (
+        (
+            "SEPARACIONES_POR_TEMA",
+            "semantico",
+            "/** Las seis parejas de las cuatro marcas semanticas. */",
+        ),
+        (
+            "SEPARACIONES_CERTIFICACION_POR_TEMA",
+            "certificacion",
+            "/**\n"
+            " * Las tres parejas de los tres estados de certificacion.\n"
+            " *\n"
+            " * Van en su propia constante y no mezcladas con las semanticas:\n"
+            " * una distancia solo es exigible entre marcas que pueden compartir\n"
+            " * superficie, y el piso que publica el informe es el de la familia\n"
+            " * semantica. Los estados toman prestado su canal entero, asi que\n"
+            " * estas tres distancias son un subconjunto de aquellas seis.\n"
+            " */",
+        ),
+    ):
+        out.append(encabezado)
+        out.append(f"export const {constante}: readonly SeparacionSemantica[] = [")
+        for tema in TEMAS:
+            for modo in MODOS:
+                for s in separaciones(tema, modo):
+                    if s.familia != familia:
+                        continue
+                    out.append(
+                        f"  {{ uno: '{s.uno}', otro: '{s.otro}', "
+                        f"familia: '{s.familia}', tema: '{tema}', "
+                        f"modo: '{modo}', dicromacia: '{s.dicromacia}', "
+                        f"distancia: {s.distancia} }},"
+                    )
+        out.append("]")
+        out.append("")
     out.append(
         "export const SEPARACIONES: readonly SeparacionSemantica[] = "
         "SEPARACIONES_POR_TEMA.filter("
@@ -494,12 +596,24 @@ def emitir_ts() -> str:
         f"export const PEOR_SEPARACION = PEOR_SEPARACION_POR_TEMA.{TEMA_OMISION}"
     )
     out.append("")
+    out.append("/**")
+    out.append(" * Peor pareja de los tres estados de certificacion, por combinacion.")
+    out.append(" *")
+    out.append(" * Es la cifra que responde a la pregunta que abrio esta ranura: si")
+    out.append(" * `en revision` y `obsoleto` volvieran a compartir canal, esto seria")
+    out.append(" * cero y la interfaz seguiria pintando sin quejarse.")
+    out.append(" */")
+    out.append("export const PEOR_SEPARACION_CERTIFICACION = {")
+    for tema in TEMAS:
+        out.append(f"  {tema}: {{")
+        for modo in MODOS:
+            out.append(f"    {modo}: {peor_separacion(tema, modo, 'certificacion')},")
+        out.append("  },")
+    out.append("} as const")
+    out.append("")
     out.append("export const TOKENS: readonly TokenColor[] = [")
-    out.append("  ...SUPERFICIE,")
-    out.append("  ...CORRIENTE,")
-    out.append("  ...ACCION,")
-    out.append("  ...SEMANTICOS,")
-    out.append("  ...SERIES,")
+    for nombre, _, _grupo in GRUPOS:
+        out.append(f"  ...{nombre},")
     out.append("]")
     return "\n".join(out) + "\n"
 

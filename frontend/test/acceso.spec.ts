@@ -69,8 +69,14 @@ beforeEach(() => {
 
 /** Mounts the screen on the entry route, optionally with a query and a locale. */
 async function montarAcceso(
-  opciones: { idioma?: CodigoIdioma, consulta?: Record<string, string> } = {},
+  opciones: { idioma?: CodigoIdioma, consulta?: Record<string, string>, demo?: boolean } = {},
 ): Promise<VueWrapper> {
+  if (opciones.demo === false) {
+    // The door is a deployment flag, so switching it off is switching off the
+    // runtime config the composable reads at setup.
+    vi.stubGlobal('useRuntimeConfig', () => ({ public: { entorno: 'prueba', demoAcceso: false } }))
+  }
+
   await router.push({ path: RUTA_ACCESO, query: opciones.consulta ?? {} })
   await router.isReady()
 
@@ -300,5 +306,75 @@ describe('la pantalla sigue cumpliendo el contrato de navegacion', () => {
     const wrapper = await montarAcceso()
 
     expect(wrapper.get('h1').text()).toBe(mensaje('es', 'access.title'))
+  })
+})
+
+describe('el enfasis de la pantalla de entrada', () => {
+  it('pone el camino recomendado primero y en el canal de accion', async () => {
+    // El hallazgo de la revision de diseno, con el signo tal cual: el camino
+    // recomendado iba en color de precaucion -triangulo y ambar, como si
+    // entrar fuera un riesgo- y el unico boton relleno de la pantalla era el
+    // del formulario para el que nadie tiene contrasena en una demostracion.
+    const wrapper = await montarAcceso()
+    const superficie = wrapper.get('[data-tarjeta="accion"]')
+
+    expect(superficie.find('[data-demostracion]').exists()).toBe(true)
+    expect(superficie.get('[data-recomendado]').text()).toBe(
+      mensaje('es', 'access.demo.recommended'),
+    )
+
+    const marcado = wrapper.html()
+    expect(marcado.indexOf('data-demostracion')).toBeLessThan(marcado.indexOf('data-credenciales'))
+  })
+
+  it('deja el formulario de credenciales plegado mientras haya puerta abierta', async () => {
+    // Un paso para quien si tiene cuenta, y ningun boton primario gastado en
+    // la puerta que la mayoria de los lectores no puede abrir.
+    const wrapper = await montarAcceso()
+    const credenciales = wrapper.get('[data-credenciales]')
+
+    expect(credenciales.element.tagName.toLowerCase()).toBe('details')
+    expect(credenciales.attributes('open')).toBeUndefined()
+    expect(credenciales.get('[data-abrir-credenciales]').text()).toBe(
+      mensaje('es', 'roleSwitch.credentials.heading'),
+    )
+  })
+
+  it('con la puerta de demostracion apagada el formulario no se pliega', async () => {
+    // Entonces es la unica via de entrada, y esconderla seria el mismo defecto
+    // con el signo cambiado.
+    const wrapper = await montarAcceso({ demo: false })
+
+    expect(wrapper.find('[data-credenciales]').exists()).toBe(false)
+    expect(wrapper.find('[data-demostracion]').exists()).toBe(false)
+    expect(wrapper.find('[data-accion="entrar"]').exists()).toBe(true)
+  })
+
+  it('anuncia el rechazo de la demostracion fuera del formulario plegado', async () => {
+    // El defecto que introduce plegar el formulario: las dos negativas
+    // compartian la region de mensaje del formulario, asi que el lector
+    // pulsaria un perfil, fallaria y no veria nada.
+    fallarCon(404)
+    const wrapper = await montarAcceso()
+
+    await wrapper.get('[data-rol="analista"]').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.get('[data-aviso="sin-permiso"]').text()).toBe(
+      mensaje('es', 'access.errors.demoDisabled'),
+    )
+    expect(wrapper.get('[data-credenciales]').find('[data-aviso="sin-permiso"]').exists())
+      .toBe(false)
+  })
+
+  it('abre el formulario cuando la guarda avisa de una sesion caducada', async () => {
+    // Esa explicacion vive dentro del formulario: plegado, la unica frase que
+    // dice por que el lector esta viendo otra vez esta pantalla se esconde.
+    const wrapper = await montarAcceso({ consulta: { motivo: 'expirada' } })
+
+    expect(wrapper.get('[data-credenciales]').attributes('open')).toBeDefined()
+    expect(wrapper.get('[data-aviso="expirada"]').text()).toContain(
+      mensaje('es', 'access.expired.title'),
+    )
   })
 })

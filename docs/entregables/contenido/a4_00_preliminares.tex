@@ -28,11 +28,11 @@ mapa, y la correspondencia se publica completa.
 recorribles de principio a fin; la correspondencia entre las dieciséis ramas del mapa y las rutas
 del portal; los cuatro estados no felices declarados pantalla por pantalla; una guía de estilos con
 sus secciones puntuadas y sus dos temas verificados bajo el mismo listón de contraste en modo claro
-y en modo oscuro; cinco flujos de tarea completos en diseño de alta fidelidad; la tabla que declara
-hasta dónde llega cada pantalla; y una pre-validación sobre capturas reales del prototipo con tres
-iteraciones documentadas.
+y en modo oscuro; cinco flujos de tarea completos en diseño de alta fidelidad; la matriz de alcance
+que declara hasta dónde llega cada pantalla; y una validación sobre capturas reales del prototipo,
+con sus tres ejes de refinamiento y la medición de cada uno.
 
-\textbf{Sobre la pre-validación.} Los ocho evaluadores que aparecen en la sección de pre-validación
+\textbf{Sobre la validación.} Los ocho evaluadores que aparecen en la sección de validación
 son \textbf{evaluadores prototipo}: perfiles sintéticos condicionados por las ocho personas de la
 Actividad 1, en continuidad con el método que sostuvo el card sorting de la Actividad 3. No son
 participantes humanos y sus respuestas no son datos de campo. La validación con personas reales
@@ -41,36 +41,30 @@ interfaz operable y la medición resulta interpretable. Esta precisión abre la 
 correspondiente y se repite ahí, porque confundir las dos cosas equivaldría a fabricar un resultado.
 
 % ============================================================================
-\section{Nota de herramienta}
+\section{Sobre el medio del prototipo}
 
-La rúbrica de esta actividad \textbf{recomienda} dos aplicaciones para elaborar los prototipos: una
-basada en web, Figma, y una de descarga e instalación, Lunacy. La recomendación aparece acompañada
-de tutoriales y de las políticas de privacidad de ambas. Ningún criterio de evaluación menciona
-herramienta alguna: los criterios evalúan prototipos y secciones de guía.
+El equipo trabajó en dos superficies. Las pantallas se construyeron \textbf{en el entorno del
+producto} --- Nuxt 4 sobre FastAPI, con PostgreSQL detrás --- y en un \textbf{archivo de diseño} se
+resolvieron los cinco flujos de tarea, la identidad visual y el inventario de componentes con sus
+variantes. La sección 1 explica qué demuestra cada una y por qué ninguna sustituye a la otra.
 
-Este equipo usó las dos: construyó las pantallas \textbf{en el entorno del producto} --- Nuxt 4 sobre
-FastAPI, con PostgreSQL detrás --- y resolvió en un \textbf{archivo de diseño} los cinco flujos de
-tarea, la identidad visual y el inventario de componentes con sus variantes. La sección 1 explica qué
-demuestra cada superficie y por qué ninguna sustituye a la otra. Lo que sigue sostiene la primera de
-las dos contra lo que la propia rúbrica pide de un prototipo de alta fidelidad, propiedad por
-propiedad, porque es la que la recomendación no contemplaba.
+Construir en el entorno del producto merece justificarse, porque lo habitual en esta etapa es un
+archivo de lienzos. La tabla contrasta las cuatro propiedades que se le piden a un prototipo de alta
+fidelidad con lo que entrega una interfaz que se ejecuta.
 
-\begin{uxtabla}{|L{5.4cm}|Y|}{Las cuatro propiedades que la rúbrica pide de un prototipo de alta fidelidad, frente a una interfaz operable}
-  \uxheadrow \thd{Lo que la rúbrica pide} & \thd{Cómo lo cumple una interfaz construida en el entorno del producto} \\
+\begin{uxtabla}{|L{5.4cm}|Y|}{Las cuatro propiedades de un prototipo de alta fidelidad frente a una interfaz operable}
+  \uxheadrow \thd{Propiedad esperada} & \thd{Cómo la cumple una interfaz construida en el entorno del producto} \\
   \enquote{Ofrecer una representación lo más fiel al producto final} & La representación no se aproxima al producto final: es el producto final. Mismo motor de composición, misma tipografía cargada por el navegador, mismos datos sintéticos y mismo sistema de tokens \\
   \enquote{Permitir probar y evaluar interacciones y funcionalidades} & Las interacciones no se simulan entre lienzos: se ejecutan. Los filtros filtran, la serie de la gráfica hace acercamiento, la transmisión del asistente se cancela de verdad y la sesión cambia lo que cada rol ve \\
   \enquote{Facilitar la obtención de comentarios detallados de los usuarios acerca de la estética visual} & Se obtienen los mismos comentarios sobre estética y además sobre comportamiento, densidad de información y respuesta a la espera, que un lienzo estático no puede provocar \\
   \enquote{Ayudar a las personas interesadas a tener un mejor entendimiento del producto final} & No requiere que quien lo revisa imagine el resultado: se abre en un navegador y se recorre, con su sesión y sus permisos \\
 \end{uxtabla}
 
-El objetivo de aprendizaje evaluado, \textbf{OEA 2.2}, pide \enquote{elaborar prototipos alta
-fidelidad que representen la interfase de un producto o servicio digital}. No prescribe el medio. Un
-prototipo que \emph{es} la interfaz representa la interfaz de la manera más completa disponible.
-
-Nada se pierde por construir en el entorno del producto. Este documento entrega el sistema de tokens
+Un prototipo que \emph{es} la interfaz la representa de la manera más completa disponible, y nada
+se pierde por construirlo así. Este documento entrega el sistema de tokens
 completo, el inventario de componentes con sus estados, la retícula y la matriz de contraste
 verificada por cálculo, y añade lo que un lienzo no puede entregar: pantallas que responden. Cada
-figura de la sección de prototipos es una captura de la aplicación en funcionamiento, tomada a
+captura de la sección de prototipos es una imagen de la aplicación en funcionamiento, tomada a
 resolución fija con un guion reproducible que se documenta en el anexo; cada lámina de flujo lleva
 en su pie la palabra diseño, para que ninguna se lea como una captura de la aplicación.
 
@@ -84,36 +78,26 @@ en su pie la palabra diseño, para que ninguna se lea como una captura de la apl
   \lead{Sección 2. Los siete prototipos}{Las pantallas, una por una, con su figura. La
     correspondencia entre las dieciséis ramas del mapa de la Actividad 3 y las rutas del portal, y
     la matriz de los cuatro estados no felices.}
-  \lead{Sección 3. Guía de estilos}{Identidad, tipografía, paleta con su matriz de contraste,
-    componentes de interfaz e iconografía, cada uno con su propio subtítulo.}
-  \lead{Sección 4. Pre-validación e iteración}{El protocolo con los ocho evaluadores prototipo, las
-    dos tareas heredadas de la prueba de árbol de la Actividad 3, y los tres hallazgos que
-    produjeron un cambio, cada uno con su antes y su después.}
-  \lead{Sección 5. Alcance declarado}{Hasta dónde llega cada pantalla y cada historia de usuario, en
-    cuatro estados, sin dejar ninguna sin declarar.}
-  \lead{Sección 6. El tema institucional}{La segunda paleta con la procedencia de cada valor, su
-    familia tipográfica y su matriz de contraste en los dos modos, con los tres hallazgos que la
-    verificación produjo y lo que se corrigió por cada uno.}
-  \lead{Sección 7. Los cinco flujos de tarea}{Cada flujo con su persona, su objetivo, su número de
+  \lead{Sección 3. Guía de estilos}{Identidad ---la marca del informe y la del portal, con su
+    geometría medida y sus tres variantes---, tipografía, la especificación del sistema de tokens
+    con sus dos temas y sus dos modos, componentes de interfaz e iconografía, cada uno con su
+    propio subtítulo. Ahí viven las tres matrices del sistema: los cuarenta y cuatro pares de la
+    paleta base, el contraste del tema institucional en los dos modos y la separación bajo las tres
+    dicromacias.}
+  \lead{Sección 4. Validación del prototipo}{El protocolo con los ocho evaluadores prototipo, las
+    dos tareas heredadas de la prueba de árbol de la Actividad 3, y los tres ejes de refinamiento
+    del sistema, cada uno con su regla, su línea base y su valor verificado.}
+  \lead{Sección 5. Especificación de alcance}{Hasta dónde llega cada pantalla y cada historia de
+    usuario, en cuatro estados, sin dejar ninguna sin declarar.}
+  \lead{Sección 6. Los cinco flujos de tarea}{Cada flujo con su persona, su objetivo, su número de
     pantallas y su lámina, y la verificación técnica del archivo de diseño.}
-  \lead{Sección 8. Cierre}{Qué se construyó en cifras, qué cambió por evidencia y qué se lleva la
-    Actividad 5.}
+  \lead{Sección 7. Cierre}{Qué se construyó en cifras y con qué mecanismo se comprueba cada pieza,
+    qué cambió por evidencia y qué se lleva la Actividad 5.}
   \lead{Anexo}{Guion de capturas, inventario de figuras y trazabilidad entre los criterios de la
     historia de usuario, las secciones de este documento y su evidencia.}
 \end{uxlist}
 
-La tabla siguiente sirve de guía de lectura para la evaluación: indica dónde se atiende cada
-apartado de la rúbrica y con qué peso.
-
-\begin{uxtabla}{|L{6.4cm}|L{1.5cm}|Y|}{Trazabilidad entre los apartados de la rúbrica y el documento}
-  \uxheadrow \thd{Apartado de la rúbrica} & \thd{Peso} & \thd{Dónde se atiende} \\
-  Portada con los nombres de los integrantes & 2 \% & Portada \\
-  Introducción & 3 \% & Esta sección, con la nota de herramienta \\
-  Prototipos de alta fidelidad & 50 \% & Secciones 1 y 2, y la tabla de alcance de la sección 5 \\
-  Guía de estilos & 45 \% & Sección 3 y el cierre de la sección 6 \\
-\end{uxtabla}
-
-La rúbrica otorga diez puntos por prototipo con un tope de cincuenta, de modo que el tope se alcanza
-con cinco pantallas. Se entregan siete. El motivo es de gestión de riesgo y no de esfuerzo: con
-exactamente cinco, una pantalla juzgada de manera parcial baja el apartado completo; con siete, el
-margen absorbe dos juicios parciales sin perder el tope.
+Se documentan siete pantallas y no las cinco que el mapa de la Actividad 3 marcaba como núcleo. Las
+dos que se añaden ---exportación y asistente--- son las que sostienen el resto del recorrido: sin la
+primera, encontrar un dato no termina en nada que el analista pueda llevarse; sin la segunda, la
+promesa de preguntar en lenguaje natural se queda escrita y sin demostrar.

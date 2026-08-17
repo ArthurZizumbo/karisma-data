@@ -73,6 +73,33 @@ describe('el store resuelve cada token contra el modo en pantalla', () => {
   })
 })
 
+describe('el store publica todo grupo de color que el emisor emite', () => {
+  it('reparte cada token en exactamente un grupo, y en el orden de la fuente', () => {
+    // The defect, and it has already shipped once: `design/` opens a channel,
+    // the store keeps exposing the groups it knew, and every consumer that
+    // walks the groups paints fewer tokens than `tokens` counts. That is
+    // literally how the palette plate came to announce twenty-one and paint
+    // eighteen, with action and selection missing from the graded style guide.
+    //
+    // The list below is the checklist itself: a group added to the emitter and
+    // not exposed here fails, and a group exposed and not listed here fails
+    // too, which is what forces whoever adds the next one to look at the
+    // consumers instead of at the store alone.
+    const sistema = useSistemaDiseno()
+    const enGrupos = [
+      ...sistema.superficie,
+      ...sistema.corriente,
+      ...sistema.accion,
+      ...sistema.barraLateral,
+      ...sistema.semanticos,
+      ...sistema.certificacion,
+      ...sistema.series,
+    ].map(token => token.nombre)
+
+    expect(enGrupos).toEqual(sistema.tokens.map(token => token.nombre))
+  })
+})
+
 describe('la hoja generada declara el objetivo táctil mínimo', () => {
   it('lo condiciona al tipo de puntero y no al ancho de pantalla', () => {
     // Measured at 375px: 58 controls under 44px, every one of them by height.

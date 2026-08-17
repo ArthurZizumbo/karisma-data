@@ -80,19 +80,23 @@ const claveRol = computed(() => (props.rol === null ? '' : `authz.role.${props.r
         The profile block belongs to this composition and to no other: it is
         branch 1.5 of the A3 map and the primary persona is the only one who
         named it as part of her home during the card sorting.
+
+        `min-w-0` on a grid item is not a detail: a track sized `1fr` still
+        refuses to go below the min-content width of what it holds, so one long
+        sentence inside would widen the column past the viewport.
       -->
       <section
         data-bloque="perfil"
         :data-estado="cargando ? 'cargando' : 'lista'"
         :aria-labelledby="idPerfil"
-        class="flex flex-col gap-2"
+        class="flex min-w-0 flex-col gap-2"
       >
         <h2 :id="idPerfil" class="text-titulo-3 text-corriente-pleno">
           {{ t('workspace.profile.title') }}
         </h2>
 
         <dl class="flex flex-col">
-          <div class="flex min-h-11 items-center justify-between gap-3 border-b border-grid px-1">
+          <div class="flex min-h-11 min-w-0 items-center justify-between gap-3 border-b border-grid px-1">
             <dt class="text-etiqueta text-corriente-tenue">
               {{ t('workspace.profile.role') }}
             </dt>
@@ -104,7 +108,7 @@ const claveRol = computed(() => (props.rol === null ? '' : `authz.role.${props.r
 
           <div
             data-origen="ejemplo"
-            class="flex min-h-11 items-center justify-between gap-3 px-1"
+            class="flex min-h-11 min-w-0 items-center justify-between gap-3 px-1"
           >
             <dt class="text-etiqueta text-corriente-tenue">
               {{ t('workspace.profile.lastAccess') }}

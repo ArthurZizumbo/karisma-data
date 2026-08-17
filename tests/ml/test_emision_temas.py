@@ -24,9 +24,11 @@ import re
 from typing import Final, NamedTuple
 
 import pytest
-from design.emitir import RAIZ, emitir_css
+from design.emitir import RAIZ, emitir_css, emitir_ts
 from design.sistema import (
+    CERTIFICACION,
     FAMILIAS_POR_TEMA,
+    PREFIJO_CERTIFICACION,
     TEMA_OMISION,
     TEMAS,
     TIPOGRAFIA,
@@ -317,6 +319,69 @@ def test_cada_tema_declara_toda_familia_que_un_rol_tipografico_nombra() -> None:
     }
 
     assert faltantes == {tema: [] for tema in TEMAS}
+
+
+def test_ningun_grupo_de_color_se_queda_fuera_de_las_dos_salidas() -> None:
+    """A group opened in the source and forgotten in the emitter ships nothing.
+
+    ``GRUPOS`` exists precisely so the sheet and the typed module cannot drift,
+    but nothing so far checks that the single list still covers the source it
+    claims to walk. Add a channel to ``tokens_de_color`` and forget it there and
+    the failure is silent in both directions: the custom property is never
+    declared -so ``bg-<name>`` compiles to nothing- and the typed module never
+    exports the group, while the token keeps being counted by
+    ``tokens_de_color``. It is the same defect the palette plate shipped one
+    layer above, where a group the store did not expose left the guide
+    announcing twenty-one tokens and painting eighteen.
+
+    The order is asserted too, and not only the set: the guide, the report and
+    the plates print the groups in the order the source declares them.
+    """
+    esperados = [token.nombre for token in tokens_de_color()]
+    # Deduplicated preserving order: the sheet declares every token once per
+    # combination, and the first block is the one the groups lay out.
+    en_css = list(dict.fromkeys(re.findall(r"--color-([\w-]+):", emitir_css())))
+    en_ts = [
+        nombre
+        for _, cuerpo in re.findall(
+            r"export const (\w+): readonly TokenColor\[\] = \[(.*?)\n\]",
+            emitir_ts(),
+            re.S,
+        )
+        for nombre in re.findall(r"nombre: '([\w-]+)'", cuerpo)
+    ]
+
+    assert en_css == esperados
+    assert en_ts == esperados
+
+
+def test_los_tres_estados_llegan_al_modulo_tipado_con_su_icono() -> None:
+    """A colour published without its icon is an icon chosen again downstream.
+
+    That is not hypothetical: with only the colour emitted, the catalogue
+    resolved the shape itself with
+    ``codigo === 'certificado' ? 'circle-check' : 'triangle-alert'``, and the
+    two states that mean opposite things ended up with the same triangle. The
+    emitter can regress in silence here -drop the field, invert the condition
+    that skips it- and every contrast assertion would stay green, because the
+    palette would still be correct and simply unreachable.
+    """
+    modulo = emitir_ts()
+    tabla = dict(
+        re.findall(r"codigo: '([\w-]+)', token: '[\w-]+', icono: '([\w:-]+)'", modulo)
+    )
+
+    assert tabla == {
+        estado.nombre.removeprefix(PREFIJO_CERTIFICACION): estado.icono
+        for estado in CERTIFICACION
+    }
+    # Twice on purpose and never emptily: inline on the token, which is what
+    # the plate of the guide walks, and in the table of states, which is what
+    # whoever paints a row reads.
+    assert (
+        re.findall(r"icono: '([^']*)'", modulo)
+        == [estado.icono for estado in CERTIFICACION] * 2
+    )
 
 
 def test_la_letra_propia_de_un_tema_esta_entre_las_que_se_descargan() -> None:

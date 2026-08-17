@@ -39,7 +39,7 @@ marca nuestro sistema como desviación.
 | 1 | **Un solo color de acento** en toda la superficie. Los semánticos (verde vigente, rojo error, ámbar aviso) no cuentan como acento: son estado, no decoración | Buscar usos de ámbar `#F97316` fuera de filete, marca, momento de la verdad y estado «requiere atención» |
 | 2 | **Una sola escala de radios**. `--radius-sm/md/lg`, con `--radius-full` reservado a badges de rol y avatares como excepción documentada | `grep` de `rounded-` y de `border-radius` fuera de los tokens |
 | 3 | **Una sola familia de iconos** (Lucide), sin SVG dibujados a mano, sin emoji como icono estructural | Revisar imports de iconos; buscar `<svg>` inline y caracteres emoji en plantillas |
-| 4 | **Ni negro puro ni blanco puro**. Superficie más clara `#F8FAFC`, texto más oscuro `#0F172A` | `grep` de `#000`, `#fff`, `black`, `white` en CSS y plantillas |
+| 4 | **Ni negro puro ni blanco puro**. Superficie más clara `#F8FAFC`, texto más oscuro `#0F172A`. **Una excepción declarada**: bajo el tema institucional el suelo claro es `#FFFFFF`, ver abajo | `grep` de `#000`, `#fff`, `black`, `white` en CSS y plantillas |
 | 5 | **Prohibido el falso producto dibujado con `div`**. En el documento van capturas reales de la aplicación | Toda figura de pantalla sale del guion de Playwright, ninguna a mano |
 | 6 | **Contraste verificado en botones**. Sin botón claro con texto claro, sin botón transparente sin borde. El ámbar nunca lleva texto blanco (2.6:1) | Matriz de contraste de `generar_tokens_a4.py` |
 | 7 | **Ningún rótulo de botón se parte en dos líneas** en escritorio | Revisión visual de la ruta `/guia` a 1440 y 1280 px |
@@ -64,6 +64,25 @@ pasan:
 | **Cero guiones largos en todo el texto** | Es una heurística anti-slop pensada para copia publicitaria en inglés. En prosa española el guion largo es tipografía correcta y los cuatro documentos del curso lo usan. En cadenas de interfaz, que son cortas, no aparece de todos modos |
 | **Imágenes reales obligatorias en toda página** | Karisma Data es un producto de datos. El sistema de diseño ya declara que no hay fotografía decorativa; añadirla restaría seriedad. Las únicas imágenes son la marca, los avatares por iniciales y los gráficos de datos |
 
+## La excepción de la regla 4, declarada
+
+El tema **institucional** pinta su suelo claro en `#FFFFFF`, blanco puro, y el token `reticula`
+resuelve al mismo valor para no dibujar cuadrícula. La regla 4 lo prohíbe y aun así se queda.
+
+**La razón**: *Superficie* del archivo de diseño **es** blanco puro, y ese tema existe para llevar el
+archivo, no para mejorarlo. Es un choque entre dos fuentes normativas —este checklist y la lámina de
+identidad— y se resuelve a favor del archivo, que es la fuente que el entregable cita. **El tema de
+omisión no cambia**: conserva `#F4F6F9` y sigue siendo el suelo que la regla describe, así que el
+producto nunca queda sin una superficie conforme.
+
+**El alcance de la excepción es exactamente un token en un tema**: `ground` bajo `institucional` en
+claro. Cualquier otro blanco puro que aparezca en una plantilla o en una hoja sigue siendo un
+hallazgo. El precio de moverlo está medido: cambiar ese valor desplaza los 44 pares de la matriz de
+contraste y deja sin correspondencia las once capturas tomadas contra él.
+
+La declaración vive también en `design/sistema.py`, en el comentario del propio token, que es donde
+la va a leer quien esté a punto de oscurecerlo.
+
 ## Reglas propias del proyecto que este checklist no cubre
 
 Están en la guía de estilos de A4 y en las reglas NON-NEGOTIABLE de
@@ -77,3 +96,4 @@ emojis en código, comentarios, commits y logs.
 | Fecha | Cambio |
 |---|---|
 | 10-ago-2026 | Creado. Evaluación de `taste-skill` e `impeccable.style` registrada en `docs/semana_4/plan_excelencia.md`, sección 8 |
+| 16-ago-2026 | Excepción de la regla 4 declarada: el suelo claro del tema institucional es `#FFFFFF`, por procedencia del archivo de diseño. La detectó el QA de US-A4-EXCELENCIA, que la encontró aplicada y sin declarar |

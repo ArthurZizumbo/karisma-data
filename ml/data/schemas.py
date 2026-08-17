@@ -120,9 +120,9 @@ DOMAIN_LABELS: Final[dict[str, dict[str, tuple[str, str]]]] = {
     "prod_cd": {
         "HIP": ("Hipotecario", "Mortgage"),
         "AUT": ("Automotriz", "Auto loan"),
-        "PYM": ("Credito PyME", "SME loan"),
-        "TDC": ("Tarjeta de credito", "Credit card"),
-        "PER": ("Credito personal", "Personal loan"),
+        "PYM": ("Crédito PyME", "SME loan"),
+        "TDC": ("Tarjeta de crédito", "Credit card"),
+        "PER": ("Crédito personal", "Personal loan"),
     },
     "est_cta": {
         "VIG": ("Vigente", "Current"),
@@ -134,7 +134,7 @@ DOMAIN_LABELS: Final[dict[str, dict[str, tuple[str, str]]]] = {
         "01": ("Pesos mexicanos", "Mexican pesos"),
     },
     "unidad_negocio": {
-        "TESORERIA": ("Tesoreria", "Treasury"),
+        "TESORERIA": ("Tesorería", "Treasury"),
         "BANCA_EMP": ("Banca de empresas", "Business banking"),
         "BANCA_PER": ("Banca de personas", "Retail banking"),
         "MERCADOS": ("Mercados", "Markets"),
@@ -142,7 +142,7 @@ DOMAIN_LABELS: Final[dict[str, dict[str, tuple[str, str]]]] = {
     },
     "divisa": {
         "MXN": ("Peso mexicano", "Mexican peso"),
-        "USD": ("Dolar estadounidense", "US dollar"),
+        "USD": ("Dólar estadounidense", "US dollar"),
         "EUR": ("Euro", "Euro"),
         "GBP": ("Libra esterlina", "Pound sterling"),
         "JPY": ("Yen japones", "Japanese yen"),
@@ -166,7 +166,7 @@ DOMAIN_LABELS: Final[dict[str, dict[str, tuple[str, str]]]] = {
     "subyacente": {
         "TIIE28": ("TIIE 28 dias", "TIIE 28 days"),
         "CETES91": ("Cetes 91 dias", "Cetes 91 days"),
-        "USDMXN": ("Dolar contra peso", "US dollar against peso"),
+        "USDMXN": ("Dólar contra peso", "US dollar against peso"),
         "EURMXN": ("Euro contra peso", "Euro against peso"),
         "IPC": ("Indice de precios y cotizaciones", "Mexican stock index"),
         "UDI": ("Unidad de inversion", "Investment unit"),
@@ -346,7 +346,7 @@ CREDITOS: Final[SiloSpec] = SiloSpec(
 LIQUIDEZ: Final[SiloSpec] = SiloSpec(
     name="liquidez",
     source_system="TESO-Pos",
-    owner="Tesoreria",
+    owner="Tesorería",
     rows=1_000_000,
     fields=(
         FieldSpec(

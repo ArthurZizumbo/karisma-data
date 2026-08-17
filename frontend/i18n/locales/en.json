@@ -31,7 +31,11 @@
         "analista": "Analyst",
         "directivo": "Executive",
         "admin": "Administration"
-      }
+      },
+      "recommended": "This is the recommended way into the prototype: enter without a password as any profile, and switch profile whenever you want from the header."
+    },
+    "credentials": {
+      "hint": "Portal accounts only. Nobody has one in this prototype: use a demonstration profile."
     }
   },
   "brand": {
@@ -45,6 +49,15 @@
       "claro": "Light",
       "oscuro": "Dark",
       "sistema": "Match system"
+    },
+    "search": {
+      "label": "Search the catalogue",
+      "placeholder": "Field, source or dashboard"
+    },
+    "profile": {
+      "label": "Demonstration profile",
+      "current": "Profile: {profile}",
+      "signedOut": "Signed out"
     }
   },
   "language": {
@@ -60,6 +73,10 @@
       "corriente": "Current diagram",
       "institucional": "Institutional blue"
     }
+  },
+  "appearance": {
+    "label": "Appearance",
+    "current": "Appearance: {theme}, {mode}"
   },
   "roleSwitch": {
     "groupLabel": "Demonstration profile",
@@ -121,7 +138,7 @@
       "caption": "Cross-cutting facets",
       "hint": "{facet}: reachable from more than one branch of the map",
       "branchTitle": "{label}: cross-cutting facet, reachable from more than one branch",
-      "branchAria": "{id} {label}, cross-cutting facet",
+      "branchAria": "{label}, cross-cutting facet",
       "items": {
         "apiConsumption": "API consumption",
         "dataQuality": "Data quality",
@@ -147,13 +164,13 @@
       "export": "Export"
     },
     "branch": {
-      "access": "Entry screen; it frames the others without being a branch of the map",
-      "home": "1. Home",
-      "explore": "2. Explore and extract — 2.1 Subject catalog, 2.2 Query and filters",
-      "governance": "3. Data governance — 3.1 Dictionary and metadata, 3.2 Lineage and quality, 3.3 Source catalog",
-      "assistant": "Cross-cutting to the four categories",
-      "administration": "4. Administration — 4.1 to 4.4",
-      "export": "2.3 Exports"
+      "access": "Portal entry: credentials and demonstration profiles",
+      "home": "Workspace of the profile that signs in",
+      "explore": "Thematic field catalogue, with search and domain filters",
+      "governance": "Field dictionary, data lineage and source catalogue",
+      "assistant": "Conversational assistant, reachable from every screen",
+      "administration": "Portal users, roles and permissions",
+      "export": "Background CSV exports"
     },
     "scope": {
       "withData": "Navigable with sample data",
@@ -192,7 +209,7 @@
       }
     },
     "explore": {
-      "description": "Thematic catalog of the portal fields: keyword search over the seeded sources, with the match count of every domain.",
+      "description": "Find the field you need before asking for the data: search by keyword, narrow by domain and open the journey of the one that fits.",
       "capability": {
         "catalog": "Thematic catalogue of sources",
         "facets": "Query with faceted filters",
@@ -213,7 +230,7 @@
       }
     },
     "governance": {
-      "description": "Brings together the field dictionary with its metadata and the lineage of every figure, from the system where it is born to the number on screen."
+      "description": "Defend the figure you already have: who answers for each field, since when, with which certification and which systems it crossed before reaching the screen."
     },
     "administration": {
       "description": "Manage the portal users: review the list, change roles and disable access. Requests, the access log and integrations arrive after this delivery.",
@@ -268,7 +285,8 @@
       "icons": "Iconography",
       "accessibility": "Contrast and accessibility",
       "lineage": "Data lineage",
-      "toolCall": "Tool call cards"
+      "toolCall": "Tool call cards",
+      "chassis": "Chassis, certification and surfaces"
     },
     "palette": {
       "description": "Four families of five steps, seven neutrals, four semantic tokens and six chart series colours. The hexadecimal you read is the one the generator emitted: not a single one is typed here.",
@@ -278,6 +296,8 @@
         "current": "Current",
         "action": "Action and selection",
         "semantic": "Semantic",
+        "sidebar": "Sidebar",
+        "certification": "Certification states",
         "series": "Chart series"
       },
       "anchor": "Anchor",
@@ -496,6 +516,7 @@
         "verdict": "Verdict"
       },
       "separations": "Semantic separation under dichromacy",
+      "separationsCertification": "Certification state separation under dichromacy",
       "failures": "{total} token breaks the rule it declares | {total} tokens break the rule they declare",
       "ceiling": {
         "oscuro": "Worst separation between two semantic marks, simulating protanopia, deuteranopia and tritanopia. Above 20 they are told apart by colour; even so, all of them carry a shape and an icon.",
@@ -567,6 +588,21 @@
         "rule": "The canonical source is always named. Staying silent about the discrepancy is what sends the reader back to email, which is exactly the problem this portal exists to remove."
       },
       "rationale": "This plate exists because the design review flagged that \"View lineage\" was a button label with nothing specified behind it. A system documenting five status chips and no way to defend a figure fails the profile whose job is to answer for it."
+    },
+    "chassis": {
+      "sidebar": "Sidebar",
+      "sidebarNote": "The four chassis tokens. The theme changes the ground of the bar and the block of the module in use; the structure, the tab order and the labels do not change.",
+      "certification": "Certification states",
+      "certificationNote": "Three states, three channels and three shapes. \"Under review\" and \"Obsolete\" used to share colour and icon, and they mean the opposite to whoever is about to use the data.",
+      "surfaces": "Contained surfaces",
+      "surfacesNote": "A hairline border, a radius only under the institutional theme and a channel bar on the left edge. The channel is a name, never a colour written into the component.",
+      "channel": {
+        "accion": "Product action and recommended path.",
+        "aviso": "Usable with reservations.",
+        "ok": "Confirmed and available.",
+        "error": "Must not be used.",
+        "neutro": "No channel: the card paints no bar."
+      }
     }
   },
   "authz": {
@@ -685,7 +721,8 @@
       "indicator": {
         "lcr": "Liquidity coverage",
         "carteraVencida": "Non-performing loans",
-        "exposicionNeta": "Net derivative exposure"
+        "exposicionNeta": "Net derivative exposure",
+        "diasMora": "Days past due"
       }
     }
   },
@@ -758,6 +795,7 @@
     },
     "state": {
       "loading": "Loading the preaggregated series.",
+      "refreshing": "Refreshing the series with the new filters.",
       "emptyTitle": "No data under these filters",
       "emptyBody": "The query is valid and the server answered without errors, but no series matches the filters. Drop one of them to see data again.",
       "error": {
@@ -930,8 +968,8 @@
     },
     "explore": {
       "search": {
-        "label": "Search the catalog",
-        "placeholder": "balance, limit, counterparty",
+        "label": "What data do you need?",
+        "placeholder": "available balance, exposure, past due",
         "action": "Search",
         "busy": "Searching",
         "hint": "Type at least {min} characters. The query leaves when the form is submitted, not on every keystroke."
@@ -947,12 +985,14 @@
         "shown": "Showing {shown} of {total} matching fields.",
         "capped": "The catalog returns up to {limit} fields per search. Narrow by domain or sharpen the term to reach the rest.",
         "source": "Source",
-        "owner": "Steward"
+        "owner": "Steward",
+        "openLineage": "View the lineage of {field}",
+        "fullRecord": "See the full field record in {screen}"
       },
       "state": {
         "initial": {
-          "title": "Start with a search",
-          "body": "The catalog asks the server for nothing until you type a term, so this screen opens without requesting any field."
+          "title": "Start from what you need to measure",
+          "body": "Type a business concept and the catalogue returns the fields that measure it, with their source and their steward. Until then it asks the server for nothing."
         },
         "loading": "Searching the catalog for fields.",
         "empty": {
@@ -976,9 +1016,9 @@
   "lineage": {
     "dictionary": {
       "title": "Field dictionary",
-      "hint": "Search a field by its physical name, by its business name or by a synonym. Every card opens the journey of the data from the system where it is born.",
-      "searchLabel": "Search the catalogue",
-      "searchPlaceholder": "balance, limit, counterparty",
+      "hint": "Every card carries the steward, the validity and the certification of the field, and opens the whole journey of the data from the system where it is born.",
+      "searchLabel": "Field whose origin needs verifying",
+      "searchPlaceholder": "physical name, business name or synonym",
       "searchAction": "Search",
       "searchHint": "Type at least two characters.",
       "domainsLabel": "Filter by domain",
@@ -986,7 +1026,7 @@
       "results": "{count} fields found",
       "state": {
         "initial": {
-          "title": "Start with a search",
+          "title": "Start with the field in question",
           "body": "The dictionary queries nothing until you type a term, so this screen opens without asking the server for a single field."
         },
         "loading": "Searching fields in the catalogue.",

@@ -29,7 +29,14 @@ import itertools
 from dataclasses import dataclass
 from typing import Final, Literal
 
-from design.sistema import SEMANTICOS, Modo, Tema, Token, tokens_de_color
+from design.sistema import (
+    CERTIFICACION,
+    SEMANTICOS,
+    Modo,
+    Tema,
+    Token,
+    tokens_de_color,
+)
 
 Veredicto = Literal["AAA", "AA", "AA-grande", "grafico", "superficie", "falla"]
 Dicromacia = Literal["protanopia", "deuteranopia", "tritanopia"]
@@ -52,9 +59,35 @@ _PROYECCION: Final[dict[Dicromacia, tuple[tuple[float, float, float], ...]]] = {
 }
 
 
+#: The families whose marks have to stay apart from each other, and the reason
+#: there is more than one.
+#:
+#: A separation is only meaningful inside a family: two marks that never share
+#: a surface do not have to be told apart, and mixing the families would
+#: compare a certification badge against a link colour and then call that
+#: number a floor. The certification states borrow the semantic channels whole,
+#: so their three distances are a subset of the six above, which is exactly the
+#: property that keeps the published floor where it was while the states gain a
+#: measurement of their own.
+FAMILIAS: Final[tuple[tuple[str, tuple[Token, ...]], ...]] = (
+    ("semantico", SEMANTICOS),
+    ("certificacion", CERTIFICACION),
+)
+
+
 @dataclass(frozen=True)
 class Par:
-    """A measured foreground over background pair."""
+    """A measured foreground over background pair.
+
+    Attributes:
+        frente: Token being read.
+        fondo: Token it is read against, which is the page ground for almost
+            everything and the sidebar for what lives on the sidebar.
+        tema: Theme the pair was measured in.
+        modo: Light or dark.
+        ratio: WCAG contrast ratio.
+        veredicto: Grade of that ratio.
+    """
 
     frente: str
     fondo: str
@@ -66,10 +99,23 @@ class Par:
 
 @dataclass(frozen=True)
 class Separacion:
-    """How far apart two marks stay for a reader with one dichromacy."""
+    """How far apart two marks stay for a reader with one dichromacy.
+
+    Attributes:
+        uno: First mark of the pair.
+        otro: Second mark of the pair.
+        familia: Family both belong to. The distance is only a requirement
+            inside a family, so the number travels with the answer to "apart
+            from what".
+        tema: Theme the pair was measured in.
+        modo: Light or dark.
+        dicromacia: The simulated dichromacy that separates them worst.
+        distancia: CIE76 distance under that dichromacy.
+    """
 
     uno: str
     otro: str
+    familia: str
     tema: Tema
     modo: Modo
     dicromacia: Dicromacia
@@ -164,51 +210,113 @@ def _suelo(tema: Tema, modo: Modo) -> str:
         modo: Light or dark.
 
     Returns:
-        The hex value every ratio of that combination is measured against.
+        The hex value most ratios of that combination are measured against.
     """
-    return next(t for t in tokens_de_color() if t.nombre == "ground").valor(tema, modo)
+    return _fondo("ground", tema, modo)
+
+
+def _fondo(nombre: str, tema: Tema, modo: Modo) -> str:
+    """Return the value a token is read against, resolved per combination.
+
+    Args:
+        nombre: Name of the token that acts as the background.
+        tema: Theme being audited.
+        modo: Light or dark.
+
+    Returns:
+        The hex value of that background in that combination.
+    """
+    return token_por_nombre(nombre).valor(tema, modo)
 
 
 def matriz(tema: Tema, modo: Modo) -> tuple[Par, ...]:
-    """Return every token measured against the ground of ``tema`` and ``modo``."""
-    fondo = _suelo(tema, modo)
+    """Return every token measured against what it is actually read on.
+
+    Almost every token is read over the page ground, and the ones that are not
+    say so: the labels of the sidebar declare ``sobre="barra-lateral"`` because
+    under the institutional theme the rail is navy while the page is white, and
+    a ratio taken over the page would be a number the reader never sees.
+
+    Args:
+        tema: Theme to measure.
+        modo: Light or dark.
+
+    Returns:
+        One graded pair per token, in the order the guide prints them.
+    """
     pares: list[Par] = []
     for token in tokens_de_color():
-        if token.nombre == "ground":
+        if token.nombre == token.sobre:
+            # The ground read against itself. Nothing is ever painted on the
+            # page with the page as its foreground.
             continue
-        ratio = razon(token.valor(tema, modo), fondo)
+        ratio = razon(token.valor(tema, modo), _fondo(token.sobre, tema, modo))
         grado = veredicto(ratio)
-        if token.nombre == "ground-alt":
-            # A background measured against the background is not a contrast
-            # requirement: nothing is ever read *on top of* the ground with the
-            # alternate row as its foreground. Grading it "falla" made the guide
-            # accuse itself of an infringement that does not exist.
+        if token.es_suelo:
+            # A background measured against another background is not a
+            # contrast requirement: nothing is ever read *on top of* the ground
+            # with the alternate row as its foreground. Grading it "falla" made
+            # the guide accuse itself of an infringement that does not exist.
             grado = "superficie"
         elif not token.informa:
             grado = "grafico"
-        pares.append(Par(token.nombre, "ground", tema, modo, round(ratio, 2), grado))
+        pares.append(Par(token.nombre, token.sobre, tema, modo, round(ratio, 2), grado))
     return tuple(pares)
 
 
 def separaciones(tema: Tema, modo: Modo) -> tuple[Separacion, ...]:
-    """Return the worst dichromatic separation for each semantic pair."""
+    """Return the worst dichromatic separation of every pair, family by family.
+
+    Two families walk here: the four semantic marks and the three states of
+    certification. They are measured apart because a distance is only a
+    requirement between marks that can share a surface, and they are reported
+    together because the floor the portal publishes has to hold for both.
+
+    Args:
+        tema: Theme to measure.
+        modo: Light or dark.
+
+    Returns:
+        One entry per pair, each carrying the family it belongs to.
+    """
     salida: list[Separacion] = []
-    for uno, otro in itertools.combinations(SEMANTICOS, 2):
-        peor: Separacion | None = None
-        for dicromacia in _PROYECCION:
-            d = distancia(uno.valor(tema, modo), otro.valor(tema, modo), dicromacia)
-            if peor is None or d < peor.distancia:
-                peor = Separacion(
-                    uno.nombre, otro.nombre, tema, modo, dicromacia, round(d, 1)
-                )
-        if peor is not None:
-            salida.append(peor)
+    for familia, grupo in FAMILIAS:
+        for uno, otro in itertools.combinations(grupo, 2):
+            peor: Separacion | None = None
+            for dicromacia in _PROYECCION:
+                d = distancia(uno.valor(tema, modo), otro.valor(tema, modo), dicromacia)
+                if peor is None or d < peor.distancia:
+                    peor = Separacion(
+                        uno.nombre,
+                        otro.nombre,
+                        familia,
+                        tema,
+                        modo,
+                        dicromacia,
+                        round(d, 1),
+                    )
+            if peor is not None:
+                salida.append(peor)
     return tuple(salida)
 
 
-def peor_separacion(tema: Tema, modo: Modo) -> float:
-    """Return the worst semantic separation of one theme and mode."""
-    return min(s.distancia for s in separaciones(tema, modo))
+def peor_separacion(tema: Tema, modo: Modo, familia: str | None = None) -> float:
+    """Return the worst separation of one theme and mode.
+
+    Args:
+        tema: Theme to measure.
+        modo: Light or dark.
+        familia: Restrict the answer to one family, or ``None`` for the floor
+            of the whole palette, which is the number the report publishes.
+
+    Returns:
+        The smallest CIE76 distance found.
+    """
+    return min(
+        s.distancia
+        for s in separaciones(tema, modo)
+        if familia is None or s.familia == familia
+    )
 
 
 def incumplimientos(tema: Tema, modo: Modo) -> tuple[str, ...]:
@@ -227,19 +335,22 @@ def incumplimientos(tema: Tema, modo: Modo) -> tuple[str, ...]:
         One Spanish sentence per infringement, empty when there is none.
     """
     fallos: list[str] = []
-    fondo = _suelo(tema, modo)
     for token in tokens_de_color():
-        if token.nombre in {"ground", "ground-alt"}:
+        if token.es_suelo:
+            # A ground is never a foreground. The sidebar of the institutional
+            # theme is navy over a white page and reaches 14.64:1, which is a
+            # surface doing its job and not a mark that informs.
             continue
-        ratio = razon(token.valor(tema, modo), fondo)
+        ratio = razon(token.valor(tema, modo), _fondo(token.sobre, tema, modo))
         if token.informa and ratio < 3.0:
             fallos.append(
-                f"{token.nombre} informa y solo alcanza {ratio:.2f}:1 en {tema} {modo}"
+                f"{token.nombre} informa y solo alcanza {ratio:.2f}:1 sobre "
+                f"{token.sobre} en {tema} {modo}"
             )
         if not token.informa and ratio >= 3.0:
             fallos.append(
                 f"{token.nombre} declara que no informa y alcanza "
-                f"{ratio:.2f}:1 en {tema} {modo}"
+                f"{ratio:.2f}:1 sobre {token.sobre} en {tema} {modo}"
             )
     return tuple(fallos)
 

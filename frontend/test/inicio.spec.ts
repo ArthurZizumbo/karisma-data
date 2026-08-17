@@ -14,7 +14,7 @@ import EspacioDirectivo from '~/components/inicio/EspacioDirectivo.vue'
 import EspacioOperativo from '~/components/inicio/EspacioOperativo.vue'
 import { bloquesDe, destinosDe, RUTA_INICIO } from '~/utils/espaciosTrabajo'
 import { formatearFecha } from '~/utils/fechas'
-import { BUSQUEDAS_RECIENTES } from '~/utils/muestrasInicio'
+import { BUSQUEDAS_RECIENTES, INDICADORES } from '~/utils/muestrasInicio'
 import { RUTAS_CONTRATO } from '~/utils/navegacion'
 import { type CodigoIdioma, crearI18nDePrueba, mensaje } from './i18nDePrueba'
 
@@ -148,15 +148,24 @@ describe('cada composicion abre por lo que ese perfil hace primero', () => {
     ])
   })
 
-  it('la directiva muestra tres tarjetas antes que el buscador reducido', () => {
+  it('la directiva muestra cuatro tarjetas antes que el buscador reducido', () => {
     // Cards below the fold would make the executive screen the operative one
-    // with a different title.
+    // with a different title. Four is the floor the criterion names, and each
+    // one has to carry its label, its timestamp and its figure: a card that
+    // lost the cut-off would be a number with no provenance, which is the one
+    // thing this product promises it never shows.
     const wrapper = montarComposicion('directivo')
     const bloques = bloquesEnElDom(wrapper)
     const buscador = wrapper.get('[data-bloque="buscador"]')
+    const tarjetas = wrapper.findAll('[data-indicador]')
 
     expect(bloques[0]).toBe('indicadores')
-    expect(wrapper.findAll('[data-indicador]')).toHaveLength(3)
+    expect(tarjetas.length).toBeGreaterThanOrEqual(4)
+    for (const tarjeta of tarjetas) {
+      expect(tarjeta.get('h3').text().length).toBeGreaterThan(0)
+      expect(tarjeta.get('[data-marca-tiempo]').attributes('datetime')).toBeTruthy()
+      expect(tarjeta.get('[data-cifra]').classes()).toContain('font-mono')
+    }
     expect(buscador.attributes('data-enfasis')).toBe('reducido')
     expect(bloques.indexOf('buscador')).toBeGreaterThan(0)
   })
@@ -274,7 +283,7 @@ describe('los estados no felices del bloque de lista estan disenados', () => {
     const resuelta = montarComposicion('directivo')
 
     const tarjetasCargando = cargando.findAll('[data-indicador]')
-    expect(tarjetasCargando).toHaveLength(3)
+    expect(tarjetasCargando).toHaveLength(INDICADORES.length)
     expect(cargando.get('[data-bloque="indicadores"]').attributes('data-estado')).toBe('cargando')
     expect(tarjetasCargando[0]?.classes()).toEqual(
       resuelta.findAll('[data-indicador]')[0]?.classes(),

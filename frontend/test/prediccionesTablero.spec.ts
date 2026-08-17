@@ -1,11 +1,17 @@
 import type { VueWrapper } from '@vue/test-utils'
-import type { PayloadHistoricos, PuntoMensual } from '~/types/prediccion'
+import type {
+  HistoricoMetrica,
+  PayloadHistoricos,
+  Proyeccion,
+  PuntoMensual,
+} from '~/types/prediccion'
 
 import { flushPromises, mount } from '@vue/test-utils'
 import { defineComponent, ref, shallowRef } from 'vue'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import TableroPredicciones from '~/components/tablero/TableroPredicciones.vue'
+import TableroTablaDetalleSerie from '~/components/tablero/TablaDetalleSerie.vue'
 import TarjetaPredictiva from '~/components/tablero/TarjetaPredictiva.vue'
 import { esPayloadHistoricos } from '~/composables/usePrediccionesTablero'
 import { METRICAS_PREDICCION } from '~/utils/metricasTablero'
@@ -529,5 +535,81 @@ describe('nada de lo que se muestra depende del reloj', () => {
     finally {
       vi.useRealTimers()
     }
+  })
+})
+
+describe('el nivel 3 ordena por la cifra y no por como se imprime', () => {
+  /** Metric published in millions, which is the one whose width varies. */
+  const METRICA = METRICAS_PREDICCION.find(metrica => metrica.unidad === 'millones-mxn')!
+
+  /** Three observed months plus the projected one, in the order they render. */
+  const PUNTOS: readonly PuntoMensual[] = Object.freeze([
+    { mes: '2026-01', valor: 987.6 },
+    { mes: '2026-02', valor: 1284.5 },
+    { mes: '2026-03', valor: 1050.2 },
+  ])
+
+  const PROYECTADO: PuntoMensual = { mes: '2026-04', valor: 1102.4 }
+
+  const HISTORICO_SINTETICO: HistoricoMetrica = {
+    id: METRICA.id,
+    campoOrigen: METRICA.campoOrigen,
+    claveAgregacion: 'forecast.aggregation.dailyMean',
+    puntos: PUNTOS,
+  }
+
+  const PROYECCION: Proyeccion = {
+    metricaId: METRICA.id,
+    ultimo: PUNTOS.at(-1)!,
+    proyectado: PROYECTADO,
+    variacionPct: 5,
+    serieUsada: PUNTOS,
+    metodo: {
+      id: 'ols-lineal',
+      clavePlantilla: 'forecast.method.ols',
+      parametros: { points: PUNTOS.length, horizon: 1, r2: 0.98 },
+    },
+  }
+
+  /** Mounts the third level on its own, over the four points above. */
+  function montarTabla(): VueWrapper {
+    return mount(TableroTablaDetalleSerie, {
+      props: { metrica: METRICA, historico: HISTORICO_SINTETICO, proyeccion: PROYECCION },
+      global: {
+        plugins: [crearI18nDePrueba('es')],
+        components: { NuxtLink: EnlaceStub },
+        stubs: { Icon: true },
+      },
+    })
+  }
+
+  it('ordena la columna de cifras por la magnitud del punto', async () => {
+    // Las celdas llegan formateadas -"1,285" contra "988"- y ordenar el texto
+    // impreso pone la cifra menor arriba mientras la columna anuncia
+    // `descending`: el lector que no ve la flecha oye que esta ordenada y la
+    // tabla le esta mintiendo. `tablaDatos.spec.ts` prueba que el componente
+    // ordena de verdad sobre una tabla sintetica suya; lo que nadie mide es que
+    // ESTAS columnas apunten al valor crudo, y una `accessorFn` sobre el texto
+    // dejaria toda la suite en verde.
+    const wrapper = montarTabla()
+    const meses = (): string[] =>
+      wrapper.findAll('tbody tr').map(fila => fila.get('th').text())
+    const cifras = (): string[] =>
+      wrapper.findAll('tbody tr').map(fila => fila.findAll('td')[0]!.text())
+
+    const enElPayload = meses()
+    const porMagnitud = [...PUNTOS, PROYECTADO]
+      .map((punto, indice) => ({ etiqueta: enElPayload[indice]!, valor: punto.valor }))
+      .sort((uno, otro) => otro.valor - uno.valor)
+      .map(fila => fila.etiqueta)
+
+    // La primera pulsacion de una columna de cifras abre por el valor mas alto.
+    await wrapper.get('[data-ordenar="valor"]').trigger('click')
+
+    expect(meses()).toEqual(porMagnitud)
+    expect(wrapper.findAll('th[scope="col"]')[1]!.attributes('aria-sort')).toBe('descending')
+    // Y el orden alcanzado NO es el del texto impreso, que es lo que hace
+    // discriminante a la asercion de arriba en lugar de una coincidencia.
+    expect(cifras()).not.toEqual([...cifras()].sort((uno, otro) => otro.localeCompare(uno)))
   })
 })

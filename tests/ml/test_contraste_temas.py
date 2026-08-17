@@ -12,14 +12,16 @@ file it watches proves nothing, so the table is a transcription of
 ``design/sistema.py`` and it is never regenerated: a diff on it is exactly the
 alarm it exists to raise.
 
-The table is in two halves and the split is the point. ``FIJACION_ENTREGADA``
+The table is in three parts and the split is the point. ``FIJACION_ENTREGADA``
 is the contract as it stood at commit ``aeafc6e``, which is what the published
 artefacts rest on, and it does not move. ``FIJACION_AMPLIACION`` holds the four
 slots the institutional identity opened afterwards -grid, action, its support
 and the selected surface- and under the default theme three of the four reuse a
-value the first half already fixes. Growing the contract is allowed; moving what
-was delivered is not, and keeping the halves apart is what lets a reader tell
-the two apart at a glance instead of diffing twenty-one lines.
+value the first part already fixes. ``FIJACION_CHASIS`` holds the seven the
+sidebar and the certification states opened, and under the default theme not
+one of them is a new colour. Growing the contract is allowed; moving what was
+delivered is not, and keeping the parts apart is what lets a reader tell them
+apart at a glance instead of diffing twenty-eight lines.
 
 The rest of the file holds the optional theme to the same bar as the default
 one. A second theme that quietly failed the contrast floor the portal publishes
@@ -31,9 +33,16 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from design.contraste import _suelo, incumplimientos, peor_separacion, razon
+from design import sistema
+from design.contraste import (
+    _suelo,
+    incumplimientos,
+    peor_separacion,
+    razon,
+    token_por_nombre,
+)
 from design.emitir import main
-from design.sistema import SERIES, Modo, Tema, tokens_de_color
+from design.sistema import CERTIFICACION, SERIES, Modo, Tema, tokens_de_color
 
 #: nombre -> (claro, oscuro) of the default theme, transcribed from
 #: design/sistema.py at aeafc6e, before the theme axis was opened.
@@ -78,11 +87,60 @@ FIJACION_AMPLIACION: dict[str, tuple[str, str]] = {
     "seleccion": ("#E7EAF0", "#181B22"),
 }
 
-#: The whole default theme as it stands today: the delivered contract plus the
-#: extension, fixed together so a drift in either half fails.
+#: The seven slots the chassis and the states of certification opened, and the
+#: proof that the default theme paid nothing for either.
+#:
+#: The rail is ``ground-alt``, its resting label is ``corriente-tenue`` and the
+#: module on screen is ``corriente-pleno`` over the rail's own ground: luminance
+#: and weight, with no filled block, which is what the delivered screenshots
+#: show. The three certification states borrow ``ok``, ``aviso`` and ``error``
+#: whole. Every value below therefore appears somewhere above, and only the
+#: optional theme spends the slots.
+FIJACION_CHASIS: dict[str, tuple[str, str]] = {
+    "barra-lateral": ("#EAEEF4", "#131519"),
+    "barra-lateral-activo": ("#EAEEF4", "#131519"),
+    "barra-lateral-texto": ("#5F6A7D", "#7A8698"),
+    "barra-lateral-activo-texto": ("#14171D", "#E8F4FF"),
+    "certificacion-certificado": ("#1F6F43", "#4ADE80"),
+    "certificacion-en-revision": ("#9A6200", "#FFC233"),
+    "certificacion-obsoleto": ("#8C1D18", "#FF5A36"),
+}
+
+#: The whole default theme as it stands today: the delivered contract plus both
+#: extensions, fixed together so a drift in any of the three fails.
 FIJACION_CORRIENTE: dict[str, tuple[str, str]] = (
-    FIJACION_ENTREGADA | FIJACION_AMPLIACION
+    FIJACION_ENTREGADA | FIJACION_AMPLIACION | FIJACION_CHASIS
 )
+
+#: The eight colours the design file declares, and the token each one becomes.
+#:
+#: Six of them ship as the literal value of a token under the institutional
+#: theme. This half is the transcription that the previous US did not make: its
+#: plan copied six of the eight, the implementation built the palette from that
+#: copy instead of from the file, and the two it dropped -*Accion and *Apoyo-
+#: were the ones the file calls the heart of the identity. A theme without them
+#: is the default ramp in another blue, which is exactly what shipped.
+OCTETO_LITERAL: dict[str, tuple[str, str]] = {
+    "Navegacion": ("102A43", "corriente-pleno"),
+    "Secundario": ("1D4C6E", "corriente-medio"),
+    "Accion": ("086B70", "accion"),
+    "Apoyo": ("15989A", "accion-apoyo"),
+    "Exito": ("287A58", "ok"),
+    "Superficie": ("FFFFFF", "ground"),
+}
+
+#: The two that could not ship at their swatch value, and why.
+#:
+#: *Atencion gives 3.65:1 over white and a token that carries text has to clear
+#: 4.5:1; *Error at its own value drops the error/success pair to dE 10.1 under
+#: protanopia, so an error reads like a confirmation. Both are darkened, and
+#: what is checked here is that the source still cites the swatch it departed
+#: from: a derivation whose origin is not written down is indistinguishable
+#: from an invented colour.
+OCTETO_DERIVADO: dict[str, tuple[str, str]] = {
+    "Atencion": ("B97812", "aviso"),
+    "Error": ("B8443F", "error"),
+}
 
 #: The floor each mode has to hold, in CIE76 distance under the worst of the
 #: three simulated dichromacies. They are the numbers the default theme already
@@ -114,14 +172,14 @@ def test_el_tema_de_omision_no_se_mueve() -> None:
     assert medido == FIJACION_CORRIENTE
 
 
-def test_el_contrato_es_de_veintiun_tokens() -> None:
+def test_el_contrato_es_de_veintiocho_tokens() -> None:
     """A token added or removed changes the guide, the plates and the PDF.
 
     It caught exactly that: the four slots of ``FIJACION_AMPLIACION`` reached
     ``design/sistema.py`` while the palette plate of ``/guia``, the store that
     feeds it and the tables of ``a4_08`` still counted seventeen.
     """
-    assert len(tokens_de_color()) == len(FIJACION_CORRIENTE) == 21
+    assert len(tokens_de_color()) == len(FIJACION_CORRIENTE) == 28
     assert len(FIJACION_ENTREGADA) == 17
 
 
@@ -156,6 +214,99 @@ def test_las_series_conservan_su_razon_sobre_cada_suelo(tema: Tema, modo: Modo) 
     ]
 
     assert bajas == []
+
+
+@pytest.mark.parametrize(("tema", "modo"), COMBINACIONES)
+def test_los_tres_estados_de_certificacion_se_separan(tema: Tema, modo: Modo) -> None:
+    """Two states that mean opposite things must not look alike.
+
+    The defect, and it was in production: the catalogue chose the icon with
+    ``codigo === 'certificado' ? 'circle-check' : 'triangle-alert'`` and painted
+    everything that was not certified in the warning colour, so "en revision"
+    and "obsoleto" arrived at the reader as the same amber triangle. One says
+    use it with a caveat and the other says do not use it. Point two states at
+    one channel again and this measures zero.
+    """
+    assert peor_separacion(tema, modo, "certificacion") >= PISO_DICROMACIA[modo]
+
+
+def test_cada_estado_de_certificacion_lleva_su_propio_icono() -> None:
+    """Colour is the channel light mode cannot deliver, so the shape carries.
+
+    On a light ground every semantic mark has to clear 4.5:1, which caps them
+    below 0.16 relative luminance, and inside that band four hues do not
+    separate: the reader with protanopia tells the three states apart by the
+    tick, the clock and the crossed circle. A state that reached the reader
+    without an icon, or sharing one, would leave that reader with nothing.
+    """
+    iconos = [estado.icono for estado in CERTIFICACION]
+
+    assert len(CERTIFICACION) == 3
+    assert "" not in iconos
+    assert len(set(iconos)) == len(iconos)
+
+
+def test_el_octeto_del_archivo_esta_completo_con_su_procedencia() -> None:
+    """A palette derived from a transcription loses whatever the copy dropped.
+
+    This is the failure the previous US shipped: its plan transcribed six of
+    the eight colours of the design file, the implementation built the theme
+    from that table instead of from the file, and *Accion and *Apoyo -the two
+    the file calls the heart of the identity- were simply not there. Nothing
+    caught it, because a colour that is missing declares nothing.
+
+    So this reads the source as text and asks for both halves of the promise:
+    that each of the eight lands somewhere, and that the source still names the
+    swatch it came from. A value with no provenance and an invented colour are
+    the same object.
+    """
+    fuente = sistema.__file__
+    assert fuente is not None
+    codigo = Path(fuente).read_text(encoding="utf-8").upper()
+
+    aterrizados = {
+        rol: token_por_nombre(token).valor("institucional", "claro")
+        for rol, (_, token) in OCTETO_LITERAL.items()
+    }
+    sin_procedencia = sorted(
+        rol
+        for rol, (valor, _) in (OCTETO_LITERAL | OCTETO_DERIVADO).items()
+        if f"*{rol}".upper() not in codigo or valor not in codigo
+    )
+
+    assert aterrizados == {
+        rol: f"#{valor}" for rol, (valor, _) in OCTETO_LITERAL.items()
+    }
+    assert sin_procedencia == []
+
+
+@pytest.mark.parametrize("modo", ["claro", "oscuro"])
+def test_la_reticula_solo_la_pinta_el_tema_de_omision(modo: Modo) -> None:
+    """The modular grid is the default world and not a decoration to inherit.
+
+    The defect in both directions. Give the institutional theme a visible grid
+    and the shell draws a lattice under every dense table, which its own guide
+    rules out -"los neutros sostienen tablas, metadatos y grandes volumenes de
+    informacion"-. Paint the default one in its own ground and the man-machine
+    diagram, which is the whole visual thesis of the product, disappears.
+    """
+    reticula = token_por_nombre("reticula")
+
+    assert reticula.valor("institucional", modo) == _suelo("institucional", modo)
+    assert reticula.valor("corriente", modo) != _suelo("corriente", modo)
+
+
+@pytest.mark.parametrize("modo", ["claro", "oscuro"])
+def test_la_barra_lateral_institucional_es_el_azul_de_navegacion(modo: Modo) -> None:
+    """The rail is where the institutional identity is either visible or absent.
+
+    Its guide gives the deep blue exactly one job -"el azul profundo estructura
+    la navegacion"- and the rail is the navigation. Repaint it in the alternate
+    ground and the optional theme becomes the default shell in another accent,
+    which is precisely the outcome this US exists to undo. Nothing else in the
+    suite fixes an institutional value, so nothing else would notice.
+    """
+    assert token_por_nombre("barra-lateral").valor("institucional", modo) == "#102A43"
 
 
 def test_el_suelo_oscuro_institucional_es_azul_y_no_negro() -> None:

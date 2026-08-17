@@ -23,6 +23,19 @@
  * prototype has no password, and a form on top tells them to look for one that
  * does not exist. With the door closed the screen is exactly what it was,
  * because then the form is the only way in and there is nothing to put first.
+ *
+ * THE EMPHASIS USED TO BE INVERTED, which is what the design review found: the
+ * recommended way in was framed in the warning colour -a triangle and amber, as
+ * if entering were a risk- and the only filled button of the screen belonged to
+ * the form nobody in a demonstration has credentials for. The profiles now sit
+ * on a surface of the action channel, and the credential form is a disclosure:
+ * one click for whoever does have an account, and no primary button spent on a
+ * door most readers cannot open. With the door closed the form is not a
+ * disclosure at all, because then it is the only way in.
+ *
+ * The refusal of the demonstration door is announced by the PAGE and not by the
+ * form. Both refusals used to share the message region of the form, and with
+ * the form collapsed the reader would press a profile, fail, and see nothing.
  */
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -31,6 +44,7 @@ import { useRoute } from 'vue-router'
 import FormularioAcceso from '~/components/acceso/FormularioAcceso.vue'
 import SelectorDemostracion from '~/components/acceso/SelectorDemostracion.vue'
 import CabeceraPantalla from '~/components/comun/CabeceraPantalla.vue'
+import TarjetaContenida from '~/components/comun/TarjetaContenida.vue'
 import { usePermisos } from '~/composables/usePermisos'
 import { useRolDemo } from '~/composables/useRolDemo'
 import { useSesion, esFalloDeAcceso } from '~/composables/useSesion'
@@ -79,6 +93,8 @@ const { puedeVerRuta } = usePermisos()
 const { disponible: demoDisponible, entrarComoRol } = useRolDemo()
 
 const motivoFallo = ref<MotivoFalloAcceso | null>(null)
+/** Which of the two doors produced the failure, so it is announced where it is. */
+const origenFallo = ref<'credenciales' | 'demostracion' | null>(null)
 const desvio = ref<Desvio | null>(null)
 
 /**
@@ -112,6 +128,26 @@ const aviso = computed<AvisoAcceso | null>(() =>
   motivoFallo.value === null ? null : AVISO_POR_MOTIVO[motivoFallo.value],
 )
 
+/** The refusal of the credential form, which is the one the form announces. */
+const avisoDeCredenciales = computed<AvisoAcceso | null>(() =>
+  origenFallo.value === 'credenciales' ? aviso.value : null,
+)
+
+/** The refusal of the demonstration door, announced next to the four profiles. */
+const avisoDeDemostracion = computed<AvisoAcceso | null>(() =>
+  origenFallo.value === 'demostracion' ? aviso.value : null,
+)
+
+/**
+ * Whether the credential form opens expanded.
+ *
+ * It is a disclosure only while the demonstration door is open, and it starts
+ * expanded when the guard sent the reader here because their session expired:
+ * that explanation lives inside the form, and a collapsed panel would hide the
+ * one sentence that says why they are looking at this screen again.
+ */
+const credencialesAbiertas = ref<boolean>(route.query.motivo === MOTIVO_EXPIRADA)
+
 /** Name of a screen as the navigation contract publishes it. */
 function nombreDePantalla(ruta: string): string | null {
   const clave = claveDeRuta(ruta)
@@ -126,6 +162,7 @@ function aterrizaje(rol: RolUsuario): string {
 
 async function entrar(credenciales: CredencialesAcceso): Promise<void> {
   motivoFallo.value = null
+  origenFallo.value = null
   desvio.value = null
   try {
     const sesion = await iniciarSesion(credenciales)
@@ -133,6 +170,7 @@ async function entrar(credenciales: CredencialesAcceso): Promise<void> {
   }
   catch (error) {
     motivoFallo.value = esFalloDeAcceso(error) ? error.motivo : 'servidor'
+    origenFallo.value = 'credenciales'
   }
 }
 
@@ -146,12 +184,14 @@ async function entrar(credenciales: CredencialesAcceso): Promise<void> {
  */
 async function entrarComoPerfil(rol: RolUsuario): Promise<void> {
   motivoFallo.value = null
+  origenFallo.value = null
   desvio.value = null
 
   const resultado = await entrarComoRol(rol, destinoSolicitado.value ?? destinoPorRol(rol))
 
   if (resultado.tipo === 'fallo') {
     motivoFallo.value = resultado.motivo
+    origenFallo.value = 'demostracion'
     return
   }
 
@@ -219,18 +259,56 @@ async function entrarComoPerfil(rol: RolUsuario): Promise<void> {
       The profiles come first when the door is open, and the order is the DOM
       order and not a CSS one: reordering with `order` would leave the tab
       sequence reading the form first, which is the opposite of what is shown.
-    -->
-    <SelectorDemostracion
-      v-if="demoDisponible"
-      :deshabilitado="cargando"
-      @elegir="entrarComoPerfil"
-    />
 
-    <div :class="demoDisponible ? 'flex flex-col gap-3 border-t border-grid pt-5' : ''">
-      <h2 v-if="demoDisponible" class="text-titulo-3 text-corriente-pleno">
+      The surface carries the action channel because this is the recommended
+      way in, and the review found it framed as a caution.
+    -->
+    <TarjetaContenida v-if="demoDisponible" canal="accion">
+      <p data-recomendado class="text-cuerpo text-corriente-medio">
+        {{ t('access.demo.recommended') }}
+      </p>
+
+      <SelectorDemostracion :deshabilitado="cargando" @elegir="entrarComoPerfil" />
+
+      <p
+        v-if="avisoDeDemostracion !== null"
+        :data-aviso="avisoDeDemostracion.tono"
+        role="alert"
+        class="flex items-start gap-2 text-cuerpo"
+        :class="avisoDeDemostracion.tono === 'sin-permiso' ? 'text-aviso' : 'text-error'"
+      >
+        <!-- Same pairing as the form: colour never travels without a shape. -->
+        <Icon
+          v-if="avisoDeDemostracion.tono === 'sin-permiso'"
+          name="lucide:lock"
+          class="mt-0.5 size-4 shrink-0"
+          aria-hidden="true"
+        />
+        <Icon v-else name="lucide:circle-alert" class="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+        {{ t(avisoDeDemostracion.clave) }}
+      </p>
+    </TarjetaContenida>
+
+    <details
+      v-if="demoDisponible"
+      data-credenciales
+      :open="credencialesAbiertas"
+      class="border-t border-grid pt-5"
+      @toggle="credencialesAbiertas = ($event.target as HTMLDetailsElement).open"
+    >
+      <summary
+        data-abrir-credenciales
+        class="flex min-h-11 cursor-pointer items-center gap-2 text-titulo-3 text-corriente-pleno"
+        :class="ANILLO_FOCO"
+      >
         {{ t('roleSwitch.credentials.heading') }}
-      </h2>
-      <FormularioAcceso :estado="estado" :aviso="aviso" @enviar="entrar" />
-    </div>
+      </summary>
+      <p class="pb-3 text-cuerpo text-corriente-medio">
+        {{ t('access.credentials.hint') }}
+      </p>
+      <FormularioAcceso :estado="estado" :aviso="avisoDeCredenciales" @enviar="entrar" />
+    </details>
+
+    <FormularioAcceso v-else :estado="estado" :aviso="avisoDeCredenciales" @enviar="entrar" />
   </section>
 </template>

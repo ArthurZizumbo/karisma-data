@@ -8,6 +8,7 @@ import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, isRef, nextTick, ref } from 'vue'
 
+import TarjetaContenida from '~/components/comun/TarjetaContenida.vue'
 import { useModo } from '~/composables/useModo'
 import { useSistemaDiseno } from '~/stores/sistemaDiseno'
 import { PEOR_SEPARACION_POR_TEMA, TEMA_OMISION } from '~/utils/tokens.generated'
@@ -40,6 +41,17 @@ const CSS = readFileSync(resolve(process.cwd(), 'app/assets/css/main.css'), 'utf
  * of the two it was last synchronised against.
  */
 const ATRIBUTO_MODO = /:root\[([a-z-]+)="oscuro"\]\s*\{/.exec(CSS)?.[1]
+
+/**
+ * Attribute the generated sheet keys the optional theme on.
+ *
+ * Read from the sheet for the same reason as the one above: the contained
+ * surface conditions its radius on this attribute through a Tailwind variant,
+ * and a component spelling it the other way would compile to a rule that never
+ * matches -a card that stays square under the institutional theme, with
+ * nothing broken to look at.
+ */
+const ATRIBUTO_TEMA = /:root\[([a-z-]+)="institucional"\]\s*\{/.exec(CSS)?.[1]
 
 /** Cookies of the current test, addressed by name as `useCookie` does. */
 let galletas: Map<string, Ref<unknown>>
@@ -205,6 +217,70 @@ describe('el store resuelve cada token contra el tema y el modo a la vez', () =>
 
     expect(sistema.peorSeparacion).toBe(PEOR_SEPARACION_POR_TEMA.institucional.claro)
     expect(sistema.peorSeparacion).not.toBe(enOmision)
+  })
+})
+
+describe('la superficie contenida lleva filete, radio del tema y barra de canal', () => {
+  /** Class list of a card, which is where all three decisions are written. */
+  function clasesDeTarjeta(canal?: string): string[] {
+    return mount(TarjetaContenida, { props: canal === undefined ? {} : { canal } })
+      .get('[data-tarjeta]')
+      .classes()
+  }
+
+  it('separa con un filete de un pelo y no con una sombra', () => {
+    // The portal is dense. A shadow under every card turns a screen of figures
+    // into a screen of floating boxes, and the guide answers the question with
+    // one pixel of the grid colour.
+    const clases = clasesDeTarjeta()
+
+    expect(clases).toContain('border')
+    expect(clases).toContain('border-grid')
+    expect(clases.some(clase => clase.startsWith('shadow'))).toBe(false)
+  })
+
+  it('condiciona el radio al atributo de tema que la hoja generada selecciona', () => {
+    // The defect is silent in both directions. Spelled with the name the mode
+    // used to have, the rule never matches and the institutional theme keeps
+    // square cards; written without a condition, the default theme grows a
+    // radius it never had and the fifteen delivered screenshots stop
+    // describing the product.
+    const clases = clasesDeTarjeta()
+    const conRadio = clases.filter(clase => clase.includes('rounded'))
+
+    expect(ATRIBUTO_TEMA).toBeTruthy()
+    expect(conRadio).toHaveLength(1)
+    expect(conRadio[0]).toContain(`[${ATRIBUTO_TEMA}=institucional]`)
+    expect(conRadio[0]?.startsWith('rounded')).toBe(false)
+  })
+
+  it('pinta la barra solo cuando la tarjeta declara un canal', () => {
+    // A stripe on every card is a stripe that means nothing, and the reader
+    // stops looking at it exactly when one of them starts meaning something.
+    const neutra = mount(TarjetaContenida, { props: { canal: 'neutro' } })
+    const conCanal = mount(TarjetaContenida, { props: { canal: 'error' } })
+
+    expect(neutra.find('[data-barra-canal]').exists()).toBe(false)
+    expect(conCanal.get('[data-barra-canal]').classes()).toContain('bg-error')
+    expect(conCanal.get('[data-barra-canal]').attributes('aria-hidden')).toBe('true')
+  })
+
+  it('reserva sitio para la barra en lugar de dibujarla encima del contenido', () => {
+    // Absolutely positioned over the padding, the bar would sit on the first
+    // letter of the heading at every card that carries one.
+    expect(clasesDeTarjeta('accion')).toContain('pl-5')
+    expect(clasesDeTarjeta('neutro')).toContain('p-4')
+  })
+
+  it('rotula la tarjeta con su propio titulo cuando lo lleva', () => {
+    // Four cards side by side with no accessible name are four regions called
+    // "article", and the reader cycling through them cannot tell which figure
+    // they landed on.
+    const wrapper = mount(TarjetaContenida, { props: { titulo: 'Cobertura de liquidez' } })
+    const rotulo = wrapper.get('[data-tarjeta]').attributes('aria-labelledby')
+
+    expect(rotulo).toBeTruthy()
+    expect(wrapper.get('h3').attributes('id')).toBe(rotulo)
   })
 })
 

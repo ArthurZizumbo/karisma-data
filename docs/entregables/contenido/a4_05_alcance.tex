@@ -16,12 +16,12 @@
 % ============================================================================
 
 % ============================================================================
-\uxsection{Alcance declarado de cada pantalla}
+\uxsection{Especificación de alcance del sistema}
 
 Un prototipo de alta fidelidad se parece a un producto terminado, y ese parecido es justamente lo
-que obliga a declarar hasta dónde llega. Esta sección dice, pantalla por pantalla y actividad por
-actividad, qué está construido, qué está construido sin datos detrás, qué está diseñado sin
-construir y qué está solamente escrito.
+que obliga a especificar hasta dónde llega. Esta sección es la matriz formal de alcance: declara,
+pantalla por pantalla e historia por historia, qué está construido sobre una fuente de datos, qué
+está construido sin ella, qué está resuelto como diseño sin construir y qué está solamente descrito.
 El criterio es el mismo que la Actividad 3 aplicó a su wireframe: no presentar diseño como producto
 en funcionamiento.
 
@@ -48,9 +48,8 @@ ausencias no cuestan lo mismo ni valen lo mismo.
 
 \subsection{La regla que asigna cada etiqueta}
 
-El defecto que esta sección corrigió no fue que una etiqueta estuviera mal: fue que la regla para
-asignarlas nunca se escribió, de modo que las siete pantallas conservaron su valor inicial mientras
-el producto avanzaba por debajo. La regla se escribió primero y se aplicó después, en ese orden:
+La asignación no es un juicio de quien redacta: es la aplicación de una regla escrita, y la regla se
+publica antes que la tabla para que cualquiera pueda recorrer las siete filas y comprobarla.
 
 \begin{uxdestacado}
 Una pantalla es \textbf{navegable con datos de ejemplo} si su contenido principal se compone desde
@@ -79,38 +78,63 @@ esta tabla contra ese literal en cada corrida.
 % columnas sin ajustar la prueba.
 \begin{uxtabla}{|L{3.5cm}|L{2.5cm}|L{3.2cm}|Y|}{Alcance declarado de los siete prototipos}
   \uxheadrow \thd{Ruta} & \thd{Pantalla} & \thd{Alcance} & \thd{Evidencia del estado declarado} \\
-  \texttt{/acceso} & Acceso & Navegable con datos de ejemplo & El formulario opera contra el emisor de credenciales del portal y la puerta de demostración acuña una sesión real, con el token que la guarda del servidor valida después \\
-  \texttt{/inicio} & Inicio & Navegable con datos de ejemplo & El buscador consulta la búsqueda del catálogo y los cinco bloques componen desde el estado de la sesión, no desde marcadores escritos en la plantilla \\
-  \texttt{/exploracion} & Exploración y extracción & Navegable con datos de ejemplo & El catálogo temático, los conteos por dominio y los resultados componen desde la búsqueda del catálogo, y sus cuatro estados no felices están construidos \\
+  \texttt{/acceso} & Acceso & Navegable con datos de ejemplo & El formulario opera contra el emisor de credenciales del portal y la puerta de demostración acuña una sesión real, con el token que la guarda del servidor valida después. Los perfiles son el camino primario y el formulario queda tras una revelación \\
+  \texttt{/inicio} & Inicio & Navegable con datos de ejemplo & El buscador consulta la búsqueda del catálogo y los cinco bloques componen desde el estado de la sesión, no desde marcadores escritos en la plantilla. La composición directiva añade cuatro tarjetas de indicador, rotuladas como dato de ejemplo \\
+  \texttt{/exploracion} & Exploración y extracción & Navegable con datos de ejemplo & El catálogo temático, los conteos por dominio y la tabla de seis columnas componen desde la búsqueda del catálogo, y sus cuatro estados no felices están construidos. Cada fila abre el linaje del campo y el término viaja en la dirección \\
   \texttt{/gobierno} & Gobierno del dato & Navegable con datos de ejemplo & El diccionario de campos consume esa misma búsqueda del catálogo y el linaje consulta su propio punto de la interfaz de programación \\
   \texttt{/asistente} & Asistente conversacional & Navegable sin datos & El transporte, las tarjetas de llamada a herramienta y la cancelación son reales; el contenido lo devuelve un proveedor guionizado que responde con literales escritos, y esa es la razón exacta de que la etiqueta no suba \\
-  \texttt{/administracion} & Administración & Navegable con datos de ejemplo & El panel de personas usuarias compone desde el estado del portal contra su punto de la interfaz de programación; la edición completa queda degradada por acuerdo del sprint \\
+  \texttt{/administracion} & Administración & Navegable con datos de ejemplo & El panel de personas usuarias compone desde el estado del portal contra su punto de la interfaz de programación y anuncia su orden columna por columna; la edición completa queda degradada por acuerdo del sprint \\
   \texttt{/exploracion/exportar} & Exportación & Navegable con datos de ejemplo & El estado del trabajo de exportación se consulta contra el api cada tres segundos y el sondeo se apaga cuando no queda ninguno vivo \\
 \end{uxtabla}
 % tabla-alcance:fin
 
-\subsection{Seis etiquetas corregidas y una conservada}
+\subsection{La regla aplicada: seis pantallas en un estado y una en otro}
 
-Las siete filas nacieron diciendo \emph{navegable sin datos}, que era el valor inicial del contrato
-de navegación, y seis dejaron de ser ciertas conforme las historias del sprint cerraron: la de
-inicio compone cinco bloques contra el catálogo, la de gobierno recorre un diccionario de campos,
-la de administración pinta un panel de personas usuarias, la de exportación sondea el estado real
-de su trabajo, la de acceso acuña sesiones con token y la de exploración pasó a componer el
-catálogo temático. Aplicada la regla, las seis subieron de estado y la tabla se actualizó en el
-mismo movimiento.
+Seis de las siete pantallas componen su contenido principal desde una fuente real y por eso llevan
+la etiqueta alta: la de inicio compone cinco bloques contra el catálogo, la de gobierno recorre un
+diccionario de campos, la de administración pinta un panel de personas usuarias, la de exportación
+sondea el estado real de su trabajo, la de acceso acuña sesiones con token y la de exploración
+compone el catálogo temático con sus conteos por dominio.
 
-\textbf{La séptima se conservó, y esa es la prueba de que la regla se aplicó y no se barrió
-parejo.} El asistente conversacional recibe su contenido de un proveedor guionizado cuyas
+\textbf{La séptima no comparte esa etiqueta, y la diferencia es de origen del contenido y no de
+acabado.} El asistente conversacional recibe su contenido de un proveedor guionizado cuyas
 respuestas son literales escritos en el propio proveedor ---una fila de tabla con el nombre de un
 indicador y su porcentaje---, de modo que la pantalla cumple exactamente la definición de
-\emph{navegable sin datos}: composición definitiva, estados resueltos y contenido sin fuente. Subir
-también esa etiqueta habría costado lo mismo que subir las otras seis y habría convertido la tabla
-en un adorno.
+\emph{navegable sin datos}: composición definitiva, estados resueltos y contenido sin fuente. Es la
+pantalla más acabada del conjunto en comportamiento ---transporte, tarjetas y cancelación reales---
+y aun así no sube, porque la regla mira de dónde sale lo que se ve.
 
-La corrección viaja en las dos direcciones a la vez. El contrato de navegación del portal y esta
-tabla se comparan en cada corrida de la suite de pruebas: si una de las dos se mueve sin la otra,
-la prueba falla antes de que el documento llegue a compilarse. Esa es la razón por la que aquí se
-publica el valor del código y no el que observaría quien redacta.
+La correspondencia se verifica en las dos direcciones a la vez. El contrato de navegación del
+portal y esta tabla se comparan en cada corrida de la suite de pruebas: si una de las dos se mueve
+sin la otra, la prueba falla antes de que el documento llegue a compilarse. Esa es la razón por la
+que aquí se publica el valor del código y no el que observaría quien redacta.
+
+\textbf{Un rediseño no mueve una etiqueta}, y esa invariancia es parte de la especificación. El
+chasis, la marca, la forma de la tabla del catálogo, el énfasis de la entrada y la copia de producto
+pertenecen a la presentación; la etiqueta mira el \emph{origen} del contenido. Una tabla de alcance
+que subiera de estado por un cambio de apariencia estaría midiendo otra cosa, que es exactamente lo
+que la regla se escribió para evitar.
+
+\subsection{Lo que el prototipo hace hoy, y lo que sigue sin hacer}
+
+La tabla anterior califica el origen del contenido. Estas dos listas dicen, en la lengua de quien
+recorre el prototipo, qué se puede hacer y qué no. Ninguna sustituye a la otra: la primera
+responde \enquote{¿de dónde sale lo que veo?} y estas responden \enquote{¿qué puedo hacer con
+ello?}.
+
+\begin{uxlist}
+  \lead{Se puede recorrer entero}{Entrar con cualquiera de los cuatro perfiles y cambiar de
+    perfil sin cerrar sesión; buscar un campo por concepto de negocio desde la cabecera o desde
+    el catálogo; acotar por dominio; abrir el linaje de cualquier campo desde su fila; pasar del
+    resultado a la ficha completa en gobierno del dato; ordenar cualquier tabla por la columna
+    que se elija; cambiar de tema y de modo desde un solo control; cambiar de idioma; pedir una
+    exportación y ver su estado real; conversar con el asistente y cancelar un turno en curso;
+    y administrar los roles de las cuentas del portal.}
+  \lead{Sigue sin hacerse}{Consultar con un modelo de lenguaje real ---el proveedor del portal
+    está guionizado y la pantalla lo declara---; editar por completo una cuenta; recorrer las
+    solicitudes, la bitácora y las integraciones, que están nombradas y no construidas; y las
+    seis capacidades que la sección siguiente declara una por una.}
+\end{uxlist}
 
 % ============================================================================
 \section{Traducción del estado de las historias de usuario}
@@ -131,9 +155,9 @@ modo que ninguna historia quede sin declarar. La correspondencia es fija:
 \end{uxtabla}
 
 El registro del sprint enuncia cuatro estados y esta correspondencia enumera siete filas, porque el
-desdoblamiento de la hoja de ruta parte en dos la que antes era una sola. Se publican las siete, que
-son las que el registro usa en la práctica; la discrepancia entre el enunciado y la enumeración
-queda anotada aquí y se resuelve en el registro, no en este documento.
+desdoblamiento de la hoja de ruta parte en dos la que el registro trata como una sola. Se publican
+las siete, que son las que el registro usa en la práctica y las que permiten traducir cualquier
+historia sin ambigüedad.
 
 \begin{uxtablalarga}{|L{2.4cm}|L{4.0cm}|Y|}{Estado declarado de todas las historias de usuario al cierre del sprint}{\thd{Historia} & \thd{Estado publicado} & \thd{Precisión}}
   US-001 & Navegable con datos de ejemplo & Entorno de desarrollo y contrato de navegación \\
@@ -159,25 +183,25 @@ queda anotada aquí y se resuelve en el registro, no en este documento.
   US-035, US-036 & En hoja de ruta, sin diseñar & Congeladas sin cambio \\
   US-037 a US-041 & En hoja de ruta, sin diseñar & Declaradas fuera del alcance del prototipo \\
   US-004, US-005 & En hoja de ruta, sin diseñar & Pertenecen a la Actividad 5 \\
-  US-UX-07, US-UX-09 & Navegable con datos de ejemplo & Esta actividad y su guía de estilos \\
+  US-UX-07, US-UX-09 & Navegable con datos de ejemplo & Esta actividad y su guía de estilos, incluidos el eje de tema con sus veintiocho tokens, el chasis único de las diez rutas, la marca vectorial y el catálogo con linaje por fila \\
   US-UX-08 & En hoja de ruta, sin diseñar & Pertenece a la Actividad 5 \\
   Bloques de holgura & En hoja de ruta, sin diseñar & Congelados desde la planeación \\
 \end{uxtablalarga}
 
 % ============================================================================
-\section{Las seis capacidades que la Actividad 2 prometió}
+\section{Las seis capacidades de oportunidad de la Actividad 2}
 
 El journey map de la Actividad 2 identificó oportunidades de diseño que el catálogo de historias no
-llegó a cubrir. Un evaluador puede contrastar aquellas promesas contra este prototipo, así que se
-declaran una por una. Ninguna está construida, y ahí termina el parecido entre ellas: tres están
-resueltas como pantalla en el archivo de diseño y tres solo están descritas.
+llegó a cubrir. Un evaluador puede contrastarlas contra este prototipo, así que se especifican una
+por una. Ninguna está construida, y ahí termina el parecido entre ellas: tres están resueltas como
+pantalla en el archivo de diseño y tres solo están descritas.
 
-\begin{uxtabla}{|L{4.3cm}|L{2.9cm}|Y|}{Capacidades prometidas en la Actividad 2, su estado y su evidencia de diseño}
+\begin{uxtabla}{|L{4.3cm}|L{2.9cm}|Y|}{Capacidades identificadas en la Actividad 2, su estado y su evidencia de diseño}
   \uxheadrow \thd{Capacidad} & \thd{Estado} & \thd{Dónde está resuelta, o qué falta para estarlo} \\
   Consultas guardadas & En hoja de ruta, diseñada & Flujo de análisis y exportación: la búsqueda se guarda con nombre, el borrador de consulta se conserva y la pantalla de cierre ofrece recuperarla desde \emph{mis consultas}. Diseño en la figura~\ref{fig:a4-flujo-1-secuencia} \\
   Marca de versión retirada con enlace a la vigente & En hoja de ruta, diseñada & Flujo de publicación de versiones: la anterior queda rotulada como retirada, sigue consultable para los cortes históricos y enlaza a la vigente. Diseño en la figura~\ref{fig:a4-flujo-3-secuencia} \\
   Notificación dirigida por cambio de definición & En hoja de ruta, diseñada & El mismo flujo de publicación: los destinatarios se seleccionan por dependencia del dato y la entrega queda registrada persona por persona. Diseño en la figura~\ref{fig:a4-flujo-3-secuencia} \\
-  Copiado con procedencia & En hoja de ruta, sin diseñar & El archivo lo resuelve para el resumen ejecutivo y para el enlace de una exportación, no para toda cifra copiada desde una tabla, que es el alcance que la Actividad 2 prometió \\
+  Copiado con procedencia & En hoja de ruta, sin diseñar & El archivo lo resuelve para el resumen ejecutivo y para el enlace de una exportación, no para toda cifra copiada desde una tabla, que es el alcance que la Actividad 2 describió \\
   Comparación lado a lado de variables similares & En hoja de ruta, sin diseñar & El archivo compara dos versiones de una misma variable, que es un problema distinto: comparar dos variables exige resolver antes qué las hace comparables \\
   Credenciales de interfaz de programación autogestionadas & En hoja de ruta, sin diseñar & El flujo de integración muestra la credencial y permite probarla; el alta, la rotación y la baja por la propia persona no tienen pantalla \\
 \end{uxtabla}
@@ -198,6 +222,6 @@ desde cualquier tabla, comparar variables entre sí, administrar las propias cre
 capacidad transversal no se diseña en un flujo: se diseña como comportamiento del sistema, que es
 trabajo de otro orden.
 
-El silencio sobre estas seis capacidades sería el único desenlace sin recurso: quien lea la
-Actividad 2 y recorra este prototipo encontraría la diferencia por su cuenta y sin explicación. Por
-eso se declaran aquí, con nombre, con estado y con la evidencia de cada uno.
+Las seis se especifican aquí con nombre, estado y evidencia porque son la diferencia exacta entre
+lo que la Actividad 2 identificó como oportunidad y lo que este prototipo alcanza. Una matriz de
+alcance que omitiera esa diferencia dejaría de cumplir la única función que tiene.

@@ -17,12 +17,17 @@ import { useModo } from '~/composables/useModo'
 import { useTema, type TemaPortal } from '~/composables/useTema'
 import {
   ACCION,
+  BARRA_LATERAL,
+  CERTIFICACION,
   CONTRASTES_POR_TEMA,
   CORRIENTE,
+  ESTADOS_CERTIFICACION,
   FECHA_SISTEMA,
+  PEOR_SEPARACION_CERTIFICACION,
   PEOR_SEPARACION_POR_TEMA,
   REGLAS,
   SEMANTICOS,
+  SEPARACIONES_CERTIFICACION_POR_TEMA,
   SEPARACIONES_POR_TEMA,
   SERIES,
   SUPERFICIE,
@@ -30,6 +35,7 @@ import {
   TIPOGRAFIA,
   TOKENS,
   VERSION_SISTEMA,
+  type EstadoCertificacion,
   type ParContraste,
   type RolTipografico,
   type SeparacionSemantica,
@@ -111,6 +117,28 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
     () => PEOR_SEPARACION_POR_TEMA[tema.value][modo.value],
   )
 
+  /**
+   * Dichromatic separation of the three certification states.
+   *
+   * It travels apart from `separaciones` because the two answer different
+   * questions: that one measures the four semantic marks against each other,
+   * this one measures whether `en-revision` and `obsoleto` -which meant the
+   * same thing on screen until this release- can still be told apart by a
+   * reader who loses a channel. Folding them into one list would also move the
+   * published worst pair of the palette, which the graded report already
+   * prints.
+   */
+  const separacionesCertificacion = computed<readonly SeparacionSemantica[]>(() =>
+    SEPARACIONES_CERTIFICACION_POR_TEMA.filter(
+      (s) => s.tema === tema.value && s.modo === modo.value,
+    ),
+  )
+
+  /** Worst separation of the certification family in the active combination. */
+  const peorSeparacionCertificacion = computed<number>(
+    () => PEOR_SEPARACION_CERTIFICACION[tema.value][modo.value],
+  )
+
   /** Every token that fails its own declared rule. Empty is the only pass. */
   const incumplimientos = computed<readonly ParContraste[]>(() =>
     contrastes.value.filter((par) => par.veredicto === 'falla'),
@@ -127,7 +155,9 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
     porNombre,
     contrastes,
     separaciones,
+    separacionesCertificacion,
     peorSeparacion,
+    peorSeparacionCertificacion,
     incumplimientos,
     version: VERSION_SISTEMA,
     fecha: FECHA_SISTEMA,
@@ -140,6 +170,16 @@ export const useSistemaDiseno = defineStore('sistemaDiseno', () => {
     // eighteen, with action and selection invisible in the graded style guide.
     accion: ACCION as readonly TokenColor[],
     semanticos: SEMANTICOS as readonly TokenColor[],
+    // The two groups the A4 excellence pass opened. They are exposed here for
+    // the same reason as the rest: the plate that walks the groups has to
+    // reach every token of TOKENS, and the palette plate already proved what
+    // happens otherwise -it announced twenty-one and painted eighteen-.
+    barraLateral: BARRA_LATERAL as readonly TokenColor[],
+    certificacion: CERTIFICACION as readonly TokenColor[],
+    // Colour and shape together: whoever paints a certification state must not
+    // be the one choosing its icon, which is how `en revision` and `obsoleto`
+    // ended up sharing a triangle.
+    estadosCertificacion: ESTADOS_CERTIFICACION as readonly EstadoCertificacion[],
     series: SERIES as readonly TokenColor[],
     tokens: TOKENS as readonly TokenColor[],
     tipografia: TIPOGRAFIA as readonly RolTipografico[],

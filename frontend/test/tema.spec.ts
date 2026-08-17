@@ -5,10 +5,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, isRef, nextTick, ref } from 'vue'
 
 import Chasis from '~/app.vue'
-import SelectorTema from '~/components/comun/SelectorTema.vue'
 import { CLAVE_COOKIE_TEMA, useTema, type TemaPortal } from '~/composables/useTema'
-import { TEMA_OMISION, TEMAS } from '~/utils/tokens.generated'
-import { crearI18nDePrueba, mensaje } from './i18nDePrueba'
+import { TEMA_OMISION } from '~/utils/tokens.generated'
+import { crearI18nDePrueba } from './i18nDePrueba'
 
 /**
  * US-ENTREGA-A4, ola B - the theme axis as the reader operates it.
@@ -16,8 +15,12 @@ import { crearI18nDePrueba, mensaje } from './i18nDePrueba'
  * Nothing here asserts what a theme looks like: a colour is a decision taken in
  * `design/sistema.py` and verified by the contrast suite, not a behaviour. What
  * is measured is the behaviour the interface promises around it -that the
- * choice survives, that it reaches the first paint, and that the control says
- * which one is on- because each of those has a defect that shipped before.
+ * choice survives and that it reaches the first paint- because each of those
+ * has a defect that shipped before.
+ *
+ * The control itself moved to `apariencia.spec.ts` when US-A4-EXCELENCIA
+ * folded `SelectorTema` and `SelectorModo` into `SelectorApariencia`: one
+ * axis, one control, one suite.
  */
 
 /** Cookies of the current test, addressed by name as `useCookie` does. */
@@ -152,57 +155,3 @@ describe('la preferencia de tema viaja en cookie y llega al primer render', () =
   })
 })
 
-describe('el selector ofrece los dos temas y marca el que esta puesto', () => {
-  function montarSelector(idioma: 'es' | 'en' = 'es') {
-    return mount(SelectorTema, {
-      global: { plugins: [crearI18nDePrueba(idioma)], stubs: { Icon: true } },
-    })
-  }
-
-  it('pinta una opcion por tema emitido', () => {
-    // Derived from the generated module and not from a literal: a third theme
-    // in `design/sistema.py` that the chrome never offered would pass a test
-    // written against the number two.
-    const opciones = montarSelector()
-      .findAll('[data-tema-opcion]')
-      .map(boton => boton.attributes('data-tema-opcion'))
-
-    expect(opciones).toEqual([...TEMAS])
-  })
-
-  it('marca exactamente uno como activo, y es el que esta puesto', () => {
-    // The defect: the control is painted with no active state and the reader
-    // cannot tell which theme is on, so the button reads as an action that did
-    // nothing.
-    const botones = montarSelector().findAll('[data-tema-opcion]')
-    const marcados = botones.filter(boton => boton.attributes('aria-pressed') === 'true')
-
-    expect(marcados).toHaveLength(1)
-    expect(marcados[0]!.attributes('data-tema-opcion')).toBe(TEMA_OMISION)
-  })
-
-  it('mueve la marca y guarda la eleccion al pulsar el otro tema', async () => {
-    const wrapper = montarSelector()
-
-    await wrapper.get('[data-tema-opcion="institucional"]').trigger('click')
-    await nextTick()
-
-    expect(wrapper.get('[data-tema-opcion="institucional"]').attributes('aria-pressed')).toBe('true')
-    expect(wrapper.get('[data-tema-opcion="corriente"]').attributes('aria-pressed')).toBe('false')
-    expect(galletas.get(CLAVE_COOKIE_TEMA)?.value).toBe('institucional')
-  })
-
-  it('nombra cada tema por su catalogo y en los dos idiomas', () => {
-    // A name written inside the component would show Spanish to a reader in
-    // English, and would name the theme after a number or an author instead of
-    // after its own visual world.
-    const enEspanol = montarSelector('es').text()
-    const enIngles = montarSelector('en').text()
-
-    for (const tema of TEMAS) {
-      expect(enEspanol).toContain(mensaje('es', `theme.names.${tema}`))
-      expect(enIngles).toContain(mensaje('en', `theme.names.${tema}`))
-      expect(enIngles).not.toContain(mensaje('es', `theme.names.${tema}`))
-    }
-  })
-})

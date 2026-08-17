@@ -48,6 +48,7 @@ poetry -P backend run pytest -c backend/pyproject.toml tests/backend/test_auth.p
 |------|----------|------------|
 | Frontend | Nuxt 4 (estructura `app/`) + pnpm/Corepack | `shallowRef` default en `useFetch`; componentes `Lazy*`. **Sin `routeRules` SWR**: tras la guarda por rol, una página cacheada le daría a un rol el HTML de otro. Se cachea el dato, no la página ([`frontend/AGENTS.md`](frontend/AGENTS.md)) |
 | Visualización | Apache ECharts (`vue-echarts`) | ≥1 M puntos con agregación server-side Polars + `sampling`/`large`; degradación acordada: 500 K |
+| Tablas de datos | TanStack Table (`@tanstack/vue-table`) | **Headless: cero estilo propio**, así que no contradice «sin sistema de diseño externo». Aporta orden anunciado con `aria-sort`, selección y densidad de 34 px, que siete tablas escritas a mano no tenían (US-A4-EXCELENCIA, 15-ago-2026) |
 | Estado / estilos | Pinia + TailwindCSS v4 | Estado compartido dashboard↔chat (patrón TwinBI) |
 | API | FastAPI async + Pydantic v2 + Poetry | Pydantic Settings estricto: sin `DATABASE_URL`/`GEMINI_API_KEY`/`JWT_SECRET_KEY` la app NO arranca |
 | Motor analítico | Polars 1.x + capa semántica (SMQ) | Compilador determinístico consulta→Polars; el LLM nunca redacta código libre |

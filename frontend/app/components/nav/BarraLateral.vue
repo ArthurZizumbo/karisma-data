@@ -1,30 +1,34 @@
 <script setup lang="ts">
 /**
- * Navigation as a wiring diagram.
+ * Navigation of the portal, with a text label on every entry.
  *
- * The previous sidebar was a solid navy slab of 240 by 900 pixels: measured as
- * the highest-contrast element of the screen, it won the first read on every
- * captured plate, ahead of the screen title. It is now the same ground as the
- * page, separated by a rule rather than a fill, and the module a reader is on
- * is marked by current instead of by a coloured block.
+ * Two things changed with the second theme. The bar has a surface of its own
+ * again -`--color-barra-lateral`, navy under the institutional theme and an
+ * alternate ground under the default one- and the module in use is marked with
+ * `--color-barra-lateral-activo`, which under the default theme is that same
+ * ground: there the current module is told apart by luminance and weight, as
+ * the captured plates show, and under the institutional theme it fills with
+ * the action colour. The component carries no condition on the theme; the four
+ * tokens do the work.
  *
- * Below the small breakpoint it collapses to a strip of icons. The old one did
- * not: it kept 240 pixels of a 375 pixel viewport and left the content on 135,
- * with 112 pixels of horizontal overflow. The stylesheet declared the collapse
- * and nothing implemented it.
+ * The nine "cross cutting facets" are gone. They were the A3 card sorting
+ * rendered as navigation -nine `listitem` with no link, at the bottom of the
+ * bar- and they made a promise no click could keep. Their content is published
+ * as a map in the deliverable, which is where the traceability belongs.
+ *
+ * The product name is not repeated here: the header names it once, above the
+ * whole chassis.
+ *
+ * Below the small breakpoint the bar collapses to a strip of icons, which is
+ * what the design system declares at 768 px and what keeps a 232 px bar from
+ * eating a 390 px viewport.
  */
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { usePermisos } from '~/composables/usePermisos'
 import { ANILLO_FOCO } from '~/utils/foco'
-import {
-  CLAVES_FACETAS_TRANSVERSALES,
-  RUTA_ACCESO,
-  RUTA_ASISTENTE,
-  RUTA_INDICE,
-  moduloActivo,
-} from '~/utils/navegacion'
+import { RUTA_ACCESO, RUTA_ASISTENTE, moduloActivo } from '~/utils/navegacion'
 
 const route = useRoute()
 const { t } = useI18n()
@@ -47,6 +51,12 @@ const ICONO_MODULO: Readonly<Record<string, string>> = {
   '4': 'lucide:settings',
 }
 
+/** Shared by every first level entry, so the active state cannot drift apart. */
+const CLASE_ENTRADA
+  = 'flex min-h-11 items-center gap-2 rounded-md px-2 text-cuerpo text-barra-lateral-texto '
+    + 'hover:text-barra-lateral-activo-texto aria-[current=page]:bg-barra-lateral-activo '
+    + 'aria-[current=page]:font-semibold aria-[current=page]:text-barra-lateral-activo-texto'
+
 const moduloDesplegado = computed(() => moduloActivo(route.path))
 
 function esActivo(ruta: string, rutaDelModulo?: string): boolean {
@@ -60,17 +70,8 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
 <template>
   <aside
     data-barra-lateral
-    class="sticky top-0 flex h-screen w-(--sidebar-collapsed) shrink-0 flex-col gap-6 overflow-y-auto overflow-x-hidden border-r border-grid bg-ground px-2 py-4 md:w-(--sidebar-width) md:px-4"
+    class="sticky top-0 flex h-screen w-(--sidebar-collapsed) shrink-0 flex-col gap-6 overflow-y-auto overflow-x-hidden border-r border-grid bg-barra-lateral px-2 py-4 md:w-(--sidebar-width) md:px-3"
   >
-    <NuxtLink
-      :to="RUTA_INDICE"
-      class="flex items-center gap-2 text-titulo-3 text-corriente-pleno"
-      :class="ANILLO_FOCO"
-    >
-      <Icon name="lucide:circuit-board" class="size-5 shrink-0 text-info" aria-hidden="true" />
-      <span class="hidden md:inline">{{ t('brand.name') }}</span>
-    </NuxtLink>
-
     <!--
       Fifth unhappy state, and it comes for free: '/guia' is public and uses this
       layout, so without it the style guide would be captured for A4 with an
@@ -83,12 +84,12 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
       :aria-label="t('nav.session.ariaLabel')"
       class="hidden flex-col gap-2 md:flex"
     >
-      <p class="text-micro text-corriente-tenue">
+      <p class="max-w-none text-micro text-barra-lateral-texto">
         {{ t('nav.session.anonymous') }}
       </p>
       <NuxtLink
         :to="RUTA_ACCESO"
-        class="inline-flex min-h-9 w-fit items-center gap-2 border border-corriente-medio px-2 text-etiqueta text-corriente-pleno hover:bg-corriente-pleno hover:text-ground"
+        class="inline-flex min-h-11 w-fit items-center gap-2 rounded-md border border-barra-lateral-texto px-2 text-etiqueta text-barra-lateral-texto hover:bg-barra-lateral-activo hover:text-barra-lateral-activo-texto"
         :class="ANILLO_FOCO"
       >
         <Icon name="lucide:log-in" class="size-4 shrink-0" aria-hidden="true" />
@@ -99,7 +100,7 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
     <p
       v-else
       data-perfil-activo
-      class="hidden px-2 text-micro uppercase tracking-wide text-corriente-tenue md:block"
+      class="hidden max-w-none px-2 text-micro uppercase tracking-wide text-barra-lateral-texto md:block"
     >
       {{ t('nav.session.profile', { role: t(`authz.role.${rol}`) }) }}
     </p>
@@ -117,8 +118,7 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
             :title="t(modulo.claveEtiqueta)"
             :aria-current="esActivo(modulo.ruta) ? 'page' : undefined"
             :aria-expanded="moduloDesplegado?.id === modulo.id"
-            class="flex items-center gap-2 rounded-md px-2 py-1.5 text-cuerpo text-corriente-tenue hover:text-corriente-pleno aria-[current=page]:font-semibold aria-[current=page]:text-corriente-pleno"
-            :class="ANILLO_FOCO"
+            :class="[CLASE_ENTRADA, ANILLO_FOCO]"
           >
             <Icon
               :name="ICONO_MODULO[modulo.id] ?? 'lucide:circle'"
@@ -138,11 +138,11 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
             data-nivel="2"
             :data-modulo="modulo.id"
             :aria-labelledby="`modulo-${modulo.id}`"
-            class="ml-4 hidden flex-col border-l border-corriente-apagado md:flex"
+            class="ml-4 hidden flex-col border-l border-barra-lateral-texto/40 md:flex"
           >
             <li v-for="subruta in modulo.subrutas" :key="subruta.id" class="relative pl-3">
               <span
-                class="absolute left-0 top-1/2 h-px w-2.5 bg-corriente-apagado"
+                class="absolute left-0 top-1/2 h-px w-2.5 bg-barra-lateral-texto/40"
                 aria-hidden="true"
               />
               <NuxtLink
@@ -154,7 +154,7 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
                   ? t('nav.facets.branchAria', { id: subruta.id, label: t(subruta.claveEtiqueta) })
                   : undefined"
                 :aria-current="esActivo(subruta.ruta, modulo.ruta) ? 'page' : undefined"
-                class="flex items-center gap-2 rounded-sm px-2 py-1 text-etiqueta text-corriente-tenue hover:text-corriente-pleno aria-[current=page]:font-semibold aria-[current=page]:text-corriente-pleno"
+                class="flex min-h-9 items-center gap-2 rounded-sm px-2 text-etiqueta text-barra-lateral-texto hover:text-barra-lateral-activo-texto aria-[current=page]:font-semibold aria-[current=page]:text-barra-lateral-activo-texto"
                 :class="ANILLO_FOCO"
               >
                 <Icon
@@ -174,50 +174,20 @@ function esActivo(ruta: string, rutaDelModulo?: string): boolean {
     <nav
       v-if="asistenteVisible"
       :aria-label="t('nav.aria.crossCutting')"
-      class="flex flex-col gap-1"
+      class="mt-auto flex flex-col gap-1"
     >
       <NuxtLink
         :to="RUTA_ASISTENTE"
         :title="t('nav.assistant.label')"
         :aria-current="esActivo(RUTA_ASISTENTE) ? 'page' : undefined"
-        class="flex items-center gap-2 rounded-md px-2 py-1.5 text-cuerpo text-corriente-tenue hover:text-corriente-pleno aria-[current=page]:font-semibold aria-[current=page]:text-corriente-pleno"
-        :class="ANILLO_FOCO"
+        :class="[CLASE_ENTRADA, ANILLO_FOCO]"
       >
         <Icon name="lucide:message-square" class="size-4 shrink-0" aria-hidden="true" />
         <span class="hidden md:inline">{{ t('nav.assistant.label') }}</span>
       </NuxtLink>
-      <p class="hidden px-2 text-micro text-corriente-tenue md:block">
+      <p class="hidden max-w-none px-2 text-micro text-barra-lateral-texto md:block">
         {{ t('nav.assistant.note') }}
       </p>
     </nav>
-
-    <!--
-      The nine cross-cutting facets used to be nine bordered blocks stacked
-      vertically, which read as broken buttons. They are a list of taps off a
-      single rule now, and they disappear on the icon strip.
-    -->
-    <section
-      v-if="rol !== null"
-      class="mt-auto hidden flex-col gap-1 md:flex"
-      aria-labelledby="facetas-transversales"
-    >
-      <p id="facetas-transversales" class="text-micro uppercase tracking-wide text-corriente-tenue">
-        {{ t('nav.facets.caption') }}
-      </p>
-      <ul class="ml-1 flex flex-col border-l border-corriente-apagado">
-        <li
-          v-for="clave in CLAVES_FACETAS_TRANSVERSALES"
-          :key="clave"
-          :title="t('nav.facets.hint', { facet: t(clave) })"
-          class="relative py-1 pl-4 text-micro text-corriente-tenue"
-        >
-          <span
-            class="absolute left-0 top-1/2 h-px w-2.5 bg-corriente-apagado"
-            aria-hidden="true"
-          />
-          {{ t(clave) }}
-        </li>
-      </ul>
-    </section>
   </aside>
 </template>

@@ -28,6 +28,8 @@ export interface TokenColor {
   readonly clase: string
   readonly informa: boolean
   readonly uso: string
+  /** Icono que viaja con el color cuando el token es un estado. */
+  readonly icono?: string
   /** El mismo token en cada tema, para la lamina comparativa. */
   readonly temas: Readonly<Record<TemaSistema, PaletaTema>>
 }
@@ -208,6 +210,57 @@ export const ACCION: readonly TokenColor[] = [
   },
 ]
 
+export const BARRA_LATERAL: readonly TokenColor[] = [
+  {
+    nombre: 'barra-lateral',
+    claro: '#EAEEF4',
+    oscuro: '#131519',
+    clase: 'bg-barra-lateral',
+    informa: true,
+    uso: 'Suelo de la barra lateral. Con el tema cambia el suelo, nunca la estructura.',
+    temas: {
+      corriente: { claro: '#EAEEF4', oscuro: '#131519' },
+      institucional: { claro: '#102A43', oscuro: '#102A43' },
+    },
+  },
+  {
+    nombre: 'barra-lateral-activo',
+    claro: '#EAEEF4',
+    oscuro: '#131519',
+    clase: 'bg-barra-lateral-activo',
+    informa: true,
+    uso: 'Bloque del modulo en curso. Relleno solo donde el tema tiene color de accion.',
+    temas: {
+      corriente: { claro: '#EAEEF4', oscuro: '#131519' },
+      institucional: { claro: '#086B70', oscuro: '#3FB3B5' },
+    },
+  },
+  {
+    nombre: 'barra-lateral-texto',
+    claro: '#5F6A7D',
+    oscuro: '#7A8698',
+    clase: 'bg-barra-lateral-texto',
+    informa: true,
+    uso: 'Etiqueta en reposo de la barra lateral, medida sobre la barra y no sobre el suelo de la pagina.',
+    temas: {
+      corriente: { claro: '#5F6A7D', oscuro: '#7A8698' },
+      institucional: { claro: '#BFD0E2', oscuro: '#BFD0E2' },
+    },
+  },
+  {
+    nombre: 'barra-lateral-activo-texto',
+    claro: '#14171D',
+    oscuro: '#E8F4FF',
+    clase: 'bg-barra-lateral-activo-texto',
+    informa: true,
+    uso: 'Etiqueta del modulo en curso, sobre su bloque.',
+    temas: {
+      corriente: { claro: '#14171D', oscuro: '#E8F4FF' },
+      institucional: { claro: '#FFFFFF', oscuro: '#0B1B2B' },
+    },
+  },
+]
+
 export const SEMANTICOS: readonly TokenColor[] = [
   {
     nombre: 'error',
@@ -255,6 +308,48 @@ export const SEMANTICOS: readonly TokenColor[] = [
     temas: {
       corriente: { claro: '#6D28D9', oscuro: '#C4B5FD' },
       institucional: { claro: '#17395B', oscuro: '#B9A7F2' },
+    },
+  },
+]
+
+export const CERTIFICACION: readonly TokenColor[] = [
+  {
+    nombre: 'certificacion-certificado',
+    claro: '#1F6F43',
+    oscuro: '#4ADE80',
+    clase: 'bg-certificacion-certificado',
+    informa: true,
+    uso: 'Certificado: el dato se puede usar. Canal ok, icono de marca.',
+    icono: 'lucide:circle-check',
+    temas: {
+      corriente: { claro: '#1F6F43', oscuro: '#4ADE80' },
+      institucional: { claro: '#287A58', oscuro: '#5FCB94' },
+    },
+  },
+  {
+    nombre: 'certificacion-en-revision',
+    claro: '#9A6200',
+    oscuro: '#FFC233',
+    clase: 'bg-certificacion-en-revision',
+    informa: true,
+    uso: 'En revision: se puede usar con reserva. Canal aviso, icono de reloj.',
+    icono: 'lucide:clock',
+    temas: {
+      corriente: { claro: '#9A6200', oscuro: '#FFC233' },
+      institucional: { claro: '#A36A10', oscuro: '#E8A33D' },
+    },
+  },
+  {
+    nombre: 'certificacion-obsoleto',
+    claro: '#8C1D18',
+    oscuro: '#FF5A36',
+    clase: 'bg-certificacion-obsoleto',
+    informa: true,
+    uso: 'Obsoleto: NO se debe usar. Canal error, icono de circulo tachado.',
+    icono: 'lucide:circle-slash',
+    temas: {
+      corriente: { claro: '#8C1D18', oscuro: '#FF5A36' },
+      institucional: { claro: '#933632', oscuro: '#EC5B51' },
     },
   },
 ]
@@ -332,6 +427,29 @@ export const SERIES: readonly TokenColor[] = [
       institucional: { claro: '#9D174D', oscuro: '#F9A8D4' },
     },
   },
+]
+
+export interface EstadoCertificacion {
+  /** Codigo que guarda el catalogo, sin el prefijo del token. */
+  readonly codigo: string
+  readonly token: string
+  readonly icono: string
+  readonly clase: string
+}
+
+/**
+ * Los tres estados de certificacion, resueltos aqui y en ningun otro
+ * sitio.
+ *
+ * El catalogo elegia el icono con una ternaria sobre el codigo, asi que
+ * `en revision` y `obsoleto` compartian color Y forma y significan lo
+ * contrario. Quien pinte un estado lee de aqui: con la tabla completa la
+ * ternaria no tiene donde volver.
+ */
+export const ESTADOS_CERTIFICACION: readonly EstadoCertificacion[] = [
+  { codigo: 'certificado', token: 'certificacion-certificado', icono: 'lucide:circle-check', clase: 'text-certificacion-certificado' },
+  { codigo: 'en-revision', token: 'certificacion-en-revision', icono: 'lucide:clock', clase: 'text-certificacion-en-revision' },
+  { codigo: 'obsoleto', token: 'certificacion-obsoleto', icono: 'lucide:circle-slash', clase: 'text-certificacion-obsoleto' },
 ]
 
 export const TIPOGRAFIA: readonly RolTipografico[] = [
@@ -419,10 +537,14 @@ export const REGLAS: readonly string[] = [
   'La barra lateral colapsa de verdad por debajo de 768 px. El sistema anterior lo declaraba y no lo implementaba, y dejaba el contenido en 135 px.',
   'El tema cambia color Y familia tipografica, y los dos temas cumplen el mismo liston en los dos modos. Un tema opcional que rebajara el umbral seria una excepcion, no un tema.',
   'La paleta de series no cambia con el tema: es canal de datos, no identidad. Lo que si se vuelve a medir es su razon sobre el suelo de cada tema.',
+  'Dos estados que significan lo contrario no comparten canal ni icono. Certificado, en revision y obsoleto llevan marca, reloj y circulo tachado sobre ok, aviso y error: antes los dos ultimos eran el mismo amarillo y el mismo triangulo.',
+  'Un color que vive sobre la barra lateral se mide sobre la barra lateral. Su razon sobre el suelo de la pagina no dice nada de lo que el lector ve, porque bajo el tema institucional la barra es navy y la pagina es blanca.',
 ]
 
 export interface ParContraste {
   readonly token: string
+  /** Token sobre el que se midio: casi siempre el suelo de la pagina. */
+  readonly fondo: string
   readonly tema: TemaSistema
   readonly modo: ModoSistema
   readonly ratio: number
@@ -432,6 +554,8 @@ export interface ParContraste {
 export interface SeparacionSemantica {
   readonly uno: string
   readonly otro: string
+  /** Familia dentro de la que la distancia es exigible. */
+  readonly familia: string
   readonly tema: TemaSistema
   readonly modo: ModoSistema
   readonly dicromacia: string
@@ -445,86 +569,114 @@ export interface SeparacionSemantica {
  * mismo modo, asi que una razon medida en uno no dice nada del otro.
  */
 export const CONTRASTES_POR_TEMA: readonly ParContraste[] = [
-  { token: 'ground-alt', tema: 'corriente', modo: 'claro', ratio: 1.08, veredicto: 'superficie' },
-  { token: 'grid', tema: 'corriente', modo: 'claro', ratio: 1.2, veredicto: 'grafico' },
-  { token: 'reticula', tema: 'corriente', modo: 'claro', ratio: 1.2, veredicto: 'grafico' },
-  { token: 'corriente-apagado', tema: 'corriente', modo: 'claro', ratio: 1.98, veredicto: 'grafico' },
-  { token: 'corriente-tenue', tema: 'corriente', modo: 'claro', ratio: 5.05, veredicto: 'AA' },
-  { token: 'corriente-medio', tema: 'corriente', modo: 'claro', ratio: 8.14, veredicto: 'AAA' },
-  { token: 'corriente-pleno', tema: 'corriente', modo: 'claro', ratio: 16.58, veredicto: 'AAA' },
-  { token: 'accion', tema: 'corriente', modo: 'claro', ratio: 16.58, veredicto: 'AAA' },
-  { token: 'accion-apoyo', tema: 'corriente', modo: 'claro', ratio: 8.14, veredicto: 'AAA' },
-  { token: 'seleccion', tema: 'corriente', modo: 'claro', ratio: 1.11, veredicto: 'grafico' },
-  { token: 'error', tema: 'corriente', modo: 'claro', ratio: 8.42, veredicto: 'AAA' },
-  { token: 'aviso', tema: 'corriente', modo: 'claro', ratio: 4.71, veredicto: 'AA' },
-  { token: 'ok', tema: 'corriente', modo: 'claro', ratio: 5.68, veredicto: 'AA' },
-  { token: 'info', tema: 'corriente', modo: 'claro', ratio: 6.56, veredicto: 'AA' },
-  { token: 'serie-1', tema: 'corriente', modo: 'claro', ratio: 6.19, veredicto: 'AA' },
-  { token: 'serie-2', tema: 'corriente', modo: 'claro', ratio: 4.64, veredicto: 'AA' },
-  { token: 'serie-3', tema: 'corriente', modo: 'claro', ratio: 5.68, veredicto: 'AA' },
-  { token: 'serie-4', tema: 'corriente', modo: 'claro', ratio: 6.56, veredicto: 'AA' },
-  { token: 'serie-5', tema: 'corriente', modo: 'claro', ratio: 4.95, veredicto: 'AA' },
-  { token: 'serie-6', tema: 'corriente', modo: 'claro', ratio: 7.28, veredicto: 'AAA' },
-  { token: 'ground-alt', tema: 'corriente', modo: 'oscuro', ratio: 1.08, veredicto: 'superficie' },
-  { token: 'grid', tema: 'corriente', modo: 'oscuro', ratio: 1.21, veredicto: 'grafico' },
-  { token: 'reticula', tema: 'corriente', modo: 'oscuro', ratio: 1.21, veredicto: 'grafico' },
-  { token: 'corriente-apagado', tema: 'corriente', modo: 'oscuro', ratio: 2.54, veredicto: 'grafico' },
-  { token: 'corriente-tenue', tema: 'corriente', modo: 'oscuro', ratio: 5.36, veredicto: 'AA' },
-  { token: 'corriente-medio', tema: 'corriente', modo: 'oscuro', ratio: 10.93, veredicto: 'AAA' },
-  { token: 'corriente-pleno', tema: 'corriente', modo: 'oscuro', ratio: 17.72, veredicto: 'AAA' },
-  { token: 'accion', tema: 'corriente', modo: 'oscuro', ratio: 17.72, veredicto: 'AAA' },
-  { token: 'accion-apoyo', tema: 'corriente', modo: 'oscuro', ratio: 10.93, veredicto: 'AAA' },
-  { token: 'seleccion', tema: 'corriente', modo: 'oscuro', ratio: 1.15, veredicto: 'grafico' },
-  { token: 'error', tema: 'corriente', modo: 'oscuro', ratio: 6.37, veredicto: 'AA' },
-  { token: 'aviso', tema: 'corriente', modo: 'oscuro', ratio: 12.26, veredicto: 'AAA' },
-  { token: 'ok', tema: 'corriente', modo: 'oscuro', ratio: 11.35, veredicto: 'AAA' },
-  { token: 'info', tema: 'corriente', modo: 'oscuro', ratio: 10.71, veredicto: 'AAA' },
-  { token: 'serie-1', tema: 'corriente', modo: 'oscuro', ratio: 11.86, veredicto: 'AAA' },
-  { token: 'serie-2', tema: 'corriente', modo: 'oscuro', ratio: 12.26, veredicto: 'AAA' },
-  { token: 'serie-3', tema: 'corriente', modo: 'oscuro', ratio: 11.35, veredicto: 'AAA' },
-  { token: 'serie-4', tema: 'corriente', modo: 'oscuro', ratio: 10.71, veredicto: 'AAA' },
-  { token: 'serie-5', tema: 'corriente', modo: 'oscuro', ratio: 13.65, veredicto: 'AAA' },
-  { token: 'serie-6', tema: 'corriente', modo: 'oscuro', ratio: 10.91, veredicto: 'AAA' },
-  { token: 'ground-alt', tema: 'institucional', modo: 'claro', ratio: 1.1, veredicto: 'superficie' },
-  { token: 'grid', tema: 'institucional', modo: 'claro', ratio: 1.29, veredicto: 'grafico' },
-  { token: 'reticula', tema: 'institucional', modo: 'claro', ratio: 1.0, veredicto: 'grafico' },
-  { token: 'corriente-apagado', tema: 'institucional', modo: 'claro', ratio: 2.1, veredicto: 'grafico' },
-  { token: 'corriente-tenue', tema: 'institucional', modo: 'claro', ratio: 7.05, veredicto: 'AAA' },
-  { token: 'corriente-medio', tema: 'institucional', modo: 'claro', ratio: 9.09, veredicto: 'AAA' },
-  { token: 'corriente-pleno', tema: 'institucional', modo: 'claro', ratio: 14.64, veredicto: 'AAA' },
-  { token: 'accion', tema: 'institucional', modo: 'claro', ratio: 6.27, veredicto: 'AA' },
-  { token: 'accion-apoyo', tema: 'institucional', modo: 'claro', ratio: 3.51, veredicto: 'AA-grande' },
-  { token: 'seleccion', tema: 'institucional', modo: 'claro', ratio: 1.15, veredicto: 'grafico' },
-  { token: 'error', tema: 'institucional', modo: 'claro', ratio: 7.46, veredicto: 'AAA' },
-  { token: 'aviso', tema: 'institucional', modo: 'claro', ratio: 4.54, veredicto: 'AA' },
-  { token: 'ok', tema: 'institucional', modo: 'claro', ratio: 5.23, veredicto: 'AA' },
-  { token: 'info', tema: 'institucional', modo: 'claro', ratio: 11.85, veredicto: 'AAA' },
-  { token: 'serie-1', tema: 'institucional', modo: 'claro', ratio: 6.7, veredicto: 'AA' },
-  { token: 'serie-2', tema: 'institucional', modo: 'claro', ratio: 5.02, veredicto: 'AA' },
-  { token: 'serie-3', tema: 'institucional', modo: 'claro', ratio: 6.15, veredicto: 'AA' },
-  { token: 'serie-4', tema: 'institucional', modo: 'claro', ratio: 7.1, veredicto: 'AAA' },
-  { token: 'serie-5', tema: 'institucional', modo: 'claro', ratio: 5.36, veredicto: 'AA' },
-  { token: 'serie-6', tema: 'institucional', modo: 'claro', ratio: 7.88, veredicto: 'AAA' },
-  { token: 'ground-alt', tema: 'institucional', modo: 'oscuro', ratio: 1.19, veredicto: 'superficie' },
-  { token: 'grid', tema: 'institucional', modo: 'oscuro', ratio: 1.34, veredicto: 'grafico' },
-  { token: 'reticula', tema: 'institucional', modo: 'oscuro', ratio: 1.0, veredicto: 'grafico' },
-  { token: 'corriente-apagado', tema: 'institucional', modo: 'oscuro', ratio: 2.38, veredicto: 'grafico' },
-  { token: 'corriente-tenue', tema: 'institucional', modo: 'oscuro', ratio: 6.98, veredicto: 'AA' },
-  { token: 'corriente-medio', tema: 'institucional', modo: 'oscuro', ratio: 11.06, veredicto: 'AAA' },
-  { token: 'corriente-pleno', tema: 'institucional', modo: 'oscuro', ratio: 15.41, veredicto: 'AAA' },
-  { token: 'accion', tema: 'institucional', modo: 'oscuro', ratio: 6.9, veredicto: 'AA' },
-  { token: 'accion-apoyo', tema: 'institucional', modo: 'oscuro', ratio: 9.49, veredicto: 'AAA' },
-  { token: 'seleccion', tema: 'institucional', modo: 'oscuro', ratio: 1.33, veredicto: 'grafico' },
-  { token: 'error', tema: 'institucional', modo: 'oscuro', ratio: 5.13, veredicto: 'AA' },
-  { token: 'aviso', tema: 'institucional', modo: 'oscuro', ratio: 8.07, veredicto: 'AAA' },
-  { token: 'ok', tema: 'institucional', modo: 'oscuro', ratio: 8.67, veredicto: 'AAA' },
-  { token: 'info', tema: 'institucional', modo: 'oscuro', ratio: 8.19, veredicto: 'AAA' },
-  { token: 'serie-1', tema: 'institucional', modo: 'oscuro', ratio: 10.44, veredicto: 'AAA' },
-  { token: 'serie-2', tema: 'institucional', modo: 'oscuro', ratio: 10.79, veredicto: 'AAA' },
-  { token: 'serie-3', tema: 'institucional', modo: 'oscuro', ratio: 9.99, veredicto: 'AAA' },
-  { token: 'serie-4', tema: 'institucional', modo: 'oscuro', ratio: 9.43, veredicto: 'AAA' },
-  { token: 'serie-5', tema: 'institucional', modo: 'oscuro', ratio: 12.01, veredicto: 'AAA' },
-  { token: 'serie-6', tema: 'institucional', modo: 'oscuro', ratio: 9.6, veredicto: 'AAA' },
+  { token: 'ground-alt', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 1.08, veredicto: 'superficie' },
+  { token: 'grid', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 1.2, veredicto: 'grafico' },
+  { token: 'reticula', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 1.2, veredicto: 'grafico' },
+  { token: 'corriente-apagado', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 1.98, veredicto: 'grafico' },
+  { token: 'corriente-tenue', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 5.05, veredicto: 'AA' },
+  { token: 'corriente-medio', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 8.14, veredicto: 'AAA' },
+  { token: 'corriente-pleno', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 16.58, veredicto: 'AAA' },
+  { token: 'accion', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 16.58, veredicto: 'AAA' },
+  { token: 'accion-apoyo', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 8.14, veredicto: 'AAA' },
+  { token: 'seleccion', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 1.11, veredicto: 'grafico' },
+  { token: 'barra-lateral', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 1.08, veredicto: 'superficie' },
+  { token: 'barra-lateral-activo', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 1.08, veredicto: 'superficie' },
+  { token: 'barra-lateral-texto', fondo: 'barra-lateral', tema: 'corriente', modo: 'claro', ratio: 4.69, veredicto: 'AA' },
+  { token: 'barra-lateral-activo-texto', fondo: 'barra-lateral-activo', tema: 'corriente', modo: 'claro', ratio: 15.41, veredicto: 'AAA' },
+  { token: 'error', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 8.42, veredicto: 'AAA' },
+  { token: 'aviso', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 4.71, veredicto: 'AA' },
+  { token: 'ok', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 5.68, veredicto: 'AA' },
+  { token: 'info', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 6.56, veredicto: 'AA' },
+  { token: 'certificacion-certificado', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 5.68, veredicto: 'AA' },
+  { token: 'certificacion-en-revision', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 4.71, veredicto: 'AA' },
+  { token: 'certificacion-obsoleto', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 8.42, veredicto: 'AAA' },
+  { token: 'serie-1', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 6.19, veredicto: 'AA' },
+  { token: 'serie-2', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 4.64, veredicto: 'AA' },
+  { token: 'serie-3', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 5.68, veredicto: 'AA' },
+  { token: 'serie-4', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 6.56, veredicto: 'AA' },
+  { token: 'serie-5', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 4.95, veredicto: 'AA' },
+  { token: 'serie-6', fondo: 'ground', tema: 'corriente', modo: 'claro', ratio: 7.28, veredicto: 'AAA' },
+  { token: 'ground-alt', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 1.08, veredicto: 'superficie' },
+  { token: 'grid', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 1.21, veredicto: 'grafico' },
+  { token: 'reticula', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 1.21, veredicto: 'grafico' },
+  { token: 'corriente-apagado', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 2.54, veredicto: 'grafico' },
+  { token: 'corriente-tenue', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 5.36, veredicto: 'AA' },
+  { token: 'corriente-medio', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 10.93, veredicto: 'AAA' },
+  { token: 'corriente-pleno', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 17.72, veredicto: 'AAA' },
+  { token: 'accion', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 17.72, veredicto: 'AAA' },
+  { token: 'accion-apoyo', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 10.93, veredicto: 'AAA' },
+  { token: 'seleccion', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 1.15, veredicto: 'grafico' },
+  { token: 'barra-lateral', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 1.08, veredicto: 'superficie' },
+  { token: 'barra-lateral-activo', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 1.08, veredicto: 'superficie' },
+  { token: 'barra-lateral-texto', fondo: 'barra-lateral', tema: 'corriente', modo: 'oscuro', ratio: 4.95, veredicto: 'AA' },
+  { token: 'barra-lateral-activo-texto', fondo: 'barra-lateral-activo', tema: 'corriente', modo: 'oscuro', ratio: 16.38, veredicto: 'AAA' },
+  { token: 'error', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 6.37, veredicto: 'AA' },
+  { token: 'aviso', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 12.26, veredicto: 'AAA' },
+  { token: 'ok', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 11.35, veredicto: 'AAA' },
+  { token: 'info', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 10.71, veredicto: 'AAA' },
+  { token: 'certificacion-certificado', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 11.35, veredicto: 'AAA' },
+  { token: 'certificacion-en-revision', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 12.26, veredicto: 'AAA' },
+  { token: 'certificacion-obsoleto', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 6.37, veredicto: 'AA' },
+  { token: 'serie-1', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 11.86, veredicto: 'AAA' },
+  { token: 'serie-2', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 12.26, veredicto: 'AAA' },
+  { token: 'serie-3', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 11.35, veredicto: 'AAA' },
+  { token: 'serie-4', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 10.71, veredicto: 'AAA' },
+  { token: 'serie-5', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 13.65, veredicto: 'AAA' },
+  { token: 'serie-6', fondo: 'ground', tema: 'corriente', modo: 'oscuro', ratio: 10.91, veredicto: 'AAA' },
+  { token: 'ground-alt', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 1.1, veredicto: 'superficie' },
+  { token: 'grid', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 1.29, veredicto: 'grafico' },
+  { token: 'reticula', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 1.0, veredicto: 'grafico' },
+  { token: 'corriente-apagado', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 2.1, veredicto: 'grafico' },
+  { token: 'corriente-tenue', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 7.05, veredicto: 'AAA' },
+  { token: 'corriente-medio', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 9.09, veredicto: 'AAA' },
+  { token: 'corriente-pleno', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 14.64, veredicto: 'AAA' },
+  { token: 'accion', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 6.27, veredicto: 'AA' },
+  { token: 'accion-apoyo', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 3.51, veredicto: 'AA-grande' },
+  { token: 'seleccion', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 1.15, veredicto: 'grafico' },
+  { token: 'barra-lateral', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 14.64, veredicto: 'superficie' },
+  { token: 'barra-lateral-activo', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 6.27, veredicto: 'superficie' },
+  { token: 'barra-lateral-texto', fondo: 'barra-lateral', tema: 'institucional', modo: 'claro', ratio: 9.3, veredicto: 'AAA' },
+  { token: 'barra-lateral-activo-texto', fondo: 'barra-lateral-activo', tema: 'institucional', modo: 'claro', ratio: 6.27, veredicto: 'AA' },
+  { token: 'error', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 7.46, veredicto: 'AAA' },
+  { token: 'aviso', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 4.54, veredicto: 'AA' },
+  { token: 'ok', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 5.23, veredicto: 'AA' },
+  { token: 'info', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 11.85, veredicto: 'AAA' },
+  { token: 'certificacion-certificado', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 5.23, veredicto: 'AA' },
+  { token: 'certificacion-en-revision', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 4.54, veredicto: 'AA' },
+  { token: 'certificacion-obsoleto', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 7.46, veredicto: 'AAA' },
+  { token: 'serie-1', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 6.7, veredicto: 'AA' },
+  { token: 'serie-2', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 5.02, veredicto: 'AA' },
+  { token: 'serie-3', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 6.15, veredicto: 'AA' },
+  { token: 'serie-4', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 7.1, veredicto: 'AAA' },
+  { token: 'serie-5', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 5.36, veredicto: 'AA' },
+  { token: 'serie-6', fondo: 'ground', tema: 'institucional', modo: 'claro', ratio: 7.88, veredicto: 'AAA' },
+  { token: 'ground-alt', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 1.19, veredicto: 'superficie' },
+  { token: 'grid', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 1.34, veredicto: 'grafico' },
+  { token: 'reticula', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 1.0, veredicto: 'grafico' },
+  { token: 'corriente-apagado', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 2.38, veredicto: 'grafico' },
+  { token: 'corriente-tenue', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 6.98, veredicto: 'AA' },
+  { token: 'corriente-medio', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 11.06, veredicto: 'AAA' },
+  { token: 'corriente-pleno', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 15.41, veredicto: 'AAA' },
+  { token: 'accion', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 6.9, veredicto: 'AA' },
+  { token: 'accion-apoyo', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 9.49, veredicto: 'AAA' },
+  { token: 'seleccion', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 1.33, veredicto: 'grafico' },
+  { token: 'barra-lateral', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 1.19, veredicto: 'superficie' },
+  { token: 'barra-lateral-activo', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 6.9, veredicto: 'superficie' },
+  { token: 'barra-lateral-texto', fondo: 'barra-lateral', tema: 'institucional', modo: 'oscuro', ratio: 9.3, veredicto: 'AAA' },
+  { token: 'barra-lateral-activo-texto', fondo: 'barra-lateral-activo', tema: 'institucional', modo: 'oscuro', ratio: 6.9, veredicto: 'AA' },
+  { token: 'error', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 5.13, veredicto: 'AA' },
+  { token: 'aviso', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 8.07, veredicto: 'AAA' },
+  { token: 'ok', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 8.67, veredicto: 'AAA' },
+  { token: 'info', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 8.19, veredicto: 'AAA' },
+  { token: 'certificacion-certificado', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 8.67, veredicto: 'AAA' },
+  { token: 'certificacion-en-revision', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 8.07, veredicto: 'AAA' },
+  { token: 'certificacion-obsoleto', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 5.13, veredicto: 'AA' },
+  { token: 'serie-1', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 10.44, veredicto: 'AAA' },
+  { token: 'serie-2', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 10.79, veredicto: 'AAA' },
+  { token: 'serie-3', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 9.99, veredicto: 'AAA' },
+  { token: 'serie-4', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 9.43, veredicto: 'AAA' },
+  { token: 'serie-5', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 12.01, veredicto: 'AAA' },
+  { token: 'serie-6', fondo: 'ground', tema: 'institucional', modo: 'oscuro', ratio: 9.6, veredicto: 'AAA' },
 ]
 
 /** La matriz del tema de omision, que es la que publica el PDF. */
@@ -532,31 +684,56 @@ export const CONTRASTES: readonly ParContraste[] = CONTRASTES_POR_TEMA.filter(
   (par) => par.tema === 'corriente',
 )
 
+/** Las seis parejas de las cuatro marcas semanticas. */
 export const SEPARACIONES_POR_TEMA: readonly SeparacionSemantica[] = [
-  { uno: 'error', otro: 'aviso', tema: 'corriente', modo: 'claro', dicromacia: 'deuteranopia', distancia: 22.1 },
-  { uno: 'error', otro: 'ok', tema: 'corriente', modo: 'claro', dicromacia: 'protanopia', distancia: 16.7 },
-  { uno: 'error', otro: 'info', tema: 'corriente', modo: 'claro', dicromacia: 'tritanopia', distancia: 62.1 },
-  { uno: 'aviso', otro: 'ok', tema: 'corriente', modo: 'claro', dicromacia: 'protanopia', distancia: 32.3 },
-  { uno: 'aviso', otro: 'info', tema: 'corriente', modo: 'claro', dicromacia: 'tritanopia', distancia: 37.6 },
-  { uno: 'ok', otro: 'info', tema: 'corriente', modo: 'claro', dicromacia: 'tritanopia', distancia: 13.6 },
-  { uno: 'error', otro: 'aviso', tema: 'corriente', modo: 'oscuro', dicromacia: 'deuteranopia', distancia: 21.5 },
-  { uno: 'error', otro: 'ok', tema: 'corriente', modo: 'oscuro', dicromacia: 'protanopia', distancia: 26.1 },
-  { uno: 'error', otro: 'info', tema: 'corriente', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 77.9 },
-  { uno: 'aviso', otro: 'ok', tema: 'corriente', modo: 'oscuro', dicromacia: 'protanopia', distancia: 33.9 },
-  { uno: 'aviso', otro: 'info', tema: 'corriente', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 33.6 },
-  { uno: 'ok', otro: 'info', tema: 'corriente', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 30.4 },
-  { uno: 'error', otro: 'aviso', tema: 'institucional', modo: 'claro', dicromacia: 'tritanopia', distancia: 20.7 },
-  { uno: 'error', otro: 'ok', tema: 'institucional', modo: 'claro', dicromacia: 'protanopia', distancia: 14.5 },
-  { uno: 'error', otro: 'info', tema: 'institucional', modo: 'claro', dicromacia: 'protanopia', distancia: 45.4 },
-  { uno: 'aviso', otro: 'ok', tema: 'institucional', modo: 'claro', dicromacia: 'protanopia', distancia: 37.8 },
-  { uno: 'aviso', otro: 'info', tema: 'institucional', modo: 'claro', dicromacia: 'tritanopia', distancia: 54.3 },
-  { uno: 'ok', otro: 'info', tema: 'institucional', modo: 'claro', dicromacia: 'tritanopia', distancia: 22.8 },
-  { uno: 'error', otro: 'aviso', tema: 'institucional', modo: 'oscuro', dicromacia: 'deuteranopia', distancia: 22.6 },
-  { uno: 'error', otro: 'ok', tema: 'institucional', modo: 'oscuro', dicromacia: 'protanopia', distancia: 23.3 },
-  { uno: 'error', otro: 'info', tema: 'institucional', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 67.6 },
-  { uno: 'aviso', otro: 'ok', tema: 'institucional', modo: 'oscuro', dicromacia: 'protanopia', distancia: 37.8 },
-  { uno: 'aviso', otro: 'info', tema: 'institucional', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 35.3 },
-  { uno: 'ok', otro: 'info', tema: 'institucional', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 25.9 },
+  { uno: 'error', otro: 'aviso', familia: 'semantico', tema: 'corriente', modo: 'claro', dicromacia: 'deuteranopia', distancia: 22.1 },
+  { uno: 'error', otro: 'ok', familia: 'semantico', tema: 'corriente', modo: 'claro', dicromacia: 'protanopia', distancia: 16.7 },
+  { uno: 'error', otro: 'info', familia: 'semantico', tema: 'corriente', modo: 'claro', dicromacia: 'tritanopia', distancia: 62.1 },
+  { uno: 'aviso', otro: 'ok', familia: 'semantico', tema: 'corriente', modo: 'claro', dicromacia: 'protanopia', distancia: 32.3 },
+  { uno: 'aviso', otro: 'info', familia: 'semantico', tema: 'corriente', modo: 'claro', dicromacia: 'tritanopia', distancia: 37.6 },
+  { uno: 'ok', otro: 'info', familia: 'semantico', tema: 'corriente', modo: 'claro', dicromacia: 'tritanopia', distancia: 13.6 },
+  { uno: 'error', otro: 'aviso', familia: 'semantico', tema: 'corriente', modo: 'oscuro', dicromacia: 'deuteranopia', distancia: 21.5 },
+  { uno: 'error', otro: 'ok', familia: 'semantico', tema: 'corriente', modo: 'oscuro', dicromacia: 'protanopia', distancia: 26.1 },
+  { uno: 'error', otro: 'info', familia: 'semantico', tema: 'corriente', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 77.9 },
+  { uno: 'aviso', otro: 'ok', familia: 'semantico', tema: 'corriente', modo: 'oscuro', dicromacia: 'protanopia', distancia: 33.9 },
+  { uno: 'aviso', otro: 'info', familia: 'semantico', tema: 'corriente', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 33.6 },
+  { uno: 'ok', otro: 'info', familia: 'semantico', tema: 'corriente', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 30.4 },
+  { uno: 'error', otro: 'aviso', familia: 'semantico', tema: 'institucional', modo: 'claro', dicromacia: 'tritanopia', distancia: 20.7 },
+  { uno: 'error', otro: 'ok', familia: 'semantico', tema: 'institucional', modo: 'claro', dicromacia: 'protanopia', distancia: 14.5 },
+  { uno: 'error', otro: 'info', familia: 'semantico', tema: 'institucional', modo: 'claro', dicromacia: 'protanopia', distancia: 45.4 },
+  { uno: 'aviso', otro: 'ok', familia: 'semantico', tema: 'institucional', modo: 'claro', dicromacia: 'protanopia', distancia: 37.8 },
+  { uno: 'aviso', otro: 'info', familia: 'semantico', tema: 'institucional', modo: 'claro', dicromacia: 'tritanopia', distancia: 54.3 },
+  { uno: 'ok', otro: 'info', familia: 'semantico', tema: 'institucional', modo: 'claro', dicromacia: 'tritanopia', distancia: 22.8 },
+  { uno: 'error', otro: 'aviso', familia: 'semantico', tema: 'institucional', modo: 'oscuro', dicromacia: 'deuteranopia', distancia: 22.6 },
+  { uno: 'error', otro: 'ok', familia: 'semantico', tema: 'institucional', modo: 'oscuro', dicromacia: 'protanopia', distancia: 23.3 },
+  { uno: 'error', otro: 'info', familia: 'semantico', tema: 'institucional', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 67.6 },
+  { uno: 'aviso', otro: 'ok', familia: 'semantico', tema: 'institucional', modo: 'oscuro', dicromacia: 'protanopia', distancia: 37.8 },
+  { uno: 'aviso', otro: 'info', familia: 'semantico', tema: 'institucional', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 35.3 },
+  { uno: 'ok', otro: 'info', familia: 'semantico', tema: 'institucional', modo: 'oscuro', dicromacia: 'tritanopia', distancia: 25.9 },
+]
+
+/**
+ * Las tres parejas de los tres estados de certificacion.
+ *
+ * Van en su propia constante y no mezcladas con las semanticas:
+ * una distancia solo es exigible entre marcas que pueden compartir
+ * superficie, y el piso que publica el informe es el de la familia
+ * semantica. Los estados toman prestado su canal entero, asi que
+ * estas tres distancias son un subconjunto de aquellas seis.
+ */
+export const SEPARACIONES_CERTIFICACION_POR_TEMA: readonly SeparacionSemantica[] = [
+  { uno: 'certificacion-certificado', otro: 'certificacion-en-revision', familia: 'certificacion', tema: 'corriente', modo: 'claro', dicromacia: 'protanopia', distancia: 32.3 },
+  { uno: 'certificacion-certificado', otro: 'certificacion-obsoleto', familia: 'certificacion', tema: 'corriente', modo: 'claro', dicromacia: 'protanopia', distancia: 16.7 },
+  { uno: 'certificacion-en-revision', otro: 'certificacion-obsoleto', familia: 'certificacion', tema: 'corriente', modo: 'claro', dicromacia: 'deuteranopia', distancia: 22.1 },
+  { uno: 'certificacion-certificado', otro: 'certificacion-en-revision', familia: 'certificacion', tema: 'corriente', modo: 'oscuro', dicromacia: 'protanopia', distancia: 33.9 },
+  { uno: 'certificacion-certificado', otro: 'certificacion-obsoleto', familia: 'certificacion', tema: 'corriente', modo: 'oscuro', dicromacia: 'protanopia', distancia: 26.1 },
+  { uno: 'certificacion-en-revision', otro: 'certificacion-obsoleto', familia: 'certificacion', tema: 'corriente', modo: 'oscuro', dicromacia: 'deuteranopia', distancia: 21.5 },
+  { uno: 'certificacion-certificado', otro: 'certificacion-en-revision', familia: 'certificacion', tema: 'institucional', modo: 'claro', dicromacia: 'protanopia', distancia: 37.8 },
+  { uno: 'certificacion-certificado', otro: 'certificacion-obsoleto', familia: 'certificacion', tema: 'institucional', modo: 'claro', dicromacia: 'protanopia', distancia: 14.5 },
+  { uno: 'certificacion-en-revision', otro: 'certificacion-obsoleto', familia: 'certificacion', tema: 'institucional', modo: 'claro', dicromacia: 'tritanopia', distancia: 20.7 },
+  { uno: 'certificacion-certificado', otro: 'certificacion-en-revision', familia: 'certificacion', tema: 'institucional', modo: 'oscuro', dicromacia: 'protanopia', distancia: 37.8 },
+  { uno: 'certificacion-certificado', otro: 'certificacion-obsoleto', familia: 'certificacion', tema: 'institucional', modo: 'oscuro', dicromacia: 'protanopia', distancia: 23.3 },
+  { uno: 'certificacion-en-revision', otro: 'certificacion-obsoleto', familia: 'certificacion', tema: 'institucional', modo: 'oscuro', dicromacia: 'deuteranopia', distancia: 22.6 },
 ]
 
 export const SEPARACIONES: readonly SeparacionSemantica[] = SEPARACIONES_POR_TEMA.filter(
@@ -584,10 +761,30 @@ export const PEOR_SEPARACION_POR_TEMA = {
 /** La del tema de omision, que es la que el informe reproduce. */
 export const PEOR_SEPARACION = PEOR_SEPARACION_POR_TEMA.corriente
 
+/**
+ * Peor pareja de los tres estados de certificacion, por combinacion.
+ *
+ * Es la cifra que responde a la pregunta que abrio esta ranura: si
+ * `en revision` y `obsoleto` volvieran a compartir canal, esto seria
+ * cero y la interfaz seguiria pintando sin quejarse.
+ */
+export const PEOR_SEPARACION_CERTIFICACION = {
+  corriente: {
+    claro: 16.7,
+    oscuro: 21.5,
+  },
+  institucional: {
+    claro: 14.5,
+    oscuro: 22.6,
+  },
+} as const
+
 export const TOKENS: readonly TokenColor[] = [
   ...SUPERFICIE,
   ...CORRIENTE,
   ...ACCION,
+  ...BARRA_LATERAL,
   ...SEMANTICOS,
+  ...CERTIFICACION,
   ...SERIES,
 ]

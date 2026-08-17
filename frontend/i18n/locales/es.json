@@ -31,7 +31,11 @@
         "analista": "Analista",
         "directivo": "Directivo",
         "admin": "Administración"
-      }
+      },
+      "recommended": "Esta es la vía recomendada del prototipo: entra sin contraseña con el perfil que quieras y cámbialo cuando quieras desde la cabecera."
+    },
+    "credentials": {
+      "hint": "Solo para cuentas del portal. En este prototipo nadie tiene una: usa un perfil de demostración."
     }
   },
   "brand": {
@@ -45,6 +49,15 @@
       "claro": "Claro",
       "oscuro": "Oscuro",
       "sistema": "Como el sistema"
+    },
+    "search": {
+      "label": "Buscar en el catálogo",
+      "placeholder": "Campo, fuente o tablero"
+    },
+    "profile": {
+      "label": "Perfil de demostración",
+      "current": "Perfil: {profile}",
+      "signedOut": "Sin sesión"
     }
   },
   "language": {
@@ -60,6 +73,10 @@
       "corriente": "Diagrama de corriente",
       "institucional": "Azul institucional"
     }
+  },
+  "appearance": {
+    "label": "Apariencia",
+    "current": "Apariencia: {theme}, {mode}"
   },
   "roleSwitch": {
     "groupLabel": "Perfil de demostración",
@@ -121,7 +138,7 @@
       "caption": "Facetas transversales",
       "hint": "{facet}: se alcanza desde más de una rama del mapa",
       "branchTitle": "{label}: faceta transversal, alcanzable desde más de una rama",
-      "branchAria": "{id} {label}, faceta transversal",
+      "branchAria": "{label}, faceta transversal",
       "items": {
         "apiConsumption": "Consumo por API",
         "dataQuality": "Calidad de datos",
@@ -147,13 +164,13 @@
       "export": "Exportación"
     },
     "branch": {
-      "access": "Pantalla de entrada; enmarca las demás sin ser rama del mapa",
-      "home": "1. Inicio",
-      "explore": "2. Exploración y extracción — 2.1 Catálogo temático, 2.2 Consulta y filtros",
-      "governance": "3. Gobierno del dato — 3.1 Diccionario y metadatos, 3.2 Linaje y calidad, 3.3 Catálogo de fuentes",
-      "assistant": "Transversal a las cuatro categorías",
-      "administration": "4. Administración — 4.1 a 4.4",
-      "export": "2.3 Exportaciones"
+      "access": "Entrada al portal: credenciales y perfiles de demostración",
+      "home": "Espacio de trabajo del perfil que entra",
+      "explore": "Catálogo temático de campos, con búsqueda y filtros por dominio",
+      "governance": "Diccionario de campos, linaje del dato y catálogo de fuentes",
+      "assistant": "Asistente conversacional, alcanzable desde cualquier pantalla",
+      "administration": "Usuarios, roles y permisos del portal",
+      "export": "Exportaciones a CSV en segundo plano"
     },
     "scope": {
       "withData": "Navegable con datos de ejemplo",
@@ -186,15 +203,15 @@
       "description": "Reúne el buscador unificado, las búsquedas recientes, los favoritos, mis alertas y mi perfil, ordenados según el perfil con el que entraste.",
       "capability": {
         "search": "Buscador unificado",
-        "recent": "Busquedas recientes",
+        "recent": "Búsquedas recientes",
         "favorites": "Favoritos",
         "alerts": "Mis alertas"
       }
     },
     "explore": {
-      "description": "Catálogo temático de los campos del portal: búsqueda por palabra clave sobre las fuentes sembradas, con el conteo de coincidencias por dominio.",
+      "description": "Encuentra el campo que necesitas antes de pedir el dato: busca por palabra clave, acota por dominio y abre el recorrido del que te sirva.",
       "capability": {
-        "catalog": "Catalogo tematico de fuentes",
+        "catalog": "Catálogo temático de fuentes",
         "facets": "Consulta con filtros facetados",
         "metadata": "Panel de metadatos con propietario y vigencia",
         "tribal": "Notas de conocimiento tribal"
@@ -208,25 +225,25 @@
       "capability": {
         "series": "Serie de 500 000 puntos preagregados",
         "drill": "Drill-down de tres niveles en dos clics",
-        "table": "Alternativa en tabla de toda grafica",
+        "table": "Alternativa en tabla de toda gráfica",
         "summary": "Resumen textual para lector de pantalla"
       }
     },
     "governance": {
-      "description": "Reúne el diccionario de campos con sus metadatos y el linaje de cada dato, desde el sistema donde nace hasta la cifra que se lee en pantalla."
+      "description": "Defiende la cifra que ya tienes: quién responde por cada campo, desde qué vigencia, con qué certificación y por qué sistemas pasó antes de llegar a la pantalla."
     },
     "administration": {
       "description": "Administra los usuarios del portal: consulta la lista, cambia el rol y desactiva el acceso. Las solicitudes, la bitácora de accesos y las integraciones llegan después de esta entrega.",
       "capability": {
         "list": "Listado de usuarios con su rol y su estado",
         "role": "Cambio de rol",
-        "disable": "Desactivacion por borrado logico",
-        "audit": "Bitacora de accesos"
+        "disable": "Desactivación por borrado lógico",
+        "audit": "Bitácora de accesos"
       }
     },
     "pending": {
       "heading": "Contenido de {us}",
-      "note": "Cada nodo se enciende cuando su historia de usuario entra. Esta pantalla es navegable y su contenido esta declarado, no supuesto."
+      "note": "Cada nodo se enciende cuando su historia de usuario entra. Esta pantalla es navegable y su contenido está declarado, no supuesto."
     }
   },
   "error": {
@@ -268,7 +285,8 @@
       "icons": "Iconografía",
       "accessibility": "Contraste y accesibilidad",
       "lineage": "Linaje del dato",
-      "toolCall": "Tarjetas de tool call"
+      "toolCall": "Tarjetas de tool call",
+      "chassis": "Chasis, certificación y superficies"
     },
     "palette": {
       "description": "Cuatro familias de cinco tonos, siete neutros, cuatro semánticos y seis colores de serie. El hexadecimal que se lee es el que el generador emitió: aquí no hay ninguno escrito a mano.",
@@ -278,6 +296,8 @@
         "current": "Corriente",
         "action": "Acción y selección",
         "semantic": "Semánticos",
+        "sidebar": "Barra lateral",
+        "certification": "Estados de certificación",
         "series": "Series de gráfica"
       },
       "anchor": "Ancla",
@@ -496,6 +516,7 @@
         "verdict": "Veredicto"
       },
       "separations": "Separación de los semánticos bajo dicromacia",
+      "separationsCertification": "Separación de los tres estados de certificación bajo dicromacia",
       "failures": "{total} token incumple la regla que declara | {total} tokens incumplen la regla que declaran",
       "ceiling": {
         "oscuro": "Peor separación entre dos marcas semánticas, simulando protanopia, deuteranopia y tritanopia. Por encima de 20 se distinguen por color; aun así todas llevan forma e icono.",
@@ -567,6 +588,21 @@
         "rule": "La fuente canónica se nombra siempre. Callar la discrepancia es lo que devuelve al lector al correo, que es exactamente el problema que este portal existe para quitar."
       },
       "rationale": "Esta lámina existe porque la revisión de diseño señaló que «Ver linaje» era un rótulo de botón sin nada especificado detrás. Un sistema que documenta cinco chips de estado y ninguna manera de defender una cifra no sirve al perfil cuyo trabajo es responder por ella."
+    },
+    "chassis": {
+      "sidebar": "Barra lateral",
+      "sidebarNote": "Los cuatro tokens del chasis. Con el tema cambian el suelo de la barra y el bloque del módulo en curso; la estructura, el orden de tabulación y las etiquetas no cambian.",
+      "certification": "Estados de certificación",
+      "certificationNote": "Tres estados, tres canales y tres formas. «En revisión» y «Obsoleto» compartían color e icono, y significan lo contrario para quien va a usar el dato.",
+      "surfaces": "Superficies contenidas",
+      "surfacesNote": "Filete de un pelo, radio solo bajo el tema institucional y una barra de canal a la izquierda. El canal es un nombre, nunca un color escrito en el componente.",
+      "channel": {
+        "accion": "Acción del producto y camino recomendado.",
+        "aviso": "Se puede usar con reserva.",
+        "ok": "Confirmado y disponible.",
+        "error": "No se debe usar.",
+        "neutro": "Sin canal: la tarjeta no pinta barra."
+      }
     }
   },
   "authz": {
@@ -685,7 +721,8 @@
       "indicator": {
         "lcr": "Cobertura de liquidez",
         "carteraVencida": "Cartera vencida",
-        "exposicionNeta": "Exposición neta en derivados"
+        "exposicionNeta": "Exposición neta en derivados",
+        "diasMora": "Días de mora"
       }
     }
   },
@@ -758,6 +795,7 @@
     },
     "state": {
       "loading": "Cargando la serie preagregada.",
+      "refreshing": "Actualizando la serie con los filtros nuevos.",
       "emptyTitle": "Ningún dato con estos filtros",
       "emptyBody": "La consulta es válida y el servidor respondió sin errores, pero ninguna serie cumple los filtros. Quita alguno para volver a ver datos.",
       "error": {
@@ -930,8 +968,8 @@
     },
     "explore": {
       "search": {
-        "label": "Buscar en el catálogo",
-        "placeholder": "saldo, límite, contraparte",
+        "label": "¿Qué dato necesitas?",
+        "placeholder": "saldo disponible, exposición, mora",
         "action": "Buscar",
         "busy": "Buscando",
         "hint": "Escribe al menos {min} caracteres. La consulta sale al enviar el formulario, no con cada tecla."
@@ -947,12 +985,14 @@
         "shown": "Se muestran {shown} de {total} campos que coinciden.",
         "capped": "El catálogo entrega hasta {limit} campos por búsqueda. Acota por dominio o afina el término para alcanzar el resto.",
         "source": "Fuente",
-        "owner": "Responsable"
+        "owner": "Responsable",
+        "openLineage": "Ver el linaje de {field}",
+        "fullRecord": "Ver la ficha completa del campo en {screen}"
       },
       "state": {
         "initial": {
-          "title": "Empieza por una búsqueda",
-          "body": "El catálogo no consulta nada hasta que escribes un término, así que esta pantalla abre sin pedirle campos al servidor."
+          "title": "Empieza por lo que necesitas medir",
+          "body": "Escribe un concepto de negocio y el catálogo devuelve los campos que lo miden, con su fuente y su responsable. Hasta entonces no le pide nada al servidor."
         },
         "loading": "Buscando campos en el catálogo.",
         "empty": {
@@ -976,9 +1016,9 @@
   "lineage": {
     "dictionary": {
       "title": "Diccionario de campos",
-      "hint": "Busca un campo por su nombre físico, por su nombre de negocio o por un sinónimo. Cada ficha abre el recorrido del dato desde el sistema donde nace.",
-      "searchLabel": "Buscar en el catálogo",
-      "searchPlaceholder": "saldo, límite, contraparte",
+      "hint": "Cada ficha trae el responsable, la vigencia y la certificación del campo, y abre el recorrido completo del dato desde el sistema donde nace.",
+      "searchLabel": "Campo cuyo origen hay que verificar",
+      "searchPlaceholder": "nombre físico, nombre de negocio o sinónimo",
       "searchAction": "Buscar",
       "searchHint": "Escribe al menos dos caracteres.",
       "domainsLabel": "Filtrar por dominio",
@@ -986,7 +1026,7 @@
       "results": "{count} campos encontrados",
       "state": {
         "initial": {
-          "title": "Empieza por una búsqueda",
+          "title": "Empieza por el campo en duda",
           "body": "El diccionario no consulta nada hasta que escribes un término, así que esta pantalla abre sin pedirle campos al servidor."
         },
         "loading": "Buscando campos en el catálogo.",
@@ -1205,7 +1245,7 @@
         "textGeneration": "Generación de texto",
         "transport": "Transporte de la respuesta"
       },
-      "transportError": "La respuesta no pudo pedirse: fallo el transporte hacia el servidor."
+      "transportError": "La respuesta no pudo pedirse: falló el transporte hacia el servidor."
     },
     "error": {
       "title": {

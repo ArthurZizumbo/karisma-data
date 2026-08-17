@@ -438,6 +438,53 @@ describe('la consulta que se le pide al endpoint', () => {
   })
 })
 
+describe('el panel mientras se refiltra', () => {
+  it('anuncia que hay un marco nuevo en vuelo sin desmontar la grafica', async () => {
+    // The defect this catches was measured in the browser: changing the metric
+    // fired GET /api/metrics/series and the panel showed NOTHING for the whole
+    // request -no skeleton, no aria-busy, no live region- because `estado` only
+    // reports 'cargando' when `data` is null, and a refilter keeps the previous
+    // frame painted. The reader was looking at the old numbers with no way to
+    // know they were the old ones.
+    const { wrapper } = await montarPanel({
+      marco: crearMarco({ series: 5, fechas: 30 }),
+      estado: 'pending',
+    })
+
+    const figura = wrapper.get('figure')
+
+    expect(figura.attributes('aria-busy')).toBe('true')
+    expect(wrapper.find('[data-revalidando]').exists()).toBe(true)
+    expect(wrapper.get('[role="status"]').text()).toBe(
+      mensaje('es', 'dashboard.state.refreshing'),
+    )
+  })
+
+  it('conserva la grafica montada, que es lo que protege el zoom del lector', async () => {
+    // A skeleton here would be worse than the silence it replaces: it drops the
+    // ECharts instance and with it the window the reader panned to, and it
+    // flashes a grey box over a figure that is about to look almost the same.
+    // If someone ever swaps the dim for an unmount, this goes red.
+    const { wrapper } = await montarPanel({
+      marco: crearMarco({ series: 5, fechas: 30 }),
+      estado: 'pending',
+    })
+
+    expect(wrapper.get('[data-zona="serie"]').attributes('data-estado')).toBe('listo')
+    expect(wrapper.findComponent(GraficaFalsa).exists()).toBe(true)
+  })
+
+  it('no anuncia nada cuando el marco ya esta servido', async () => {
+    // The other half of the pair: an aria-busy that never clears is a screen
+    // reader stuck on 'busy' forever, and a dimmed chart that never brightens
+    // reads as broken.
+    const { wrapper } = await montarPanel({ marco: crearMarco({ series: 5, fechas: 30 }) })
+
+    expect(wrapper.get('figure').attributes('aria-busy')).toBeUndefined()
+    expect(wrapper.find('[data-revalidando]').exists()).toBe(false)
+  })
+})
+
 describe('las claves de los vocabularios cerrados existen en los dos catalogos', () => {
   it('resuelve toda metrica, agrupacion y densidad', () => {
     // These keys are looked up through a map, so the literal scan of

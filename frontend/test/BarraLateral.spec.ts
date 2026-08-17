@@ -260,17 +260,20 @@ describe('BarraLateral: estado activo derivado de la ruta', () => {
 })
 
 describe('BarraLateral: el árbol de A3 se traduce entero', () => {
-  it('rotula módulos, hojas y facetas en el idioma activo', async () => {
-    // The sidebar is the densest surface of the prototype: four modules, sixteen
-    // leaves and nine facet chips. A literal left in Spanish anywhere in that
-    // tree survives every other test in the suite.
+  it('rotula módulos, hojas y transversales en el idioma activo', async () => {
+    // The sidebar is the densest surface of the prototype: four modules and
+    // sixteen leaves. A literal left in Spanish anywhere in that tree survives
+    // every other test in the suite.
+    //
+    // The nine facet chips left this assertion with US-A4-EXCELENCIA: they
+    // were `listitem` with no link, and they are gone.
     const wrapper = await montarEn('/exploracion', { idioma: 'en' })
     const texto = wrapper.text()
 
     expect(texto).toContain(mensaje('en', 'nav.module.explore'))
     expect(texto).toContain(mensaje('en', 'nav.branch.exploreDashboards'))
-    expect(texto).toContain(mensaje('en', 'nav.facets.caption'))
     expect(texto).toContain(mensaje('en', 'nav.assistant.label'))
+    expect(texto).toContain(mensaje('en', 'nav.assistant.note'))
     expect(texto).not.toContain(mensaje('es', 'nav.module.explore'))
   })
 
@@ -292,11 +295,67 @@ describe('accesibilidad estructural del portal', () => {
   it('no introduce ningun encabezado antes del h1 de la pantalla', async () => {
     // The sidebar comes before <main>, so any <h1>-<h6> of its own becomes
     // the first heading of the document and the hierarchy starts below h1.
-    // The facets caption names its list through aria-labelledby, which does
-    // not need to be a heading to do so.
     const wrapper = await montarEn('/gobierno')
 
     expect(wrapper.findAll('h1, h2, h3, h4, h5, h6')).toHaveLength(0)
-    expect(wrapper.get('#facetas-transversales').element.tagName).toBe('P')
+  })
+
+  it.each(RUTAS_CONTRATO)('no deja ningun elemento de lista sin enlace en %s', async (ruta) => {
+    // US-A4-EXCELENCIA. The bar used to close with nine "cross cutting facet"
+    // chips: the A3 card sorting rendered as navigation, `listitem` with
+    // nothing to click. They promised a destination on every screen of the
+    // contract and delivered none, and their content is published as a map in
+    // the deliverable, which is where the traceability belongs.
+    //
+    // The assertion is on the shape and not on the nine names: any list entry
+    // added to this bar from now on has to lead somewhere.
+    const wrapper = await montarEn(ruta)
+
+    const inertes = wrapper.findAll('li').filter(item => item.find('a').exists() === false)
+
+    expect(inertes.map(item => item.text())).toEqual([])
+  })
+
+  it('no vuelve a nombrar el producto: la cabecera ya lo hace', async () => {
+    // Two marks on the same screen is what the portal shipped, and it left the
+    // entry screen and the prototype index naming it once while every portal
+    // screen named it twice.
+    const wrapper = await montarEn('/gobierno')
+
+    expect(wrapper.find('[data-marca-karisma]').exists()).toBe(false)
+  })
+})
+
+describe('BarraLateral: la superficie sale de los tokens del chasis', () => {
+  it('se pinta del suelo de la barra y nunca del suelo de la pagina', async () => {
+    // The four tokens of wave A are what makes one chassis serve two themes:
+    // navy with a filled active block under the institutional theme, alternate
+    // ground with the active read by luminance under the default one. A
+    // component that resolved the theme itself would need a condition here and
+    // would drift the day a third theme lands.
+    const wrapper = await montarEn('/inicio')
+
+    expect(wrapper.get('[data-barra-lateral]').classes()).toContain('bg-barra-lateral')
+    expect(wrapper.get('[data-barra-lateral]').classes()).not.toContain('bg-ground')
+  })
+
+  it('marca el modulo en curso con el bloque activo y su propio texto', async () => {
+    const activo = (await montarEn('/gobierno')).get('[aria-current="page"]')
+
+    expect(activo.classes()).toContain('aria-[current=page]:bg-barra-lateral-activo')
+    expect(activo.classes()).toContain('aria-[current=page]:text-barra-lateral-activo-texto')
+  })
+
+  it('pinta toda etiqueta en reposo con el texto de la barra', async () => {
+    // Measured over `--color-barra-lateral` and not over the page ground: the
+    // sidebar label reads over navy under the institutional theme, and a
+    // neutral inherited from the page would be 1.3:1 there.
+    const wrapper = await montarEn('/inicio')
+    const enlaces = wrapper.findAll('nav a')
+
+    expect(enlaces.length).toBeGreaterThan(0)
+    for (const enlace of enlaces) {
+      expect(enlace.classes(), enlace.html()).toContain('text-barra-lateral-texto')
+    }
   })
 })

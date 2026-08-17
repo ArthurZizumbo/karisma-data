@@ -681,3 +681,57 @@ describe('la pantalla habla los dos idiomas', () => {
     expect(boton.text()).not.toBe(mensaje('es', 'admin.users.action.deactivate'))
   })
 })
+
+describe('el orden de la tabla se computa sobre el dato y no sobre lo impreso', () => {
+  /** Three accounts whose printed date sorts differently from their instant. */
+  const CRONOLOGIA: readonly UsuarioAdmin[] = Object.freeze(
+    (
+      [
+        ['eruiz', '2026-01-05T10:00:00Z'],
+        ['lmendez', '2026-02-03T10:00:00Z'],
+        ['movalle', '2026-03-04T10:00:00Z'],
+      ] as const
+    ).map(([username, modificado], indice) => ({
+      ...CUENTAS[indice]!,
+      username,
+      updated_at: modificado,
+    })),
+  )
+
+  it('ordena la columna de modificacion por el instante ISO', async () => {
+    // La trampa que esta migracion encontro tres veces: las celdas llegan
+    // formateadas y ordenar el texto impreso es un orden alfabetico disfrazado
+    // -"5 ene 2026" antes que "3 feb 2026" no lo esta-. El componente de tabla
+    // ya prueba que ordena de verdad; lo que nadie mide es que ESTA columna
+    // ordene por lo que el servidor mando, y una `accessorFn` sobre la fecha
+    // pintada dejaria la suite entera en verde con la columna al reves.
+    const wrapper = mount(AdministracionTablaUsuarios, {
+      props: {
+        usuarios: CRONOLOGIA,
+        total: CRONOLOGIA.length,
+        estado: 'listo' as const,
+        usernamePropio: 'movalle',
+        filtro: '',
+      },
+      global: { plugins: [crearI18nDePrueba()], stubs: { Icon: true } },
+    })
+    montado = wrapper
+
+    await wrapper.get('[data-ordenar="modified"]').trigger('click')
+
+    const enPantalla = wrapper
+      .findAll('[data-fila-usuario]')
+      .map(fila => fila.attributes('data-fila-usuario'))
+    const porInstante = [...CRONOLOGIA]
+      .sort((uno, otro) => uno.updated_at.localeCompare(otro.updated_at))
+      .map(cuenta => cuenta.username)
+    const porTextoImpreso = wrapper
+      .findAll('[data-fila-usuario] time')
+      .map(nodo => nodo.text())
+
+    expect(enPantalla).toEqual(porInstante)
+    // Y la fecha impresa NO esta ordenada como texto, que es lo que hace
+    // discriminante a la asercion de arriba en lugar de una coincidencia.
+    expect(porTextoImpreso).not.toEqual([...porTextoImpreso].sort())
+  })
+})

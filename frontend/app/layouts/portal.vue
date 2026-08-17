@@ -28,8 +28,17 @@ const sinPermiso = computed(() =>
 
 <template>
   <div
-    class="flex min-h-screen bg-ground font-sans text-corriente-pleno bg-[linear-gradient(to_right,var(--color-grid)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-grid)_1px,transparent_1px)] bg-size-[24px_24px]"
+    class="flex min-h-screen bg-ground font-sans text-corriente-pleno bg-[linear-gradient(to_right,var(--color-reticula)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-reticula)_1px,transparent_1px)] bg-size-[24px_24px]"
   >
+    <!--
+      The grid above reads `--color-reticula` and not `--color-grid`.
+
+      They used to be the same value and the chassis borrowed the one meant for
+      hairlines and separators. Under the institutional theme the modular grid
+      is not part of the identity, so that token is painted with the ground
+      itself: the chassis stops drawing a grid with no condition written here,
+      and the rule that separates a table from its header keeps its own colour.
+    -->
     <!--
       First focusable element of the document. Without it, a keyboard user walks
       through the ~20 sidebar links on EVERY one of the seven screens before
@@ -45,8 +54,12 @@ const sinPermiso = computed(() =>
     <BarraLateral />
 
     <div class="flex min-w-0 flex-1 flex-col">
-      <!-- The sidebar already names the product, so the header does not. -->
-      <CabeceraProducto :con-marca="false" />
+      <!--
+        The mark lives in the header on the four chromes. The sidebar used to
+        repeat it, which named the product twice on every portal screen and
+        left the entry screen and the prototype index naming it once.
+      -->
+      <CabeceraProducto />
 
       <!--
         `max-w-none` is what turns the notice back into a band.

@@ -10,6 +10,12 @@
  * The component decides nothing. It receives the counts and the active domain
  * and emits the one the reader chose; narrowing and re-querying belong to
  * `useBusquedaCatalogo`, which owns the request.
+ *
+ * The narrowed row is painted with the selection token and not only with a
+ * darker ink. `--color-seleccion` is the tint the design system reserves for
+ * exactly this -a neutral one under the default theme and a tint of the action
+ * colour under the institutional one- so the column says which domain is
+ * filtering the result with the same mark the rest of the portal uses.
  */
 import type { ConteoDominio } from '~/composables/useBusquedaCatalogo'
 import { computed } from 'vue'
@@ -71,10 +77,10 @@ const total = computed(() => props.conteos.reduce((suma, conteo) => suma + conte
             type="button"
             data-dominio="todos"
             :aria-pressed="activo === null"
-            class="flex min-h-11 w-full items-center justify-between gap-3 border-b border-grid px-1 text-cuerpo"
+            class="flex min-h-11 w-full items-center justify-between gap-3 border-b border-grid px-2 text-cuerpo"
             :class="[
               ANILLO_FOCO,
-              activo === null ? 'text-corriente-pleno' : 'text-corriente-tenue hover:text-corriente-medio',
+              activo === null ? 'bg-seleccion text-corriente-pleno' : 'text-corriente-tenue hover:text-corriente-medio',
             ]"
             @click="emit('filtrar', null)"
           >
@@ -88,10 +94,10 @@ const total = computed(() => props.conteos.reduce((suma, conteo) => suma + conte
             type="button"
             :data-dominio="opcion.codigo"
             :aria-pressed="activo === opcion.codigo"
-            class="flex min-h-11 w-full items-center justify-between gap-3 border-b border-grid px-1 text-cuerpo"
+            class="flex min-h-11 w-full items-center justify-between gap-3 border-b border-grid px-2 text-cuerpo"
             :class="[
               ANILLO_FOCO,
-              activo === opcion.codigo ? 'text-corriente-pleno' : 'text-corriente-tenue hover:text-corriente-medio',
+              activo === opcion.codigo ? 'bg-seleccion text-corriente-pleno' : 'text-corriente-tenue hover:text-corriente-medio',
             ]"
             @click="emit('filtrar', activo === opcion.codigo ? null : opcion.codigo)"
           >

@@ -28,8 +28,10 @@ as a demonstration.
 **Two themes ship as well, and the axis is colour *and* type family.** The
 default one, ``corriente``, is the diagram world described above and it is
 frozen: fifteen screenshots, a contrast matrix and a documented iteration were
-delivered against it, so its seventeen values are pinned byte for byte by
-``tests/ml/test_contraste_temas.py``. The optional one, ``institucional``, is
+delivered against it, so every value it holds is pinned byte for byte by
+``tests/ml/test_contraste_temas.py`` -the seventeen that were delivered and
+every slot opened afterwards, each of which reuses a delivered value under this
+theme precisely so that nothing moves. The optional one, ``institucional``, is
 the palette the team's Figma file declares, with Inter as its family. Neither
 replaces the other: a theme is a preference, and the reader picks it.
 
@@ -93,6 +95,19 @@ class Token:
         uso: Spanish prose printed in the guide and in the report.
         informa: Whether the token may carry meaning. A token that does not
             inform is decorative and is exempt from the 3:1 component boundary.
+        icono: Name of the icon that travels with the token, when the token is
+            a state. The rule "colour plus shape plus icon" is only enforceable
+            if the icon is declared beside the colour instead of being chosen
+            again in every component: the catalogue picked its two icons in a
+            ternary and two opposite states ended up sharing one.
+        sobre: Name of the token this one is read against. Almost everything is
+            read over the page ground, and the exceptions are real: a label of
+            the sidebar sits on the sidebar, which under the institutional
+            theme is navy while the page is white. Measuring it over the page
+            would publish a ratio nobody ever sees.
+        es_suelo: Whether the token is itself a ground. A ground is never a
+            foreground, so grading it against another ground states a
+            requirement that does not exist.
     """
 
     nombre: str
@@ -100,6 +115,9 @@ class Token:
     institucional: Paleta
     uso: str
     informa: bool = True
+    icono: str = ""
+    sobre: str = "ground"
+    es_suelo: bool = False
 
     def valor(self, tema: Tema, modo: Modo) -> str:
         """Return the hex value for ``tema`` in ``modo``."""
@@ -129,6 +147,31 @@ class RolTipografico:
     uso: str
 
 
+def _busca(grupo: tuple[Token, ...], nombre: str) -> Token:
+    """Return the token called ``nombre`` inside ``grupo``.
+
+    Tokens that borrow another token's palette whole -the sidebar under the
+    default theme, every certification state- are built with this instead of
+    transcribing the hex again. A transcription is a copy, and a copy can drift
+    from its original without anything noticing, which is the exact failure
+    this design system was rewritten to close.
+
+    Args:
+        grupo: Group already declared above the caller.
+        nombre: Token name inside that group.
+
+    Returns:
+        The token, so the caller can borrow one of its palettes.
+
+    Raises:
+        KeyError: If the group holds no token with that name.
+    """
+    for token in grupo:
+        if token.nombre == nombre:
+            return token
+    raise KeyError(f"token desconocido en el grupo: {nombre}")
+
+
 # ---------------------------------------------------------------------------
 #  Ground and grid. The grid is visible: it is the world, not a guide.
 # ---------------------------------------------------------------------------
@@ -140,9 +183,20 @@ SUPERFICIE: Final[tuple[Token, ...]] = (
         # *Superficie in light. The dark ground is derived from *Navegacion by
         # dropping its luminance: a deep blue, never pure black, which is the
         # rule the system already set itself.
+        #
+        # DECLARED EXCEPTION, institutional light: #FFFFFF is pure white, and
+        # rule 4 of `docs/orchestration/checklist-ui.md` forbids pure white as
+        # a surface. It stands because *Superficie of the design file IS pure
+        # white and this theme exists to carry that file, not to improve on
+        # it; the default theme keeps #F4F6F9 and remains the ground the rule
+        # describes. It is a conflict between two normative sources, resolved
+        # in favour of the archive and written down here so the next reader
+        # does not read it as an oversight and quietly darken it -which would
+        # move all 44 contrast pairs and every plate captured against them.
         Paleta("#FFFFFF", "#0B1B2B"),
         "Suelo de la pantalla. En oscuro nunca es negro puro: casi negro en el "
         "tema de omision, azul profundo en el institucional.",
+        es_suelo=True,
     ),
     Token(
         "ground-alt",
@@ -151,6 +205,7 @@ SUPERFICIE: Final[tuple[Token, ...]] = (
         # Dark: *Navegacion used as a panel over the deeper ground.
         Paleta("#F1F4F8", "#102A43"),
         "Fila alterna de tabla, cabecera de panel y celda agrupada.",
+        es_suelo=True,
     ),
     Token(
         "grid",
@@ -242,10 +297,16 @@ SEMANTICOS: Final[tuple[Token, ...]] = (
         Paleta("#9A6200", "#FFC233"),
         # Light: *Atencion darkened 12 %, hue 36.6 deg and saturation kept.
         # The swatch itself (#B97812) gives 3.65:1 over white and a token that
-        # carries text must clear 4.5:1. The swatch does not disappear: it
-        # ships as `aviso-marca` below, which is where the identity amber
-        # actually lives -label, border, icon and tinted surface- exactly as
-        # the file uses it. Dark: the swatch lifted for the deep ground.
+        # carries text must clear 4.5:1, so the identity amber cannot ship as
+        # this token. It does NOT ship as any other token either: this file
+        # emits no theme invariant brand group, so the swatch lives hardcoded
+        # in `MarcaKarisma.vue` -the accent bar of the symbol- with its reason
+        # written there. An earlier version of this comment announced an
+        # `aviso-marca` token below; that token was never written, and a
+        # comment that promises a token is how a reader ends up looking for
+        # one. The pending request is a `marca-*` group here, invariant to the
+        # theme, which is what would let the component stop carrying hex.
+        # Dark: the swatch lifted for the deep ground.
         Paleta("#A36A10", "#E8A33D"),
         "Aviso en texto. Siempre con icono de triangulo.",
     ),
@@ -341,6 +402,144 @@ ACCION: Final[tuple[Token, ...]] = (
         Paleta("#E6F2F1", "#123443"),
         "Superficie elegida: fila marcada, tarjeta seleccionada y paso en curso.",
         informa=False,
+    ),
+)
+
+#: Channel 4: the chassis. One sidebar, two themes.
+#:
+#: The portal ships a single shell for both themes, because two shells would be
+#: two products and would duplicate every unhappy state. What changes with the
+#: theme is the ground the rail is painted on and how the current module is
+#: marked, and those two are tokens rather than conditionals in a component:
+#: a component that branched on the theme would have to be edited again the day
+#: a third one appeared.
+#:
+#: The four values below are why the slot exists at all. Under the default
+#: theme the rail is the alternate ground and the current module is told apart
+#: by luminance and weight, with no filled block -which is what the delivered
+#: screenshots show-. Under the institutional theme the rail is *Navegacion and
+#: the current module is a filled block of *Accion, which is what its own guide
+#: asks for. With one pair of tokens both readings are the same markup.
+BARRA_LATERAL: Final[tuple[Token, ...]] = (
+    Token(
+        "barra-lateral",
+        # The default theme keeps the alternate ground: the rail is a panel of
+        # the same world, one step off the page and nothing else.
+        _busca(SUPERFICIE, "ground-alt").corriente,
+        # *Navegacion, in both modes. Its guide gives the deep blue exactly one
+        # job -"el azul profundo estructura la navegacion"- and the rail is the
+        # navigation, so it carries that blue whether the page around it is
+        # white or the deep ground. In dark it coincides with `ground-alt`,
+        # which is the same colour doing the same work.
+        Paleta("#102A43", "#102A43"),
+        "Suelo de la barra lateral. Con el tema cambia el suelo, nunca la estructura.",
+        es_suelo=True,
+    ),
+    Token(
+        "barra-lateral-activo",
+        # No filled block under the default theme, on purpose: the current
+        # module is told apart by luminance and weight. Painting the block in
+        # the rail's own ground makes it invisible without introducing a
+        # keyword the contrast machinery could not measure.
+        _busca(SUPERFICIE, "ground-alt").corriente,
+        # *Accion, filled: "el verde azulado concentra acciones y seleccion",
+        # and the module on screen is the selection of the rail. It lifts with
+        # the mode because the block is the action colour and not a copy of it.
+        _busca(ACCION, "accion").institucional,
+        "Bloque del modulo en curso. Relleno solo donde el tema tiene color de accion.",
+        es_suelo=True,
+    ),
+    Token(
+        "barra-lateral-texto",
+        # What the rail already paints in the delivered screenshots.
+        _busca(CORRIENTE, "corriente-tenue").corriente,
+        # Derived: the light rung of the institutional ramp, 9.30:1 over the
+        # navy in both modes. The page ramp cannot be reused here -under the
+        # institutional light theme `corriente-pleno` IS the navy of the rail,
+        # so the label would be painted in its own ground and disappear.
+        Paleta("#BFD0E2", "#BFD0E2"),
+        "Etiqueta en reposo de la barra lateral, medida sobre la barra y no sobre "
+        "el suelo de la pagina.",
+        sobre="barra-lateral",
+    ),
+    Token(
+        "barra-lateral-activo-texto",
+        _busca(CORRIENTE, "corriente-pleno").corriente,
+        # Over the filled teal: white in light (6.27:1) and the deep ground in
+        # dark (6.90:1). The block itself lifts with the mode, so the label
+        # that sits on it has to invert with it.
+        Paleta("#FFFFFF", "#0B1B2B"),
+        "Etiqueta del modulo en curso, sobre su bloque.",
+        sobre="barra-lateral-activo",
+    ),
+)
+
+#: Prefix every certification state carries, declared once.
+#:
+#: The consumer strips it to recover the code the catalogue stores, so the
+#: string lives here and not in the emitter and not in a component.
+PREFIJO_CERTIFICACION: Final[str] = "certificacion-"
+
+
+def _estado(codigo: str, canal: str, icono: str, uso: str) -> Token:
+    """Return a certification state that borrows a semantic channel whole.
+
+    The state does not own a colour: it points at one of the four semantic
+    marks and takes its palette entire, in both themes and both modes. That is
+    what makes "three states, three channels" a structural property instead of
+    a coincidence of three hex values that happen to differ today.
+
+    Args:
+        codigo: Value the catalogue stores, without the prefix.
+        canal: Name of the semantic token whose palette the state borrows.
+        icono: Icon that travels with it, from the collection the app bundles.
+        uso: Spanish prose printed in the guide.
+
+    Returns:
+        The state as a token of the system, named with its prefix.
+    """
+    base = _busca(SEMANTICOS, canal)
+    return Token(
+        f"{PREFIJO_CERTIFICACION}{codigo}",
+        base.corriente,
+        base.institucional,
+        uso,
+        icono=icono,
+    )
+
+
+#: The three states of certification, which until this version were two.
+#:
+#: The catalogue chose its icon with ``codigo === 'certificado' ? 'circle-check'
+#: : 'triangle-alert'`` and painted everything that was not certified in the
+#: warning colour. "En revision" and "Obsoleto" therefore shared colour AND
+#: shape, and they mean opposite things to the person this product is for: one
+#: says use it and mind the caveat, the other says do not use it. Two opposite
+#: instructions rendered identically is not a palette problem, it is a wrong
+#: answer given confidently.
+#:
+#: Each state borrows a channel whole and declares its own icon, so the rule
+#: the system already published -colour AND shape AND icon- finally applies to
+#: the one place that was breaking it. The three are measured against each
+#: other under the three simulated dichromacies like any other family.
+CERTIFICACION: Final[tuple[Token, ...]] = (
+    _estado(
+        "certificado",
+        "ok",
+        "lucide:circle-check",
+        "Certificado: el dato se puede usar. Canal ok, icono de marca.",
+    ),
+    _estado(
+        "en-revision",
+        "aviso",
+        "lucide:clock",
+        "En revision: se puede usar con reserva. Canal aviso, icono de reloj.",
+    ),
+    _estado(
+        "obsoleto",
+        "error",
+        "lucide:circle-slash",
+        "Obsoleto: NO se debe usar. Canal error, icono de circulo tachado.",
     ),
 )
 
@@ -564,9 +763,24 @@ REGLAS: Final[tuple[str, ...]] = (
     "excepcion, no un tema.",
     "La paleta de series no cambia con el tema: es canal de datos, no identidad. Lo "
     "que si se vuelve a medir es su razon sobre el suelo de cada tema.",
+    "Dos estados que significan lo contrario no comparten canal ni icono. "
+    "Certificado, en revision y obsoleto llevan marca, reloj y circulo tachado sobre "
+    "ok, aviso y error: antes los dos ultimos eran el mismo amarillo y el mismo "
+    "triangulo.",
+    "Un color que vive sobre la barra lateral se mide sobre la barra lateral. Su "
+    "razon sobre el suelo de la pagina no dice nada de lo que el lector ve, porque "
+    "bajo el tema institucional la barra es navy y la pagina es blanca.",
 )
 
 
 def tokens_de_color() -> tuple[Token, ...]:
     """Return every colour token in the order the guide prints them."""
-    return SUPERFICIE + CORRIENTE + ACCION + SEMANTICOS + SERIES
+    return (
+        SUPERFICIE
+        + CORRIENTE
+        + ACCION
+        + BARRA_LATERAL
+        + SEMANTICOS
+        + CERTIFICACION
+        + SERIES
+    )

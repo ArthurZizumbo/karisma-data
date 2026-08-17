@@ -30,11 +30,22 @@
   --color-accion-apoyo: #414B5B;
   --color-seleccion: #E7EAF0;  /* no informa */
 
+  /* Chasis - un solo armazon, y el tema le cambia el suelo */
+  --color-barra-lateral: #EAEEF4;
+  --color-barra-lateral-activo: #EAEEF4;
+  --color-barra-lateral-texto: #5F6A7D;
+  --color-barra-lateral-activo-texto: #14171D;
+
   /* Semanticos - color mas forma mas icono, nunca color solo */
   --color-error: #8C1D18;
   --color-aviso: #9A6200;
   --color-ok: #1F6F43;
   --color-info: #6D28D9;
+
+  /* Certificacion - tres estados, tres canales, tres iconos */
+  --color-certificacion-certificado: #1F6F43;  /* icono lucide:circle-check */
+  --color-certificacion-en-revision: #9A6200;  /* icono lucide:clock */
+  --color-certificacion-obsoleto: #8C1D18;  /* icono lucide:circle-slash */
 
   /* Series categoricas - cada una con su marcador y su patron */
   --color-serie-1: #1D4ED8;
@@ -147,11 +158,22 @@
     --color-accion-apoyo: #B4C2D4;
     --color-seleccion: #181B22;  /* no informa */
 
+    /* Chasis - un solo armazon, y el tema le cambia el suelo */
+    --color-barra-lateral: #131519;
+    --color-barra-lateral-activo: #131519;
+    --color-barra-lateral-texto: #7A8698;
+    --color-barra-lateral-activo-texto: #E8F4FF;
+
     /* Semanticos - color mas forma mas icono, nunca color solo */
     --color-error: #FF5A36;
     --color-aviso: #FFC233;
     --color-ok: #4ADE80;
     --color-info: #C4B5FD;
+
+    /* Certificacion - tres estados, tres canales, tres iconos */
+    --color-certificacion-certificado: #4ADE80;  /* icono lucide:circle-check */
+    --color-certificacion-en-revision: #FFC233;  /* icono lucide:clock */
+    --color-certificacion-obsoleto: #FF5A36;  /* icono lucide:circle-slash */
 
     /* Series categoricas - cada una con su marcador y su patron */
     --color-serie-1: #7DD3FC;
@@ -183,11 +205,22 @@
     --color-accion-apoyo: #5FD0D2;
     --color-seleccion: #123443;  /* no informa */
 
+    /* Chasis - un solo armazon, y el tema le cambia el suelo */
+    --color-barra-lateral: #102A43;
+    --color-barra-lateral-activo: #3FB3B5;
+    --color-barra-lateral-texto: #BFD0E2;
+    --color-barra-lateral-activo-texto: #0B1B2B;
+
     /* Semanticos - color mas forma mas icono, nunca color solo */
     --color-error: #EC5B51;
     --color-aviso: #E8A33D;
     --color-ok: #5FCB94;
     --color-info: #B9A7F2;
+
+    /* Certificacion - tres estados, tres canales, tres iconos */
+    --color-certificacion-certificado: #5FCB94;  /* icono lucide:circle-check */
+    --color-certificacion-en-revision: #E8A33D;  /* icono lucide:clock */
+    --color-certificacion-obsoleto: #EC5B51;  /* icono lucide:circle-slash */
 
     /* Series categoricas - cada una con su marcador y su patron */
     --color-serie-1: #7DD3FC;
@@ -224,11 +257,22 @@
     --color-accion-apoyo: #B4C2D4;
     --color-seleccion: #181B22;  /* no informa */
 
+    /* Chasis - un solo armazon, y el tema le cambia el suelo */
+    --color-barra-lateral: #131519;
+    --color-barra-lateral-activo: #131519;
+    --color-barra-lateral-texto: #7A8698;
+    --color-barra-lateral-activo-texto: #E8F4FF;
+
     /* Semanticos - color mas forma mas icono, nunca color solo */
     --color-error: #FF5A36;
     --color-aviso: #FFC233;
     --color-ok: #4ADE80;
     --color-info: #C4B5FD;
+
+    /* Certificacion - tres estados, tres canales, tres iconos */
+    --color-certificacion-certificado: #4ADE80;  /* icono lucide:circle-check */
+    --color-certificacion-en-revision: #FFC233;  /* icono lucide:clock */
+    --color-certificacion-obsoleto: #FF5A36;  /* icono lucide:circle-slash */
 
     /* Series categoricas - cada una con su marcador y su patron */
     --color-serie-1: #7DD3FC;
@@ -260,11 +304,22 @@
     --color-accion-apoyo: #15989A;
     --color-seleccion: #E6F2F1;  /* no informa */
 
+    /* Chasis - un solo armazon, y el tema le cambia el suelo */
+    --color-barra-lateral: #102A43;
+    --color-barra-lateral-activo: #086B70;
+    --color-barra-lateral-texto: #BFD0E2;
+    --color-barra-lateral-activo-texto: #FFFFFF;
+
     /* Semanticos - color mas forma mas icono, nunca color solo */
     --color-error: #933632;
     --color-aviso: #A36A10;
     --color-ok: #287A58;
     --color-info: #17395B;
+
+    /* Certificacion - tres estados, tres canales, tres iconos */
+    --color-certificacion-certificado: #287A58;  /* icono lucide:circle-check */
+    --color-certificacion-en-revision: #A36A10;  /* icono lucide:clock */
+    --color-certificacion-obsoleto: #933632;  /* icono lucide:circle-slash */
 
     /* Series categoricas - cada una con su marcador y su patron */
     --color-serie-1: #1D4ED8;
@@ -298,11 +353,22 @@
     --color-accion-apoyo: #5FD0D2;
     --color-seleccion: #123443;  /* no informa */
 
+    /* Chasis - un solo armazon, y el tema le cambia el suelo */
+    --color-barra-lateral: #102A43;
+    --color-barra-lateral-activo: #3FB3B5;
+    --color-barra-lateral-texto: #BFD0E2;
+    --color-barra-lateral-activo-texto: #0B1B2B;
+
     /* Semanticos - color mas forma mas icono, nunca color solo */
     --color-error: #EC5B51;
     --color-aviso: #E8A33D;
     --color-ok: #5FCB94;
     --color-info: #B9A7F2;
+
+    /* Certificacion - tres estados, tres canales, tres iconos */
+    --color-certificacion-certificado: #5FCB94;  /* icono lucide:circle-check */
+    --color-certificacion-en-revision: #E8A33D;  /* icono lucide:clock */
+    --color-certificacion-obsoleto: #EC5B51;  /* icono lucide:circle-slash */
 
     /* Series categoricas - cada una con su marcador y su patron */
     --color-serie-1: #7DD3FC;
@@ -392,4 +458,6 @@ li:not([class*='max-w']):not(nav li):not(ul[class*='grid'] li) {
    - La barra lateral colapsa de verdad por debajo de 768 px. El sistema anterior lo declaraba y no lo implementaba, y dejaba el contenido en 135 px.
    - El tema cambia color Y familia tipografica, y los dos temas cumplen el mismo liston en los dos modos. Un tema opcional que rebajara el umbral seria una excepcion, no un tema.
    - La paleta de series no cambia con el tema: es canal de datos, no identidad. Lo que si se vuelve a medir es su razon sobre el suelo de cada tema.
+   - Dos estados que significan lo contrario no comparten canal ni icono. Certificado, en revision y obsoleto llevan marca, reloj y circulo tachado sobre ok, aviso y error: antes los dos ultimos eran el mismo amarillo y el mismo triangulo.
+   - Un color que vive sobre la barra lateral se mide sobre la barra lateral. Su razon sobre el suelo de la pagina no dice nada de lo que el lector ve, porque bajo el tema institucional la barra es navy y la pagina es blanca.
 */

@@ -23,18 +23,18 @@ TRUNCATE catalog_tribal_note, catalog_field, catalog_source
 INSERT INTO catalog_source (code, display_name, description, owner_area,
                             owner_name, system_of_record, has_extract)
 VALUES
-    ('creditos', 'Cartera de credito', 'Contratos de credito vigentes y vencidos con su saldo, su mora y su tasa. Es el silo que SIC-Core exporta cada noche.', 'Direccion de Credito', 'Ricardo Salas', 'SIC-Core', true),
-    ('liquidez', 'Posiciones de liquidez', 'Posiciones diarias por cliente, divisa y bucket de vencimiento tal como las publica la mesa de tesoreria.', 'Tesoreria', 'Adriana Cortes', 'TESO-Pos', true),
-    ('derivados', 'Operaciones de derivados', 'Operaciones vivas de la mesa de derivados con su nocional, su valor a mercado y su contraparte.', 'Mesa de Derivados', 'Hugo Beltran', 'DRV-Front', true),
-    ('clientes', 'Maestro de clientes', 'Ficha unica del cliente: identificacion, domicilio fiscal, segmento y marcas de cumplimiento. Es el origen de la clave que los tres silos codifican de tres maneras distintas.', 'Datos y Gobierno', 'Paola Iniguez', 'MDM-Cli', false),
-    ('garantias', 'Garantias y colaterales', 'Bienes y colaterales que respaldan los creditos, con su avaluo, su aforo y su elegibilidad regulatoria.', 'Direccion de Credito', 'Marcela Rios', 'GAR-Col', false),
-    ('pagos', 'Pagos y cobranza', 'Pagos recibidos, su aplicacion al contrato y la gestion de cobranza asociada.', 'Operaciones', 'Ivan Zepeda', 'PAG-Cob', false),
-    ('provisiones', 'Provisiones y reservas', 'Calificacion de cartera y estimacion preventiva para riesgos crediticios por contrato y periodo.', 'Riesgo de Credito', 'Sofia Aranda', 'PRV-Res', false),
-    ('contabilidad', 'Contabilidad general', 'Catalogo de cuentas y movimientos del libro mayor, con su centro de costo y su poliza.', 'Contraloria', 'Jorge Nieto', 'CTB-GL', false),
-    ('tesoreria', 'Tesoreria y flujo de efectivo', 'Posicion consolidada de tesoreria, colateral disponible y flujo proyectado del dia. Las proyecciones son simuladas.', 'Tesoreria', 'Adriana Cortes', 'TES-Flu', false),
-    ('riesgo_mercado', 'Riesgo de mercado', 'Valor en riesgo, sensibilidades y consumo de limites por mesa y por libro de negociacion.', 'Riesgo de Mercado', 'Daniel Ocampo', 'RSK-Mkt', false),
-    ('canales', 'Canales y originacion', 'Solicitudes originadas por cada canal, digital o presencial, con su resolucion y su tiempo de respuesta.', 'Banca Digital', 'Renata Fuentes', 'CAN-Ori', false),
-    ('regulatorio', 'Reportes regulatorios', 'Series que la institucion envia al regulador: capital, liquidez, morosidad y rentabilidad, con su acuse.', 'Contraloria', 'Jorge Nieto', 'REG-Rep', false);
+    ('creditos', 'Cartera de crédito', 'Contratos de crédito vigentes y vencidos con su saldo, su mora y su tasa. Es el silo que SIC-Core exporta cada noche.', 'Dirección de Crédito', 'Ricardo Salas', 'SIC-Core', true),
+    ('liquidez', 'Posiciones de liquidez', 'Posiciones diarias por cliente, divisa y bucket de vencimiento tal como las publica la mesa de tesorería.', 'Tesorería', 'Adriana Cortes', 'TESO-Pos', true),
+    ('derivados', 'Operaciones de derivados', 'Operaciones vivas de la mesa de derivados con su nocional, su valor a mercado y su contraparte.', 'Mesa de Derivados', 'Hugo Beltrán', 'DRV-Front', true),
+    ('clientes', 'Maestro de clientes', 'Ficha única del cliente: identificación, domicilio fiscal, segmento y marcas de cumplimiento. Es el origen de la clave que los tres silos codifican de tres maneras distintas.', 'Datos y Gobierno', 'Paola Íñiguez', 'MDM-Cli', false),
+    ('garantias', 'Garantías y colaterales', 'Bienes y colaterales que respaldan los créditos, con su avalúo, su aforo y su elegibilidad regulatoria.', 'Dirección de Crédito', 'Marcela Ríos', 'GAR-Col', false),
+    ('pagos', 'Pagos y cobranza', 'Pagos recibidos, su aplicación al contrato y la gestion de cobranza asociada.', 'Operaciones', 'Iván Zepeda', 'PAG-Cob', false),
+    ('provisiones', 'Provisiones y reservas', 'Calificación de cartera y estimación preventiva para riesgos crediticios por contrato y periodo.', 'Riesgo de Crédito', 'Sofía Aranda', 'PRV-Res', false),
+    ('contabilidad', 'Contabilidad general', 'Catalogo de cuentas y movimientos del libro mayor, con su centro de costo y su póliza.', 'Contraloría', 'Jorge Nieto', 'CTB-GL', false),
+    ('tesoreria', 'Tesorería y flujo de efectivo', 'Posición consolidada de tesorería, colateral disponible y flujo proyectado del día. Las proyecciones son simuladas.', 'Tesorería', 'Adriana Cortes', 'TES-Flu', false),
+    ('riesgo_mercado', 'Riesgo de mercado', 'Valor en riesgo, sensibilidades y consumo de límites por mesa y por libro de negociación.', 'Riesgo de Mercado', 'Daniel Ocampo', 'RSK-Mkt', false),
+    ('canales', 'Canales y originación', 'Solicitudes originadas por cada canal, digital o presencial, con su resolución y su tiempo de respuesta.', 'Banca Digital', 'Renata Fuentes', 'CAN-Ori', false),
+    ('regulatorio', 'Reportes regulatorios', 'Series que la institución envía al regulador: capital, liquidez, morosidad y rentabilidad, con su acuse.', 'Contraloría', 'Jorge Nieto', 'REG-Rep', false);
 
 -- creditos
 INSERT INTO catalog_field (source_id, physical_name, business_name,
@@ -49,7 +49,7 @@ SELECT s.id, 'cli_ref',
        'cliente', 'texto',
        'interna', 'mensual',
        'certificado', NULL, 'count',
-       'Sofia Aranda', DATE '2024-10-01', NULL
+       'Sofía Aranda', DATE '2024-10-01', NULL
   FROM catalog_source s WHERE s.code = 'creditos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -63,7 +63,7 @@ SELECT s.id, 'nom_cli',
        'cartera', 'texto',
        'restringida', 'mensual',
        'en_revision', NULL, NULL,
-       'Marcela Rios', DATE '2020-01-01', NULL
+       'Marcela Ríos', DATE '2020-01-01', NULL
   FROM catalog_source s WHERE s.code = 'creditos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -73,11 +73,11 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'prod_cd',
        'Codigo de producto',
        'Familia de credito a la que pertenece el contrato.',
-       'Product code Hipotecario Mortgage Automotriz Auto loan Credito PyME SME loan Tarjeta de credito Credit card Credito personal Personal loan hipoteca credito hipotecario credito automotriz linea de credito',
+       'Product code Hipotecario Mortgage Automotriz Auto loan Crédito PyME SME loan Tarjeta de crédito Credit card Crédito personal Personal loan hipoteca crédito hipotecario crédito automotriz linea de crédito',
        'cartera', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2025-07-01', NULL
+       'Marcela Ríos', DATE '2025-07-01', NULL
   FROM catalog_source s WHERE s.code = 'creditos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -115,7 +115,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'dias_mora',
        'Dias de mora',
        'Dias transcurridos desde el primer pago no cubierto.',
-       'Days past due atraso dias de atraso morosidad cartera vencida',
+       'Days past due atraso días de atraso morosidad cartera vencida',
        'cartera', 'entero',
        'interna', 'diaria',
        'certificado', 'dias', 'mean',
@@ -129,7 +129,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'tasa_pct',
        'Tasa anual',
        'Tasa anual fija pactada, en por ciento.',
-       'Annual rate interes que paga tasa de interes costo anual',
+       'Annual rate interés que paga tasa de interés costo anual',
        'cartera', 'decimal',
        'interna', 'diaria',
        'certificado', 'porcentaje', 'mean',
@@ -147,7 +147,7 @@ SELECT s.id, 'f_apert',
        'cartera', 'fecha',
        'interna', 'mensual',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2020-01-01', NULL
+       'Paola Íñiguez', DATE '2020-01-01', NULL
   FROM catalog_source s WHERE s.code = 'creditos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -161,7 +161,7 @@ SELECT s.id, 'f_venc',
        'cartera', 'fecha',
        'interna', 'semanal',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2025-04-01', NULL
+       'Paola Íñiguez', DATE '2025-04-01', NULL
   FROM catalog_source s WHERE s.code = 'creditos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -203,7 +203,7 @@ SELECT s.id, 'mon_cd',
        'cartera', 'categoria',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2025-04-01', NULL
+       'Iván Zepeda', DATE '2025-04-01', NULL
   FROM catalog_source s WHERE s.code = 'creditos';
 
 -- liquidez
@@ -233,7 +233,7 @@ SELECT s.id, 'fec_val',
        'liquidez', 'fecha',
        'restringida', 'diaria',
        'en_revision', NULL, NULL,
-       'Paola Iniguez', DATE '2025-10-01', NULL
+       'Paola Íñiguez', DATE '2025-10-01', NULL
   FROM catalog_source s WHERE s.code = 'liquidez';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -261,7 +261,7 @@ SELECT s.id, 'cliente_desc',
        'liquidez', 'texto',
        'restringida', 'semanal',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2022-07-01', NULL
+       'Sofía Aranda', DATE '2022-07-01', NULL
   FROM catalog_source s WHERE s.code = 'liquidez';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -275,7 +275,7 @@ SELECT s.id, 'bucket_venc',
        'liquidez', 'categoria',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2022-10-01', NULL
+       'Iván Zepeda', DATE '2022-10-01', NULL
   FROM catalog_source s WHERE s.code = 'liquidez';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -285,7 +285,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'divisa',
        'Divisa',
        'Divisa de la posicion, en ISO-4217.',
-       'Currency Peso mexicano Mexican peso Dolar estadounidense US dollar Euro Libra esterlina Pound sterling Yen japones Japanese yen',
+       'Currency Peso mexicano Mexican peso Dólar estadounidense US dollar Euro Libra esterlina Pound sterling Yen japones Japanese yen',
        'liquidez', 'categoria',
        'interna', 'semanal',
        'obsoleto', NULL, NULL,
@@ -299,7 +299,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'unidad_negocio',
        'Unidad de negocio',
        'Unidad que reporta la posicion.',
-       'Business unit Tesoreria Treasury Banca de empresas Business banking Banca de personas Retail banking Mercados Markets Corporativo Corporate tesorería',
+       'Business unit Tesorería Treasury Banca de empresas Business banking Banca de personas Retail banking Mercados Markets Corporativo Corporate',
        'liquidez', 'categoria',
        'publica', 'diaria',
        'certificado', NULL, NULL,
@@ -317,7 +317,7 @@ SELECT s.id, 'mto_disp',
        'liquidez', 'entero',
        'restringida', 'diaria',
        'certificado', NULL, 'sum',
-       'Paola Iniguez', DATE '2021-10-01', NULL
+       'Paola Íñiguez', DATE '2021-10-01', NULL
   FROM catalog_source s WHERE s.code = 'liquidez';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -359,7 +359,7 @@ SELECT s.id, 'tipo_pos',
        'liquidez', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2022-04-01', NULL
+       'Paola Íñiguez', DATE '2022-04-01', NULL
   FROM catalog_source s WHERE s.code = 'liquidez';
 
 -- derivados
@@ -375,7 +375,7 @@ SELECT s.id, 'op_id',
        'mercado', 'texto',
        'restringida', 'diaria',
        'en_revision', NULL, 'count',
-       'Marcela Rios', DATE '2024-10-01', NULL
+       'Marcela Ríos', DATE '2024-10-01', NULL
   FROM catalog_source s WHERE s.code = 'derivados';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -385,7 +385,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'ctpty_cd',
        'Codigo de contraparte',
        'Clave de contraparte con prefijo C, seis digitos y letra verificadora. Es la misma entidad que cli_ref en creditos.',
-       'Counterparty code exposicion con contrapartes riesgo de contraparte',
+       'Counterparty code exposición con contrapartes riesgo de contraparte',
        'cliente', 'texto',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
@@ -403,7 +403,7 @@ SELECT s.id, 'ctpty_name',
        'mercado', 'texto',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2023-07-01', NULL
+       'Marcela Ríos', DATE '2023-07-01', NULL
   FROM catalog_source s WHERE s.code = 'derivados';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -413,11 +413,11 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'subyacente',
        'Subyacente',
        'Activo subyacente del contrato.',
-       'Underlying TIIE 28 dias TIIE 28 days Cetes 91 dias Cetes 91 days Dolar contra peso US dollar against peso Euro contra peso Euro against peso Indice de precios y cotizaciones Mexican stock index Unidad de inversion Investment unit',
+       'Underlying TIIE 28 dias TIIE 28 days Cetes 91 dias Cetes 91 days Dólar contra peso US dollar against peso Euro contra peso Euro against peso Indice de precios y cotizaciones Mexican stock index Unidad de inversion Investment unit',
        'mercado', 'categoria',
        'interna', 'intradia',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2019-04-01', NULL
+       'Iván Zepeda', DATE '2019-04-01', NULL
   FROM catalog_source s WHERE s.code = 'derivados';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -441,7 +441,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'nocional_usd',
        'Nocional',
        'Nocional en dolares. Este silo no lleva columna de divisa: todo esta en USD de forma implicita.',
-       'Notional nocional en dolares notional amount',
+       'Notional nocional en dólares notional amount',
        'mercado', 'decimal',
        'interna', 'mensual',
        'certificado', 'USD', 'sum',
@@ -455,7 +455,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'mtm_val',
        'Valor a mercado',
        'Valuacion a mercado en dolares, positiva o negativa.',
-       'Mark to market valor de mercado marca a mercado valuacion a mercado',
+       'Mark to market valor de mercado marca a mercado valuación a mercado',
        'mercado', 'decimal',
        'restringida', 'mensual',
        'certificado', 'USD', 'sum',
@@ -473,7 +473,7 @@ SELECT s.id, 'f_trade',
        'mercado', 'texto',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2023-10-01', NULL
+       'Sofía Aranda', DATE '2023-10-01', NULL
   FROM catalog_source s WHERE s.code = 'derivados';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -501,7 +501,7 @@ SELECT s.id, 'book_cd',
        'mercado', 'texto',
        'interna', 'mensual',
        'obsoleto', NULL, NULL,
-       'Hugo Beltran', DATE '2023-10-01', DATE '2024-10-01'
+       'Hugo Beltrán', DATE '2023-10-01', DATE '2024-10-01'
   FROM catalog_source s WHERE s.code = 'derivados';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -531,7 +531,7 @@ SELECT s.id, 'cli_id',
        'cliente', 'entero',
        'interna', 'diaria',
        'certificado', NULL, 'count',
-       'Ivan Zepeda', DATE '2023-04-01', NULL
+       'Iván Zepeda', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -545,7 +545,7 @@ SELECT s.id, 'cli_rfc',
        'cliente', 'texto',
        'restringida', 'mensual',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2024-01-01', NULL
+       'Marcela Ríos', DATE '2024-01-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -554,12 +554,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_curp',
        'CURP del cliente',
-       'Clave Unica de Registro de Poblacion, solo para persona fisica.',
-       'curp clave unica de registro de poblacion national id',
+       'Clave Única de Registro de Población, solo para persona fisica.',
+       'curp clave única de registro de población national id',
        'cliente', 'texto',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2021-01-01', NULL
+       'Paola Íñiguez', DATE '2021-01-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -567,13 +567,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_rzn_soc',
-       'Razon social del cliente',
+       'Razón social del cliente',
        'Nombre legal completo del cliente, sin truncar.',
-       'razon social nombre del cliente legal name',
+       'razón social nombre del cliente legal name',
        'cliente', 'texto',
        'restringida', 'diaria',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2024-04-01', NULL
+       'Iván Zepeda', DATE '2024-04-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -582,12 +582,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_nom_com',
        'Nombre comercial',
-       'Nombre con el que opera el cliente cuando difiere de la razon social.',
+       'Nombre con el que opera el cliente cuando difiere de la razón social.',
        'nombre comercial marca trade name',
        'cliente', 'texto',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2021-04-01', NULL
+       'Sofía Aranda', DATE '2021-04-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -596,7 +596,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_tipo_per',
        'Tipo de persona',
-       'Persona fisica o persona moral, segun el alta fiscal.',
+       'Persona fisica o persona moral, según el alta fiscal.',
        'persona fisica persona moral entity type',
        'cliente', 'categoria',
        'interna', 'intradia',
@@ -629,7 +629,7 @@ SELECT s.id, 'cli_sub_seg',
        'cliente', 'categoria',
        'publica', 'mensual',
        'certificado', NULL, NULL,
-       'Ivan Zepeda', DATE '2025-04-01', NULL
+       'Iván Zepeda', DATE '2025-04-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -638,7 +638,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_f_alta',
        'Fecha de alta del cliente',
-       'Dia en que el cliente entro al maestro y quedo disponible para contratar.',
+       'Día en que el cliente entró al maestro y quedó disponible para contratar.',
        'alta del cliente fecha de alta onboarding date',
        'cliente', 'fecha',
        'interna', 'diaria',
@@ -652,7 +652,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_f_baja',
        'Fecha de baja del cliente',
-       'Dia de la baja. Nula mientras el cliente siga activo.',
+       'Día de la baja. Nula mientras el cliente siga activo.',
        'baja del cliente fecha de baja offboarding date',
        'cliente', 'fecha',
        'interna', 'diaria',
@@ -666,12 +666,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_est',
        'Estatus del cliente',
-       'Activo, inactivo o en depuracion por el area de datos.',
-       'estatus del cliente situacion del cliente customer status',
+       'Activo, inactivo o en depuración por el area de datos.',
+       'estatus del cliente situación del cliente customer status',
        'cliente', 'categoria',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2021-04-01', NULL
+       'Hugo Beltrán', DATE '2021-04-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -680,12 +680,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_dom_calle',
        'Domicilio fiscal',
-       'Calle y numero del domicilio fiscal declarado ante el SAT.',
-       'domicilio direccion fiscal address',
+       'Calle y número del domicilio fiscal declarado ante el SAT.',
+       'domicilio dirección fiscal address',
        'cliente', 'texto',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2023-01-01', NULL
+       'Marcela Ríos', DATE '2023-01-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -693,13 +693,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_dom_cp',
-       'Codigo postal del domicilio',
-       'Codigo postal del domicilio fiscal, cinco digitos.',
-       'codigo postal cp postal code',
+       'Código postal del domicilio',
+       'Código postal del domicilio fiscal, cinco dígitos.',
+       'código postal cp postal code',
        'cliente', 'texto',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2024-04-01', NULL
+       'Marcela Ríos', DATE '2024-04-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -713,7 +713,7 @@ SELECT s.id, 'cli_dom_edo',
        'cliente', 'categoria',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Paola Iniguez', DATE '2020-01-01', NULL
+       'Paola Íñiguez', DATE '2020-01-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -721,8 +721,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_dom_mun',
-       'Municipio o alcaldia',
-       'Municipio o alcaldia del domicilio fiscal.',
+       'Municipio o alcaldía',
+       'Municipio o alcaldía del domicilio fiscal.',
        'municipio alcaldia municipality',
        'cliente', 'categoria',
        'interna', 'diaria',
@@ -735,8 +735,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_tel',
-       'Telefono de contacto',
-       'Telefono principal declarado por el cliente, a diez digitos.',
+       'Teléfono de contacto',
+       'Teléfono principal declarado por el cliente, a diez dígitos.',
        'telefono celular phone',
        'cliente', 'texto',
        'restringida', 'diaria',
@@ -749,9 +749,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_mail',
-       'Correo electronico',
+       'Correo electrónico',
        'Correo de contacto usado para avisos y estados de cuenta.',
-       'correo email correo electronico',
+       'correo email correo electrónico',
        'cliente', 'texto',
        'restringida', 'semanal',
        'certificado', NULL, NULL,
@@ -763,13 +763,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_act_econ',
-       'Actividad economica',
-       'Giro del cliente segun el catalogo SCIAN del INEGI.',
-       'giro actividad economica industry',
+       'Actividad económica',
+       'Giro del cliente según el catalogo SCIAN del INEGI.',
+       'giro actividad económica industry',
        'cliente', 'categoria',
        'publica', 'diaria',
        'certificado', NULL, NULL,
-       'Ivan Zepeda', DATE '2023-07-01', NULL
+       'Iván Zepeda', DATE '2023-07-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -778,8 +778,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_ing_anual',
        'Ingreso anual declarado',
-       'Ingreso anual que el cliente declaro en su ultima actualizacion.',
-       'ingresos facturacion anual annual income',
+       'Ingreso anual que el cliente declaró en su última actualización.',
+       'ingresos facturación anual annual income',
        'cliente', 'decimal',
        'restringida', 'diaria',
        'en_revision', 'MXN', 'sum',
@@ -792,8 +792,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_rfc_valid',
        'RFC validado',
-       'Indica si el RFC paso la validacion de estructura y homoclave.',
-       'rfc valido validacion de rfc tax id validated',
+       'Indica si el RFC pasó la validación de estructura y homoclave.',
+       'rfc válido validación de rfc tax id validated',
        'cliente', 'booleano',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
@@ -806,12 +806,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_ejecutivo',
        'Ejecutivo responsable del cliente',
-       'Persona duena de la relacion y responsable del dato del cliente ante el comite de gobierno.',
-       'dueno del dato responsable del dato ejecutivo de cuenta steward dueño',
+       'Persona dueña de la relación y responsable del dato del cliente ante el comite de gobierno.',
+       'dueño del dato responsable del dato ejecutivo de cuenta steward',
        'cliente', 'texto',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2019-04-01', NULL
+       'Hugo Beltrán', DATE '2019-04-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -833,9 +833,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_score_int',
-       'Calificacion interna del cliente',
+       'Calificación interna del cliente',
        'Puntaje de comportamiento interno, de 0 a 1000.',
-       'score interno calificacion del cliente internal score calificación',
+       'score interno calificación del cliente internal score',
        'riesgo', 'entero',
        'interna', 'intradia',
        'en_revision', NULL, 'mean',
@@ -847,9 +847,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_score_bur',
-       'Calificacion de buro',
-       'Puntaje del buro de credito en la ultima consulta autorizada.',
-       'buro de credito score de buro credit bureau score calificación',
+       'Calificación de buró',
+       'Puntaje del buró de crédito en la última consulta autorizada.',
+       'buró de crédito score de buró credit bureau score',
        'riesgo', 'entero',
        'restringida', 'diaria',
        'en_revision', NULL, 'mean',
@@ -867,7 +867,7 @@ SELECT s.id, 'cli_lista_neg',
        'riesgo', 'booleano',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2020-04-01', NULL
+       'Sofía Aranda', DATE '2020-04-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -875,13 +875,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_pep',
-       'Persona politicamente expuesta',
-       'Marca de persona politicamente expuesta segun la politica de cumplimiento.',
-       'pep politicamente expuesta politically exposed person',
+       'Persona políticamente expuesta',
+       'Marca de persona políticamente expuesta según la política de cumplimiento.',
+       'pep políticamente expuesta politically exposed person',
        'regulatorio', 'booleano',
        'restringida', 'intradia',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2024-10-01', NULL
+       'Marcela Ríos', DATE '2024-10-01', NULL
   FROM catalog_source s WHERE s.code = 'clientes';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -889,8 +889,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_kyc_f_rev',
-       'Fecha de la ultima revision KYC',
-       'Dia de la ultima revision del expediente de conocimiento del cliente.',
+       'Fecha de la última revisión KYC',
+       'Día de la última revisión del expediente de conocimiento del cliente.',
        'kyc conoce a tu cliente know your customer',
        'regulatorio', 'fecha',
        'interna', 'mensual',
@@ -904,7 +904,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_kyc_est',
        'Estatus del expediente KYC',
-       'Completo, incompleto o vencido segun la politica de cumplimiento.',
+       'Completo, incompleto o vencido según la política de cumplimiento.',
        'expediente estatus kyc compliance status',
        'regulatorio', 'categoria',
        'interna', 'diaria',
@@ -918,8 +918,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cli_n_prod',
        'Productos contratados',
-       'Numero de productos vivos que el cliente tiene contratados.',
-       'productos contratados profundidad de relacion product holdings',
+       'Número de productos vivos que el cliente tiene contratados.',
+       'productos contratados profundidad de relación product holdings',
        'cliente', 'entero',
        'interna', 'mensual',
        'en_revision', 'conteo', 'sum',
@@ -931,8 +931,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'cli_antig_dias',
-       'Antiguedad del cliente',
-       'Dias transcurridos desde el alta del cliente en el maestro.',
+       'Antigüedad del cliente',
+       'Días transcurridos desde el alta del cliente en el maestro.',
        'antiguedad tiempo como cliente tenure',
        'cliente', 'entero',
        'interna', 'intradia',
@@ -947,9 +947,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_folio',
-       'Folio de la garantia',
-       'Folio del expediente de garantia, unico por bien registrado.',
-       'folio de garantia expediente collateral id garantía',
+       'Folio de la garantía',
+       'Folio del expediente de garantía, único por bien registrado.',
+       'folio de garantía expediente collateral id',
        'cartera', 'texto',
        'interna', 'diaria',
        'certificado', NULL, 'count',
@@ -962,12 +962,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_contrato',
        'Contrato garantizado',
-       'Clave del credito que la garantia respalda.',
-       'contrato credito garantizado secured loan garantía',
+       'Clave del crédito que la garantía respalda.',
+       'contrato crédito garantizado secured loan',
        'cartera', 'texto',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2023-10-01', NULL
+       'Paola Íñiguez', DATE '2023-10-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -976,12 +976,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_cli_id',
        'Cliente propietario del bien',
-       'Clave del cliente duena del bien otorgado en garantia.',
-       'cliente propietario collateral owner garantía',
+       'Clave del cliente dueña del bien otorgado en garantía.',
+       'cliente propietario collateral owner',
        'cliente', 'entero',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Paola Iniguez', DATE '2022-01-01', NULL
+       'Paola Íñiguez', DATE '2022-01-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -989,13 +989,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_tipo',
-       'Tipo de garantia',
+       'Tipo de garantía',
        'Hipotecaria, prendaria, liquida, fiduciaria o aval personal.',
-       'garantia hipotecaria hipoteca prenda collateral type garantía',
+       'garantía hipotecaria hipoteca prenda collateral type',
        'cartera', 'categoria',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2022-01-01', NULL
+       'Hugo Beltrán', DATE '2022-01-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1003,13 +1003,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_subtipo',
-       'Subtipo de garantia',
-       'Apertura del tipo: casa habitacion, local, maquinaria o deposito.',
-       'subtipo clase de bien collateral subtype garantía',
+       'Subtipo de garantía',
+       'Apertura del tipo: casa habitación, local, maquinaria o depósito.',
+       'subtipo clase de bien collateral subtype',
        'cartera', 'categoria',
        'interna', 'mensual',
        'certificado', NULL, NULL,
-       'Hugo Beltran', DATE '2022-07-01', NULL
+       'Hugo Beltrán', DATE '2022-07-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1017,13 +1017,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_desc',
-       'Descripcion del bien',
-       'Descripcion del inmueble o del bien mueble que respalda el credito.',
-       'descripcion del bien inmueble collateral description',
+       'Descripción del bien',
+       'Descripción del inmueble o del bien mueble que respalda el crédito.',
+       'descripción del bien inmueble collateral description',
        'cartera', 'texto',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2023-01-01', NULL
+       'Iván Zepeda', DATE '2023-01-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1031,13 +1031,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_val_com',
-       'Valor comercial de la garantia',
-       'Valor comercial del bien segun el ultimo avaluo practicado.',
-       'valor de la garantia avaluo valor comercial appraisal value garantía',
+       'Valor comercial de la garantía',
+       'Valor comercial del bien según el último avalúo practicado.',
+       'valor de la garantía avaluo valor comercial appraisal value',
        'cartera', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Marcela Rios', DATE '2024-10-01', NULL
+       'Marcela Ríos', DATE '2024-10-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1045,9 +1045,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_val_gar',
-       'Valor de garantia reconocido',
-       'Porcion del valor comercial que se reconoce como cobertura tras el aforo.',
-       'valor reconocido cobertura de la garantia recognised value garantía',
+       'Valor de garantía reconocido',
+       'Porción del valor comercial que se reconoce como cobertura tras el aforo.',
+       'valor reconocido cobertura de la garantía recognised value',
        'cartera', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
@@ -1065,7 +1065,7 @@ SELECT s.id, 'g_aforo_pct',
        'riesgo', 'decimal',
        'restringida', 'diaria',
        'en_revision', 'porcentaje', 'mean',
-       'Marcela Rios', DATE '2025-04-01', NULL
+       'Marcela Ríos', DATE '2025-04-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1073,9 +1073,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_f_avaluo',
-       'Fecha del avaluo',
-       'Dia en que el perito firmo el avaluo vigente.',
-       'fecha de avaluo valuacion appraisal date',
+       'Fecha del avalúo',
+       'Día en que el perito firmó el avalúo vigente.',
+       'fecha de avalúo valuacion appraisal date',
        'cartera', 'fecha',
        'restringida', 'semanal',
        'certificado', NULL, NULL,
@@ -1088,12 +1088,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_perito',
        'Perito valuador',
-       'Nombre del perito autorizado que practico el avaluo.',
+       'Nombre del perito autorizado que practicó el avalúo.',
        'perito valuador appraiser',
        'cartera', 'texto',
        'restringida', 'diaria',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2024-07-01', NULL
+       'Hugo Beltrán', DATE '2024-07-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1101,13 +1101,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_f_venc_av',
-       'Vigencia del avaluo',
-       'Fecha en que el avaluo deja de considerarse vigente.',
-       'vigencia del avaluo caducidad appraisal expiry',
+       'Vigencia del avalúo',
+       'Fecha en que el avalúo deja de considerarse vigente.',
+       'vigencia del avalúo caducidad appraisal expiry',
        'cartera', 'fecha',
        'interna', 'intradia',
        'en_revision', NULL, NULL,
-       'Marcela Rios', DATE '2022-10-01', NULL
+       'Marcela Ríos', DATE '2022-10-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1115,9 +1115,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_inmueble_cp',
-       'Codigo postal del inmueble',
-       'Codigo postal donde se ubica el bien inmueble en garantia.',
-       'cp del inmueble ubicacion property postal code garantía',
+       'Código postal del inmueble',
+       'Código postal donde se ubica el bien inmueble en garantía.',
+       'cp del inmueble ubicacion property postal code',
        'cartera', 'texto',
        'restringida', 'diaria',
        'en_revision', NULL, NULL,
@@ -1130,12 +1130,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_inmueble_edo',
        'Entidad del inmueble',
-       'Estado donde se ubica el bien inmueble en garantia.',
-       'estado del inmueble plaza property state garantía',
+       'Estado donde se ubica el bien inmueble en garantía.',
+       'estado del inmueble plaza property state',
        'cartera', 'categoria',
        'restringida', 'mensual',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2019-10-01', NULL
+       'Hugo Beltrán', DATE '2019-10-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1149,7 +1149,7 @@ SELECT s.id, 'g_uso_suelo',
        'cartera', 'categoria',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2019-01-01', NULL
+       'Sofía Aranda', DATE '2019-01-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1158,12 +1158,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_m2',
        'Superficie del inmueble',
-       'Superficie en metros cuadrados registrada en el avaluo.',
+       'Superficie en metros cuadrados registrada en el avalúo.',
        'metros cuadrados superficie surface',
        'cartera', 'decimal',
        'interna', 'diaria',
        'certificado', NULL, 'sum',
-       'Marcela Rios', DATE '2021-10-01', NULL
+       'Marcela Ríos', DATE '2021-10-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1171,13 +1171,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_reg_pub',
-       'Folio real del registro publico',
-       'Folio del Registro Publico de la Propiedad que ampara el inmueble.',
-       'folio real registro publico land registry',
+       'Folio real del registro público',
+       'Folio del Registro Público de la Propiedad que ampara el inmueble.',
+       'folio real registro público land registry',
        'cartera', 'texto',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2024-01-01', NULL
+       'Marcela Ríos', DATE '2024-01-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1185,13 +1185,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_grav_prev',
-       'Gravamenes previos',
-       'Indica que el bien tiene gravamenes anteriores a favor de terceros.',
+       'Gravámenes previos',
+       'Indica que el bien tiene gravámenes anteriores a favor de terceros.',
        'gravamen hipoteca previa prior lien',
        'riesgo', 'booleano',
        'interna', 'semanal',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2023-04-01', NULL
+       'Hugo Beltrán', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1199,8 +1199,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_prelacion',
-       'Grado de prelacion',
-       'Lugar que ocupa la institucion en el cobro frente a otros acreedores.',
+       'Grado de prelación',
+       'Lugar que ocupa la institución en el cobro frente a otros acreedores.',
        'prelacion grado lien position',
        'riesgo', 'entero',
        'interna', 'intradia',
@@ -1213,13 +1213,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_ltv_pct',
-       'Razon credito valor',
-       'Saldo del credito entre el valor comercial de la garantia.',
-       'ltv credito valor loan to value garantía',
+       'Razón crédito valor',
+       'Saldo del crédito entre el valor comercial de la garantía.',
+       'ltv crédito valor loan to value',
        'riesgo', 'decimal',
        'interna', 'mensual',
        'en_revision', 'porcentaje', 'mean',
-       'Sofia Aranda', DATE '2022-04-01', NULL
+       'Sofía Aranda', DATE '2022-04-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1227,9 +1227,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_est',
-       'Estatus de la garantia',
+       'Estatus de la garantía',
        'Vigente, liberada, adjudicada o en proceso judicial.',
-       'estatus de la garantia situacion collateral status garantía',
+       'estatus de la garantía situacion collateral status',
        'cartera', 'categoria',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
@@ -1241,13 +1241,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_f_lib',
-       'Fecha de liberacion',
-       'Dia en que la garantia se libero por pago total del credito.',
-       'liberacion cancelacion de hipoteca release date garantía',
+       'Fecha de liberación',
+       'Día en que la garantía se liberó por pago total del crédito.',
+       'liberacion cancelación de hipoteca release date',
        'cartera', 'fecha',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2021-04-01', NULL
+       'Paola Íñiguez', DATE '2021-04-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1255,13 +1255,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_adjud',
-       'Marca de adjudicacion',
-       'Indica que el bien fue adjudicado a la institucion por incumplimiento.',
+       'Marca de adjudicación',
+       'Indica que el bien fue adjudicado a la institución por incumplimiento.',
        'adjudicacion bien adjudicado foreclosed',
        'riesgo', 'booleano',
        'interna', 'mensual',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2025-10-01', NULL
+       'Paola Íñiguez', DATE '2025-10-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1269,13 +1269,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_seg_pol',
-       'Poliza de seguro del bien',
-       'Numero de poliza que cubre el bien otorgado en garantia.',
-       'poliza seguro del inmueble insurance policy garantía',
+       'Póliza de seguro del bien',
+       'Número de póliza que cubre el bien otorgado en garantía.',
+       'poliza seguro del inmueble insurance policy',
        'cartera', 'texto',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2024-10-01', NULL
+       'Paola Íñiguez', DATE '2024-10-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1284,12 +1284,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_seg_vig',
        'Vigencia del seguro',
-       'Fecha en que vence la poliza de seguro del bien.',
-       'vigencia del seguro vencimiento de poliza insurance expiry',
+       'Fecha en que vence la póliza de seguro del bien.',
+       'vigencia del seguro vencimiento de póliza insurance expiry',
        'cartera', 'fecha',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2025-01-01', NULL
+       'Sofía Aranda', DATE '2025-01-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1298,12 +1298,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_aseg',
        'Aseguradora',
-       'Compania que emitio la poliza del bien en garantia.',
-       'aseguradora compania de seguros insurer garantía',
+       'Compañía que emitió la póliza del bien en garantía.',
+       'aseguradora compañía de seguros insurer',
        'cartera', 'categoria',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2023-04-01', NULL
+       'Paola Íñiguez', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1311,13 +1311,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_moneda',
-       'Moneda del avaluo',
-       'Divisa en que se expreso el avaluo del bien.',
-       'moneda divisa del avaluo appraisal currency',
+       'Moneda del avalúo',
+       'Divisa en que se expreso el avalúo del bien.',
+       'moneda divisa del avalúo appraisal currency',
        'cartera', 'categoria',
        'interna', 'intradia',
        'obsoleto', NULL, NULL,
-       'Ivan Zepeda', DATE '2019-10-01', DATE '2020-10-01'
+       'Iván Zepeda', DATE '2019-10-01', DATE '2020-10-01'
   FROM catalog_source s WHERE s.code = 'garantias';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1326,8 +1326,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_elegible',
        'Elegibilidad regulatoria',
-       'Indica si la garantia es elegible como mitigante ante el regulador.',
-       'elegible mitigante eligible collateral garantía',
+       'Indica si la garantía es elegible como mitigante ante el regulador.',
+       'elegible mitigante eligible collateral',
        'regulatorio', 'booleano',
        'publica', 'mensual',
        'certificado', NULL, NULL,
@@ -1339,9 +1339,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'g_mitig_pct',
-       'Mitigacion de riesgo reconocida',
-       'Proporcion de la exposicion que la garantia alcanza a mitigar.',
-       'mitigacion cobertura de riesgo risk mitigation garantía',
+       'Mitigación de riesgo reconocida',
+       'Proporción de la exposición que la garantía alcanza a mitigar.',
+       'mitigacion cobertura de riesgo risk mitigation',
        'riesgo', 'decimal',
        'interna', 'semanal',
        'en_revision', 'porcentaje', 'mean',
@@ -1354,12 +1354,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'g_obs',
        'Observaciones del expediente',
-       'Notas del analista sobre el expediente de la garantia.',
-       'observaciones notas del expediente remarks garantía',
+       'Notas del analista sobre el expediente de la garantía.',
+       'observaciones notas del expediente remarks',
        'cartera', 'texto',
        'interna', 'mensual',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2020-10-01', NULL
+       'Marcela Ríos', DATE '2020-10-01', NULL
   FROM catalog_source s WHERE s.code = 'garantias';
 
 -- pagos
@@ -1370,8 +1370,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_folio',
        'Folio del pago',
-       'Folio del pago recibido, unico por operacion de cobranza.',
-       'folio del pago numero de pago payment id operación',
+       'Folio del pago recibido, único por operación de cobranza.',
+       'folio del pago número de pago payment id',
        'operacion', 'texto',
        'publica', 'diaria',
        'en_revision', NULL, 'count',
@@ -1384,7 +1384,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_contrato',
        'Contrato al que se aplica',
-       'Clave del credito al que se aplico el pago recibido.',
+       'Clave del crédito al que se aplicó el pago recibido.',
        'contrato credito loan reference',
        'cartera', 'texto',
        'interna', 'diaria',
@@ -1398,7 +1398,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_cli_id',
        'Cliente que paga',
-       'Clave del cliente que realizo el pago.',
+       'Clave del cliente que realizó el pago.',
        'cliente pagador payer',
        'cliente', 'entero',
        'interna', 'mensual',
@@ -1412,8 +1412,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_f_pago',
        'Fecha de pago',
-       'Dia en que el cliente realizo el pago en el canal.',
-       'fecha de pago dia de pago payment date',
+       'Día en que el cliente realizó el pago en el canal.',
+       'fecha de pago día de pago payment date',
        'operacion', 'fecha',
        'publica', 'mensual',
        'certificado', NULL, NULL,
@@ -1425,9 +1425,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_f_aplic',
-       'Fecha de aplicacion',
-       'Dia en que el pago quedo aplicado al contrato. Puede ser posterior a la fecha de pago.',
-       'fecha de aplicacion pagos aplicados posting date aplicación',
+       'Fecha de aplicación',
+       'Día en que el pago quedó aplicado al contrato. Puede ser posterior a la fecha de pago.',
+       'fecha de aplicación pagos aplicados posting date',
        'operacion', 'fecha',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
@@ -1440,7 +1440,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_mto_total',
        'Monto del pago',
-       'Importe total recibido antes de repartirlo entre capital, interes e IVA.',
+       'Importe total recibido antes de repartirlo entre capital, interés e IVA.',
        'monto del pago importe pagado payment amount',
        'operacion', 'decimal',
        'interna', 'diaria',
@@ -1453,7 +1453,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_mto_cap',
-       'Amortizacion de capital',
+       'Amortización de capital',
        'Parte del pago que reduce el saldo de capital del contrato.',
        'amortizacion abono a capital principal repayment amortización',
        'cartera', 'decimal',
@@ -1469,7 +1469,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'pg_mto_int',
        'Pago de intereses',
        'Parte del pago que cubre intereses ordinarios devengados.',
-       'intereses pagados interes ordinario interest paid',
+       'intereses pagados interés ordinario interest paid',
        'cartera', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
@@ -1487,7 +1487,7 @@ SELECT s.id, 'pg_mto_iva',
        'contable', 'decimal',
        'restringida', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Paola Iniguez', DATE '2023-04-01', NULL
+       'Paola Íñiguez', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1501,7 +1501,7 @@ SELECT s.id, 'pg_mto_com',
        'operacion', 'decimal',
        'interna', 'mensual',
        'en_revision', 'MXN', 'sum',
-       'Paola Iniguez', DATE '2024-04-01', NULL
+       'Paola Íñiguez', DATE '2024-04-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1524,12 +1524,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_medio',
        'Medio de pago',
-       'Ventanilla, domiciliacion, transferencia o cargo a tarjeta.',
+       'Ventanilla, domiciliación, transferencia o cargo a tarjeta.',
        'medio de pago forma de pago payment method',
        'operacion', 'categoria',
        'publica', 'diaria',
        'certificado', NULL, NULL,
-       'Ivan Zepeda', DATE '2019-07-01', NULL
+       'Iván Zepeda', DATE '2019-07-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1538,7 +1538,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_canal',
        'Canal de captura del pago',
-       'Canal por el que entro el pago: sucursal, portal, movil o corresponsal.',
+       'Canal por el que entró el pago: sucursal, portal, móvil o corresponsal.',
        'canal del pago punto de cobro payment channel',
        'operacion', 'categoria',
        'restringida', 'intradia',
@@ -1552,12 +1552,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_ref_banc',
        'Referencia bancaria',
-       'Referencia numerica con la que el banco identifica el deposito.',
+       'Referencia numérica con la que el banco identifica el depósito.',
        'referencia bancaria linea de captura bank reference',
        'operacion', 'texto',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2025-07-01', NULL
+       'Sofía Aranda', DATE '2025-07-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1566,7 +1566,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_cta_cargo',
        'Cuenta de cargo',
-       'Cuenta del cliente de la que se tomo el importe domiciliado.',
+       'Cuenta del cliente de la que se tomó el importe domiciliado.',
        'cuenta de cargo clabe debit account',
        'operacion', 'texto',
        'restringida', 'mensual',
@@ -1580,12 +1580,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_banco_emis',
        'Banco emisor',
-       'Institucion desde la que se envio la transferencia.',
-       'banco emisor institucion de origen issuing bank',
+       'Institución desde la que se envio la transferencia.',
+       'banco emisor institución de origen issuing bank',
        'operacion', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2025-04-01', NULL
+       'Paola Íñiguez', DATE '2025-04-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1595,7 +1595,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'pg_est',
        'Estatus del pago',
        'Aplicado, en transito o devuelto por el banco.',
-       'estatus del pago situacion del pago payment status',
+       'estatus del pago situación del pago payment status',
        'operacion', 'categoria',
        'interna', 'mensual',
        'certificado', NULL, NULL,
@@ -1607,8 +1607,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_dev_motivo',
-       'Motivo de devolucion',
-       'Causa por la que el banco devolvio el pago domiciliado.',
+       'Motivo de devolución',
+       'Causa por la que el banco devolvió el pago domiciliado.',
        'devolucion rechazo del pago return reason',
        'operacion', 'categoria',
        'interna', 'mensual',
@@ -1621,9 +1621,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_f_dev',
-       'Fecha de devolucion',
-       'Dia en que el banco informo la devolucion del pago.',
-       'fecha de devolucion dia de rechazo return date',
+       'Fecha de devolución',
+       'Día en que el banco informó la devolución del pago.',
+       'fecha de devolución día de rechazo return date',
        'operacion', 'fecha',
        'publica', 'semanal',
        'obsoleto', NULL, NULL,
@@ -1635,13 +1635,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_conc',
-       'Marca de conciliacion',
+       'Marca de conciliación',
        'Indica que el pago ya fue conciliado contra el estado de cuenta bancario.',
        'conciliacion conciliado reconciled conciliación',
        'contable', 'booleano',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2025-07-01', NULL
+       'Hugo Beltrán', DATE '2025-07-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1649,9 +1649,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_f_conc',
-       'Fecha de conciliacion',
-       'Dia en que el pago quedo conciliado con contabilidad.',
-       'fecha de conciliacion cuadre reconciliation date conciliación',
+       'Fecha de conciliación',
+       'Día en que el pago quedó conciliado con contabilidad.',
+       'fecha de conciliación cuadre reconciliation date',
        'contable', 'fecha',
        'interna', 'intradia',
        'certificado', NULL, NULL,
@@ -1663,8 +1663,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_poliza',
-       'Poliza contable del pago',
-       'Poliza del libro mayor donde quedo registrado el pago.',
+       'Póliza contable del pago',
+       'Póliza del libro mayor donde quedó registrado el pago.',
        'poliza asiento contable journal entry',
        'contable', 'texto',
        'interna', 'diaria',
@@ -1678,12 +1678,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_moneda',
        'Moneda del pago',
-       'Divisa en que se recibio el pago, en ISO-4217.',
+       'Divisa en que se recibió el pago, en ISO-4217.',
        'moneda del pago divisa payment currency',
        'operacion', 'categoria',
        'restringida', 'diaria',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2024-01-01', NULL
+       'Iván Zepeda', DATE '2024-01-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1692,12 +1692,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_tc',
        'Tipo de cambio aplicado',
-       'Tipo de cambio con el que se valorizo un pago en moneda extranjera.',
+       'Tipo de cambio con el que se valorizó un pago en moneda extranjera.',
        'tipo de cambio paridad exchange rate',
        'mercado', 'decimal',
        'publica', 'intradia',
        'certificado', NULL, 'mean',
-       'Hugo Beltran', DATE '2020-04-01', NULL
+       'Hugo Beltrán', DATE '2020-04-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1711,7 +1711,7 @@ SELECT s.id, 'pg_anticipo',
        'operacion', 'booleano',
        'interna', 'intradia',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2021-10-01', NULL
+       'Paola Íñiguez', DATE '2021-10-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1720,12 +1720,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_parcial',
        'Marca de pago parcial',
-       'Indica que el importe recibido no cubre la exhibicion completa.',
+       'Indica que el importe recibido no cubre la exhibición completa.',
        'pago parcial abono partial payment',
        'operacion', 'booleano',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Sofia Aranda', DATE '2020-07-01', NULL
+       'Sofía Aranda', DATE '2020-07-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1733,9 +1733,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_n_exhib',
-       'Numero de exhibicion',
-       'Numero de la amortizacion del calendario que el pago cubre.',
-       'exhibicion numero de cuota installment number amortización',
+       'Número de exhibición',
+       'Número de la amortización del calendario que el pago cubre.',
+       'exhibicion número de cuota installment number',
        'cartera', 'entero',
        'interna', 'semanal',
        'certificado', NULL, NULL,
@@ -1747,13 +1747,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'pg_dias_atraso',
-       'Dias de atraso al momento del pago',
-       'Dias que el contrato llevaba vencido cuando entro el pago.',
-       'dias de atraso atraso mora days past due',
+       'Días de atraso al momento del pago',
+       'Días que el contrato llevaba vencido cuando entró el pago.',
+       'días de atraso atraso mora days past due',
        'cartera', 'entero',
        'publica', 'mensual',
        'en_revision', 'dias', 'mean',
-       'Sofia Aranda', DATE '2025-01-01', NULL
+       'Sofía Aranda', DATE '2025-01-01', NULL
   FROM catalog_source s WHERE s.code = 'pagos';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1776,7 +1776,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'pg_gestor',
        'Gestor de cobranza',
-       'Persona o despacho que gestiono la recuperacion del adeudo.',
+       'Persona o despacho que gestionó la recuperación del adeudo.',
        'gestor despacho de cobranza collector',
        'operacion', 'texto',
        'restringida', 'intradia',
@@ -1792,8 +1792,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_periodo',
        'Periodo de calculo',
-       'Mes de cierre al que corresponde la calificacion de la cartera.',
-       'periodo mes de calculo reporting period calificación',
+       'Mes de cierre al que corresponde la calificación de la cartera.',
+       'periodo mes de calculo reporting period',
        'riesgo', 'texto',
        'interna', 'mensual',
        'certificado', NULL, NULL,
@@ -1806,8 +1806,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_contrato',
        'Contrato calificado',
-       'Clave del credito al que se le calculo la reserva.',
-       'contrato credito calificado rated loan',
+       'Clave del crédito al que se le calculo la reserva.',
+       'contrato crédito calificado rated loan',
        'cartera', 'texto',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
@@ -1833,13 +1833,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_eprc',
-       'Estimacion preventiva para riesgos crediticios',
-       'Estimacion preventiva para riesgos crediticios del contrato en el periodo.',
-       'eprc estimacion preventiva provision loan loss provision estimación',
+       'Estimación preventiva para riesgos crediticios',
+       'Estimación preventiva para riesgos crediticios del contrato en el periodo.',
+       'eprc estimación preventiva provision loan loss provisión',
        'riesgo', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Sofia Aranda', DATE '2022-04-01', NULL
+       'Sofía Aranda', DATE '2022-04-01', NULL
   FROM catalog_source s WHERE s.code = 'provisiones';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1875,8 +1875,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_sp',
-       'Severidad de la perdida',
-       'Porcion de la exposicion que se pierde si el acreditado incumple.',
+       'Severidad de la pérdida',
+       'Porción de la exposición que se pierde si el acreditado incumple.',
        'severidad lgd loss given default',
        'riesgo', 'decimal',
        'interna', 'diaria',
@@ -1889,7 +1889,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_ei',
-       'Exposicion al incumplimiento',
+       'Exposición al incumplimiento',
        'Saldo expuesto al momento del incumplimiento, con lineas dispuestas.',
        'exposicion ead exposure at default',
        'riesgo', 'decimal',
@@ -1903,9 +1903,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_pe',
-       'Perdida esperada',
-       'Producto de probabilidad, severidad y exposicion del contrato.',
-       'perdida esperada expected loss pe',
+       'Pérdida esperada',
+       'Producto de probabilidad, severidad y exposición del contrato.',
+       'pérdida esperada expected loss pe',
        'riesgo', 'decimal',
        'interna', 'mensual',
        'obsoleto', 'MXN', 'sum',
@@ -1918,8 +1918,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_grado',
        'Grado de riesgo',
-       'Grado de riesgo asignado, de A-1 a E, segun la metodologia vigente.',
-       'grado de riesgo calificacion de cartera risk grade calificación',
+       'Grado de riesgo asignado, de A-1 a E, según la metodología vigente.',
+       'grado de riesgo calificación de cartera risk grade',
        'riesgo', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
@@ -1931,9 +1931,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_metodo',
-       'Metodologia de calificacion',
-       'Metodologia general del regulador o interna autorizada.',
-       'metodologia modelo de calificacion rating methodology calificación',
+       'Metodología de calificación',
+       'Metodología general del regulador o interna autorizada.',
+       'metodologia modelo de calificación rating methodology',
        'regulatorio', 'categoria',
        'publica', 'diaria',
        'en_revision', NULL, NULL,
@@ -1946,7 +1946,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_cartera_tipo',
        'Tipo de cartera',
-       'Comercial, de consumo o de vivienda, para elegir la metodologia.',
+       'Comercial, de consumo o de vivienda, para elegir la metodología.',
        'tipo de cartera portafolio portfolio type',
        'cartera', 'categoria',
        'restringida', 'diaria',
@@ -1959,13 +1959,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_f_calif',
-       'Fecha de calificacion',
-       'Dia en que el comite fijo la calificacion del acreditado.',
-       'fecha de calificacion comite de credito rating date calificación',
+       'Fecha de calificación',
+       'Día en que el comite fijo la calificación del acreditado.',
+       'fecha de calificación comite de crédito rating date',
        'riesgo', 'fecha',
        'restringida', 'mensual',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2019-01-01', NULL
+       'Paola Íñiguez', DATE '2019-01-01', NULL
   FROM catalog_source s WHERE s.code = 'provisiones';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1979,7 +1979,7 @@ SELECT s.id, 'prv_mto_exp',
        'riesgo', 'decimal',
        'interna', 'intradia',
        'en_revision', 'MXN', 'sum',
-       'Ivan Zepeda', DATE '2024-04-01', NULL
+       'Iván Zepeda', DATE '2024-04-01', NULL
   FROM catalog_source s WHERE s.code = 'provisiones';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -1987,9 +1987,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_gar_recon',
-       'Garantia reconocida',
-       'Porcion del saldo cubierta por garantias elegibles como mitigante.',
-       'garantia reconocida cobertura recognised collateral garantía garantías',
+       'Garantía reconocida',
+       'Porción del saldo cubierta por garantías elegibles como mitigante.',
+       'garantía reconocida cobertura recognised collateral',
        'riesgo', 'decimal',
        'interna', 'intradia',
        'certificado', 'MXN', 'sum',
@@ -2001,13 +2001,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_exp_neta',
-       'Exposicion neta de garantias',
-       'Saldo expuesto una vez descontada la garantia reconocida.',
-       'exposicion neta descubierto net exposure garantías garantía',
+       'Exposición neta de garantías',
+       'Saldo expuesto una vez descontada la garantía reconocida.',
+       'exposición neta descubierto net exposure',
        'riesgo', 'decimal',
        'interna', 'intradia',
        'certificado', 'MXN', 'sum',
-       'Marcela Rios', DATE '2023-10-01', NULL
+       'Marcela Ríos', DATE '2023-10-01', NULL
   FROM catalog_source s WHERE s.code = 'provisiones';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2016,7 +2016,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_castigo',
        'Marca de castigo',
-       'Indica que el contrato fue castigado y salio del balance.',
+       'Indica que el contrato fue castigado y salió del balance.',
        'castigo quebranto charge off',
        'riesgo', 'booleano',
        'restringida', 'mensual',
@@ -2030,7 +2030,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_f_castigo',
        'Fecha de castigo',
-       'Dia en que se aplico el castigo contable del contrato.',
+       'Día en que se aplicó el castigo contable del contrato.',
        'fecha de castigo quebranto charge off date',
        'riesgo', 'fecha',
        'publica', 'diaria',
@@ -2058,7 +2058,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_reest',
        'Marca de reestructura',
-       'Indica que el credito fue reestructurado o renovado.',
+       'Indica que el crédito fue reestructurado o renovado.',
        'reestructura renovacion restructured',
        'cartera', 'booleano',
        'publica', 'diaria',
@@ -2072,7 +2072,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_f_reest',
        'Fecha de reestructura',
-       'Dia en que se formalizo la reestructura del credito.',
+       'Día en que se formalizó la reestructura del crédito.',
        'fecha de reestructura renovacion restructure date',
        'cartera', 'fecha',
        'restringida', 'diaria',
@@ -2086,7 +2086,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_etapa',
        'Etapa de deterioro',
-       'Etapa uno, dos o tres del modelo de perdida crediticia esperada.',
+       'Etapa uno, dos o tres del modelo de pérdida crediticia esperada.',
        'etapa deterioro stage',
        'riesgo', 'categoria',
        'interna', 'semanal',
@@ -2099,13 +2099,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_dias_atr',
-       'Dias de atraso considerados',
-       'Dias de atraso con los que se califico el contrato en el periodo.',
-       'dias de atraso atraso mora days past due',
+       'Días de atraso considerados',
+       'Días de atraso con los que se calificó el contrato en el periodo.',
+       'días de atraso atraso mora days past due',
        'riesgo', 'entero',
        'interna', 'diaria',
        'en_revision', 'dias', 'mean',
-       'Ivan Zepeda', DATE '2023-07-01', NULL
+       'Iván Zepeda', DATE '2023-07-01', NULL
   FROM catalog_source s WHERE s.code = 'provisiones';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2115,7 +2115,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'prv_sensib',
        'Sensibilidad de la reserva',
        'Cambio en la reserva ante un movimiento de un punto en la probabilidad.',
-       'sensibilidad elasticidad de la reserva provision sensitivity',
+       'sensibilidad elasticidad de la reserva provisión sensitivity',
        'riesgo', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
@@ -2127,7 +2127,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_var_mes',
-       'Variacion mensual de la reserva',
+       'Variación mensual de la reserva',
        'Diferencia de la reserva contra el cierre del mes anterior.',
        'variacion movimiento de reservas monthly change',
        'riesgo', 'decimal',
@@ -2141,7 +2141,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_cob_pct',
-       'Indice de cobertura de reservas',
+       'Índice de cobertura de reservas',
        'Reservas constituidas entre la cartera vencida del periodo.',
        'cobertura de reservas icor coverage ratio',
        'riesgo', 'decimal',
@@ -2156,7 +2156,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'prv_mto_adic',
        'Reservas adicionales',
-       'Reservas por encima de la metodologia, autorizadas por el consejo.',
+       'Reservas por encima de la metodología, autorizadas por el consejo.',
        'reservas adicionales reserva voluntaria additional provisions',
        'riesgo', 'decimal',
        'interna', 'diaria',
@@ -2169,9 +2169,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_libera',
-       'Liberacion de reservas',
-       'Reservas liberadas al mejorar la calificacion o al recuperar el credito.',
-       'liberacion de reservas cancelacion de reserva provision release calificación',
+       'Liberación de reservas',
+       'Reservas liberadas al mejorar la calificación o al recuperar el crédito.',
+       'liberación de reservas cancelación de reserva provisión release',
        'riesgo', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
@@ -2189,7 +2189,7 @@ SELECT s.id, 'prv_resp',
        'riesgo', 'texto',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
-       'Paola Iniguez', DATE '2023-04-01', NULL
+       'Paola Íñiguez', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'provisiones';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2197,13 +2197,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'prv_obs',
-       'Nota metodologica',
-       'Explicacion de los ajustes aplicados fuera de la metodologia estandar.',
-       'nota metodologica observaciones methodology note',
+       'Nota metodológica',
+       'Explicación de los ajustes aplicados fuera de la metodología estándar.',
+       'nota metodológica observaciones methodology note',
        'riesgo', 'texto',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2019-10-01', NULL
+       'Iván Zepeda', DATE '2019-10-01', NULL
   FROM catalog_source s WHERE s.code = 'provisiones';
 
 -- contabilidad
@@ -2215,11 +2215,11 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'cta_ctble',
        'Cuenta contable',
        'Cuenta del catalogo institucional donde se registra el movimiento.',
-       'cuenta contable numero de cuenta ledger account',
+       'cuenta contable número de cuenta ledger account',
        'contable', 'texto',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Ivan Zepeda', DATE '2021-07-01', NULL
+       'Iván Zepeda', DATE '2021-07-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2228,8 +2228,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cta_nivel',
        'Nivel de la cuenta',
-       'Nivel jerarquico de la cuenta dentro del catalogo contable.',
-       'nivel jerarquia de la cuenta account level',
+       'Nivel jerárquico de la cuenta dentro del catalogo contable.',
+       'nivel jerarquía de la cuenta account level',
        'contable', 'entero',
        'interna', 'diaria',
        'certificado', NULL, NULL,
@@ -2242,12 +2242,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cta_desc',
        'Nombre de la cuenta',
-       'Descripcion de la cuenta contable tal como aparece en el catalogo.',
-       'nombre de la cuenta descripcion contable account name',
+       'Descripción de la cuenta contable tal como aparece en el catalogo.',
+       'nombre de la cuenta descripción contable account name',
        'contable', 'texto',
        'interna', 'mensual',
        'obsoleto', NULL, NULL,
-       'Paola Iniguez', DATE '2022-10-01', DATE '2025-10-01'
+       'Paola Íñiguez', DATE '2022-10-01', DATE '2025-10-01'
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2256,7 +2256,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'cta_natur',
        'Naturaleza de la cuenta',
-       'Deudora o acreedora, segun el saldo que la cuenta acumula.',
+       'Deudora o acreedora, según el saldo que la cuenta acumula.',
        'naturaleza deudora o acreedora account nature',
        'contable', 'categoria',
        'interna', 'diaria',
@@ -2271,7 +2271,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'cta_rubro',
        'Rubro del balance',
        'Rubro del balance o del estado de resultados donde suma la cuenta.',
-       'rubro renglon del balance balance sheet line',
+       'rubro renglón del balance balance sheet line',
        'contable', 'categoria',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
@@ -2289,7 +2289,7 @@ SELECT s.id, 'cta_grupo',
        'regulatorio', 'categoria',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2023-01-01', NULL
+       'Hugo Beltrán', DATE '2023-01-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2297,13 +2297,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mov_poliza',
-       'Numero de poliza',
-       'Numero de la poliza contable que agrupa las partidas del asiento.',
+       'Número de póliza',
+       'Número de la póliza contable que agrupa las partidas del asiento.',
        'poliza asiento journal entry',
        'contable', 'texto',
        'interna', 'diaria',
        'certificado', NULL, 'count',
-       'Paola Iniguez', DATE '2023-04-01', NULL
+       'Paola Íñiguez', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2311,9 +2311,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mov_tipo_pol',
-       'Tipo de poliza',
-       'Ingreso, egreso o diario, segun el origen del asiento.',
-       'tipo de poliza clase de asiento entry type',
+       'Tipo de póliza',
+       'Ingreso, egreso o diario, según el origen del asiento.',
+       'tipo de póliza clase de asiento entry type',
        'contable', 'categoria',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
@@ -2326,12 +2326,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mov_f_conta',
        'Fecha contable',
-       'Dia al que se afecta el resultado, que manda sobre la fecha de captura.',
-       'fecha contable fecha de afectacion accounting date',
+       'Día al que se afecta el resultado, que manda sobre la fecha de captura.',
+       'fecha contable fecha de afectación accounting date',
        'contable', 'fecha',
        'restringida', 'semanal',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2019-01-01', NULL
+       'Paola Íñiguez', DATE '2019-01-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2340,7 +2340,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mov_f_reg',
        'Fecha de registro',
-       'Dia en que el asiento se capturo en el sistema contable.',
+       'Día en que el asiento se capturó en el sistema contable.',
        'fecha de registro captura entry date',
        'contable', 'fecha',
        'interna', 'intradia',
@@ -2387,7 +2387,7 @@ SELECT s.id, 'mov_moneda',
        'contable', 'categoria',
        'publica', 'diaria',
        'obsoleto', NULL, NULL,
-       'Sofia Aranda', DATE '2021-04-01', DATE '2022-04-01'
+       'Sofía Aranda', DATE '2021-04-01', DATE '2022-04-01'
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2396,12 +2396,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mov_tc',
        'Tipo de cambio contable',
-       'Tipo de cambio del cierre con el que se valorizo la partida.',
+       'Tipo de cambio del cierre con el que se valorizó la partida.',
        'tipo de cambio paridad contable exchange rate',
        'contable', 'decimal',
        'restringida', 'diaria',
        'certificado', NULL, 'mean',
-       'Hugo Beltran', DATE '2022-07-01', NULL
+       'Hugo Beltrán', DATE '2022-07-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2429,7 +2429,7 @@ SELECT s.id, 'mov_cco',
        'contable', 'categoria',
        'publica', 'mensual',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2021-01-01', NULL
+       'Sofía Aranda', DATE '2021-01-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2457,7 +2457,7 @@ SELECT s.id, 'mov_suc',
        'contable', 'categoria',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2019-04-01', NULL
+       'Iván Zepeda', DATE '2019-04-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2466,12 +2466,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mov_concepto',
        'Concepto del movimiento',
-       'Descripcion del gasto, del ingreso o del traspaso registrado.',
+       'Descripción del gasto, del ingreso o del traspaso registrado.',
        'concepto glosa del gasto description',
        'contable', 'texto',
        'publica', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2024-04-01', NULL
+       'Marcela Ríos', DATE '2024-04-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2480,12 +2480,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mov_ref',
        'Referencia del origen',
-       'Clave con la que el sistema de origen identifica la operacion.',
-       'referencia folio de origen source reference operación',
+       'Clave con la que el sistema de origen identifica la operación.',
+       'referencia folio de origen source reference',
        'contable', 'texto',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
-       'Ivan Zepeda', DATE '2025-07-01', NULL
+       'Iván Zepeda', DATE '2025-07-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2494,8 +2494,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mov_origen',
        'Sistema de origen',
-       'Sistema que genero la partida: credito, tesoreria, nomina o manual.',
-       'sistema de origen aplicativo source system tesorería',
+       'Sistema que generó la partida: crédito, tesorería, nómina o manual.',
+       'sistema de origen aplicativo source system',
        'contable', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
@@ -2508,7 +2508,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mov_usuario',
        'Usuario que registro',
-       'Usuario que capturo la poliza manual en el sistema contable.',
+       'Usuario que capturó la póliza manual en el sistema contable.',
        'usuario capturista user',
        'contable', 'texto',
        'restringida', 'diaria',
@@ -2521,13 +2521,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mov_est',
-       'Estatus de la poliza',
+       'Estatus de la póliza',
        'Borrador, autorizada o cancelada.',
-       'estatus de la poliza situacion del asiento entry status',
+       'estatus de la póliza situación del asiento entry status',
        'contable', 'categoria',
        'restringida', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2020-10-01', NULL
+       'Marcela Ríos', DATE '2020-10-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2536,7 +2536,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mov_f_cierre',
        'Fecha de cierre contable',
-       'Dia en que se cerro el periodo y la partida dejo de ser modificable.',
+       'Día en que se cerró el periodo y la partida dejó de ser modificable.',
        'cierre contable fecha de cierre closing date',
        'contable', 'fecha',
        'interna', 'intradia',
@@ -2555,7 +2555,7 @@ SELECT s.id, 'mov_periodo',
        'contable', 'texto',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2019-01-01', NULL
+       'Hugo Beltrán', DATE '2019-01-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2563,13 +2563,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mov_conc',
-       'Marca de conciliacion contable',
+       'Marca de conciliación contable',
        'Indica que la partida fue conciliada contra el auxiliar del sistema origen.',
        'conciliacion cuadre reconciled conciliación',
        'contable', 'booleano',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Marcela Rios', DATE '2022-10-01', NULL
+       'Marcela Ríos', DATE '2022-10-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2577,9 +2577,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mov_partida',
-       'Numero de partida',
-       'Consecutivo de la partida dentro de la poliza.',
-       'partida renglon del asiento line number',
+       'Número de partida',
+       'Consecutivo de la partida dentro de la póliza.',
+       'partida renglón del asiento line number',
        'contable', 'entero',
        'publica', 'diaria',
        'certificado', NULL, NULL,
@@ -2607,11 +2607,11 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'mov_ajuste',
        'Marca de ajuste',
        'Indica que la partida corrige un registro previo del mismo periodo.',
-       'ajuste correccion contable adjustment',
+       'ajuste corrección contable adjustment',
        'contable', 'booleano',
        'interna', 'intradia',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2020-10-01', NULL
+       'Paola Íñiguez', DATE '2020-10-01', NULL
   FROM catalog_source s WHERE s.code = 'contabilidad';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2635,13 +2635,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_f_pos',
-       'Fecha de la posicion de tesoreria',
-       'Dia al que corresponde la posicion consolidada de tesoreria.',
-       'posicion de tesoreria fecha de posicion treasury position date tesorería',
+       'Fecha de la posición de tesorería',
+       'Día al que corresponde la posición consolidada de tesorería.',
+       'posición de tesorería fecha de posición treasury position date',
        'liquidez', 'fecha',
        'publica', 'mensual',
        'certificado', NULL, NULL,
-       'Ivan Zepeda', DATE '2022-10-01', NULL
+       'Iván Zepeda', DATE '2022-10-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2650,8 +2650,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'tes_hora_corte',
        'Hora de corte',
-       'Hora en que se congelo la posicion de tesoreria del dia.',
-       'hora de corte corte del dia cut off time tesorería',
+       'Hora en que se congeló la posición de tesorería del día.',
+       'hora de corte corte del día cut off time',
        'liquidez', 'texto',
        'interna', 'mensual',
        'certificado', NULL, NULL,
@@ -2663,13 +2663,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_cta_teso',
-       'Cuenta de tesoreria',
-       'Cuenta operativa de tesoreria donde se concentra el efectivo.',
-       'cuenta de tesoreria cuenta concentradora treasury account tesorería',
+       'Cuenta de tesorería',
+       'Cuenta operativa de tesorería donde se concentra el efectivo.',
+       'cuenta de tesorería cuenta concentradora treasury account',
        'liquidez', 'texto',
        'interna', 'semanal',
        'obsoleto', NULL, NULL,
-       'Marcela Rios', DATE '2021-01-01', DATE '2024-01-01'
+       'Marcela Ríos', DATE '2021-01-01', DATE '2024-01-01'
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2678,8 +2678,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'tes_banco',
        'Banco corresponsal',
-       'Institucion donde la tesoreria mantiene la cuenta.',
-       'banco corresponsal corresponsalia correspondent bank tesorería',
+       'Institución donde la tesorería mantiene la cuenta.',
+       'banco corresponsal corresponsalia correspondent bank',
        'liquidez', 'categoria',
        'restringida', 'intradia',
        'en_revision', NULL, NULL,
@@ -2691,13 +2691,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_saldo_ini',
-       'Saldo inicial del dia',
-       'Efectivo en tesoreria al abrir la jornada.',
-       'saldo inicial apertura opening balance tesorería',
+       'Saldo inicial del día',
+       'Efectivo en tesorería al abrir la jornada.',
+       'saldo inicial apertura opening balance',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Ivan Zepeda', DATE '2021-04-01', NULL
+       'Iván Zepeda', DATE '2021-04-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2705,7 +2705,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_entradas',
-       'Entradas del dia',
+       'Entradas del día',
        'Suma de las entradas de efectivo registradas en la jornada.',
        'entradas ingresos de efectivo cash in',
        'liquidez', 'decimal',
@@ -2719,13 +2719,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_salidas',
-       'Salidas del dia',
+       'Salidas del día',
        'Suma de las salidas de efectivo registradas en la jornada.',
        'salidas egresos de efectivo cash out',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'en_revision', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2021-04-01', NULL
+       'Hugo Beltrán', DATE '2021-04-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2733,9 +2733,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_saldo_fin',
-       'Posicion de cierre de tesoreria',
-       'Efectivo en tesoreria al cerrar la jornada.',
-       'saldo final posicion de cierre closing balance tesorería',
+       'Posición de cierre de tesorería',
+       'Efectivo en tesorería al cerrar la jornada.',
+       'saldo final posición de cierre closing balance',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'obsoleto', 'MXN', 'sum',
@@ -2747,9 +2747,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_saldo_disp',
-       'Disponible en tesoreria',
+       'Disponible en tesorería',
        'Efectivo disponible para operar, sin considerar el comprometido.',
-       'dinero disponible efectivo disponible available cash tesorería',
+       'dinero disponible efectivo disponible available cash',
        'liquidez', 'decimal',
        'interna', 'mensual',
        'en_revision', 'MXN', 'sum',
@@ -2761,13 +2761,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_moneda',
-       'Moneda de la posicion',
-       'Divisa de la cuenta de tesoreria, en ISO-4217.',
-       'moneda divisa currency tesorería',
+       'Moneda de la posición',
+       'Divisa de la cuenta de tesorería, en ISO-4217.',
+       'moneda divisa currency',
        'liquidez', 'categoria',
        'restringida', 'intradia',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2021-01-01', NULL
+       'Sofía Aranda', DATE '2021-01-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2775,8 +2775,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_tc',
-       'Tipo de cambio de la posicion',
-       'Tipo de cambio con el que se valoriza la posicion en pesos.',
+       'Tipo de cambio de la posición',
+       'Tipo de cambio con el que se valoriza la posición en pesos.',
        'tipo de cambio paridad exchange rate',
        'mercado', 'decimal',
        'publica', 'semanal',
@@ -2789,9 +2789,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_saldo_mxn',
-       'Posicion valorizada en pesos',
-       'Posicion de tesoreria convertida a pesos con el tipo de cambio del dia.',
-       'posicion en pesos valorizado position in pesos tesorería',
+       'Posición valorizada en pesos',
+       'Posición de tesorería convertida a pesos con el tipo de cambio del día.',
+       'posición en pesos valorizado position in pesos',
        'liquidez', 'decimal',
        'interna', 'mensual',
        'en_revision', 'MXN', 'sum',
@@ -2803,13 +2803,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_flujo_neto',
-       'Flujo neto del dia',
+       'Flujo neto del día',
        'Entradas menos salidas de efectivo de la jornada.',
        'flujo neto flujo de efectivo net cash flow',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2019-04-01', NULL
+       'Hugo Beltrán', DATE '2019-04-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2817,9 +2817,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_proy_1d',
-       'Flujo proyectado a un dia',
-       'Proyeccion simulada del flujo de efectivo del siguiente dia habil.',
-       'proyeccion a un dia pronostico one day forecast',
+       'Flujo proyectado a un día',
+       'Proyección simulada del flujo de efectivo del siguiente día hábil.',
+       'proyección a un día pronostico one day forecast',
        'liquidez', 'decimal',
        'interna', 'semanal',
        'certificado', 'MXN', 'sum',
@@ -2831,13 +2831,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_proy_5d',
-       'Flujo proyectado a cinco dias',
-       'Proyeccion simulada del flujo acumulado de la siguiente semana habil.',
-       'proyeccion a cinco dias pronostico semanal five day forecast',
+       'Flujo proyectado a cinco días',
+       'Proyección simulada del flujo acumulado de la siguiente semana hábil.',
+       'proyección a cinco días pronóstico semanal five day forecast',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Paola Iniguez', DATE '2022-10-01', NULL
+       'Paola Íñiguez', DATE '2022-10-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2845,13 +2845,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_proy_30d',
-       'Flujo proyectado a treinta dias',
-       'Proyeccion simulada del flujo acumulado del siguiente mes.',
-       'proyeccion a treinta dias pronostico mensual thirty day forecast',
+       'Flujo proyectado a treinta días',
+       'Proyección simulada del flujo acumulado del siguiente mes.',
+       'proyección a treinta días pronóstico mensual thirty day forecast',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2025-04-01', NULL
+       'Hugo Beltrán', DATE '2025-04-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2860,12 +2860,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'tes_col_dispo',
        'Colateral disponible',
-       'Titulos libres que la tesoreria puede dar en garantia.',
-       'colateral disponible titulos libres available collateral tesorería garantía',
+       'Títulos libres que la tesorería puede dar en garantía.',
+       'colateral disponible títulos libres available collateral',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Paola Iniguez', DATE '2025-10-01', NULL
+       'Paola Íñiguez', DATE '2025-10-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2874,8 +2874,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'tes_col_compr',
        'Colateral comprometido',
-       'Titulos ya entregados en garantia y no disponibles para operar.',
-       'colateral comprometido titulos gravados pledged collateral garantía',
+       'Títulos ya entregados en garantía y no disponibles para operar.',
+       'colateral comprometido títulos gravados pledged collateral',
        'liquidez', 'decimal',
        'interna', 'mensual',
        'certificado', 'MXN', 'sum',
@@ -2887,13 +2887,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_lin_credito',
-       'Lineas de credito disponibles',
+       'Lineas de crédito disponibles',
        'Lineas interbancarias autorizadas y no dispuestas.',
-       'lineas disponibles credito interbancario credit lines',
+       'lineas disponibles crédito interbancario credit lines',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Ivan Zepeda', DATE '2022-07-01', NULL
+       'Iván Zepeda', DATE '2022-07-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2907,7 +2907,7 @@ SELECT s.id, 'tes_lin_usada',
        'liquidez', 'decimal',
        'interna', 'semanal',
        'en_revision', 'MXN', 'sum',
-       'Ivan Zepeda', DATE '2023-07-01', NULL
+       'Iván Zepeda', DATE '2023-07-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2915,13 +2915,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_call_money',
-       'Fondeo interbancario a un dia',
-       'Fondeo tomado o colocado a un dia en el mercado interbancario.',
-       'call money fondeo a un dia overnight funding',
+       'Fondeo interbancario a un día',
+       'Fondeo tomado o colocado a un día en el mercado interbancario.',
+       'call money fondeo a un día overnight funding',
        'liquidez', 'decimal',
        'interna', 'semanal',
        'en_revision', 'MXN', 'sum',
-       'Paola Iniguez', DATE '2021-01-01', NULL
+       'Paola Íñiguez', DATE '2021-01-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2929,13 +2929,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_reporto',
-       'Posicion en reporto',
-       'Saldo de operaciones de reporto vivas al cierre del dia.',
+       'Posición en reporto',
+       'Saldo de operaciones de reporto vivas al cierre del día.',
        'reporto repo repurchase agreement',
        'liquidez', 'decimal',
        'interna', 'mensual',
        'obsoleto', 'MXN', 'sum',
-       'Marcela Rios', DATE '2021-10-01', DATE '2024-10-01'
+       'Marcela Ríos', DATE '2021-10-01', DATE '2024-10-01'
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2943,9 +2943,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_encaje',
-       'Deposito de regulacion monetaria',
-       'Deposito obligatorio en el banco central que no computa como disponible.',
-       'encaje regulacion monetaria reserve requirement regulación',
+       'Depósito de regulación monetaria',
+       'Depósito obligatorio en el banco central que no computa como disponible.',
+       'encaje regulación monetaria reserve requirement',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'en_revision', 'MXN', 'sum',
@@ -2958,12 +2958,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'tes_hqla',
        'Activos liquidos de alta calidad',
-       'Titulos que califican como activos liquidos ante el regulador.',
+       'Títulos que califican como activos liquidos ante el regulador.',
        'hqla activos liquidos high quality liquid assets',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Ivan Zepeda', DATE '2020-07-01', NULL
+       'Iván Zepeda', DATE '2020-07-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2971,13 +2971,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_salidas_30d',
-       'Salidas netas a treinta dias',
-       'Salidas netas de efectivo estimadas para los proximos treinta dias.',
-       'salidas netas flujo a treinta dias net cash outflows',
+       'Salidas netas a treinta días',
+       'Salidas netas de efectivo estimadas para los proximos treinta días.',
+       'salidas netas flujo a treinta días net cash outflows',
        'regulatorio', 'decimal',
        'interna', 'intradia',
        'certificado', 'MXN', 'sum',
-       'Ivan Zepeda', DATE '2025-10-01', NULL
+       'Iván Zepeda', DATE '2025-10-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2985,13 +2985,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_cash_pool',
-       'Concentracion de saldos',
+       'Concentración de saldos',
        'Saldo barrido de las cuentas operativas hacia la concentradora.',
-       'cash pooling barrido de saldos cash concentration concentración',
+       'cash pooling barrido de saldos cash concentration',
        'liquidez', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2021-01-01', NULL
+       'Hugo Beltrán', DATE '2021-01-01', NULL
   FROM catalog_source s WHERE s.code = 'tesoreria';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -2999,8 +2999,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_gap_1d',
-       'Brecha de liquidez a un dia',
-       'Diferencia entre activos y pasivos que vencen al siguiente dia habil.',
+       'Brecha de liquidez a un día',
+       'Diferencia entre activos y pasivos que vencen al siguiente día hábil.',
        'brecha gap de liquidez liquidity gap',
        'liquidez', 'decimal',
        'interna', 'diaria',
@@ -3013,9 +3013,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_f_valor',
-       'Fecha valor de la operacion',
-       'Dia en que la operacion de tesoreria liquida efectivamente.',
-       'fecha valor liquidacion value date operación tesorería liquidación',
+       'Fecha valor de la operación',
+       'Día en que la operación de tesorería liquida efectivamente.',
+       'fecha valor liquidacion value date liquidación',
        'liquidez', 'fecha',
        'publica', 'diaria',
        'certificado', NULL, NULL,
@@ -3027,8 +3027,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_resp',
-       'Responsable de la posicion',
-       'Operador de la mesa que firma la posicion del dia.',
+       'Responsable de la posición',
+       'Operador de la mesa que firma la posición del día.',
        'responsable operador de mesa desk owner',
        'liquidez', 'texto',
        'interna', 'diaria',
@@ -3041,8 +3041,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'tes_obs',
-       'Observaciones de la posicion',
-       'Notas del operador sobre movimientos extraordinarios del dia.',
+       'Observaciones de la posición',
+       'Notas del operador sobre movimientos extraordinarios del día.',
        'observaciones notas de la mesa remarks',
        'liquidez', 'texto',
        'interna', 'diaria',
@@ -3057,9 +3057,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_f_val',
-       'Fecha de valuacion',
-       'Dia de mercado con el que se valuo la posicion.',
-       'fecha de valuacion corte de mercado valuation date',
+       'Fecha de valuación',
+       'Día de mercado con el que se valuó la posición.',
+       'fecha de valuación corte de mercado valuation date',
        'mercado', 'fecha',
        'interna', 'mensual',
        'certificado', NULL, NULL,
@@ -3072,12 +3072,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_port',
        'Portafolio o mesa',
-       'Mesa de operacion a la que pertenece la posicion valuada.',
-       'mesa portafolio trading desk operación',
+       'Mesa de operación a la que pertenece la posición valuada.',
+       'mesa portafolio trading desk',
        'mercado', 'categoria',
        'interna', 'semanal',
        'obsoleto', NULL, NULL,
-       'Paola Iniguez', DATE '2025-10-01', DATE '2026-10-01'
+       'Paola Íñiguez', DATE '2025-10-01', DATE '2026-10-01'
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3085,13 +3085,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_libro',
-       'Libro de negociacion',
-       'Libro contable donde vive la posicion: negociacion o disponible.',
+       'Libro de negociación',
+       'Libro contable donde vive la posición: negociación o disponible.',
        'libro book trading book',
        'mercado', 'categoria',
        'publica', 'semanal',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2019-01-01', NULL
+       'Sofía Aranda', DATE '2019-01-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3100,12 +3100,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_instr',
        'Instrumento valuado',
-       'Instrumento financiero de la posicion: bono, swap, opcion o divisa.',
+       'Instrumento financiero de la posición: bono, swap, opción o divisa.',
        'instrumento producto instrument',
        'mercado', 'categoria',
        'publica', 'diaria',
        'certificado', NULL, NULL,
-       'Hugo Beltran', DATE '2021-04-01', NULL
+       'Hugo Beltrán', DATE '2021-04-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3114,12 +3114,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_factor',
        'Factor de riesgo',
-       'Factor que mueve el valor de la posicion: tasa, tipo de cambio o precio.',
+       'Factor que mueve el valor de la posición: tasa, tipo de cambio o precio.',
        'factor de riesgo variable de mercado risk factor',
        'mercado', 'categoria',
        'restringida', 'semanal',
        'certificado', NULL, NULL,
-       'Hugo Beltran', DATE '2020-07-01', NULL
+       'Hugo Beltrán', DATE '2020-07-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3127,13 +3127,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_pos_mtm',
-       'Valor a mercado de la posicion',
-       'Valuacion a mercado de la posicion al cierre del dia.',
+       'Valor a mercado de la posición',
+       'Valuación a mercado de la posición al cierre del día.',
        'valor de mercado mark to market marca a mercado',
        'mercado', 'decimal',
        'interna', 'mensual',
        'obsoleto', 'MXN', 'sum',
-       'Sofia Aranda', DATE '2023-10-01', DATE '2024-10-01'
+       'Sofía Aranda', DATE '2023-10-01', DATE '2024-10-01'
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3141,13 +3141,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_var_1d',
-       'Valor en riesgo a un dia',
-       'Perdida maxima esperada de la mesa en un dia al nivel de confianza fijado.',
+       'Valor en riesgo a un día',
+       'Pérdida máxima esperada de la mesa en un día al nivel de confianza fijado.',
        'var valor en riesgo value at risk',
        'mercado', 'decimal',
        'interna', 'diaria',
        'en_revision', 'MXN', 'sum',
-       'Sofia Aranda', DATE '2021-10-01', NULL
+       'Sofía Aranda', DATE '2021-10-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3155,9 +3155,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_var_10d',
-       'Valor en riesgo a diez dias',
-       'Valor en riesgo escalado al horizonte regulatorio de diez dias.',
-       'var a diez dias var regulatorio ten day value at risk',
+       'Valor en riesgo a diez días',
+       'Valor en riesgo escalado al horizonte regulatorio de diez días.',
+       'var a diez días var regulatorio ten day value at risk',
        'regulatorio', 'decimal',
        'interna', 'intradia',
        'en_revision', 'MXN', 'sum',
@@ -3183,13 +3183,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_metodo_var',
-       'Metodologia del VaR',
-       'Historica, parametrica o simulacion de Montecarlo.',
-       'metodologia del var modelo de riesgo var methodology',
+       'Metodología del VaR',
+       'Histórica, paramétrica o simulación de Montecarlo.',
+       'metodología del var modelo de riesgo var methodology',
        'mercado', 'categoria',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Paola Iniguez', DATE '2023-01-01', NULL
+       'Paola Íñiguez', DATE '2023-01-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3197,13 +3197,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_es',
-       'Perdida esperada en la cola',
-       'Perdida promedio en los escenarios peores que el valor en riesgo.',
-       'expected shortfall cvar perdida en la cola',
+       'Pérdida esperada en la cola',
+       'Pérdida promedio en los escenarios peores que el valor en riesgo.',
+       'expected shortfall cvar pérdida en la cola',
        'mercado', 'decimal',
        'interna', 'diaria',
        'en_revision', 'MXN', 'sum',
-       'Ivan Zepeda', DATE '2021-10-01', NULL
+       'Iván Zepeda', DATE '2021-10-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3212,7 +3212,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_bpv',
        'Sensibilidad a un punto base',
-       'Cambio en el valor de la posicion ante un movimiento de un punto base.',
+       'Cambio en el valor de la posición ante un movimiento de un punto base.',
        'bpv dv01 sensibilidad a tasa',
        'mercado', 'decimal',
        'interna', 'semanal',
@@ -3225,8 +3225,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_dur',
-       'Duracion',
-       'Duracion modificada del instrumento de tasa.',
+       'Duración',
+       'Duración modificada del instrumento de tasa.',
        'duracion plazo promedio duration',
        'mercado', 'decimal',
        'interna', 'diaria',
@@ -3240,12 +3240,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_conv',
        'Convexidad',
-       'Curvatura de la relacion entre precio y tasa del instrumento.',
+       'Curvatura de la relación entre precio y tasa del instrumento.',
        'convexidad segunda derivada convexity',
        'mercado', 'decimal',
        'interna', 'diaria',
        'certificado', NULL, 'mean',
-       'Hugo Beltran', DATE '2020-01-01', NULL
+       'Hugo Beltrán', DATE '2020-01-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3253,13 +3253,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_delta',
-       'Delta de la posicion',
-       'Sensibilidad del valor de la opcion al precio del subyacente.',
+       'Delta de la posición',
+       'Sensibilidad del valor de la opción al precio del subyacente.',
        'delta sensibilidad al subyacente option delta',
        'mercado', 'decimal',
        'interna', 'diaria',
        'certificado', NULL, 'sum',
-       'Sofia Aranda', DATE '2025-01-01', NULL
+       'Sofía Aranda', DATE '2025-01-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3267,9 +3267,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_gamma',
-       'Gamma de la posicion',
+       'Gamma de la posición',
        'Cambio de la delta ante un movimiento del subyacente.',
-       'gamma convexidad de la opcion option gamma',
+       'gamma convexidad de la opción option gamma',
        'mercado', 'decimal',
        'interna', 'mensual',
        'certificado', NULL, 'sum',
@@ -3281,13 +3281,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_vega',
-       'Vega de la posicion',
-       'Sensibilidad del valor de la opcion a la volatilidad implicita.',
+       'Vega de la posición',
+       'Sensibilidad del valor de la opción a la volatilidad implicita.',
        'vega sensibilidad a volatilidad option vega',
        'mercado', 'decimal',
        'interna', 'diaria',
        'en_revision', NULL, 'sum',
-       'Paola Iniguez', DATE '2022-07-01', NULL
+       'Paola Íñiguez', DATE '2022-07-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3295,13 +3295,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_theta',
-       'Theta de la posicion',
-       'Perdida de valor de la opcion por el paso del tiempo.',
+       'Theta de la posición',
+       'Pérdida de valor de la opción por el paso del tiempo.',
        'theta decaimiento temporal option theta',
        'mercado', 'decimal',
        'restringida', 'mensual',
        'en_revision', NULL, 'sum',
-       'Hugo Beltran', DATE '2023-04-01', NULL
+       'Hugo Beltrán', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3309,8 +3309,8 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_stress_1',
-       'Perdida en escenario de estres',
-       'Perdida de la mesa en el escenario de estres principal del comite.',
+       'Pérdida en escenario de estrés',
+       'Pérdida de la mesa en el escenario de estrés principal del comite.',
        'estres escenario adverso stress loss',
        'mercado', 'decimal',
        'interna', 'diaria',
@@ -3324,7 +3324,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_backtest_exc',
        'Excepciones de backtesting',
-       'Dias del ultimo anio en que la perdida supero el valor en riesgo.',
+       'Días del último año en que la pérdida superó el valor en riesgo.',
        'excepciones backtesting var breaches',
        'regulatorio', 'entero',
        'interna', 'diaria',
@@ -3337,13 +3337,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_limite_var',
-       'Limite de VaR autorizado',
-       'Limite de valor en riesgo que el comite autorizo a la mesa.',
-       'limite de var limite autorizado var limit',
+       'Límite de VaR autorizado',
+       'Límite de valor en riesgo que el comite autorizó a la mesa.',
+       'límite de var límite autorizado var limit',
        'mercado', 'decimal',
        'interna', 'intradia',
        'en_revision', 'MXN', 'max',
-       'Paola Iniguez', DATE '2019-07-01', NULL
+       'Paola Íñiguez', DATE '2019-07-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3351,13 +3351,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_uso_limite',
-       'Uso del limite',
-       'Proporcion del limite de riesgo que la mesa esta consumiendo.',
-       'uso del limite consumo de limite limit usage',
+       'Uso del límite',
+       'Proporción del límite de riesgo que la mesa esta consumiendo.',
+       'uso del límite consumo de límite limit usage',
        'mercado', 'decimal',
        'interna', 'diaria',
        'certificado', 'porcentaje', 'mean',
-       'Paola Iniguez', DATE '2022-04-01', NULL
+       'Paola Íñiguez', DATE '2022-04-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3365,13 +3365,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_exceso',
-       'Marca de exceso de limite',
-       'Indica que la mesa rebaso el limite autorizado en el dia.',
-       'exceso rebase de limite limit breach',
+       'Marca de exceso de límite',
+       'Indica que la mesa rebasó el límite autorizado en el día.',
+       'exceso rebase de límite limit breach',
        'mercado', 'booleano',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2019-04-01', NULL
+       'Hugo Beltrán', DATE '2019-04-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3379,13 +3379,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_pnl_dia',
-       'Resultado del dia',
-       'Resultado de la mesa por valuacion y por operacion en la jornada.',
-       'resultado del dia pnl daily profit and loss operación',
+       'Resultado del día',
+       'Resultado de la mesa por valuación y por operación en la jornada.',
+       'resultado del día pnl daily profit and loss',
        'mercado', 'decimal',
        'interna', 'semanal',
        'en_revision', 'MXN', 'sum',
-       'Paola Iniguez', DATE '2023-10-01', NULL
+       'Paola Íñiguez', DATE '2023-10-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3409,11 +3409,11 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'mkt_pnl_ytd',
        'Resultado del ejercicio',
        'Resultado acumulado de la mesa en el ejercicio en curso.',
-       'resultado del anio pnl acumulado year to date',
+       'resultado del año pnl acumulado year to date',
        'mercado', 'decimal',
        'interna', 'diaria',
        'en_revision', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2025-04-01', NULL
+       'Hugo Beltrán', DATE '2025-04-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3422,12 +3422,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_curva',
        'Curva de descuento',
-       'Curva con la que se descuentan los flujos de la posicion.',
+       'Curva con la que se descuentan los flujos de la posición.',
        'curva curva de descuento discount curve',
        'mercado', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Paola Iniguez', DATE '2020-07-01', NULL
+       'Paola Íñiguez', DATE '2020-07-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3435,13 +3435,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_tc_val',
-       'Tipo de cambio de valuacion',
+       'Tipo de cambio de valuación',
        'Tipo de cambio de cierre usado para valuar posiciones en divisa.',
        'tipo de cambio paridad de cierre closing exchange rate',
        'mercado', 'decimal',
        'interna', 'mensual',
        'certificado', NULL, 'mean',
-       'Paola Iniguez', DATE '2023-04-01', NULL
+       'Paola Íñiguez', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'riesgo_mercado';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3450,7 +3450,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_resp',
        'Responsable de la mesa',
-       'Operador responsable del libro y de su consumo de limites.',
+       'Operador responsable del libro y de su consumo de límites.',
        'responsable de la mesa head de mesa desk head',
        'mercado', 'texto',
        'interna', 'diaria',
@@ -3464,7 +3464,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'mkt_obs',
        'Observaciones de riesgo',
-       'Notas del area de riesgos sobre la posicion o el exceso del dia.',
+       'Notas del area de riesgos sobre la posición o el exceso del día.',
        'observaciones notas de riesgo risk remarks',
        'mercado', 'texto',
        'interna', 'intradia',
@@ -3479,9 +3479,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_cd',
-       'Codigo de canal',
-       'Clave del canal por el que entro la solicitud.',
-       'codigo de canal clave de canal channel code',
+       'Código de canal',
+       'Clave del canal por el que entró la solicitud.',
+       'código de canal clave de canal channel code',
        'operacion', 'texto',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
@@ -3494,12 +3494,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_desc',
        'Nombre del canal',
-       'Sucursal, portal, aplicacion movil, fuerza de venta o corresponsal.',
-       'canal punto de contacto channel aplicación',
+       'Sucursal, portal, aplicación móvil, fuerza de venta o corresponsal.',
+       'canal punto de contacto channel',
        'operacion', 'categoria',
        'interna', 'intradia',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2020-04-01', NULL
+       'Marcela Ríos', DATE '2020-04-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3513,7 +3513,7 @@ SELECT s.id, 'can_tipo',
        'operacion', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2025-10-01', NULL
+       'Marcela Ríos', DATE '2025-10-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3521,9 +3521,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_f_orig',
-       'Fecha de originacion',
-       'Dia en que se origino la solicitud en el canal.',
-       'originacion fecha de originacion origination date originación',
+       'Fecha de originación',
+       'Día en que se originó la solicitud en el canal.',
+       'originacion fecha de originación origination date originación',
        'operacion', 'fecha',
        'publica', 'intradia',
        'certificado', NULL, NULL,
@@ -3537,11 +3537,11 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'can_folio_sol',
        'Folio de la solicitud',
        'Folio con el que el canal identifica la solicitud del cliente.',
-       'folio de solicitud numero de solicitud application id',
+       'folio de solicitud número de solicitud application id',
        'operacion', 'texto',
        'interna', 'intradia',
        'certificado', NULL, 'count',
-       'Paola Iniguez', DATE '2024-01-01', NULL
+       'Paola Íñiguez', DATE '2024-01-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3550,7 +3550,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_cli_id',
        'Cliente solicitante',
-       'Clave del cliente que presento la solicitud.',
+       'Clave del cliente que presentó la solicitud.',
        'cliente solicitante applicant',
        'cliente', 'entero',
        'interna', 'intradia',
@@ -3564,12 +3564,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_prod',
        'Producto solicitado',
-       'Producto de credito que el cliente pidio en el canal.',
+       'Producto de crédito que el cliente pidió en el canal.',
        'producto solicitado producto requested product',
        'cartera', 'categoria',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Sofia Aranda', DATE '2025-01-01', NULL
+       'Sofía Aranda', DATE '2025-01-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3578,7 +3578,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_mto_sol',
        'Monto solicitado',
-       'Importe que el cliente pidio en la solicitud.',
+       'Importe que el cliente pidió en la solicitud.',
        'monto solicitado importe pedido requested amount',
        'cartera', 'decimal',
        'interna', 'diaria',
@@ -3592,12 +3592,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_mto_aut',
        'Monto autorizado',
-       'Importe que el comite o el motor de decision autorizo.',
+       'Importe que el comite o el motor de decisión autorizó.',
        'monto autorizado importe aprobado approved amount',
        'cartera', 'decimal',
        'interna', 'semanal',
        'en_revision', 'MXN', 'sum',
-       'Sofia Aranda', DATE '2019-01-01', NULL
+       'Sofía Aranda', DATE '2019-01-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3633,9 +3633,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_f_resol',
-       'Fecha de resolucion',
-       'Dia en que la solicitud recibio respuesta definitiva.',
-       'fecha de resolucion respuesta decision date',
+       'Fecha de resolución',
+       'Día en que la solicitud recibió respuesta definitiva.',
+       'fecha de resolución respuesta decisión date',
        'operacion', 'fecha',
        'publica', 'mensual',
        'certificado', NULL, NULL,
@@ -3648,12 +3648,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_t_resp_dias',
        'Tiempo de respuesta',
-       'Dias entre la solicitud y su resolucion definitiva.',
-       'tiempo de respuesta dias de tramite turnaround time',
+       'Días entre la solicitud y su resolución definitiva.',
+       'tiempo de respuesta días de tramite turnaround time',
        'operacion', 'entero',
        'interna', 'diaria',
        'obsoleto', 'dias', 'mean',
-       'Sofia Aranda', DATE '2019-01-01', DATE '2022-01-01'
+       'Sofía Aranda', DATE '2019-01-01', DATE '2022-01-01'
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3662,7 +3662,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_promotor',
        'Promotor',
-       'Persona de la fuerza de venta que atendio la solicitud.',
+       'Persona de la fuerza de venta que atendió la solicitud.',
        'promotor asesor sales agent',
        'operacion', 'texto',
        'restringida', 'diaria',
@@ -3676,7 +3676,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_suc',
        'Sucursal de captura',
-       'Sucursal donde se capturo la solicitud presencial.',
+       'Sucursal donde se capturó la solicitud presencial.',
        'sucursal oficina branch',
        'operacion', 'categoria',
        'restringida', 'diaria',
@@ -3689,13 +3689,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_disp',
-       'Marca de disposicion',
-       'Indica que el credito autorizado llego a disponerse.',
-       'disposicion credito dispuesto disbursed',
+       'Marca de disposición',
+       'Indica que el crédito autorizado llegó a disponerse.',
+       'disposicion crédito dispuesto disbursed',
        'cartera', 'booleano',
        'interna', 'mensual',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2024-07-01', NULL
+       'Hugo Beltrán', DATE '2024-07-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3703,9 +3703,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_f_disp',
-       'Fecha de disposicion',
-       'Dia en que el cliente dispuso el credito autorizado.',
-       'fecha de disposicion desembolso disbursement date',
+       'Fecha de disposición',
+       'Día en que el cliente dispuso el crédito autorizado.',
+       'fecha de disposición desembolso disbursement date',
        'cartera', 'fecha',
        'interna', 'semanal',
        'certificado', NULL, NULL,
@@ -3717,13 +3717,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_conv_pct',
-       'Tasa de conversion',
-       'Proporcion de solicitudes del canal que terminan en credito dispuesto.',
-       'conversion tasa de conversion conversion rate',
+       'Tasa de conversión',
+       'Proporción de solicitudes del canal que terminan en crédito dispuesto.',
+       'conversion tasa de conversión conversión rate',
        'operacion', 'decimal',
        'interna', 'diaria',
        'certificado', 'porcentaje', 'mean',
-       'Marcela Rios', DATE '2022-01-01', NULL
+       'Marcela Ríos', DATE '2022-01-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3731,9 +3731,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_costo_orig',
-       'Costo de originacion',
+       'Costo de originación',
        'Costo atribuido a originar la solicitud por ese canal.',
-       'costo de originacion costo de adquisicion acquisition cost originación',
+       'costo de originación costo de adquisición acquisition cost',
        'operacion', 'decimal',
        'interna', 'mensual',
        'certificado', 'MXN', 'sum',
@@ -3751,7 +3751,7 @@ SELECT s.id, 'can_camp',
        'operacion', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Marcela Rios', DATE '2024-01-01', NULL
+       'Marcela Ríos', DATE '2024-01-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3761,7 +3761,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'can_utm',
        'Origen de la campana digital',
        'Etiqueta de origen con la que el portal atribuye la visita.',
-       'utm origen de trafico traffic source',
+       'utm origen de tráfico traffic source',
        'operacion', 'texto',
        'interna', 'diaria',
        'certificado', NULL, NULL,
@@ -3774,12 +3774,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_disp_movil',
        'Dispositivo de la solicitud',
-       'Tipo de dispositivo desde el que se capturo la solicitud digital.',
-       'dispositivo movil o escritorio device',
+       'Tipo de dispositivo desde el que se capturó la solicitud digital.',
+       'dispositivo móvil o escritorio device',
        'operacion', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2019-01-01', NULL
+       'Sofía Aranda', DATE '2019-01-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3788,12 +3788,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_so',
        'Sistema operativo del dispositivo',
-       'Sistema operativo del dispositivo desde el que se solicito.',
+       'Sistema operativo del dispositivo desde el que se solicitó.',
        'sistema operativo plataforma operating system',
        'operacion', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Ivan Zepeda', DATE '2025-04-01', NULL
+       'Iván Zepeda', DATE '2025-04-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3802,12 +3802,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_geo_edo',
        'Entidad de la solicitud',
-       'Estado desde el que se presento la solicitud.',
+       'Estado desde el que se presentó la solicitud.',
        'estado entidad state',
        'operacion', 'categoria',
        'interna', 'mensual',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2023-10-01', NULL
+       'Sofía Aranda', DATE '2023-10-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3816,7 +3816,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'can_abandono',
        'Marca de abandono',
-       'Indica que el cliente dejo el flujo digital sin terminarlo.',
+       'Indica que el cliente dejó el flujo digital sin terminarlo.',
        'abandono flujo incompleto drop off',
        'operacion', 'booleano',
        'publica', 'diaria',
@@ -3835,7 +3835,7 @@ SELECT s.id, 'can_paso_abandono',
        'operacion', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Ivan Zepeda', DATE '2021-04-01', NULL
+       'Iván Zepeda', DATE '2021-04-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3843,13 +3843,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_nps',
-       'Calificacion de satisfaccion',
-       'Calificacion que el cliente dio al canal al cerrar el tramite.',
-       'satisfaccion nps satisfaction score calificación',
+       'Calificación de satisfacción',
+       'Calificación que el cliente dio al canal al cerrar el tramite.',
+       'satisfaccion nps satisfaction score',
        'operacion', 'entero',
        'interna', 'diaria',
        'certificado', NULL, 'mean',
-       'Ivan Zepeda', DATE '2025-01-01', NULL
+       'Iván Zepeda', DATE '2025-01-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3857,13 +3857,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_reintento',
-       'Numero de reintentos',
+       'Número de reintentos',
        'Veces que el cliente reintento la solicitud tras un error del flujo.',
        'reintentos intentos retries',
        'operacion', 'entero',
        'interna', 'diaria',
        'en_revision', 'conteo', 'sum',
-       'Paola Iniguez', DATE '2020-04-01', NULL
+       'Paola Íñiguez', DATE '2020-04-01', NULL
   FROM catalog_source s WHERE s.code = 'canales';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3871,9 +3871,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'can_biometria',
-       'Validacion biometrica',
-       'Indica que la identidad se valido con biometria en el canal digital.',
-       'biometria validacion de identidad biometric check',
+       'Validación biometrica',
+       'Indica que la identidad se válido con biometría en el canal digital.',
+       'biometria validación de identidad biometric check',
        'operacion', 'booleano',
        'restringida', 'intradia',
        'certificado', NULL, NULL,
@@ -3902,7 +3902,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_reporte',
        'Clave del reporte regulatorio',
-       'Clave de la serie que se envia al regulador, del tipo R01 o R04.',
+       'Clave de la serie que se envía al regulador, del tipo R01 o R04.',
        'reporte regulatorio serie regulatory report',
        'regulatorio', 'texto',
        'restringida', 'diaria',
@@ -3916,7 +3916,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_periodo',
        'Periodo reportado',
-       'Mes o trimestre al que corresponde la informacion enviada.',
+       'Mes o trimestre al que corresponde la información enviada.',
        'periodo reportado mes del reporte reporting period',
        'regulatorio', 'texto',
        'interna', 'mensual',
@@ -3930,12 +3930,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_f_envio',
        'Fecha de envio',
-       'Dia en que la institucion transmitio el reporte al regulador.',
-       'fecha de envio transmision submission date',
+       'Día en que la institución transmitió el reporte al regulador.',
+       'fecha de envio transmision submissión date',
        'regulatorio', 'fecha',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Hugo Beltran', DATE '2019-07-01', NULL
+       'Hugo Beltrán', DATE '2019-07-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3945,11 +3945,11 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'reg_est_envio',
        'Estatus del envio',
        'Enviado, observado, en reproceso o aceptado por el regulador.',
-       'estatus del envio situacion del reporte submission status',
+       'estatus del envio situación del reporte submissión status',
        'regulatorio', 'categoria',
        'interna', 'mensual',
        'certificado', NULL, NULL,
-       'Hugo Beltran', DATE '2023-10-01', NULL
+       'Hugo Beltrán', DATE '2023-10-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3957,9 +3957,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_icap',
-       'Indice de capitalizacion',
+       'Índice de capitalización',
        'Capital neto entre activos ponderados por riesgo totales.',
-       'icap indice de capitalizacion capital adequacy ratio capitalización',
+       'icap índice de capitalización capital adequacy ratio',
        'regulatorio', 'decimal',
        'interna', 'mensual',
        'en_revision', 'porcentaje', 'mean',
@@ -3971,13 +3971,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_cap_basico',
-       'Capital basico',
-       'Capital fundamental mas capital basico no fundamental del periodo.',
-       'capital basico tier uno tier one capital',
+       'Capital básico',
+       'Capital fundamental más capital básico no fundamental del periodo.',
+       'capital básico tier uno tier one capital',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Marcela Rios', DATE '2023-04-01', NULL
+       'Marcela Ríos', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -3991,7 +3991,7 @@ SELECT s.id, 'reg_cap_compl',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Ivan Zepeda', DATE '2019-07-01', NULL
+       'Iván Zepeda', DATE '2019-07-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4000,12 +4000,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_cap_neto',
        'Capital neto',
-       'Suma del capital basico y del complementario, neta de deducciones.',
+       'Suma del capital básico y del complementario, neta de deducciones.',
        'capital neto capital regulatorio net capital',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'en_revision', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2019-10-01', NULL
+       'Hugo Beltrán', DATE '2019-10-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4013,13 +4013,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_apr_credito',
-       'Activos en riesgo de credito',
-       'Activos ponderados por riesgo de credito del periodo.',
-       'apr de credito activos ponderados credit risk weighted assets',
+       'Activos en riesgo de crédito',
+       'Activos ponderados por riesgo de crédito del periodo.',
+       'apr de crédito activos ponderados credit risk weighted assets',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'certificado', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2019-01-01', NULL
+       'Hugo Beltrán', DATE '2019-01-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4033,7 +4033,7 @@ SELECT s.id, 'reg_apr_mercado',
        'regulatorio', 'decimal',
        'interna', 'semanal',
        'certificado', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2024-10-01', NULL
+       'Hugo Beltrán', DATE '2024-10-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4061,7 +4061,7 @@ SELECT s.id, 'reg_apr_total',
        'regulatorio', 'decimal',
        'interna', 'mensual',
        'certificado', 'MXN', 'sum',
-       'Hugo Beltran', DATE '2020-07-01', NULL
+       'Hugo Beltrán', DATE '2020-07-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4070,7 +4070,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_ccl',
        'Coeficiente de cobertura de liquidez reportado',
-       'Activos liquidos entre salidas netas a treinta dias, como se reporto.',
+       'Activos liquidos entre salidas netas a treinta días, como se reporto.',
        'ccl coeficiente reportado reported liquidity ratio',
        'regulatorio', 'decimal',
        'interna', 'intradia',
@@ -4089,7 +4089,7 @@ SELECT s.id, 'reg_cfen',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'en_revision', 'porcentaje', 'mean',
-       'Ivan Zepeda', DATE '2023-04-01', NULL
+       'Iván Zepeda', DATE '2023-04-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4097,13 +4097,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_imor',
-       'Indice de morosidad',
+       'Índice de morosidad',
        'Cartera vencida entre cartera total al cierre del periodo.',
        'imor morosidad cartera vencida non performing loan ratio',
        'regulatorio', 'decimal',
        'interna', 'mensual',
        'certificado', 'porcentaje', 'mean',
-       'Ivan Zepeda', DATE '2022-07-01', NULL
+       'Iván Zepeda', DATE '2022-07-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4111,13 +4111,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_icor',
-       'Indice de cobertura de cartera vencida',
+       'Índice de cobertura de cartera vencida',
        'Reservas entre cartera vencida al cierre del periodo.',
        'icor cobertura de cartera coverage ratio',
        'regulatorio', 'decimal',
        'interna', 'mensual',
        'certificado', 'porcentaje', 'mean',
-       'Sofia Aranda', DATE '2023-07-01', NULL
+       'Sofía Aranda', DATE '2023-07-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4131,7 +4131,7 @@ SELECT s.id, 'reg_roa',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'certificado', 'porcentaje', 'mean',
-       'Hugo Beltran', DATE '2020-04-01', NULL
+       'Hugo Beltrán', DATE '2020-04-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4155,11 +4155,11 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
 SELECT s.id, 'reg_mfin',
        'Margen financiero',
        'Ingresos por intereses menos gastos por intereses del periodo.',
-       'margen financiero margen de interes net interest income',
+       'margen financiero margen de interés net interest income',
        'regulatorio', 'decimal',
        'interna', 'semanal',
        'en_revision', 'MXN', 'sum',
-       'Paola Iniguez', DATE '2022-10-01', NULL
+       'Paola Íñiguez', DATE '2022-10-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4167,13 +4167,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_eficiencia',
-       'Indice de eficiencia operativa',
-       'Gasto de administracion entre ingresos totales de la operacion.',
-       'eficiencia indice de eficiencia efficiency ratio operación',
+       'Índice de eficiencia operativa',
+       'Gasto de administración entre ingresos totales de la operación.',
+       'eficiencia índice de eficiencia efficiency ratio',
        'regulatorio', 'decimal',
        'interna', 'diaria',
        'en_revision', 'porcentaje', 'mean',
-       'Paola Iniguez', DATE '2020-04-01', NULL
+       'Paola Íñiguez', DATE '2020-04-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4187,7 +4187,7 @@ SELECT s.id, 'reg_r04c_saldo',
        'regulatorio', 'decimal',
        'interna', 'intradia',
        'en_revision', 'MXN', 'sum',
-       'Marcela Rios', DATE '2022-04-01', NULL
+       'Marcela Ríos', DATE '2022-04-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4196,7 +4196,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_f_corte',
        'Fecha de corte del reporte',
-       'Dia de cierre de la informacion contenida en el envio.',
+       'Día de cierre de la información contenida en el envio.',
        'fecha de corte corte cut off date',
        'regulatorio', 'fecha',
        'interna', 'diaria',
@@ -4209,9 +4209,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_version',
-       'Version del envio',
-       'Numero de version del envio cuando hubo reprocesos.',
-       'version reenvio submission version',
+       'Versión del envio',
+       'Número de versión del envio cuando hubo reprocesos.',
+       'version reenvio submissión versión',
        'regulatorio', 'entero',
        'restringida', 'semanal',
        'certificado', NULL, 'max',
@@ -4223,9 +4223,9 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_valid_est',
-       'Resultado de la validacion',
-       'Resultado de las validaciones automaticas del regulador sobre el envio.',
-       'validacion resultado de validacion validation result',
+       'Resultado de la validación',
+       'Resultado de las validaciones automáticas del regulador sobre el envio.',
+       'validacion resultado de validación validation result',
        'regulatorio', 'categoria',
        'restringida', 'intradia',
        'en_revision', NULL, NULL,
@@ -4237,13 +4237,13 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            certification, unit, metric_agg, steward,
                            valid_from, valid_to)
 SELECT s.id, 'reg_obs_cnbv',
-       'Observacion del regulador',
-       'Texto de la observacion que el regulador levanto sobre el envio.',
-       'observacion del regulador requerimiento regulator finding',
+       'Observación del regulador',
+       'Texto de la observación que el regulador levantó sobre el envio.',
+       'observación del regulador requerimiento regulator finding',
        'regulatorio', 'texto',
        'restringida', 'mensual',
        'en_revision', NULL, NULL,
-       'Hugo Beltran', DATE '2025-07-01', NULL
+       'Hugo Beltrán', DATE '2025-07-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4252,7 +4252,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_resp',
        'Area responsable del envio',
-       'Area que firma y responde por la informacion enviada.',
+       'Area que firma y responde por la información enviada.',
        'area responsable responsable del reporte owner area',
        'regulatorio', 'texto',
        'interna', 'diaria',
@@ -4266,12 +4266,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_firma',
        'Funcionario que firma',
-       'Funcionario facultado que firma electronicamente el envio.',
+       'Funcionario facultado que firma electrónicamente el envio.',
        'firmante funcionario signing officer',
        'regulatorio', 'texto',
        'restringida', 'diaria',
        'en_revision', NULL, NULL,
-       'Marcela Rios', DATE '2022-04-01', NULL
+       'Marcela Ríos', DATE '2022-04-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4280,12 +4280,12 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_medio_env',
        'Medio de envio',
-       'Canal por el que se transmitio el reporte al regulador.',
-       'medio de envio canal de transmision submission channel',
+       'Canal por el que se transmitió el reporte al regulador.',
+       'medio de envio canal de transmisión submissión channel',
        'regulatorio', 'categoria',
        'interna', 'diaria',
        'certificado', NULL, NULL,
-       'Sofia Aranda', DATE '2024-01-01', NULL
+       'Sofía Aranda', DATE '2024-01-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 INSERT INTO catalog_field (source_id, physical_name, business_name,
                            definition, aliases, domain, data_type,
@@ -4294,7 +4294,7 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_acuse',
        'Acuse de recibo',
-       'Folio del acuse con el que el regulador confirmo la recepcion.',
+       'Folio del acuse con el que el regulador confirmó la recepción.',
        'acuse folio de acuse acknowledgement',
        'regulatorio', 'texto',
        'interna', 'diaria',
@@ -4308,19 +4308,19 @@ INSERT INTO catalog_field (source_id, physical_name, business_name,
                            valid_from, valid_to)
 SELECT s.id, 'reg_reproc',
        'Marca de reproceso',
-       'Indica que la serie tuvo que reenviarse tras una observacion.',
+       'Indica que la serie tuvo que reenviarse tras una observación.',
        'reproceso reenvio resubmission',
        'regulatorio', 'booleano',
        'interna', 'diaria',
        'en_revision', NULL, NULL,
-       'Sofia Aranda', DATE '2020-10-01', NULL
+       'Sofía Aranda', DATE '2020-10-01', NULL
   FROM catalog_source s WHERE s.code = 'regulatorio';
 
 -- notas tribales
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'Los importes de SIC-Core estan en pesos, no en miles. Sumarlos junto con mto_disp de liquidez sin escalar produce un total que no cuadra con contabilidad y que nadie detecta hasta el cierre.',
+SELECT f.id, 'Los importes de SIC-Core están en pesos, no en miles. Sumarlos junto con mto_disp de liquidez sin escalar produce un total que no cuadra con contabilidad y que nadie detecta hasta el cierre.',
        'Aplica al sumar o comparar importes con el silo de liquidez.',
        'liquidez miles suma total importe',
        'Ricardo Salas', DATE '2025-09-18'
@@ -4331,10 +4331,10 @@ SELECT f.id, 'Los importes de SIC-Core estan en pesos, no en miles. Sumarlos jun
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'La mora se corta al cierre de mes: un contrato que se pone al corriente el dia dos sigue apareciendo con la mora del cierre anterior durante todo el mes.',
+SELECT f.id, 'La mora se corta al cierre de mes: un contrato que se pone al corriente el día dos sigue apareciendo con la mora del cierre anterior durante todo el mes.',
        'Aplica siempre que se lea esta columna.',
        '',
-       'Sofia Aranda', DATE '2025-10-02'
+       'Sofía Aranda', DATE '2025-10-02'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'creditos'
@@ -4353,10 +4353,10 @@ SELECT f.id, 'El estatus CAS es cartera castigada: sale del balance pero no del 
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El 01 es el codigo interno de pesos de SIC-Core, no el 484 de la norma ISO-4217. Un cruce por codigo de moneda contra TESO-Pos no casa ni una fila y no falla: devuelve vacio.',
+SELECT f.id, 'El 01 es el código interno de pesos de SIC-Core, no el 484 de la norma ISO-4217. Un cruce por código de moneda contra TESO-Pos no casa ni una fila y no falla: devuelve vacio.',
        'Aplica al cruzar moneda con otro sistema.',
        'moneda divisa cruce iso',
-       'Paola Iniguez', DATE '2025-11-06'
+       'Paola Íñiguez', DATE '2025-11-06'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'creditos'
@@ -4364,10 +4364,10 @@ SELECT f.id, 'El 01 es el codigo interno de pesos de SIC-Core, no el 484 de la n
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'En una reestructura el origen sobreescribe la fecha de vencimiento sin conservar la original, asi que la vida promedio del portafolio se alarga sin que ninguna columna lo explique.',
+SELECT f.id, 'En una reestructura el origen sobreescribe la fecha de vencimiento sin conservar la original, así que la vida promedio del portafolio se alarga sin que ninguna columna lo explique.',
        'Aplica al analizar plazos, vencimientos o reestructuras.',
        'vencimiento plazo reestructura vida',
-       'Marcela Rios', DATE '2025-12-11'
+       'Marcela Ríos', DATE '2025-12-11'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'creditos'
@@ -4378,7 +4378,7 @@ INSERT INTO catalog_tribal_note (field_id, note, applicability,
 SELECT f.id, 'SIC-Core escribe la clave con el prefijo CLI-, TESO-Pos como entero pelado y DRV-Front con una letra verificadora. Cruzar por cadena da cero coincidencias; hay que normalizar a la clave entera compartida.',
        'Aplica siempre que se cruce el cliente con otro silo.',
        'cliente cruce clave contraparte identificador',
-       'Paola Iniguez', DATE '2025-08-14'
+       'Paola Íñiguez', DATE '2025-08-14'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'creditos'
@@ -4386,7 +4386,7 @@ SELECT f.id, 'SIC-Core escribe la clave con el prefijo CLI-, TESO-Pos como enter
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'Esta en MILES de la divisa de la fila. El error clasico es sumarlo directo y publicar una cifra mil veces menor que la real.',
+SELECT f.id, 'Esta en MILES de la divisa de la fila. El error clásico es sumarlo directo y publicar una cifra mil veces menor que la real.',
        'Aplica siempre que se lea esta columna.',
        '',
        'Adriana Cortes', DATE '2025-09-30'
@@ -4397,9 +4397,9 @@ SELECT f.id, 'Esta en MILES de la divisa de la fila. El error clasico es sumarlo
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'Agrupar por fecha valor en vez de fecha de posicion corre la serie un dia habil. Los tableros del portal agrupan por fec_pos y por eso no coinciden con el reporte que la mesa saca de su propia terminal.',
+SELECT f.id, 'Agrupar por fecha valor en vez de fecha de posición corre la serie un día hábil. Los tableros del portal agrupan por fec_pos y por eso no coinciden con el reporte que la mesa saca de su propia terminal.',
        'Aplica solo a series de tiempo y agrupaciones por fecha.',
-       'fecha valor posicion serie agrupar',
+       'fecha valor posición serie agrupar',
        'Adriana Cortes', DATE '2025-11-04'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
@@ -4420,7 +4420,7 @@ INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
 SELECT f.id, 'El silo mezcla cinco divisas y no trae ninguna columna valorizada. Sumar sin convertir con el tipo de cambio es el error que este conjunto de datos existe para dramatizar.',
-       'Aplica al sumar importes de mas de una divisa.',
+       'Aplica al sumar importes de más de una divisa.',
        'suma total divisa moneda tipo de cambio',
        'Adriana Cortes', DATE '2025-10-09'
   FROM catalog_field f
@@ -4430,9 +4430,9 @@ SELECT f.id, 'El silo mezcla cinco divisas y no trae ninguna columna valorizada.
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El bucket ON junta saldos a la vista y overnight; tesoreria los reporta por separado, y por eso los dos numeros nunca cuadran al primer intento.',
-       'Aplica al comparar buckets contra el reporte de tesoreria.',
-       'bucket vista overnight tesoreria plazo',
+SELECT f.id, 'El bucket ON junta saldos a la vista y overnight; tesorería los reporta por separado, y por eso los dos números nunca cuadran al primer intento.',
+       'Aplica al comparar buckets contra el reporte de tesorería.',
+       'bucket vista overnight tesorería plazo',
        'Adriana Cortes', DATE '2026-01-15'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
@@ -4441,10 +4441,10 @@ SELECT f.id, 'El bucket ON junta saldos a la vista y overnight; tesoreria los re
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'TESO-Pos solo conoce a ocho mil clientes de los sesenta mil del maestro: los que operan posiciones. Un cruce por cliente contra creditos pierde el resto sin avisar.',
-       'Aplica al cruzar clientes entre liquidez y credito.',
+SELECT f.id, 'TESO-Pos solo conoce a ocho mil clientes de los sesenta mil del maestro: los que operan posiciones. Un cruce por cliente contra créditos pierde el resto sin avisar.',
+       'Aplica al cruzar clientes entre liquidez y crédito.',
        'cliente cruce clave cobertura universo',
-       'Paola Iniguez', DATE '2025-12-03'
+       'Paola Íñiguez', DATE '2025-12-03'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'liquidez'
@@ -4452,10 +4452,10 @@ SELECT f.id, 'TESO-Pos solo conoce a ocho mil clientes de los sesenta mil del ma
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'La fecha llega como TEXTO en formato AAAAMMDD del exportador de ancho fijo. Ordenar por esa columna funciona por casualidad y compararla con una fecha real falla; ademas hay veinte filas que no parsean.',
+SELECT f.id, 'La fecha llega como TEXTO en formato AAAAMMDD del exportador de ancho fijo. Ordenar por esa columna funciona por casualidad y compararla con una fecha real falla; además hay veinte filas que no parsean.',
        'Aplica siempre que se lea esta columna.',
        '',
-       'Hugo Beltran', DATE '2025-09-11'
+       'Hugo Beltrán', DATE '2025-09-11'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'derivados'
@@ -4463,10 +4463,10 @@ SELECT f.id, 'La fecha llega como TEXTO en formato AAAAMMDD del exportador de an
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'DRV-Front no tiene columna de divisa: todo esta en dolares de forma implicita. Mezclar este nocional con importes en pesos sin convertir infla el total por el tipo de cambio entero.',
+SELECT f.id, 'DRV-Front no tiene columna de divisa: todo esta en dólares de forma implicita. Mezclar este nocional con importes en pesos sin convertir infla el total por el tipo de cambio entero.',
        'Aplica al sumar nocional con importes de otro silo.',
        'divisa moneda pesos suma nocional',
-       'Hugo Beltran', DATE '2025-10-16'
+       'Hugo Beltrán', DATE '2025-10-16'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'derivados'
@@ -4474,10 +4474,10 @@ SELECT f.id, 'DRV-Front no tiene columna de divisa: todo esta en dolares de form
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'La letra verificadora se calcula sobre los seis digitos. Hay veinte contrapartes cuya clave decodifica fuera del universo de clientes y quedan huerfanas al cruzar: no son un error de captura, son operaciones con entidades que nunca entraron al maestro.',
+SELECT f.id, 'La letra verificadora se calcula sobre los seis dígitos. Hay veinte contrapartes cuya clave decodifica fuera del universo de clientes y quedan huérfanas al cruzar: no son un error de captura, son operaciones con entidades que nunca entraron al maestro.',
        'Aplica al cruzar contrapartes con el maestro de clientes.',
-       'contraparte cliente cruce huerfano maestro',
-       'Paola Iniguez', DATE '2025-11-27'
+       'contraparte cliente cruce huérfano maestro',
+       'Paola Íñiguez', DATE '2025-11-27'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'derivados'
@@ -4486,8 +4486,8 @@ INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
 SELECT f.id, 'El valor a mercado viene con signo. Sumarlo sin separar activo de pasivo compensa exposiciones que el area de riesgos reporta brutas, y el total resultante no es comparable con el reporte regulatorio.',
-       'Aplica al totalizar exposicion o valor a mercado.',
-       'exposicion suma neto bruto valor',
+       'Aplica al totalizar exposición o valor a mercado.',
+       'exposición suma neto bruto valor',
        'Daniel Ocampo', DATE '2025-12-18'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
@@ -4496,10 +4496,10 @@ SELECT f.id, 'El valor a mercado viene con signo. Sumarlo sin separar activo de 
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'La calificacion es la del ultimo comite, no la del dia de la operacion. Para riesgo vigente hay que leerla del maestro de clientes, que si se actualiza.',
-       'Aplica al analizar calificacion o riesgo de contraparte.',
-       'calificacion riesgo contraparte vigente',
-       'Sofia Aranda', DATE '2026-02-05'
+SELECT f.id, 'La calificación es la del último comite, no la del día de la operación. Para riesgo vigente hay que leerla del maestro de clientes, que si se actualiza.',
+       'Aplica al analizar calificación o riesgo de contraparte.',
+       'calificación riesgo contraparte vigente',
+       'Sofía Aranda', DATE '2026-02-05'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'derivados'
@@ -4507,10 +4507,10 @@ SELECT f.id, 'La calificacion es la del ultimo comite, no la del dia de la opera
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El folio es consecutivo por libro, no global: dos libros pueden repetir el mismo numero. Contar operaciones sin agrupar por libro duplica el conteo.',
+SELECT f.id, 'El folio es consecutivo por libro, no global: dos libros pueden repetir el mismo número. Contar operaciones sin agrupar por libro duplica el conteo.',
        'Aplica al contar operaciones.',
        'folio conteo operaciones libro duplicado',
-       'Hugo Beltran', DATE '2026-01-22'
+       'Hugo Beltrán', DATE '2026-01-22'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'derivados'
@@ -4518,10 +4518,10 @@ SELECT f.id, 'El folio es consecutivo por libro, no global: dos libros pueden re
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El RFC llega del alta y no se revalida despues. Los registros anteriores a 2019 traen homoclave capturada a mano y por eso cli_rfc_valid existe.',
+SELECT f.id, 'El RFC llega del alta y no se revalida después. Los registros anteriores a 2019 traen homoclave capturada a mano y por eso cli_rfc_valid existe.',
        'Aplica al usar el RFC como clave o al validar identidad.',
-       'rfc validacion homoclave identidad',
-       'Paola Iniguez', DATE '2025-10-30'
+       'rfc validación homoclave identidad',
+       'Paola Íñiguez', DATE '2025-10-30'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'clientes'
@@ -4529,10 +4529,10 @@ SELECT f.id, 'El RFC llega del alta y no se revalida despues. Los registros ante
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El ejecutivo responsable es el dueno del dato ante el comite de gobierno: cualquier correccion de la ficha del cliente pasa por el, no por el area de sistemas.',
+SELECT f.id, 'El ejecutivo responsable es el dueño del dato ante el comite de gobierno: cualquier corrección de la ficha del cliente pasa por el, no por el area de sistemas.',
        'Aplica siempre que se lea esta columna.',
        '',
-       'Paola Iniguez', DATE '2025-08-21'
+       'Paola Íñiguez', DATE '2025-08-21'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'clientes'
@@ -4540,10 +4540,10 @@ SELECT f.id, 'El ejecutivo responsable es el dueno del dato ante el comite de go
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El valor comercial es el del ultimo avaluo, no el de hoy. Con avaluos de mas de dos anios el area de riesgos aplica un castigo del veinte por ciento que esta columna no refleja.',
-       'Aplica al usar el valor de la garantia como cobertura.',
-       'valor avaluo garantia vigencia cobertura',
-       'Marcela Rios', DATE '2025-11-13'
+SELECT f.id, 'El valor comercial es el del último avalúo, no el de hoy. Con avalúos de más de dos años el area de riesgos aplica un castigo del veinte por ciento que esta columna no refleja.',
+       'Aplica al usar el valor de la garantía como cobertura.',
+       'valor avalúo garantía vigencia cobertura',
+       'Marcela Ríos', DATE '2025-11-13'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'garantias'
@@ -4551,10 +4551,10 @@ SELECT f.id, 'El valor comercial es el del ultimo avaluo, no el de hoy. Con aval
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'Solo las garantias hipotecarias tienen folio real. El resto se identifica por contrato y no se puede cruzar con el registro publico de la propiedad.',
-       'Aplica al cruzar garantias con el registro publico.',
+SELECT f.id, 'Solo las garantías hipotecarias tienen folio real. El resto se identifica por contrato y no se puede cruzar con el registro público de la propiedad.',
+       'Aplica al cruzar garantías con el registro público.',
        'hipotecaria registro folio real cruce',
-       'Marcela Rios', DATE '2026-01-08'
+       'Marcela Ríos', DATE '2026-01-08'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'garantias'
@@ -4562,10 +4562,10 @@ SELECT f.id, 'Solo las garantias hipotecarias tienen folio real. El resto se ide
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'La fecha de aplicacion puede ser posterior a la de pago: un pago del viernes por la tarde se aplica el lunes y, en fin de mes, aparece en el mes siguiente.',
+SELECT f.id, 'La fecha de aplicación puede ser posterior a la de pago: un pago del viernes por la tarde se aplica el lunes y, en fin de mes, aparece en el mes siguiente.',
        'Aplica al cerrar el mes o al comparar pagos con cobranza.',
-       'fecha pago mes cierre aplicacion',
-       'Ivan Zepeda', DATE '2025-12-09'
+       'fecha pago mes cierre aplicación',
+       'Iván Zepeda', DATE '2025-12-09'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'pagos'
@@ -4576,7 +4576,7 @@ INSERT INTO catalog_tribal_note (field_id, note, applicability,
 SELECT f.id, 'Los intereses moratorios cobrados no reducen la mora del contrato: son un ingreso y viven en otra cuenta contable. Restarlos del saldo vencido es un error que se repite cada trimestre.',
        'Aplica al conciliar mora con cartera vencida.',
        'mora atraso ingreso vencida conciliar',
-       'Ivan Zepeda', DATE '2026-02-12'
+       'Iván Zepeda', DATE '2026-02-12'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'pagos'
@@ -4584,10 +4584,10 @@ SELECT f.id, 'Los intereses moratorios cobrados no reducen la mora del contrato:
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'La estimacion del cierre se recalcula hasta el dia diez del mes siguiente. Antes de esa fecha la cifra es preliminar y no coincide con la que se envia al regulador.',
+SELECT f.id, 'La estimación del cierre se recalcula hasta el día diez del mes siguiente. Antes de esa fecha la cifra es preliminar y no coincide con la que se envía al regulador.',
        'Aplica al leer el cierre del mes en curso.',
-       'estimacion reserva cierre preliminar',
-       'Sofia Aranda', DATE '2025-11-20'
+       'estimación reserva cierre preliminar',
+       'Sofía Aranda', DATE '2025-11-20'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'provisiones'
@@ -4595,10 +4595,10 @@ SELECT f.id, 'La estimacion del cierre se recalcula hasta el dia diez del mes si
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El grado lo fija la metodologia general del regulador salvo en cartera comercial, donde la institucion usa metodologia interna autorizada. Comparar grados entre tipos de cartera no significa nada.',
+SELECT f.id, 'El grado lo fija la metodología general del regulador salvo en cartera comercial, donde la institución usa metodología interna autorizada. Comparar grados entre tipos de cartera no significa nada.',
        'Aplica siempre que se lea esta columna.',
        '',
-       'Sofia Aranda', DATE '2025-09-04'
+       'Sofía Aranda', DATE '2025-09-04'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
  WHERE s.code = 'provisiones'
@@ -4606,9 +4606,9 @@ SELECT f.id, 'El grado lo fija la metodologia general del regulador salvo en car
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El catalogo contable cambio de estructura en 2024. Las cuentas anteriores se mapean con una tabla de equivalencias que vive en una hoja de calculo fuera del sistema, y es la razon de la mitad de las diferencias historicas.',
+SELECT f.id, 'El catalogo contable cambio de estructura en 2024. Las cuentas anteriores se mapean con una tabla de equivalencias que vive en una hoja de calculo fuera del sistema, y es la razón de la mitad de las diferencias históricas.',
        'Aplica al comparar periodos anteriores a 2024.',
-       'cuenta contable historico equivalencia periodo',
+       'cuenta contable histórico equivalencia periodo',
        'Jorge Nieto', DATE '2025-10-07'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
@@ -4617,7 +4617,7 @@ SELECT f.id, 'El catalogo contable cambio de estructura en 2024. Las cuentas ant
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'Las tres columnas de flujo proyectado son una proyeccion simulada del prototipo, no un pronostico del area de tesoreria. No se presentan como cifra oficial en ninguna pantalla.',
+SELECT f.id, 'Las tres columnas de flujo proyectado son una proyección simulada del prototipo, no un pronóstico del area de tesorería. No se presentan como cifra oficial en ninguna pantalla.',
        'Aplica siempre que se lea esta columna.',
        '',
        'Adriana Cortes', DATE '2026-02-19'
@@ -4628,9 +4628,9 @@ SELECT f.id, 'Las tres columnas de flujo proyectado son una proyeccion simulada 
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El valor en riesgo de la mesa se calcula al cierre con datos de mercado del dia anterior. Compararlo contra el resultado del mismo dia desalinea las dos series y hace ver excesos que no existieron.',
-       'Aplica al comparar el VaR con el resultado del dia.',
-       'var mesa resultado comparar limite',
+SELECT f.id, 'El valor en riesgo de la mesa se calcula al cierre con datos de mercado del día anterior. Compararlo contra el resultado del mismo día desalinea las dos series y hace ver excesos que no existieron.',
+       'Aplica al comparar el VaR con el resultado del día.',
+       'var mesa resultado comparar límite',
        'Daniel Ocampo', DATE '2026-01-29'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id
@@ -4639,9 +4639,9 @@ SELECT f.id, 'El valor en riesgo de la mesa se calcula al cierre con datos de me
 INSERT INTO catalog_tribal_note (field_id, note, applicability,
                                  applicability_terms, author,
                                  recorded_at)
-SELECT f.id, 'El indice publicado es el del reporte enviado, que puede diferir del calculo interno hasta que llega el acuse de conformidad. La cifra de gestion y la regulatoria no son la misma hasta ese momento.',
+SELECT f.id, 'El índice publicado es el del reporte enviado, que puede diferir del calculo interno hasta que llega el acuse de conformidad. La cifra de gestion y la regulatoria no son la misma hasta ese momento.',
        'Aplica al comparar cifras internas contra las reportadas.',
-       'icap capital reporte acuse comparar',
+       'ICAP capital reporte acuse comparar',
        'Jorge Nieto', DATE '2026-03-05'
   FROM catalog_field f
   JOIN catalog_source s ON s.id = f.source_id

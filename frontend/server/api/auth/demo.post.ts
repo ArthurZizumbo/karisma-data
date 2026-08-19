@@ -1,5 +1,6 @@
 import type { SesionUsuario } from '~/types/sesion'
 import { esRolUsuario } from '~/utils/sesion'
+import { ErrorDeIdentidad, tokenDeIdentidad } from '../../utils/identidadCloudRun'
 import {
   establecerSesion,
   exigirOrigenPropio,
@@ -35,7 +36,7 @@ interface TokenDemostracion {
 export default defineEventHandler(async (event): Promise<SesionUsuario> => {
   exigirOrigenPropio(event)
 
-  const { apiBase } = useRuntimeConfig(event)
+  const { apiBase, apiAudience } = useRuntimeConfig(event) as { apiBase: string, apiAudience?: string }
   const cuerpo = await readBody<CuerpoDemostracion | null>(event)
   const rol = cuerpo?.rol
 
@@ -49,16 +50,41 @@ export default defineEventHandler(async (event): Promise<SesionUsuario> => {
     })
   }
 
+  const cabeceras: Record<string, string> = {}
+  if (apiAudience) {
+    try {
+      const idToken = await tokenDeIdentidad(apiAudience)
+      cabeceras['x-serverless-authorization'] = `Bearer ${idToken}`
+    }
+    catch {
+      throw createError({
+        statusCode: 502,
+        statusMessage: 'Bad Gateway',
+        data: { codigo: 'servicio_no_disponible' },
+      })
+    }
+  }
+
   try {
     const emision = await $fetch<TokenDemostracion>(`${apiBase}/api/auth/demo`, {
       method: 'POST',
+      headers: cabeceras,
       body: { rol },
     })
-    const sesion = await leerPerfilDeSesion(apiBase, emision.access_token)
+    const sesion = await leerPerfilDeSesion(apiBase, emision.access_token, apiAudience)
     establecerSesion(event, emision.access_token)
     return sesion
   }
   catch (error) {
+    // An unreachable metadata server is not a closed demonstration door:
+    // saying so sends the reader hunting for a backend flag that is in fact on.
+    if (error instanceof ErrorDeIdentidad) {
+      throw createError({
+        statusCode: 502,
+        statusMessage: 'Bad Gateway',
+        data: { codigo: 'servicio_no_disponible' },
+      })
+    }
     throw fallaDeAutenticacion(error, 'demo_deshabilitado')
   }
 })

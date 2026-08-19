@@ -39,15 +39,20 @@ trap limpiar EXIT INT TERM
 echo "Verificacion del escaneo de secretos (US-002, CA-7b)"
 echo ""
 
+GITLEAKS_CMD="gitleaks"
 if ! command -v gitleaks >/dev/null 2>&1; then
-    echo "FALLA: gitleaks no esta en el PATH." >&2
-    echo "Instalalo con: winget install --id Gitleaks.Gitleaks --exact" >&2
-    echo "Tras instalarlo hay que abrir una terminal nueva: winget modifica el PATH" >&2
-    echo "persistido y un shell ya abierto conserva el anterior." >&2
-    exit 1
+    if command -v gitleaks.exe >/dev/null 2>&1; then
+        GITLEAKS_CMD="gitleaks.exe"
+    else
+        echo "FALLA: gitleaks no esta en el PATH." >&2
+        echo "Instalalo con: winget install --id Gitleaks.Gitleaks --exact" >&2
+        echo "Tras instalarlo hay que abrir una terminal nueva: winget modifica el PATH" >&2
+        echo "persistido y un shell ya abierto conserva el anterior." >&2
+        exit 1
+    fi
 fi
 
-echo "  gitleaks $(gitleaks version) encontrado"
+echo "  gitleaks $($GITLEAKS_CMD version) encontrado"
 
 # --- Secreto de prueba ------------------------------------------------------
 # Token personal de GitHub con forma valida y cuerpo inventado. Se compone en
@@ -73,7 +78,7 @@ echo "  fixture plantado en $(basename "$FIXTURE")"
 # --- El escaneo debe encontrarlo -------------------------------------------
 # Se apunta al fixture y no al arbol entero: la pregunta es si el escaneo
 # detecta, no cuanto tarda en recorrer el repositorio.
-if gitleaks dir "$FIXTURE" \
+if "$GITLEAKS_CMD" dir "$FIXTURE" \
         --config "$RAIZ/.gitleaks.toml" \
         --redact --no-banner --no-color >/dev/null 2>&1; then
     echo ""
@@ -95,8 +100,14 @@ echo "  el escaneo lo detecto y salio distinto de 0, como debe"
 echo ""
 echo "  comprobando la excepcion de .env.local"
 
-for entorno in $(find "$RAIZ" -name '.env.local' -not -path '*/node_modules/*' -not -path '*/.git/*'); do
-    relativo=${entorno#"$RAIZ"/}
+# El barrido recorre el arbol y no una lista escrita: la pregunta es si CUALQUIER
+# .env.local quedo fuera del ignore, y una lista fija solo responde por los dos
+# que alguien recordo escribir. `find` corre desde $RAIZ con rutas relativas para
+# que un directorio con espacios -habitual en Windows- no parta el resultado.
+while IFS= read -r relativo; do
+    relativo="${relativo#./}"
+    entorno="$RAIZ/$relativo"
+    [ -f "$entorno" ] || continue
 
     if ! git -C "$RAIZ" check-ignore -q "$entorno"; then
         echo ""
@@ -116,15 +127,17 @@ for entorno in $(find "$RAIZ" -name '.env.local' -not -path '*/node_modules/*' -
     fi
 
     echo "    $relativo ignorado y fuera del indice"
-done
+done <<EOF
+$(cd "$RAIZ" && find . -name '.env.local' -not -path '*/node_modules/*' -not -path './.git/*')
+EOF
 
 # --- Y el arbol real debe seguir limpio sin el fixture ----------------------
 limpiar
 trap - EXIT INT TERM
 
-if ! gitleaks dir "$RAIZ" \
-        --config "$RAIZ/.gitleaks.toml" \
-        --redact --no-banner --no-color >/dev/null 2>&1; then
+if ! (cd "$RAIZ" && "$GITLEAKS_CMD" dir . \
+        --config .gitleaks.toml \
+        --redact --no-banner --no-color >/dev/null 2>&1); then
     echo ""
     echo "FALLA: el arbol de trabajo tiene hallazgos." >&2
     echo "Corre 'make check' para verlos con su ubicacion, ya redactados." >&2

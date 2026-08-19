@@ -239,16 +239,18 @@ for archivo in "$TEX" "$JSON"; do
         marcar FALLA "$etiqueta" "no declara $VERSION_INFORME - $FECHA_ESPERADA"
     fi
 done
+# El documento del entregable NO declara version, y esa ausencia es la regla:
+# el evaluador de A4 pidio que el trabajo no llevara seguimiento de versiones,
+# que es util en el proyecto y sobra en la entrega (19-ago-2026). La cadena
+# sigue viva donde sirve -las cuatro salidas generadas de arriba-, asi que aqui
+# se comprueba lo contrario que antes: que el .tex no la imprima.
 GUIA="$RAIZ/docs/entregables/contenido/a4_03_guia_estilos.tex"
 if [ -f "$GUIA" ]; then
-    if grep -qF "$VERSION_INFORME" "$GUIA"; then
-        marcar OK "a4_03_guia_estilos.tex" "declara $VERSION_INFORME"
+    if grep -qE '\\(versionguia|fechaguia)' "$GUIA"; then
+        marcar FALLA "a4_03_guia_estilos.tex" "vuelve a imprimir la version"
     else
-        marcar FALLA "a4_03_guia_estilos.tex" "no declara $VERSION_INFORME"
+        marcar OK "a4_03_guia_estilos.tex" "sin version impresa, como se pidio"
     fi
-else
-    printf '  [nota  ] %-26s %s\n' "a4_03_guia_estilos.tex" \
-        "todavia no existe: lo escribe la ola C"
 fi
 
 # --- Veredicto --------------------------------------------------------------

@@ -172,6 +172,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Overridable at runtime through NUXT_API_BASE.
     apiBase,
+    // Overridable at runtime through NUXT_API_AUDIENCE for Cloud Run IAM tokens.
+    apiAudience: process.env.NUXT_API_AUDIENCE ?? '',
     public: {
       // Overridable at runtime through NUXT_PUBLIC_ENTORNO.
       entorno: process.env.NUXT_PUBLIC_ENTORNO ?? 'local',

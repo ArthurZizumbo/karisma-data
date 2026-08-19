@@ -114,6 +114,7 @@ export const NOMBRES_DE_ICONO: readonly string[] = Object.freeze(
  */
 export const NOMBRES_AUXILIARES: readonly string[] = Object.freeze([
   'lucide:circle-dashed',
+  'lucide:circle-slash',
   'lucide:info',
   'lucide:arrow-up-down',
   'lucide:arrow-up',

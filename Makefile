@@ -20,7 +20,7 @@ ENV_FRONTEND := frontend/.env.local
 .DEFAULT_GOAL := help
 
 .PHONY: help dev lint test data tokens permisos-ui db-new db-up db-rollback db-seed check \
-        verificar comprobar-env-backend comprobar-env-frontend
+        verificar desplegar verificar-despliegue comprobar-env-backend comprobar-env-frontend
 
 # ---------------------------------------------------------------------------
 #  Ayuda
@@ -250,3 +250,13 @@ comprobar-env-backend:
 
 comprobar-env-frontend:
 	@bash scripts/comprobar_requisitos.sh entorno $(ENV_FRONTEND)
+
+# ---------------------------------------------------------------------------
+#  Despliegue puente en GCP (US-M01)
+# ---------------------------------------------------------------------------
+
+desplegar: comprobar-env-backend ## Despliega karisma-api y karisma-web en Cloud Run con Cloud SQL
+	@bash scripts/desplegar.sh
+
+verificar-despliegue: ## Comprueba el aislamiento, rutas y permisos sobre el despliegue en GCP
+	@bash scripts/verificar_despliegue.sh

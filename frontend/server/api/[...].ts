@@ -1,3 +1,4 @@
+import { tokenDeIdentidad } from '../utils/identidadCloudRun'
 import { exigirOrigenPropio, leerTokenDeSesion } from '../utils/sesion'
 
 /**
@@ -41,7 +42,7 @@ const RUTAS_PROPIAS_DE_NITRO: ReadonlySet<string> = new Set([
 ])
 
 export default defineEventHandler(async (event) => {
-  const { apiBase } = useRuntimeConfig(event)
+  const { apiBase, apiAudience } = useRuntimeConfig(event) as { apiBase: string, apiAudience?: string }
 
   const separador = event.path.indexOf('?')
   const rutaCruda = separador === -1 ? event.path : event.path.slice(0, separador)
@@ -93,6 +94,16 @@ export default defineEventHandler(async (event) => {
   // foreign origin, so curl, the smoke script and the agent tools still pass.
   exigirOrigenPropio(event)
 
+  let tokenIdentidad: string | undefined
+  if (apiAudience) {
+    try {
+      tokenIdentidad = await tokenDeIdentidad(apiAudience)
+    }
+    catch {
+      throw createError({ statusCode: 502, statusMessage: 'Bad Gateway' })
+    }
+  }
+
   // The forwarding headers are rewritten, never relayed. h3 passes through
   // whatever the client sent, so a request could claim any origin IP. Today
   // uvicorn ignores them (`forwarded_allow_ips` defaults to 127.0.0.1), but the
@@ -118,6 +129,10 @@ export default defineEventHandler(async (event) => {
     // The cookie does not travel upstream. The backend has no use for it and a
     // token arriving by two routes ends up written in an upstream log.
     'cookie': '',
+  }
+
+  if (tokenIdentidad) {
+    cabeceras['x-serverless-authorization'] = `Bearer ${tokenIdentidad}`
   }
 
   // streamRequest keeps large bodies off the heap: h3 would otherwise buffer the

@@ -16,20 +16,14 @@
 %  almohadilla en cualquier contenido/a4_*.tex. Los valores del sistema de
 %  tokens del portal se publican como texto monoespaciado, que es lo que son
 %  aquí: el dato de procedencia de un token, no una instrucción de color.
-%
-%  Versión de la guía: v1.0. La cadena impresa en el PDF NO se teclea aquí,
-%  sale de \versionguia y \fechaguia, que emite el generador. Esta línea de
-%  comentario existe porque scripts/verificar_tokens_a4.sh exige que el
-%  documento nombre la misma versión que el bloque @theme, la paleta tipada y
-%  el manifiesto; el verificador falla si las cuatro dejan de coincidir.
 % ============================================================================
 
 \begin{uxdestacado}
-{\uxhead\fontsize{13.5}{16}\selectfont\color{uxnavy}Guía de estilos de Karisma Data · \versionguia\ · \fechaguia}\par
+{\uxhead\fontsize{13.5}{16}\selectfont\color{uxnavy}Guía de estilos de Karisma Data}\par
 \vspace{6pt}
 {\color{uxamber}\rule{60pt}{2.2pt}}\par
 \vspace{8pt}
-La arquitectura que la Actividad 3 validó ---cuatro categorías, dieciséis ramas y nueve facetas transversales--- llegó a esta actividad como contrato de navegación, y esta guía es la otra mitad del contrato: la que fija cómo se ve y cómo se comporta cada pieza que ocupa esas rutas. Las once secciones siguientes cubren identidad ---la del informe y la del portal---, tipografía, el sistema de tokens con sus dos temas y sus dos modos, componentes, iconografía, imágenes, retícula, movimiento, accesibilidad, lenguaje y versionado.
+La arquitectura que la Actividad 3 validó ---cuatro categorías, dieciséis ramas y nueve facetas transversales--- llegó a esta actividad como contrato de navegación, y esta guía es la otra mitad del contrato: la que fija cómo se ve y cómo se comporta cada pieza que ocupa esas rutas. Las diez secciones siguientes cubren identidad ---la del informe y la del portal---, tipografía, el sistema de tokens con sus dos temas y sus dos modos, componentes, iconografía, imágenes, retícula, movimiento, accesibilidad y lenguaje.
 
 \vspace{6pt}
 La guía se deriva de un solo archivo y en un solo sentido. Los 37 nombres de color viven en \texttt{estilo/uxdoc.sty}; el generador \texttt{generar\_tokens\_a4.py} los lee y emite cuatro salidas: el bloque \texttt{@theme} que la aplicación consume, la paleta tipada que la ruta \texttt{/guia} imprime, las láminas de este documento y un manifiesto legible por máquina. La consecuencia práctica es que la paleta que este PDF imprime y la que el navegador pinta no divergen: son el mismo dato leído dos veces. Una guía de estilos que no está enlazada al código envejece el día que se entrega, y esa es la razón de la cadena, no una comodidad de implementación.
@@ -730,7 +724,14 @@ Las once láminas comparten forma: cada una expone un atributo de datos propio p
 
 \subsection{Tokens de tamaño y grosor}
 
-Tres tamaños y ninguno intermedio: \textbf{16, 20 y 24 px}. Grosor de trazo de \textbf{1{,}5 px en los tres}, sin engrosar en el tamaño mayor. Alineación a la línea base del texto que acompañan, no al centro óptico de la caja.
+Tres tamaños y ninguno intermedio: \textbf{16, 20 y 24 px}, uno por densidad: 16 px en celda de tabla, 20 px en botón y en chip, 24 px en encabezado de tarjeta.
+
+\begin{center}
+  \muestraTamanosIcono
+  \captionof{figure}{El mismo icono a los tres tamaños del sistema, medido en el navegador y no redibujado: 16, 20 y 24 px, alineados a la línea base}
+\end{center}
+
+El grosor \textbf{no se ajusta por tamaño}: la familia traza sus formas con dos unidades sobre un lienzo de 24, de modo que el icono de 24 px presenta un trazo de 2 px y el de 16 px uno de 1{,}33 px. Es un solo dibujo escalado, y se deja así a propósito: la corrección óptica que engruesa el trazo en el tamaño pequeño exigiría tres dibujos por icono y una tercera variable que mantener alineada. Alineación a la línea base del texto que acompañan, no al centro óptico de la caja.
 
 \subsection{Contorno y relleno}
 
@@ -742,17 +743,11 @@ Contorno en toda la interfaz. El relleno queda reservado en exclusiva al \textbf
 
 \subsection{Inventario por función}
 
-\begin{uxtabla}{|L{2.8cm}|Y|}{Inventario de iconos del producto, agrupado por función}
-  \uxheadrow \thd{Función} & \thd{Iconos} \\
-  Navegación & Los cuatro módulos del mapa de A3: inicio, exploración y extracción, gobierno del dato y administración \\
-  Acciones & Buscar, filtrar, exportar, compartir y copiar \\
-  Estado & Vigente, en revisión, retirado y error \\
-  Datos & Tabla, gráfica, linaje y fuente \\
-  Gobierno & Diccionario, calidad y carga \\
-  Administración & Usuario, rol, llave y bitácora \\
-  Asistente & Enviar, detener, herramienta y reintentar \\
-  Interfaz & Marcador de rama del árbol de navegación y selector de idioma, los dos ya en uso en la aplicación \\
-\end{uxtabla}
+El inventario se lee \textbf{por función y no por forma}: cada renglón dice qué hace el icono en el portal, cómo se dibuja y con qué nombre se pide. Son \textbf{\cifraIconosDeclarados{}} iconos en cinco grupos funcionales, y la columna de la derecha es además el rótulo accesible con el que se anuncian, de modo que la tabla fija a la vez la forma y la palabra.
+
+\input{estilo/a4_iconos_declarados}
+
+Junto a estos, la interfaz emplea los iconos de servicio que todo producto necesita ---cerrar, ordenar una columna, desplegar un detalle, avanzar o retroceder---. No se listan uno a uno porque no significan nada propio del dominio: pertenecen a la misma familia, se rigen por las mismas reglas de tamaño, grosor y área táctil, y su significado es el convencional.
 
 \subsection{Cómo se declara el inventario}
 
@@ -771,7 +766,7 @@ Tres, y ninguna más: la marca, los avatares construidos a partir de las inicial
 
 \subsection{Inventario de imágenes del documento}
 
-Las imágenes de la serie de entregables se mantienen versionadas en la carpeta \texttt{imagenes/} de los entregables y suman dieciséis archivos: los ocho retratos de las personas de la Actividad 1, las seis escenas de contexto de los escenarios de la Actividad 2 y los dos logotipos de la portada. Todas se insertan en el documento a través de macros de estilo, nunca con medidas escritas caso por caso.
+Las imágenes de la serie de entregables viven en la carpeta \texttt{imagenes/} de los entregables y suman dieciséis archivos: los ocho retratos de las personas de la Actividad 1, las seis escenas de contexto de los escenarios de la Actividad 2 y los dos logotipos de la portada. Todas se insertan en el documento a través de macros de estilo, nunca con medidas escritas caso por caso.
 
 \subsection{Texto alternativo}
 
@@ -915,44 +910,3 @@ El inglés del producto se escribe como interfaz en inglés, no como calco del e
 \subsection{El rótulo de idioma se escribe en su propio idioma}
 
 El selector nombra cada opción con su endónimo ---\enquote{Español} y \enquote{English}--- y marca cada botón con su atributo de idioma. La razón es de accesibilidad antes que de estilo: quien no puede leer la pantalla actual necesita reconocer la salida sin traducirla mentalmente.
-
-% ============================================================================
-\section{Documentación y control de versiones}
-
-\subsection{Versión vigente}
-
-\textbf{\versionguia\ · \fechaguia.} La cadena de versión aparece en tres sitios y coincide en los tres: la cabecera del bloque \texttt{@theme} de la aplicación, el manifiesto de tokens y esta sección del documento. Un guion de verificación compara las tres cadenas y falla si alguna se desvía, así que la versión impresa aquí es la que el producto ejecuta.
-
-\subsection{Dónde vive la guía}
-
-En dos lugares que no divergen porque salen del mismo generador: el bloque \texttt{@theme} de la hoja generada \texttt{main.css}, que la aplicación consume, y estas once secciones. Todo cambio entra \textbf{por modificación del generador}, nunca editando el CSS ni el documento por separado. Los dos archivos generados llevan cabecera de advertencia y una comprobación de idempotencia detecta cualquier edición a mano: el generador vuelve a emitir las cuatro salidas y compara contra el disco.
-
-\subsection{Bitácora de cambios}
-
-\begin{uxtabla}{|L{2.3cm}|L{1.3cm}|Y|Y|}{Bitácora de cambios de la guía de estilos}
-  \uxheadrow \thd{Fecha} & \thd{Versión} & \thd{Qué cambió} & \thd{Por qué} \\
-  26 de julio de 2026 & 0.1 & Se anclan once colores y dos familias tipográficas en la hoja de estilo del curso & La Actividad 1 necesitaba una identidad visual estable para el primer entregable \\
-  2 y 9 de agosto de 2026 & 0.1 & Sin cambio de valores & Las Actividades 2 y 3 compilan contra las mismas once anclas; la continuidad visual de la serie es el argumento \\
-  10 de agosto de 2026 & 0.9 & La hoja pasa de 11 a 37 nombres de color, de forma aditiva pura: veinte declaraciones nuevas y seis reúsos explícitos & La guía necesita familias completas, neutros, semánticos y serie categórica; renombrar o mover un valor invalidaría tres entregas cerradas \\
-  10 de agosto de 2026 & 0.9 & Un generador único emite el bloque \texttt{@theme}, la paleta tipada, las láminas del documento y el manifiesto & Elimina la posibilidad de que la aplicación y el PDF muestren colores distintos \\
-  10 de agosto de 2026 & 0.9 & Se calculan 44 pares de contraste y se corrigen los cuatro defectos de la sección 3.4 en los tokens & El cálculo refutó cuatro reglas que la planeación daba por buenas \\
-  10 de agosto de 2026 & 0.9 & La interfaz pasa a bilingüe español e inglés y el contrato de navegación deja de guardar palabras & Sin el cambio, el índice de prototipos habría quedado en español dentro de la interfaz en inglés \\
-  16 de agosto de 2026 & 1.0 & Publicación de la guía con la Actividad 4 & Primera versión completa: once secciones, once láminas vivas y matriz de contraste publicada \\
-\end{uxtabla}
-
-Cada entrada la aprueba el Equipo 8 (Alexandro Mayoral, Jacqueline Sarmiento y Arthur Zizumbo) en la revisión de la entrega semanal, que es el único punto del calendario donde la guía cambia de versión.
-
-\subsection{Política de actualización}
-
-\begin{uxtabla}{|L{3.6cm}|Y|}{Política de actualización de la guía}
-  \uxheadrow \thd{Regla} & \thd{Contenido} \\
-  Vía única de cambio & Se edita la hoja de estilo o el generador, se vuelve a emitir y se compila el documento. Ninguna de las cuatro salidas se edita a mano \\
-  Verificación obligatoria & Idempotencia de las cuatro salidas, invariante de las once anclas, ausencia de color escrito a mano y coincidencia de la versión en los tres sitios \\
-  Compatibilidad & Ningún nombre de token se renombra ni cambia de valor dentro de una versión mayor; los nombres heredados se conservan como alias derivados de la escala \\
-  Numeración & La cifra menor sube cuando se añaden tokens o reglas sin romper nombres; la mayor, cuando un nombre cambia de significado \\
-  Cadencia & La guía se versiona con el producto, en la revisión de la entrega semanal \\
-\end{uxtabla}
-
-\subsection{Entradas abiertas de la versión 1.1}
-
-Dos, con su condición de entrada escrita: \textbf{densidad compacta}, que entra cuando existe una segunda escala de altura de fila verificada sobre la tabla de datos; y las \textbf{correcciones que salgan de la prueba de usabilidad de la Actividad 5}, que entran con el número de participantes y la medición que las motiva. Ninguna de las dos se anticipa aquí con valores: una entrada de bitácora sin dato verificado es exactamente el tipo de afirmación que esta guía existe para impedir.

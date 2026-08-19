@@ -33,22 +33,24 @@ const { t } = useI18n()
       <h3 class="text-etiqueta uppercase text-corriente-tenue">
         {{ t(grupo.clave) }}
       </h3>
-      <ul class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-x-6">
+      <ul class="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-x-8">
         <li
           v-for="entrada in grupo.entradas"
           :key="entrada.nombre"
           data-icono
-          class="flex items-center gap-3 border-t border-grid py-2"
+          class="flex items-center justify-between gap-3 border-t border-grid py-2.5"
         >
-          <Icon
-            :name="entrada.nombre"
-            class="size-5 shrink-0 text-corriente-pleno"
-            :aria-label="t(entrada.clave)"
-          />
-          <span class="min-w-0 flex-1 truncate text-cuerpo text-corriente-pleno">
-            {{ t(entrada.clave) }}
-          </span>
-          <code class="shrink-0 font-mono text-micro text-corriente-tenue">
+          <div class="flex min-w-0 items-center gap-3">
+            <Icon
+              :name="entrada.nombre"
+              class="size-5 shrink-0 text-corriente-pleno"
+              :aria-label="t(entrada.clave)"
+            />
+            <span class="text-cuerpo text-corriente-pleno leading-snug">
+              {{ t(entrada.clave) }}
+            </span>
+          </div>
+          <code class="shrink-0 font-mono text-micro text-corriente-tenue ml-2">
             {{ entrada.nombre.replace('lucide:', '') }}
           </code>
         </li>

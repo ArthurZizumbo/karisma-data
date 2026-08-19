@@ -114,8 +114,13 @@ Los doce hallazgos quedan cerrados en el mismo arbol, antes del commit.
 
 ## Al cerrar
 
-- **URL Frontend (Pública)**: `https://karisma-web-nw4ifxqylq-uc.a.run.app` (`https://karisma-web-403109840468.us-central1.run.app`)
-- **URL Backend API (Privada - IAM)**: `https://karisma-api-nw4ifxqylq-uc.a.run.app` (`https://karisma-api-403109840468.us-central1.run.app`)
+- **URL Frontend (pública)**: `https://karisma-web-${GCP_PROJECT_NUMBER}.us-central1.run.app`
+- **URL Backend API (privada, IAM)**: `https://karisma-api-${GCP_PROJECT_NUMBER}.us-central1.run.app`
+
+  Las dos se escriben por variable, como el resto de los identificadores de nube de esta US: el
+  repositorio es público y el número de proyecto no tiene por qué viajar en él. La dirección real la
+  imprime `scripts/desplegar.sh` al terminar y la devuelve
+  `gcloud run services describe <servicio> --region=us-central1 --format='value(status.url)'`.
 - **Base de Datos Administrada**: Cloud SQL PostgreSQL 15 (`karisma-pg`, `db-f1-micro`, 10 GB HDD) en `us-central1`
 - **Autenticación e IAM**: Rama A ejecutada y verificada exitosamente (Invocación privada con `X-Serverless-Authorization` y token OIDC de cuenta de servicio)
 - **Suite de verificación post-despliegue**: `scripts/verificar_despliegue.sh` y `make check` pasando al 100%.

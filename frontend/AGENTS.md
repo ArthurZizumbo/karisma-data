@@ -22,7 +22,7 @@ Las **ocho** rutas del contrato de navegación (`RUTAS_CONTRATO` en `app/utils/n
 
 **Las tablas son headless y `/exploracion` dejó de ser un callejón** (misma US). `comun/TablaDatos.vue` monta **TanStack Table v9** —`useTable`, características declaradas con `tableFeatures({...})`; **un ejemplo de v8 copiado de internet no compila**— y da orden real, `aria-sort` y fila de 34 px, que es la densidad que `DESIGN.md` declaraba y ninguna tabla entregaba. La usan `administracion/TablaUsuarios`, `tablero/TablaDetalleSerie`, `serie/Tabla` y el catálogo; siguen a mano `guia/LaminaTablas` —que es la lámina normativa de la que sale el aspecto—, `guia/LaminaBotones`, `pages/guia.vue` y `chat/ToolCallCard`. `comun/TarjetaContenida.vue` es la superficie del sistema (filete, radio por tema, barra de canal) y `inicio/TarjetaIndicador.vue` la de cifra. En `/exploracion` **cada fila abre el linaje con el mismo `OverlayLinaje` y el mismo `useLinajeCampo` que monta `/gobierno`**: montar un segundo panel habría sido una segunda respuesta a «de dónde sale esto». El término vive en la dirección (`?q=`), `useBusquedaCatalogo` recibe opciones —con y sin sincronización de URL, las dos con consumidor real— y exporta `certificacionDeCampo()`, que cruza la ortografía del cable (`en_revision`) con la del token (`en-revision`).
 
-También existen 18 composables, tres stores Pinia (`workspace`, compartido tablero↔chat; `sistemaDiseno`, **tema y modo** de color; `exportaciones`, trabajos en segundo plano), un plugin de cliente, un middleware global y tres layouts. El JWT sale de la cookie solo dentro de `server/`.
+También existen 18 composables, tres stores Pinia (`workspace`, compartido tablero↔chat; `sistemaDiseno`, **tema y modo** de color; `exportaciones`, trabajos en segundo plano), un plugin de cliente, un middleware global y tres layouts. El JWT sale de la cookie solo dentro de `server/`. Para Cloud Run (US-M01), `server/utils/identidadCloudRun.ts` obtiene y cachea tokens OIDC del servidor de metadatos para inyectar `x-serverless-authorization` hacia el backend privado cuando `apiAudience` está configurada.
 
 ## Estructura
 
@@ -36,7 +36,7 @@ frontend/
 │   ├── utils/         # puros + permisos.generated.ts + tokens.generated.ts
 │   └── assets/css/    # main.css — GENERADO
 ├── i18n/              # i18n.config.ts + locales/{es,en}.json
-├── server/            # api/[...].ts (proxy) + api/auth/{token,demo,logout}
+├── server/            # api/[...].ts (proxy) + api/auth/{token,demo,logout} + utils/{sesion,identidadCloudRun}.ts
 ├── public/datos/ · test/
 └── nuxt.config.ts · vitest.config.ts · eslint.config.mjs · pnpm-workspace.yaml
 ```

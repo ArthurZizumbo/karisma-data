@@ -40,6 +40,16 @@ DSN_COMPOSE = "postgresql://karisma:karisma@db:5432/karisma?sslmode=disable"
             "postgresql+psycopg://karisma:karisma@db:5432/karisma?sslmode=disable",
             id="ya-trae-el-controlador",
         ),
+        pytest.param(
+            "postgresql://karisma:x@/karisma?host=/cloudsql/tareas-computo-nube:us-central1:karisma-pg&sslmode=disable",
+            "postgresql+psycopg://karisma:x@/karisma?host=/cloudsql/tareas-computo-nube:us-central1:karisma-pg&sslmode=disable",
+            id="socket-unix-cloud-sql",
+        ),
+        pytest.param(
+            "postgresql+psycopg://karisma:x@/karisma?host=/cloudsql/tareas-computo-nube:us-central1:karisma-pg&sslmode=disable",
+            "postgresql+psycopg://karisma:x@/karisma?host=/cloudsql/tareas-computo-nube:us-central1:karisma-pg&sslmode=disable",
+            id="socket-unix-cloud-sql-ya-con-controlador",
+        ),
     ],
 )
 def test_traduce_el_dsn_de_dbmate(original: str, esperado: str) -> None:

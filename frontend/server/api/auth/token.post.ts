@@ -1,4 +1,5 @@
 import type { SesionUsuario } from '~/types/sesion'
+import { ErrorDeIdentidad, tokenDeIdentidad } from '../../utils/identidadCloudRun'
 import {
   establecerSesion,
   exigirOrigenPropio,
@@ -34,7 +35,7 @@ interface TokenEmitido {
 export default defineEventHandler(async (event): Promise<SesionUsuario> => {
   exigirOrigenPropio(event)
 
-  const { apiBase } = useRuntimeConfig(event)
+  const { apiBase, apiAudience } = useRuntimeConfig(event) as { apiBase: string, apiAudience?: string }
   const cuerpo = await readBody<CuerpoDeAcceso | null>(event)
 
   // Coerced rather than validated: an empty field is a wrong credential and the
@@ -44,11 +45,26 @@ export default defineEventHandler(async (event): Promise<SesionUsuario> => {
     password: typeof cuerpo?.contrasena === 'string' ? cuerpo.contrasena : '',
   })
 
+  const cabeceras: Record<string, string> = { 'content-type': 'application/x-www-form-urlencoded' }
+  if (apiAudience) {
+    try {
+      const idToken = await tokenDeIdentidad(apiAudience)
+      cabeceras['x-serverless-authorization'] = `Bearer ${idToken}`
+    }
+    catch {
+      throw createError({
+        statusCode: 502,
+        statusMessage: 'Bad Gateway',
+        data: { codigo: 'servicio_no_disponible' },
+      })
+    }
+  }
+
   let emision: TokenEmitido
   try {
     emision = await $fetch<TokenEmitido>(`${apiBase}/api/auth/token`, {
       method: 'POST',
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      headers: cabeceras,
       body: formulario.toString(),
     })
   }
@@ -57,7 +73,7 @@ export default defineEventHandler(async (event): Promise<SesionUsuario> => {
   }
 
   try {
-    const sesion = await leerPerfilDeSesion(apiBase, emision.access_token)
+    const sesion = await leerPerfilDeSesion(apiBase, emision.access_token, apiAudience)
     establecerSesion(event, emision.access_token)
     return sesion
   }
@@ -65,6 +81,16 @@ export default defineEventHandler(async (event): Promise<SesionUsuario> => {
     // The cookie is written only after the profile reads back. A token whose
     // profile cannot be read is a token the interface could not act on, and
     // storing it would leave a session that looks open and answers nothing.
+    //
+    // An unreachable metadata server is not a rejected credential: reporting it
+    // as one would ask the user to retype a password that was right.
+    if (error instanceof ErrorDeIdentidad) {
+      throw createError({
+        statusCode: 502,
+        statusMessage: 'Bad Gateway',
+        data: { codigo: 'servicio_no_disponible' },
+      })
+    }
     throw fallaDeAutenticacion(error)
   }
 })

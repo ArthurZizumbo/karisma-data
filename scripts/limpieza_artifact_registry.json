@@ -1,0 +1,20 @@
+[
+  {
+    "name": "conservar-tres-versiones",
+    "action": {
+      "type": "Keep"
+    },
+    "mostRecentVersions": {
+      "keepCount": 3
+    }
+  },
+  {
+    "name": "borrar-resto",
+    "action": {
+      "type": "Delete"
+    },
+    "condition": {
+      "tagState": "ANY"
+    }
+  }
+]

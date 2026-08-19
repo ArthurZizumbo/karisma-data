@@ -1,8 +1,9 @@
 # syntax=docker/dockerfile:1
 
 # Multi-stage build for the Karisma Data API.
-# Build context is backend/, which is what `gcloud run deploy karisma-api
-# --source backend` and the `api` service of docker-compose.yml both use.
+# Build context is backend/ in local Compose development (target: runtime).
+# For Cloud Run deployment, scripts/desplegar.sh builds target: runtime-con-datos
+# using an ephemeral context that bundles backend/ with data/silos and data/aggregates.
 
 # Stage 1: turn the committed lock file into a plain requirements file.
 # Poetry lives here and never reaches the runtime image.
@@ -50,3 +51,9 @@ HEALTHCHECK --interval=10s --timeout=3s --start-period=15s --retries=5 \
     CMD python -c "import os, urllib.request; urllib.request.urlopen('http://127.0.0.1:' + os.environ.get('PORT', '8000') + '/health').read()" || exit 1
 
 CMD ["sh", "-c", "exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
+
+# Stage 3: runtime with embedded synthetic data for Cloud Run deployments (US-M01).
+# Compose targets `runtime` explicitly so this stage is only built for production push.
+FROM runtime AS runtime-con-datos
+
+COPY data ./data

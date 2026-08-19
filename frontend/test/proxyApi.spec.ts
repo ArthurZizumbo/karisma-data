@@ -26,6 +26,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 interface ConfiguracionDeRuntime {
   apiBase: string
+  apiAudience?: string
 }
 
 /** Minimal shape of the h3 event that the handler actually reads. */
@@ -429,5 +430,76 @@ describe('no reenvia una ruta que Nitro se sirve a si mismo', () => {
     await expect(manejador(crearEvento('/api/%zz/catalogo'))).rejects.toMatchObject({
       statusCode: 400,
     })
+  })
+})
+
+describe('cabecera de identidad Cloud Run (x-serverless-authorization)', () => {
+  it('sin apiAudience no anade la cabecera x-serverless-authorization y conserva authorization', async () => {
+    configuracionDelProceso = { apiBase: BASE_INICIAL, apiAudience: '' }
+    const manejador = await cargarManejador()
+    const evento = crearEvento('/api/catalog/search')
+    evento.cookies.karisma_sesion = 'jwt.sesion.usuario'
+
+    const respuesta = await manejador(evento)
+
+    expect(respuesta.cabeceras?.['x-serverless-authorization']).toBeUndefined()
+    expect(respuesta.cabeceras?.authorization).toBe('Bearer jwt.sesion.usuario')
+  })
+
+  it('con apiAudience inyecta x-serverless-authorization y conserva el JWT de la sesion', async () => {
+    configuracionDelProceso = {
+      apiBase: 'https://karisma-api-xyz.a.run.app',
+      apiAudience: 'https://karisma-api-xyz.a.run.app',
+    }
+
+    const expEnElFuturo = Math.floor(Date.now() / 1000) + 3600
+    const header = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url')
+    const payload = Buffer.from(JSON.stringify({ exp: expEnElFuturo })).toString('base64url')
+    const idTokenSimulado = `${header}.${payload}.firma`
+
+    const mockFetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+      text: async () => idTokenSimulado,
+    })
+    vi.stubGlobal('fetch', mockFetch)
+
+    const manejador = await cargarManejador()
+    const evento = crearEvento('/api/catalog/search')
+    evento.cookies.karisma_sesion = 'jwt.sesion.usuario'
+
+    const respuesta = await manejador(evento)
+
+    expect(respuesta.cabeceras?.['x-serverless-authorization']).toBe(`Bearer ${idTokenSimulado}`)
+    expect(respuesta.cabeceras?.authorization).toBe('Bearer jwt.sesion.usuario')
+  })
+
+  it('si el servidor de metadatos falla responde 502 y proxyRequest no se llama', async () => {
+    configuracionDelProceso = {
+      apiBase: 'https://karisma-api-xyz.a.run.app',
+      apiAudience: 'https://karisma-api-xyz.a.run.app',
+    }
+
+    const mockFetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 500,
+      statusText: 'Internal Server Error',
+      text: async () => 'Error',
+    })
+    vi.stubGlobal('fetch', mockFetch)
+
+    const spyProxyRequest = vi.fn()
+    vi.stubGlobal('proxyRequest', spyProxyRequest)
+
+    const manejador = await cargarManejador()
+    const evento = crearEvento('/api/catalog/search')
+
+    await expect(manejador(evento)).rejects.toMatchObject({
+      statusCode: 502,
+      statusMessage: 'Bad Gateway',
+    })
+
+    expect(spyProxyRequest).not.toHaveBeenCalled()
   })
 })

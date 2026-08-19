@@ -57,6 +57,7 @@ services:
   api:
     build:
       context: ./backend
+      target: runtime
     env_file:
       - path: ./backend/.env.local
         required: false
@@ -158,6 +159,28 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+  # -------------------------------------------------------------------------
+  #  sqlproxy - Cloud SQL Auth Proxy v2 para migraciones y semillas contra
+  #  la base de datos administrada en GCP (US-M01).
+  #  Vive en el perfil "nube": "docker compose up" no lo arranca.
+  # -------------------------------------------------------------------------
+  #  El nombre de la instancia y la ruta de credenciales entran por variable y no
+  #  escritos aqui: el primero identifica el proyecto de nube en un repositorio
+  #  publico, y la segunda no puede llevar "~" porque Compose NO lo expande -un
+  #  valor por omision con virgulilla monta una carpeta llamada "~" y el proxy
+  #  arranca sin credenciales-. Las dos las exporta scripts/desplegar.sh, que
+  #  resuelve la ruta real segun el sistema operativo.
+  sqlproxy:
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.0
+    profiles:
+      - nube
+    command:
+      - "--address=0.0.0.0"
+      - "--port=5432"
+      - "${INSTANCIA_CLOUD_SQL:?define INSTANCIA_CLOUD_SQL como proyecto:region:instancia}"
+    volumes:
+      - "${CREDENCIALES_ADC:?define CREDENCIALES_ADC con la ruta de application_default_credentials.json}:/root/.config/gcloud/application_default_credentials.json:ro"
 
 volumes:
   karisma_pgdata:

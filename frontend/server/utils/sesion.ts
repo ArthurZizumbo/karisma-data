@@ -1,6 +1,7 @@
 import type { H3Event } from 'h3'
 import type { SesionUsuario } from '~/types/sesion'
 import { aSesionUsuario, estadoDeFallo } from '~/utils/sesion'
+import { tokenDeIdentidad } from './identidadCloudRun'
 
 /**
  * Server side of the session: the cookie, the origin check and the second call
@@ -154,9 +155,22 @@ export function exigirOrigenPropio(event: H3Event): void {
 export async function leerPerfilDeSesion(
   apiBase: string,
   token: string,
+  apiAudience?: string,
 ): Promise<SesionUsuario> {
+  const headers: Record<string, string> = { authorization: `Bearer ${token}` }
+  if (apiAudience) {
+    // The failure is not swallowed, and that is the whole point: forwarding
+    // without the identity token reaches a private Cloud Run service, which
+    // answers 403. The caller would then report a rejected session -wrong
+    // credentials, expired token- for what is an unreachable metadata server,
+    // and the interface would tell the user to log in again over and over. The
+    // three callers of this function turn a throw into a 502, which names the
+    // layer that actually broke.
+    const idToken = await tokenDeIdentidad(apiAudience)
+    headers['x-serverless-authorization'] = `Bearer ${idToken}`
+  }
   const perfil = await $fetch(`${apiBase}/api/auth/me`, {
-    headers: { authorization: `Bearer ${token}` },
+    headers,
   })
   return aSesionUsuario(perfil)
 }

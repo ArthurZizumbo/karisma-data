@@ -27,6 +27,8 @@ que pudre esta clase de fachada. El endpoint de descarga no pregunta por el back
 por la **capacidad** (`isinstance` sobre `AlmacenServidoPorLaApi`, un `Protocol` `runtime_checkable`):
 con GCS los enlaces los firma y los sirve el bucket, no esta API.
 
+**Imágenes y datos sintéticos (US-M01)**: En desarrollo local Compose monta `./data:/app/data:ro` sobre el stage `runtime`. Para producción en Cloud Run, el stage `runtime-con-datos` de `backend/Dockerfile` empaqueta los archivos Parquet (`data/silos/` y `data/aggregates/`) directamente en la imagen a través de un contexto efímero, permitiendo servir métricas y series de forma autónoma sin volúmenes persistentes.
+
 ## Estructura
 
 ```
@@ -42,7 +44,7 @@ backend/
 │   ├── utils/     serie_frame.py (marco binario KSER1) — nada más
 │   └── main.py    settings → logging → routers → assert_scope_coverage()
 ├── pyproject.toml ruff, mypy y pytest se configuran AQUI, apuntando a tests/ de la raíz
-└── Dockerfile     multi-stage; el contexto de build es backend/
+└── Dockerfile     multi-stage; runtime para Compose y runtime-con-datos para Cloud Run
 ```
 
 ## Comandos

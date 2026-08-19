@@ -63,14 +63,19 @@ if [ ! -f "$GENERADOR" ]; then
     exit 1
 fi
 
+POETRY_CMD="poetry"
 if ! command -v poetry >/dev/null 2>&1; then
-    echo "FALLA: poetry no esta en el PATH; el generador no se puede correr." >&2
-    exit 1
+    if command -v poetry.exe >/dev/null 2>&1; then
+        POETRY_CMD="poetry.exe"
+    else
+        echo "FALLA: poetry no esta en el PATH; el generador no se puede correr." >&2
+        exit 1
+    fi
 fi
 
 # --- 1. Regenerar no cambia lo que hay en disco ----------------------------
 echo "1. El archivo generado esta al dia"
-if ! poetry -P "$RAIZ/backend" run python "$GENERADOR" >/dev/null; then
+if ! (cd "$RAIZ" && "$POETRY_CMD" -P backend run python scripts/generar_permisos_ui.py >/dev/null); then
     echo "FALLA: el generador termino con error. Corre 'make permisos-ui' y lee su salida." >&2
     exit 1
 fi
@@ -86,7 +91,7 @@ fi
 echo ""
 echo "2. Idempotencia del generador"
 primera=$(huella "$RAIZ/$DESTINO")
-if poetry -P "$RAIZ/backend" run python "$GENERADOR" >/dev/null; then
+if (cd "$RAIZ" && "$POETRY_CMD" -P backend run python scripts/generar_permisos_ui.py >/dev/null); then
     if [ "$primera" = "$(huella "$RAIZ/$DESTINO")" ]; then
         marcar OK "dos corridas seguidas" "el archivo queda byte a byte igual"
     else

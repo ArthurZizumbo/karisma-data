@@ -15,7 +15,6 @@ set -euo pipefail
 
 PROYECTO="${PROYECTO:-tareas-computo-nube}"
 NUMERO_PROYECTO="${NUMERO_PROYECTO:-$(gcloud projects describe "$PROYECTO" --format='value(projectNumber)' 2>/dev/null || true)}"
-CUENTA_FACTURACION="${CUENTA_FACTURACION:-${GCP_BILLING_ACCOUNT:-}}"
 REGION="${REGION:-us-central1}"
 INSTANCIA="${INSTANCIA:-karisma-pg}"
 REPOSITORIO="${REPOSITORIO:-karisma}"
@@ -41,6 +40,13 @@ if [ -f "$ENV_BACKEND" ]; then
   . "$ENV_BACKEND"
   set +a
 fi
+
+# Las dos variables de abajo se resuelven DESPUES de cargar el archivo de
+# entorno, y el orden es la funcionalidad: resueltas antes, un valor escrito en
+# backend/.env.local llegaba tarde y el guion abortaba diciendo que faltaba algo
+# que si estaba puesto. Quien lo pone en el archivo y quien lo exporta en su
+# terminal obtienen ahora el mismo resultado.
+CUENTA_FACTURACION="${CUENTA_FACTURACION:-${GCP_BILLING_ACCOUNT:-}}"
 
 # Contrasena del usuario de Cloud SQL. Sin valor por omision, y esa ausencia es
 # la regla: un fallback escrito aqui viaja al repositorio y de ahi a la base
@@ -68,13 +74,12 @@ exigir_secreto() {
 }
 
 exigir_proyecto() {
-  log "Verificando proyecto activo, número y facturación..."
-  local proj_actual
-  proj_actual=$(gcloud config get-value project 2>/dev/null || true)
-  if [ "$proj_actual" != "$PROYECTO" ]; then
-    log "Configurando proyecto activo a $PROYECTO..."
-    gcloud config set project "$PROYECTO" --quiet
-  fi
+  log "Verificando proyecto, numero y facturacion..."
+  # No se toca `gcloud config set project`. Todos los comandos de este guion
+  # pasan --project, asi que cambiar el proyecto activo no le hace falta a nadie
+  # y si deja consecuencias: reescribe la configuracion global del operador y la
+  # dejaba apuntando a otro sitio incluso cuando la comprobacion de abajo abortaba
+  # un instante despues.
 
   # La facturacion se comprueba y se aborta, no se advierte: desplegar contra la
   # cuenta equivocada gasta el presupuesto de otro proyecto y las alertas de

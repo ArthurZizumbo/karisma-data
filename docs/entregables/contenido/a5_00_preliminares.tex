@@ -1,0 +1,50 @@
+% ============================================================================
+\uxsection{Introducción}
+
+Este documento reúne el proceso de diseño de \textbf{Karisma Data}, un portal centralizado de
+datos financieros orientado a consulta, análisis, supervisión, gobierno e integración. Las cuatro
+entregas anteriores definieron el problema y la audiencia, tradujeron sus necesidades en
+escenarios y recorridos, contrastaron la propuesta con alternativas del mercado, organizaron el
+contenido y construyeron un prototipo de alta fidelidad. La quinta entrega conecta esos artefactos
+con métricas UX y una prueba de usabilidad sobre las funciones principales del demo.
+
+El reporte evita reproducir completos los documentos anteriores. En su lugar presenta los
+artefactos necesarios para conservar la trazabilidad de las decisiones y concentra el detalle en
+la evaluación. El alcance de la prueba comprende seis interfaces operables: acceso por perfil,
+búsqueda en el catálogo, exportación, tablero ejecutivo, asistente conversacional y administración.
+
+\begin{uxnota}[Alcance de los resultados de usabilidad]
+El protocolo se preparó para Carlos René Flores M. y Verónica Itzel Flores González, dos perfiles
+profesionales proporcionados por el equipo. Los resultados incluidos se presentan como una
+\textbf{simulación académica de dos sesiones}: permiten completar y revisar el instrumento, pero
+no se declaran como observaciones de campo ni se atribuyen citas textuales a los participantes.
+Una aplicación real debe sustituir estos valores por tiempos, errores, respuestas y notas
+recabados durante sesiones realizadas con consentimiento.
+\end{uxnota}
+
+% ============================================================================
+\section{Descripción del producto}
+
+Karisma Data responde a una dificultad institucional concreta: las fuentes de crédito, liquidez,
+derivados y otros dominios se consultan en sistemas separados, con definiciones, permisos y
+formatos que no siempre son comparables. Esto retrasa la validación de cifras, dificulta descubrir
+fuentes relacionadas y hace que parte del conocimiento permanezca distribuido entre áreas.
+
+La solución es un portal web modular que ofrece una entrada común y adapta la profundidad a la
+tarea. Una consulta rápida empieza con el buscador; el análisis continúa con filtros, metadatos y
+exportaciones; la supervisión utiliza indicadores consolidados; y las tareas de gobierno o
+administración aparecen solo para los perfiles autorizados.
+
+\begin{uxtabla}{L{3.5cm}Y}{Capacidades principales y valor para el usuario}
+  \uxheadrow \thd{Capacidad} & \thd{Valor UX} \\
+  Buscador y catálogo de datos & Localiza campos por concepto o nombre físico y muestra dominio, fuente, responsable y certificación \\
+  Exploración y exportación & Permite continuar desde el hallazgo hasta un archivo reutilizable, con filtros y seguimiento del proceso \\
+  Tableros e indicadores & Resume el último corte y permite profundizar en series y proyecciones \\
+  Asistente conversacional & Responde en lenguaje natural y hace visible la consulta y la fuente que respaldan cada cifra \\
+  Acceso por perfiles & Ajusta navegación, contenido y acciones sin crear productos separados para cada rol \\
+  Gobierno y administración & Centraliza definiciones, permisos, estados de cuenta y evidencia de cambios \\
+\end{uxtabla}
+
+El valor esperado se resume en tres resultados: reducir el tiempo necesario para localizar y
+validar información, conservar la procedencia cuando el dato se reutiliza y permitir que una misma
+persona cambie de una vista simple a una herramienta profunda sin abandonar el portal.

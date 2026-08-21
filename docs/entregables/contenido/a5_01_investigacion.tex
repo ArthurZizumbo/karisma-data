@@ -1,0 +1,122 @@
+% ============================================================================
+\section{Personas}
+
+Las ocho personas consolidan responsabilidades observadas en el dominio. No representan puestos
+excluyentes: una persona puede cambiar de modo según la tarea. Laura Méndez se conserva como
+persona primaria porque la consulta y validación rápida son el denominador común del producto.
+
+\begin{uxtablalarga}{L{2.8cm}L{3.0cm}Y Y}{Personas del proyecto}{\thd{Persona} & \thd{Perfil} & \thd{Objetivo principal} & \thd{Fricción representativa}}
+Laura Méndez & Operativo & Encontrar y validar una cifra vigente en pocos minutos & Rutas cambiantes y dependencia de colegas \\
+Diego Hernández & Analista de datos & Cruzar fuentes y dejar un análisis reproducible & Estructuras incompatibles y exportaciones limitadas \\
+Roberto Valdez & Propietario de datos & Publicar definiciones y controlar su vigencia & Consultas repetitivas y versiones locales obsoletas \\
+Elena Ruiz & Riesgos y auditoría & Reconstruir accesos, cambios y decisiones & Bitácoras fragmentadas y procesos poco transparentes \\
+Jorge Mendieta & Ingeniería de datos & Mantener cargas, estructura y rendimiento & Incidentes reactivos y fuentes técnicas ocultas \\
+Arturo Castañeda & Directivo & Interpretar tendencias y señales con rapidez & Versiones distintas de una cifra y exceso de detalle \\
+Mariana Ovalle Ríos & Administración & Otorgar el permiso mínimo y retirar accesos oportunamente & Solicitudes sin contexto y cuentas que permanecen activas \\
+Ximena Solís Barrera & Integración & Consumir APIs estables y anticipar cambios de esquema & Documentación incompleta y cambios silenciosos \\
+\end{uxtablalarga}
+
+\subsection{Mapas de empatía}
+
+Los mapas siguientes sintetizan los cuatro cuadrantes utilizados desde la Actividad 1. Se
+compactan para permitir comparar perfiles sin repetir sus antecedentes.
+
+\newcommand{\maparesumen}[5]{%
+  \needspace{12\baselineskip}
+  \begin{tcolorbox}[colback=white,colframe=uxline,boxrule=0.7pt,arc=2pt,
+    left=9pt,right=9pt,top=7pt,bottom=7pt,title={#1},fonttitle=\uxhead\color{uxnavy}]
+  \footnotesize
+  \begin{tabularx}{\linewidth}{>{\bfseries\color{uxnavy}}L{1.8cm}Y}
+  Dice & #2 \\
+  Piensa & #3 \\
+  Hace & #4 \\
+  Siente & #5 \\
+  \end{tabularx}
+  \end{tcolorbox}}
+
+\maparesumen{Laura Méndez}
+{Necesito confirmar la cifra antes de la reunión.}
+{Debe existir una fuente vigente y comprensible.}
+{Busca en archivos conocidos, compara y consulta a un colega.}
+{Presión al inicio; alivio cuando identifica fuente, fecha y definición.}
+
+\maparesumen{Diego Hernández}
+{Quiero los datos crudos y el contexto para reproducir el análisis.}
+{Una descarga sin metadatos puede producir una conclusión equivocada.}
+{Explora definiciones, cruza fuentes y conserva scripts y filtros.}
+{Curiosidad al explorar; frustración ante formatos incompatibles.}
+
+\maparesumen{Roberto Valdez}
+{Esta definición debe ser la misma para todas las áreas.}
+{Publicar implica controlar versión, propietario y permisos.}
+{Mantiene diccionarios, revisa solicitudes y responde dudas.}
+{Responsabilidad por la calidad; molestia ante copias obsoletas.}
+
+\maparesumen{Elena Ruiz}
+{Necesito evidencia que pueda reconstruirse.}
+{Una transformación sin rastro es un riesgo de control.}
+{Cruza permisos, solicita bitácoras y documenta cada paso.}
+{Desconfianza ante cajas negras; seguridad cuando la evidencia es completa.}
+
+\maparesumen{Jorge Mendieta}
+{La carga debe fallar de forma visible y explicable.}
+{La estructura y los contratos deben proteger a quienes consumen los datos.}
+{Diseña esquemas, automatiza validaciones y atiende incidentes.}
+{Control con procesos estables; presión cuando el mantenimiento es reactivo.}
+
+\maparesumen{Arturo Castañeda}
+{Muéstrame qué cambió y por qué importa.}
+{La cifra debe ser confiable sin exigir leer tablas completas.}
+{Revisa indicadores y delega el análisis profundo cuando detecta una señal.}
+{Urgencia ante una anomalía; confianza cuando obtiene contexto inmediato.}
+
+\maparesumen{Mariana Ovalle Ríos}
+{Cada cuenta debe tener solo el acceso necesario.}
+{Un permiso sin justificación puede permanecer activo más tiempo del debido.}
+{Valida solicitudes, cambia roles y revisa cuentas periódicamente.}
+{Cautela al autorizar; tranquilidad cuando existe trazabilidad.}
+
+\maparesumen{Ximena Solís Barrera}
+{Necesito un contrato estable y avisos antes de cada cambio.}
+{Una API útil debe documentar campos, versiones y límites.}
+{Prueba consultas, versiona integraciones y monitorea errores.}
+{Confianza al automatizar; frustración cuando un cambio rompe producción.}
+
+% ============================================================================
+\section{Escenarios}
+
+Los seis escenarios desarrollados por el equipo cubren desde una consulta breve hasta una
+integración de largo plazo. La tabla conserva usuario, contexto, tarea y resultado, los elementos
+que después alimentaron los journey maps y las tareas de evaluación.
+
+\begin{uxtablalarga}{C{0.8cm}L{2.5cm}L{3.1cm}Y Y}{Escenarios de uso}{\thd{\#} & \thd{Persona} & \thd{Contexto} & \thd{Tarea} & \thd{Resultado esperado}}
+1 & Laura Méndez & Solicitud urgente antes de una reunión & Localizar y validar una cifra de cartera & Responder con valor, fuente y corte confirmados \\
+2 & Diego Hernández & Análisis que cruza crédito, liquidez y derivados & Encontrar variables, aplicar filtros y exportar & Conjunto reutilizable y análisis reproducible \\
+3 & Arturo Castañeda & Preparación de una exposición ante la Junta & Interpretar una señal de riesgo & Explicación ejecutiva con tendencia, umbral y procedencia \\
+4 & Roberto Valdez & Cambio de una definición institucional & Publicar una versión del catálogo & Nueva versión visible sin perder la anterior ni afectar silenciosamente a consumidores \\
+5 & Mariana Ovalle Ríos & Incorporación y posterior cambio de área & Otorgar y retirar el acceso mínimo & Cuenta con rol correcto, vigencia y registro administrativo \\
+6 & Ximena Solís Barrera & Integración programática sometida a cambios & Consultar contrato, obtener acceso y versionar consumo & Integración estable con aviso previo de incompatibilidades \\
+\end{uxtablalarga}
+
+% ============================================================================
+\section{Journey maps}
+
+Los mapas convierten cuatro escenarios en recorridos por etapas, acciones, puntos de contacto,
+pensamientos, emociones, fricciones y oportunidades. El mapa de equipo toma a Laura, la persona
+primaria; los tres mapas individuales profundizan en análisis, supervisión e integración.
+
+\figurapanoramica{figuras/journey_equipo_laura.pdf}
+{Journey map de equipo para Laura Méndez: validar una cifra y responder con su procedencia.}{fig:a5-journey-laura}
+
+\figurapanoramica{figuras/journey_diego.pdf}
+{Journey map de Diego Hernández: cruzar fuentes y conservar un análisis reproducible.}{fig:a5-journey-diego}
+
+\figurapanoramica{figuras/journey_arturo.pdf}
+{Journey map de Arturo Castañeda: comprender una señal de riesgo antes de exponerla.}{fig:a5-journey-arturo}
+
+\figurapanoramica{figuras/journey_ximena.pdf}
+{Journey map de Ximena Solís Barrera: integrar un servicio y anticipar cambios de esquema.}{fig:a5-journey-ximena}
+
+La oportunidad transversal es conservar el contexto desde el descubrimiento hasta la
+reutilización. De ella derivan cinco principios: empezar simple, mantener la profundidad a un
+paso, respaldar cada cifra, avisar los cambios y hacer visible cómo se obtuvo una respuesta.

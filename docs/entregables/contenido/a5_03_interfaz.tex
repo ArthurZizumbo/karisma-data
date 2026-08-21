@@ -1,0 +1,59 @@
+% ============================================================================
+\section{Prototipos de alta fidelidad}
+
+La Actividad 4 convirtió el mapa de navegación en una aplicación web operable. Para esta entrega
+no se repiten todas las variantes del archivo de diseño: se documentan únicamente las seis
+interfaces que forman el alcance de la prueba de usabilidad y que pueden recorrerse en el demo.
+
+\begin{uxtabla}{L{3.2cm}L{3.2cm}Y}{Interfaces incluidas en la evaluación final}
+  \uxheadrow \thd{Interfaz} & \thd{Ruta} & \thd{Función principal} \\
+  Acceso por perfil & \texttt{/acceso} & Entrar al espacio de trabajo apropiado sin configurar permisos manualmente \\
+  Catálogo & \texttt{/exploracion} & Encontrar un campo y distinguirlo por dominio, fuente, responsable y certificación \\
+  Exportaciones & \texttt{/exploracion/}\allowbreak\texttt{exportar} & Solicitar un archivo, seguir su estado y descargarlo \\
+  Tableros e indicadores & \texttt{/exploracion/}\allowbreak\texttt{tableros} & Interpretar el último corte, la tendencia y la proyección \\
+  Asistente & \texttt{/asistente} & Formular una pregunta y verificar la consulta y la fuente utilizadas \\
+  Administración & \texttt{/administracion} & Consultar cuentas, cambiar roles y desactivar accesos con protección por permisos \\
+\end{uxtabla}
+
+\figuraux{figuras/a4/tema/institucional_claro_0_acceso.png}
+{Acceso del demo con selección de perfil y aviso permanente de datos sintéticos.}{fig:a5-acceso}
+
+\figuraux{figuras/a4/tema/institucional_claro_2_exploracion.png}
+{Catálogo del demo: búsqueda, dominios y tabla de resultados con metadatos.}{fig:a5-catalogo}
+
+\figuraux{imagenes/us009_exportacion_momento3_enlace.png}
+{Exportación lista para descarga mediante enlace con vigencia declarada.}{fig:a5-exportacion}
+
+\figuraux{figuras/a4/tema/institucional_claro_7_asistente_resultado.png}
+{Respuesta del asistente con llamadas a herramienta, resultados y fuente visibles.}{fig:a5-asistente}
+
+Las interfaces comparten cabecera, navegación lateral, cambio de idioma, selector de apariencia,
+aviso de alcance y estados explícitos. La prueba se plantea suponiendo que los datos sintéticos y
+los archivos de exportación están disponibles, porque el objetivo es evaluar interacción y
+comprensión, no la preparación del ambiente técnico.
+
+% ============================================================================
+\section{Guía de estilo}
+
+El sistema visual utiliza la marca Karisma Data, Lexend Deca para titulares y Fira Sans para
+lectura continua. La paleta combina azul institucional, neutros claros, ámbar de énfasis y colores
+semánticos para confirmación, advertencia y error. El color nunca es el único canal: estados y
+roles también llevan texto e iconografía.
+
+\begin{uxtabla}{L{3.1cm}Y}{Reglas de estilo aplicadas al demo}
+  \uxheadrow \thd{Elemento} & \thd{Regla} \\
+  Identidad & La marca conserva proporción y contraste; sus variantes se adaptan a fondos claros y oscuros \\
+  Tipografía & Titulares breves con Lexend Deca; contenido, etiquetas y tablas con Fira Sans \\
+  Color & Contraste mínimo verificado para texto y controles; el ámbar se reserva para énfasis \\
+  Retícula & Navegación persistente, cabecera funcional y contenido organizado para lectura densa \\
+  Componentes & Botones, campos, tablas, alertas, chips y estados comparten medidas y comportamiento \\
+  Accesibilidad & Navegación por teclado, salto al contenido, foco visible, rótulos accesibles y mensajes de estado \\
+  Voz y tono & Español directo, específico y honesto sobre los datos sintéticos y las limitaciones del prototipo \\
+\end{uxtabla}
+
+\figurapanoramica{figuras/a4/guia_paleta.png}
+{Paleta y combinaciones de uso del sistema visual.}{fig:a5-paleta}
+
+La guía también documenta estados de espera, vacío, error y permiso insuficiente. Esta decisión es
+relevante para la evaluación: una tarea no se considera usable solo cuando termina bien, sino
+cuando el producto explica qué ocurre y cómo continuar.

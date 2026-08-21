@@ -1,0 +1,61 @@
+% ============================================================================
+\section{Análisis competitivo}
+
+El análisis comparó Bloomberg, Power BI, Pyramid Analytics, ThoughtSpot, Collibra y la práctica
+actual de consultar fuentes separadas. Las alternativas financieras ofrecen profundidad de
+mercado; las herramientas de inteligencia de negocio facilitan visualización y autoservicio; y
+las plataformas de gobierno organizan catálogo y linaje. Ninguna reunió en una misma propuesta
+catálogo gobernado, trazabilidad visible, consulta en lenguaje natural y acceso institucional sin
+un costo asociado al número de usuarios.
+
+\figuraux{figuras/a3_matriz_competitiva.png}
+{Matriz competitiva utilizada para situar la propuesta de Karisma Data.}{fig:a5-competencia}
+
+El posicionamiento elegido no intenta reemplazar todas las capacidades especializadas. Karisma
+Data funciona como puerta institucional: ayuda a descubrir, comprender y llevar un dato a la
+herramienta adecuada, conservando permisos y procedencia.
+
+% ============================================================================
+\section{Card sorting}
+
+La Actividad 3 utilizó 35 tarjetas para contrastar el vocabulario y las agrupaciones propuestas.
+El ejercicio abierto produjo nueve conglomerados, mientras que los dominios de negocio mostraron
+el mayor acuerdo. La principal presión apareció en elementos transversales, especialmente consumo
+por API y calidad de datos, que no debían forzarse a una sola categoría.
+
+\begin{uxtabla}{L{4.0cm}Y}{Resultados del card sorting y decisión aplicada}
+  \uxheadrow \thd{Resultado} & \thd{Decisión de arquitectura} \\
+  Acuerdo alto en crédito, liquidez, derivados y otros dominios & Mantener una entrada temática reconocible dentro de Exploración y extracción \\
+  Nueve conglomerados frente a cuatro categorías de primer nivel & Resolver parte de la diversidad en segundo nivel y no multiplicar la navegación principal \\
+  Consumo por API y calidad solicitados en más de un grupo & Usar facetas y accesos cruzados, sin duplicar el contenido \\
+  Indicadores de riesgo buscados en exploración & Mover tableros e indicadores desde Gobierno del dato a Exploración y extracción \\
+\end{uxtabla}
+
+\figuraux{figuras/a3_dendrograma.png}
+{Agrupamiento resultante del ejercicio de card sorting.}{fig:a5-card-sorting}
+
+Los resultados originales fueron una simulación de diseño con evaluadores prototipo, no una
+investigación de campo. Su función fue comparar hipótesis de estructura antes de construir las
+pantallas; la Actividad 5 dirige la evaluación a tareas observables en el demo.
+
+% ============================================================================
+\section{Arquitectura de información}
+
+La arquitectura final organiza el portal en cuatro entradas: Inicio, Exploración y extracción,
+Gobierno del dato y Administración. El asistente es transversal porque puede acompañar tareas de
+varias categorías. El contenido se adapta por permisos, pero conserva nombres y rutas estables.
+
+\figuraux{figuras/a3_arquitectura_informacion.png}
+{Arquitectura de información derivada del análisis y el card sorting.}{fig:a5-arquitectura}
+
+\section{Mapa de navegación}
+
+El mapa traduce la arquitectura a recorridos. Inicio reúne buscador, recientes, favoritos y
+alertas; Exploración contiene catálogo, filtros, exportaciones y tableros; Gobierno concentra
+definiciones y versiones; Administración cubre cuentas, aprobaciones, bitácora e integraciones.
+
+\figuraux{figuras/a3_mapa_sitio.png}
+{Mapa de navegación de Karisma Data. Los accesos transversales conectan funciones que sirven a más de una categoría.}{fig:a5-mapa}
+
+Esta estructura mantiene revelación progresiva: la navegación principal ofrece pocas decisiones y
+cada módulo abre las herramientas avanzadas solo cuando la tarea las requiere.

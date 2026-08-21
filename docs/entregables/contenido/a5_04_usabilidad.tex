@@ -1,0 +1,117 @@
+% ============================================================================
+\section{Prueba de usabilidad}
+
+\subsection{Objetivos}
+
+La prueba evalúa si una persona con experiencia en información puede completar los recorridos
+principales sin conocer previamente la estructura del portal. Los objetivos son:
+
+\begin{uxlist}
+  \lead{Efectividad}{comprobar que cada tarea termina con el resultado correcto.}
+  \lead{Eficiencia}{medir tiempo, errores y solicitudes de ayuda.}
+  \lead{Comprensión}{verificar que fuente, estado, proyección y permisos se interpretan correctamente.}
+  \lead{Satisfacción}{registrar facilidad percibida por tarea y una valoración global con SUS.}
+  \lead{Aprendizaje}{observar si el segundo recorrido reutiliza patrones aprendidos en el primero.}
+\end{uxlist}
+
+\subsection{Participantes y contexto}
+
+Se definieron dos perfiles cercanos a las personas Diego Hernández y Laura Méndez. Ambos trabajan
+con información y pueden valorar búsqueda, trazabilidad y extracción desde perspectivas distintas.
+
+\begin{uxtabla}{L{3.5cm}L{4.0cm}Y}{Participantes considerados en la simulación}
+  \uxheadrow \thd{Participante} & \thd{Experiencia relevante} & \thd{Relación con el producto} \\
+  Carlos René Flores M. & Científico de datos experto en BBVA AutoMarket, plataforma digital de compraventa de autos usados & Perfil analítico avanzado; usa datos, modelos y herramientas de extracción \\
+  Verónica Itzel Flores González & Analista de información en la Dirección de Información del Sistema Financiero & Perfil de consulta y análisis institucional; valida cifras y prepara información para otras áreas \\
+\end{uxtabla}
+
+El protocolo propone sesiones moderadas individuales de 35 minutos, en navegador de escritorio,
+con pensamiento en voz alta. Antes de comenzar se explica que todos los datos son sintéticos y que
+se evalúa el producto, no a la persona. No se presenta la navegación ni se anticipa la ubicación de
+las funciones.
+
+\subsection{Interfaces, tareas y métricas}
+
+Cada interfaz tiene una tarea principal y al menos un indicador específico. El éxito exige alcanzar
+el resultado descrito sin que la persona moderadora revele la ruta.
+
+\begin{uxtablalarga}{C{0.8cm}L{2.6cm}Y L{4.1cm}}{Tareas y métricas por interfaz}{\thd{T} & \thd{Interfaz} & \thd{Escenario de prueba} & \thd{Indicadores y meta}}
+1 & Acceso por perfil & Entra como analista y confirma que llegaste al espacio correspondiente & Éxito 100\%; tiempo $\leq45$ s; cero selecciones equivocadas \\
+2 & Catálogo & Encuentra el campo de cobertura de liquidez e identifica fuente, responsable y certificación & Éxito 100\%; tiempo $\leq90$ s; máximo un error; tres metadatos correctos \\
+3 & Exportaciones & Solicita la cartera de crédito en XLSX y localiza el estado y la vigencia del enlace & Éxito 100\%; tiempo $\leq120$ s; máximo un error; estado y caducidad comprendidos \\
+4 & Tablero & Explica la tendencia de cobertura de liquidez y distingue dato observado de proyección & Interpretación correcta 100\%; tiempo $\leq120$ s; SEQ $\geq5$ \\
+5 & Asistente & Pregunta por liquidez e identifica qué consulta y fuente respaldan la respuesta & Éxito 100\%; tiempo $\leq90$ s; fuente identificada; cero ayudas \\
+6 & Administración & Cambia al perfil administrador, localiza una cuenta y explica cómo cambiar o retirar su acceso sin modificarla & Éxito 100\%; tiempo $\leq90$ s; cero acciones accidentales; permiso comprendido \\
+\end{uxtablalarga}
+
+Además de tiempo, éxito y errores, al terminar cada tarea se utiliza \textbf{SEQ}, una pregunta de
+facilidad de 1 a 7. Al cierre se aplica \textbf{SUS}, escala de diez reactivos con resultado de 0 a
+100. La meta global es SUS $\geq75$, éxito total $\geq90\%$ y máximo una ayuda por participante.
+
+\subsection{Materiales y procedimiento}
+
+\begin{uxpreg}
+  \item Presentar el consentimiento, el propósito y el aviso de datos sintéticos.
+  \item Registrar experiencia previa y asignar un código de participante.
+  \item Leer una tarea a la vez sin mencionar nombres de menús o botones.
+  \item Iniciar el cronómetro cuando termina la lectura y detenerlo al alcanzar el resultado.
+  \item Registrar errores, retrocesos, ayudas y comentarios de pensamiento en voz alta.
+  \item Aplicar SEQ después de cada tarea y SUS al terminar las seis.
+  \item Realizar tres preguntas finales: qué resultó más claro, qué generó duda y qué cambiaría primero.
+\end{uxpreg}
+
+Se utiliza el demo de escritorio, una hoja de observación, cronómetro y formularios SEQ y SUS. No
+se requiere información real ni se solicita que los participantes descarguen archivos a equipos
+institucionales.
+
+\subsection{Resultados simulados}
+
+La tabla muestra una corrida simulada del instrumento. \textbf{C} corresponde a Carlos y
+\textbf{V} a Verónica. Los tiempos están en segundos; E significa éxito, P éxito parcial y N tarea
+no completada. Los valores permiten comprobar cálculos y formato antes de realizar sesiones reales.
+
+\begin{uxtablalarga}{C{0.7cm}L{2.4cm}C{1.2cm}C{1.0cm}C{1.0cm}C{1.2cm}C{1.0cm}C{1.0cm}Y}{Resultados por participante y tarea}{\thd{T} & \thd{Interfaz} & \thd{C tiempo} & \thd{C éxito} & \thd{C err.} & \thd{V tiempo} & \thd{V éxito} & \thd{V err.} & \thd{SEQ C/V}}
+1 & Acceso & 24 & E & 0 & 29 & E & 0 & 7 / 7 \\
+2 & Catálogo & 51 & E & 1 & 62 & E & 1 & 6 / 6 \\
+3 & Exportación & 64 & E & 1 & 79 & E & 1 & 6 / 5 \\
+4 & Tablero & 76 & E & 0 & 94 & P & 2 & 5 / 4 \\
+5 & Asistente & 49 & E & 0 & 57 & E & 0 & 6 / 6 \\
+6 & Administración & 58 & E & 0 & 71 & E & 1 & 6 / 5 \\
+\end{uxtablalarga}
+
+\begin{uxtablalarga}{L{3.2cm}C{2.5cm}C{2.5cm}Y}{Síntesis de métricas}{\thd{Indicador} & \thd{Resultado} & \thd{Meta} & \thd{Lectura}}
+  Tasa de éxito & 11 de 12, 91.7\% & $\geq90\%$ & Cumple; el tablero concentra el único éxito parcial \\
+  Tiempo medio por tarea & 59.5 s & Informativa & Ninguna media por interfaz supera su umbral \\
+  Errores observados & 7 & Máximo 1 por tarea y persona & Se supera solo en la interpretación del tablero de Verónica \\
+  Ayudas de moderación & 0 & Máximo 1 por participante & Cumple \\
+  SEQ promedio & 5.8 de 7 & $\geq5$ & Cumple en general; tablero obtiene 4.5 \\
+  SUS Carlos & 87.5 de 100 & $\geq75$ & Cumple \\
+  SUS Verónica & 82.5 de 100 & $\geq75$ & Cumple \\
+  SUS promedio & 85.0 de 100 & $\geq75$ & Cumple \\
+\end{uxtablalarga}
+
+\subsection{Hallazgos}
+
+\begin{uxtablalarga}{C{1.1cm}L{3.1cm}Y L{2.2cm}}{Hallazgos priorizados}{\thd{ID} & \thd{Hallazgo} & \thd{Evidencia simulada e impacto} & \thd{Severidad}}
+H1 & Proyección y dato observado compiten visualmente & Verónica interpretó primero la proyección como último dato; T4 fue parcial y obtuvo SEQ 4 & Alta \\
+H2 & Dos buscadores parecen equivalentes & Ambos participantes probaron primero el buscador de cabecera antes de usar el buscador contextual; agregaron un error en T2 & Media \\
+H3 & El formato de exportación no anticipa todas sus consecuencias & Los dos revisaron el texto de límites después de elegir XLSX; la decisión fue correcta, pero más lenta & Media \\
+H4 & El cambio de perfil conserva la pantalla actual & En T6 Verónica buscó Administración antes de cambiar de perfil y necesitó volver a revisar la cabecera & Media \\
+H5 & La trazabilidad del asistente se reconoce con facilidad & Ambos identificaron consulta y fuente sin ayuda y calificaron T5 con SEQ 6 & Fortaleza \\
+H6 & Los estados y restricciones administrativas son comprensibles & Carlos explicó cómo cambiar o retirar acceso sin ejecutar una acción irreversible & Fortaleza \\
+\end{uxtablalarga}
+
+\subsection{Recomendaciones}
+
+\begin{uxlist}
+  \lead{R1. Separar observado y proyectado}{agruparlos bajo rótulos persistentes, añadir fecha al valor observado y reservar el lenguaje de futuro para la proyección. Atiende H1.}
+  \lead{R2. Unificar la intención de búsqueda}{hacer que el buscador global lleve al catálogo con el término conservado y explicar el alcance del buscador contextual mediante su etiqueta. Atiende H2.}
+  \lead{R3. Llevar límites al selector}{mostrar tamaño máximo, compatibilidad y uso recomendado junto a cada formato antes de seleccionarlo. Atiende H3.}
+  \lead{R4. Confirmar el contexto después de cambiar perfil}{redirigir al inicio del nuevo perfil o mostrar un aviso con acceso directo a su espacio. Atiende H4.}
+  \lead{R5. Conservar trazabilidad visible}{mantener consulta, duración, fuente y estado dentro de cada respuesta del asistente. Protege H5.}
+  \lead{R6. Repetir la prueba con datos reales de sesión}{reemplazar esta simulación por observaciones, conservar las mismas tareas y comparar tiempos, SEQ y SUS contra la línea base.}
+\end{uxlist}
+
+La prioridad es R1, porque afecta la interpretación de una cifra directiva. R2, R3 y R4 mejoran
+eficiencia y aprendizaje sin cambiar la arquitectura. R5 protege un patrón que ya funciona y evita
+que una simplificación posterior elimine la procedencia.

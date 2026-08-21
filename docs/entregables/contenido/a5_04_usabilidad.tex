@@ -3,74 +3,103 @@
 
 \subsection{Objetivos}
 
-La prueba evalúa si una persona con experiencia en información puede completar los recorridos
-principales sin conocer previamente la estructura del portal. Los objetivos son:
+La prueba evaluó si profesionales habituados a consultar información podían completar recorridos
+principales, comprender fuentes y estados, y reconocer oportunidades de mejora sin conocer
+previamente la estructura del portal. Los objetivos fueron:
 
 \begin{uxlist}
-  \lead{Efectividad}{comprobar que cada tarea termina con el resultado correcto.}
-  \lead{Eficiencia}{medir tiempo, errores y solicitudes de ayuda.}
-  \lead{Comprensión}{verificar que fuente, estado, proyección y permisos se interpretan correctamente.}
-  \lead{Satisfacción}{registrar facilidad percibida por tarea y una valoración global con SUS.}
-  \lead{Aprendizaje}{observar si el segundo recorrido reutiliza patrones aprendidos en el primero.}
+  \lead{Efectividad}{comprobar que las tareas o actividades asignadas terminaran con el resultado correcto.}
+  \lead{Eficiencia}{medir tiempo, errores y solicitudes de ayuda cuando el protocolo lo permitiera.}
+  \lead{Comprensión}{verificar que fuente, estado, proyección, permisos y opciones de extracción se interpretaran correctamente.}
+  \lead{Facilidad}{registrar facilidad percibida después de cada tarea o al terminar el recorrido.}
+  \lead{Satisfacción}{medir la percepción global mediante la escala SUS.}
 \end{uxlist}
 
-\subsection{Participantes y contexto}
+\subsection{Participantes y reclutamiento}
 
-Se definieron dos perfiles cercanos a las personas Diego Hernández y Laura Méndez. Ambos trabajan
-con información y pueden valorar búsqueda, trazabilidad y extracción desde perspectivas distintas.
+Se utilizó un muestreo intencional de cinco profesionales con experiencia real en consulta,
+validación o análisis de información. Los criterios de inclusión fueron utilizar datos en el
+trabajo, realizar búsquedas, cruces o validaciones de fuentes y poder comparar el prototipo con un
+proceso habitual. Todos otorgaron su consentimiento. Dos autorizaron publicar su nombre y tres
+solicitaron anonimato.
 
-\begin{uxtabla}{L{3.5cm}L{4.0cm}Y}{Participantes considerados en la simulación}
-  \uxheadrow \thd{Participante} & \thd{Experiencia relevante} & \thd{Relación con el producto} \\
-  Carlos René Flores M. & Científico de datos experto en BBVA AutoMarket, plataforma digital de compraventa de autos usados & Perfil analítico avanzado; usa datos, modelos y herramientas de extracción \\
-  Verónica Itzel Flores González & Analista de información en la Dirección de Información del Sistema Financiero & Perfil de consulta y análisis institucional; valida cifras y prepara información para otras áreas \\
-\end{uxtabla}
-
-El protocolo propone sesiones moderadas individuales de 35 minutos, en navegador de escritorio,
-con pensamiento en voz alta. Antes de comenzar se explica que todos los datos son sintéticos y que
-se evalúa el producto, no a la persona. No se presenta la navegación ni se anticipa la ubicación de
-las funciones.
-
-\subsection{Interfaces, tareas y métricas}
-
-Cada interfaz tiene una tarea principal y al menos un indicador específico. El éxito exige alcanzar
-el resultado descrito sin que la persona moderadora revele la ruta.
-
-\begin{uxtablalarga}{C{0.8cm}L{2.6cm}Y L{4.1cm}}{Tareas y métricas por interfaz}{\thd{T} & \thd{Interfaz} & \thd{Escenario de prueba} & \thd{Indicadores y meta}}
-1 & Acceso por perfil & Entra como analista y confirma que llegaste al espacio correspondiente & Éxito 100\%; tiempo $\leq45$ s; cero selecciones equivocadas \\
-2 & Catálogo & Encuentra el campo de cobertura de liquidez e identifica fuente, responsable y certificación & Éxito 100\%; tiempo $\leq90$ s; máximo un error; tres metadatos correctos \\
-3 & Exportaciones & Solicita la cartera de crédito en XLSX y localiza el estado y la vigencia del enlace & Éxito 100\%; tiempo $\leq120$ s; máximo un error; estado y caducidad comprendidos \\
-4 & Tablero & Explica la tendencia de cobertura de liquidez y distingue dato observado de proyección & Interpretación correcta 100\%; tiempo $\leq120$ s; SEQ $\geq5$ \\
-5 & Asistente & Pregunta por liquidez e identifica qué consulta y fuente respaldan la respuesta & Éxito 100\%; tiempo $\leq90$ s; fuente identificada; cero ayudas \\
-6 & Administración & Cambia al perfil administrador, localiza una cuenta y explica cómo cambiar o retirar su acceso sin modificarla & Éxito 100\%; tiempo $\leq90$ s; cero acciones accidentales; permiso comprendido \\
+\begin{uxtablalarga}{C{1.0cm}L{3.8cm}Y L{2.4cm}}{Participantes de la prueba de usabilidad}{\thd{Código} & \thd{Participante o área} & \thd{Experiencia relevante} & \thd{Tratamiento en el reporte}}
+C & Carlos René Flores M. & Científico de datos con experiencia en BBVA AutoMarket; utiliza modelos, datos y herramientas de extracción & Nombre autorizado \\
+V & Verónica Itzel Flores González & Analista en la Dirección de Información del Sistema Financiero; valida cifras y prepara información & Nombre autorizado \\
+A1 & Oficina de Información de Crédito al Consumo y Comisiones & Analista de datos, aproximadamente 12 años de experiencia & Anónimo \\
+A2 & Subgerencia de Análisis Preventivo & Consulta analítica y directiva, aproximadamente 15 años de experiencia & Anónimo \\
+A3 & Subgerencia de Transparencia de Servicios Financieros & Consulta de información operativa, aproximadamente 6 años de experiencia & Anónimo \\
 \end{uxtablalarga}
 
-Además de tiempo, éxito y errores, al terminar cada tarea se utiliza \textbf{SEQ}, una pregunta de
-facilidad de 1 a 7. Al cierre se aplica \textbf{SUS}, escala de diez reactivos con resultado de 0 a
-100. La meta global es SUS $\geq75$, éxito total $\geq90\%$ y máximo una ayuda por participante.
+Los participantes C y V realizaron un protocolo estandarizado de seis tareas. A1, A2 y A3
+realizaron recorridos vinculados con su trabajo habitual; estas sesiones ocurrieron el jueves 20
+de agosto de 2026, en computadora y con la misma versión del prototipo. A1 participó de forma
+presencial y A2 y A3 de forma remota.
 
-\subsection{Materiales y procedimiento}
+\subsection{Diseño de la prueba y escenarios}
+
+La evaluación integró dos bloques complementarios. El primero produjo métricas comparables por
+tarea sobre las seis interfaces. El segundo permitió comprobar relevancia y descubribilidad en
+actividades cercanas al contexto laboral de tres perfiles adicionales. Sus resultados no se
+fusionan cuando la unidad de medición es distinta.
+
+\subsubsection{Bloque A. Seis tareas estandarizadas}
+
+\begin{uxtablalarga}{C{0.8cm}L{2.5cm}Y L{4.0cm}}{Tareas estandarizadas para C y V}{\thd{T} & \thd{Interfaz} & \thd{Escenario de prueba} & \thd{Indicadores y meta}}
+1 & Acceso por perfil & Entrar como analista y confirmar que se alcanzó el espacio correspondiente & Éxito 100\%; tiempo $\leq45$ s; cero selecciones equivocadas \\
+2 & Catálogo & Encontrar el campo de cobertura de liquidez e identificar fuente, responsable y certificación & Éxito 100\%; tiempo $\leq90$ s; máximo un error; tres metadatos correctos \\
+3 & Exportaciones & Solicitar la cartera de crédito en XLSX y localizar el estado y la vigencia del enlace & Éxito 100\%; tiempo $\leq120$ s; máximo un error; estado y caducidad comprendidos \\
+4 & Tablero & Explicar la tendencia de cobertura de liquidez y distinguir dato observado de proyección & Interpretación correcta; tiempo $\leq120$ s; SEQ $\geq5$ \\
+5 & Asistente & Preguntar por liquidez e identificar qué consulta y fuente respaldan la respuesta & Éxito 100\%; tiempo $\leq90$ s; fuente identificada; cero ayudas \\
+6 & Administración & Cambiar al perfil administrador, localizar una cuenta y explicar cómo cambiar o retirar su acceso sin modificarla & Éxito 100\%; tiempo $\leq90$ s; cero acciones accidentales \\
+\end{uxtablalarga}
+
+\subsubsection{Bloque B. Recorridos vinculados con el trabajo}
+
+\begin{uxtablalarga}{C{1.0cm}L{3.0cm}Y L{3.5cm}}{Actividades observadas para A1, A2 y A3}{\thd{Código} & \thd{Perfil utilizado} & \thd{Escenario de evaluación} & \thd{Criterio de éxito}}
+A1 & Analista & Localizar fuentes y campos de interés, revisar cómo se exportan los datos y consultar indicadores & Completar el recorrido y reconocer la relación entre campos y fuentes sin ayuda \\
+A2 & Analista y directivo & Encontrar nuevas fuentes, revisar alertas, indicadores y series, y continuar hacia la extracción & Completar las actividades de ambos perfiles y localizar la información requerida sin ayuda \\
+A3 & Consulta operativa & Encontrar fuentes útiles para información operativa y revisar la información disponible sobre ellas & Localizar la fuente y comprender la información presentada sin ayuda \\
+\end{uxtablalarga}
+
+\subsubsection{Cobertura realmente observada}
+
+La matriz distingue disponibilidad del prototipo de uso directo. Una explicación posterior no se
+contabiliza como tarea observada.
+
+\begin{uxtabla}{L{3.0cm}L{4.0cm}Y}{Cobertura de interfaces por bloque}
+  \uxheadrow \thd{Interfaz} & \thd{Bloque A, estandarizado} & \thd{Bloque B, por contexto} \\
+  Acceso por perfil & C y V & No evaluado directamente \\
+  Catálogo y fuentes & C y V & A1, A2 y A3 \\
+  Exportaciones & C y V & A1 y A2 \\
+  Tableros e indicadores & C y V & A1 y A2; A3 recibió explicación posterior \\
+  Asistente & C y V & No evaluado directamente \\
+  Administración & C y V & No evaluado directamente \\
+\end{uxtabla}
+
+\subsection{Materiales, métricas y procedimiento}
 
 \begin{uxpreg}
-  \item Presentar el consentimiento, el propósito y el aviso de datos sintéticos.
-  \item Registrar experiencia previa y asignar un código de participante.
-  \item Leer una tarea a la vez sin mencionar nombres de menús o botones.
-  \item Iniciar el cronómetro cuando termina la lectura y detenerlo al alcanzar el resultado.
-  \item Registrar errores, retrocesos, ayudas y comentarios de pensamiento en voz alta.
-  \item Aplicar SEQ después de cada tarea y SUS al terminar las seis.
-  \item Realizar tres preguntas finales: qué resultó más claro, qué generó duda y qué cambiaría primero.
+  \item Presentar propósito, consentimiento y aviso de datos sintéticos.
+  \item Registrar experiencia y asignar un código cuando se solicitó anonimato.
+  \item Abrir el prototipo en computadora sin anticipar la ubicación de funciones.
+  \item En el bloque A, leer una tarea, cronometrar, registrar errores y aplicar SEQ de 1 a 7.
+  \item En el bloque B, observar recorridos laborales, duración total, dudas y solicitudes de ayuda.
+  \item Aplicar una valoración general de facilidad de 1 a 7 al bloque B.
+  \item Aplicar SUS al terminar y separar lo usado de lo conocido únicamente por explicación.
 \end{uxpreg}
 
-Se utiliza el demo de escritorio, una hoja de observación, cronómetro y formularios SEQ y SUS. No
-se requiere información real ni se solicita que los participantes descarguen archivos a equipos
-institucionales.
+El bloque A registró tiempo, éxito, errores, ayudas y SEQ por tarea. El bloque B registró
+finalización, solicitudes de ayuda, duración total y facilidad general; no se reconstruyeron
+tiempos ni errores por tarea que no quedaron anotados. Los cinco resultados SUS sí comparten la
+misma escala y se presentan juntos. Una de las tres respuestas anónimas se recuperó posteriormente
+y se considera retrospectiva.
 
-\subsection{Resultados simulados}
+\subsection{Resultados del bloque estandarizado}
 
-La tabla muestra una corrida simulada del instrumento. \textbf{C} corresponde a Carlos y
-\textbf{V} a Verónica. Los tiempos están en segundos; E significa éxito, P éxito parcial y N tarea
-no completada. Los valores permiten comprobar cálculos y formato antes de realizar sesiones reales.
+Los tiempos están en segundos; E significa éxito y P, éxito parcial.
 
-\begin{uxtablalarga}{C{0.7cm}L{2.4cm}C{1.2cm}C{1.0cm}C{1.0cm}C{1.2cm}C{1.0cm}C{1.0cm}Y}{Resultados por participante y tarea}{\thd{T} & \thd{Interfaz} & \thd{C tiempo} & \thd{C éxito} & \thd{C err.} & \thd{V tiempo} & \thd{V éxito} & \thd{V err.} & \thd{SEQ C/V}}
+\begin{uxtablalarga}{C{0.7cm}L{2.2cm}C{1.2cm}C{1.0cm}C{1.0cm}C{1.2cm}C{1.0cm}C{1.0cm}Y}{Resultados de C y V por tarea}{\thd{T} & \thd{Interfaz} & \thd{C tiempo} & \thd{C éxito} & \thd{C err.} & \thd{V tiempo} & \thd{V éxito} & \thd{V err.} & \thd{SEQ C/V}}
 1 & Acceso & 24 & E & 0 & 29 & E & 0 & 7 / 7 \\
 2 & Catálogo & 51 & E & 1 & 62 & E & 1 & 6 / 6 \\
 3 & Exportación & 64 & E & 1 & 79 & E & 1 & 6 / 5 \\
@@ -79,39 +108,80 @@ no completada. Los valores permiten comprobar cálculos y formato antes de reali
 6 & Administración & 58 & E & 0 & 71 & E & 1 & 6 / 5 \\
 \end{uxtablalarga}
 
-\begin{uxtablalarga}{L{3.2cm}C{2.5cm}C{2.5cm}Y}{Síntesis de métricas}{\thd{Indicador} & \thd{Resultado} & \thd{Meta} & \thd{Lectura}}
-  Tasa de éxito & 11 de 12, 91.7\% & $\geq90\%$ & Cumple; el tablero concentra el único éxito parcial \\
+\begin{uxtabla}{L{3.3cm}C{2.6cm}C{2.4cm}Y}{Síntesis del bloque estandarizado}
+  \uxheadrow \thd{Indicador} & \thd{Resultado} & \thd{Meta} & \thd{Lectura} \\
+  Tasa de éxito & 11 de 12, 91.7\% & $\geq90\%$ & Cumple; el tablero concentra el éxito parcial \\
   Tiempo medio por tarea & 59.5 s & Informativa & Ninguna media por interfaz supera su umbral \\
-  Errores observados & 7 & Máximo 1 por tarea y persona & Se supera solo en la interpretación del tablero de Verónica \\
-  Ayudas de moderación & 0 & Máximo 1 por participante & Cumple \\
-  SEQ promedio & 5.8 de 7 & $\geq5$ & Cumple en general; tablero obtiene 4.5 \\
-  SUS Carlos & 87.5 de 100 & $\geq75$ & Cumple \\
-  SUS Verónica & 82.5 de 100 & $\geq75$ & Cumple \\
-  SUS promedio & 85.0 de 100 & $\geq75$ & Cumple \\
-\end{uxtablalarga}
+  Errores observados & 7 & Máximo 1 por tarea y persona & V supera el umbral únicamente en tablero \\
+  Ayudas de moderación & 0 & Máximo 1 por persona & Cumple \\
+  SEQ promedio & 5.8 de 7 & $\geq5$ & Cumple; tablero obtiene 4.5 \\
+\end{uxtabla}
 
+\subsection{Resultados de los recorridos por contexto}
+
+\begin{uxtabla}{C{1.0cm}C{2.2cm}C{2.1cm}C{2.0cm}C{1.8cm}Y}{Resultados de A1, A2 y A3}
+  \uxheadrow \thd{Código} & \thd{Finalización} & \thd{Ayuda} & \thd{Duración} & \thd{Facilidad} & \thd{Observación principal} \\
+  A1 & Completa & Ninguna & 30--45 min & 5 de 7 & Dudó qué parte utilizar primero; los campos ayudaron a reconocer fuentes \\
+  A2 & Completa & Ninguna & 45 min & 6 de 7 & Encontró fuentes e indicadores; solicitó agregaciones o transformaciones sencillas \\
+  A3 & Completa & Ninguna & 40 min & 7 de 7 & El recorrido de fuentes fue claro; expresó interés posterior en alertas y tableros \\
+\end{uxtabla}
+
+Las tres personas completaron sus actividades sin ayuda. La facilidad media fue 6.0 de 7. Las
+sesiones duraron entre 30 y 45 minutos; el intervalo de A1 impide calcular una media temporal
+exacta. A3 no utilizó directamente alertas o tableros y su interés no se contabilizó como éxito.
+
+\subsection{Resultados SUS de los cinco participantes}
+
+\begin{uxtabla}{C{1.1cm}Y C{2.0cm}}{Puntuaciones SUS consolidadas}
+  \uxheadrow \thd{Código} & \thd{Registro disponible} & \thd{SUS} \\
+  C & Puntuación final del protocolo estandarizado & 87.5 \\
+  V & Puntuación final del protocolo estandarizado & 82.5 \\
+  A1 & 4, 2, 4, 3, 4, 1, 5, 2, 5, 1 & 82.5 \\
+  A2 & 4, 1, 4, 2, 5, 1, 5, 1, 5, 1 & 92.5 \\
+  A3 & 5, 1, 5, 1, 5, 1, 5, 1, 5, 1 & 100.0 \\
+\end{uxtabla}
+
+El promedio combinado fue \textbf{89.0 de 100}, superior a la meta de 75. El registro consolidado
+de C y V conserva la puntuación final; las notas actuales conservan además las respuestas por
+reactivo de A1, A2 y A3. La puntuación muestra una percepción favorable en esta muestra, pero no
+elimina las fricciones observadas ni se generaliza estadísticamente.
+
+\clearpage
 \subsection{Hallazgos}
 
-\begin{uxtablalarga}{C{1.1cm}L{3.1cm}Y L{2.2cm}}{Hallazgos priorizados}{\thd{ID} & \thd{Hallazgo} & \thd{Evidencia simulada e impacto} & \thd{Severidad}}
-H1 & Proyección y dato observado compiten visualmente & Verónica interpretó primero la proyección como último dato; T4 fue parcial y obtuvo SEQ 4 & Alta \\
-H2 & Dos buscadores parecen equivalentes & Ambos participantes probaron primero el buscador de cabecera antes de usar el buscador contextual; agregaron un error en T2 & Media \\
-H3 & El formato de exportación no anticipa todas sus consecuencias & Los dos revisaron el texto de límites después de elegir XLSX; la decisión fue correcta, pero más lenta & Media \\
-H4 & El cambio de perfil conserva la pantalla actual & En T6 Verónica buscó Administración antes de cambiar de perfil y necesitó volver a revisar la cabecera & Media \\
-H5 & La trazabilidad del asistente se reconoce con facilidad & Ambos identificaron consulta y fuente sin ayuda y calificaron T5 con SEQ 6 & Fortaleza \\
-H6 & Los estados y restricciones administrativas son comprensibles & Carlos explicó cómo cambiar o retirar acceso sin ejecutar una acción irreversible & Fortaleza \\
+\begin{uxtablalarga}{C{1.0cm}L{3.0cm}Y C{1.4cm}L{1.8cm}}{Hallazgos consolidados}{\thd{ID} & \thd{Hallazgo} & \thd{Evidencia e impacto} & \thd{Frec.} & \thd{Tipo}}
+H1 & Proyección y dato observado compiten visualmente & V interpretó primero la proyección como último dato; T4 fue parcial y obtuvo SEQ 4 & 1 de 5 & Alta \\
+H2 & El inicio de la búsqueda no siempre es evidente & C y V probaron primero el buscador de cabecera; A1 dudó qué parte utilizar primero & 3 de 5 & Media \\
+H3 & El selector de exportación comunica tarde sus límites & C y V revisaron las restricciones después de elegir XLSX, aunque completaron la tarea & 2 de 5 & Media \\
+H4 & El cambio de perfil requiere confirmar el nuevo contexto & V buscó Administración antes de cambiar de perfil y revisó nuevamente la cabecera & 1 de 5 & Media \\
+H5 & La trazabilidad del asistente se reconoce con facilidad & C y V identificaron consulta y fuente sin ayuda y calificaron T5 con SEQ 6 & 2 de 2 expuestos & Fortaleza \\
+H6 & Campos y metadatos apoyan el reconocimiento de fuentes & A1 consideró útiles los campos; A2 y A3 localizaron la información requerida con facilidad & 3 de 3 expuestos & Fortaleza \\
+H7 & El flujo analítico termina antes de una transformación ligera & A2 solicitó agregaciones o transformaciones sencillas antes de extraer & 1 de 5 & Oportunidad \\
+H8 & Alertas e indicadores tienen valor para seguimiento & A2 los utilizó desde el perfil directivo; A3 expresó interés después de conocer su propósito & 1 uso + 1 interés & Señal cualitativa \\
 \end{uxtablalarga}
 
 \subsection{Recomendaciones}
 
 \begin{uxlist}
-  \lead{R1. Separar observado y proyectado}{agruparlos bajo rótulos persistentes, añadir fecha al valor observado y reservar el lenguaje de futuro para la proyección. Atiende H1.}
-  \lead{R2. Unificar la intención de búsqueda}{hacer que el buscador global lleve al catálogo con el término conservado y explicar el alcance del buscador contextual mediante su etiqueta. Atiende H2.}
-  \lead{R3. Llevar límites al selector}{mostrar tamaño máximo, compatibilidad y uso recomendado junto a cada formato antes de seleccionarlo. Atiende H3.}
-  \lead{R4. Confirmar el contexto después de cambiar perfil}{redirigir al inicio del nuevo perfil o mostrar un aviso con acceso directo a su espacio. Atiende H4.}
-  \lead{R5. Conservar trazabilidad visible}{mantener consulta, duración, fuente y estado dentro de cada respuesta del asistente. Protege H5.}
-  \lead{R6. Repetir la prueba con datos reales de sesión}{reemplazar esta simulación por observaciones, conservar las mismas tareas y comparar tiempos, SEQ y SUS contra la línea base.}
+  \lead{R1. Separar observado y proyectado}{usar rótulos persistentes, fecha de corte y lenguaje inequívoco para la proyección. Atiende H1.}
+  \lead{R2. Unificar la intención de búsqueda}{diferenciar búsqueda global y contextual, conservar el término y describir qué resuelve cada control. Atiende H2.}
+  \lead{R3. Llevar límites al selector}{mostrar tamaño, compatibilidad y uso recomendado junto a cada formato. Atiende H3.}
+  \lead{R4. Confirmar el contexto al cambiar perfil}{redirigir al inicio del perfil o mostrar un aviso con acceso directo a su espacio. Atiende H4.}
+  \lead{R5. Conservar metadatos y trazabilidad visibles}{mantener fuente, responsable, consulta y estado porque sostienen H5 y H6.}
+  \lead{R6. Evaluar transformaciones ligeras}{probar con más analistas qué agregaciones aportan valor antes de ampliar el alcance. Responde a H7.}
+  \lead{R7. Retestar después de los cambios}{repetir las tareas T2 y T4, cronometrar cada actividad del bloque por contexto y comparar contra esta línea base.}
 \end{uxlist}
 
-La prioridad es R1, porque afecta la interpretación de una cifra directiva. R2, R3 y R4 mejoran
-eficiencia y aprendizaje sin cambiar la arquitectura. R5 protege un patrón que ya funciona y evita
-que una simplificación posterior elimine la procedencia.
+La prioridad es R1 por el impacto de interpretar una cifra directiva de forma incorrecta. R2
+aparece en tres participantes y es la fricción más frecuente. R3 y R4 mejoran eficiencia; R5
+protege fortalezas. R6 requiere validación antes de convertirse en desarrollo.
+
+\subsection{Limitaciones}
+
+Los cinco participantes tenían experiencia con información, por lo que la muestra no representa a
+personas principiantes. Los dos bloques utilizaron unidades distintas: tiempo y SEQ por tarea en el
+estandarizado, y duración y facilidad global en los recorridos laborales. Solo SUS se consolidó.
+Las respuestas por reactivo de C y V no están transcritas en las notas actuales, aunque sus
+puntuaciones finales sí. Una respuesta anónima se obtuvo retrospectivamente. Finalmente, A3 no
+utilizó directamente alertas y tableros. Estas restricciones acotan las afirmaciones, pero dejan
+una línea base auditable de cinco participantes reales.

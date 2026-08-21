@@ -351,7 +351,9 @@ TAREAS = [
 ]
 
 
-def generar_arquitectura_informacion():
+def generar_arquitectura_informacion(
+        audience_label='evaluadores prototipo',
+        output_name='a3_arquitectura_informacion.png'):
     """Draw the revised information architecture and its cross-cutting facets."""
     fig, ax = plt.subplots(figsize=(8.0, 10.6))
 
@@ -432,7 +434,7 @@ def generar_arquitectura_informacion():
             ha='left', va='center', color=COLOR_AMBER_DARK, fontsize=8.5,
             fontweight='bold')
     ax.text(0.5, y_band - 2.4,
-            'Tarjetas que los evaluadores prototipo pidieron colocar en dos o '
+            f'Tarjetas que los {audience_label} pidieron colocar en dos o '
             'más grupos a la vez: cada una vive en un nodo principal\ny se '
             'alcanza además desde otra categoría, de modo que cruza la '
             'jerarquía en lugar de duplicarse. El relleno ámbar\nde arriba '
@@ -489,7 +491,7 @@ def generar_arquitectura_informacion():
     ax.axis('off')
 
     plt.tight_layout()
-    plt.savefig('figuras/a3_arquitectura_informacion.png', dpi=300,
+    plt.savefig(f'figuras/{output_name}', dpi=300,
                 bbox_inches='tight')
     plt.close()
 

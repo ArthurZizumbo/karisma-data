@@ -422,7 +422,11 @@ def main() -> int:
     # --- Figures ------------------------------------------------------------
     figuras = []
     figuras.append(fig_matriz(co, orden, etiquetas, labels_cluster, n_eval))
-    figuras.append(fig_dendrograma(Z, etiquetas, labels_cluster, card_ids, n_eval))
+    figuras.append(fig_dendrograma(
+        Z, etiquetas, labels_cluster, card_ids, n_eval,
+        audience_label=os.environ.get("A3_AUDIENCE_LABEL", "evaluadores prototipo"),
+        output_name=os.environ.get("A3_DENDRO_OUTPUT", "a3_dendrograma.png"),
+    ))
     figuras.append(fig_disputa(disputa, clusteres, n_eval))
 
     resumen = {
@@ -505,7 +509,11 @@ def fig_matriz(co, orden, etiquetas, labels_cluster, n_eval) -> str:
     return path
 
 
-def fig_dendrograma(Z, etiquetas, labels_cluster, card_ids, n_eval) -> str:
+def fig_dendrograma(
+    Z, etiquetas, labels_cluster, card_ids, n_eval,
+    audience_label="evaluadores prototipo",
+    output_name="a3_dendrograma.png",
+) -> str:
     """Average-linkage dendrogram with institutional link colours."""
     from scipy.cluster.hierarchy import set_link_color_palette
 
@@ -535,14 +543,14 @@ def fig_dendrograma(Z, etiquetas, labels_cluster, card_ids, n_eval) -> str:
     ax.set_title(
         "Dendrograma del card sorting de Karisma Data\n"
         f"Enlace promedio sobre distancia 1 - (coincidencias / {n_eval}); "
-        f"n = {n_eval} evaluadores prototipo",
+        f"n = {n_eval} {audience_label}",
         fontsize=11, fontweight="bold", color=COLOR_NAVY, pad=22,
     )
     ax.text(0.0, 1.008,
             f"Distancia 0 = las {n_eval} sesiones la pusieron en el mismo grupo; "
             "distancia 1 = ninguna sesion las junto.",
             transform=ax.transAxes, fontsize=6.4, color=COLOR_MUTED)
-    ax.set_xlabel(f"Distancia = 1 - (evaluadores que las agruparon juntas / {n_eval})",
+    ax.set_xlabel(f"Distancia = 1 - ({audience_label} que las agruparon juntas / {n_eval})",
                   fontsize=8.5, color=COLOR_NAVY)
     ax.tick_params(axis="y", colors=COLOR_NAVY)
     ax.tick_params(axis="x", colors=COLOR_NAVY, labelsize=7.5)
@@ -551,7 +559,7 @@ def fig_dendrograma(Z, etiquetas, labels_cluster, card_ids, n_eval) -> str:
     ax.spines["bottom"].set_color(COLOR_MUTED)
     ax.grid(axis="x", linestyle=":", linewidth=0.5, color=COLOR_MUTED, alpha=0.6)
     ax.set_axisbelow(True)
-    path = os.path.join(FIG_DIR, "a3_dendrograma.png")
+    path = os.path.join(FIG_DIR, output_name)
     fig.savefig(path, dpi=300, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     set_link_color_palette(None)

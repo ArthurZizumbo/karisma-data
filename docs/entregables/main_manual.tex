@@ -1,0 +1,43 @@
+%% ============================================================================
+%%  Manual de uso del prototipo - Equipo 8
+%%  Karisma Data. Perfiles, pantallas y ejemplos
+%%
+%%  Envoltorio que compone contenido/a5_07_manual.tex como PDF independiente.
+%%  El mismo archivo de contenido entra ademas como Anexo B de la Parte V del
+%%  documento acumulado (main_completo.tex): un parrafo vive una vez y se
+%%  compone dos veces, que es la convencion del repositorio.
+%%
+%%  Compilar desde docs/entregables/ con XeLaTeX, dos pasadas para el indice:
+%%      latexmk -xelatex -interaction=nonstopmode main_manual.tex
+%% ============================================================================
+\documentclass[11pt,letterpaper]{article}
+\usepackage{estilo/uxdoc}
+
+%% Direccion publica del demo desplegado. El contrato de macros se versiona; el
+%% valor vive en datos/despliegue.tex, que git ignora. Sin ese archivo el
+%% documento compila igual y dice que la direccion se entrega con el.
+\input{datos/demo}
+
+\uxencabezado{Manual de uso · Karisma Data}
+\hypersetup{pdftitle={Manual de uso del prototipo. Karisma Data}}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Índice}
+
+%% El manual es el unico contenido de este volumen, de modo que sus apartados
+%% cuelgan de un titular sin numerar y heredarian el 0 del contador de seccion.
+%% Aqui se numeran de corrido, 1, 2, 3. En main_completo.tex esta linea no
+%% existe y los mismos apartados conservan el numero de su parte, como el resto
+%% de los anexos del documento acumulado.
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+\begin{document}
+
+\uxportada{Manual de uso del prototipo}{Karisma Data. Perfiles, pantallas\\y ejemplos}{23 de agosto de 2026}
+
+\tableofcontents
+\clearpage
+
+\input{contenido/a5_07_manual}
+
+\end{document}

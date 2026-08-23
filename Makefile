@@ -105,7 +105,7 @@ test: ## pytest en tests/backend y vitest en frontend/
 # correr "make permisos-ui", haz "git add" del archivo generado antes de
 # "make check"; sin indexar, la regeneracion legitima se ve igual que una
 # edicion a mano, que es exactamente lo que el guion existe para distinguir.
-check: lint ## lint, secrets-scan y mapa de permisos. Obligatorio antes de abrir un PR
+check: lint ## lint, secrets-scan, mapa de permisos y direccion del demo. Obligatorio antes de un PR
 	@bash scripts/comprobar_requisitos.sh herramienta gitleaks
 	gitleaks dir . --config .gitleaks.toml --redact --no-banner --no-color
 	@echo ""
@@ -113,7 +113,15 @@ check: lint ## lint, secrets-scan y mapa de permisos. Obligatorio antes de abrir
 	bash scripts/verificar_gitleaks.sh
 	@echo ""
 	bash scripts/verificar_permisos_ui.sh
+	@echo ""
+	bash scripts/verificar_url_demo.sh
 
+# La direccion del demo entra en "check" y no solo en "verificar" porque lo que
+# vigila es una fuga: una URL de Cloud Run lleva dentro un identificador del
+# proyecto de GCP y este repositorio es publico. Una barrera contra fugas que
+# solo corre en el barrido previo a la entrega llega tarde por definicion, y el
+# guion no cuesta nada: git y grep, ninguna herramienta nueva.
+#
 # El mapa de permisos sigue aqui ademas de en "check", y no es un descuido:
 # "verificar" ya repite verificar_gitleaks.sh, que tambien corre "check". La
 # convencion del archivo es que este objetivo sea el superconjunto -el barrido
@@ -121,13 +129,19 @@ check: lint ## lint, secrets-scan y mapa de permisos. Obligatorio antes de abrir
 # primera vez, mas estrecho que el gate diario. El costo de la duplicacion es
 # una corrida mas del generador, segundos.
 #
+# verificar_contrato_demo.sh se anade aqui y no a "check" por la misma razon que
+# el de historicos, pero con otra dependencia: necesita xelatex, que es la
+# herramienta con la que se compila el entregable. Quien corre este barrido es
+# quien construye el PDF, asi que ahi la tiene; exigirsela al gate diario seria
+# una dependencia nueva para todo el equipo a cambio de nada.
+#
 # verificar_historicos_tablero.sh se anade aqui y no a "check" porque necesita
 # data/aggregates/serie_tablero.parquet, que no se versiona: sin "make data"
 # no existe, y un gate obligatorio que falla en un clon limpio se termina
 # saltando. Este objetivo ya depende de esa misma condicion por
 # verificar_datos.sh. Va con bash y no con sh porque asi lo documentan
 # docs/manual-test/us-026.md y el handoff de US-026.
-verificar: ## Comprueba pines, secretos, reproducibilidad, tokens, permisos, datos e historicos
+verificar: ## Comprueba pines, secretos, reproducibilidad, tokens, permisos, datos, historicos y la entrega
 	sh scripts/verificar_pines.sh
 	sh scripts/verificar_gitleaks.sh
 	sh scripts/verificar_reproducibilidad.sh
@@ -135,6 +149,8 @@ verificar: ## Comprueba pines, secretos, reproducibilidad, tokens, permisos, dat
 	sh scripts/verificar_permisos_ui.sh
 	sh scripts/verificar_datos.sh
 	bash scripts/verificar_historicos_tablero.sh
+	bash scripts/verificar_url_demo.sh
+	bash scripts/verificar_contrato_demo.sh
 
 # ---------------------------------------------------------------------------
 #  Datos sinteticos

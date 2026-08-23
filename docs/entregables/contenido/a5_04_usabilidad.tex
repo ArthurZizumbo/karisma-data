@@ -1,7 +1,27 @@
 % ============================================================================
-\section{Prueba de usabilidad}
+\section{Prueba de usabilidad}\label{sec:a5-usabilidad}
 
-\subsection{Objetivos}
+La prueba se aplicó el jueves 20 de agosto de 2026 sobre el producto desplegado, con cinco
+participantes reales y dos bloques complementarios. Este apartado documenta el estudio completo:
+objetivos, participantes, escenarios, métricas, materiales, procedimiento, ejecución, análisis,
+hallazgos y recomendaciones. La Tabla \ref{tab:usab-diez-pasos} señala dónde queda cubierto cada
+uno de los diez pasos que la instrucción de la actividad propone para desarrollar una prueba de
+usabilidad, de manera que cada paso pueda verificarse por separado.
+
+\begin{uxtablalarga}{C{0.7cm}L{3.6cm}L{3.2cm}Y}{Los diez pasos de la instrucción y el apartado que cubre cada uno\label{tab:usab-diez-pasos}}{\thd{Paso} & \thd{Qué pide la instrucción} & \thd{Dónde queda cubierto} & \thd{Evidencia principal}}
+1 & Definir los objetivos de la evaluación & Apartado \ref{subsec:usab-objetivos}, Objetivos & Cinco objetivos declarados: efectividad, eficiencia, comprensión, facilidad y satisfacción \\
+2 & Identificar a los usuarios objetivo, con su experiencia y las características relevantes & Apartado \ref{subsec:usab-participantes}, Participantes y reclutamiento & Tabla de los cinco participantes con perfil, experiencia y tratamiento en el reporte \\
+3 & Desarrollar escenarios de prueba realistas, con tareas claras & Apartado \ref{subsec:usab-diseno}, Diseño de la prueba y escenarios & Seis tareas estandarizadas y tres recorridos de trabajo, cada uno con su criterio de éxito \\
+4 & Elegir las métricas de usabilidad en función de los objetivos & Apartado \ref{subsec:usab-materiales} y el apartado ``Descripción de métricas UX'' & Tiempo por tarea, tasa de éxito, errores, ayudas, SEQ y SUS, cada métrica con su meta \\
+5 & Crear los materiales de prueba: prototipo, wireframe, producto o sistema real & Apartado \ref{subsec:usab-materiales}, Materiales & El producto real desplegado, con la versión fijada y datos sintéticos de semilla conocida \\
+6 & Reclutar participantes que coincidan con el grupo de usuarios objetivo & Apartado \ref{subsec:usab-participantes}, Participantes y reclutamiento & Muestreo intencional de cinco profesionales que usan datos en su trabajo, con consentimiento \\
+7 & Realizar la prueba con instrucciones y escenarios, recogiendo lo que la persona expresa & Apartado \ref{subsec:usab-materiales}, Procedimiento & Protocolo de siete pasos aplicado el 20 de agosto de 2026, una sesión presencial y dos remotas \\
+8 & Recopilar datos cuantitativos y cualitativos & Apartados \ref{subsec:usab-resultados-a}, \ref{subsec:usab-resultados-b} y \ref{subsec:usab-sus} & Tiempo, éxito, errores y SEQ por tarea; finalización, duración y facilidad por recorrido; SUS de los cinco \\
+9 & Analizar e interpretar los resultados frente a las métricas definidas & Apartados \ref{subsec:usab-sus} y \ref{subsec:usab-hallazgos} & Síntesis contra metas, media SUS de 89.0 con su intervalo de confianza y hallazgos por frecuencia y tipo \\
+10 & Informar hallazgos y recomendaciones con ejemplos concretos y ayudas visuales & Apartados \ref{subsec:usab-hallazgos}, \ref{subsec:usab-recomendaciones} y \ref{subsec:usab-limitaciones} & H1 a H8 con su evidencia, R1 a R7 priorizadas y las limitaciones declaradas del estudio \\
+\end{uxtablalarga}
+
+\subsection{Objetivos}\label{subsec:usab-objetivos}
 
 La prueba evaluó si profesionales habituados a consultar información podían completar recorridos
 principales, comprender fuentes y estados, y reconocer oportunidades de mejora sin conocer
@@ -15,7 +35,7 @@ previamente la estructura del portal. Los objetivos fueron:
   \lead{Satisfacción}{medir la percepción global mediante la escala SUS.}
 \end{uxlist}
 
-\subsection{Participantes y reclutamiento}
+\subsection{Participantes y reclutamiento}\label{subsec:usab-participantes}
 
 Se utilizó un muestreo intencional de cinco profesionales con experiencia real en consulta,
 validación o análisis de información. Los criterios de inclusión fueron utilizar datos en el
@@ -36,12 +56,45 @@ realizaron recorridos vinculados con su trabajo habitual; estas sesiones ocurrie
 de agosto de 2026, en computadora y con la misma versión del prototipo. A1 participó de forma
 presencial y A2 y A3 de forma remota.
 
-\subsection{Diseño de la prueba y escenarios}
+\textbf{Tratamiento de los datos personales.} Solo C y V autorizaron de forma expresa que su
+nombre aparezca en el reporte. A1, A2 y A3 se identifican únicamente por código: de ellos no se
+publica nombre, correo, teléfono ni ningún otro identificador, y su columna conserva solo el dato
+de contexto que da sentido a su recorrido. Los consentimientos y las notas de sesión se conservan
+fuera de este documento.
+
+\subsection{Diseño de la prueba y escenarios}\label{subsec:usab-diseno}
 
 La evaluación integró dos bloques complementarios. El primero produjo métricas comparables por
 tarea sobre las seis interfaces. El segundo permitió comprobar relevancia y descubribilidad en
 actividades cercanas al contexto laboral de tres perfiles adicionales. Sus resultados no se
 fusionan cuando la unidad de medición es distinta.
+
+\textbf{Por qué dos bloques.} La tarea guiada mide y el escenario abierto revela para qué se
+usaría el producto: una sola de las dos formas deja fuera la mitad de la evidencia. La evaluación
+de sistemas conversacionales con participantes reales en escenarios controlados sostiene esa
+combinación y da la forma de la tarea del asistente, T5, donde lo que se juzga no es solo si la
+respuesta llega, sino si la persona reconoce qué consulta y qué fuente la respaldan
+(Zhu et al., 2026).
+
+\textbf{Una prueba por interfaz, ligada a su funcionalidad principal.} La instrucción de la
+actividad pide, en consecuencia, al menos una prueba de usabilidad relacionada con la
+funcionalidad principal de cada interfaz diseñada. La Tabla \ref{tab:usab-interfaz-tarea} responde
+a esa exigencia punto por punto: recorre las siete interfaces publicadas en la Actividad 4, nombra
+la función que cada una debe resolver, la prueba que la ejercitó y la métrica con la que se juzgó.
+Cinco interfaces se ejercitaron con una tarea cronometrada propia. Inicio y Gobierno del dato no
+tuvieron tarea propia y se observaron dentro de los recorridos del bloque B, así que su renglón
+reporta lo que se observó y deja dicho que no hubo medición cronometrada, en lugar de presentar
+una cifra que no se tomó.
+
+\begin{uxtablalarga}{L{2.7cm}L{3.3cm}L{2.5cm}Y}{Correspondencia entre interfaz diseñada, funcionalidad principal, prueba y métrica\label{tab:usab-interfaz-tarea}}{\thd{Interfaz de la Actividad 4} & \thd{Funcionalidad principal} & \thd{Prueba que la ejercita} & \thd{Métrica y resultado observado}}
+Acceso por perfil & Autenticar y llevar a cada rol al espacio que le corresponde & T1, bloque A & Éxito y tiempo: 2 de 2 con éxito, en 24 y 29 s, bajo la meta de 45 s \\
+Inicio & Ofrecer el punto de partida de la búsqueda y los accesos propios del rol & Arranque de los tres recorridos del bloque B & Finalización sin ayuda: 3 de 3; H2 registra la duda sobre dónde empezar. Sin tarea cronometrada propia \\
+Exploración y extracción, con su rama de tableros e indicadores & Localizar un campo por concepto y leer la serie que lo acompaña & T2 y T4, bloque A & Tiempo y metadatos correctos: T2 en 51 y 62 s con un error por persona; T4 dio un éxito y un éxito parcial, con SEQ 5 y 4 \\
+Gobierno del dato & Publicar fuente, responsable y certificación de cada campo & Lectura de la ficha dentro de T2 y de los recorridos del bloque B & Reconocimiento de fuente y certificación sin ayuda: 3 de 3 en el bloque B (H6). Sin tarea cronometrada propia \\
+Asistente conversacional & Responder en lenguaje natural mostrando la consulta y la fuente que respaldan la cifra & T5, bloque A & Fuente identificada y ayudas: 2 de 2 sin ayuda, en 49 y 57 s, con SEQ 6 y 6 \\
+Administración & Revisar una cuenta y su acceso sin modificarla & T6, bloque A & Éxito y tiempo: 2 de 2 con éxito, en 58 y 71 s, con un error registrado en V \\
+Exportación & Solicitar un archivo reutilizable y seguir su estado y su vigencia & T3, bloque A & Tiempo y comprensión del estado: 2 de 2 con éxito, en 64 y 79 s, bajo la meta de 120 s \\
+\end{uxtablalarga}
 
 \subsubsection{Bloque A. Seis tareas estandarizadas}
 
@@ -77,7 +130,55 @@ contabiliza como tarea observada.
   Administración & C y V & No evaluado directamente \\
 \end{uxtabla}
 
-\subsection{Materiales, métricas y procedimiento}
+\subsection{Materiales, métricas y procedimiento}\label{subsec:usab-materiales}
+
+\textbf{El material de prueba fue el producto real desplegado.} La instrucción admite prototipos,
+wireframes o el producto o sistema real, y esta prueba usó lo último: las cinco personas
+trabajaron sobre la versión del portal publicada en la nube, la misma que reúne las siete
+pantallas de la Actividad 4 con el tema institucional, sin maquetas intermedias ni pantallas
+dibujadas para la ocasión. La versión quedó fijada antes de la primera sesión y no se modificó
+entre una sesión y otra, de modo que los cinco resultados hablan del mismo producto. El acceso
+ocurrió por la dirección pública del despliegue, sin instalación local ni descarga de archivos:
+\urlDemoWeb. Se trata de un prototipo de alta fidelidad con datos sintéticos, no conectado a
+sistemas reales de ninguna institución.
+
+\textbf{Entorno de ejecución.} La interfaz web corre en un servicio administrado de Google Cloud
+Run, la API en un servicio privado del mismo entorno y la persistencia en una base de datos
+PostgreSQL administrada. El contenido que los participantes consultaron proviene de los silos
+sintéticos que genera la semilla fija 20260720, así que cualquier persona que repita el
+procedimiento ve las mismas cifras. Cada participante entró con una de las cuentas de
+demostración por perfil, en computadora y por navegador. La verificación del despliegue del 22 de
+agosto de 2026 midió 2.4 s en el arranque en frío de la primera visita y 0.17 s en las visitas
+siguientes, y confirmó que las rutas protegidas redirigen al acceso cuando no hay sesión: la
+espera que encuentra quien abre la dirección por primera vez está medida, no supuesta.
+
+\textbf{Métricas elegidas y métricas descartadas.} Las métricas se eligieron por objetivo,
+siguiendo la clasificación de Albert y Tullis (2013). Del desempeño se tomaron tiempo por tarea,
+tasa de éxito, errores y solicitudes de ayuda (cap. 4); de las auto-reportadas, el SEQ después de
+cada tarea y el SUS al cierre (cap. 6); y la lectura conjunta de ambas familias es la que permite
+afirmar que una tarea se completó pero costó, como ocurre en el tablero (cap. 8). Las métricas
+conductuales y fisiológicas del capítulo 7 ---seguimiento ocular, expresión facial, respuesta
+galvánica--- se descartaron con causa: exigen instrumentación de laboratorio que dos sesiones
+remotas no admiten y ninguno de los cinco objetivos las necesita. La retención y la tasa de
+conversión, que la instrucción menciona entre las métricas comunes, quedaron fuera porque
+requieren un producto en operación con uso repetido y no una sesión única. La accesibilidad se
+midió fuera de esta prueba, en la verificación de contraste de la Actividad 4, porque su
+instrumento es la medición del tema y no la observación de una tarea.
+
+\textbf{Del evaluador prototipo a la persona real.} Esta prueba es el último eslabón de una cadena
+que empezó sintética. En la Actividad 3, ocho evaluadores prototipo condicionados por las ocho
+personas de la Actividad 1 resolvieron el card sorting y la prueba de árbol bajo el protocolo de
+PerceptUI (Bougie et al., 2026); en la Actividad 4, esos mismos ocho evaluadores recorrieron las
+siete capturas del prototipo antes de que ninguna persona lo viera. La literatura de 2026 encuadra
+esa secuencia: la evaluación automatizada de UX con interacción simulada aplica SUS, SEQ y
+pensamiento en voz alta sintéticos como complemento previo, nunca como sustituto de la evidencia
+humana (Tan et al., 2026). El proyecto ejecutó exactamente esa secuencia y la
+terminó en personas, con una separación deliberada: las escalas SUS y SEQ se aplicaron únicamente
+a los cinco participantes reales y ninguna cifra de origen sintético se promedia con las suyas.
+La ronda barata sirvió para llegar a la sesión con personas sin gastarla en defectos que se ven a
+simple vista.
+
+\textbf{Procedimiento.} Cada sesión siguió estos siete pasos:
 
 \begin{uxpreg}
   \item Presentar propósito, consentimiento y aviso de datos sintéticos.
@@ -95,7 +196,10 @@ tiempos ni errores por tarea que no quedaron anotados. Los cinco resultados SUS 
 misma escala y se presentan juntos. Una de las tres respuestas anónimas se recuperó posteriormente
 y se considera retrospectiva.
 
-\subsection{Resultados del bloque estandarizado}
+Junto a esas medidas se conservó el registro cualitativo de la observación, del que salen los
+hallazgos H1 a H4 y H7: ninguna cifra de tiempo o de éxito los habría revelado por sí sola.
+
+\subsection{Resultados del bloque estandarizado}\label{subsec:usab-resultados-a}
 
 Los tiempos están en segundos; E significa éxito y P, éxito parcial.
 
@@ -117,7 +221,7 @@ Los tiempos están en segundos; E significa éxito y P, éxito parcial.
   SEQ promedio & 5.8 de 7 & $\geq5$ & Cumple; tablero obtiene 4.5 \\
 \end{uxtabla}
 
-\subsection{Resultados de los recorridos por contexto}
+\subsection{Resultados de los recorridos por contexto}\label{subsec:usab-resultados-b}
 
 \begin{uxtabla}{C{1.0cm}C{2.2cm}C{2.1cm}C{2.0cm}C{1.8cm}Y}{Resultados de A1, A2 y A3}
   \uxheadrow \thd{Código} & \thd{Finalización} & \thd{Ayuda} & \thd{Duración} & \thd{Facilidad} & \thd{Observación principal} \\
@@ -130,7 +234,7 @@ Las tres personas completaron sus actividades sin ayuda. La facilidad media fue 
 sesiones duraron entre 30 y 45 minutos; el intervalo de A1 impide calcular una media temporal
 exacta. A3 no utilizó directamente alertas o tableros y su interés no se contabilizó como éxito.
 
-\subsection{Resultados SUS de los cinco participantes}
+\subsection{Resultados SUS de los cinco participantes}\label{subsec:usab-sus}
 
 \begin{uxtabla}{C{1.1cm}Y C{2.0cm}}{Puntuaciones SUS consolidadas}
   \uxheadrow \thd{Código} & \thd{Registro disponible} & \thd{SUS} \\
@@ -147,7 +251,7 @@ reactivo de A1, A2 y A3. La puntuación muestra una percepción favorable en est
 elimina las fricciones observadas ni se generaliza estadísticamente.
 
 \clearpage
-\subsection{Hallazgos}
+\subsection{Hallazgos}\label{subsec:usab-hallazgos}
 
 \begin{uxtablalarga}{C{1.0cm}L{3.0cm}Y C{1.4cm}L{1.8cm}}{Hallazgos consolidados}{\thd{ID} & \thd{Hallazgo} & \thd{Evidencia e impacto} & \thd{Frec.} & \thd{Tipo}}
 H1 & Proyección y dato observado compiten visualmente & V interpretó primero la proyección como último dato; T4 fue parcial y obtuvo SEQ 4 & 1 de 5 & Alta \\
@@ -160,7 +264,7 @@ H7 & El flujo analítico termina antes de una transformación ligera & A2 solici
 H8 & Alertas e indicadores tienen valor para seguimiento & A2 los utilizó desde el perfil directivo; A3 expresó interés después de conocer su propósito & 1 uso + 1 interés & Señal cualitativa \\
 \end{uxtablalarga}
 
-\subsection{Recomendaciones}
+\subsection{Recomendaciones}\label{subsec:usab-recomendaciones}
 
 \begin{uxlist}
   \lead{R1. Separar observado y proyectado}{usar rótulos persistentes, fecha de corte y lenguaje inequívoco para la proyección. Atiende H1.}
@@ -169,14 +273,14 @@ H8 & Alertas e indicadores tienen valor para seguimiento & A2 los utilizó desde
   \lead{R4. Confirmar el contexto al cambiar perfil}{redirigir al inicio del perfil o mostrar un aviso con acceso directo a su espacio. Atiende H4.}
   \lead{R5. Conservar metadatos y trazabilidad visibles}{mantener fuente, responsable, consulta y estado porque sostienen H5 y H6.}
   \lead{R6. Evaluar transformaciones ligeras}{probar con más analistas qué agregaciones aportan valor antes de ampliar el alcance. Responde a H7.}
-  \lead{R7. Retestar después de los cambios}{repetir las tareas T2 y T4, cronometrar cada actividad del bloque por contexto y comparar contra esta línea base.}
+  \lead{R7. Retestar después de los cambios}{repetir las tareas T2 y T4, cronometrar cada actividad del bloque por contexto, ampliar la muestra hacia perfiles principiantes y comparar contra esta línea base.}
 \end{uxlist}
 
 La prioridad es R1 por el impacto de interpretar una cifra directiva de forma incorrecta. R2
 aparece en tres participantes y es la fricción más frecuente. R3 y R4 mejoran eficiencia; R5
 protege fortalezas. R6 requiere validación antes de convertirse en desarrollo.
 
-\subsection{Limitaciones}
+\subsection{Limitaciones}\label{subsec:usab-limitaciones}
 
 Los cinco participantes tenían experiencia con información, por lo que la muestra no representa a
 personas principiantes. Los dos bloques utilizaron unidades distintas: tiempo y SEQ por tarea en el
@@ -185,3 +289,22 @@ Las respuestas por reactivo de C y V no están transcritas en las notas actuales
 puntuaciones finales sí. Una respuesta anónima se obtuvo retrospectivamente. Finalmente, A3 no
 utilizó directamente alertas y tableros. Estas restricciones acotan las afirmaciones, pero dejan
 una línea base auditable de cinco participantes reales.
+
+\textbf{Sobre el tamaño de la muestra.} Cinco participantes son pocos y conviene decir con qué
+propósito se eligieron. El estudio es de descubrimiento de problemas, no de comparación entre
+diseños ni de estimación de un valor poblacional: en esa clase de estudio la muestra se dimensiona
+por su capacidad de sacar a la luz los defectos frecuentes, no por la precisión de un promedio
+(Albert y Tullis, 2013, cap. 3). El caso guiado que la actividad ofrece como referencia sugiere
+entre ocho y diez participantes para obtener significancia estadística (Ramírez Mejía, 2023), y
+esta prueba se quedó por debajo de esa cifra. La distancia se responde con tres elementos, en
+lugar de omitirla. Primero, el intervalo de confianza del 95 \% para la media SUS es
+[79.8, 98.2] ---su cálculo se detalla en el apartado ``Descripción de métricas UX''--- y su
+límite inferior queda por encima de la meta de 75 y del promedio de referencia de 68 puntos que la
+literatura de SUS utiliza como línea media (Sauro y Lewis, 2016), de modo que la lectura ``la
+percepción es favorable'' sobrevive incluso al escenario pesimista de esta muestra. Segundo,
+ningún hallazgo se expresa como porcentaje de población: H1 a H8 llevan su frecuencia en absolutos
+sobre las personas expuestas a cada interfaz, que es la forma honesta de reportar con esta n.
+Tercero, la recomendación R7 fija el retest posterior a los cambios con una muestra ampliada hacia
+los perfiles principiantes que este panel no cubre; el ciclo de medir, corregir y volver a medir
+es el que sostiene la mejora documentada en herramientas de analítica de autoservicio comparables
+(Joarder et al., 2026).

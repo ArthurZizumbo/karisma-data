@@ -1,0 +1,56 @@
+%% ===========================================================================
+%%  Dirección pública del demo desplegado — contrato versionado
+%%
+%%  Las URL de Cloud Run llevan el identificador del proyecto de GCP y cambian
+%%  si el servicio se recrea, así que por decisión de E0 no se versionan. Este
+%%  archivo es la mitad que SÍ vive en el repositorio: define siempre las tres
+%%  secuencias de control, exista o no la dirección. El valor real vive en
+%%  datos/despliegue.tex, que .gitignore excluye y que se escribe localmente
+%%  antes de compilar la entrega:
+%%
+%%      bash scripts/escribir_url_demo.sh
+%%
+%%  Sin ese archivo el documento compila igual y dice, en lugar del enlace,
+%%  que la dirección se entrega junto con el documento. Ningún .tex versionado
+%%  queda roto por su ausencia, que es la razón de que el condicional se
+%%  resuelva aquí una sola vez y no dentro de cada macro: un \if suelto dentro
+%%  de una celda de tabularx rompe la alineación.
+%%
+%%  Cargarlo en el preámbulo, después de \usepackage{estilo/uxdoc} porque
+%%  \url viene de hyperref. Compilar desde docs/entregables/.
+%% ===========================================================================
+\newif\ifhaydemoweb
+\haydemowebfalse
+\newcommand{\urlDemoWebValor}{}
+
+\IfFileExists{datos/despliegue.tex}{%
+  \input{datos/despliegue.tex}%
+  \haydemowebtrue
+}{}
+
+%% El condicional se decide AQUI, en el preámbulo, y las dos macros salen ya
+%% resueltas, de modo que en el punto de uso solo queda texto. La alternativa
+%% —una sola definición con el \ifhaydemoweb dentro del cuerpo— dejaría un
+%% condicional vivo en cada punto de uso, incluidas las celdas de tabularx, que
+%% reexpande su cuerpo para medir las columnas. No hace falta averiguar si ese
+%% caso concreto rompe: resolverlo una vez aquí es igual de corto y no deja la
+%% pregunta abierta.
+%%
+%% Comprobado el 22-ago-2026 en los dos escenarios, con cero errores de TeX:
+%% con datos/despliegue.tex presente el documento imprime el enlace y toma la
+%% rama «con dirección»; sin el archivo imprime la frase de respaldo, toma la
+%% rama «sin dirección» y el PDF resultante no contiene ninguna URL.
+%%
+%% \siHayDemoWeb{texto con dirección}{texto sin dirección}
+%%   Elige entre dos redacciones completas. Úsese cuando la frase cambia de
+%%   forma, no solo de dato.
+%% \urlDemoWeb
+%%   La dirección como enlace, o el respaldo en prosa. NO usarla dentro de
+%%   \caption ni de ningún otro argumento móvil: \url no sobrevive ahí.
+\ifhaydemoweb
+  \newcommand{\siHayDemoWeb}[2]{#1}
+  \newcommand{\urlDemoWeb}{\url{\urlDemoWebValor}}
+\else
+  \newcommand{\siHayDemoWeb}[2]{#2}
+  \newcommand{\urlDemoWeb}{la dirección pública se entrega junto con este documento}
+\fi

@@ -1,0 +1,14 @@
+%% ===========================================================================
+%%  Plantilla de datos/despliegue.tex — NO es el archivo que se carga.
+%%
+%%  El archivo real, datos/despliegue.tex, está fuera de control de versiones:
+%%  contiene la dirección pública de Cloud Run, que lleva el identificador del
+%%  proyecto de GCP. Se genera con:
+%%
+%%      bash scripts/escribir_url_demo.sh
+%%
+%%  y solo tiene que definir el valor. El resto del contrato (\urlDemoWeb,
+%%  \siHayDemoWeb y la bandera \ifhaydemoweb) vive en datos/demo.tex, que sí
+%%  se versiona.
+%% ===========================================================================
+\renewcommand{\urlDemoWebValor}{https://karisma-web-XXXXXXXXXX.us-central1.run.app}

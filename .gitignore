@@ -166,6 +166,13 @@ crash.*.log
 .codex/
 .codex-*
 
+#  Direccion publica del demo desplegado (US-AVANCE-5). El contrato de macros
+#  -datos/demo.tex- si se versiona; el valor no: una URL de Cloud Run lleva
+#  dentro el identificador del proyecto de GCP y este repositorio es publico.
+#  Se regenera con: bash scripts/escribir_url_demo.sh
+docs/entregables/datos/despliegue.tex
+!docs/entregables/datos/despliegue.tex.example
+
 #  Intermedios locales de la Actividad 4
 docs/entregables/tmp/
 docs/entregables/figuras/a4/secuencias/

@@ -1046,6 +1046,12 @@ regenerado en `docs/semana_5/`.
 - **Barrido de muletillas de redacción asistida** sobre `a5_*` y el envoltorio: una sola
   coincidencia («permite profundizar en series»), que es lenguaje de producto legítimo y anterior
   a esta US. Sin hallazgos.
+- **Dos refuerzos de visibilidad en el envoltorio, pedidos por la revisión del equipo** (22-ago,
+  cierre): la introducción general dice ahora «cinco participantes reales» en el párrafo de
+  resultados y nombra el pivote del card sorting («cuya evidencia corrigió la ubicación de los
+  tableros antes de dibujar una sola pantalla»), y la fila 15 del mapa de cumplimiento precisa
+  «con cinco participantes reales ---no sintéticos---». Recompilado y verificado: las filas a
+  mano del mapa siguen en 24, 33 a 53 y 35 a 55; competidores, referencias y Anexo B sin moverse.
 - **Decisiones que siguen abiertas para el equipo**: (1) la combinación de área y años de
   experiencia de A1 a A3 en la tabla de participantes, señalada por el agente B, sigue esperando
   una decisión explícita antes de publicar; (2) el PDF versionado lleva la dirección con el

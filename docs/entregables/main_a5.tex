@@ -5,6 +5,11 @@
 \documentclass[11pt,letterpaper]{article}
 \usepackage{estilo/uxdoc}
 
+%% Direccion publica del demo desplegado. El contrato de macros se versiona;
+%% el valor vive en datos/despliegue.tex, que git ignora. Sin ese archivo el
+%% documento compila igual y dice que la direccion se entrega con el.
+\input{datos/demo}
+
 \uxencabezado{Actividad 5 · Karisma Data}
 \hypersetup{pdftitle={Actividad 5. Entrega final y prueba de usabilidad}}
 
@@ -22,6 +27,7 @@
 \input{contenido/a5_01_investigacion}
 \input{contenido/a5_02_arquitectura}
 \input{contenido/a5_03_interfaz}
+\input{contenido/a5_06_metricas}
 \input{contenido/a5_04_usabilidad}
 \input{contenido/a5_05_cierre}
 

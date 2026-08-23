@@ -1,18 +1,43 @@
 %% ============================================================================
-%%  Documento acumulado del proyecto — Equipo 8
+%%  Entrega final del proyecto — Equipo 8
 %%  Karisma Data · Portal Centralizado de Datos Financieros
 %%  TC4032 Experiencia del usuario y diseño de interfaces · MNA · ITESM
 %%
-%%  Reúne en un solo volumen las actividades entregadas hasta la fecha,
-%%  reutilizando exactamente los mismos archivos de contenido que los
-%%  envoltorios individuales. Al cerrar cada actividad basta con añadir su
-%%  portadilla de parte y sus \input correspondientes.
+%%  Vehículo de entrega de la Actividad 5. Reúne en un solo volumen las cinco
+%%  actividades del curso, reutilizando exactamente los mismos archivos de
+%%  contenido que los envoltorios individuales: un párrafo vive una vez.
 %%
-%%  Compilar con XeLaTeX (dos pasadas para el índice):
+%%  Orden editorial de la Parte V, no numérico: a5_00, a5_06 (métricas),
+%%  a5_04 (usabilidad), a5_05 (cierre + Anexo A) y a5_07 (Anexo B, manual).
+%%  a5_01, a5_02 y a5_03 NO entran aquí: duplicarían las Partes I a III con
+%%  menos detalle y siguen en main_a5.tex.
+%%
+%%  Las etiquetas cmp:* que aparecen antes de algunos \input existen para que
+%%  el mapa de cumplimiento resuelva su columna de página sin insertar ganchos
+%%  técnicos en los archivos de contenido congelados de A1 a A4.
+%%
+%%  Compilar con XeLaTeX (tres pasadas: el mapa de cumplimiento referencia
+%%  páginas posteriores a su propia posición):
 %%      latexmk -xelatex main_completo.tex
 %% ============================================================================
 \documentclass[11pt,letterpaper]{article}
 \usepackage{estilo/uxdoc}
+
+%% Dirección pública del demo desplegado. El contrato de macros se versiona;
+%% el valor vive en datos/despliegue.tex, que git ignora. Sin ese archivo el
+%% documento compila igual y dice que la dirección se entrega junto con él.
+\input{datos/demo}
+
+%% La direccion de Cloud Run es una sola caja de 43 caracteres sin espacios y
+%% url.sty solo la parte en los signos de puntuacion: el corte disponible mas
+%% cercano dejaba la linea 20 pt fuera de la caja de texto. Anadir las letras
+%% a la lista de puntos de corte permite partirla donde haga falta. Es el unico
+%% \url del volumen ---la macro \urlDemoWeb---, asi que no afecta a nada mas.
+\makeatletter
+\g@addto@macro\UrlBreaks{\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x
+  \do\y\do\z\do\0\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9}
+\makeatother
 
 %% Laminas y metadatos de la guia de estilos, emitidos por generar_tokens_a4.py.
 %% Definen \versionguia, \fechaguia y las cuatro laminas que contenido/a4_03
@@ -26,43 +51,119 @@
 %% inventario se \input-ean dentro de la seccion 9 de la guia de estilos.
 \input{estilo/a4_iconos}
 
-\uxencabezado{Karisma Data · Documento del proyecto}
-\hypersetup{pdftitle={Karisma Data. Documento acumulado del proyecto - Actividades 1, 2, 3 y 4}}
+\uxencabezado{Karisma Data · Entrega final del proyecto}
+\hypersetup{pdftitle={Karisma Data. Actividad 5. Entrega final: proceso de diseño UX y prueba de usabilidad (partes I a V)}}
 
 \setcounter{tocdepth}{2}
 \renewcommand{\contentsname}{Índice}
 
 \begin{document}
 
-\uxportada{Documento del proyecto}{Definición del producto, journey maps, arquitectura\\de información y prototipo de alta fidelidad}{Actualizado al 16 de agosto de 2026}
+\uxportada{Actividad 5. Entrega final}{Proceso de diseño UX de Karisma Data\\y prueba de usabilidad}{23 de agosto de 2026}
 
 \tableofcontents
 \clearpage
 
 % ============================================================================
-\uxsection{Sobre este documento}
+\uxsection{Introducción general}
+\phantomsection\label{cmp:intro}
 
-Este volumen reúne las entregas del proyecto \textbf{Karisma Data} en el orden en que se
-produjeron. Cada parte corresponde a una actividad del curso y conserva su contenido tal como
-fue entregado, de modo que la evolución del trabajo pueda seguirse de principio a fin.
+Karisma Data responde a una dificultad institucional concreta: las fuentes de crédito, liquidez,
+derivados y otros dominios se consultan en sistemas separados, con definiciones, permisos y
+formatos que no siempre son comparables. La consecuencia diaria la conoce quien trabaja con esas
+cifras: validar un número obliga a preguntar a un tercero, descubrir una fuente relacionada
+depende de saber de antemano que existe, y dos áreas pueden presentar el mismo indicador con
+cortes distintos sin que ninguna lo advierta. Este volumen documenta el proceso completo de diseño
+de experiencia con el que el equipo atacó ese problema, desde la caracterización de la audiencia
+hasta la medición con usuarios reales, y publica el producto que resultó de él.
 
-La primera parte define la audiencia, el problema y el producto digital, y presenta los
-instrumentos de investigación diseñados para validarlos, junto con las ocho personas y sus
-mapas de empatía. La segunda parte convierte esas personas en escenarios de uso y despliega
-uno de ellos en un journey map, con el que se identifican los puntos de fricción y las
-oportunidades de diseño que orientarán las actividades siguientes. La tercera parte sitúa el
-portal frente a sus competidores y alternativas, contrasta la estructura propuesta con el
-modelo mental de quien la usará mediante un ejercicio de card sorting, y traduce ese
-resultado en la arquitectura de información y el mapa de navegación del producto. La cuarta
-parte convierte ese mapa en interfaz: siete pantallas de alta fidelidad construidas en el entorno
-del producto, con cada ruta anclada a una rama del mapa, los cuatro estados no felices declarados
-pantalla por pantalla, la guía de estilos del sistema de diseño que las compone —con sus dos temas
-verificados bajo el mismo listón de contraste en modo claro y en modo oscuro—, cinco flujos de tarea
-en diseño de alta fidelidad y una tabla que publica hasta dónde llega cada pantalla y cada historia.
+El documento reúne las cinco actividades del curso en el orden en que se produjeron. Cada parte
+corresponde a una actividad y conserva íntegro el contenido con que se entregó, de modo que la
+evolución del trabajo pueda seguirse de principio a fin y ninguna decisión aparezca sin el
+artefacto que la originó. La primera parte define la audiencia, el problema y el producto digital,
+presenta los instrumentos de investigación diseñados para validarlos y desarrolla las ocho
+personas con sus mapas de empatía. La segunda convierte esas personas en escenarios de uso y las
+despliega en journey maps, con los que se identifican los puntos de fricción y las oportunidades
+de diseño. La tercera sitúa el portal frente a sus competidores y alternativas, contrasta la
+estructura propuesta con el modelo mental de quien la usa mediante un ejercicio de card sorting, y
+traduce ese resultado en la arquitectura de información y el mapa de navegación. La cuarta
+convierte ese mapa en interfaz: siete pantallas de alta fidelidad construidas en el entorno del
+producto, la guía de estilos del sistema de diseño que las compone y cinco flujos de tarea. La
+quinta mide: declara las métricas de experiencia interfaz por interfaz, aplica una prueba de
+usabilidad sobre el producto desplegado y ordena los hallazgos en un plan de corrección.
 
-Las entregas individuales de cada actividad, con el nombre de archivo que solicita el curso,
-se generan a partir de los mismos archivos de contenido que este volumen: no existe una
-versión distinta del texto para cada salida.
+El método avanzó semana a semana y cada etapa declaró con qué instrumento trabajó y sobre qué
+muestra. La Tabla~\ref{tab:cmp-metodo} lo resume; el detalle de cada instrumento vive en la parte
+correspondiente.
+
+\begin{uxtablalarga}{L{2.4cm}Z{1.15}L{3.5cm}Z{0.85}}{Método del caso de estudio: instrumento, muestra y fecha de cada etapa\label{tab:cmp-metodo}}{\thd{Actividad} & \thd{Instrumento aplicado} & \thd{Muestra} & \thd{Salida principal}}
+  Actividad 1 \newline 26 de julio de 2026 & Caracterización de la audiencia y diseño de tres instrumentos: encuesta diagnóstica, entrevista semiestructurada y observación contextual & Ocho personas construidas como hipótesis de trabajo, sin datos de campo & Definición del producto digital, ocho personas y ocho mapas de empatía \\
+  Actividad 2 \newline 2 de agosto de 2026 & Escenarios de uso y journey mapping en taller de equipo, con el alcance declarado como mapa de supuestos & Seis escenarios, dos por integrante, y cuatro journey maps sobre las ocho personas & Quince actividades en siete etapas, con fricciones y oportunidades \\
+  Actividad 3 \newline 9 de agosto de 2026 & Análisis competitivo con fuentes fechadas y card sorting abierto de 35 tarjetas & Seis alternativas comparadas; ocho evaluadores prototipo, uno condicionado por cada persona & Arquitectura de información y mapa de navegación \\
+  Actividad 4 \newline 16 de agosto de 2026 & Construcción de las pantallas en el entorno del producto y prevalidación sintética de los recorridos & Siete interfaces; ocho evaluadores sintéticos condicionados por las mismas personas & Prototipo navegable, guía de estilos y cinco flujos de tarea \\
+  Actividad 5 \newline 23 de agosto de 2026 & Prueba de usabilidad en dos bloques ---seis tareas estandarizadas y tres recorridos de trabajo---, con SUS y SEQ & Cinco participantes reales, el jueves 20 de agosto de 2026 & Métricas por interfaz, ocho hallazgos y siete recomendaciones priorizadas \\
+\end{uxtablalarga}
+
+Los evaluadores prototipo de las actividades 3 y 4 no son personas. Son perfiles condicionados por
+las ocho personas de la primera entrega (Bougie et al., 2026) y su función fue gastar primero la
+ronda barata de detección, antes de consumir la única ronda con participantes humanos de que
+dispuso el proyecto. Ninguna cifra producida por esos evaluadores se promedia con las de la prueba
+del 20 de agosto: los dos conjuntos se reportan por separado y con esa distinción explícita.
+
+Los resultados de esa prueba son los que cierran el caso de estudio. Los cinco participantes
+resolvieron once de las doce tareas cronometradas ---un 91.7~\% de éxito, con un tiempo medio de
+59.5 segundos y ninguna solicitud de ayuda--- y los tres recorridos de trabajo se completaron
+también sin ayuda. La puntuación SUS combinada fue de \textbf{89.0}, con intervalo de confianza
+del 95~\% entre 79.8 y 98.2: incluso su límite inferior queda por encima de la meta de 75 que el
+equipo se fijó y del promedio de referencia de 68. La prueba dejó además ocho hallazgos, dos de
+ellos exactamente donde el journey map de la segunda actividad los había anticipado, y siete
+recomendaciones ordenadas por severidad.
+
+El producto que se midió está desplegado y puede recorrerse: \urlDemoWeb. La pantalla de acceso
+ofrece cuatro botones de perfil de demostración ---operativo, analista, directivo y
+administrador--- que abren sesión sin contraseña y llevan a la composición que corresponde a cada
+rango, de modo que el recorrido no depende de credenciales del equipo. El prototipo opera con
+datos sintéticos de semilla fija y no está conectado a sistemas de producción; las series
+proyectadas se rotulan como proyección y se distinguen del último dato observado. El manual de uso
+del Anexo B recorre las siete pantallas una por una.
+
+El volumen es extenso porque acumula cinco entregas completas. La sección siguiente es el atajo:
+localiza cada uno de los dieciséis apartados que la actividad solicita, con la parte, la sección y
+la página donde vive.
+
+% ============================================================================
+\uxsection{Mapa de cumplimiento de la entrega}
+\phantomsection\label{cmp:mapa}
+
+La Tabla~\ref{tab:cmp-mapa} recorre en orden los dieciséis apartados solicitados para la entrega
+final e indica dónde queda cubierto cada uno. Las partes I a IV publican los artefactos con las
+convenciones que exigió la actividad en que se produjeron ---cuadrantes de los mapas de empatía en
+inglés, fechas de obtención en las tablas del análisis competitivo, atribución por integrante en
+personas y escenarios---, y la parte V añade lo que esta entrega mide.
+
+\begin{uxtablalarga}{C{0.7cm}L{4.2cm}Z{1.0}C{2.2cm}}{Mapa de cumplimiento: dónde vive cada apartado solicitado y en qué página empieza\label{tab:cmp-mapa}}{\thd{\#} & \thd{Apartado solicitado} & \thd{Dónde queda cubierto} & \thd{Página}}
+  1 & Portada con los nombres de los integrantes & Portada del volumen, con los tres integrantes y su matrícula & Portada \\
+  2 & Introducción, considerando todo el proyecto & «Introducción general», al abrir el volumen & \pageref{cmp:intro} \\
+  3 & Descripción del producto & Parte I, sección 3, «Definición del producto digital», con sus doce características; resumen ejecutivo en la Parte V, sección \ref{sec:a5-producto} & 24 y \pageref{sec:a5-producto} \\
+  4 & Personas de todos los integrantes & Parte I, secciones 5 a 12: ocho personas atribuidas por integrante, de Laura Méndez a Ximena Solís Barrera & 33 a 53 \\
+  5 & Mapas de empatía & Parte I, subsección «Mapa de empatía de\ldots» dentro de cada una de esas ocho secciones, con los cuatro cuadrantes & 35 a 55 \\
+  6 & Escenarios de todos los integrantes & Parte II, sección \ref{sec:escenarios} y las cinco siguientes: seis escenarios, dos por integrante & \pageref{sec:escenarios} \\
+  7 & Journey Map & Parte II, sección \ref{sec:journey}, journey map del equipo, más los tres recorridos individuales & \pageref{sec:journey} \\
+  8 & Análisis competitivo & Parte III, «Análisis Competitivo»: seis alternativas del mercado y de la práctica actual, una por página, con fuentes fechadas & \pageref{cmp:competitivo} \\
+  9 & Card Sorting & Parte III, sección \ref{sec:cardsorting}: 35 tarjetas, dendrograma y decisiones aplicadas a la estructura & \pageref{sec:cardsorting} \\
+  10 & Arquitectura de información & Parte III, «Arquitectura de la Información», en la versión revisada tras la prueba de árbol & \pageref{cmp:arquitectura} \\
+  11 & Mapa de navegación & Parte III, «Mapa de Navegación»: contrato de rutas que sostiene el prototipo & \pageref{cmp:mapanav} \\
+  12 & Prototipos de alta fidelidad & Parte IV, «Los siete prototipos», con los cuatro estados no felices declarados pantalla por pantalla; recorrido guiado en el Anexo B, página \pageref{sec:a5-manual} & \pageref{cmp:prototipos} \\
+  13 & Guía de estilo & Parte IV, guía de estilos del sistema de diseño: identidad, tipografía, tokens, componentes, iconografía impresa, retícula, movimiento, accesibilidad y lenguaje & \pageref{cmp:guia} \\
+  14 & Descripción de métricas UX, con al menos una por interfaz diseñada & Parte V, sección \ref{sec:a5-metricas}: nueve filas de métrica, instrumento, meta y resultado & \pageref{sec:a5-metricas} \\
+  15 & Prueba de usabilidad ligada a la funcionalidad principal de cada interfaz & Parte V, sección \ref{sec:a5-usabilidad}: protocolo, ejecución del 20 de agosto de 2026, análisis y hallazgos & \pageref{sec:a5-usabilidad} \\
+  16 & Conclusiones generales y referencias bibliográficas & Parte V, secciones \ref{sec:a5-conclusiones} y \ref{sec:a5-referencias} & \pageref{sec:a5-conclusiones} y \pageref{sec:a5-referencias} \\
+\end{uxtablalarga}
+
+El volumen cierra con dos anexos. El Anexo A reúne los instrumentos de aplicación de la prueba
+---guion de tareas, cuestionario SUS y hoja de observación---, de modo que el estudio pueda
+repetirse. El Anexo B es el manual de uso del prototipo desplegado y recorre las siete pantallas
+en el orden en que se navegan.
 
 % ============================================================================
 \uxparte{I}{Actividad 1. Definición del producto digital y diseño de instrumentos de investigación de usuario}
@@ -95,12 +196,15 @@ versión distinta del texto para cada salida.
    Terminal, las herramientas de BI y la práctica actual de bases, Excel y correo; contrasta
    la estructura propuesta con el modelo mental de los ocho perfiles mediante un ejercicio de
    card sorting de 35 tarjetas; y convierte los agrupamientos validados en la arquitectura de
-   información y el mapa de navegación que sostendrán el prototipo.}
+   información y el mapa de navegación que sostienen el prototipo.}
 
 \input{contenido/a3_00_preliminares}
+\phantomsection\label{cmp:competitivo}
 \input{contenido/a3_01_analisis_competitivo}
 \input{contenido/a3_02_card_sorting}
+\phantomsection\label{cmp:arquitectura}
 \input{contenido/a3_03_arquitectura}
+\phantomsection\label{cmp:mapanav}
 \input{contenido/a3_04_mapa}
 \input{contenido/a3_05_cierre}
 \input{contenido/a3_06_anexo}
@@ -116,7 +220,14 @@ versión distinta del texto para cada salida.
 
 \input{contenido/a4_00_preliminares}
 \input{contenido/a4_01_metodo_prototipado}
+\phantomsection\label{cmp:prototipos}
 \input{contenido/a4_02_prototipos}
+%% La tarjeta de apertura de la guia de estilos cabia justo al pie de la pagina
+%% anterior y su cuerpo caia en la siguiente: un titular sin su contenido, que
+%% es el defecto que el evaluador de A4 senalo. El salto es del envoltorio, no
+%% del archivo de contenido, que sigue congelado.
+\clearpage
+\phantomsection\label{cmp:guia}
 \input{contenido/a4_03_guia_estilos}
 \input{contenido/a4_04_prevalidacion}
 \input{contenido/a4_05_alcance}
@@ -125,5 +236,33 @@ versión distinta del texto para cada salida.
 
 \clearpage
 \input{contenido/a4_07_anexo}
+
+% ============================================================================
+\uxparte{V}{Actividad 5. Métricas UX y prueba de usabilidad}
+  {Entregada el 23 de agosto de 2026. Cierra el caso de estudio con medición. Declara, interfaz
+   por interfaz, qué métrica corresponde a cada pantalla diseñada, con qué instrumento se levanta,
+   contra qué meta se contrasta y qué resultado arrojó; documenta la prueba de usabilidad aplicada
+   el 20 de agosto de 2026 con cinco participantes reales en dos bloques complementarios ---seis
+   tareas estandarizadas y tres recorridos de trabajo---, con una puntuación SUS de 89.0, once de
+   doce tareas resueltas, ocho hallazgos ordenados por severidad y siete recomendaciones
+   priorizadas; y cierra el proyecto con las conclusiones del arco completo, las referencias
+   consolidadas del volumen y los instrumentos de aplicación. El Anexo B añade el manual de uso
+   del prototipo desplegado.}
+
+\input{contenido/a5_00_preliminares}
+\input{contenido/a5_06_metricas}
+\input{contenido/a5_04_usabilidad}
+\input{contenido/a5_05_cierre}
+
+\clearpage
+%% El manual abre con \uxsection, que no numera, de modo que sus doce apartados
+%% se cuelgan del contador de seccion que dejo abierto el Anexo A: en el indice
+%% se leia «Anexo B. Manual de uso del prototipo» seguido de «65.4», y el
+%% manual parecia la continuacion del anexo anterior en vez de un bloque
+%% propio. Adelantar el contador le da su propia decena sin imprimir ningun
+%% titular numerado y sin tocar contenido/a5_07_manual.tex, que main_manual.tex
+%% compone aparte y donde la numeracion ya sale bien por si sola.
+\stepcounter{section}
+\input{contenido/a5_07_manual}
 
 \end{document}

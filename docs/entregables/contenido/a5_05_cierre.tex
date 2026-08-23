@@ -1,37 +1,230 @@
 % ============================================================================
-\section{Conclusiones generales}
+%  Actividad 5 - Conclusiones generales, referencias consolidadas y Anexo A
+%
+%  Este archivo cierra el documento acumulado: no cierra solo la prueba de
+%  usabilidad, sino el caso de estudio completo A1-A5. Tres piezas:
+%
+%   1. Conclusiones generales: el arco del proyecto, el cierre del circulo
+%      -que predijeron las Actividades 1 a 4 y que encontro la prueba del
+%      20 de agosto de 2026- y el orden de la siguiente iteracion (R1-R7).
+%   2. Referencias consolidadas del documento acumulado, en APA y con
+%      sangria francesa (entorno uxreferencias de estilo/uxdoc.sty).
+%   3. Anexo A con los instrumentos aplicados. El manual de uso es el Anexo B
+%      y vive en contenido/a5_07_manual.tex: aqui no se escribe ni se incluye.
+%
+%  Reglas que aplican aqui: ninguna cifra sin origen -toda proviene de las
+%  tablas de la seccion de prueba de usabilidad o de una cita-, ningun tiempo
+%  futuro y ninguna autoria inventada: los trabajos de 2026 cuyos autores no
+%  pudieron verificarse se citan por titulo e identificador arXiv.
+%
+%  La direccion del demo entra por la macro \urlDemoWeb de datos/demo.tex.
+%  Nunca una URL literal en este archivo.
+% ============================================================================
 
-El proyecto avanzó desde un problema amplio de dispersión de información hasta una experiencia
-que puede recorrerse y medirse. Las personas y los mapas de empatía definieron necesidades
-distintas; los escenarios y journey maps mostraron que la procedencia debía conservarse durante
-todo el recorrido; el análisis competitivo ubicó el valor del producto en la combinación de
-descubrimiento, gobierno y explicación; y el card sorting corrigió la ubicación de tableros e
-indicadores antes de construir la interfaz.
+\clearpage
+\section{Conclusiones generales}\label{sec:a5-conclusiones}
 
-El prototipo materializó esas decisiones en seis interfaces principales y un sistema visual
-común. La evaluación reunió cinco participantes reales en dos bloques complementarios. El
-protocolo estandarizado alcanzó 11 éxitos de 12 tareas y SEQ promedio de 5.8 sobre 7; los tres
-recorridos laborales terminaron sin ayuda y con facilidad media de 6.0 sobre 7. El SUS combinado
-fue 89.0. La fricción más frecuente fue decidir qué búsqueda utilizar primero, mientras que el
-riesgo de mayor impacto fue confundir una proyección con el último dato observado.
+El proyecto recorrió cinco entregas y terminó en un punto que no estaba garantizado al empezar:
+una experiencia que puede recorrerse, medirse y corregirse con evidencia de personas reales.
+Estas conclusiones cierran el caso de estudio completo y no únicamente la prueba del 20 de agosto
+de 2026, porque cada decisión de interfaz que esa prueba puso a examen procede de un artefacto
+anterior y se rastrea hasta él.
 
-La conclusión metodológica es que Karisma Data no debe medirse solo por la cantidad de fuentes que
-reúne. Su éxito depende de que una persona encuentre el dato correcto, comprenda su contexto,
-complete la tarea sin perder la procedencia y reconozca los límites del sistema. La siguiente
-iteración debe aplicar las correcciones de búsqueda y tablero, repetir las tareas que las
-originaron y ampliar la muestra hacia perfiles principiantes. Así podrá confirmar si la alta
-satisfacción registrada se mantiene después de convertir los hallazgos en cambios observables.
+\subsection{El arco del caso de estudio, de la dispersión del dato a la medición con usuarios}
+
+El punto de partida fue un problema institucional, no una idea de producto: las fuentes de
+crédito, liquidez, derivados y otros dominios se consultan en sistemas separados, con
+definiciones, permisos y formatos que no siempre son comparables. La Actividad 1 convirtió esa
+dispersión en ocho personas con sus mapas de empatía y eligió a Laura Méndez como persona
+primaria, siguiendo el criterio de que un producto se diseña para un blanco específico y no para
+un promedio de usuarios (Hartson y Pyla, 2012). La Actividad 2 tradujo esas necesidades en seis
+escenarios y cuatro journey maps, y fijó el principio que sostiene todo lo demás: la procedencia
+del dato se conserva durante el recorrido entero y no se añade al final. La Actividad 3 comparó
+seis alternativas del mercado y de la práctica actual, ubicó la ventaja del producto en la
+intersección de catálogo gobernado, linaje visible y consulta en lenguaje natural, y corrigió con
+un card sorting de 35 tarjetas la ubicación de tableros e indicadores antes de dibujar una sola
+pantalla. La Actividad 4 materializó esas decisiones en siete interfaces del producto construido y
+en un sistema visual con reglas verificables. La Actividad 5 las midió.
+
+\begin{uxtablalarga}{C{1.1cm}L{3.2cm}Z{1.0}Z{1.0}}{Recorrido del caso de estudio: qué produjo cada actividad y qué hizo la prueba con esa decisión}{\thd{Etapa} & \thd{Artefacto principal} & \thd{Decisión que fijó} & \thd{Qué hizo la prueba con ella}}
+A1 & Ocho personas y ocho mapas de empatía; Laura Méndez como persona primaria & El blanco de diseño es quien valida una cifra y responde con su fuente & Los cinco participantes validan o analizan información en su trabajo: la medición cayó sobre el perfil que la Actividad 1 declaró \\
+A2 & Seis escenarios y cuatro journey maps; quince actividades en siete etapas & La procedencia se conserva durante todo el recorrido y no se agrega al entregar & Confirmó dos de sus predicciones de fricción y amplió el alcance del recorrido analítico \\
+A3 & Seis alternativas comparadas, card sorting de 35 tarjetas con ocho evaluadores prototipo y arquitectura revisada & Tableros e indicadores pertenecen a exploración; la ventaja está en la intersección de catálogo, linaje y consulta & Ningún participante pidió ayuda para llegar al tablero: la ubicación corregida se sostuvo ante personas reales \\
+A4 & Siete interfaces del producto construido, guía de estilos y prevalidación con evaluadores sintéticos & El perfil decide los valores por omisión; toda cifra del asistente cita la consulta que la produjo & El material de la prueba fue ese producto y no una maqueta; la trazabilidad del asistente resultó la fortaleza mejor reconocida \\
+A5 & Prueba con cinco participantes reales el 20 de agosto de 2026 & La corrección se ordena por severidad primero y por frecuencia después & Cerró el ciclo y dejó la línea base contra la que se compara el retest \\
+\end{uxtablalarga}
+
+La cadena de evaluación también quedó ordenada. La Actividad 4 gastó primero una ronda barata con
+ocho evaluadores sintéticos condicionados por las personas de la Actividad 1 (Bougie et al.,
+2026), y solo después el proyecto gastó la única ronda con participantes humanos de que disponía.
+Esa secuencia, evaluación simulada antes que humana, es la que la literatura reciente describe al
+automatizar la evaluación de experiencia sobre interfaces web reales (Tan et al., 2026). Su
+resultado aquí es comprobable: de las dos preguntas que la
+prevalidación dejó abiertas, la prueba cerró una y dejó la otra sin medir.
+
+\subsection{El cierre del círculo: la fricción apareció donde el recorrido la había señalado}
+
+El argumento más fuerte de este documento no es la puntuación SUS de 89.0. Es que las dos
+fricciones que la prueba encontró estaban escritas, con otro vocabulario, en el journey map que el
+equipo construyó en taller varias semanas antes de tener usuarios enfrente.
+
+\textbf{Dónde buscar.} El listado de actividades de la Actividad 2 descompuso el objetivo de Laura
+Méndez en quince pasos, y el segundo de todos ---dentro de la etapa de disparo, antes de tocar el
+portal--- era \emph{decidir dónde buscar}: elegir entre el portal, un archivo anterior o preguntar
+a un colega. La tabla de brechas de conocimiento de esa misma actividad registró para esa etapa la
+pregunta que Laura no sabe responder: si el portal contiene el dato que le piden. Esa etapa
+produjo la fricción más frecuente del estudio. H2 apareció en tres de los cinco participantes: C y
+V probaron primero el buscador de cabecera y A1 dudó qué parte utilizar primero. La sub-escala de
+aprendizabilidad corrobora el hallazgo con un segundo instrumento: A1, el participante que
+titubeó, obtuvo 75.0 en aprendizabilidad frente a 84.4 en usabilidad, la única separación
+apreciable entre las dos sub-escalas de la muestra. La predicción se confirmó en su naturaleza y
+se desplazó de lugar: la indecisión no se resolvió al entrar al portal, sino que sobrevivió dentro
+de él como duda entre dos controles de búsqueda. R2 atiende exactamente ese desplazamiento.
+
+\textbf{Confiar en la proyección.} El escenario del perfil directivo registró como punto de dolor
+que en una reunión un director presente un número y otro presente uno distinto porque usaron
+cortes de fecha diferentes, y respondió con el sello de conciliación y la fecha de corte visibles,
+\emph{de manera que la persona sabe con certeza qué versión está presentando}. La prueba confirmó
+la categoría del riesgo y precisó su forma: la confusión no ocurrió entre dos cortes, sino entre
+la proyección y el último dato observado dentro de una misma serie. V interpretó primero la
+proyección como último dato; T4 fue el único no-éxito del estudio, con 2 errores, 94 segundos y
+SEQ 4, contra un SEQ promedio de 5.8 de 7. El hallazgo aparece en un solo participante y encabeza
+aun así la lista de correcciones, porque la severidad por impacto y la frecuencia son dos
+criterios distintos y el primero manda cuando la consecuencia es presentar una cifra equivocada en
+una junta directiva (Albert y Tullis, 2013, cap.~5).
+
+\begin{uxtablalarga}{L{2.6cm}Z{1.0}Z{1.1}L{2.3cm}}{Predicciones de las Actividades 1 a 4 frente a lo observado el 20 de agosto de 2026}{\thd{Origen} & \thd{Predicción} & \thd{Qué encontró la prueba} & \thd{Veredicto}}
+A2, journey, etapa de disparo & Decidir dónde buscar es una decisión previa al portal & H2 en 3 de 5: C y V probaron el buscador de cabecera y A1 dudó qué parte usar primero & Confirmada y desplazada al interior del portal \\
+A2, escenario directivo & Un indicador sin versión visible expone a presentar la cifra equivocada & H1: V leyó la proyección como último dato; T4 parcial, 2 errores, SEQ 4 & Confirmada, con una forma que el escenario no nombró \\
+A2, curva emocional & La validación es el momento de la verdad y el punto más alto del recorrido con el portal & T2 con éxito en C y V y SEQ 6/6; H6 como fortaleza en los tres participantes expuestos & Confirmada \\
+A2 y A4, tarjeta de llamada a herramienta & Hacer visible la consulta y la fuente sostiene la confianza en la cifra & H5: C y V identificaron consulta y fuente sin ayuda, con SEQ 6/6 en T5 y cero solicitudes de ayuda & Confirmada \\
+A3, prueba de árbol y card sorting & Tableros e indicadores pertenecen a exploración: en la ubicación original solo 1 de 8 evaluadores acertó la ruta y 6 de 8 los buscaron en exploración & Nadie pidió ayuda para llegar al tablero y T4 se resolvió dentro de su umbral de 120 s, en 76 y 94 segundos; la fricción restante fue de interpretación & Confirmada; el riesgo pendiente cambió de naturaleza \\
+A4, prevalidación sintética & La bitácora de accesos conserva un momento de decisión entre administración y gobierno, la única tarea con duda unánime de los ocho evaluadores & Ninguna de las tareas del 20 de agosto recorrió esa ruta & Sin medir \\
+A4, valores por omisión por perfil & El perfil decide la configuración y el usuario no la ajusta & H4: V buscó Administración antes de cambiar de perfil y volvió a revisar la cabecera; la regla se sostiene y la transición necesita anuncio & Matizada \\
+A2, alcance de los seis escenarios & El recorrido analítico termina en la extracción del archivo & H7: A2 pidió agregaciones o transformaciones sencillas antes de extraer & Ampliada: el recorrido tiene un paso que los escenarios no modelaron \\
+\end{uxtablalarga}
+
+Tres consecuencias se desprenden de la tabla. La primera es que el journey map funcionó como
+instrumento de predicción y no solo como pieza de documentación: señaló dos etapas y las dos
+resultaron ser las que fallaron. La segunda es que la prevalidación con evaluadores sintéticos
+acertó en la corrección estructural ---la nueva ubicación de los tableros se sostuvo con personas
+reales--- pero no anticipó la fricción interpretativa, que es del tipo que requiere a una persona
+mirando una gráfica. La tercera es la única ampliación del modelo: los escenarios de la Actividad
+2 cerraban el recorrido analítico en la extracción, y un participante lo continuó un paso más allá
+pidiendo transformaciones ligeras antes de extraer. Ese es el hallazgo que el trabajo de las
+semanas anteriores no contenía.
+
+El diseño de dos bloques ---tareas estandarizadas para C y V, recorridos vinculados con el trabajo
+para A1, A2 y A3--- fue el que permitió que ambas cosas ocurrieran en la misma sesión: el primer
+bloque produjo métricas comparables y el segundo, relevancia y descubribilidad en contexto real.
+El mismo reparto entre escenario controlado y tarea propia del participante aparece en las
+plataformas actuales de evaluación de la interacción con agentes conversacionales, como HARP
+(Zhu et al., 2026), y aquí resultó decisivo: H7 y H8 solo pudieron aparecer en el bloque por
+contexto, y H1 solo pudo cuantificarse en el estandarizado.
+
+\subsection{La siguiente iteración}
+
+Las siete recomendaciones quedan ordenadas por dos criterios y no por uno. La severidad por
+impacto encabeza la lista y la frecuencia ordena el segundo tramo, que es la combinación que la
+literatura de métricas recomienda para priorizar problemas de usabilidad (Albert y Tullis, 2013,
+cap.~5). El resultado es este orden de trabajo.
+
+\begin{uxtablalarga}{C{0.9cm}L{3.4cm}L{2.2cm}Z{1.0}}{Orden de la siguiente iteración: las siete recomendaciones con su prioridad y su criterio de cierre}{\thd{ID} & \thd{Recomendación} & \thd{Prioridad} & \thd{Qué la da por cerrada}}
+R1 & Separar observado y proyectado con rótulo persistente, fecha de corte y lenguaje inequívoco & 1, crítica por impacto & Repetir T4 y obtener interpretación correcta sin ayuda, con el SEQ del tablero por encima del 4.5 actual \\
+R2 & Unificar la intención de búsqueda: distinguir la búsqueda global de la contextual y conservar el término & 2, alta por frecuencia, 3 de 5 & Repetir T2 observando dónde arranca la búsqueda, sin cambio de control a mitad de tarea \\
+R3 & Llevar los límites al selector de exportación: tamaño, compatibilidad y uso recomendado junto a cada formato & 3, media & Repetir T3 con las restricciones consultadas antes de elegir formato y no después \\
+R4 & Confirmar el contexto al cambiar de perfil, con redirección al inicio del perfil o aviso con acceso directo & 4, media & Repetir T6 sin revisión adicional de la cabecera tras el cambio \\
+R5 & Conservar visibles los metadatos, la fuente, el responsable, la consulta y el estado & Restricción permanente & Verificar que R1 a R4 no degraden H5 ni H6 en el retest \\
+R6 & Evaluar transformaciones ligeras antes de comprometer desarrollo & Investigación previa & Observar a más analistas y decidir con esa evidencia, no con la señal de un participante \\
+R7 & Retestar contra esta línea base & Cierre del ciclo & Repetir T2 y T4 y cronometrar cada actividad del bloque por contexto \\
+\end{uxtablalarga}
+
+El retest no es un trámite de cierre: es lo que convierte una medición aislada en un ciclo de
+medir, corregir y volver a medir. El precedente de dominio más cercano ---la evaluación de
+usabilidad de una herramienta de analítica de autoservicio (Joarder et al., 2026)---
+sigue esa misma secuencia y obtiene su valor de la comparación entre rondas, no de la primera. Por
+eso la línea base queda escrita con precisión: 11 éxitos de 12 tareas, 91.7\,\%; tiempo medio de
+59.5 segundos; 7 errores; cero solicitudes de ayuda; SEQ promedio de 5.8 de 7 con el tablero en
+4.5; facilidad media de 6.0 de 7 en los recorridos por contexto; y SUS de 89.0 con intervalo de
+confianza del 95\,\% entre 79.8 y 98.2. El límite inferior de ese intervalo supera la meta de 75 y
+queda por encima del promedio de referencia de 68 que reportan los estudios acumulados de la
+escala (Sauro y Lewis, 2016), de modo que la comparación posterior tiene contra qué medirse.
+
+El plan de la siguiente ronda incorpora además dos ausencias declaradas de esta. La primera son
+los perfiles principiantes: los cinco participantes trabajan con información y la muestra, elegida
+así a propósito, no dice nada sobre quien se acerca al portal sin ese oficio. La segunda es la
+bitácora de accesos, la ruta que hizo titubear a los ocho evaluadores sintéticos y que ninguna
+tarea del 20 de agosto recorrió. Ambas quedan como preguntas abiertas con su instrumento ya
+elegido, no como omisiones.
+
+\subsection{Lo que el caso de estudio deja escrito}
+
+La conclusión metodológica del proyecto es que Karisma Data no se mide por la cantidad de fuentes
+que reúne. Su éxito depende de que una persona encuentre el dato correcto, comprenda su contexto,
+complete la tarea sin perder la procedencia y reconozca los límites de lo que el sistema le
+muestra. Las tres fortalezas que la prueba confirmó ---la trazabilidad del asistente, los
+metadatos que permiten reconocer una fuente y una arquitectura donde nadie se perdió---
+pertenecen a esa definición, y las dos fricciones que encontró también: una es no saber por dónde
+empezar y la otra es creer que un número es lo que no es.
+
+El ciclo de análisis, diseño, prototipo y evaluación que describe la literatura de proceso
+(Hartson y Pyla, 2019) quedó recorrido una vez completo, con evidencia propia en cada etapa y sin
+saltarse la última, que es la que suele quedar fuera de un trabajo académico por falta de acceso a
+usuarios. El material evaluado tampoco fue una maqueta: fue el producto construido, y
+\siHayDemoWeb{la misma versión que recorrieron los cinco participantes se consulta en
+\urlDemoWeb}{la dirección pública del prototipo se entrega junto con este documento}. Eso permite
+que cualquier lector repita las seis tareas del bloque estandarizado y contraste sus resultados
+con la línea base publicada aquí, que es la forma más simple de comprobar que las cifras de estas
+páginas no son una afirmación del equipo sino una medición reproducible.
+
+En la preparación editorial de este volumen el equipo se apoyó en Claude Code (Anthropic, 2026)
+como herramienta de asistencia para la composición en LaTeX, la verificación cruzada de cifras
+entre capítulos y la revisión de maquetación. Las decisiones de diseño, la conducción de la prueba
+y la interpretación de los resultados son del equipo.
 
 % ============================================================================
-\section{Referencias bibliográficas}
+\clearpage
+\section{Referencias bibliográficas}\label{sec:a5-referencias}
+
+Esta es la lista consolidada del documento: reúne las fuentes que sostienen afirmaciones concretas
+en las cinco partes, en formato APA y con sangría francesa. No incluye lecturas que no se citen en
+el cuerpo.
 
 \begin{uxreferencias}
-Baxter, K., Courage, C., y Caine, K. (2015). \textit{Understanding your users: A practical
-guide to user research methods} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
+Albert, B., y Tullis, T. (2013). \textit{Measuring the user experience: Collecting, analyzing, and
+presenting usability metrics} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
+
+Annacchino, M. A. (2003). \textit{New product development: From initial idea to product
+management}. Elsevier.
+
+Anthropic. (2026). \textit{Claude Code} (modelo Claude Fable 5) [Software de asistencia basado en
+modelos de lenguaje]. \href{https://claude.com/claude-code}{claude.com/claude-code}.
+
+Atlan. (2026). \textit{Atlan named a Leader in the 2026 Gartner Magic Quadrant for D\&A Governance
+Platforms}. Consultado el 9 de agosto de 2026 en
+\href{https://atlan.com/}{sitio oficial de Atlan}.
+
+Baxter, K., Courage, C., y Caine, K. (2015). \textit{Understanding your users: A practical guide
+to user research methods} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
+
+Bloomberg L.P. (2026). \textit{Bloomberg Professional Services}. Consultado el 6 de agosto de 2026
+en \href{https://www.bloomberg.com/professional/}{sitio oficial de Bloomberg Professional}.
+
+Bougie, N., Ye, X., Marconi, G. M., y Watanabe, N. (2026). \textit{PerceptUI: LLM agents as
+human-aligned synthetic users for UI/UX evaluation}. arXiv.
+\href{https://arxiv.org/abs/2606.05697}{arxiv.org/abs/2606.05697}.
 
 Brooke, J. (1996). SUS: A quick and dirty usability scale. En P. W. Jordan, B. Thomas,
 B. A. Weerdmeester y A. L. McClelland (Eds.), \textit{Usability evaluation in industry}
 (pp. 189--194). Taylor \& Francis.
+
+Collibra. (2026). \textit{Collibra Data Intelligence Platform}. Consultado el 9 de agosto de 2026
+en \href{https://www.collibra.com/}{sitio oficial de Collibra}.
+
+de Voil, N. (2020). \textit{User experience foundations}. BCS, The Chartered Institute for IT.
+
+Hartson, R., y Pyla, P. S. (2012). \textit{The UX book: Process and guidelines for ensuring a
+quality user experience}. Morgan Kaufmann.
 
 Hartson, R., y Pyla, P. S. (2019). \textit{The UX book: Agile UX design for a quality user
 experience} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
@@ -39,27 +232,101 @@ experience} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
 International Organization for Standardization. (2018). \textit{Ergonomics of human-system
 interaction: Part 11: Usability: Definitions and concepts} (ISO 9241-11:2018).
 
+Jang, J., y Li, W.-S. (2026). \textit{TwinBI: An agentic digital twin for efficient augmented
+interactions with business intelligence dashboards}. arXiv.
+\href{https://arxiv.org/abs/2606.13731}{arxiv.org/abs/2606.13731}.
+
+Joarder, S., Chatti, M. A., y Born, L. (2026). \textit{Usability evaluation and improvement of a
+tool for self-service learning analytics}. arXiv.
+\href{https://arxiv.org/abs/2603.24321}{arxiv.org/abs/2603.24321}.
+
+LSEG. (2026). \textit{LSEG Workspace}. Consultado el 9 de agosto de 2026 en
+\href{https://www.lseg.com/}{sitio oficial de LSEG}.
+
+Maioli, L. (2018). \textit{Fixing bad UX designs: Master proven approaches, tools, and techniques
+to make your user experience great again}. Packt Publishing.
+
+McInerney, P. (2003). Plantilla de escenarios [citado en Baxter, K., Courage, C., y Caine, K.
+(2015), \textit{Understanding your users: A practical guide to user research methods},
+2.\textsuperscript{a} ed., Morgan Kaufmann].
+
+Microsoft. (2024). \textit{Important update to Microsoft Power BI pricing}. Consultado el 6 de
+agosto de 2026 en
+\href{https://powerbi.microsoft.com/blog/important-update-to-microsoft-power-bi-pricing/}{blog
+oficial de Power BI}.
+
+Microsoft. (2026a). \textit{Deprecating Power BI Q\&A}. Consultado el 9 de agosto de 2026 en
+\href{https://powerbi.microsoft.com/en-us/blog/deprecating-power-bi-qa/}{blog oficial de Power BI}.
+
+Microsoft. (2026b). \textit{Microsoft Purview pricing}. Consultado el 9 de agosto de 2026 en
+\href{https://azure.microsoft.com/en-us/pricing/details/purview/}{página oficial de precios de
+Purview}.
+
 Morville, P., y Rosenfeld, L. (2006). \textit{Information architecture for the World Wide Web:
 Designing large-scale web sites} (3.\textsuperscript{a} ed.). O'Reilly Media.
 
-Ramírez Mejía, A. I. (2023). \textit{Grocery shopping app: A guided UX case study. Part 5:
-Usability and metrics} [Diapositivas]. TC4032, Experiencia del usuario y diseño de interfaces,
-Maestría en Inteligencia Artificial Aplicada, ITESM.
+Naik, S., Passi, S., Vorvoreanu, M., Saponas, S., y Hall, A. (2026). ``So there's a Catch-22
+here'': How early adopters who build multi-agent LLM systems conceptualize transparency. arXiv.
+\href{https://arxiv.org/abs/2606.08323}{arxiv.org/abs/2606.08323}.
+
+Osterwalder, A., y Pigneur, Y. (2010). \textit{Business model generation: A handbook for
+visionaries, game changers, and challengers}. John Wiley \& Sons.
+
+Peng, Y.-H., Das, S., Bigham, J. P., y Wu, J. (2026). \textit{Efficient personalization of
+generative user interfaces}. arXiv.
+\href{https://arxiv.org/abs/2604.09876}{arxiv.org/abs/2604.09876}.
+
+Portigal, S. (2013). \textit{Interviewing users}. Rosenfeld Media.
+
+Pyramid Analytics. (2026). \textit{Decision Intelligence Platform y opciones de precios}.
+Consultado el 6 de agosto de 2026 en
+\href{https://www.pyramidanalytics.com/decision-intelligence-platform/get-pricing/}{página oficial
+de precios}.
+
+Ramírez Mejía, A. I. (2023). \textit{Grocery shopping app: A guided UX case study} (partes 1 a 5)
+[Diapositivas]. TC4032, Experiencia del usuario y diseño de interfaces, Maestría en Inteligencia
+Artificial Aplicada, Instituto Tecnológico y de Estudios Superiores de Monterrey.
 
 Sauro, J., y Lewis, J. R. (2016). \textit{Quantifying the user experience: Practical statistics
 for user research} (2.\textsuperscript{a} ed.). Morgan Kaufmann.
 
-Spencer, D. (2009). \textit{Card sorting: Designing usable categories}. Rosenfeld Media.
+ServiceNow. (2026). \textit{Pyramid Analytics: Expanding data-driven AI}. Consultado el 9 de
+agosto de 2026 en
+\href{https://www.servicenow.com/workflow/news/pyramid-analytics-expanding-data-driven-ai.html}{sala
+de prensa de ServiceNow}.
+
+Spool, J. (2005). \textit{The anatomy of a design decision}. UIE.
+
+Tan, W. J., Lim, Z. R. L., Durgad, S., Obegi, K., y Li, A. Y. (2026). \textit{Avenir-UX: Automated
+UX evaluation via simulated human web interaction with GUI grounding}. arXiv.
+\href{https://arxiv.org/abs/2604.09581}{arxiv.org/abs/2604.09581}.
+
+ThoughtSpot. (2026). \textit{ThoughtSpot plans and pricing}. Consultado el 9 de agosto de 2026 en
+\href{https://www.thoughtspot.com/pricing}{página oficial de precios de ThoughtSpot}.
+
+Tullis, T., y Wood, L. (2004). How many users are enough for a card-sorting study?
+\textit{Proceedings of the Usability Professionals Association Conference}.
+
+Velasco, J., Morales, L., y Penado, C. (2022). Arquitectura de la información. En M. Del Río y
+F. Linares (Eds.), \textit{UX Latam: Historias sobre definición y diseño de servicios digitales}
+(pp. 47--63). Universidad del Pacífico.
+
+W3C. (2023). \textit{Web Content Accessibility Guidelines (WCAG) 2.2}. World Wide Web Consortium.
+Consultado el 10 de agosto de 2026 en \href{https://www.w3.org/TR/WCAG22/}{w3.org/TR/WCAG22/}.
 
 Walter, S. (2022). \textit{User journey mapping: Visualize user research, brainstorm
 opportunities, and solve problems}. SitePoint.
 
-World Wide Web Consortium. (2023). \textit{Web Content Accessibility Guidelines
-(WCAG) 2.2}. Disponible en el sitio web del W3C.
+Zhu, Z., Friedman, N., Weatherwax, K., y Eiben, E. (2026). \textit{HARP: The Human-AI Research
+Platform}. arXiv. \href{https://arxiv.org/abs/2607.20773}{arxiv.org/abs/2607.20773}.
 \end{uxreferencias}
 
 % ============================================================================
-\section{Anexo. Instrumentos de aplicación}
+\clearpage
+\section{Anexo A. Instrumentos de aplicación}
+
+Este anexo reúne los instrumentos tal como se aplicaron el 20 de agosto de 2026. El manual de uso
+del prototipo se publica aparte, como Anexo B.
 
 \subsection{Valoración general de facilidad}
 
@@ -69,7 +336,8 @@ Al terminar las actividades se preguntó: ``En una escala de 1, muy difícil, a 
 
 \subsection{Cuestionario SUS}
 
-Cada afirmación se respondió de 1, totalmente en desacuerdo, a 5, totalmente de acuerdo.
+Cada afirmación se respondió de 1, totalmente en desacuerdo, a 5, totalmente de acuerdo. Los diez
+reactivos son los de la escala original (Brooke, 1996), en su redacción en español.
 
 \begin{uxpreg}
   \item Creo que me gustaría utilizar este sistema con frecuencia.

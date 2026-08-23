@@ -1,0 +1,198 @@
+% ============================================================================
+%  Actividad 5 · Descripción de métricas UX
+%
+%  Propiedad del agente A de US-AVANCE-5. Responde al criterio 14 de la rúbrica
+%  de A5: al menos una métrica o indicador por cada interfaz diseñada.
+%
+%  Reglas que gobiernan este archivo:
+%    - Toda cifra proviene del contrato C1 del handoff (prueba del 20-ago-2026),
+%      cuya aritmética ya está verificada. No se recalcula aquí.
+%    - Donde la prueba no midió, la celda dice «instrumentada, medición
+%      pendiente». Ninguna celda declara una medición que no ocurrió.
+%    - Este capítulo va ANTES del de la prueba de usabilidad y lo prepara: fija
+%      el marco de medición, no repite el protocolo ni la evidencia por
+%      hallazgo, que son propiedad de ese capítulo.
+%    - Las referencias cruzadas se hacen por título de capítulo y no con
+%      \ref, para no depender de una etiqueta que vive en otro archivo.
+%    - Extensión objetivo: de tres a cinco páginas. La prosa está comprimida a
+%      propósito, las celdas son frases nominales y los pies de tabla son
+%      cortos; alargar cualquiera de las tres cosas rompe el límite.
+% ============================================================================
+
+% ============================================================================
+\section{Descripción de métricas UX}
+\label{sec:a5-metricas}
+
+Este capítulo declara, interfaz por interfaz, qué se midió, con qué instrumento, contra qué meta y
+con qué resultado el jueves 20 de agosto de 2026, y por qué se eligieron esas métricas. El
+capítulo siguiente documenta el protocolo y la evidencia de cada hallazgo; aquí se fija el marco
+de medición que ese protocolo aplicó.
+
+\subsection{Marco de selección de métricas}
+
+La norma ISO 9241-11 (2018) define la usabilidad como el grado en que un sistema permite alcanzar
+metas con \textbf{efectividad}, \textbf{eficiencia} y \textbf{satisfacción} en un contexto de uso
+específico. Ninguna dimensión cubre a las otras: una tarea puede terminar bien y costar el doble
+de tiempo, o resolverse rápido y dejar a la persona sin confianza en la cifra. La selección parte
+de esa definición y no del catálogo disponible.
+
+La tipología de Albert y Tullis (2013) ordena ese catálogo en cuatro familias y este estudio usa
+las cuatro: \textbf{desempeño} (cap. 4), el comportamiento observable ---éxito, tiempo, errores y
+ayudas---, que cubre efectividad y eficiencia; \textbf{basadas en problemas} (cap. 5), los
+obstáculos ordenados por frecuencia y severidad; \textbf{auto-reportadas} (cap. 6), el juicio
+declarado con SEQ, facilidad general de 1 a 7 y SUS, que cubre satisfacción; y \textbf{combinadas
+y comparativas} (cap. 8), la tasa de éxito global y el SUS con su intervalo, contrastados contra
+una referencia externa.
+
+El capítulo 3 clasifica los estudios por su propósito, y de ahí sale qué métricas tienen sentido.
+Este combina dos tipos: \textbf{evaluación de navegación y arquitectura de información}, que
+comprueba si una persona localiza lo que busca en la estructura diseñada, y \textbf{descubrimiento
+de problemas}, que no persigue una estimación poblacional. Es \textbf{formativo} ---las mediciones
+se recogieron para cambiar el diseño y produjeron siete recomendaciones--- con una \textbf{lectura
+sumativa} acotada: el SUS deja una línea base contra la meta de 75 y el promedio de la escala.
+
+\begin{uxdestacado}
+\textbf{Las métricas conductuales y fisiológicas del capítulo 7 se descartan, y la causa se
+escribe.} Seguimiento de la mirada, dilatación pupilar, respuesta electrodérmica y codificación de
+expresión facial quedan fuera por dos razones. La instrumental: las sesiones se ejecutaron en la
+computadora del participante, dos de ellas de forma remota, sin equipo de seguimiento ni de
+registro fisiológico, y una medición de esa familia sin instrumento calibrado es una impresión con
+nombre técnico. La de objetivo, más importante: la pregunta es si una persona encuentra el dato
+correcto, distingue un dato observado de una proyección y conserva la procedencia, y eso se
+responde con resultado de tarea, tiempo, error y juicio declarado; la mirada precisaría el
+mecanismo de la fricción, no su existencia ni su consecuencia.
+\end{uxdestacado}
+
+\subsection{Métrica declarada por cada interfaz diseñada}
+
+La Actividad 4 documentó siete interfaces: acceso por perfil, inicio, exploración y extracción,
+gobierno del dato, asistente conversacional, administración y exportación. Las dos tablas
+siguientes ---separadas para que ninguna quede ilegible--- recorren esas siete, añaden
+\emph{tableros e indicadores}, que vive dentro de exploración y se desglosa porque tuvo pantalla
+propia en esa actividad y tarea propia en la prueba, y cierran con el producto completo. Los
+tiempos van en segundos y corresponden a C y V, en ese orden.
+
+\begin{uxtablalarga}{L{2.5cm}Z{0.95}Z{1.15}Z{0.90}}{Métrica e instrumento por interfaz diseñada}{\thd{Interfaz (A4)} & \thd{Funcionalidad principal} & \thd{Métrica o indicador} & \thd{Instrumento}}
+Acceso por perfil & Entrar al espacio de trabajo correcto & Éxito; tiempo; selecciones equivocadas & T1 cronometrada \\
+Inicio & Retomar el trabajo y lanzar la búsqueda & Tiempo hasta la primera acción de búsqueda; fricción de arranque & Observación de los bloques A y B \\
+Exploración y extracción & Encontrar un campo y distinguir su fuente y su certificación & Éxito; tiempo; errores; metadatos correctos & T2 cronometrada \\
+Tableros e indicadores & Interpretar el corte, la tendencia y la proyección & Interpretación correcta; tiempo; SEQ; dato frente a proyección & T4 más SEQ \\
+Gobierno del dato & Confiar en la cifra: fuente, responsable y vigencia & Fuente y certificación identificadas; procedencia comprendida & Metadatos de T2 y fuente de T5; recorridos A1 a A3 \\
+Asistente conversacional & Responder con la consulta y la fuente visibles & Éxito; tiempo; fuente identificada; ayudas & T5 cronometrada \\
+Administración & Cambiar un rol o retirar un acceso & Éxito; tiempo; acciones accidentales & T6 cronometrada \\
+Exportación & Solicitar un archivo y seguir su estado & Éxito; tiempo; errores; comprensión de estado y caducidad & T3 cronometrada \\
+Producto completo & Sostener el recorrido completo & SUS; facilidad de 1 a 7; éxito global; accesibilidad de diseño & SUS final; facilidad del bloque B; consolidado de 12 tareas; cálculo de contraste \\
+\end{uxtablalarga}
+
+\begin{uxtablalarga}{L{2.5cm}Z{0.80}Z{1.20}C{2.0cm}}{Meta declarada y resultado del 20 de agosto de 2026}{\thd{Interfaz (A4)} & \thd{Meta declarada} & \thd{Resultado medido} & \thd{Estado}}
+Acceso por perfil & Éxito 100\%; $\leq45$ s; cero selecciones equivocadas & 2 de 2; 24 y 29 s; cero selecciones equivocadas & Cumple \\
+Inicio & Informativa, sin umbral numérico & 3 de 5 dudaron entre el buscador de cabecera y el contextual (H2); tiempo hasta la primera acción: instrumentado, medición pendiente & Observada \\
+Exploración y extracción & Éxito 100\%; $\leq90$ s; máximo un error; tres metadatos & 2 de 2; 51 y 62 s; un error cada participante; metadatos correctos & Cumple \\
+Tableros e indicadores & Interpretación correcta; $\leq120$ s; SEQ $\geq5$ & Un éxito y un parcial; 76 y 94 s; dos errores en V; SEQ 4.5, el más bajo del estudio & No cumple; origina R1 \\
+Gobierno del dato & Tres metadatos correctos; fuente identificada & Cumplida en T2 y T5; A1, A2 y A3 reconocieron campos y fuentes sin ayuda (H6); linaje profundo: instrumentado, medición pendiente & Cumple; parte pendiente \\
+Asistente conversacional & Éxito 100\%; $\leq90$ s; fuente identificada; cero ayudas & 2 de 2; 49 y 57 s; fuente identificada; cero ayudas (H5) & Cumple \\
+Administración & Éxito 100\%; $\leq90$ s; cero acciones accidentales & 2 de 2; 58 y 71 s; un error de navegación en V (H4); ninguna cuenta modificada & Cumple \\
+Exportación & Éxito 100\%; $\leq120$ s; estado y caducidad comprendidos & 2 de 2; 64 y 79 s; un error cada participante; estado y caducidad comprendidos (H3) & Cumple \\
+Producto completo & SUS $\geq75$; facilidad $\geq5$; éxito $\geq90\%$; contraste AA & SUS 89.0; facilidad 6.0 de 7; éxito 91.7\%; 44 pares calculados y sus cuatro defectos corregidos & Cumple \\
+\end{uxtablalarga}
+
+Seis de las ocho filas de interfaz tienen medición cronometrada propia. Inicio y gobierno del dato
+no tuvieron tarea propia: su métrica se declara con su instrumento y se reporta lo observado en los
+recorridos, sin convertir una observación cualitativa en un número que nadie midió. Ninguna
+medición de tiempo superó su umbral y el medio de 59.5 s no oculta un caso extremo; la única meta
+incumplida es la del tablero, a la vez en interpretación, errores y facilidad percibida, el único
+no-éxito de las doce tareas; las cuatro del producto completo superan su meta, incluida la de
+accesibilidad, que sale del cálculo de la matriz de contraste y no de la sesión. La concentración
+importa más que el promedio: el tablero señala dónde una cifra directiva puede leerse mal, que es
+el riesgo que el producto existe para evitar.
+
+\subsection{De la métrica al hallazgo}
+
+Una métrica por sí sola no es un hallazgo. El capítulo 5 de Albert y Tullis (2013) ordena los
+problemas por dos dimensiones que se leen juntas: la \textbf{frecuencia} ---participantes
+expuestos que tropezaron--- y la \textbf{severidad} de su consecuencia. La alta compromete el
+resultado de la tarea; la media cuesta tiempo o exige un rodeo sin cambiarlo; la baja no impidió
+la tarea y describe un alcance que termina antes de tiempo.
+
+\begin{uxtablalarga}{L{2.0cm}C{3.2cm}C{3.2cm}Y}{Severidad por frecuencia de los hallazgos que son problemas}{\thd{Severidad} & \thd{Frecuencia baja (1 de 5)} & \thd{Frecuencia media (2 de 5)} & \thd{Frecuencia alta (3 de 5)}}
+Alta & H1 & --- & --- \\
+Media & H4 & H3 & H2 \\
+Baja & H7 & --- & --- \\
+\end{uxtablalarga}
+
+Tres hallazgos quedan fuera porque no son problemas, y el capítulo 5 clasifica problemas. H5 y H6
+son \textbf{fortalezas confirmadas} y una fortaleza se protege, no se prioriza; H8 es una
+\textbf{señal cualitativa} de base demasiado estrecha para ordenarla junto a las demás.
+
+\begin{uxtablalarga}{C{0.9cm}Y C{2.4cm}C{3.0cm}}{Del hallazgo a la recomendación}{\thd{ID} & \thd{Hallazgo} & \thd{Prioridad} & \thd{Recomendación que lo atiende}}
+H1 & Proyección y dato observado se confunden & 1, por impacto & R1, separar observado y proyectado \\
+H2 & El inicio de la búsqueda no es evidente & 2, por frecuencia & R2, unificar la intención de búsqueda \\
+H3 & Los límites de exportación se avisan tarde & 3 & R3, límites en el selector \\
+H4 & El cambio de perfil no confirma el contexto & 4 & R4, confirmar el contexto \\
+H5 & Trazabilidad del asistente reconocible & Proteger & R5, conservar metadatos visibles \\
+H6 & Campos y metadatos apoyan el reconocimiento & Proteger & R5, conservar metadatos visibles \\
+H7 & El flujo termina antes de transformar & Validar antes & R6, evaluar transformaciones ligeras \\
+H8 & Alertas e indicadores valen para seguimiento & Sin recomendación & --- \\
+\end{uxtablalarga}
+
+El orden que produce la matriz no es el de la frecuencia: H1 aparece una sola vez y encabeza la
+lista porque lleva a decidir sobre una cifra que todavía no existe, mientras que H2 aparece en
+tres de cinco y va segundo porque cada aparición cuesta un rodeo, nunca el resultado. R1 a R7 y la
+evidencia de cada hallazgo van en el capítulo siguiente.
+
+\subsection{Lectura estadística del SUS}
+
+Las cinco puntuaciones SUS fueron 87.5, 82.5, 82.5, 92.5 y 100.0. Publicar solo su promedio
+dejaría sin responder qué tan estable es con cinco observaciones; el capítulo 6 de Albert y Tullis
+(2013) pide acompañar toda métrica auto-reportada de su dispersión y de un intervalo de confianza,
+y con muestras pequeñas corresponde la distribución t.
+
+\begin{uxtablalarga}{L{4.4cm}C{2.4cm}Y}{Estadísticos del SUS combinado}{\thd{Estadístico} & \thd{Valor} & \thd{Cómo se obtuvo}}
+Participantes & 5 & C, V, A1, A2 y A3 \\
+Media & 89.0 & 445.0 entre 5 \\
+Desviación estándar muestral & 7.42 & Varianza de 55.0 con cuatro grados de libertad \\
+Error estándar & 3.32 & 7.42 entre la raíz de 5 \\
+Valor t crítico (95\%, gl = 4) & 2.776 & Tabla t de dos colas \\
+Margen de error & 9.21 & 2.776 por 3.32 \\
+Intervalo de confianza al 95\% & De 79.8 a 98.2 & La media más y menos el margen \\
+\end{uxtablalarga}
+
+El intervalo dice que, bajo una distribución t con cuatro grados de libertad, los valores medios
+compatibles con estas cinco observaciones se sitúan entre 79.8 y 98.2. Su límite inferior supera
+las dos referencias declaradas: la meta interna de 75 y el promedio de 68 que Sauro y Lewis (2016)
+reportan como valor típico de la escala y que Albert y Tullis (2013, cap. 6) usan como línea de
+comparación.
+
+\textbf{El intervalo acota la incertidumbre; no la elimina}, y eso también se escribe. Cinco
+participantes son una muestra pequeña e intencional, elegida para descubrir problemas y no para
+estimar una población: el margen de 9.21 puntos es más ancho que los 7 que separan la meta de 75
+del promedio de 68. Los datos no sostienen que el portal obtenga 89, sino que con esta muestra y
+este prototipo el resultado es compatible con un nivel por encima de la meta. Los cinco tenían
+experiencia previa con información financiera, así que el intervalo no describe a una persona
+principiante; ampliar la muestra forma parte del retest R7.
+
+Las respuestas por reactivo se conservaron para A1, A2 y A3, lo que permite descomponer la escala
+en sus dos sub-escalas habituales: \textbf{aprendizabilidad}, con los ítems 4 y 10, y
+\textbf{usabilidad}, con los ocho restantes (Sauro y Lewis, 2016; Albert y Tullis, 2013, cap. 6).
+De C y V solo se conservó la puntuación final, así que sus sub-escalas no se calculan. La
+aprendizabilidad dio \textbf{75.0} en A1, \textbf{87.5} en A2 y \textbf{100.0} en A3, frente a
+84.4, 93.8 y 100.0 en la de usabilidad. En los dos participantes donde difieren, la de
+aprendizabilidad es la más baja y apunta al mismo lugar que la métrica de inicio y el hallazgo H2:
+lo que cuesta no es operar el portal, sino decidir por dónde empezar. Con tres observaciones es
+una señal convergente, no una conclusión.
+
+\subsection{Métricas de operación declaradas, fuera del alcance de esta prueba}
+
+\begin{uxnota}[La frontera entre métrica UX y telemetría]
+El proyecto declara dos métricas de operación que no son de experiencia y que esta prueba no
+midió: el \textbf{tiempo hasta el primer token} del asistente, con meta de menos de 700 ms en la
+mediana, y la \textbf{tasa de acierto en las tres primeras posiciones} del catálogo, con meta de
+0.8 sobre veinte consultas. Su instrumento declarado son las trazas de OpenTelemetry previstas en
+el plan técnico del portal, no un participante con un cronómetro; su medición queda pendiente y
+ninguna se reporta aquí con una cifra. La frontera es deliberada: la telemetría describe el
+sistema con independencia de quién lo use y una métrica UX, el resultado de una persona frente a
+una tarea. Mezclarlas da un cuadro que se ve más completo y mide peor.
+\end{uxnota}
+
+Con el marco declarado y el resultado de cada interfaz sobre la mesa, el capítulo siguiente
+documenta el estudio del que salieron estas cifras.

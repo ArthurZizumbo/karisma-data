@@ -1,0 +1,544 @@
+% ============================================================================
+%  Actividad 5 · Anexo B. Manual de uso del prototipo
+%
+%  Propiedad de US-AVANCE-5, sub-tarea F. Un solo archivo que se compone dos
+%  veces: como Anexo B de la Parte V de main_completo.tex y como PDF propio
+%  desde main_manual.tex. Un parrafo vive una vez.
+%
+%  Fuentes de verdad del contenido, ninguna reescrita aqui:
+%    frontend/app/utils/navegacion.ts        rutas, modulos y facetas
+%    frontend/app/utils/permisos.generated.ts  rol minimo por ruta y por rama
+%    docs/security.md                        matriz de permisos y jerarquia
+%    docs/espacios-de-trabajo.md             composicion de inicio por rol
+%    frontend/i18n/locales/es.json           rotulos reales de la interfaz
+%    contenido/a4_02_prototipos.tex          vocabulario de las siete pantallas
+%    contenido/a5_04_usabilidad.tex          tareas T1 a T6 del 20-ago-2026
+%
+%  Las capturas de las siete pantallas salen de figuras/a4/tema/ porque son el
+%  estado entregado del portal, el mismo chasis que muestra la captura del
+%  tablero tomada contra el despliegue. Las dos figuras de figuras/a5/ se
+%  capturaron contra Cloud Run con sesion de perfil analista.
+%
+%  Cada pantalla abre pagina: la captura ocupa cerca de media caja de texto y
+%  sin el salto el flotante aterriza junto al titular de la pantalla siguiente.
+% ============================================================================
+
+\uxsection{Anexo B. Manual de uso del prototipo}
+\phantomsection
+\label{sec:a5-manual}
+
+Este anexo explica cómo se usa el prototipo de Karisma Data. Está escrito para quien lo abre por
+primera vez. Describe los cuatro perfiles, recorre las siete pantallas en el orden en que se
+navegan y cierra con lo que aparece cuando algo no sale. Cada pantalla termina con un ejemplo
+completo, y ninguno de esos ejemplos es inventado: los siete salen de las tareas que cinco
+personas ejecutaron en la prueba de usabilidad del jueves 20 de agosto de 2026.
+
+% ============================================================================
+\subsection{Qué es y qué no es este prototipo}
+
+\begin{uxdestacado}
+\textbf{Karisma Data es un prototipo de alta fidelidad operable con datos sintéticos. No está
+conectado a sistemas reales de ninguna institución.} Ninguna cifra que aparece en pantalla mide
+un negocio real y ninguna sostiene una decisión.
+\end{uxdestacado}
+
+El portal declara esa condición él mismo, sin que haya que buscarla. Una franja de alcance
+acompaña a las diez rutas y repite la misma frase: \enquote{Prototipo de alta fidelidad de
+Karisma Data con datos sintéticos. No está conectado a sistemas reales de ninguna institución.}
+Los bloques que muestran listas o cifras de muestra llevan además su propio distintivo,
+\enquote{Datos de ejemplo} o \enquote{Datos sintéticos}, en su encabezado.
+
+\siHayDemoWeb
+  {El portal se abre en un navegador de escritorio, en \urlDemoWeb. No hace falta instalar nada.}
+  {El portal se abre en un navegador de escritorio y no hace falta instalar nada:
+   \urlDemoWeb.}
+La interfaz es bilingüe y se cambia de idioma en cualquier momento con los dos botones
+\textbf{ES} y \textbf{EN} de la cabecera; este manual cita el rótulo en español y, cuando ayuda a
+localizarlo, el equivalente en inglés entre paréntesis.
+
+\begin{uxlist}
+  \lead{Qué sí es}{un producto navegable de principio a fin. La sesión es real, el permiso por
+    rol se comprueba en cada petición, la búsqueda del catálogo consulta al servidor, la
+    exportación produce un archivo con un enlace firmado y el tablero dibuja una serie
+    preagregada de verdad.}
+  \lead{Qué no es}{un sistema en producción. Los datos provienen de generadores sintéticos con
+    semilla fija, las proyecciones son rectas ajustadas a esa historia sintética y las
+    respuestas del asistente están escritas de antemano. La pantalla del asistente y la de
+    exportación lo declaran en su propia franja.}
+  \lead{Qué falta por construir}{tres de las cuatro ramas de Administración
+    ---solicitudes y aprobaciones, bitácora de accesos e integraciones--- se nombran en la
+    pantalla y no están construidas. La propia pantalla lo dice: \enquote{Las solicitudes, la
+    bitácora de accesos y las integraciones llegan después de esta entrega.}}
+\end{uxlist}
+
+La cabecera termina con una insignia \textbf{Entorno} que declara sobre qué copia del portal se
+está trabajando. En la dirección pública dice \texttt{demo}; en las capturas tomadas sobre el
+entorno de desarrollo dice \texttt{local}.
+
+% ============================================================================
+\subsection{Los cuatro perfiles y lo que ve cada uno}
+
+El portal tiene cuatro perfiles y ninguno más: \textbf{operativo}, \textbf{analista},
+\textbf{directivo} y \textbf{administrador}. Forman un orden total, de modo que un perfil alcanza
+todo lo que alcanza el rango inferior. Por eso la última columna de la tabla dice qué añade cada
+uno respecto del anterior, y no qué le está vedado a los demás.
+
+\begin{uxtablalarga}{|L{2.2cm}|L{3.4cm}|L{4.0cm}|Y|}{Los cuatro perfiles: para quién es cada uno, qué módulos abre y qué añade}{\thd{Perfil} & \thd{Para quién es} & \thd{Módulos que abre} & \thd{Qué añade respecto del anterior}}
+  Operativo \newline \emph{(Operations)} & Quien localiza una cifra y la comprueba: consulta puntual, control y auditoría & Inicio, Exploración y extracción, Gobierno del dato y Asistente conversacional & Es el rango mínimo del portal. El catálogo y el diccionario abren con cualquier sesión; el asistente pide ya este perfil \\
+  Analista \newline \emph{(Analyst)} & Quien construye consultas, cruza fuentes y extrae datos para trabajar con ellos & Los anteriores más Tableros e indicadores y Exportaciones & Las dos continuaciones gobernadas del módulo de exploración: la serie preagregada del tablero y la solicitud de exportaciones \\
+  Directivo \newline \emph{(Executive)} & Quien pide un estado, no un conjunto de datos: seguimiento y decisión & Los mismos que el analista & No abre ninguna pantalla nueva. Cambia la composición de Inicio, que arranca con los indicadores del último corte, y es el rango que la matriz reserva para los resúmenes ejecutivos, cuya ruta está declarada y todavía no montada \\
+  Administrador \newline \emph{(Administrator)} & Quien administra las cuentas y los permisos del portal & Todos los anteriores más Administración & Consultar las cuentas del portal, cambiar el rol de una cuenta y desactivarla o reactivarla \\
+\end{uxtablalarga}
+
+Dos reglas que conviene conocer antes de entrar, porque explican casi todo lo que el portal hace
+al cambiar de perfil:
+
+\begin{uxlist}
+  \lead{Lo que un perfil no puede abrir se nombra, no se esconde}{la pantalla de exploración
+    nombra sus dos continuaciones gobernadas, declara qué perfil piden y las deja visibles sin
+    ser accionables. Ocultarlas impediría enterarse de que existen y de que se pueden pedir.}
+  \lead{Cada perfil abre un espacio de trabajo distinto, y eso es el diseño}{Inicio se compone de
+    tres maneras según quien entra. La operativa abre con el buscador, la del analista con las
+    consultas guardadas y las exportaciones, y la directiva con los indicadores del último corte.
+    No es una limitación del prototipo: es la decisión de arrancar con tres composiciones
+    sensatas en lugar de imponer una vista única a ocho perfiles distintos.}
+\end{uxlist}
+
+% ============================================================================
+\clearpage
+\subsection{Cómo entrar}
+
+La pantalla de acceso ofrece dos caminos y recomienda uno. El recomendado es el bloque
+\textbf{Entrar como perfil de demostración} (\emph{Sign in as a demo profile}): cuatro botones, uno
+por perfil, que abren sesión sin contraseña y declaran a dónde llevan. El otro es el formulario de
+\textbf{usuario y contraseña}, plegado bajo su propio disparador; en este prototipo nadie tiene una
+cuenta con contraseña, y la pantalla lo advierte.
+
+\figuraux[0.56\linewidth]{figuras/a4/tema/institucional_claro_0_acceso.png}{Pantalla de acceso. Los
+cuatro botones de perfil ---Operativo, Analista, Directivo y Administración--- ocupan la superficie
+principal, cada uno con la frase que declara a dónde lleva, y el formulario de usuario y contraseña
+queda plegado debajo.}{fig:a5-manual-acceso}
+
+\begin{uxpreg}
+  \item Abre la dirección pública del portal. Si no hay sesión, cualquier ruta protegida devuelve
+    a esta pantalla.
+  \item Pulsa el perfil con el que quieres entrar: Operativo, Analista, Directivo o
+    Administración.
+  \item El portal abre la pantalla inicial de ese perfil. Los tres primeros llegan a Inicio, con
+    su composición; Administración llega directamente a la pantalla de administración.
+  \item Para cambiar de perfil no hace falta cerrar sesión: el selector de la cabecera, que
+    muestra el perfil en curso, abre los cuatro y cambia de sesión en el sitio.
+\end{uxpreg}
+
+El rótulo ámbar \enquote{Acceso de demostración, habilitado únicamente en este prototipo} señala
+exactamente eso: la puerta sin contraseña existe aquí y no es un comportamiento que el producto
+proponga para un entorno real. La sesión dura 30 minutos; cuando caduca, la pantalla de acceso lo
+explica y el formulario de credenciales se despliega solo.
+
+Todas las pantallas comparten el mismo chasis, así que lo aprendido en una sirve en las demás:
+barra lateral con los módulos del perfil y, bajo el activo, sus ramas; cabecera con el buscador,
+\textbf{Apariencia} ---tema y modo---, perfil, idioma y entorno; y, como primera parada del
+tabulador, un enlace para \textbf{saltar al contenido}. El asistente cuelga al pie de la barra
+lateral: es transversal a los cuatro módulos y no pertenece a ninguno.
+
+% ============================================================================
+\clearpage
+\subsection{Inicio}
+
+\textbf{Para qué sirve.} Es el punto de partida de la sesión. Reúne en una sola pantalla el
+buscador unificado, las búsquedas recientes, las fuentes favoritas, las alertas y el perfil, y los
+ordena según quien entró.
+
+\textbf{Qué se ve.} Un saludo con el nombre y el perfil, una frase que explica por qué el espacio
+abre por donde abre y, debajo, los bloques de la composición. Cada bloque con contenido lleva su
+distintivo \enquote{Datos de ejemplo}, y las listas usan el vocabulario real del catálogo: los
+nombres físicos \texttt{ratio\_lcr}, \texttt{sdo\_cap}, \texttt{dias\_mora},
+\texttt{nocional\_usd} y \texttt{mto\_disp}, y las fuentes \texttt{liquidez}, \texttt{creditos},
+\texttt{derivados} y \texttt{regulatorio}.
+
+\figuraux[0.92\linewidth]{figuras/a4/tema/institucional_claro_1_inicio.png}{Inicio con sesión de
+perfil operativo. El buscador unificado domina la pantalla porque localizar una cifra y comprobarla
+es la acción que este perfil siempre ejecuta. Debajo, las búsquedas recientes y las fuentes
+favoritas, ambas marcadas como datos de ejemplo, y las alertas con su nivel de severidad. La barra
+lateral despliega las cinco ramas del módulo activo.}{fig:a5-manual-inicio}
+
+\begin{uxpreg}
+  \item Escribe en \textbf{Buscar en el catálogo} un nombre físico como \texttt{ratio\_lcr} o un
+    concepto de negocio como \enquote{cobertura de liquidez}, y pulsa \textbf{Buscar}.
+  \item Revisa \textbf{Búsquedas recientes} y \textbf{Fuentes favoritas} para retomar algo ya
+    consultado sin volver a teclearlo.
+  \item Atiende \textbf{Mis alertas}, que marca cada señal como Alta, Media o Informativa.
+  \item Consulta \textbf{Mi perfil} para confirmar con qué rol estás trabajando y cuándo fue tu
+    último acceso. Este bloque solo aparece en la composición operativa.
+\end{uxpreg}
+
+\begin{uxnota}[Ejemplo, tarea T1 de la prueba del 20 de agosto de 2026]
+La tarea pedía \emph{entrar como analista y confirmar que se alcanzó el espacio correspondiente}.
+Los dos participantes del bloque estandarizado pulsaron el botón \textbf{Analista} de la pantalla
+de acceso y reconocieron su espacio porque abre con \textbf{Consultas guardadas} y
+\textbf{Exportaciones recientes} en lugar del buscador. Ambos lo completaron sin errores, en
+24 y 29 segundos frente a una meta de 45, y calificaron la facilidad con el máximo de la escala,
+7 sobre 7. Inicio no tuvo tarea cronometrada propia: lo que esta pantalla aportó al estudio es el
+destino de T1 y el hallazgo H2, según el cual el punto de partida de la búsqueda no siempre resulta
+evidente ---tres de los cinco participantes probaron primero el buscador de la cabecera---.
+\end{uxnota}
+
+% ============================================================================
+\clearpage
+\subsection{Exploración y extracción}
+
+\textbf{Para qué sirve.} Es la pantalla de descubrimiento: encontrar el campo antes de pedir el
+dato. Responde a la pregunta \enquote{¿qué dato necesito y dónde está?}.
+
+\textbf{Qué se ve.} Tres zonas. Arriba, el buscador \textbf{¿Qué dato necesitas?}; a la izquierda,
+la columna \textbf{Dominios} con el conteo de coincidencias de cada uno; a la derecha, la tabla
+\textbf{Campos del catálogo} con seis columnas: nombre físico, nombre de negocio, dominio, fuente,
+responsable y certificación. La tabla declara cuántos campos muestra de cuántos coinciden, anuncia
+por qué columna está ordenada y distingue los tres estados de certificación ---Certificado, En
+revisión y Obsoleto--- por color y por icono, nunca por color solo.
+
+\figuraux[0.92\linewidth]{figuras/a4/tema/institucional_claro_2_exploracion.png}{Exploración y
+extracción con sesión de perfil analista, abierta en frío desde una dirección que ya lleva el
+término \texttt{saldo}. La columna de dominios acota sobre el total de coincidencias y la tabla
+densa publica sus seis columnas; cada fila lleva el estado de certificación con su icono, de modo
+que Certificado, En revisión y Obsoleto se distinguen sin depender del
+color.}{fig:a5-manual-exploracion}
+
+\begin{uxpreg}
+  \item Escribe al menos dos caracteres y envía el formulario. La consulta sale al enviar, no con
+    cada tecla, y el término queda en la dirección: un enlace compartido abre la pantalla ya
+    filtrada.
+  \item Acota con un dominio de la columna izquierda. El filtro no vuelve a pedir la página.
+  \item Lee en la fila la fuente, el responsable y la certificación del campo.
+  \item Pulsa el nombre físico de la fila para abrir el \textbf{linaje} del campo, que se dibuja
+    en el mismo panel que usa Gobierno del dato.
+  \item Continúa con el resultado hacia la ficha completa en Gobierno, hacia el tablero o hacia la
+    exportación. El bloque \textbf{Llevar el resultado a} reúne esas salidas y declara qué perfil
+    pide cada una.
+\end{uxpreg}
+
+\begin{uxnota}[Ejemplo, tarea T2 de la prueba del 20 de agosto de 2026]
+La tarea pedía \emph{encontrar el campo de cobertura de liquidez e identificar su fuente, su
+responsable y su certificación}. Los dos participantes escribieron el concepto de negocio en el
+buscador de la pantalla, localizaron el campo en la tabla y leyeron los tres metadatos en su
+propia fila. Los dos terminaron con éxito, en 51 y 62 segundos frente a una meta de 90, y los dos
+cometieron el mismo error: probaron primero el buscador de la cabecera. Es la evidencia del
+hallazgo H2 y la razón de la recomendación R2, que pide diferenciar la búsqueda global de la
+contextual. La facilidad percibida fue de 6 sobre 7 en ambos casos.
+\end{uxnota}
+
+% ============================================================================
+\clearpage
+\subsection{Tableros e indicadores}
+
+\textbf{Para qué sirve.} Es la zona del módulo de exploración que muestra la evolución de una
+métrica en el tiempo y su proyección al mes siguiente. Pide perfil analista.
+
+\textbf{Qué se ve.} Dos bloques, uno encima del otro. Arriba, \textbf{Proyección del próximo mes}
+con distintivo \enquote{Datos sintéticos} y tres tarjetas: Cobertura de liquidez (LCR),
+Saldo disponible promedio diario y Concentración en divisa extranjera. Cada tarjeta publica su
+cifra, su variación contra el mes anterior y el método que la produjo, con su R\textsuperscript{2}
+a la vista. Abajo, la \textbf{Serie preagregada de liquidez}, con los controles de Métrica,
+Agrupación y Densidad de lectura, la gráfica, su leyenda, un resumen escrito que dice lo mismo que
+la gráfica para quien usa lector de pantalla, y el bloque \textbf{Procedencia del dato}.
+
+\figuraux[0.56\linewidth]{figuras/a5/tableros_analista.png}{Tableros e indicadores con sesión de
+perfil analista sobre el portal desplegado. Arriba, las tres tarjetas de proyección con su cifra,
+su variación frente a junio de 2026 y el método declarado en la propia tarjeta. Abajo, la serie
+preagregada con sus controles de métrica, agrupación y densidad, la leyenda de cinco líneas, el
+resumen escrito equivalente a la gráfica y la procedencia del dato, que publica el archivo de
+origen, la semilla y las transformaciones.}{fig:a5-manual-tableros}
+
+\begin{uxpreg}
+  \item Elige la \textbf{Métrica} ---Saldo disponible, Razón LCR o Número de posiciones--- y la
+    \textbf{Agrupación} ---Unidad de negocio, Divisa, Bucket de vencimiento o Serie individual---.
+  \item Ajusta la \textbf{Densidad de lectura}: Resumen, Detalle o Carga completa. La última dibuja
+    los 500\,000 puntos preagregados y existe como evidencia de rendimiento.
+  \item Usa la barra inferior para acercar un tramo, o \textbf{Ver todo el periodo} para volver.
+  \item Pulsa \textbf{Ver la tabla de detalle} si prefieres los números a la gráfica: toda gráfica
+    del portal tiene su alternativa en tabla.
+  \item Abre \textbf{Procedencia del dato} para ver el archivo de origen, las filas crudas y las
+    preagregadas, la semilla del generador y las transformaciones aplicadas.
+  \item Pulsa \textbf{Ver la serie} en una tarjeta de proyección para desplegar su gráfica mensual
+    con el tramo proyectado.
+\end{uxpreg}
+
+\begin{uxdestacado}
+\textbf{Cómo se distingue un dato de una proyección.} La tarjeta de la cobertura de liquidez marca
+130.2\,\% con una variación de +0.24\,\% frente a junio de 2026, y declara su método: proyección
+lineal por mínimos cuadrados sobre 12 meses de datos sintéticos, horizonte de un mes,
+R\textsuperscript{2} de 0.02. Al abrir la serie, la leyenda separa \enquote{Observado, línea
+continua} de \enquote{Proyectado, línea discontinua y marcador hueco}, el rótulo
+\enquote{Último mes observado: jun 2026} fija dónde termina lo medido, y el origen del dato nombra
+el campo \texttt{ratio\_lcr} de la serie preagregada. La frase final no deja lugar a la
+ambigüedad: \enquote{No hay aprendizaje automático detrás de esta cifra: es una recta ajustada a
+la historia sintética del prototipo.}
+\end{uxdestacado}
+
+\figuraux[0.88\linewidth]{figuras/a5/serie_observado_proyectado.png}{Detalle que abre el botón
+\enquote{Ver la serie} de la tarjeta de cobertura de liquidez. El último punto se dibuja con línea
+discontinua y marcador hueco, la leyenda nombra los dos tramos, el rótulo declara cuál fue el
+último mes observado y el bloque de origen publica el campo, la agregación y el método con su
+R\textsuperscript{2}.}{fig:a5-manual-serie}
+
+\begin{uxnota}[Ejemplo, tarea T4 de la prueba del 20 de agosto de 2026]
+La tarea pedía \emph{explicar la tendencia de la cobertura de liquidez y distinguir el dato
+observado de la proyección}. Es la única tarea del estudio que no terminó en éxito para todos: uno
+de los dos participantes la resolvió en 76 segundos sin errores y el otro la resolvió de forma
+parcial en 94 segundos con dos errores, porque leyó primero la proyección como si fuera el último
+dato. La facilidad percibida cayó a 5 y 4 sobre 7, el valor más bajo de las seis tareas. Es el
+hallazgo H1, el de mayor prioridad del estudio, y la recomendación R1 responde a él: rótulos
+persistentes, fecha de corte y lenguaje inequívoco para la proyección.
+\end{uxnota}
+
+% ============================================================================
+\clearpage
+\subsection{Exportaciones}
+
+\textbf{Para qué sirve.} Sacar del portal un conjunto de datos completo, en un archivo. Es la
+rama 2.3 del módulo de exploración y tiene pantalla propia porque su ciclo de vida es largo: se
+pide un trabajo, el trabajo corre en segundo plano y el resultado queda disponible durante una
+ventana acotada. Pide perfil analista.
+
+\textbf{Qué se ve.} Arriba, el formulario con \textbf{Conjunto de datos} ---Créditos, Liquidez o
+Derivados---, \textbf{Formato} ---CSV u Hoja de Excel (XLSX)--- y \textbf{Filtros}. Abajo, el
+\textbf{Historial de exportaciones}, que consulta el estado real de cada trabajo y se actualiza
+solo mientras haya trabajos vivos. Una franja declara que el servidor estira ocho segundos la
+duración de cada trabajo para que el estado intermedio pueda observarse, y que el trabajo, el
+archivo y el enlace firmado sí son reales.
+
+\figuraux[0.92\linewidth]{figuras/a4/tema/institucional_claro_6_exportacion.png}{Exportaciones con
+sesión de perfil analista. El formulario declara el tope de la hoja de cálculo junto al control que
+lo impone, la franja explica el retardo que la demostración añade a cada trabajo y el historial
+compone cada tarjeta desde el estado real del trabajo, no desde un
+guion.}{fig:a5-manual-exportacion}
+
+\begin{uxpreg}
+  \item Elige el conjunto de datos y el formato.
+  \item Escribe los filtros si hacen falta, con la forma \texttt{columna=valor}: varios valores se
+    separan con comas y varios filtros con punto y coma. Déjalo vacío para exportar el conjunto
+    completo.
+  \item Pulsa \textbf{Solicitar exportación}. La solicitud devuelve un identificador al instante y
+    el trabajo pasa por los estados En cola, En proceso y Completado o Fallido.
+  \item Sigue el trabajo en el historial y, cuando esté completo, usa \textbf{Descargar archivo}.
+    El enlace está firmado y caduca a las 24 horas; pasado ese plazo se solicita la exportación de
+    nuevo.
+\end{uxpreg}
+
+Un límite que conviene conocer antes de elegir formato: la hoja de Excel admite hasta 200\,000
+filas y por encima de ese tope el trabajo termina fallido. El CSV no tiene tope y es el único
+formato que saca el millón de filas del conjunto de Liquidez. La pantalla publica esa restricción
+junto al propio control que la impone.
+
+\begin{uxnota}[Ejemplo, tarea T3 de la prueba del 20 de agosto de 2026]
+La tarea pedía \emph{solicitar la cartera de crédito en XLSX y localizar el estado del trabajo y la
+vigencia del enlace}. Los dos participantes eligieron el conjunto Créditos y el formato Hoja de
+Excel, enviaron la solicitud y siguieron el trabajo en el historial hasta ver su estado y su
+caducidad. Los dos terminaron con éxito, en 64 y 79 segundos frente a una meta de 120, con un
+error cada uno: revisaron las restricciones del formato después de haberlo elegido, no antes. Es
+el hallazgo H3, y la recomendación R3 pide llevar tamaño, compatibilidad y uso recomendado al
+propio selector.
+\end{uxnota}
+
+% ============================================================================
+\clearpage
+\subsection{Gobierno del dato}
+
+\textbf{Para qué sirve.} Defender una cifra que ya se tiene. Exploración sirve para
+\emph{encontrar} un dato y Gobierno para \emph{responder por él}: quién es su dueño, desde qué
+vigencia, con qué certificación y por qué sistemas pasó antes de llegar a la pantalla.
+
+\textbf{Qué se ve.} El \textbf{Diccionario de campos} con su buscador y su filtro por dominio.
+Cada ficha trae el nombre físico, el nombre de negocio, la definición, la fuente, el responsable y
+la vigencia, y abre el recorrido completo del dato. La pantalla no consulta nada hasta que se
+escribe un término, así que abre sin pedirle campos al servidor. Al pie, el acceso cruzado a la
+\textbf{Bitácora de accesos}, que declara que ese registro se administra desde el módulo de
+Administración y por dónde se solicita.
+
+\figuraux[0.92\linewidth]{figuras/a4/tema/institucional_claro_3_gobierno.png}{Gobierno del dato con
+sesión de perfil analista, en su estado inicial. El diccionario explica que no consulta nada hasta
+que se escribe un término, la barra lateral despliega las tres ramas del módulo ---diccionario y
+metadatos, linaje y calidad, catálogo de fuentes--- y el acceso cruzado a la bitácora de accesos
+nombra el módulo que la administra y la ruta por la que se solicita.}{fig:a5-manual-gobierno}
+
+\begin{uxpreg}
+  \item Escribe en \textbf{Campo cuyo origen hay que verificar} el nombre físico, el nombre de
+    negocio o un sinónimo, con al menos dos caracteres.
+  \item Acota por dominio si el término devuelve demasiadas fichas.
+  \item Abre la ficha y lee el responsable, la vigencia y la certificación.
+  \item Pulsa \textbf{Ver el linaje}. El panel dibuja el recorrido del dato por etapas ---origen,
+    extracción, transformación, calidad y presentación--- y cada salto declara qué se le hizo al
+    dato, quién responde por ese paso y entre qué fechas es válido.
+\end{uxpreg}
+
+\begin{uxnota}[Ejemplo, recorridos del 20 de agosto de 2026]
+Gobierno del dato no tuvo tarea cronometrada propia en el estudio, de modo que aquí no hay tiempo
+ni tasa de éxito que reportar. Sí hubo observación: los tres participantes de los recorridos
+vinculados con su trabajo completaron sus actividades sin ninguna ayuda de la moderación, y los
+tres reconocieron la relación entre campos y fuentes a partir de los metadatos. Es el hallazgo H6,
+registrado como fortaleza en 3 de 3 personas expuestas, y la recomendación R5 pide conservar
+visibles la fuente, el responsable y el estado por ese motivo. El recorrido que este manual
+propone es la continuación natural de la tarea T2: una vez localizado el campo en Exploración, su
+nombre físico abre el mismo panel de linaje que se consulta desde aquí.
+\end{uxnota}
+
+% ============================================================================
+\clearpage
+\subsection{Asistente conversacional}
+
+\textbf{Para qué sirve.} Preguntar en lenguaje natural y seguir en vivo cada consulta que el
+asistente ejecuta para responder. Es transversal a los cuatro módulos, así que se alcanza desde
+cualquier pantalla, y pide perfil operativo o superior.
+
+\textbf{Qué se ve.} Una franja que declara que las respuestas están guionizadas y que el
+transporte, las tarjetas y la cancelación sí son reales. Debajo, la conversación; el campo
+\textbf{Tu pregunta al asistente}; el estado de la generación; y el bloque \textbf{Contexto del
+tablero}, que muestra lo que acompañaría a la pregunta si se hiciera en ese momento.
+
+\figuraux[0.92\linewidth]{figuras/a4/tema/institucional_claro_7_asistente_resultado.png}{Un turno
+resuelto del asistente. La tarjeta declara la consulta ejecutada y su duración, 0,3 segundos,
+publica la cifra devuelta, muestra la tabla con la métrica y su valor, y nombra al pie el campo del
+catálogo del que proviene. La respuesta escrita repite esa procedencia y declara que la cifra no es
+una estimación del asistente.}{fig:a5-manual-asistente}
+
+\begin{uxpreg}
+  \item Escribe la pregunta y pulsa \textbf{Enviar pregunta}.
+  \item Observa la \textbf{tarjeta de consulta}: el asistente anuncia la consulta antes de
+    ejecutarla y publica su estado ---Anunciada, En ejecución, Resuelta o Fallida--- y su
+    duración.
+  \item Lee la cifra devuelta, la tabla de resultados y, al pie de la tarjeta, la
+    \textbf{fuente del catálogo} de la que sale.
+  \item Pulsa \textbf{Detener} si quieres abortar: la cancelación interrumpe la petición de
+    verdad, no solo la vista.
+  \item Abre \textbf{Detalle técnico} para ver qué herramienta se usó y sobre qué campo del
+    catálogo.
+\end{uxpreg}
+
+El compromiso de esta pantalla es el más fuerte del producto y se puede comprobar a simple vista:
+\textbf{ninguna cifra aparece sin una consulta detrás, y la consulta se enseña}. Una consulta que
+falla no devuelve ninguna cifra, y la tarjeta lo dice con esas palabras.
+
+\begin{uxnota}[Ejemplo, tarea T5 de la prueba del 20 de agosto de 2026]
+La tarea pedía \emph{preguntar por liquidez e identificar qué consulta y qué fuente respaldan la
+respuesta}. Los dos participantes escribieron la pregunta, esperaron a que la tarjeta pasara a
+Resuelta y señalaron los dos elementos pedidos sin ninguna ayuda: la consulta anunciada en la
+tarjeta y el campo del catálogo citado a su pie. Los dos terminaron con éxito, en 49 y 57 segundos
+frente a una meta de 90, con cero errores y cero ayudas, y calificaron la facilidad con 6 sobre 7.
+Es el hallazgo H5 y el estudio lo registra como fortaleza: la trazabilidad del asistente se
+reconoce con facilidad.
+\end{uxnota}
+
+% ============================================================================
+\clearpage
+\subsection{Administración}
+
+\textbf{Para qué sirve.} Administrar las cuentas del portal. Es el único módulo que pide perfil
+administrador, y el portal comprueba ese rol en cada petición, no solo al pintar la pantalla.
+
+\textbf{Qué se ve.} La tabla \textbf{Usuarios del portal}, con seis columnas: persona, correo,
+rol, estado, última modificación y acciones. Sobre ella, un filtro por nombre, usuario o correo.
+La barra lateral publica las cuatro ramas del módulo, y la propia pantalla declara que tres de
+ellas ---solicitudes y aprobaciones, bitácora de accesos e integraciones--- llegan después de esta
+entrega.
+
+\figuraux[0.92\linewidth]{figuras/a4/tema/institucional_claro_4_administracion.png}{Administración
+con sesión de perfil administrador. Cada fila publica la persona, su correo, su rol con el selector
+que lo cambia, su estado, la fecha de su última modificación administrativa y la acción de
+desactivar. La fila de la cuenta que abrió la sesión sustituye esa acción por la marca
+\enquote{Es tu cuenta}.}{fig:a5-manual-administracion}
+
+\begin{uxpreg}
+  \item Escribe en el filtro para acotar la lista. El orden que la tabla recibe se conserva
+    mientras nadie lo cambie, y cada columna anuncia por cuál está ordenada.
+  \item Para cambiar el rol de una cuenta, elige el nuevo rol en el selector de su fila y confirma
+    en el diálogo \enquote{¿Cambiar el rol de esta cuenta?}. El cambio se puede deshacer desde
+    esta misma pantalla.
+  \item Para retirar el acceso, pulsa \textbf{Desactivar} y confirma. La cuenta no se borra: queda
+    desactivada y se reactiva desde aquí con el rol que ya tenía.
+  \item Tu propia fila no ofrece esas dos acciones: en su lugar aparece la marca \textbf{Es tu
+    cuenta}. El portal no permite que un administrador se degrade ni se desactive a sí mismo.
+\end{uxpreg}
+
+\begin{uxnota}[Ejemplo, tarea T6 de la prueba del 20 de agosto de 2026]
+La tarea pedía \emph{cambiar al perfil administrador, localizar una cuenta y explicar cómo cambiar
+o retirar su acceso sin modificarla}. Los dos participantes cambiaron de perfil desde la cabecera,
+filtraron la lista, encontraron la cuenta y describieron las dos acciones sin ejecutar ninguna: la
+meta de cero acciones accidentales se cumplió. Terminaron en 58 y 71 segundos frente a una meta de
+90, con un error en uno de los dos casos ---buscó Administración antes de cambiar de perfil y tuvo
+que volver a la cabecera---. Es el hallazgo H4 y la recomendación R4 pide confirmar el contexto al
+cambiar de perfil, redirigiendo al inicio del nuevo perfil o avisando con un acceso directo a su
+espacio.
+\end{uxnota}
+
+% ============================================================================
+\clearpage
+\subsection{Qué se ve cuando algo no sale}
+
+Una pantalla que solo existe en su estado ideal no sirve para trabajar. El prototipo declara
+cuatro estados no felices y los resuelve siempre de la misma manera, de modo que reconocer uno en
+una pantalla basta para reconocerlo en todas.
+
+\begin{uxtablalarga}{|L{2.6cm}|L{5.2cm}|Y|}{Los cuatro estados no felices: cómo se reconocen y qué hacer}{\thd{Estado} & \thd{Cómo se reconoce} & \thd{Qué hacer}}
+  Cargando & Siluetas del mismo alto que el contenido que las sustituye: cinco filas de esqueleto en la tabla del catálogo, filas de esqueleto en la de usuarios, tarjetas de esqueleto en el historial de exportaciones & Esperar. La caja del esqueleto ocupa el mismo espacio que el contenido definitivo, así que nada se mueve de sitio al llegar el dato y ningún control cambia de posición bajo el puntero \\
+  Vacío & Un título que dice que no hubo coincidencias y un cuerpo que explica por qué, no un espacio en blanco. La consulta llegó al servidor y respondió sin error & Seguir la sugerencia que da la propia pantalla: probar con el nombre de negocio en lugar del nombre físico, quitar el filtro de dominio o ampliar el rango de fechas \\
+  Error & Un aviso que conserva lo que ya estaba escrito ---el término de búsqueda, los filtros aplicados--- y ofrece \textbf{Reintentar} & Reintentar sin volver a teclear. En Inicio el fallo queda contenido en el bloque que lo sufre: un fallo del buscador no vacía las alertas \\
+  Sin permiso & Un aviso que dice qué perfil pide la pantalla y cuál es el tuyo, dibujado donde habría estado la pantalla y sin cambiar la dirección. No hay botón de reintentar & Solicitar el acceso en Administración, rama de solicitudes y aprobaciones, o volver a tu espacio de trabajo con el único enlace que el aviso ofrece \\
+\end{uxtablalarga}
+
+Dos precisiones sobre el último estado, porque son deliberadas. La primera: \textbf{no hay control
+de reintento}, y la ausencia es intencionada ---reintentar un rechazo no cambia el rol de nadie, y
+ofrecer el botón enseñaría a insistir contra una puerta que no va a abrirse---. La segunda: el
+aviso no siempre ocupa la pantalla entera. La ruta de exploración no exige permiso, así que ahí el
+rechazo recae sobre sus dos continuaciones gobernadas, que se nombran, declaran qué perfil piden y
+quedan visibles sin ser accionables.
+
+La documentación de la Actividad 4 publica estos cuatro estados pantalla por pantalla, en una
+matriz de siete filas por cuatro columnas sin ninguna celda en blanco, y distingue los que están
+construidos de los que están especificados con su regla de comportamiento. Este manual describe lo
+que se ve; aquella matriz declara dónde se ve.
+
+% ============================================================================
+\clearpage
+\subsection{Preguntas frecuentes}
+
+\begin{uxlist}
+  \lead{¿Los datos son reales?}{No. Todo el contenido sale de generadores sintéticos con semilla
+    fija. El portal lo declara en la franja de alcance de las diez rutas, en el distintivo de cada
+    bloque con muestras y en el bloque de procedencia del tablero, que publica el archivo de
+    origen y la semilla.}
+  \lead{¿Por qué la primera pantalla tarda más que las siguientes?}{Porque el servicio se apaga
+    cuando nadie lo usa y arranca con la primera petición. Ese arranque en frío se midió el 22 de
+    agosto de 2026 en 2.4 segundos; las peticiones siguientes ya no lo pagan. Es la contrapartida
+    de un despliegue que no cobra por estar encendido sin tráfico.}
+  \lead{¿Por qué el asistente siempre muestra la consulta y la fuente?}{Porque ninguna cifra puede
+    aparecer sin una consulta detrás. La tarjeta anuncia la consulta antes de ejecutarla, publica
+    su estado y su duración, y cita al pie el campo del catálogo del que sale el número; la
+    respuesta escrita repite esa procedencia. Una consulta que falla no devuelve ninguna cifra, y
+    la tarjeta lo dice. Es lo contrario de pedirle confianza al lector: se le entrega el rastro
+    para que la compruebe.}
+  \lead{¿Cómo distingo un dato de una proyección?}{Por tres marcas simultáneas: la línea
+    proyectada es discontinua y su marcador hueco, la leyenda nombra los dos tramos y un rótulo
+    declara cuál fue el último mes observado. Además, cada tarjeta publica su método y su
+    R\textsuperscript{2}, y advierte que detrás no hay aprendizaje automático sino una recta
+    ajustada a la historia sintética.}
+  \lead{¿Puedo cambiar de perfil sin cerrar sesión?}{Sí. El selector de perfil de la cabecera abre
+    los cuatro y cambia la sesión en el sitio. Con el perfil cambia lo que cada pantalla muestra,
+    empezando por la composición de Inicio.}
+  \lead{¿Cuánto dura la sesión?}{Treinta minutos. Al caducar, el portal devuelve a la pantalla de
+    acceso, explica lo ocurrido y despliega solo el formulario de credenciales.}
+  \lead{¿Por qué no veo el módulo de Administración?}{Porque ese módulo pide perfil administrador.
+    Entra con el perfil de demostración \textbf{Administración} desde la pantalla de acceso o
+    desde el selector de la cabecera.}
+  \lead{¿Por qué mi exportación en Excel terminó fallida?}{Porque la hoja de cálculo admite hasta
+    200\,000 filas y el conjunto pedido las supera. Acota con filtros o pide la exportación en
+    CSV, que no tiene tope.}
+  \lead{¿Cuánto vive el enlace de descarga?}{Veinticuatro horas. Pasado ese plazo el enlace ya no
+    sirve y la exportación se solicita de nuevo, lo que produce un enlace nuevo.}
+  \lead{¿El portal está en español o en inglés?}{En los dos. Los botones \textbf{ES} y \textbf{EN}
+    de la cabecera cambian el idioma de toda la interfaz sin perder la pantalla en la que estás,
+    porque la dirección es la misma en ambos idiomas.}
+  \lead{¿Se puede usar solo con el teclado?}{Sí. La primera parada del tabulador en cada pantalla
+    es el enlace \enquote{Saltar al contenido}, las columnas ordenables anuncian su estado a los
+    lectores de pantalla y toda gráfica tiene una alternativa en tabla y un resumen escrito
+    equivalente.}
+\end{uxlist}

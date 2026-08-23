@@ -19,3 +19,4 @@ US o actividad lo debería absorber.
 | 09 | [El alta de usuario no entra en S4](09-alta-de-usuario.md) | US-018, 13-ago | US propia despues de S4 |
 | 10 | [El 422 de validación viaja como frase en español](10-codigo-estable-en-el-422.md) | Auditoría de US-023, US-024 y US-028, 14-ago | US propia despues de S4 |
 | 11 | [`make tokens` destruía los tokens del portal](11-make-tokens-destruye-los-tokens-del-portal.md) | QA de US-023, US-024 y US-028, 14-ago | Hecho en el QA de S4, 14-ago |
+| 12 | [Los espejos de guía de `backend/` y `frontend/` divergen](12-espejos-de-guia-divergentes.md) | Pruebas de US-AVANCE-5, 22-ago | US propia despues de A5 |
